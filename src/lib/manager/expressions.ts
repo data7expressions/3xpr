@@ -32,6 +32,10 @@ export class Expressions {
 		return this.operandMetadata
 	}
 
+	public get parser (): ParserManager {
+		return this.parserManager
+	}
+
 	public get config (): ExpressionConfig {
 		return this.expressionConfig
 	}
