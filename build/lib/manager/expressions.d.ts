@@ -1,4 +1,4 @@
-import { ExpressionConfig } from '../parser';
+import { ParserManager, ExpressionConfig } from '../parser';
 import { OperandMetadata, Operand } from '../operand';
 export declare class Expressions {
     private cache;
@@ -10,6 +10,7 @@ export declare class Expressions {
     private static _instance;
     static get instance(): Expressions;
     get metadata(): OperandMetadata;
+    get parser(): ParserManager;
     get config(): ExpressionConfig;
     /**
      * Build expression
