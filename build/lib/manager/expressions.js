@@ -24,6 +24,9 @@ class Expressions {
     get metadata() {
         return this.operandMetadata;
     }
+    get parser() {
+        return this.parserManager;
+    }
     get config() {
         return this.expressionConfig;
     }

@@ -15,5 +15,6 @@ const manager_1 = require("./manager");
 __exportStar(require("./model"), exports);
 __exportStar(require("./operand"), exports);
 __exportStar(require("./manager"), exports);
+__exportStar(require("./parser"), exports);
 exports.expressions = manager_1.Expressions.instance;
 //# sourceMappingURL=index.js.map
