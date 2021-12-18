@@ -1,0 +1,60 @@
+{
+	"name": "js-expressions",
+	"version": "0.0.1-alpha",
+	"description": "expressions",
+	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
+	"license": "Apache-2.0 License",
+	"main": "./index.js",
+	"private": true,
+	"homepage": "https://github.com/FlavioLionelRita/js-expressions#readme",
+	"bugs": {
+		"url": "https://github.com/FlavioLionelRita/js-expressions/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FlavioLionelRita/js-expressions.git"
+	},
+	"scripts": {
+		"lint": "grunt lint",
+		"build": "grunt build",
+		"unit-test": "grunt unit-test",
+		"dist": "grunt dist",
+		"doc": "typedoc"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"js-yaml": "^4.1.0",
+		"config-extends": "^1.0.4",
+		"@babel/eslint-parser": "^7.15.4",
+		"@types/jest": "^27.0.1",
+		"@types/mysql": "^2.15.18",
+		"@types/node": "^15.12.2",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"eslint": "^7.32.0",
+		"eslint-config-standard": "^16.0.3",
+		"eslint-plugin-import": "^2.24.2",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"grunt": "^1.4.1",
+		"grunt-contrib-clean": "^2.0.0",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-copy": "^1.0.0",
+		"grunt-contrib-jshint": "^3.0.0",
+		"grunt-contrib-uglify": "^5.0.1",
+		"grunt-exec": "^3.0.0",
+		"jest": "^27.2.1",
+		"load-grunt-tasks": "^5.1.0",
+		"ts-jest": "^27.0.5",
+		"ts-node": "^10.0.0",
+		"typedoc": "^0.22.5",
+		"typedoc-plugin-markdown": "^3.11.3",
+		"typescript": "^4.3.5"
+	},
+	"keywords": [
+		"expression"
+	],
+	"tags": [
+		"expression"
+	]
+}
