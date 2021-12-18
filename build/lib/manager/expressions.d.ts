@@ -1,4 +1,5 @@
-import { Operand, Library } from '../operand';
+import { ExpressionConfig } from '../parser';
+import { OperandMetadata, Operand } from '../operand';
 export declare class Expressions {
     private cache;
     private parserManager;
@@ -8,7 +9,8 @@ export declare class Expressions {
     constructor();
     private static _instance;
     static get instance(): Expressions;
-    addLibrary(library: Library): void;
+    get metadata(): OperandMetadata;
+    get config(): ExpressionConfig;
     /**
      * Build expression
      * @param expression expression to build
