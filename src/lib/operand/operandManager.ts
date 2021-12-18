@@ -6,7 +6,7 @@ import { OperandMetadata } from '.'
 
 export class OperandManager {
 	private metadata: OperandMetadata
-	public expressionConfig:ExpressionConfig
+	private expressionConfig:ExpressionConfig
 	constructor (metadata:OperandMetadata, expressionConfig:ExpressionConfig) {
 		this.metadata = metadata
 		this.expressionConfig = expressionConfig

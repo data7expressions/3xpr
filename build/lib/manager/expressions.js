@@ -21,8 +21,11 @@ class Expressions {
         }
         return this._instance;
     }
-    addLibrary(library) {
-        this.operandMetadata.addLibrary(library);
+    get metadata() {
+        return this.operandMetadata;
+    }
+    get config() {
+        return this.expressionConfig;
     }
     /**
      * Build expression

@@ -4,7 +4,7 @@ import { Operand } from './operands';
 import { OperandMetadata } from '.';
 export declare class OperandManager {
     private metadata;
-    expressionConfig: ExpressionConfig;
+    private expressionConfig;
     constructor(metadata: OperandMetadata, expressionConfig: ExpressionConfig);
     build(node: Node): Operand;
     serialize(operand: Operand): any;

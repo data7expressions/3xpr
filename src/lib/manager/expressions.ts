@@ -1,6 +1,6 @@
 import { Cache, Data } from '../model'
 import { ParserManager, ExpressionConfig } from '../parser'
-import { OperandManager, OperandMetadata, Operand, Library } from '../operand'
+import { OperandManager, OperandMetadata, Operand } from '../operand'
 import { MemoryCache } from './memoryCache'
 import { CoreLib } from '../operand/lib/coreLib'
 
@@ -28,8 +28,12 @@ export class Expressions {
 		return this._instance
 	}
 
-	public addLibrary (library:Library):void {
-		this.operandMetadata.addLibrary(library)
+	public get metadata (): OperandMetadata {
+		return this.operandMetadata
+	}
+
+	public get config (): ExpressionConfig {
+		return this.expressionConfig
 	}
 
 	/**
