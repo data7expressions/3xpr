@@ -30,11 +30,6 @@ class Expressions {
     get config() {
         return this.expressionConfig;
     }
-    /**
-     * Build expression
-     * @param expression expression to build
-     * @returns Operand
-     */
     parse(expression) {
         try {
             const key = 'operand_' + expression;

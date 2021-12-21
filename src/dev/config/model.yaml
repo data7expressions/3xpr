@@ -628,8 +628,8 @@ functions:
     deterministic: true 
     return: string
     params:
-    - name: value
-      type: string 
+    - name: ascii
+      type: number 
   initcap:
     desc: Capitalize words 
     category: string

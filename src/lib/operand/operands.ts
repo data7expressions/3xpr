@@ -49,7 +49,7 @@ export class Constant extends Operand {
 		case 'string':
 			return this.name
 		case 'boolean':
-			return this.name === 'true'
+			return Boolean(this.name)
 		case 'number':
 			return parseFloat(this.name)
 		default:

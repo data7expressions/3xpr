@@ -1,14 +1,12 @@
 
-export class Library {
+export abstract class Library {
 	public name:string
-	public language:string
 	public enums:any
 	public operators:any
-	public functions:any
+	public functions: any
 
-	constructor (name:string, language:string) {
+	constructor (name:string) {
 		this.name = name
-		this.language = language
 		this.enums = {}
 		this.operators = {}
 		this.functions = {}
@@ -18,20 +16,18 @@ export class Library {
 		this.enums[key] = source
 	}
 
-	public addFunction (name:string, source:any, custom:any = null, isArrowFunction = false) {
+	public addFunction (name:string, source:any, custom:any = null, isArrowFunction = false):any {
 		const metadata: {[k: string]: any} = this.getMetadata(source)
 		metadata.lib = this.name
-		metadata['language '] = this.language
 		metadata.isArrowFunction = isArrowFunction
 		this.functions[name] = { function: source, metadata: metadata, custom: custom }
 	}
 
-	public addOperator (name:string, source:any, custom:any = null, customFunction:any = null) {
+	public addOperator (name:string, source:any, custom:any = null, customFunction:any = null):any {
 		if (!this.operators[name]) this.operators[name] = {}
 		const metadata: {[k: string]: any} = this.getMetadata(source)
 		const operands = metadata.args.length
 		metadata.lib = this.name
-		metadata['language '] = this.language
 		this.operators[name][operands] = { function: source, metadata: metadata, custom: custom, customFunction: customFunction }
 	}
 

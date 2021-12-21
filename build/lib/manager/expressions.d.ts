@@ -12,11 +12,6 @@ export declare class Expressions {
     get metadata(): OperandMetadata;
     get parser(): ParserManager;
     get config(): ExpressionConfig;
-    /**
-     * Build expression
-     * @param expression expression to build
-     * @returns Operand
-     */
     parse(expression: string): Operand;
     /**
      * Evaluate and solve expression

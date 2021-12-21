@@ -6,9 +6,10 @@ const library_1 = require("../library");
 const operands_1 = require("../operands");
 class CoreLib extends library_1.Library {
     constructor() {
-        super('core', 'default');
-        this.initOperators();
-        this.initArrowFunctions();
+        super('core');
+    }
+    initEnums() {
+        // empty
     }
     initOperators() {
         this.addOperator('+', Operators.addition);
@@ -49,30 +50,78 @@ class CoreLib extends library_1.Library {
 }
 exports.CoreLib = CoreLib;
 class Operators {
-    static addition(a, b) { return a + b; }
-    static subtraction(a, b) { return a - b; }
-    static negative(a) { return a * -1; }
-    static multiplication(a, b) { return a * b; }
-    static division(a, b) { return a / b; }
-    static exponentiation(a, b) { return Math.pow(a, b); }
-    static floorDivision(a, b) { return Math.pow(a, 1 / b); }
-    static mod(a, b) { return a % b; }
-    static bitAnd(a, b) { return a & b; }
-    static bitOr(a, b) { return a | b; }
-    static bitXor(a, b) { return a ^ b; }
-    static bitNot(a) { return ~a; }
-    static leftShift(a, b) { return a << b; }
-    static rightShift(a, b) { return a >> b; }
-    static equal(a, b) { return a === b; }
-    static notEqual(a, b) { return a !== b; }
-    static greaterThan(a, b) { return a > b; }
-    static lessThan(a, b) { return a < b; }
-    static greaterThanOrEqual(a, b) { return a >= b; }
-    static lessThanOrEqual(a, b) { return a <= b; }
-    static and(a, b) { return a && b; }
-    static or(a, b) { return a || b; }
-    static not(a) { return !a; }
-    static item(list, index) { return list[index]; }
+    static addition(a, b) {
+        return a + b;
+    }
+    static subtraction(a, b) {
+        return a - b;
+    }
+    static negative(a) {
+        return a * -1;
+    }
+    static multiplication(a, b) {
+        return a * b;
+    }
+    static division(a, b) {
+        return a / b;
+    }
+    static exponentiation(a, b) {
+        return Math.pow(a, b);
+    }
+    static floorDivision(a, b) {
+        return Math.pow(a, 1 / b);
+    }
+    static mod(a, b) {
+        return a % b;
+    }
+    static bitAnd(a, b) {
+        return a & b;
+    }
+    static bitOr(a, b) {
+        return a | b;
+    }
+    static bitXor(a, b) {
+        return a ^ b;
+    }
+    static bitNot(a) {
+        return ~a;
+    }
+    static leftShift(a, b) {
+        return a << b;
+    }
+    static rightShift(a, b) {
+        return a >> b;
+    }
+    static equal(a, b) {
+        return a === b;
+    }
+    static notEqual(a, b) {
+        return a !== b;
+    }
+    static greaterThan(a, b) {
+        return a > b;
+    }
+    static lessThan(a, b) {
+        return a < b;
+    }
+    static greaterThanOrEqual(a, b) {
+        return a >= b;
+    }
+    static lessThanOrEqual(a, b) {
+        return a <= b;
+    }
+    static and(a, b) {
+        return a && b;
+    }
+    static or(a, b) {
+        return a || b;
+    }
+    static not(a) {
+        return !a;
+    }
+    static item(list, index) {
+        return list[index];
+    }
 }
 class And extends operands_1.Operator {
     eval() {

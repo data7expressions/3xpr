@@ -40,11 +40,6 @@ export class Expressions {
 		return this.expressionConfig
 	}
 
-	/**
-	 * Build expression
-	 * @param expression expression to build
-	 * @returns Operand
-	 */
 	public parse (expression: string): Operand {
 		try {
 			const key = 'operand_' + expression

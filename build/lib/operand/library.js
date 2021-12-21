@@ -2,12 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Library = void 0;
 class Library {
-    constructor(name, language) {
+    constructor(name) {
         this.name = name;
-        this.language = language;
         this.enums = {};
         this.operators = {};
         this.functions = {};
+        this.initEnums();
+        this.initOperators();
+        this.initArrowFunctions();
     }
     addEnum(key, source) {
         this.enums[key] = source;
@@ -15,7 +17,6 @@ class Library {
     addFunction(name, source, custom = null, isArrowFunction = false) {
         const metadata = this.getMetadata(source);
         metadata.lib = this.name;
-        metadata['language '] = this.language;
         metadata.isArrowFunction = isArrowFunction;
         this.functions[name] = { function: source, metadata: metadata, custom: custom };
     }
@@ -25,7 +26,6 @@ class Library {
         const metadata = this.getMetadata(source);
         const operands = metadata.args.length;
         metadata.lib = this.name;
-        metadata['language '] = this.language;
         this.operators[name][operands] = { function: source, metadata: metadata, custom: custom, customFunction: customFunction };
     }
     getMetadata(source) {

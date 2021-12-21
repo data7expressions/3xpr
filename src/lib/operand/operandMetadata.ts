@@ -1,3 +1,5 @@
+import { Library } from './'
+
 export class OperandMetadata {
 	public libraries:any
 	public operators:any
@@ -8,7 +10,7 @@ export class OperandMetadata {
 		this.functions = {}
 	}
 
-	addLibrary (library:any):void {
+	addLibrary (library:Library):void {
 		this.libraries[library.name] = library
 		for (const name in library.operators) {
 			const operator = library.operators[name]

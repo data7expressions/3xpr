@@ -37,7 +37,7 @@ export class OperandManager {
 	}
 
 	public eval (operand:Operand, data:Data):any {
-		this.initialize(operand, new Data(data))
+		this.initialize(operand, data)
 		return operand.eval()
 	}
 

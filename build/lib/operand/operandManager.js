@@ -31,7 +31,7 @@ class OperandManager {
         throw new Error('NotImplemented');
     }
     eval(operand, data) {
-        this.initialize(operand, new model_1.Data(data));
+        this.initialize(operand, data);
         return operand.eval();
     }
     initialize(operand, data) {
