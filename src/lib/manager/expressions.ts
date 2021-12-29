@@ -1,22 +1,20 @@
 import { Cache, Data } from '../model'
 import { ParserManager, ExpressionConfig } from '../parser'
-import { OperandManager, OperandMetadata, Operand } from '../operand'
+import { OperandManager, Operand } from '../operand'
 import { MemoryCache } from './memoryCache'
 import { CoreLib } from '../operand/lib/coreLib'
 
 export class Expressions {
 	private cache: Cache
 	private parserManager: ParserManager
-	private operandMetadata:OperandMetadata
 	private expressionConfig: ExpressionConfig
 	private operandManager: OperandManager
 
 	constructor () {
 		this.cache = new MemoryCache()
 		this.expressionConfig = new ExpressionConfig()
-		this.operandMetadata = new OperandMetadata()
-		this.operandMetadata.addLibrary(new CoreLib())
-		this.operandManager = new OperandManager(this.operandMetadata, this.expressionConfig)
+		this.expressionConfig.addLibrary(new CoreLib())
+		this.operandManager = new OperandManager(this.expressionConfig)
 		this.parserManager = new ParserManager(this.expressionConfig)
 	}
 
@@ -26,10 +24,6 @@ export class Expressions {
 			this._instance = new Expressions()
 		}
 		return this._instance
-	}
-
-	public get metadata (): OperandMetadata {
-		return this.operandMetadata
 	}
 
 	public get parser (): ParserManager {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -99,9 +99,10 @@ exports.Obj = Obj;
 class Operator extends Operand {
     eval() {
         if (this.metadata) {
-            const operMetadata = this.metadata.getOperatorMetadata(this.name, this.children.length);
+            const operMetadata = this.metadata.getOperator(this.name, this.children.length);
             if (operMetadata.custom) {
-                return operMetadata.custom(this.name, this.children, operMetadata.customFunction).eval();
+                // eslint-disable-next-line new-cap
+                return new operMetadata.custom(this.name, this.children).eval();
             }
             else {
                 const args = [];
@@ -120,9 +121,9 @@ exports.Operator = Operator;
 class FunctionRef extends Operand {
     eval() {
         if (this.metadata) {
-            const funcMetadata = this.metadata.getFunctionMetadata(this.name);
-            // eslint-disable-next-line new-cap
+            const funcMetadata = this.metadata.getFunction(this.name);
             if (funcMetadata.custom) {
+                // eslint-disable-next-line new-cap
                 return new funcMetadata.custom(this.name, this.children).eval();
             }
             else {
@@ -153,4 +154,72 @@ class Block extends Operand {
     }
 }
 exports.Block = Block;
+class If extends Operand {
+    eval() {
+        const condition = this.children[0].eval();
+        if (condition) {
+            this.children[1].eval();
+        }
+        else if (this.children.length > 2) {
+            for (let i = 2; i < this.children.length; i++) {
+                if (this.children[i] instanceof ElseIf) {
+                    if (this.children[i].eval()) {
+                        break;
+                    }
+                }
+                else {
+                    this.children[i].eval();
+                    break;
+                }
+            }
+        }
+    }
+}
+exports.If = If;
+class ElseIf extends Operand {
+    eval() {
+        const condition = this.children[0].eval();
+        const block = this.children[1];
+        if (condition) {
+            block.eval();
+            return true;
+        }
+        return false;
+    }
+}
+exports.ElseIf = ElseIf;
+class Else extends Operand {
+    eval() {
+        this.children[0].eval();
+    }
+}
+exports.Else = Else;
+class While extends Operand {
+    eval() {
+        const condition = this.children[0];
+        const block = this.children[1];
+        while (condition.eval()) {
+            block.eval();
+        }
+    }
+}
+exports.While = While;
+class For extends Operand {
+    eval() {
+        const initialize = this.children[0];
+        const condition = this.children[1];
+        const increment = this.children[2];
+        const block = this.children[3];
+        for (initialize.eval(); condition.eval(); increment.eval()) {
+            block.eval();
+        }
+    }
+}
+exports.For = For;
+class ForIn extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.ForIn = ForIn;
 //# sourceMappingURL=operands.js.map

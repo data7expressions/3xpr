@@ -26,6 +26,15 @@ class Parser {
     get end() {
         return this.index >= this.length;
     }
+    nextIs(key) {
+        const array = key.split('');
+        for (let i = 0; i < array.length; i++) {
+            if (this.buffer[this.index + i] !== array[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
     parse() {
         const nodes = [];
         while (!this.end) {
@@ -341,6 +350,39 @@ class Parser {
             block = this.getExpression(undefined, undefined, ';');
         }
         return new node_1.Node('while', 'while', [condition, block]);
+    }
+    getForBlock() {
+        let block = null;
+        const first = this.getExpression(undefined, undefined, ';');
+        if (this.previous === ';') {
+            const condition = this.getExpression(undefined, undefined, ';');
+            const increment = this.getExpression(undefined, undefined, ')');
+            if (this.current === '{') {
+                this.index += 1;
+                block = this.getBlock();
+            }
+            else {
+                block = this.getExpression(undefined, undefined, ';');
+            }
+            return new node_1.Node('for', 'for', [first, condition, increment, block]);
+        }
+        else if (this.nextIs('in')) {
+            this.index += 2;
+            // si hay espacios luego del in debe eliminarlos
+            while (this.current === ' ') {
+                this.index += 1;
+            }
+            const list = this.getExpression(undefined, undefined, ')');
+            if (this.current === '{') {
+                this.index += 1;
+                block = this.getBlock();
+            }
+            else {
+                block = this.getExpression(undefined, undefined, ';');
+            }
+            return new node_1.Node('forIn', 'forIn', [first, list, block]);
+        }
+        throw new Error('expression for error');
     }
     getChildFunction(name, parent) {
         let isArrow = false;

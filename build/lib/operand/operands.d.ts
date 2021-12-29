@@ -1,5 +1,5 @@
 import { Data } from '../model';
-import { OperandMetadata } from './operandMetadata';
+import { ExpressionConfig } from '../parser';
 export declare abstract class Operand {
     name: string;
     type: string;
@@ -37,11 +37,11 @@ export declare class Obj extends Operand {
     eval(): any;
 }
 export declare class Operator extends Operand {
-    metadata?: OperandMetadata;
+    metadata?: ExpressionConfig;
     eval(): any;
 }
 export declare class FunctionRef extends Operand {
-    metadata?: OperandMetadata;
+    metadata?: ExpressionConfig;
     eval(): any;
 }
 export declare class ChildFunction extends FunctionRef {
@@ -51,5 +51,23 @@ export declare class ArrowFunction extends FunctionRef {
     data?: Data;
 }
 export declare class Block extends Operand {
+    eval(): any;
+}
+export declare class If extends Operand {
+    eval(): any;
+}
+export declare class ElseIf extends Operand {
+    eval(): any;
+}
+export declare class Else extends Operand {
+    eval(): any;
+}
+export declare class While extends Operand {
+    eval(): any;
+}
+export declare class For extends Operand {
+    eval(): any;
+}
+export declare class ForIn extends Operand {
     eval(): any;
 }

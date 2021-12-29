@@ -13,6 +13,7 @@ export declare class Parser {
     get current(): any;
     get next(): string;
     get end(): boolean;
+    private nextIs;
     parse(): Node;
     private char;
     private offset;
@@ -27,6 +28,7 @@ export declare class Parser {
     private getBlock;
     private getIfBlock;
     private getWhileBlock;
+    private getForBlock;
     private getChildFunction;
     private getIndexOperand;
     private getEnum;

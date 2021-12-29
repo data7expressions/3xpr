@@ -1,7 +1,6 @@
-import { expressions,Library } from '../../lib'
-import { Helper } from '../../lib/manager/helper'
+import { expressions } from '../../lib'
 
-describe('Complete Expression', () => {
+describe('Numeric', () => {
 	test('arithmetic', () => {		
 		expect(2).toBe(expressions.eval('1+1'))
 		expect(1+1).toBe(expressions.eval('1+1'))
@@ -9,7 +8,7 @@ describe('Complete Expression', () => {
 		expect(3*4-1).toBe(expressions.eval('3*4-1'))
 		expect(1+4*2).toBe(expressions.eval('1+4*2'))
 		expect(4+4+2+50+600).toBe(expressions.eval('4+4+2+50+600'))
-		// expect(1-2-5).toBe(expressions.eval('1-2-5'))
+		//expect(1-2-5).toBe(expressions.eval('1-2-5'))
 		expect((1+4)*2).toBe(expressions.eval('(1+4)*2'))
 		expect((2+3)*2).toBe(expressions.eval('(2+3)*2'))
 		expect(2*(3+2)).toBe(expressions.eval('2*(3+2)'))
@@ -21,7 +20,7 @@ describe('Complete Expression', () => {
 		expect(1+2**(3*4)).toBe(expressions.eval('1+2**(3*4)'))
 	})
 	test('comparisons', () => {	
-		//expect(3>2).toBe(expressions.eval('3>2'))
+		expect(3>2).toBe(expressions.eval('3>2'))
 		expect(3>2*2).toBe(expressions.eval('3>2*2'))
 		expect(-3>2*22).toBe(expressions.eval('-3>2*2'))
 		expect(4>=2*2).toBe(expressions.eval('4>=2*2'))

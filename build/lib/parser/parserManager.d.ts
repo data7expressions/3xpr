@@ -8,7 +8,7 @@ export declare class ParserManager {
     private reAlphanumeric;
     constructor(expressionConfig: ExpressionConfig);
     refresh(): void;
-    priority(name: string, cardinality?: number): any;
+    priority(name: string, cardinality?: number): number;
     isEnum(name: string): boolean;
     getEnumValue(name: string, option: any): any;
     getEnum(name: string): any;

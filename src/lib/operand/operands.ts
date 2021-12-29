@@ -1,6 +1,6 @@
 
 import { Data } from '../model'
-import { OperandMetadata } from './operandMetadata'
+import { ExpressionConfig } from '../parser'
 import { Helper } from '../manager/helper'
 
 export abstract class Operand {
@@ -108,11 +108,14 @@ export class Obj extends Operand {
 	}
 }
 export class Operator extends Operand {
-	public metadata?: OperandMetadata
+	public metadata?: ExpressionConfig
 	public eval (): any {
 		if (this.metadata) {
-			const operMetadata = this.metadata.getOperatorMetadata(this.name, this.children.length)
-			if (operMetadata.custom) { return operMetadata.custom(this.name, this.children, operMetadata.customFunction).eval() } else {
+			const operMetadata = this.metadata.getOperator(this.name, this.children.length)
+			if (operMetadata.custom) {
+				// eslint-disable-next-line new-cap
+				return new operMetadata.custom(this.name, this.children).eval()
+			} else {
 				const args = []
 				for (let i = 0; i < this.children.length; i++) {
 					args.push(this.children[i].eval())
@@ -125,12 +128,14 @@ export class Operator extends Operand {
 	}
 }
 export class FunctionRef extends Operand {
-	public metadata?: OperandMetadata
+	public metadata?: ExpressionConfig
 	public eval (): any {
 		if (this.metadata) {
-			const funcMetadata = this.metadata.getFunctionMetadata(this.name)
-			// eslint-disable-next-line new-cap
-			if (funcMetadata.custom) { return new funcMetadata.custom(this.name, this.children).eval() } else {
+			const funcMetadata = this.metadata.getFunction(this.name)
+			if (funcMetadata.custom) {
+				// eslint-disable-next-line new-cap
+				return new funcMetadata.custom(this.name, this.children).eval()
+			} else {
 				const args = []
 				for (let i = 0; i < this.children.length; i++) {
 					args.push(this.children[i].eval())
@@ -153,5 +158,65 @@ export class Block extends Operand {
 		for (let i = 0; i < this.children.length; i++) {
 			this.children[i].eval()
 		}
+	}
+}
+export class If extends Operand {
+	public eval (): any {
+		const condition = this.children[0].eval()
+		if (condition) {
+			this.children[1].eval()
+		} else if (this.children.length > 2) {
+			for (let i = 2; i < this.children.length; i++) {
+				if (this.children[i] instanceof ElseIf) {
+					if (this.children[i].eval()) {
+						break
+					}
+				} else {
+					this.children[i].eval()
+					break
+				}
+			}
+		}
+	}
+}
+export class ElseIf extends Operand {
+	public eval (): any {
+		const condition = this.children[0].eval()
+		const block = this.children[1]
+		if (condition) {
+			block.eval()
+			return true
+		}
+		return false
+	}
+}
+export class Else extends Operand {
+	public eval (): any {
+		this.children[0].eval()
+	}
+}
+export class While extends Operand {
+	public eval (): any {
+		const condition = this.children[0]
+		const block = this.children[1]
+		while (condition.eval()) {
+			block.eval()
+		}
+	}
+}
+export class For extends Operand {
+	public eval (): any {
+		const initialize = this.children[0]
+		const condition = this.children[1]
+		const increment = this.children[2]
+		const block = this.children[3]
+		for (initialize.eval(); condition.eval(); increment.eval()) {
+			block.eval()
+		}
+	}
+}
+export class ForIn extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
 	}
 }

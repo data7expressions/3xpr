@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Library } from '../library'
+import { OperatorType } from './../../model'
 import { Operator, ArrowFunction } from '../operands'
 
 export class CoreLib extends Library {
@@ -7,10 +9,14 @@ export class CoreLib extends Library {
 		super('core')
 		this.initEnums()
 		this.initOperators()
-		this.numericFunctions()
+		this.generalFunctions()
+		this.conditionFunctions()
+		this.nullablesFunctions()
+		this.mathFunctions()
 		this.stringFunctions()
 		this.initArrowFunctions()
 		this.datetimeFunctions()
+		this.convertFunctions()
 	}
 
 	private initEnums () {
@@ -46,9 +52,40 @@ export class CoreLib extends Library {
 		this.addOperator('!', Operators.not)
 
 		this.addOperator('[]', Operators.item)
+
+		this.addOperator('=', Operators.assigment, Assigment)
+		this.addOperator('+=', Operators.assigmentAddition, AssigmentAddition)
+		this.addOperator('-=', Operators.assigmentSubtraction, AssigmentSubtraction)
+		this.addOperator('*=', Operators.assigmentMultiplication, AssigmentMultiplication)
+		this.addOperator('/=', Operators.assigmentDivision, AssigmentDivision)
+		this.addOperator('**=', Operators.assigmentExponentiation, AssigmentExponentiation)
+		this.addOperator('//=', Operators.assigmentFloorDivision, AssigmentFloorDivision)
+		this.addOperator('%=', Operators.assigmentMod, AssigmentMod)
+		this.addOperator('&=', Operators.assigmentBitAnd, AssigmentBitAnd)
+		this.addOperator('|=', Operators.assigmentBitOr, AssigmentBitOr)
+		this.addOperator('^=', Operators.assigmentBitXor, AssigmentBitXor)
+		this.addOperator('<<=', Operators.assigmentLeftShift, AssigmentLeftShift)
+		this.addOperator('>>=', Operators.assigmentRightShift, AssigmentRightShift)
 	}
 
-	private numericFunctions () {
+	private generalFunctions () {
+		this.addFunction('sleep', Functions.sleep)
+	}
+
+	private conditionFunctions () {
+		this.addFunction('between', Functions.between)
+		this.addFunction('includes', Functions.includes)
+	}
+
+	private nullablesFunctions () {
+		this.addFunction('nvl', Functions.nvl)
+		this.addFunction('nvl2', Functions.nvl2)
+		this.addFunction('isNull', Functions.isNull)
+		this.addFunction('isNotNull', Functions.isNotNull)
+		this.addFunction('isEmpty', Functions.isEmpty)
+	}
+
+	private mathFunctions () {
 		this.addFunction('abs', Math.abs)
 		this.addFunction('acos', Math.acos)
 		this.addFunction('asin', Math.asin)
@@ -73,8 +110,10 @@ export class CoreLib extends Library {
 	}
 
 	private stringFunctions () {
-		this.addFunction('chr', (ascii:number) => String.fromCharCode(ascii))
+		this.addFunction('chr', (ascii: number) => String.fromCharCode(ascii))
+		this.addFunction('capitalize', StringFunction.capitalize)
 		this.addFunction('initcap', StringFunction.initCap)
+		this.addFunction('strCount', (source:string, value:string) => source.split(value).length - 1)
 		this.addFunction('lower', (str:string) => str.toLowerCase())
 		this.addFunction('lpad', (str:string, len:number, pad:string) => str.padStart(len, pad))
 		this.addFunction('ltrim', (str:string) => str.trimLeft())
@@ -138,30 +177,25 @@ export class CoreLib extends Library {
 	}
 
 	private initArrowFunctions () {
-		this.addFunction('map', ArrowFunctions.map, Map, true)
-		this.addFunction('insert', ArrowFunctions.insert, Insert, true)
-		this.addFunction('update', ArrowFunctions.update, Update, true)
-		this.addFunction('delete', ArrowFunctions.delete, Delete, true)
-		this.addFunction('filter', ArrowFunctions.filter, Filter, true)
-		this.addFunction('groupBy', ArrowFunctions.groupBy, GroupBy, true)
-		this.addFunction('having', ArrowFunctions.having, Having, true)
-		this.addFunction('sort', ArrowFunctions.sort, Sort, true)
-	}
-}
+		this.addFunction('map', ArrayFunctions.map, Map, OperatorType.arrow)
+		this.addFunction('foreach', ArrayFunctions.foreach, Foreach, OperatorType.arrow)
+		this.addFunction('filter', ArrayFunctions.filter, Filter, OperatorType.arrow)
+		this.addFunction('reverse', ArrayFunctions.reverse, Reverse, OperatorType.arrow)
+		this.addFunction('first', ArrayFunctions.first, First, OperatorType.arrow)
+		this.addFunction('last', ArrayFunctions.last, Last, OperatorType.arrow)
+		this.addFunction('sort', ArrayFunctions.sort, Sort, OperatorType.arrow)
+		this.addFunction('push', ArrayFunctions.push, Push, OperatorType.child)
+		this.addFunction('pop', ArrayFunctions.pop, Pop, OperatorType.child)
+		this.addFunction('remove', ArrayFunctions.remove, Remove, OperatorType.arrow)
 
-class StringFunction {
-	public static capitalize = function (str:string):string {
-		return str.charAt(0).toUpperCase() + str.slice(1)
+		this.addFunction('insert', ArrayFunctions.insert, Insert, OperatorType.arrow)
+		this.addFunction('update', ArrayFunctions.update, Update, OperatorType.arrow)
 	}
 
-	public static initCap (str:string):string {
-		const newStr = str.split(' ')
-		let i
-		const arr = []
-		for (i = 0; i < newStr.length; i++) {
-			arr.push(StringFunction.capitalize(StringFunction.initCap(newStr[i])))
-		}
-		return arr.join(' ')
+	private convertFunctions () {
+		this.addFunction('toString', Functions.toString)
+		this.addFunction('toJson', Functions.toJson)
+		this.addFunction('toNumber', Functions.toNumber)
 	}
 }
 
@@ -258,8 +292,60 @@ class Operators {
 		return !a
 	}
 
-	static item (list: any[], index: any) {
+	static item (list: any[], index: any):any {
 		return list[index]
+	}
+
+	static assigment (a:any, b:any):any {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentAddition (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentSubtraction (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentMultiplication (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentDivision (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentExponentiation (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentFloorDivision (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentMod (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentBitAnd (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentBitOr (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentBitXor (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentLeftShift (a: number, b: number): number {
+		throw new Error('NotImplemented')
+	}
+
+	static assigmentRightShift (a: number, b: number): number {
+		throw new Error('NotImplemented')
 	}
 }
 class And extends Operator {
@@ -275,15 +361,176 @@ class Or extends Operator {
 	}
 }
 
-class ArrowFunctions {
-	static map (list:any, item:any, method:any) { throw new Error('Empty') }
-	static insert (list:any, item:any, method:any) { throw new Error('Empty') }
-	static update (list:any, item:any, method:any) { throw new Error('Empty') }
-	static delete (list:any, item:any, method:any) { throw new Error('Empty') }
-	static filter (list:any, item:any, method:any) { throw new Error('Empty') }
-	static groupBy (list:any, item:any, method:any) { throw new Error('Empty') }
-	static having (list:any, item:any, method:any) { throw new Error('Empty') }
-	static sort (list:any, item:any, method:any) { throw new Error('Empty') }
+class Assigment extends Operator {
+	eval (): any {
+		const value = this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentAddition extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() + this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentSubtraction extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() - this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentMultiplication extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() * this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentDivision extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() / this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentExponentiation extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() ** this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentFloorDivision extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() // this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentMod extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() % this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentBitAnd extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() & this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentBitOr extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() | this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentBitXor extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() ^ this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentLeftShift extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() << this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+class AssigmentRightShift extends Operator {
+	eval (): any {
+		const value = this.children[0].eval() >> this.children[1].eval()
+		this.children[0].set(value)
+		return value
+	}
+}
+
+class StringFunction {
+	public static capitalize = function (str:string):string {
+		return str.charAt(0).toUpperCase() + str.slice(1)
+	}
+
+	public static initCap (str:string):string {
+		const newStr = str.split(' ')
+		let i
+		const arr = []
+		for (i = 0; i < newStr.length; i++) {
+			arr.push(StringFunction.capitalize(newStr[i]))
+		}
+		return arr.join(' ')
+	}
+}
+
+class Functions {
+	static nvl (value: any, _default: any): any {
+		return !Functions.isEmpty(value) ? value : _default
+	}
+
+	static nvl2 (value: any, a: any, b: any): any {
+		return !Functions.isEmpty(value) ? a : b
+	}
+
+	static isNull (value: any): boolean {
+		return value === null || value === undefined
+	}
+
+	static isNotNull (value: any): boolean {
+		return !Functions.isNull(value)
+	}
+
+	static isEmpty (value: any): boolean {
+		return value === null || value === undefined || value.toString().trim().length === 0
+	}
+
+	static async sleep (ms = 1000): Promise<void> {
+		return new Promise((resolve) => {
+			setTimeout(resolve, ms)
+		})
+	}
+
+	static between (value: any, from: any, to: any): boolean {
+		return value >= from && value < to
+	}
+
+	static includes (value: any, list: any[]): boolean {
+		return list.includes(value)
+	}
+
+	static toString (value: any): string {
+		return Functions.isNull(value) ? '' : value.toString()
+	}
+
+	static toJson (value: string): any {
+		return JSON.parse(value)
+	}
+
+	static toNumber (value: any): number {
+		return Functions.isNull(value) ? 0 : parseFloat(value)
+	}
+}
+
+class ArrayFunctions {
+	static map (list: any[], method: Function): any { throw new Error('Empty') }
+	static foreach (list: any[], method: Function): void { throw new Error('Empty') }
+	static filter (list: any[], method: Function):any[] { throw new Error('Empty') }
+	static reverse (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
+	static last (list:any[], method:Function):any|null { throw new Error('Empty') }
+	static sort (list: any[], method: Function):any[] { throw new Error('Empty') }
+	static push (list: any[], item: any):any[] { throw new Error('Empty') }
+	static pop (list: any[]): any { throw new Error('Empty') }
+	static remove (list: any[], method: Function): any[] { throw new Error('Empty') }
+
+	static insert (list:any[], item:any) { throw new Error('Empty') }
+	static update (list:any[], item:any, method:Function) { throw new Error('Empty') }
 }
 
 class Map extends ArrowFunction {
@@ -299,6 +546,121 @@ class Map extends ArrowFunction {
 		return rows
 	}
 }
+class Foreach extends ArrowFunction {
+	eval ():any {
+		const list:any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			this.children[2].eval()
+		}
+	}
+}
+class Filter extends ArrowFunction {
+	eval ():any {
+		const rows = []
+		const list:any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			if (this.children[2].eval()) {
+				rows.push(p)
+			}
+		}
+		return rows
+	}
+}
+class Reverse extends ArrowFunction {
+	eval ():any {
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			return list.reverse()
+		}
+		const values = []
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			const value = this.children[2].eval()
+			values.push({ value: value, p: p })
+		}
+		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
+		values.reverse()
+		return values.map(p => p.p)
+	}
+}
+class First extends ArrowFunction {
+	eval ():any {
+		const rows = []
+		const list:any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			if (this.children[2].eval()) {
+				return p
+			}
+		}
+		return null
+	}
+}
+class Last extends ArrowFunction {
+	eval ():any {
+		const rows = []
+		const list:any[] = this.children[0].eval()
+		for (let i = list.length - 1; i >= 0; i--) {
+			const p = list[i]
+			this.children[1].set(p)
+			if (this.children[2].eval()) {
+				return p
+			}
+		}
+		return null
+	}
+}
+class Sort extends ArrowFunction {
+	eval ():any {
+		const values = []
+		const list:any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			const value = this.children[2].eval()
+			values.push({ value: value, p: p })
+		}
+		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
+		return values.map(p => p.p)
+	}
+}
+class Push extends ArrowFunction {
+	eval ():any {
+		const values = []
+		const list: any[] = this.children[0].eval()
+		const value = this.children[1].eval()
+		list.push(value)
+		return list
+	}
+}
+class Pop extends ArrowFunction {
+	eval ():any {
+		const values = []
+		const list: any[] = this.children[0].eval()
+		return list.pop()
+	}
+}
+class Remove extends ArrowFunction {
+	eval ():any {
+		const rows = []
+		const list:any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			if (!this.children[2].eval()) {
+				rows.push(p)
+			}
+		}
+		return rows
+	}
+}
+
 class Insert extends ArrowFunction {
 	eval ():any {
 		throw new Error('NotImplemented')
@@ -314,22 +676,13 @@ class Delete extends ArrowFunction {
 		throw new Error('NotImplemented')
 	}
 }
-class Filter extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
+
 class GroupBy extends ArrowFunction {
 	eval ():any {
 		throw new Error('NotImplemented')
 	}
 }
 class Having extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
-class Sort extends ArrowFunction {
 	eval ():any {
 		throw new Error('NotImplemented')
 	}

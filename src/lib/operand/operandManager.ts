@@ -1,14 +1,11 @@
 
 import { Node, ExpressionConfig } from '../parser/index'
 import { Data } from '../model'
-import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction } from './operands'
-import { OperandMetadata } from '.'
+import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn } from './operands'
 
 export class OperandManager {
-	private metadata: OperandMetadata
 	private expressionConfig:ExpressionConfig
-	constructor (metadata:OperandMetadata, expressionConfig:ExpressionConfig) {
-		this.metadata = metadata
+	constructor (expressionConfig:ExpressionConfig) {
 		this.expressionConfig = expressionConfig
 	}
 
@@ -46,17 +43,17 @@ export class OperandManager {
 		if (operand instanceof ArrowFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 			current = childData
 		} else if (operand instanceof ChildFunction) {
 			const childData = current.newData()
 			operand.data = childData
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 			current = childData
 		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Operator) {
-			operand.metadata = this.metadata
+			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Variable) {
 			operand.data = current
 		}
@@ -70,8 +67,8 @@ export class OperandManager {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand instanceof FunctionRef) {
-			const funcMetadata = this.metadata.getFunctionMetadata(operand.name)
-			if (funcMetadata && funcMetadata.metadata && funcMetadata.metadata.deterministic) {
+			const funcMetadata = this.expressionConfig.getFunction(operand.name)
+			if (funcMetadata && funcMetadata.deterministic) {
 				return this.reduceOperand(operand)
 			}
 		}
@@ -165,6 +162,18 @@ export class OperandManager {
 			return new ChildFunction(node.name, children)
 		case 'block':
 			return new Block(node.name, children)
+		case 'if':
+			return new If(node.name, children)
+		case 'elseIf':
+			return new ElseIf(node.name, children)
+		case 'else':
+			return new Else(node.name, children)
+		case 'while':
+			return new While(node.name, children)
+		case 'for':
+			return new For(node.name, children)
+		case 'forIn':
+			return new ForIn(node.name, children)
 		default:
 			throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported')
 		}

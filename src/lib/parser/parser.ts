@@ -38,6 +38,14 @@ export class Parser {
 		return this.index >= this.length
 	}
 
+	private nextIs (key:string): boolean {
+		const array = key.split('')
+		for (let i = 0; i < array.length; i++) {
+			if (this.buffer[this.index + i] !== array[i]) { return false }
+		}
+		return true
+	}
+
 	public parse () {
 		const nodes:Node[] = []
 		while (!this.end) {
@@ -111,10 +119,16 @@ export class Parser {
 			char = this.current
 		}
 		if (this.reAlphanumeric.test(char)) {
-			let value:any = this.getValue()
-			if (value === 'if' && this.current === '(') {
+			let value: any = this.getValue()
+			if (value === 'function' && this.current === '(') {
+				this.index += 1
+				operand = this.getFunctionBlock()
+			} else if (value === 'if' && this.current === '(') {
 				this.index += 1
 				operand = this.getIfBlock()
+			} else if (value === 'for' && this.current === '(') {
+				this.index += 1
+				operand = this.getForBlock()
 			} else if (value === 'while' && this.current === '(') {
 				this.index += 1
 				operand = this.getWhileBlock()
@@ -318,6 +332,46 @@ export class Parser {
 			block = this.getExpression(undefined, undefined, ';')
 		}
 		return new Node('while', 'while', [condition, block])
+	}
+
+	private getForBlock ():Node {
+		let block = null
+		const first = this.getExpression(undefined, undefined, ';')
+		if (this.previous === ';') {
+			const condition = this.getExpression(undefined, undefined, ';')
+			const increment = this.getExpression(undefined, undefined, ')')
+			if (this.current === '{') {
+				this.index += 1
+				block = this.getBlock()
+			} else {
+				block = this.getExpression(undefined, undefined, ';')
+			}
+			return new Node('for', 'for', [first, condition, increment, block])
+		} else if (this.nextIs('in')) {
+			this.index += 2
+			// si hay espacios luego del in debe eliminarlos
+			while (this.current === ' ') {
+				this.index += 1
+			}
+			const list = this.getExpression(undefined, undefined, ')')
+			if (this.current === '{') {
+				this.index += 1
+				block = this.getBlock()
+			} else {
+				block = this.getExpression(undefined, undefined, ';')
+			}
+			return new Node('forIn', 'forIn', [first, list, block])
+		}
+		throw new Error('expression for error')
+	}
+
+	private getFunctionBlock (): Node {
+		const name = this.getValue()
+		if (this.current === '(') this.index += 1
+		const args = this.getArgs()
+		const block = this.getBlock()
+		const argsNode = new Node('args', 'args', args)
+		return new Node(name, 'function', [argsNode, block])
 	}
 
 	private getChildFunction (name:string, parent:Node):Node {

@@ -19,19 +19,23 @@ export class ParserManager {
 	}
 
 	public refresh () {
-		for (const key in this.expressionConfig.operators) {
-			if (key.length === 2) this.doubleOperators.push(key)
-			else if (key.length === 3) this.tripleOperators.push(key)
-
-			const operator = this.expressionConfig.operators[key]
-			if (operator[2] && operator[2].category === 'assignment') { this.assigmentOperators.push(key) }
+		for (const p in this.expressionConfig.operators) {
+			const metadata = this.expressionConfig.operators[p]
+			if (metadata.operator.length === 2) {
+				this.doubleOperators.push(metadata.operator)
+			} else if (metadata.operator.length === 3) {
+				this.tripleOperators.push(metadata.operator)
+			}
+			if (metadata.category === 'assignment') {
+				this.assigmentOperators.push(metadata.operator)
+			}
 		}
 	}
 
-	public priority (name:string, cardinality = 2) {
+	public priority (name:string, cardinality = 2):number {
 		try {
-			const metadata = this.expressionConfig.operators[name][cardinality]
-			return metadata ? metadata.priority : -1
+			const metadata = this.expressionConfig.getOperator(name, cardinality)
+			return metadata && metadata.priority ? metadata.priority : -1
 		} catch (error) {
 			throw new Error('error to priority : ' + name)
 		}

@@ -1,8 +1,12 @@
+import { OperatorMetadata } from '../model';
+import { Library } from './../operand';
 export declare class ExpressionConfig {
-    operators: any;
-    enums: any;
-    functions: any;
+    private libraries;
+    operators: OperatorMetadata[];
+    private enums;
+    private functions;
     constructor();
+    addLibrary(library: Library): void;
     private load;
     private addEnum;
     private addOperator;
@@ -10,6 +14,6 @@ export declare class ExpressionConfig {
     isEnum(name: string): boolean;
     getEnumValue(name: string, option: string): any;
     getEnum(name: string): any;
-    getOperator(name: string, operands: number): any;
-    getFunction(name: string): any;
+    getOperator(operator: string, operands: number): OperatorMetadata;
+    getFunction(name: string): OperatorMetadata;
 }
