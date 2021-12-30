@@ -71,3 +71,27 @@ export declare class For extends Operand {
 export declare class ForIn extends Operand {
     eval(): any;
 }
+export declare class Switch extends Operand {
+    eval(): any;
+}
+export declare class Break extends Operand {
+    eval(): any;
+}
+export declare class Continue extends Operand {
+    eval(): any;
+}
+export declare class Function extends Operand {
+    eval(): any;
+}
+export declare class Return extends Operand {
+    eval(): any;
+}
+export declare class Try extends Operand {
+    eval(): any;
+}
+export declare class Catch extends Operand {
+    eval(): any;
+}
+export declare class Throw extends Operand {
+    eval(): any;
+}

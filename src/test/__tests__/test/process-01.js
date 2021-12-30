@@ -12,44 +12,43 @@
 //          por errror: deberia quedar en error , si el proceso padre tiene un catch de error, lo podria capturar , caso contrario tambien quedaria en error.    
 
 
-class Process{
-    
-    constructor(starts){
-       this.__starts = starts 
-    }
+class Process {
 
-    _start(){
-        //ejecutara los starts.
-        this.__starts 
-    }
+	constructor(starts) {
+		this.__starts = starts
+	}
+
+	_start() {
+		//ejecutara los starts.
+		this.__starts
+	}
 }
-class Process01 extends Process
-{
-    constructor(a,b){
-        this.a = a;
-        this.b =b;
-        super(this.start);
-    }
-    start(){
-        if(this.a>this.b){    
-            this.substraction();
-        }else{
-            this.addition();
-        }
-    }  
-    addition(){
-        this.result= this.a+this.b;
-        this.end();
-    }  
-    substraction(){
-        this.result= this.a-this.b;
-        this.end();
-    }
-    end(){
-        this.result =result;
-        return;
-    }
+class Process01 extends Process {
+	constructor(a, b) {
+		this.a = a;
+		this.b = b;
+		super(this.start);
+	}
+	start() {
+		if (this.a > this.b) {
+			this.substraction();
+		} else {
+			this.addition();
+		}
+	}
+	addition() {
+		this.result = this.a + this.b;
+		this.end();
+	}
+	substraction() {
+		this.result = this.a - this.b;
+		this.end();
+	}
+	end() {
+		this.result = result;
+		return;
+	}
 
 }
 //callProcess(name,args)
-result=callProcess('Process01',[2,4])
+result = callProcess('Process01', [2, 4])

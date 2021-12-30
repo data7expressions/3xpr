@@ -11,7 +11,7 @@ export declare abstract class Library {
     functions: OperatorMetadata[];
     constructor(name: string);
     addEnum(key: string, source: any): void;
-    addFunction(name: string, source: any, custom?: any, type?: OperatorType, deterministic?: boolean): any;
+    addFunction(name: string, source: any, type?: OperatorType, custom?: any, deterministic?: boolean): any;
     addOperator(name: string, source: any, custom?: any): any;
     private getMetadata;
     private getArgs;

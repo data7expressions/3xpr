@@ -2,6 +2,23 @@ import { expressions } from '../../lib'
 
 describe('Array', () => {
 	
+	test('childs', () => {
+		let data: any = { "a": [1, 2, 3], "b": 0 }
+		expressions.eval('a.push(b)', data)
+		expect([1, 2, 3, 0]).toEqual(data.a)
+		
+		data= { "a": [1, 2, 3], "b": 0 }
+		expressions.eval('c=a.pop()', data)
+		expect(3).toBe(data.c)
+		expect([1, 2]).toEqual(data.a)
+
+		data= { "a": [1, 2, 3], "b": 0 }
+		expressions.eval('c=a.length()', data)
+		expect(3).toBe(data.c)
+		expect([1, 2, 3]).toEqual(data.a)
+	})
+
+
 	test('arrow', () => {	
 		let data:any = {"a":[1,2,3],"b":0}
 		expressions.eval('a.foreach(p=>b=b+p)',data)

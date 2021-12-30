@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -218,8 +218,64 @@ class For extends Operand {
 exports.For = For;
 class ForIn extends Operand {
     eval() {
-        throw new Error('NotImplemented');
+        const item = this.children[0];
+        const list = this.children[1].eval();
+        const block = this.children[2];
+        for (let i = 0; i < list.length; i++) {
+            const value = list[i];
+            item.set(value);
+            block.eval();
+        }
     }
 }
 exports.ForIn = ForIn;
+// TODO:
+class Switch extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Switch = Switch;
+class Break extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Break = Break;
+class Continue extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Continue = Continue;
+class Function extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Function = Function;
+class Return extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Return = Return;
+class Try extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Try = Try;
+class Catch extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Catch = Catch;
+class Throw extends Operand {
+    eval() {
+        throw new Error('NotImplemented');
+    }
+}
+exports.Throw = Throw;
 //# sourceMappingURL=operands.js.map

@@ -1,7 +1,7 @@
 
 
-function addition(a,b=3){
-    return a+b;
+function addition(a, b = 3) {
+	return a + b;
 };
 
-result = addition(1,3); 
+result = addition(1, 3); 

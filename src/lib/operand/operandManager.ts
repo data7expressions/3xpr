@@ -1,7 +1,10 @@
 
 import { Node, ExpressionConfig } from '../parser/index'
 import { Data } from '../model'
-import { Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn } from './operands'
+import {
+	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
+	, Switch, Break, Continue, Function, Return, Try, Catch, Throw
+} from './operands'
 
 export class OperandManager {
 	private expressionConfig:ExpressionConfig
@@ -174,6 +177,22 @@ export class OperandManager {
 			return new For(node.name, children)
 		case 'forIn':
 			return new ForIn(node.name, children)
+		case 'switch':
+			return new Switch(node.name, children)
+		case 'break':
+			return new Break(node.name, children)
+		case 'continue':
+			return new Continue(node.name, children)
+		case 'function':
+			return new Function(node.name, children)
+		case 'return':
+			return new Return(node.name, children)
+		case 'try':
+			return new Try(node.name, children)
+		case 'catch':
+			return new Catch(node.name, children)
+		case 'throw':
+			return new Throw(node.name, children)
 		default:
 			throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported')
 		}

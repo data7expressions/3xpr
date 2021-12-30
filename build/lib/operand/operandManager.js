@@ -172,6 +172,22 @@ class OperandManager {
                 return new operands_1.For(node.name, children);
             case 'forIn':
                 return new operands_1.ForIn(node.name, children);
+            case 'switch':
+                return new operands_1.Switch(node.name, children);
+            case 'break':
+                return new operands_1.Break(node.name, children);
+            case 'continue':
+                return new operands_1.Continue(node.name, children);
+            case 'function':
+                return new operands_1.Function(node.name, children);
+            case 'return':
+                return new operands_1.Return(node.name, children);
+            case 'try':
+                return new operands_1.Try(node.name, children);
+            case 'catch':
+                return new operands_1.Catch(node.name, children);
+            case 'throw':
+                return new operands_1.Throw(node.name, children);
             default:
                 throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported');
         }

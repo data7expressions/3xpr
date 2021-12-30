@@ -26,9 +26,15 @@ export declare class Parser {
     private getArgs;
     private getObject;
     private getBlock;
+    private getControlBlock;
+    private getReturn;
+    private getTryCatchBlock;
+    private getThrow;
     private getIfBlock;
+    private getSwitchBlock;
     private getWhileBlock;
     private getForBlock;
+    private getFunctionBlock;
     private getChildFunction;
     private getIndexOperand;
     private getEnum;

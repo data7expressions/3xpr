@@ -1,4 +1,7 @@
 import { expressions } from '../../lib'
+import { Helper } from '../../lib/manager/helper'
+
+const testPath = 'src/test/__tests__/test'
 
 describe('Block', () => {
 
@@ -44,13 +47,25 @@ describe('Block', () => {
 		expect(12).toBe(data['output']) 		
 	})
 
-	test('for', () => {	
+	test('for', async ()  =>  {	
 		let data:any = {}
 		
 		expressions.eval(`for(i=0;i<=6;i=i+1){
 			output=i*2;
 		}`,data)
-		expect(12).toBe(data['output']) 		
+		expect(12).toBe(data['output']) 
+		
+		data = {}
+		let expression = await Helper.readFile(testPath+'/for-01.js') as string
+		expressions.eval(expression, data)
+		expect(45).toBe(data.total) 
+	})
+
+	test('forIn', async ()  =>  {	
+		let data:any = {}
+		const expression = await Helper.readFile(testPath + '/forIn-01.js') as string
+		expressions.eval(expression, data)
+		expect(2).toBe(data.y) 
 	})
 
 	

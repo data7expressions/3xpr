@@ -12,7 +12,7 @@ class Library {
     addEnum(key, source) {
         this.enums[key] = source;
     }
-    addFunction(name, source, custom = null, type = model_1.OperatorType.function, deterministic = true) {
+    addFunction(name, source, type = model_1.OperatorType.function, custom = null, deterministic = true) {
         const metadata = this.getMetadata(source);
         this.functions.push({
             name: name,

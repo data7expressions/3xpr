@@ -132,6 +132,9 @@ export class Parser {
 			} else if (value === 'while' && this.current === '(') {
 				this.index += 1
 				operand = this.getWhileBlock()
+			} else if (value === 'switch' && this.current === '(') {
+				this.index += 1
+				operand = this.getSwitchBlock()
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
@@ -144,9 +147,19 @@ export class Parser {
 					const args = this.getArgs(')')
 					operand = new Node(value, 'funcRef', args)
 				}
+			} else if (value === 'try' && this.current === '{') {
+				operand = this.getTryCatchBlock()
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
 				operand = this.getIndexOperand(value)
+			} else if (value === 'throw') {
+				operand = this.getThrow()
+			} else if (value === 'return') {
+				operand = this.getReturn()
+			} else if (value === 'break') {
+				operand = new Node('break', 'break')
+			} else if (value === 'continue') {
+				operand = new Node('continue', 'continue')
 			} else if (this.reInt.test(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
@@ -299,53 +312,136 @@ export class Parser {
 		return new Node('block', 'block', lines)
 	}
 
-	private getIfBlock ():Node {
-		let block = null
-		const condition = this.getExpression(undefined, undefined, ')')
+	private getControlBlock ():Node {
 		if (this.current === '{') {
 			this.index += 1
-			block = this.getBlock()
+			return this.getBlock()
 		} else {
-			block = this.getExpression(undefined, undefined, ';')
+			return this.getExpression(undefined, undefined, ';')
 		}
-		const nextValue = this.getValue(false)
-		let elseblock = null
-		if (nextValue === 'else') {
-			this.index += nextValue.length
-			if (this.current === '{') {
+	}
+
+	private getReturn () :Node {
+		const value = this.getExpression(undefined, undefined, ';')
+		return new Node('return', 'return', [value])
+	}
+
+	private getTryCatchBlock () :Node {
+		const childs:Node[] = []
+		const tryBlock = this.getControlBlock()
+		childs.push(tryBlock)
+		if (this.nextIs('catch')) {
+			const catchChilds:Node[] = []
+			this.index += 'catch'.length
+			if (this.current === '(') {
 				this.index += 1
-				elseblock = this.getBlock()
-			} else {
-				elseblock = this.getExpression(undefined, undefined, ';')
+				const variable = this.getExpression(undefined, undefined, ')')
+				catchChilds.push(variable)
 			}
+			const catchBlock = this.getControlBlock()
+			catchChilds.push(catchBlock)
+			const catchNode = new Node('catch', 'catch', catchChilds)
+			childs.push(catchNode)
 		}
-		return new Node('if', 'if', [condition, block, elseblock as Node])
+		if (this.current === ';') this.index += 1
+		return new Node('try', 'try', childs)
+	}
+
+	private getThrow () :Node {
+		const exception = this.getExpression(undefined, undefined, ';')
+		return new Node('throw', 'throw', [exception])
+	}
+
+	private getIfBlock (): Node {
+		const childs:Node[] = []
+		const condition = this.getExpression(undefined, undefined, ')')
+		childs.push(condition)
+		const block = this.getControlBlock()
+		childs.push(block)
+
+		while (this.nextIs('else if(')) {
+			this.index += 'else if('.length
+			const condition = this.getExpression(undefined, undefined, ')')
+			const elseIfBlock = this.getControlBlock()
+			const elseIfNode = new Node('elseIf', 'elseIf', [condition, elseIfBlock])
+			childs.push(elseIfNode)
+		}
+
+		if (this.nextIs('else')) {
+			this.index += 'else'.length
+			const elseBlock = this.getControlBlock()
+			childs.push(elseBlock)
+		}
+		return new Node('if', 'if', childs)
+	}
+
+	private getSwitchBlock ():Node {
+		const value = this.getExpression(undefined, undefined, ')')
+		if (this.current === '{') this.index += 1
+
+		let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : ''
+
+		const childs = []
+		while (next === 'case') {
+			this.index += 'case'.length
+			let compare:string
+			if (this.current === '\'' || this.current === '"') {
+				const char = this.current
+				this.index += 1
+				compare = this.getString(char)
+			} else {
+				compare = this.getValue()
+			}
+			if (this.current === ':') this.index += 1
+			const lines:Node[] = []
+			while (true) {
+				const line = this.getExpression(undefined, undefined, ';')
+				if (line !== undefined) lines.push(line)
+				if (this.nextIs('case')) {
+					next = 'case'
+					break
+				} else if (this.nextIs('default:')) {
+					next = 'default:'
+					break
+				} else if (this.current === '}') {
+					next = 'end'
+					break
+				}
+			}
+			const block = new Node('block', 'block', lines)
+			const caseNode = new Node(compare, 'case', [block])
+			childs.push(caseNode)
+		}
+
+		if (next === 'default:') {
+			this.index += 'default:'.length
+			const lines: Node[] = []
+			while (true) {
+				const line = this.getExpression(undefined, undefined, ';')
+				if (line !== undefined) lines.push(line)
+				if (this.current === '}') break
+			}
+			const block = new Node('block', 'block', lines)
+			const defaultNode = new Node('default', 'default', [block])
+			childs.push(defaultNode)
+		}
+		if (this.current === '{') this.index += 1
+		const options = new Node('options', 'options', childs)
+		return new Node('switch', 'switch', [value, options])
 	}
 
 	private getWhileBlock ():Node {
-		let block = null
 		const condition = this.getExpression(undefined, undefined, ')')
-		if (this.current === '{') {
-			this.index += 1
-			block = this.getBlock()
-		} else {
-			block = this.getExpression(undefined, undefined, ';')
-		}
+		const block = this.getControlBlock()
 		return new Node('while', 'while', [condition, block])
 	}
 
 	private getForBlock ():Node {
-		let block = null
-		const first = this.getExpression(undefined, undefined, ';')
+		const first = this.getExpression(undefined, undefined, '; ')
 		if (this.previous === ';') {
 			const condition = this.getExpression(undefined, undefined, ';')
 			const increment = this.getExpression(undefined, undefined, ')')
-			if (this.current === '{') {
-				this.index += 1
-				block = this.getBlock()
-			} else {
-				block = this.getExpression(undefined, undefined, ';')
-			}
+			const block = this.getControlBlock()
 			return new Node('for', 'for', [first, condition, increment, block])
 		} else if (this.nextIs('in')) {
 			this.index += 2
@@ -354,12 +450,7 @@ export class Parser {
 				this.index += 1
 			}
 			const list = this.getExpression(undefined, undefined, ')')
-			if (this.current === '{') {
-				this.index += 1
-				block = this.getBlock()
-			} else {
-				block = this.getExpression(undefined, undefined, ';')
-			}
+			const block = this.getControlBlock()
 			return new Node('forIn', 'forIn', [first, list, block])
 		}
 		throw new Error('expression for error')

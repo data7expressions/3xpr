@@ -23,7 +23,7 @@ export abstract class Library {
 		this.enums[key] = source
 	}
 
-	public addFunction (name:string, source:any, custom:any = null, type:OperatorType = OperatorType.function, deterministic = true):any {
+	public addFunction (name:string, source:any, type:OperatorType = OperatorType.function, custom:any = null, deterministic = true):any {
 		const metadata = this.getMetadata(source)
 		this.functions.push({
 			name: name,

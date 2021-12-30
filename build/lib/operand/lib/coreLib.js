@@ -174,18 +174,19 @@ class CoreLib extends library_1.Library {
         });
     }
     initArrowFunctions() {
-        this.addFunction('map', ArrayFunctions.map, Map, model_1.OperatorType.arrow);
-        this.addFunction('foreach', ArrayFunctions.foreach, Foreach, model_1.OperatorType.arrow);
-        this.addFunction('filter', ArrayFunctions.filter, Filter, model_1.OperatorType.arrow);
-        this.addFunction('reverse', ArrayFunctions.reverse, Reverse, model_1.OperatorType.arrow);
-        this.addFunction('first', ArrayFunctions.first, First, model_1.OperatorType.arrow);
-        this.addFunction('last', ArrayFunctions.last, Last, model_1.OperatorType.arrow);
-        this.addFunction('sort', ArrayFunctions.sort, Sort, model_1.OperatorType.arrow);
-        this.addFunction('push', ArrayFunctions.push, Push, model_1.OperatorType.child);
-        this.addFunction('pop', ArrayFunctions.pop, Pop, model_1.OperatorType.child);
-        this.addFunction('remove', ArrayFunctions.remove, Remove, model_1.OperatorType.arrow);
-        this.addFunction('insert', ArrayFunctions.insert, Insert, model_1.OperatorType.arrow);
-        this.addFunction('update', ArrayFunctions.update, Update, model_1.OperatorType.arrow);
+        this.addFunction('map', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
+        this.addFunction('foreach', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
+        this.addFunction('filter', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
+        this.addFunction('reverse', ArrayFunctions.reverse, model_1.OperatorType.arrow, Reverse);
+        this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
+        this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
+        this.addFunction('sort', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
+        this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
+        this.addFunction('push', (list, item) => list.push(item), model_1.OperatorType.child);
+        this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
+        this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
+        this.addFunction('insert', ArrayFunctions.insert, model_1.OperatorType.arrow, Insert);
+        this.addFunction('update', ArrayFunctions.update, model_1.OperatorType.arrow, Update);
     }
     convertFunctions() {
         this.addFunction('toString', Functions.toString);
@@ -473,8 +474,6 @@ class ArrayFunctions {
     static first(list, method) { throw new Error('Empty'); }
     static last(list, method) { throw new Error('Empty'); }
     static sort(list, method) { throw new Error('Empty'); }
-    static push(list, item) { throw new Error('Empty'); }
-    static pop(list) { throw new Error('Empty'); }
     static remove(list, method) { throw new Error('Empty'); }
     static insert(list, item) { throw new Error('Empty'); }
     static update(list, item, method) { throw new Error('Empty'); }
@@ -574,22 +573,6 @@ class Sort extends operands_1.ArrowFunction {
         }
         values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
         return values.map(p => p.p);
-    }
-}
-class Push extends operands_1.ArrowFunction {
-    eval() {
-        const values = [];
-        const list = this.children[0].eval();
-        const value = this.children[1].eval();
-        list.push(value);
-        return list;
-    }
-}
-class Pop extends operands_1.ArrowFunction {
-    eval() {
-        const values = [];
-        const list = this.children[0].eval();
-        return list.pop();
     }
 }
 class Remove extends operands_1.ArrowFunction {

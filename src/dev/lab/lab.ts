@@ -1,9 +1,10 @@
 import { expressions } from '../../lib'
+import { Helper } from '../../lib/manager/helper'
 
 (async () => {
-	const data:any = {}
-	expressions.eval(`for(i=0;i<=6;i=i+1){
-		output=i*2;
-	}`, data)
-	console.log(data.output)
+	const data: any = {}
+	const testPath = 'src/test/__tests__/test'
+	const expression = await Helper.readFile(testPath + '/forIn-01.js') as string
+	expressions.eval(expression, data)
+	console.log(data.y)
 })()

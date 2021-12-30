@@ -177,19 +177,21 @@ export class CoreLib extends Library {
 	}
 
 	private initArrowFunctions () {
-		this.addFunction('map', ArrayFunctions.map, Map, OperatorType.arrow)
-		this.addFunction('foreach', ArrayFunctions.foreach, Foreach, OperatorType.arrow)
-		this.addFunction('filter', ArrayFunctions.filter, Filter, OperatorType.arrow)
-		this.addFunction('reverse', ArrayFunctions.reverse, Reverse, OperatorType.arrow)
-		this.addFunction('first', ArrayFunctions.first, First, OperatorType.arrow)
-		this.addFunction('last', ArrayFunctions.last, Last, OperatorType.arrow)
-		this.addFunction('sort', ArrayFunctions.sort, Sort, OperatorType.arrow)
-		this.addFunction('push', ArrayFunctions.push, Push, OperatorType.child)
-		this.addFunction('pop', ArrayFunctions.pop, Pop, OperatorType.child)
-		this.addFunction('remove', ArrayFunctions.remove, Remove, OperatorType.arrow)
+		this.addFunction('map', ArrayFunctions.map, OperatorType.arrow, Map)
+		this.addFunction('foreach', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
+		this.addFunction('filter', ArrayFunctions.filter, OperatorType.arrow, Filter)
+		this.addFunction('reverse', ArrayFunctions.reverse, OperatorType.arrow, Reverse)
+		this.addFunction('first', ArrayFunctions.first, OperatorType.arrow, First)
+		this.addFunction('last', ArrayFunctions.last, OperatorType.arrow, Last)
+		this.addFunction('sort', ArrayFunctions.sort, OperatorType.arrow, Sort)
+		this.addFunction('remove', ArrayFunctions.remove, OperatorType.arrow, Remove)
 
-		this.addFunction('insert', ArrayFunctions.insert, Insert, OperatorType.arrow)
-		this.addFunction('update', ArrayFunctions.update, Update, OperatorType.arrow)
+		this.addFunction('push', (list: any[], item: any): number => list.push(item), OperatorType.child)
+		this.addFunction('pop', (list: any[]): number => list.pop(), OperatorType.child)
+		this.addFunction('length', (list: any[]) => list.length, OperatorType.child)
+
+		this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
+		this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 
 	private convertFunctions () {
@@ -525,8 +527,6 @@ class ArrayFunctions {
 	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
 	static last (list:any[], method:Function):any|null { throw new Error('Empty') }
 	static sort (list: any[], method: Function):any[] { throw new Error('Empty') }
-	static push (list: any[], item: any):any[] { throw new Error('Empty') }
-	static pop (list: any[]): any { throw new Error('Empty') }
 	static remove (list: any[], method: Function): any[] { throw new Error('Empty') }
 
 	static insert (list:any[], item:any) { throw new Error('Empty') }
@@ -628,22 +628,6 @@ class Sort extends ArrowFunction {
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		return values.map(p => p.p)
-	}
-}
-class Push extends ArrowFunction {
-	eval ():any {
-		const values = []
-		const list: any[] = this.children[0].eval()
-		const value = this.children[1].eval()
-		list.push(value)
-		return list
-	}
-}
-class Pop extends ArrowFunction {
-	eval ():any {
-		const values = []
-		const list: any[] = this.children[0].eval()
-		return list.pop()
 	}
 }
 class Remove extends ArrowFunction {

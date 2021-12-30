@@ -217,6 +217,54 @@ export class For extends Operand {
 }
 export class ForIn extends Operand {
 	public eval (): any {
+		const item = this.children[0]
+		const list = this.children[1].eval()
+		const block = this.children[2]
+		for (let i = 0; i < list.length; i++) {
+			const value = list[i]
+			item.set(value)
+			block.eval()
+		}
+	}
+}
+// TODO:
+export class Switch extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Break extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Continue extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Function extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Return extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Try extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Catch extends Operand {
+	public eval (): any {
+		throw new Error('NotImplemented')
+	}
+}
+export class Throw extends Operand {
+	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }

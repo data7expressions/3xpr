@@ -113,13 +113,25 @@ class Parser {
         }
         if (this.reAlphanumeric.test(char)) {
             let value = this.getValue();
-            if (value === 'if' && this.current === '(') {
+            if (value === 'function' && this.current === '(') {
+                this.index += 1;
+                operand = this.getFunctionBlock();
+            }
+            else if (value === 'if' && this.current === '(') {
                 this.index += 1;
                 operand = this.getIfBlock();
+            }
+            else if (value === 'for' && this.current === '(') {
+                this.index += 1;
+                operand = this.getForBlock();
             }
             else if (value === 'while' && this.current === '(') {
                 this.index += 1;
                 operand = this.getWhileBlock();
+            }
+            else if (value === 'switch' && this.current === '(') {
+                this.index += 1;
+                operand = this.getSwitchBlock();
             }
             else if (!this.end && this.current === '(') {
                 this.index += 1;
@@ -135,9 +147,24 @@ class Parser {
                     operand = new node_1.Node(value, 'funcRef', args);
                 }
             }
+            else if (value === 'try' && this.current === '{') {
+                operand = this.getTryCatchBlock();
+            }
             else if (!this.end && this.current === '[') {
                 this.index += 1;
                 operand = this.getIndexOperand(value);
+            }
+            else if (value === 'throw') {
+                operand = this.getThrow();
+            }
+            else if (value === 'return') {
+                operand = this.getReturn();
+            }
+            else if (value === 'break') {
+                operand = new node_1.Node('break', 'break');
+            }
+            else if (value === 'continue') {
+                operand = new node_1.Node('continue', 'continue');
             }
             else if (this.reInt.test(value)) {
                 if (isNegative) {
@@ -315,55 +342,135 @@ class Parser {
         }
         return new node_1.Node('block', 'block', lines);
     }
-    getIfBlock() {
-        let block = null;
-        const condition = this.getExpression(undefined, undefined, ')');
+    getControlBlock() {
         if (this.current === '{') {
             this.index += 1;
-            block = this.getBlock();
+            return this.getBlock();
         }
         else {
-            block = this.getExpression(undefined, undefined, ';');
+            return this.getExpression(undefined, undefined, ';');
         }
-        const nextValue = this.getValue(false);
-        let elseblock = null;
-        if (nextValue === 'else') {
-            this.index += nextValue.length;
-            if (this.current === '{') {
+    }
+    getReturn() {
+        const value = this.getExpression(undefined, undefined, ';');
+        return new node_1.Node('return', 'return', [value]);
+    }
+    getTryCatchBlock() {
+        const childs = [];
+        const tryBlock = this.getControlBlock();
+        childs.push(tryBlock);
+        if (this.nextIs('catch')) {
+            const catchChilds = [];
+            this.index += 'catch'.length;
+            if (this.current === '(') {
                 this.index += 1;
-                elseblock = this.getBlock();
+                const variable = this.getExpression(undefined, undefined, ')');
+                catchChilds.push(variable);
+            }
+            const catchBlock = this.getControlBlock();
+            catchChilds.push(catchBlock);
+            const catchNode = new node_1.Node('catch', 'catch', catchChilds);
+            childs.push(catchNode);
+        }
+        if (this.current === ';')
+            this.index += 1;
+        return new node_1.Node('try', 'try', childs);
+    }
+    getThrow() {
+        const exception = this.getExpression(undefined, undefined, ';');
+        return new node_1.Node('throw', 'throw', [exception]);
+    }
+    getIfBlock() {
+        const childs = [];
+        const condition = this.getExpression(undefined, undefined, ')');
+        childs.push(condition);
+        const block = this.getControlBlock();
+        childs.push(block);
+        while (this.nextIs('else if(')) {
+            this.index += 'else if('.length;
+            const condition = this.getExpression(undefined, undefined, ')');
+            const elseIfBlock = this.getControlBlock();
+            const elseIfNode = new node_1.Node('elseIf', 'elseIf', [condition, elseIfBlock]);
+            childs.push(elseIfNode);
+        }
+        if (this.nextIs('else')) {
+            this.index += 'else'.length;
+            const elseBlock = this.getControlBlock();
+            childs.push(elseBlock);
+        }
+        return new node_1.Node('if', 'if', childs);
+    }
+    getSwitchBlock() {
+        const value = this.getExpression(undefined, undefined, ')');
+        if (this.current === '{')
+            this.index += 1;
+        let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : '';
+        const childs = [];
+        while (next === 'case') {
+            this.index += 'case'.length;
+            let compare;
+            if (this.current === '\'' || this.current === '"') {
+                const char = this.current;
+                this.index += 1;
+                compare = this.getString(char);
             }
             else {
-                elseblock = this.getExpression(undefined, undefined, ';');
+                compare = this.getValue();
             }
+            if (this.current === ':')
+                this.index += 1;
+            const lines = [];
+            while (true) {
+                const line = this.getExpression(undefined, undefined, ';');
+                if (line !== undefined)
+                    lines.push(line);
+                if (this.nextIs('case')) {
+                    next = 'case';
+                    break;
+                }
+                else if (this.nextIs('default:')) {
+                    next = 'default:';
+                    break;
+                }
+                else if (this.current === '}') {
+                    next = 'end';
+                    break;
+                }
+            }
+            const block = new node_1.Node('block', 'block', lines);
+            const caseNode = new node_1.Node(compare, 'case', [block]);
+            childs.push(caseNode);
         }
-        return new node_1.Node('if', 'if', [condition, block, elseblock]);
+        if (next === 'default:') {
+            this.index += 'default:'.length;
+            const lines = [];
+            while (true) {
+                const line = this.getExpression(undefined, undefined, ';');
+                if (line !== undefined)
+                    lines.push(line);
+                if (this.current === '}')
+                    break;
+            }
+            const block = new node_1.Node('block', 'block', lines);
+            const defaultNode = new node_1.Node('default', 'default', [block]);
+            childs.push(defaultNode);
+        }
+        if (this.current === '{')
+            this.index += 1;
+        const options = new node_1.Node('options', 'options', childs);
+        return new node_1.Node('switch', 'switch', [value, options]);
     }
     getWhileBlock() {
-        let block = null;
         const condition = this.getExpression(undefined, undefined, ')');
-        if (this.current === '{') {
-            this.index += 1;
-            block = this.getBlock();
-        }
-        else {
-            block = this.getExpression(undefined, undefined, ';');
-        }
+        const block = this.getControlBlock();
         return new node_1.Node('while', 'while', [condition, block]);
     }
     getForBlock() {
-        let block = null;
-        const first = this.getExpression(undefined, undefined, ';');
+        const first = this.getExpression(undefined, undefined, '; ');
         if (this.previous === ';') {
             const condition = this.getExpression(undefined, undefined, ';');
             const increment = this.getExpression(undefined, undefined, ')');
-            if (this.current === '{') {
-                this.index += 1;
-                block = this.getBlock();
-            }
-            else {
-                block = this.getExpression(undefined, undefined, ';');
-            }
+            const block = this.getControlBlock();
             return new node_1.Node('for', 'for', [first, condition, increment, block]);
         }
         else if (this.nextIs('in')) {
@@ -373,16 +480,19 @@ class Parser {
                 this.index += 1;
             }
             const list = this.getExpression(undefined, undefined, ')');
-            if (this.current === '{') {
-                this.index += 1;
-                block = this.getBlock();
-            }
-            else {
-                block = this.getExpression(undefined, undefined, ';');
-            }
+            const block = this.getControlBlock();
             return new node_1.Node('forIn', 'forIn', [first, list, block]);
         }
         throw new Error('expression for error');
+    }
+    getFunctionBlock() {
+        const name = this.getValue();
+        if (this.current === '(')
+            this.index += 1;
+        const args = this.getArgs();
+        const block = this.getBlock();
+        const argsNode = new node_1.Node('args', 'args', args);
+        return new node_1.Node(name, 'function', [argsNode, block]);
     }
     getChildFunction(name, parent) {
         let isArrow = false;
