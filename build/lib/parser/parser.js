@@ -75,7 +75,7 @@ class Parser {
                 isbreak = true;
                 break;
             }
-            else if (this.mgr.priority(operator) > this.mgr.priority(nextOperator)) {
+            else if (this.mgr.priority(operator) >= this.mgr.priority(nextOperator)) {
                 operand1 = new node_1.Node(operator, 'oper', [operand1, operand2]);
                 operator = nextOperator;
             }
@@ -95,6 +95,10 @@ class Parser {
         let isNot = false;
         let isBitNot = false;
         let operand = null;
+        // while (this.current === ' ' && !this.end) {
+        // this.index += 1
+        // }
+        // if (this.end) return null
         let char = this.current;
         if (char === '-') {
             isNegative = true;

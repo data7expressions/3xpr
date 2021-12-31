@@ -8,7 +8,7 @@ describe('Numeric', () => {
 		expect(3*4-1).toBe(expressions.eval('3*4-1'))
 		expect(1+4*2).toBe(expressions.eval('1+4*2'))
 		expect(4+4+2+50+600).toBe(expressions.eval('4+4+2+50+600'))
-		//expect(1-2-5).toBe(expressions.eval('1-2-5'))
+		expect(1-2-5).toBe(expressions.eval('1-2-5'))
 		expect((1+4)*2).toBe(expressions.eval('(1+4)*2'))
 		expect((2+3)*2).toBe(expressions.eval('(2+3)*2'))
 		expect(2*(3+2)).toBe(expressions.eval('2*(3+2)'))
@@ -31,7 +31,6 @@ describe('Numeric', () => {
 		expect(-4==-2*2).toBe(expressions.eval('-4==-2*2'))
 		expect(-4 == -(2 * 2)).toBe(expressions.eval('-4==-(2*2)'))			
 	})
-
 	test('variables', () => {	
 		expect(false).toBe(expressions.eval('a>b',{"a":1,"b":2}))
 		expect(3).toBe(expressions.eval('a+b',{"a":1,"b":2}))
@@ -41,7 +40,6 @@ describe('Numeric', () => {
 		expect(5).toBe(expressions.eval('2**b+a',{"a":1,"b":2})) 
 		expect(5).toBe(expressions.eval('c.b', { "a": "1", "b": 2, "c": { "a": 4, "b": 5 } }))
 	})
-
 	test('assigments', () => {	
 		const data = {"a":"1","b":2,"c":{"a":4,"b":5}}
 		expressions.eval('a=8',data)
@@ -49,7 +47,6 @@ describe('Numeric', () => {
 		expressions.eval('c.a=1',data)
 		expect(1).toBe(data['c']['a'])
 	})
-
 	test('functions', () => {	
 		expect(2).toBe(expressions.eval('nvl(a,b)',{"a":null,"b":2})) 	
 	})
