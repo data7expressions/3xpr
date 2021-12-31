@@ -7,7 +7,8 @@ module.exports = function (grunt) {
 		exec: {
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
-			tsc: { cmd: 'npx tsc ' }
+			tsc: { cmd: 'npx tsc ' },
+			typedoc: { cmd: 'npx typedoc ' }
 		},
 		clean: {
 			build: ['build'],
@@ -31,8 +32,12 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
-		// this task needs to be js since it must be executed before executing npx tsc
-		const task = require('./src/dev/task/buildConfig')
+		const task = require('./build/dev/task/buildConfig')
+		task.apply(this.async())
+	})
+
+	grunt.registerTask('build-wiki', 'build wiki', function () {
+		const task = require('./build/dev/task/buildWiki')
 		task.apply(this.async())
 	})
 
@@ -41,6 +46,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('lint', ['exec:lint'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
 
 	grunt.registerTask('default', [])
 }

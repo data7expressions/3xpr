@@ -1,14 +1,11 @@
 {
 	"entryPoints": [
-		"src/orm/connection",
-		"src/orm/database",
-		"src/orm/language",
-		"src/orm/manager",
-		"src/orm/model",
-		"src/orm/parser",
-		"src/orm/orm.ts"
+		"src/lib/manager",
+		"src/lib/model",
+		"src/lib/operand",
+		"src/lib/parser"
 	],
-	"out": "doc",
+	"out": "doc/source",
 	"excludePrivate": true,
 	"excludeProtected": true,
 	"name": "Lambda ORM",

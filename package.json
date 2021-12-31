@@ -1,6 +1,6 @@
 {
 	"name": "js-expressions",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -19,7 +19,7 @@
 		"build": "grunt build",
 		"unit-test": "grunt unit-test",
 		"dist": "grunt dist",
-		"doc": "typedoc"
+		"doc": "grunt doc"
 	},
 	"dependencies": {},
 	"devDependencies": {

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { Helper } from './../../lib/manager/helper'
-const ConfigExtends = require('schema-extends')
+import { Helper } from '../../lib/manager/helper'
+const ConfigExtends = require('config-extends')
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
@@ -31,7 +31,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 	}
 
 	const content = lines.join('\n')
-	const targetFolder = '.github/wiki'
+	const targetFolder = 'doc/wiki'
 	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
@@ -65,7 +65,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 	}
 
 	const content = lines.join('\n')
-	const targetFolder = '.github/wiki'
+	const targetFolder = 'doc/wiki'
 	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
@@ -73,7 +73,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 }
 
 export async function apply (callback: any) {
-	const model = await ConfigExtends.apply(path.join('src/dev/schema/model.yaml'))
+	const model = await ConfigExtends.apply(path.join('src/dev/config/model.yaml'))
 
 	const funcCategories:any = {}
 	for (const p in model.functions) {
