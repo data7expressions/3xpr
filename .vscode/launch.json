@@ -11,8 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
 			"name": "generate doc",
@@ -21,8 +20,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/generateDoc.ts",
-			"envFile": "${workspaceFolder}/test.env"
+			"program": "${workspaceFolder}/src/dev/task/buildDoc.ts"
 		},
 		{
 			"name": "build config",

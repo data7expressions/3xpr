@@ -19,7 +19,7 @@
 		"build": "grunt build",
 		"unit-test": "grunt unit-test",
 		"dist": "grunt dist",
-		"doc": "typedoc"
+		"doc": "grunt doc"
 	},
 	"dependencies": {},
 	"devDependencies": {
