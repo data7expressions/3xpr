@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / parser
+[Expressions](../README.md) / parser
 
 # Module: parser
 

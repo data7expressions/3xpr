@@ -8,6 +8,6 @@
 	"out": "doc/source",
 	"excludePrivate": true,
 	"excludeProtected": true,
-	"name": "Lambda ORM",
+	"name": "Expressions",
 	"readme": "none"
 }

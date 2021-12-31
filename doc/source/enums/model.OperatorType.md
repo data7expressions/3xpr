@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / OperatorType
+[Expressions](../README.md) / [model](../modules/model.md) / OperatorType
 
 # Enumeration: OperatorType
 
@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/operands.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/operands.ts#L11)
+[model/operands.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L11)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/operands.ts#L10)
+[model/operands.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L10)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/operands.ts#L9)
+[model/operands.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L9)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/operands.ts#L8)
+[model/operands.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L8)

@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / [model](../modules/model.md) / Cache
+[Expressions](../README.md) / [model](../modules/model.md) / Cache
 
 # Interface: Cache
 
@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[model/cache.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/cache.ts#L4)
+[model/cache.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/cache.ts#L4)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[model/cache.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/cache.ts#L2)
+[model/cache.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/cache.ts#L2)
 
 ___
 
@@ -75,4 +75,4 @@ ___
 
 #### Defined in
 
-[model/cache.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/model/cache.ts#L3)
+[model/cache.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/cache.ts#L3)

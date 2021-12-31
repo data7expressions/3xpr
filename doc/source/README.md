@@ -1,6 +1,6 @@
-Lambda ORM
+Expressions
 
-# Lambda ORM
+# Expressions
 
 ## Table of contents
 
