@@ -1,32 +1,58 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Library = void 0;
+const model_1 = require("../model");
 class Library {
-    constructor(name, language) {
+    constructor(name) {
         this.name = name;
-        this.language = language;
         this.enums = {};
-        this.operators = {};
-        this.functions = {};
+        this.operators = [];
+        this.functions = [];
     }
     addEnum(key, source) {
         this.enums[key] = source;
     }
-    addFunction(name, source, custom = null, isArrowFunction = false) {
+    addFunction(name, source, type = model_1.OperatorType.function, custom = null, deterministic = true) {
         const metadata = this.getMetadata(source);
-        metadata.lib = this.name;
-        metadata['language '] = this.language;
-        metadata.isArrowFunction = isArrowFunction;
-        this.functions[name] = { function: source, metadata: metadata, custom: custom };
+        this.functions.push({
+            name: name,
+            operator: name,
+            type: type,
+            deterministic: deterministic,
+            lib: this.name,
+            operands: metadata.params.length,
+            desc: metadata.desc,
+            params: metadata.params,
+            return: metadata.return,
+            function: source,
+            custom: custom
+        });
     }
-    addOperator(name, source, custom = null, customFunction = null) {
-        if (!this.operators[name])
-            this.operators[name] = {};
+    // // eslint-disable-next-line @typescript-eslint/ban-types
+    // private getData (method:Function) {
+    // for (const argument of method.arguments) {
+    // console.log(argument.getName())
+    // console.log(argument.getType().getText())
+    // console.log(argument.isOptional())
+    // console.log(argument.getInitializer() != null)
+    // }
+    // return {}
+    // }
+    addOperator(name, source, custom = null) {
         const metadata = this.getMetadata(source);
-        const operands = metadata.args.length;
-        metadata.lib = this.name;
-        metadata['language '] = this.language;
-        this.operators[name][operands] = { function: source, metadata: metadata, custom: custom, customFunction: customFunction };
+        this.operators.push({
+            operator: name,
+            name: source.name,
+            deterministic: true,
+            type: model_1.OperatorType.operator,
+            lib: this.name,
+            operands: metadata.params.length,
+            desc: metadata.desc,
+            params: metadata.params,
+            return: metadata.return,
+            function: source,
+            custom: custom
+        });
     }
     getMetadata(source) {
         const args = [];
@@ -36,15 +62,14 @@ class Library {
             const data = p.split('=');
             const arg = {
                 name: data[0],
+                type: 'any',
                 default: data.length > 1 ? data[1] : null
             };
             args.push(arg);
         }
         return {
-            originalName: source.name,
-            signature: '(' + _args.toString() + ')',
-            doc: null,
-            args: args
+            return: 'any',
+            params: args
         };
     }
     getArgs(source) {

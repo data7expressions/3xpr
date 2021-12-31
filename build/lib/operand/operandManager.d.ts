@@ -1,11 +1,9 @@
 import { Node, ExpressionConfig } from '../parser/index';
 import { Data } from '../model';
 import { Operand } from './operands';
-import { OperandMetadata } from '.';
 export declare class OperandManager {
-    private metadata;
     private expressionConfig;
-    constructor(metadata: OperandMetadata, expressionConfig: ExpressionConfig);
+    constructor(expressionConfig: ExpressionConfig);
     build(node: Node): Operand;
     serialize(operand: Operand): any;
     deserialize(serialized: any): Operand;

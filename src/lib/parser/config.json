@@ -985,8 +985,8 @@
       "return": "string",
       "params": [
         {
-          "name": "value",
-          "type": "string"
+          "name": "ascii",
+          "type": "number"
         }
       ]
     },

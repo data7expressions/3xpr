@@ -10,9 +10,8 @@ class Expressions {
     constructor() {
         this.cache = new memoryCache_1.MemoryCache();
         this.expressionConfig = new parser_1.ExpressionConfig();
-        this.operandMetadata = new operand_1.OperandMetadata();
-        this.operandMetadata.addLibrary(new coreLib_1.CoreLib());
-        this.operandManager = new operand_1.OperandManager(this.operandMetadata, this.expressionConfig);
+        this.expressionConfig.addLibrary(new coreLib_1.CoreLib());
+        this.operandManager = new operand_1.OperandManager(this.expressionConfig);
         this.parserManager = new parser_1.ParserManager(this.expressionConfig);
     }
     static get instance() {
@@ -21,20 +20,12 @@ class Expressions {
         }
         return this._instance;
     }
-    get metadata() {
-        return this.operandMetadata;
-    }
     get parser() {
         return this.parserManager;
     }
     get config() {
         return this.expressionConfig;
     }
-    /**
-     * Build expression
-     * @param expression expression to build
-     * @returns Operand
-     */
     parse(expression) {
         try {
             const key = 'operand_' + expression;

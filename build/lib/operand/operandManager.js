@@ -4,8 +4,7 @@ exports.OperandManager = void 0;
 const model_1 = require("../model");
 const operands_1 = require("./operands");
 class OperandManager {
-    constructor(metadata, expressionConfig) {
-        this.metadata = metadata;
+    constructor(expressionConfig) {
         this.expressionConfig = expressionConfig;
     }
     build(node) {
@@ -31,7 +30,7 @@ class OperandManager {
         throw new Error('NotImplemented');
     }
     eval(operand, data) {
-        this.initialize(operand, new model_1.Data(data));
+        this.initialize(operand, data);
         return operand.eval();
     }
     initialize(operand, data) {
@@ -39,20 +38,20 @@ class OperandManager {
         if (operand instanceof operands_1.ArrowFunction) {
             const childData = current.newData();
             operand.data = childData;
-            operand.metadata = this.metadata;
+            operand.metadata = this.expressionConfig;
             current = childData;
         }
         else if (operand instanceof operands_1.ChildFunction) {
             const childData = current.newData();
             operand.data = childData;
-            operand.metadata = this.metadata;
+            operand.metadata = this.expressionConfig;
             current = childData;
         }
         else if (operand instanceof operands_1.FunctionRef) {
-            operand.metadata = this.metadata;
+            operand.metadata = this.expressionConfig;
         }
         else if (operand instanceof operands_1.Operator) {
-            operand.metadata = this.metadata;
+            operand.metadata = this.expressionConfig;
         }
         else if (operand instanceof operands_1.Variable) {
             operand.data = current;
@@ -67,8 +66,8 @@ class OperandManager {
             return this.reduceOperand(operand);
         }
         else if (operand instanceof operands_1.FunctionRef) {
-            const funcMetadata = this.metadata.getFunctionMetadata(operand.name);
-            if (funcMetadata && funcMetadata.metadata && funcMetadata.metadata.deterministic) {
+            const funcMetadata = this.expressionConfig.getFunction(operand.name);
+            if (funcMetadata && funcMetadata.deterministic) {
                 return this.reduceOperand(operand);
             }
         }
@@ -161,6 +160,34 @@ class OperandManager {
                 return new operands_1.ChildFunction(node.name, children);
             case 'block':
                 return new operands_1.Block(node.name, children);
+            case 'if':
+                return new operands_1.If(node.name, children);
+            case 'elseIf':
+                return new operands_1.ElseIf(node.name, children);
+            case 'else':
+                return new operands_1.Else(node.name, children);
+            case 'while':
+                return new operands_1.While(node.name, children);
+            case 'for':
+                return new operands_1.For(node.name, children);
+            case 'forIn':
+                return new operands_1.ForIn(node.name, children);
+            case 'switch':
+                return new operands_1.Switch(node.name, children);
+            case 'break':
+                return new operands_1.Break(node.name, children);
+            case 'continue':
+                return new operands_1.Continue(node.name, children);
+            case 'function':
+                return new operands_1.Function(node.name, children);
+            case 'return':
+                return new operands_1.Return(node.name, children);
+            case 'try':
+                return new operands_1.Try(node.name, children);
+            case 'catch':
+                return new operands_1.Catch(node.name, children);
+            case 'throw':
+                return new operands_1.Throw(node.name, children);
             default:
                 throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported');
         }

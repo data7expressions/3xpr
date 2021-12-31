@@ -1,22 +1,15 @@
 import { ParserManager, ExpressionConfig } from '../parser';
-import { OperandMetadata, Operand } from '../operand';
+import { Operand } from '../operand';
 export declare class Expressions {
     private cache;
     private parserManager;
-    private operandMetadata;
     private expressionConfig;
     private operandManager;
     constructor();
     private static _instance;
     static get instance(): Expressions;
-    get metadata(): OperandMetadata;
     get parser(): ParserManager;
     get config(): ExpressionConfig;
-    /**
-     * Build expression
-     * @param expression expression to build
-     * @returns Operand
-     */
     parse(expression: string): Operand;
     /**
      * Evaluate and solve expression

@@ -1,21 +1,18 @@
-export declare class Library {
+import { ParamMetadata, OperatorMetadata, OperatorType } from '../model';
+export interface Metadata {
+    desc?: string;
+    return: string;
+    params: ParamMetadata[];
+}
+export declare abstract class Library {
     name: string;
-    language: string;
     enums: any;
-    operators: any;
-    functions: any;
-    constructor(name: string, language: string);
+    operators: OperatorMetadata[];
+    functions: OperatorMetadata[];
+    constructor(name: string);
     addEnum(key: string, source: any): void;
-    addFunction(name: string, source: any, custom?: any, isArrowFunction?: boolean): void;
-    addOperator(name: string, source: any, custom?: any, customFunction?: any): void;
-    getMetadata(source: any): {
-        originalName: any;
-        signature: string;
-        doc: null;
-        args: {
-            name: any;
-            default: any;
-        }[];
-    };
-    getArgs(source: string): any;
+    addFunction(name: string, source: any, type?: OperatorType, custom?: any, deterministic?: boolean): any;
+    addOperator(name: string, source: any, custom?: any): any;
+    private getMetadata;
+    private getArgs;
 }
