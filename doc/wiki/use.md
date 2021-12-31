@@ -1,30 +1,3 @@
-# js-expressions
-
-Js-expression is an extensible expression evaluator and parser. Besides the operators, functions, variables, objects and arrays that are supported; it is possible to extend it with your own functions, operators, etc
-
-## Features
-
-- Parse and evaluate
-    - Arithmetic operators
-    - assignment operators
-    - comparison operators
-    - Logical operators
-    - Bitwise Operators
-    - Variables
-    - Constants
-    - Functions
-    - Objects
-    - Arrayas
-    - Enums
-
-- Simplify math operations where operands are constant
-- It allows to extend the model by adding or overwriting operators, functions and enums
-- Supports multiline expressions using the semicolon character to separate them
-- The evaluation receives the context where the variables will be read, written, and created. This context must be a dictionary or a class derived from a dictionary
-- When parsing a string that contains expression, an expression object is returned, which can be reused to evolve the expression with different contexts, in this way the performance is notably improved.
-- You can create a new expression object using expression objects and combining them with operators
-
-## Use
 
 expressions is the main class of the library that contains the methods to parse, evaluate, get info of expression, etc . In order to use the library you need to create an instance of this class:
 
@@ -91,8 +64,3 @@ expressions.config.addLibrary(new TestEnumLib())
 console.log(expressions.eval('ColorConversion.GRAY2BGR'))
 console.log(expressions.eval('Color.GREEN')))
 ```
-
-## Documentation
-
-- [Wiki](https://github.com/FlavioLionelRita/js-expressions/wiki)
-- [Source Code](https://github.com/FlavioLionelRita/js-expressions/blob/main/doc/source/README.md)
