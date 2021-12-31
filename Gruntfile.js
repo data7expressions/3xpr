@@ -32,12 +32,12 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('build-config', 'build configuration', function () {
-		const task = require('./build/dev/task/buildConfig')
+		const task = require('./src/dev/task/buildConfig')
 		task.apply(this.async())
 	})
 
 	grunt.registerTask('build-wiki', 'build wiki', function () {
-		const task = require('./build/dev/task/buildWiki')
+		const task = require('./src/dev/task/buildWiki')
 		task.apply(this.async())
 	})
 
