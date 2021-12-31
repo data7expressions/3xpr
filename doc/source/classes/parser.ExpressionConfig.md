@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / [parser](../modules/parser.md) / ExpressionConfig
+[Expressions](../README.md) / [parser](../modules/parser.md) / ExpressionConfig
 
 # Class: ExpressionConfig
 
@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L10)
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L10)
 
 ## Properties
 
@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L7)
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L7)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L18)
+[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L18)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:109](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L109)
+[parser/expressionConfig.ts:109](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L109)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:105](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L105)
+[parser/expressionConfig.ts:105](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L105)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:121](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L121)
+[parser/expressionConfig.ts:121](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L121)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:113](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L113)
+[parser/expressionConfig.ts:113](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L113)
 
 ___
 
@@ -163,4 +163,4 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:100](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/parser/expressionConfig.ts#L100)
+[parser/expressionConfig.ts:100](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L100)

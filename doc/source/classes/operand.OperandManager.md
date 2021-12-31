@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / [operand](../modules/operand.md) / OperandManager
+[Expressions](../README.md) / [operand](../modules/operand.md) / OperandManager
 
 # Class: OperandManager
 
@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/operand/operandManager.ts#L11)
+[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/operandManager.ts#L11)
 
 ## Methods
 
@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/operand/operandManager.ts#L15)
+[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/operandManager.ts#L15)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/operand/operandManager.ts#L35)
+[operand/operandManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/operandManager.ts#L35)
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/operand/operandManager.ts#L39)
+[operand/operandManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/operandManager.ts#L39)
 
 ___
 
@@ -112,4 +112,4 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/ee5957b/src/lib/operand/operandManager.ts#L26)
+[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/operandManager.ts#L26)

@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / model
+[Expressions](../README.md) / model
 
 # Module: model
 

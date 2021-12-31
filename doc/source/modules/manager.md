@@ -1,4 +1,4 @@
-[Lambda ORM](../README.md) / manager
+[Expressions](../README.md) / manager
 
 # Module: manager
 
