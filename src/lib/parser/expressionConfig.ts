@@ -3,10 +3,10 @@ import { OperatorMetadata, OperatorType } from '../model'
 import { Library } from './../operand'
 
 export class ExpressionConfig {
-	private libraries:Library[]
+	public libraries:Library[]
 	public operators: OperatorMetadata[]
-	private enums: any
-	private functions: OperatorMetadata[]
+	public enums: any
+	public functions: OperatorMetadata[]
 	constructor () {
 		this.libraries = []
 		this.operators = []
@@ -15,7 +15,7 @@ export class ExpressionConfig {
 		this.load(expConfig)
 	}
 
-	addLibrary (library:Library):void {
+	public addLibrary (library:Library):void {
 		const index = this.libraries.findIndex(p => p.name === library.name)
 		if (index === undefined) {
 			this.libraries.push(library)
@@ -35,22 +35,22 @@ export class ExpressionConfig {
 		}
 	}
 
-	private load (data:any):void {
+	public load (data:any):void {
 		for (const name in data.enums) {
 			this.addEnum(name, data.enums[name])
 		}
 		for (const type in data.operators) {
-			// const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
 			for (const name in data.operators[type]) {
 				const operatorData = data.operators[type][name]
 				const metadata: OperatorMetadata = {
 					operator: name,
 					deterministic: true,
 					name: operatorData.name,
+					category: operatorData.category,
 					type: OperatorType.operator,
 					operands: operatorData.params.length,
 					priority: operatorData.priority ? operatorData.priority : -1,
-					desc: operatorData.desc,
+					description: operatorData.description,
 					params: operatorData.params,
 					return: operatorData.return
 				}
@@ -61,11 +61,12 @@ export class ExpressionConfig {
 			const functionData = data.functions[name]
 			const metadata: OperatorMetadata = {
 				operator: name,
-				name: functionData.name,
+				name: name,
+				category: functionData.category,
 				deterministic: functionData.deterministic ? functionData.deterministic : true,
-				type: functionData.function ? functionData.function : OperatorType.function,
+				type: functionData.type ? functionData.type : OperatorType.function,
 				operands: functionData.params ? functionData.params.length : 0,
-				desc: functionData.desc,
+				description: functionData.description,
 				params: functionData.params,
 				return: functionData.return
 			}
@@ -82,8 +83,12 @@ export class ExpressionConfig {
 		if (index === -1) {
 			this.operators.push(metadata)
 		} else {
-			this.operators[index].function = metadata.function
-			this.operators[index].custom = metadata.custom
+			if (metadata.function) {
+				this.operators[index].function = metadata.function
+			}
+			if (metadata.custom) {
+				this.operators[index].custom = metadata.custom
+			}
 		}
 	}
 
@@ -92,8 +97,12 @@ export class ExpressionConfig {
 		if (index === -1) {
 			this.functions.push(metadata)
 		} else {
-			this.functions[index].function = metadata.function
-			this.functions[index].custom = metadata.custom
+			if (metadata.function) {
+				this.functions[index].function = metadata.function
+			}
+			if (metadata.custom) {
+				this.functions[index].custom = metadata.custom
+			}
 		}
 	}
 

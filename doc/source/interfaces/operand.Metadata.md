@@ -8,19 +8,19 @@
 
 ### Properties
 
-- [desc](operand.Metadata.md#desc)
+- [description](operand.Metadata.md#description)
 - [params](operand.Metadata.md#params)
 - [return](operand.Metadata.md#return)
 
 ## Properties
 
-### desc
+### description
 
-• `Optional` **desc**: `string`
+• `Optional` **description**: `string`
 
 #### Defined in
 
-[operand/library.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/library.ts#L4)
+[operand/library.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/operand/library.ts#L4)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/library.ts#L6)
+[operand/library.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/operand/library.ts#L6)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[operand/library.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/operand/library.ts#L5)
+[operand/library.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/operand/library.ts#L5)

@@ -185,8 +185,8 @@ class CoreLib extends library_1.Library {
         this.addFunction('push', (list, item) => list.push(item), model_1.OperatorType.child);
         this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
         this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
-        this.addFunction('insert', ArrayFunctions.insert, model_1.OperatorType.arrow, Insert);
-        this.addFunction('update', ArrayFunctions.update, model_1.OperatorType.arrow, Update);
+        // this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
+        // this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
     }
     convertFunctions() {
         this.addFunction('toString', Functions.toString);
@@ -589,29 +589,29 @@ class Remove extends operands_1.ArrowFunction {
         return rows;
     }
 }
-class Insert extends operands_1.ArrowFunction {
-    eval() {
-        throw new Error('NotImplemented');
-    }
-}
-class Update extends operands_1.ArrowFunction {
-    eval() {
-        throw new Error('NotImplemented');
-    }
-}
-class Delete extends operands_1.ArrowFunction {
-    eval() {
-        throw new Error('NotImplemented');
-    }
-}
-class GroupBy extends operands_1.ArrowFunction {
-    eval() {
-        throw new Error('NotImplemented');
-    }
-}
-class Having extends operands_1.ArrowFunction {
-    eval() {
-        throw new Error('NotImplemented');
-    }
-}
+// class Insert extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Update extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Delete extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class GroupBy extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Having extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
 //# sourceMappingURL=coreLib.js.map

@@ -185,13 +185,11 @@ export class CoreLib extends Library {
 		this.addFunction('last', ArrayFunctions.last, OperatorType.arrow, Last)
 		this.addFunction('sort', ArrayFunctions.sort, OperatorType.arrow, Sort)
 		this.addFunction('remove', ArrayFunctions.remove, OperatorType.arrow, Remove)
-
 		this.addFunction('push', (list: any[], item: any): number => list.push(item), OperatorType.child)
 		this.addFunction('pop', (list: any[]): number => list.pop(), OperatorType.child)
 		this.addFunction('length', (list: any[]) => list.length, OperatorType.child)
-
-		this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
-		this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
+		// this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
+		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 
 	private convertFunctions () {
@@ -520,14 +518,14 @@ class Functions {
 }
 
 class ArrayFunctions {
-	static map (list: any[], method: Function): any { throw new Error('Empty') }
+	static map (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static foreach (list: any[], method: Function): void { throw new Error('Empty') }
 	static filter (list: any[], method: Function):any[] { throw new Error('Empty') }
 	static reverse (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
 	static last (list:any[], method:Function):any|null { throw new Error('Empty') }
 	static sort (list: any[], method: Function):any[] { throw new Error('Empty') }
-	static remove (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static remove (list: any[], method: Function): number { throw new Error('Empty') }
 
 	static insert (list:any[], item:any) { throw new Error('Empty') }
 	static update (list:any[], item:any, method:Function) { throw new Error('Empty') }
@@ -645,29 +643,28 @@ class Remove extends ArrowFunction {
 	}
 }
 
-class Insert extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
-class Update extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
-class Delete extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
-
-class GroupBy extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
-class Having extends ArrowFunction {
-	eval ():any {
-		throw new Error('NotImplemented')
-	}
-}
+// class Insert extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Update extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Delete extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class GroupBy extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }
+// class Having extends ArrowFunction {
+// eval ():any {
+// throw new Error('NotImplemented')
+// }
+// }

@@ -12,6 +12,9 @@
 
 ### Properties
 
+- [enums](parser.ExpressionConfig.md#enums)
+- [functions](parser.ExpressionConfig.md#functions)
+- [libraries](parser.ExpressionConfig.md#libraries)
 - [operators](parser.ExpressionConfig.md#operators)
 
 ### Methods
@@ -22,6 +25,7 @@
 - [getFunction](parser.ExpressionConfig.md#getfunction)
 - [getOperator](parser.ExpressionConfig.md#getoperator)
 - [isEnum](parser.ExpressionConfig.md#isenum)
+- [load](parser.ExpressionConfig.md#load)
 
 ## Constructors
 
@@ -31,9 +35,39 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L10)
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L10)
 
 ## Properties
+
+### enums
+
+• **enums**: `any`
+
+#### Defined in
+
+[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L8)
+
+___
+
+### functions
+
+• **functions**: [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)[]
+
+#### Defined in
+
+[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L9)
+
+___
+
+### libraries
+
+• **libraries**: [`Library`](operand.Library.md)[]
+
+#### Defined in
+
+[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L6)
+
+___
 
 ### operators
 
@@ -41,7 +75,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L7)
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L7)
 
 ## Methods
 
@@ -61,7 +95,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L18)
+[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L18)
 
 ___
 
@@ -81,7 +115,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:109](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L109)
+[parser/expressionConfig.ts:118](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L118)
 
 ___
 
@@ -102,7 +136,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:105](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L105)
+[parser/expressionConfig.ts:114](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L114)
 
 ___
 
@@ -122,7 +156,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:121](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L121)
+[parser/expressionConfig.ts:130](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L130)
 
 ___
 
@@ -143,7 +177,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:113](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L113)
+[parser/expressionConfig.ts:122](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L122)
 
 ___
 
@@ -163,4 +197,24 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:100](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/parser/expressionConfig.ts#L100)
+[parser/expressionConfig.ts:109](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L109)
+
+___
+
+### load
+
+▸ **load**(`data`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[parser/expressionConfig.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/parser/expressionConfig.ts#L38)

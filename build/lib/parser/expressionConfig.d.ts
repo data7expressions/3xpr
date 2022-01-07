@@ -1,13 +1,13 @@
 import { OperatorMetadata } from '../model';
 import { Library } from './../operand';
 export declare class ExpressionConfig {
-    private libraries;
+    libraries: Library[];
     operators: OperatorMetadata[];
-    private enums;
-    private functions;
+    enums: any;
+    functions: OperatorMetadata[];
     constructor();
     addLibrary(library: Library): void;
-    private load;
+    load(data: any): void;
     private addEnum;
     private addOperator;
     private addFunction;

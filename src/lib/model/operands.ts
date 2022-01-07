@@ -17,7 +17,7 @@ export interface OperatorMetadata {
 	type: OperatorType
 	deterministic:boolean
 	category?:string
-	desc?: string
+	description?: string
 	lib?: string
 	operands: number
 	priority?:number

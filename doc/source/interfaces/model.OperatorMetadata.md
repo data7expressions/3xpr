@@ -10,7 +10,7 @@
 
 - [category](model.OperatorMetadata.md#category)
 - [custom](model.OperatorMetadata.md#custom)
-- [desc](model.OperatorMetadata.md#desc)
+- [description](model.OperatorMetadata.md#description)
 - [deterministic](model.OperatorMetadata.md#deterministic)
 - [function](model.OperatorMetadata.md#function)
 - [lib](model.OperatorMetadata.md#lib)
@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[model/operands.ts:19](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L19)
+[model/operands.ts:19](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L19)
 
 ___
 
@@ -40,17 +40,17 @@ ___
 
 #### Defined in
 
-[model/operands.ts:27](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L27)
+[model/operands.ts:27](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L27)
 
 ___
 
-### desc
+### description
 
-• `Optional` **desc**: `string`
+• `Optional` **description**: `string`
 
 #### Defined in
 
-[model/operands.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L20)
+[model/operands.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L20)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L18)
+[model/operands.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L18)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L26)
+[model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L26)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L21)
+[model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L21)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L15)
+[model/operands.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L15)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L22)
+[model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L22)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L16)
+[model/operands.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L16)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L25)
+[model/operands.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L25)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L23)
+[model/operands.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L23)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L24)
+[model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L24)
 
 ___
 
@@ -150,4 +150,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/3419c08/src/lib/model/operands.ts#L17)
+[model/operands.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/1a6363c/src/lib/model/operands.ts#L17)

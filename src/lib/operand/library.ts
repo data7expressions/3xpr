@@ -1,7 +1,7 @@
 import { ParamMetadata, OperatorMetadata, OperatorType } from '../model'
 
 export interface Metadata {
-	desc?: string
+	description?: string
 	return:string
 	params:ParamMetadata[]
 }
@@ -32,7 +32,7 @@ export abstract class Library {
 			deterministic: deterministic,
 			lib: this.name,
 			operands: metadata.params.length,
-			desc: metadata.desc,
+			description: metadata.description,
 			params: metadata.params,
 			return: metadata.return,
 			function: source,
@@ -60,7 +60,7 @@ export abstract class Library {
 			type: OperatorType.operator,
 			lib: this.name,
 			operands: metadata.params.length,
-			desc: metadata.desc,
+			description: metadata.description,
 			params: metadata.params,
 			return: metadata.return,
 			function: source,

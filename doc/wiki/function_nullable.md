@@ -4,6 +4,7 @@
 |nvl2|Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.|
 |isNull|Evaluate if it is null|
 |isNotNull|Evaluate if it is not null|
+|isEmpty|Evaluate if it is empty|
 
 ## Definition
 
@@ -37,6 +38,14 @@
 ### isNotNull
 
 - description: Evaluate if it is not null
+- deterministic: true
+- return: boolean
+- params:
+	- value: any
+
+### isEmpty
+
+- description: Evaluate if it is empty
 - deterministic: true
 - return: boolean
 - params:

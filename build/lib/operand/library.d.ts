@@ -1,6 +1,6 @@
 import { ParamMetadata, OperatorMetadata, OperatorType } from '../model';
 export interface Metadata {
-    desc?: string;
+    description?: string;
     return: string;
     params: ParamMetadata[];
 }
