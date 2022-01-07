@@ -64,7 +64,7 @@ export class ExpressionConfig {
 				name: name,
 				category: functionData.category,
 				deterministic: functionData.deterministic ? functionData.deterministic : true,
-				type: functionData.function ? functionData.function : OperatorType.function,
+				type: functionData.type ? functionData.type : OperatorType.function,
 				operands: functionData.params ? functionData.params.length : 0,
 				description: functionData.description,
 				params: functionData.params,

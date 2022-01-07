@@ -1035,6 +1035,7 @@ functions:
 # array: ---------------------------------------------------------
   foreach:
     description: Calls a function for each element in an array.
+    type: arrow
     category: array 
     return: void 
     params:
@@ -1044,6 +1045,7 @@ functions:
       type: function
   filter:
     description: Creates a new array filled with elements that pass a test provided by a function
+    type: arrow
     category: array 
     return: T[] 
     params:
@@ -1053,6 +1055,7 @@ functions:
       type: function  
   first:
     description: Returns the first value of the array that meets a condition
+    type: arrow
     category: array 
     return: T 
     params:
@@ -1062,6 +1065,7 @@ functions:
       type: function 
   last:
     description: Returns the last value of the array that meets a condition
+    type: arrow
     category: array 
     return: T 
     params:
@@ -1071,6 +1075,7 @@ functions:
       type: function
   map:
     description: Creates a new array from calling a function for every array element.
+    type: arrow
     category: array 
     return: any[] 
     params:
@@ -1080,6 +1085,7 @@ functions:
       type: function  
   sort:
     description: Sorts the elements of an array.
+    type: arrow
     category: array 
     return: T[] 
     params:
@@ -1088,7 +1094,8 @@ functions:
     - name: method 
       type: function 
   reverse:
-    description:  Reverses the order of the elements in an array. 
+    description:  Reverses the order of the elements in an array.
+    type: arrow 
     category: array 
     return: T[] 
     params:
@@ -1098,6 +1105,7 @@ functions:
       type: function 
   remove:
     description: Eliminate the elements of the array that meet the filter condition
+    type: arrow
     category: array 
     return: number 
     params:
@@ -1107,6 +1115,7 @@ functions:
       type: function
   push:
     description: Adds new items to the end of an array
+    type: child
     category: array 
     return: number 
     params:
@@ -1116,6 +1125,7 @@ functions:
       type: T 
   pop:
     description: Removes (pops) the last element of an array and return element
+    type: child
     category: array 
     return: T 
     params:
@@ -1123,6 +1133,7 @@ functions:
       type: T[]
   length:
     description: Calculating the number of items in a array.
+    type: child
     category: array 
     return: number 
     params:
