@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Helper } from '../../lib/manager/helper'
-const ConfigExtends = require('config-extends')
+import { expressions } from '../../lib'
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
@@ -11,7 +11,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 	lines.push('|------------|----------------------------------------------|')
 	for (const p in list) {
 		const item = list[p]
-		lines.push(`|${item.name}|${item.desc}|`)
+		lines.push(`|${item.name}|${item.description}|`)
 	}
 	lines.push('')
 
@@ -19,7 +19,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 	for (const p in list) {
 		const item = list[p]
 		lines.push(`### ${item.name}\n`)
-		lines.push(`- description: ${item.desc}`)
+		lines.push(`- description: ${item.description}`)
 		lines.push(`- deterministic: ${item.deterministic}`)
 		lines.push(`- return: ${item.return}`)
 		lines.push('- params:')
@@ -46,14 +46,14 @@ async function writeOperators (category:string, list: any): Promise<void> {
 	lines.push('|------------|----------------------------------------------|')
 	for (const p in list) {
 		const item = list[p]
-		lines.push(`|${item.op}|${item.name}|`)
+		lines.push(`|${item.operator}|${item.name}|`)
 	}
 	lines.push('')
 
 	lines.push('## Definition\n')
 	for (const p in list) {
 		const item = list[p]
-		lines.push(`### Operator ${item.op}\n`)
+		lines.push(`### Operator ${item.operator}\n`)
 		lines.push(`- description: ${item.name}`)
 		lines.push(`- return: ${item.return}`)
 		lines.push('- params:')
@@ -73,16 +73,14 @@ async function writeOperators (category:string, list: any): Promise<void> {
 }
 
 export async function apply (callback: any) {
-	const model = await ConfigExtends.apply(path.join('src/dev/config/model.yaml'))
-
 	const funcCategories:any = {}
-	for (const p in model.functions) {
-		const item = model.functions[p]
-		item.name = p
-		if (funcCategories[item.category as string] === undefined) {
-			funcCategories[item.category] = { list: [] }
+	for (const p in expressions.config.functions) {
+		const item = expressions.config.functions[p]
+		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
+		if (funcCategories[category] === undefined) {
+			funcCategories[category] = { list: [] }
 		}
-		funcCategories[item.category].list.push(item)
+		funcCategories[category].list.push(item)
 	}
 
 	for (const p in funcCategories) {
@@ -91,21 +89,13 @@ export async function apply (callback: any) {
 	}
 
 	const operCategories:any = {}
-	for (const p in model.operators.unary) {
-		const item = model.operators.unary[p]
-		item.op = p
-		if (operCategories[item.category as string] === undefined) {
-			operCategories[item.category] = { list: [] }
+	for (const p in expressions.config.operators) {
+		const item = expressions.config.operators[p]
+		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
+		if (operCategories[category] === undefined) {
+			operCategories[category] = { list: [] }
 		}
-		operCategories[item.category].list.push(item)
-	}
-	for (const p in model.operators.binary) {
-		const item = model.operators.binary[p]
-		item.op = p
-		if (operCategories[item.category as string] === undefined) {
-			operCategories[item.category] = { list: [] }
-		}
-		operCategories[item.category].list.push(item)
+		operCategories[category].list.push(item)
 	}
 
 	for (const p in operCategories) {
@@ -114,5 +104,4 @@ export async function apply (callback: any) {
 	}
 	callback()
 }
-
 // apply(function () { console.log('end') })

@@ -39,17 +39,17 @@ class ExpressionConfig {
             this.addEnum(name, data.enums[name]);
         }
         for (const type in data.operators) {
-            // const operands = type === 'ternary' ? 3 : type === 'binary' ? 2 : 1
             for (const name in data.operators[type]) {
                 const operatorData = data.operators[type][name];
                 const metadata = {
                     operator: name,
                     deterministic: true,
                     name: operatorData.name,
+                    category: operatorData.category,
                     type: model_1.OperatorType.operator,
                     operands: operatorData.params.length,
                     priority: operatorData.priority ? operatorData.priority : -1,
-                    desc: operatorData.desc,
+                    description: operatorData.description,
                     params: operatorData.params,
                     return: operatorData.return
                 };
@@ -60,11 +60,12 @@ class ExpressionConfig {
             const functionData = data.functions[name];
             const metadata = {
                 operator: name,
-                name: functionData.name,
+                name: name,
+                category: functionData.category,
                 deterministic: functionData.deterministic ? functionData.deterministic : true,
                 type: functionData.function ? functionData.function : model_1.OperatorType.function,
                 operands: functionData.params ? functionData.params.length : 0,
-                desc: functionData.desc,
+                description: functionData.description,
                 params: functionData.params,
                 return: functionData.return
             };
@@ -80,8 +81,12 @@ class ExpressionConfig {
             this.operators.push(metadata);
         }
         else {
-            this.operators[index].function = metadata.function;
-            this.operators[index].custom = metadata.custom;
+            if (metadata.function) {
+                this.operators[index].function = metadata.function;
+            }
+            if (metadata.custom) {
+                this.operators[index].custom = metadata.custom;
+            }
         }
     }
     addFunction(metadata) {
@@ -90,8 +95,12 @@ class ExpressionConfig {
             this.functions.push(metadata);
         }
         else {
-            this.functions[index].function = metadata.function;
-            this.functions[index].custom = metadata.custom;
+            if (metadata.function) {
+                this.functions[index].function = metadata.function;
+            }
+            if (metadata.custom) {
+                this.functions[index].custom = metadata.custom;
+            }
         }
     }
     isEnum(name) {

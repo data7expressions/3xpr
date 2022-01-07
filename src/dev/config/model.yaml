@@ -401,7 +401,7 @@ operators:
 functions:
 # general:---------------------------------------------------------       
   as:
-    desc:  Is used to assign a new name temporarily to a table column or even a table
+    description:  Is used to assign a new name temporarily to a table column or even a table
     category: general 
     return: T
     params:
@@ -410,22 +410,29 @@ functions:
     - name: name
       type: string
   distinct:
-    desc:  Is used with SELECT key word to retrieve only distinct or unique data.
+    description:  Is used with SELECT key word to retrieve only distinct or unique data.
     category: general 
     return: T
     params:
     - name: value
-      type: T      
+      type: T  
+  sleep:
+    description:  Delay a program execution for a given number of miliseconds.
+    category: general 
+    return: void
+    params:
+    - name: miliseconds
+      type: number        
 # sort:---------------------------------------------------------         
   desc:
-    desc: This statement is used to sort data in descending order
+    description: This statement is used to sort data in descending order
     category: sort 
     return: void
     params:
     - name: value
       type: any 
   asc:
-    desc: This statement is used to sort data in ascending order.
+    description: This statement is used to sort data in ascending order.
     category: sort 
     return: void
     params:
@@ -433,7 +440,7 @@ functions:
       type: any 
 # condition:---------------------------------------------------------       
   between:
-    desc: Specifies how to retrieve values from an expression within a specific range.
+    description: Specifies how to retrieve values from an expression within a specific range.
     category: condition 
     return: boolean
     params:
@@ -444,7 +451,7 @@ functions:
     - name: to
       type: T  
   includes:
-    desc: Is used to reduce the use of multiple OR conditions
+    description: Is used to reduce the use of multiple OR conditions
     category: condition 
     return: boolean
     params:
@@ -454,7 +461,7 @@ functions:
       type: T[]      
 # numeric:---------------------------------------------------------       
   abs:
-    desc: Get the absolute value     
+    description: Get the absolute value     
     category: numeric
     deterministic: true 
     return: number
@@ -462,7 +469,7 @@ functions:
     - name: value
       type: number  
   acos:
-    desc: Get the arc cosine 
+    description: Get the arc cosine 
     category: numeric
     deterministic: true 
     return: number
@@ -470,7 +477,7 @@ functions:
     - name: value
       type: number  
   asin:
-    desc: Get the arc sine 
+    description: Get the arc sine 
     category: numeric
     deterministic: true 
     return: number
@@ -478,7 +485,7 @@ functions:
     - name: value
       type: number  
   atan:
-    desc: Get the arc tangent 
+    description: Get the arc tangent 
     category: numeric
     deterministic: true 
     return: number
@@ -486,7 +493,7 @@ functions:
     - name: value
       type: number 
   atan2:
-    desc: Get the arc tangent of x and y 
+    description: Get the arc tangent of x and y 
     category: numeric
     deterministic: true 
     return: number
@@ -496,7 +503,7 @@ functions:
     - name: y
       type: number                     
   ceil:
-    desc: Get the smallest following integer 
+    description: Get the smallest following integer 
     category: numeric
     deterministic: true 
     return: number
@@ -504,7 +511,7 @@ functions:
     - name: value
       type: number 
   cos:
-    desc: Get the cosine 
+    description: Get the cosine 
     category: numeric
     deterministic: true 
     return: number
@@ -512,7 +519,7 @@ functions:
     - name: value
       type: number  
   cosh:
-    desc: Get hyperbolic cosine 
+    description: Get hyperbolic cosine 
     category: numeric
     deterministic: true 
     return: number
@@ -520,7 +527,7 @@ functions:
     - name: value
       type: number   
   exp:
-    desc:  Raise e to the nth power  
+    description:  Raise e to the nth power  
     category: numeric
     deterministic: true 
     return: number
@@ -528,7 +535,7 @@ functions:
     - name: value
       type: number  
   floor:
-    desc: Get the largest preceding integer 
+    description: Get the largest preceding integer 
     category: numeric
     deterministic: true 
     return: number
@@ -536,7 +543,7 @@ functions:
     - name: value
       type: number  
   ln:
-    desc: Get natural logarithm of num
+    description: Get natural logarithm of num
     category: numeric
     deterministic: true 
     return: number
@@ -544,7 +551,7 @@ functions:
     - name: value
       type: number 
   log:
-    desc: Get logarithm, base num1, of num2 
+    description: Get logarithm, base num1, of num2 
     category: numeric
     deterministic: true 
     return: number
@@ -552,9 +559,17 @@ functions:
     - name: n1
       type: number   
     - name: n2
-      type: number 
+      type: number
+  log10:
+    description: Return the base 10 logarithm of x 
+    category: numeric
+    deterministic: true 
+    return: number
+    params:
+    - name: value
+      type: number      
   remainder:
-    desc: Get remainder
+    description: Get remainder
     category: numeric
     deterministic: true 
     return: number
@@ -564,7 +579,7 @@ functions:
     - name: n2
       type: number                       
   round:
-    desc: Get rounded value
+    description: Get rounded value
     category: numeric
     deterministic: true  
     return: number
@@ -574,7 +589,7 @@ functions:
     - name: decimals
       type: number 
   sign:
-    desc: Get sign of exp 
+    description: Get sign of exp 
     category: numeric
     deterministic: true 
     return: number
@@ -582,7 +597,7 @@ functions:
     - name: value
       type: number  
   sin:
-    desc: Get sine 
+    description: Get sine 
     category: numeric
     deterministic: true 
     return: number
@@ -590,7 +605,7 @@ functions:
     - name: value
       type: number 
   sinh:
-    desc: Get hyperbolic sine
+    description: Get hyperbolic sine
     category: numeric
     deterministic: true 
     return: number
@@ -598,7 +613,7 @@ functions:
     - name: value
       type: number
   tan:
-    desc: Get tangent
+    description: Get tangent
     category: numeric
     deterministic: true 
     return: number
@@ -606,7 +621,7 @@ functions:
     - name: value
       type: number   
   tanh:
-    desc: Get hyperbolic tangent 
+    description: Get hyperbolic tangent 
     category: numeric
     deterministic: true 
     return: number
@@ -614,7 +629,7 @@ functions:
     - name: value
       type: number  
   trunc:
-    desc: Truncate num 
+    description: Truncate num 
     category: numeric
     deterministic: true 
     return: number
@@ -623,15 +638,25 @@ functions:
       type: number                     
 # string:---------------------------------------------------------
   chr:
-    desc: Get character from ASCII code 
+    description: Get character from ASCII code 
     category: string
     deterministic: true 
     return: string
     params:
     - name: ascii
-      type: number 
+      type: number
+  strCount:
+    description: Count value in source 
+    category: string
+    deterministic: true 
+    return: number
+    params:
+    - name: source
+      type: string
+    - name: value
+      type: string       
   initcap:
-    desc: Capitalize words 
+    description: Capitalize words 
     category: string
     deterministic: true 
     return: string
@@ -639,7 +664,7 @@ functions:
     - name: value
       type: string 
   lower:
-    desc: Lowercase string
+    description: Lowercase string
     category: string
     deterministic: true 
     return: string
@@ -647,7 +672,7 @@ functions:
     - name: value
       type: string 
   lpad:
-    desc: Pad the left-side of string 
+    description: Pad the left-side of string 
     category: string
     deterministic: true 
     return: string
@@ -659,7 +684,7 @@ functions:
     - name: pad
       type: string  
   ltrim:
-    desc: Remove leading chars
+    description: Remove leading chars
     category: string
     deterministic: true 
     return: string
@@ -667,7 +692,7 @@ functions:
     - name: value
       type: string
   replace:
-    desc: The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. 
+    description: The replace() method searches a string for a specified value and returns a new string where the specified values are replaced. 
     category: string
     deterministic: true 
     return: string
@@ -679,7 +704,7 @@ functions:
     - name: target
       type: string                         
   rpad:
-    desc: Pad the right-side of string 
+    description: Pad the right-side of string 
     category: string 
     deterministic: true
     return: string
@@ -691,7 +716,7 @@ functions:
     - name: pad
       type: string 
   rtrim:
-    desc: Remove trailing spaces 
+    description: Remove trailing spaces 
     category: string
     deterministic: true 
     return: string
@@ -699,7 +724,7 @@ functions:
     - name: value
       type: string    
   substr:
-    desc: Get a substring of string  
+    description: Get a substring of string  
     category: string
     deterministic: true 
     return: string
@@ -711,7 +736,7 @@ functions:
     - name: count
       type: number 
   trim:
-    desc: Remove characters 
+    description: Remove characters 
     category: string
     deterministic: true 
     return: string
@@ -719,7 +744,7 @@ functions:
     - name: value
       type: string 
   upper:
-    desc: Uppercase string
+    description: Uppercase string
     category: string
     deterministic: true 
     return: string
@@ -727,29 +752,37 @@ functions:
     - name: value
       type: string  
   concat:
-    desc: String concatenation
+    description: String concatenation
     category: string
     deterministic: true
     multipleParams: true 
     return: string    
     params:
     - name: values
-      type: string      
+      type: string
+  capitalize:
+    description: Make the first character have upper case and the rest lower case
+    category: string
+    deterministic: true
+    return: string    
+    params:
+    - name: value
+      type: string           
 # datetime :---------------------------------------------------------
   curtime:
-    desc: Get the current time 
+    description: Get the current time 
     category: datetime 
     return: Date
   today:
-    desc: Get the current date 
+    description: Get the current date 
     category: datetime 
     return: Date 
   now:
-    desc: Get the current datetime 
+    description: Get the current datetime 
     category: datetime 
     return: Date 
   time:
-    desc: Convert string to time
+    description: Convert string to time
     category: datetime
     deterministic: true 
     return: Date 
@@ -757,7 +790,7 @@ functions:
     - name: value
       type: string 
   date:
-    desc: Convert string to date
+    description: Convert string to date
     category: datetime
     deterministic: true 
     return: Date 
@@ -765,7 +798,7 @@ functions:
     - name: value
       type: string  
   datetime:
-    desc: Convert string to datetime
+    description: Convert string to datetime
     category: datetime
     deterministic: true 
     return: Date 
@@ -773,7 +806,7 @@ functions:
     - name: value
       type: string              
   year:
-    desc: Get year from date
+    description: Get year from date
     category: datetime
     deterministic: true 
     return: number 
@@ -781,7 +814,7 @@ functions:
     - name: value
       type: Date
   month:
-    desc: Get month from date
+    description: Get month from date
     category: datetime
     deterministic: true 
     return: number 
@@ -789,7 +822,7 @@ functions:
     - name: value
       type: Date     
   day:
-    desc: Get day of month from date
+    description: Get day of month from date
     category: datetime
     deterministic: true 
     return: number 
@@ -797,7 +830,7 @@ functions:
     - name: value
       type: Date
   weekday:
-    desc: get date of week from date
+    description: get date of week from date
     category: datetime
     deterministic: true 
     return: number 
@@ -805,7 +838,7 @@ functions:
     - name: value
       type: Date
   hours:
-    desc: get hour from date
+    description: get hour from date
     category: datetime
     deterministic: true 
     return: number 
@@ -813,7 +846,7 @@ functions:
     - name: value
       type: Date
   minutes:
-    desc: Get minutes from date
+    description: Get minutes from date
     category: datetime
     deterministic: true 
     return: number 
@@ -821,7 +854,7 @@ functions:
     - name: value
       type: Date    
   seconds:
-    desc: Get seconds from date
+    description: Get seconds from date
     category: datetime
     deterministic: true 
     return: number 
@@ -829,7 +862,7 @@ functions:
     - name: value
       type: Date
   addYear:
-    desc: Add years to a date
+    description: Add years to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -839,7 +872,7 @@ functions:
     - name: value
       type: number 
   addMonth:
-    desc: Add months to a date
+    description: Add months to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -849,7 +882,7 @@ functions:
     - name: value
       type: number 
   addDay:
-    desc: Add days to a date
+    description: Add days to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -859,7 +892,7 @@ functions:
     - name: value
       type: number
   addHours:
-    desc: Add hours to a date
+    description: Add hours to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -869,7 +902,7 @@ functions:
     - name: value
       type: number 
   addMinutes:
-    desc: Add minutes to a date
+    description: Add minutes to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -879,7 +912,7 @@ functions:
     - name: value
       type: number 
   addSeconds:
-    desc: Add seconds to a date
+    description: Add seconds to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -889,7 +922,7 @@ functions:
     - name: value
       type: number  
   addTime:
-    desc: Add time to a date
+    description: Add time to a date
     category: datetime
     deterministic: true 
     return: Date 
@@ -899,7 +932,7 @@ functions:
     - name: value
       type: Date 
   dateDiff:
-    desc: difference between two dates
+    description: difference between two dates
     category: datetime
     deterministic: true 
     return: Date 
@@ -909,7 +942,7 @@ functions:
     - name: date2
       type: Date 
   timeDiff:
-    desc: difference between two times
+    description: difference between two times
     category: datetime
     deterministic: true 
     return: Date 
@@ -920,7 +953,7 @@ functions:
       type: Date                                    
 # convert :---------------------------------------------------------
   toString:
-    desc: convert to string
+    description: convert to string
     category: convert
     deterministic: true 
     return: string 
@@ -928,7 +961,7 @@ functions:
     - name: value
       type: any 
   toJson:
-    desc: convert to json
+    description: convert to json
     category: convert
     deterministic: true 
     return: object 
@@ -936,7 +969,7 @@ functions:
     - name: value
       type: string 
   toNumber:
-    desc: convert to number
+    description: convert to number
     category: convert
     deterministic: true 
     return: number 
@@ -945,16 +978,16 @@ functions:
       type: string                   
 # metadata :---------------------------------------------------------
   user:
-    desc: get username
+    description: get username
     category: metadata 
     return: string
   source:
-    desc: get source
+    description: get source
     category: metadata 
     return: string  
 # null: ---------------------------------------------------------
   nvl:
-    desc: Allows you to replace null values with a default value. 
+    description: Allows you to replace null values with a default value. 
     category: nullable
     deterministic: true 
     return: T 
@@ -964,7 +997,7 @@ functions:
     - name: _default 
       type: T  
   nvl2:
-    desc: Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.
+    description: Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.
     category: nullable
     deterministic: true 
     return: T 
@@ -976,7 +1009,7 @@ functions:
     - name: b 
       type: T
   isNull:
-    desc: Evaluate if it is null
+    description: Evaluate if it is null
     category: nullable
     deterministic: true 
     return: boolean 
@@ -984,63 +1017,169 @@ functions:
     - name: value 
       type: any
   isNotNull:
-    desc: Evaluate if it is not null
+    description: Evaluate if it is not null
     category: nullable
     deterministic: true 
     return: boolean 
     params:
     - name: value 
-      type: any                
-# group: ---------------------------------------------------------
-  avg:
-    desc: Calculates the average of the specified columns in a set of rows
-    category: group 
-    return: number 
-    params:
-    - name: value 
-      type: number
-  count:
-    desc: Calculating the number of rows in a set.
-    category: group 
-    return: number 
-    params:
-    - name: value 
       type: any 
+  isEmpty:
+    description: Evaluate if it is empty
+    category: nullable
+    deterministic: true 
+    return: boolean 
+    params:
+    - name: value 
+      type: any                    
+# array: ---------------------------------------------------------
+  foreach:
+    description: Calls a function for each element in an array.
+    category: array 
+    return: void 
+    params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function
+  filter:
+    description: Creates a new array filled with elements that pass a test provided by a function
+    category: array 
+    return: T[] 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function  
   first:
-    desc: Returns the first value of the selected column
-    category: group 
+    description: Returns the first value of the array that meets a condition
+    category: array 
     return: T 
     params:
-    - name: value 
-      type: T 
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
   last:
-    desc: Returns the last value of the selected column.
-    category: group 
+    description: Returns the last value of the array that meets a condition
+    category: array 
     return: T 
     params:
-    - name: value 
-      type: T 
-  max:
-    desc: Calculating the maximum.
-    category: group 
-    return: T 
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function
+  map:
+    description: Creates a new array from calling a function for every array element.
+    category: array 
+    return: any[] 
     params:
-    - name: value 
-      type: T  
-  min:
-    desc: Calculating the minimum.
-    category: group 
-    return: T 
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function  
+  sort:
+    description: Sorts the elements of an array.
+    category: array 
+    return: T[] 
     params:
-    - name: value 
-      type: T  
-  sum:
-    desc: Calculating the sum.
-    category: group 
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
+  reverse:
+    description:  Reverses the order of the elements in an array. 
+    category: array 
+    return: T[] 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
+  remove:
+    description: Eliminate the elements of the array that meet the filter condition
+    category: array 
     return: number 
     params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function
+  push:
+    description: Adds new items to the end of an array
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: T[]
     - name: value 
-      type: number                                                                   
+      type: T 
+  pop:
+    description: Removes (pops) the last element of an array and return element
+    category: array 
+    return: T 
+    params:
+    - name: list 
+      type: T[]
+  length:
+    description: Calculating the number of items in a array.
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: T[]    
+                                    
+  
+# group: ---------------------------------------------------------
+  # avg:
+  #   description: Calculates the average of the specified columns in a set of rows
+  #   category: group 
+  #   return: number 
+  #   params:
+  #   - name: value 
+  #     type: number
+  # count:
+  #   description: Calculating the number of rows in a set.
+  #   category: group 
+  #   return: number 
+  #   params:
+  #   - name: value 
+  #     type: any 
+  # first:
+  #   description: Returns the first value of the selected column
+  #   category: group 
+  #   return: T 
+  #   params:
+  #   - name: value 
+  #     type: T 
+  # last:
+  #   description: Returns the last value of the selected column.
+  #   category: group 
+  #   return: T 
+  #   params:
+  #   - name: value 
+  #     type: T 
+  # max:
+  #   description: Calculating the maximum.
+  #   category: group 
+  #   return: T 
+  #   params:
+  #   - name: value 
+  #     type: T  
+  # min:
+  #   description: Calculating the minimum.
+  #   category: group 
+  #   return: T 
+  #   params:
+  #   - name: value 
+  #     type: T  
+  # sum:
+  #   description: Calculating the sum.
+  #   category: group 
+  #   return: number 
+  #   params:
+  #   - name: value 
+  #     type: number                                                                   
 enums:
   DayOfWeek:
     Sunday: 0

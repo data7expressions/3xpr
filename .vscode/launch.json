@@ -14,13 +14,13 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
-			"name": "generate doc",
+			"name": "build wiki",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/buildDoc.ts"
+			"program": "${workspaceFolder}/src/dev/task/buildWiki.ts"
 		},
 		{
 			"name": "build config",

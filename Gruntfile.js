@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('build-wiki', 'build wiki', function () {
-		const task = require('./src/dev/task/buildWiki')
+		const task = require('./build/dev/task/buildWiki')
 		task.apply(this.async())
 	})
 
