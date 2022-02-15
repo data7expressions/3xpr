@@ -640,32 +640,6 @@
         }
     },
     "functions": {
-        "as": {
-            "description": "Is used to assign a new name temporarily to a table column or even a table",
-            "category": "general",
-            "return": "T",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "T"
-                },
-                {
-                    "name": "name",
-                    "type": "string"
-                }
-            ]
-        },
-        "distinct": {
-            "description": "Is used with SELECT key word to retrieve only distinct or unique data.",
-            "category": "general",
-            "return": "T",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "T"
-                }
-            ]
-        },
         "sleep": {
             "description": "Delay a program execution for a given number of miliseconds.",
             "category": "general",
@@ -674,28 +648,6 @@
                 {
                     "name": "miliseconds",
                     "type": "number"
-                }
-            ]
-        },
-        "desc": {
-            "description": "This statement is used to sort data in descending order",
-            "category": "sort",
-            "return": "void",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
-                }
-            ]
-        },
-        "asc": {
-            "description": "This statement is used to sort data in ascending order.",
-            "category": "sort",
-            "return": "void",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
                 }
             ]
         },
@@ -1520,16 +1472,6 @@
                     "type": "string"
                 }
             ]
-        },
-        "user": {
-            "description": "get username",
-            "category": "metadata",
-            "return": "string"
-        },
-        "source": {
-            "description": "get source",
-            "category": "metadata",
-            "return": "string"
         },
         "nvl": {
             "description": "Allows you to replace null values with a default value.",

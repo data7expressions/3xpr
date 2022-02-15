@@ -17,6 +17,11 @@ const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 class Helper {
+    static replace(string, search, replace) {
+        return string.split(search).join(replace);
+        // con la siguiente opcion falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+        // return string.replace(new RegExp(search, 'g'), replace)
+    }
     static getType(value) {
         if (Array.isArray(value))
             return 'array';

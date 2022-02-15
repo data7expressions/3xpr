@@ -3,6 +3,7 @@
 import { Library } from '../library'
 import { OperatorType } from './../../model'
 import { Operator, ArrowFunction } from '../operands'
+import { Helper } from '../../manager'
 
 export class CoreLib extends Library {
 	constructor () {
@@ -117,10 +118,10 @@ export class CoreLib extends Library {
 		this.addFunction('lower', (str:string) => str.toLowerCase())
 		this.addFunction('lpad', (str:string, len:number, pad:string) => str.padStart(len, pad))
 		this.addFunction('ltrim', (str:string) => str.trimLeft())
-		this.addFunction('replace', (str:string, source:string, target:string) => str.replace(source, target))
+		this.addFunction('replace', (str:string, source:string, target:string) => Helper.replace(str, source, target))
 		this.addFunction('rpad', (str:string, len:number, pad:string) => str.padEnd(len, pad))
 		this.addFunction('rtrim', (str:string) => str.trimRight())
-		this.addFunction('substr', (str:string, from:number, count:number) => str.substring(from, count))
+		this.addFunction('substring', (str:string, from:number, count:number) => str.substring(from, count))
 		this.addFunction('trim', (str:string) => str.trim())
 		this.addFunction('upper', (str:string) => str.toUpperCase())
 		this.addFunction('concat', (...strings:string[]) => ''.concat(...strings))

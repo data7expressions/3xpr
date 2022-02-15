@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import fs from 'fs';
 export declare class Helper {
+    static replace(string: string, search: string, replace: string): string;
     static getType(value: any): string;
     static isObject(obj: any): boolean;
     static isEmpty(value: any): boolean;

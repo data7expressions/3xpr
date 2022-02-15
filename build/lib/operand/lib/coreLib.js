@@ -15,6 +15,7 @@ exports.CoreLib = void 0;
 const library_1 = require("../library");
 const model_1 = require("./../../model");
 const operands_1 = require("../operands");
+const manager_1 = require("../../manager");
 class CoreLib extends library_1.Library {
     constructor() {
         super('core');
@@ -116,10 +117,10 @@ class CoreLib extends library_1.Library {
         this.addFunction('lower', (str) => str.toLowerCase());
         this.addFunction('lpad', (str, len, pad) => str.padStart(len, pad));
         this.addFunction('ltrim', (str) => str.trimLeft());
-        this.addFunction('replace', (str, source, target) => str.replace(source, target));
+        this.addFunction('replace', (str, source, target) => manager_1.Helper.replace(str, source, target));
         this.addFunction('rpad', (str, len, pad) => str.padEnd(len, pad));
         this.addFunction('rtrim', (str) => str.trimRight());
-        this.addFunction('substr', (str, from, count) => str.substring(from, count));
+        this.addFunction('substring', (str, from, count) => str.substring(from, count));
         this.addFunction('trim', (str) => str.trim());
         this.addFunction('upper', (str) => str.toUpperCase());
         this.addFunction('concat', (...strings) => ''.concat(...strings));
