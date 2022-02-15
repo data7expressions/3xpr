@@ -3,6 +3,12 @@ import fs from 'fs'
 import path from 'path'
 
 export class Helper {
+	public static replace (string:string, search:string, replace:string) {
+		return string.split(search).join(replace)
+		// con la siguiente opcion falla cuando se hace value=Helper.replace(value,"\\'","\\''")
+		// return string.replace(new RegExp(search, 'g'), replace)
+	}
+
 	public static getType (value: any):string {
 		if (Array.isArray(value)) return 'array'
 		if (typeof value === 'string') {
