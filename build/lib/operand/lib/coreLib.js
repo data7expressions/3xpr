@@ -126,9 +126,13 @@ class CoreLib extends library_1.Library {
         this.addFunction('concat', (...strings) => ''.concat(...strings));
     }
     datetimeFunctions() {
-        this.addFunction('curtime', () => Date.now());
-        this.addFunction('today', () => new Date());
-        this.addFunction('now', () => Date.now());
+        this.addFunction('curtime', () => new Date());
+        this.addFunction('today', () => {
+            const date = new Date();
+            return new Date(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+        });
+        this.addFunction('now', () => new Date());
+        this.addFunction('dateToString', (value) => value.toISOString());
         this.addFunction('time', (value) => new Date(value).getTime());
         this.addFunction('date', (value) => Date.parse(value));
         this.addFunction('datetime', (value) => new Date(value));

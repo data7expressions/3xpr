@@ -128,9 +128,13 @@ export class CoreLib extends Library {
 	}
 
 	private datetimeFunctions () {
-		this.addFunction('curtime', () => Date.now())
-		this.addFunction('today', () => new Date())
-		this.addFunction('now', () => Date.now())
+		this.addFunction('curtime', () => new Date())
+		this.addFunction('today', () => {
+			const date = new Date()
+			return new Date(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+		})
+		this.addFunction('now', () => new Date())
+		this.addFunction('dateToString', (value:Date) => value.toISOString())
 		this.addFunction('time', (value:string) => new Date(value).getTime())
 		this.addFunction('date', (value:string) => Date.parse(value))
 		this.addFunction('datetime', (value:string) => new Date(value))
