@@ -1173,6 +1173,17 @@
       "category": "datetime",
       "return": "Date"
     },
+    "dateToString": {
+      "description": "Convert date to string with ISO 8601 format",
+      "category": "datetime",
+      "return": "string",
+      "params": [
+        {
+          "name": "value",
+          "type": "Date"
+        }
+      ]
+    },
     "time": {
       "description": "Convert string to time",
       "category": "datetime",

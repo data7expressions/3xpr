@@ -3,6 +3,7 @@
 |curtime|Get the current time|
 |today|Get the current date|
 |now|Get the current datetime|
+|dateToString|Convert date to string with ISO 8601 format|
 |time|Convert string to time|
 |date|Convert string to date|
 |datetime|Convert string to datetime|
@@ -45,6 +46,14 @@
 - deterministic: true
 - return: Date
 - params:
+
+### dateToString
+
+- description: Convert date to string with ISO 8601 format
+- deterministic: true
+- return: string
+- params:
+	- value: Date
 
 ### time
 
