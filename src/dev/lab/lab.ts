@@ -9,7 +9,10 @@ import { expressions } from '../../lib'
 	// const data = { name: 'La casa de PAPEL' }
 	// const result = expressions.eval('lower(substring(replace(name," ","-"),0,32))', data)
 
-	console.log(expressions.eval('dateToString(today())', {}))
-	console.log(expressions.eval('dateToString(now())', {}))
-	console.log(expressions.eval('dateToString(curtime())', {}))
+	console.log(expressions.eval('today()', {}))
+	console.log(expressions.eval('now()', {}))
+	console.log(expressions.eval('curtime()', {}))
+
+	console.log(expressions.eval('addHours(today(),8)', {}))
+	console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
 })()

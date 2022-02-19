@@ -905,7 +905,7 @@ functions:
     params:
     - name: date
       type: Date
-    - name: value
+    - name: time
       type: Date 
   dateDiff:
     description: difference between two dates

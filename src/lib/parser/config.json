@@ -1411,7 +1411,7 @@
           "type": "Date"
         },
         {
-          "name": "value",
+          "name": "time",
           "type": "Date"
         }
       ]
