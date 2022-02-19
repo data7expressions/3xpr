@@ -196,7 +196,7 @@
 - return: Date
 - params:
 	- date: Date
-	- value: Date
+	- time: Date
 
 ### dateDiff
 

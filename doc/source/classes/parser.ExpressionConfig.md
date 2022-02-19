@@ -1,0 +1,220 @@
+[Expressions](../README.md) / [parser](../modules/parser.md) / ExpressionConfig
+
+# Class: ExpressionConfig
+
+[parser](../modules/parser.md).ExpressionConfig
+
+## Table of contents
+
+### Constructors
+
+- [constructor](parser.ExpressionConfig.md#constructor)
+
+### Properties
+
+- [enums](parser.ExpressionConfig.md#enums)
+- [functions](parser.ExpressionConfig.md#functions)
+- [libraries](parser.ExpressionConfig.md#libraries)
+- [operators](parser.ExpressionConfig.md#operators)
+
+### Methods
+
+- [addLibrary](parser.ExpressionConfig.md#addlibrary)
+- [getEnum](parser.ExpressionConfig.md#getenum)
+- [getEnumValue](parser.ExpressionConfig.md#getenumvalue)
+- [getFunction](parser.ExpressionConfig.md#getfunction)
+- [getOperator](parser.ExpressionConfig.md#getoperator)
+- [isEnum](parser.ExpressionConfig.md#isenum)
+- [load](parser.ExpressionConfig.md#load)
+
+## Constructors
+
+### constructor
+
+• **new ExpressionConfig**()
+
+#### Defined in
+
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L10)
+
+## Properties
+
+### enums
+
+• **enums**: `any`
+
+#### Defined in
+
+[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L8)
+
+___
+
+### functions
+
+• **functions**: [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)[]
+
+#### Defined in
+
+[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L9)
+
+___
+
+### libraries
+
+• **libraries**: [`Library`](operand.Library.md)[]
+
+#### Defined in
+
+[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L6)
+
+___
+
+### operators
+
+• **operators**: [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)[]
+
+#### Defined in
+
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L7)
+
+## Methods
+
+### addLibrary
+
+▸ **addLibrary**(`library`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `library` | [`Library`](operand.Library.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L18)
+
+___
+
+### getEnum
+
+▸ **getEnum**(`name`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`any`
+
+#### Defined in
+
+[parser/expressionConfig.ts:118](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L118)
+
+___
+
+### getEnumValue
+
+▸ **getEnumValue**(`name`, `option`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+| `option` | `string` |
+
+#### Returns
+
+`any`
+
+#### Defined in
+
+[parser/expressionConfig.ts:114](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L114)
+
+___
+
+### getFunction
+
+▸ **getFunction**(`name`): [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+[`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
+
+#### Defined in
+
+[parser/expressionConfig.ts:130](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L130)
+
+___
+
+### getOperator
+
+▸ **getOperator**(`operator`, `operands`): [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `operator` | `string` |
+| `operands` | `number` |
+
+#### Returns
+
+[`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
+
+#### Defined in
+
+[parser/expressionConfig.ts:122](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L122)
+
+___
+
+### isEnum
+
+▸ **isEnum**(`name`): `boolean`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[parser/expressionConfig.ts:109](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L109)
+
+___
+
+### load
+
+▸ **load**(`data`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `any` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[parser/expressionConfig.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/parser/expressionConfig.ts#L38)

@@ -127,57 +127,95 @@ export class CoreLib extends Library {
 		this.addFunction('concat', (...strings:string[]) => ''.concat(...strings))
 	}
 
+	// TODO: trabajar todas las fechas como strign en formato ISO
 	private datetimeFunctions () {
-		this.addFunction('curtime', () => new Date())
+		this.addFunction('curtime', () => {
+			const date = new Date()
+			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
+		})
 		this.addFunction('today', () => {
 			const date = new Date()
-			return new Date(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.addFunction('now', () => new Date())
-		this.addFunction('dateToString', (value:Date) => value.toISOString())
-		this.addFunction('time', (value:string) => new Date(value).getTime())
-		this.addFunction('date', (value:string) => Date.parse(value))
-		this.addFunction('datetime', (value:string) => new Date(value))
-		this.addFunction('year', (value:Date) => value.getFullYear())
-		this.addFunction('month', (value:Date) => value.getMonth())
-		this.addFunction('day', (value:Date) => value.getDate())
-		this.addFunction('weekday', (value:Date) => value.getDay())
-		this.addFunction('hours', (value:Date) => value.getHours())
-		this.addFunction('minutes', (value:Date) => value.getMinutes())
-		this.addFunction('seconds', (value:Date) => value.getSeconds())
-		this.addFunction('addYear', (date: Date, value: number) => {
-			date.setFullYear(date.getFullYear() + value)
-			return date
+		this.addFunction('now', () => new Date().toISOString())
+		this.addFunction('time', (value:string) => {
+			const date = new Date(value)
+			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
 		})
-		this.addFunction('addMonth', (date: Date, value: number) => {
-			date.setMonth(date.getMonth() + value)
-			return date
+		this.addFunction('date', (value:string) => {
+			const date = new Date(value)
+			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.addFunction('addDay', (date: Date, value: number) => {
-			date.setDate(date.getDate() + value)
-			return date
+		this.addFunction('datetime', (value:string) => new Date(value).toISOString())
+		this.addFunction('year', (value: string) => {
+			return new Date(value).getFullYear()
 		})
-		this.addFunction('addHours', (date: Date, value: number) => {
-			date.setHours(date.getHours() + value)
-			return date
+		this.addFunction('month', (value: string) => {
+			return new Date(value).getMonth()
 		})
-		this.addFunction('addMinutes', (date: Date, value: number) => {
-			date.setMinutes(date.getMinutes() + value)
-			return date
+		this.addFunction('day', (value: string) => {
+			return new Date(value).getDate()
 		})
-		this.addFunction('addSeconds', (date: Date, value: number) => {
-			date.setSeconds(date.getSeconds() + value)
-			return date
+		this.addFunction('weekday', (value: string) => {
+			return new Date(value).getDay()
 		})
-		this.addFunction('addTime', (date: Date, value: number) => {
-			date.setTime(date.getTime() + value)
-			return date
+		this.addFunction('hours', (value: string) => {
+			return new Date(value).getHours()
 		})
-		this.addFunction('dateDiff', (date1: Date, date2: Date) => {
-			return Math.floor((date1.getTime() - date2.getTime()) / (24 * 3600 * 1000))
+		this.addFunction('minutes', (value: string) => {
+			return new Date(value).getMinutes()
 		})
-		this.addFunction('timeDiff', (date1: Date, date2: Date) => {
-			return Math.floor((date1.getTime() - date2.getTime()) / (24 * 60))
+		this.addFunction('seconds', (value: string) => {
+			return new Date(value).getSeconds()
+		})
+		this.addFunction('addYear', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setFullYear(_date.getFullYear() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addMonth', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setMonth(_date.getMonth() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addDay', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setDate(_date.getDate() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addHours', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setHours(_date.getHours() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addMinutes', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setMinutes(_date.getMinutes() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addSeconds', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setSeconds(_date.getSeconds() + value)
+			return _date.toISOString()
+		})
+		this.addFunction('addTime', (date: string, time: string) => {
+			const _time = new Date('2000-01-01T' + time)
+			const _date = new Date(date)
+			_date.setHours(_date.getHours() + _time.getHours())
+			_date.setMinutes(_date.getMinutes() + _time.getMinutes())
+			_date.setSeconds(_date.getSeconds() + _time.getSeconds())
+			_date.setMilliseconds(_date.getSeconds() + _time.getMilliseconds())
+			return _date.toISOString()
+		})
+		this.addFunction('dateDiff', (date1: string, date2: string) => {
+			const _date1 = new Date(date1)
+			const _date2 = new Date(date2)
+			return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 3600 * 1000))
+		})
+		this.addFunction('timeDiff', (date1: string, date2: string) => {
+			const _date1 = new Date(date1)
+			const _date2 = new Date(date2)
+			return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 60))
 		})
 	}
 
