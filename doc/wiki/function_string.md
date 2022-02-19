@@ -14,6 +14,8 @@
 |upper|Uppercase string|
 |concat|String concatenation|
 |capitalize|Make the first character have upper case and the rest lower case|
+|test|Try a match on a string. Returns true or false.|
+|match|Returns an array containing all matches, including capturing groups, or null if no matches are found.|
 
 ## Definition
 
@@ -137,3 +139,21 @@
 - return: string
 - params:
 	- value: string
+
+### test
+
+- description: Try a match on a string. Returns true or false.
+- deterministic: true
+- return: boolean
+- params:
+	- value: any
+	- regexp: string
+
+### match
+
+- description: Returns an array containing all matches, including capturing groups, or null if no matches are found.
+- deterministic: true
+- return: boolean
+- params:
+	- value: string
+	- regexp: string

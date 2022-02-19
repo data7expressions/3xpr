@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[manager/helper.ts:85](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L85)
+[manager/helper.ts:85](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L85)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:64](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L64)
+[manager/helper.ts:64](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L64)
 
 ___
 
@@ -94,7 +94,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L41)
+[manager/helper.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L41)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L52)
+[manager/helper.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L52)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L12)
+[manager/helper.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L12)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L25)
+[manager/helper.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L25)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L21)
+[manager/helper.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L21)
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:110](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L110)
+[manager/helper.ts:110](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L110)
 
 ___
 
@@ -214,7 +214,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:104](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L104)
+[manager/helper.ts:104](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L104)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L29)
+[manager/helper.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L29)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:71](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L71)
+[manager/helper.ts:71](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L71)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:78](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L78)
+[manager/helper.ts:78](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L78)
 
 ___
 
@@ -297,7 +297,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L6)
+[manager/helper.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L6)
 
 ___
 
@@ -317,7 +317,7 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:33](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L33)
+[manager/helper.ts:33](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L33)
 
 ___
 
@@ -338,4 +338,4 @@ ___
 
 #### Defined in
 
-[manager/helper.ts:94](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/manager/helper.ts#L94)
+[manager/helper.ts:94](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/manager/helper.ts#L94)

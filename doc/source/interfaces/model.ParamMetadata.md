@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[model/operands.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/model/operands.ts#L4)
+[model/operands.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/model/operands.ts#L4)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/model/operands.ts#L2)
+[model/operands.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/model/operands.ts#L2)
 
 ___
 
@@ -40,4 +40,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/774a064/src/lib/model/operands.ts#L3)
+[model/operands.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/model/operands.ts#L3)

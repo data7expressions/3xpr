@@ -736,7 +736,27 @@ functions:
     return: string    
     params:
     - name: value
-      type: string           
+      type: string
+  test:
+    description: Try a match on a string. Returns true or false.
+    category: string
+    deterministic: true
+    return: boolean    
+    params:
+    - name: value
+      type: any
+    - name: regexp
+      type: string
+  match:
+    description: Returns an array containing all matches, including capturing groups, or null if no matches are found.
+    category: string
+    deterministic: true
+    return: boolean    
+    params:
+    - name: value
+      type: string
+    - name: regexp
+      type: string 
 # datetime :---------------------------------------------------------
   curtime:
     description: Get the current time 

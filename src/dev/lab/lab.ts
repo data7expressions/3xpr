@@ -15,4 +15,9 @@ import { expressions } from '../../lib'
 
 	console.log(expressions.eval('addHours(today(),8)', {}))
 	console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
+
+	console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
+	console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
+	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
+	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
 })()

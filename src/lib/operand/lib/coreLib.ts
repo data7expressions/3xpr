@@ -124,7 +124,14 @@ export class CoreLib extends Library {
 		this.addFunction('substring', (str:string, from:number, count:number) => str.substring(from, count))
 		this.addFunction('trim', (str:string) => str.trim())
 		this.addFunction('upper', (str:string) => str.toUpperCase())
-		this.addFunction('concat', (...strings:string[]) => ''.concat(...strings))
+		this.addFunction('concat', (...strings: string[]) => ''.concat(...strings))
+		this.addFunction('test', (value:any, regexp:string) => {
+			const _regexp = new RegExp(regexp)
+			return _regexp.test(value)
+		})
+		this.addFunction('match', (value: string, regexp: string) => {
+			return value ? value.match(regexp) : null
+		})
 	}
 
 	// TODO: trabajar todas las fechas como strign en formato ISO
