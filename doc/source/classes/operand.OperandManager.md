@@ -15,6 +15,7 @@
 - [build](operand.OperandManager.md#build)
 - [deserialize](operand.OperandManager.md#deserialize)
 - [eval](operand.OperandManager.md#eval)
+- [parameters](operand.OperandManager.md#parameters)
 - [serialize](operand.OperandManager.md#serialize)
 
 ## Constructors
@@ -31,7 +32,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/operand/operandManager.ts#L11)
+[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L11)
 
 ## Methods
 
@@ -51,7 +52,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/operand/operandManager.ts#L15)
+[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L15)
 
 ___
 
@@ -71,7 +72,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/operand/operandManager.ts#L35)
+[operand/operandManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L35)
 
 ___
 
@@ -92,7 +93,27 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/operand/operandManager.ts#L39)
+[operand/operandManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L39)
+
+___
+
+### parameters
+
+▸ **parameters**(`operand`): [`Parameter`](../interfaces/model.Parameter.md)[]
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `operand` | [`Operand`](operand.Operand.md) |
+
+#### Returns
+
+[`Parameter`](../interfaces/model.Parameter.md)[]
+
+#### Defined in
+
+[operand/operandManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L44)
 
 ___
 
@@ -112,4 +133,4 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/414f93e/src/lib/operand/operandManager.ts#L26)
+[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/operandManager.ts#L26)

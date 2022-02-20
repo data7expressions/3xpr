@@ -1,8 +1,8 @@
-import { ParamMetadata, OperatorMetadata, OperatorType } from '../model';
+import { Parameter, OperatorMetadata, OperatorType } from '../model';
 export interface Metadata {
     description?: string;
     return: string;
-    params: ParamMetadata[];
+    params: Parameter[];
 }
 export declare abstract class Library {
     name: string;

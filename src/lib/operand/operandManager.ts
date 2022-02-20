@@ -1,6 +1,6 @@
 
 import { Node, ExpressionConfig } from '../parser/index'
-import { Data } from '../model'
+import { Data, Parameter } from '../model'
 import {
 	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
 	, Switch, Break, Continue, Function, Return, Try, Catch, Throw
@@ -39,6 +39,27 @@ export class OperandManager {
 	public eval (operand:Operand, data:Data):any {
 		this.initialize(operand, data)
 		return operand.eval()
+	}
+
+	public parameters (operand: Operand): Parameter[] {
+		const parameters:Parameter[] = []
+		this.loadParameters(operand, parameters)
+		return parameters
+	}
+
+	private loadParameters (operand:Operand, parameters:Parameter[]) {
+		if (operand instanceof Variable) {
+			if (parameters.find(p => p.name === operand.name) === undefined) {
+				let type:string
+				if (operand.type === '')type = 'any'
+				else if (operand.type === 'T[]')type = 'array'
+				else type = operand.type
+				parameters.push({ name: operand.name, type: type })
+			}
+		}
+		for (let i = 0; i < operand.children.length; i++) {
+			this.loadParameters(operand.children[i], parameters)
+		}
 	}
 
 	private initialize (operand:Operand, data:Data) {

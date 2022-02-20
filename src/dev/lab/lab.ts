@@ -20,4 +20,6 @@ import { expressions } from '../../lib'
 	console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
 	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
 	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
+
+	console.log(JSON.stringify(expressions.parameters('(1+b/c)*b')))
 })()

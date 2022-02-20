@@ -33,6 +33,28 @@ class OperandManager {
         this.initialize(operand, data);
         return operand.eval();
     }
+    parameters(operand) {
+        const parameters = [];
+        this.loadParameters(operand, parameters);
+        return parameters;
+    }
+    loadParameters(operand, parameters) {
+        if (operand instanceof operands_1.Variable) {
+            if (parameters.find(p => p.name === operand.name) === undefined) {
+                let type;
+                if (operand.type === '')
+                    type = 'any';
+                else if (operand.type === 'T[]')
+                    type = 'array';
+                else
+                    type = operand.type;
+                parameters.push({ name: operand.name, type: type });
+            }
+        }
+        for (let i = 0; i < operand.children.length; i++) {
+            this.loadParameters(operand.children[i], parameters);
+        }
+    }
     initialize(operand, data) {
         let current = data;
         if (operand instanceof operands_1.ArrowFunction) {
