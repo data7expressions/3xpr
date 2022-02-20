@@ -54,6 +54,15 @@ class Expressions {
         const _data = new model_1.Data(data !== undefined ? data : {});
         return this.operandManager.eval(operand, _data);
     }
+    /**
+     * Get parameters of expression
+     * @param expression  expression
+     * @returns Parameters of expression
+     */
+    parameters(expression) {
+        const operand = this.parse(expression);
+        return this.operandManager.parameters(operand);
+    }
 }
 exports.Expressions = Expressions;
 //# sourceMappingURL=expressions.js.map

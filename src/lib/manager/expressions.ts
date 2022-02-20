@@ -1,4 +1,4 @@
-import { Cache, Data } from '../model'
+import { Cache, Data, Parameter } from '../model'
 import { ParserManager, ExpressionConfig } from '../parser'
 import { OperandManager, Operand } from '../operand'
 import { MemoryCache } from './memoryCache'
@@ -61,5 +61,15 @@ export class Expressions {
 		const operand = this.parse(expression)
 		const _data = new Data(data !== undefined ? data : {})
 		return this.operandManager.eval(operand, _data)
+	}
+
+	/**
+	 * Get parameters of expression
+	 * @param expression  expression
+	 * @returns Parameters of expression
+	 */
+	public parameters (expression: string): Parameter[] {
+		const operand = this.parse(expression)
+		return this.operandManager.parameters(operand)
 	}
 }

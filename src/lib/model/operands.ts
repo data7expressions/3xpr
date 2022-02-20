@@ -1,7 +1,8 @@
-export interface ParamMetadata {
+export interface Parameter {
 	name: string
 	type: string
-	default:any
+	default?: any
+	value?:any
 }
 
 export enum OperatorType
@@ -22,7 +23,7 @@ export interface OperatorMetadata {
 	operands: number
 	priority?:number
 	return:string
-	params: ParamMetadata[]
+	params: Parameter[]
 	function?: any
 	custom?: any
 }

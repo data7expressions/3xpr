@@ -1,5 +1,5 @@
 import { Node, ExpressionConfig } from '../parser/index';
-import { Data } from '../model';
+import { Data, Parameter } from '../model';
 import { Operand } from './operands';
 export declare class OperandManager {
     private expressionConfig;
@@ -8,6 +8,8 @@ export declare class OperandManager {
     serialize(operand: Operand): any;
     deserialize(serialized: any): Operand;
     eval(operand: Operand, data: Data): any;
+    parameters(operand: Operand): Parameter[];
+    private loadParameters;
     private initialize;
     private reduce;
     private reduceOperand;

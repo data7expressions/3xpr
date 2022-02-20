@@ -16,4 +16,4 @@
 
 - [Cache](../interfaces/model.Cache.md)
 - [OperatorMetadata](../interfaces/model.OperatorMetadata.md)
-- [ParamMetadata](../interfaces/model.ParamMetadata.md)
+- [Parameter](../interfaces/model.Parameter.md)

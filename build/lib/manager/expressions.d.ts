@@ -1,3 +1,4 @@
+import { Parameter } from '../model';
 import { ParserManager, ExpressionConfig } from '../parser';
 import { Operand } from '../operand';
 export declare class Expressions {
@@ -18,4 +19,10 @@ export declare class Expressions {
      * @returns Result of the evaluale expression
      */
     eval(expression: string, data?: any): any;
+    /**
+     * Get parameters of expression
+     * @param expression  expression
+     * @returns Parameters of expression
+     */
+    parameters(expression: string): Parameter[];
 }
