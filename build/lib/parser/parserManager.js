@@ -51,6 +51,7 @@ class ParserManager {
             const parser = new parser_1.Parser(this, buffer);
             const node = parser.parse();
             //  delete _parser
+            this.clearChildEmpty(node);
             this.setParent(node);
             return node;
         }
@@ -145,6 +146,25 @@ class ParserManager {
         const node = this._deserialize(json);
         return this.setParent(node);
     }
+    clearChildEmpty(node) {
+        try {
+            if (node.children.length > 0) {
+                const toRemove = [];
+                for (let i = 0; i < node.children.length; i++) {
+                    if (node.children[i] === null) {
+                        toRemove.push(i);
+                    }
+                }
+                for (let i = 0; i < toRemove.length; i++) {
+                    delete node.children[toRemove[i]];
+                }
+            }
+        }
+        catch (error) {
+            throw new Error('set parent: ' + node.name + ' error: ' + error.toString());
+        }
+        return node;
+    }
     setParent(node, parent, index = 0) {
         try {
             if (parent) {
@@ -181,7 +201,7 @@ class ParserManager {
             const p = buffer[i];
             if (isString && p === quotes)
                 isString = false;
-            else if (!isString && (p === '\'' || p === '"')) {
+            else if (!isString && (p === '\'' || p === '"' || p === '`')) {
                 isString = true;
                 quotes = p;
             }

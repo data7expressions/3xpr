@@ -216,6 +216,11 @@ class Parser {
             const result = this.getString(char);
             operand = new node_1.Node(result, 'const');
         }
+        else if (char === '`') {
+            this.index += 1;
+            const result = this.getTemplate();
+            operand = new node_1.Node(result, 'template');
+        }
         else if (char === '(') {
             this.index += 1;
             operand = this.getExpression(undefined, undefined, ')');
@@ -293,6 +298,18 @@ class Parser {
                 if (!((this.index + 1 < this.length && this.next === char) || (this.previous === char))) {
                     break;
                 }
+            }
+            buff.push(this.current);
+            this.index += 1;
+        }
+        this.index += 1;
+        return buff.join('');
+    }
+    getTemplate() {
+        const buff = [];
+        while (!this.end) {
+            if (this.current === '`') {
+                break;
             }
             buff.push(this.current);
             this.index += 1;
@@ -405,11 +422,12 @@ class Parser {
         return new node_1.Node('if', 'if', childs);
     }
     getSwitchBlock() {
+        const childs = [];
         const value = this.getExpression(undefined, undefined, ')');
+        childs.push(value);
         if (this.current === '{')
             this.index += 1;
         let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : '';
-        const childs = [];
         while (next === 'case') {
             this.index += 'case'.length;
             let compare;
@@ -425,7 +443,7 @@ class Parser {
                 this.index += 1;
             const lines = [];
             while (true) {
-                const line = this.getExpression(undefined, undefined, ';');
+                const line = this.getExpression(undefined, undefined, ';}');
                 if (line !== undefined)
                     lines.push(line);
                 if (this.nextIs('case')) {
@@ -436,7 +454,7 @@ class Parser {
                     next = 'default:';
                     break;
                 }
-                else if (this.current === '}') {
+                else if (this.current === '}' || this.previous === '}') {
                     next = 'end';
                     break;
                 }
@@ -449,20 +467,21 @@ class Parser {
             this.index += 'default:'.length;
             const lines = [];
             while (true) {
-                const line = this.getExpression(undefined, undefined, ';');
+                const line = this.getExpression(undefined, undefined, ';}');
                 if (line !== undefined)
                     lines.push(line);
-                if (this.current === '}')
+                if (this.current === '}' || this.previous === '}')
                     break;
             }
             const block = new node_1.Node('block', 'block', lines);
             const defaultNode = new node_1.Node('default', 'default', [block]);
             childs.push(defaultNode);
         }
-        if (this.current === '{')
+        if (this.current === '}')
             this.index += 1;
-        const options = new node_1.Node('options', 'options', childs);
-        return new node_1.Node('switch', 'switch', [value, options]);
+        return new node_1.Node('switch', 'switch', childs);
+        // const options = new Node('options', 'options', childs)
+        // return new Node('switch', 'switch', [value, options])
     }
     getWhileBlock() {
         const condition = this.getExpression(undefined, undefined, ')');

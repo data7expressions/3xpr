@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Template = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -63,6 +63,24 @@ class Variable extends Operand {
     }
 }
 exports.Variable = Variable;
+class Template extends Operand {
+    constructor(name, type = 'any') {
+        super(name, [], type);
+        this.data = undefined;
+    }
+    eval() {
+        // info https://www.tutorialstonight.com/javascript-string-format.php
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const me = this;
+        return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
+            if (me.data) {
+                const value = me.data.get(field);
+                return typeof value === 'undefined' ? match : value;
+            }
+        });
+    }
+}
+exports.Template = Template;
 class KeyValue extends Operand {
     eval() {
         return this.children[0].eval();
@@ -148,9 +166,11 @@ class ArrowFunction extends FunctionRef {
 exports.ArrowFunction = ArrowFunction;
 class Block extends Operand {
     eval() {
+        let lastValue = null;
         for (let i = 0; i < this.children.length; i++) {
-            this.children[i].eval();
+            lastValue = this.children[i].eval();
         }
+        return lastValue;
     }
 }
 exports.Block = Block;
@@ -158,18 +178,21 @@ class If extends Operand {
     eval() {
         const condition = this.children[0].eval();
         if (condition) {
-            this.children[1].eval();
+            const ifBlock = this.children[1];
+            return ifBlock.eval();
         }
         else if (this.children.length > 2) {
             for (let i = 2; i < this.children.length; i++) {
                 if (this.children[i] instanceof ElseIf) {
-                    if (this.children[i].eval()) {
-                        break;
+                    const elseIfCondition = this.children[i].children[0].eval();
+                    if (elseIfCondition) {
+                        const elseIfBlock = this.children[i].children[1];
+                        return elseIfBlock.eval();
                     }
                 }
                 else {
-                    this.children[i].eval();
-                    break;
+                    const elseBlock = this.children[i];
+                    return elseBlock.eval();
                 }
             }
         }
@@ -178,64 +201,88 @@ class If extends Operand {
 exports.If = If;
 class ElseIf extends Operand {
     eval() {
-        const condition = this.children[0].eval();
-        const block = this.children[1];
-        if (condition) {
-            block.eval();
-            return true;
-        }
-        return false;
+        throw new Error('NotUsed');
     }
 }
 exports.ElseIf = ElseIf;
 class Else extends Operand {
     eval() {
-        this.children[0].eval();
+        throw new Error('NotUsed');
     }
 }
 exports.Else = Else;
 class While extends Operand {
     eval() {
+        let lastValue = null;
         const condition = this.children[0];
         const block = this.children[1];
         while (condition.eval()) {
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.While = While;
 class For extends Operand {
     eval() {
+        let lastValue = null;
         const initialize = this.children[0];
         const condition = this.children[1];
         const increment = this.children[2];
         const block = this.children[3];
         for (initialize.eval(); condition.eval(); increment.eval()) {
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.For = For;
 class ForIn extends Operand {
     eval() {
+        let lastValue = null;
         const item = this.children[0];
         const list = this.children[1].eval();
         const block = this.children[2];
         for (let i = 0; i < list.length; i++) {
             const value = list[i];
             item.set(value);
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.ForIn = ForIn;
-// TODO:
 class Switch extends Operand {
     eval() {
-        throw new Error('NotImplemented');
+        const value = this.children[0].eval();
+        for (let i = 1; i < this.children.length; i++) {
+            const option = this.children[i];
+            if (option instanceof Case) {
+                if (option.name === value) {
+                    const caseBlock = option.children[0];
+                    return caseBlock.eval();
+                }
+            }
+            else if (option instanceof Default) {
+                const defaultBlock = option.children[0];
+                return defaultBlock.eval();
+            }
+        }
     }
 }
 exports.Switch = Switch;
+class Case extends Operand {
+    eval() {
+        throw new Error('NotUsed');
+    }
+}
+exports.Case = Case;
+class Default extends Operand {
+    eval() {
+        throw new Error('NotUsed');
+    }
+}
+exports.Default = Default;
 class Break extends Operand {
     eval() {
         throw new Error('NotImplemented');

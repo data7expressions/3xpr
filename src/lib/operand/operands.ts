@@ -74,6 +74,26 @@ export class Variable extends Operand {
 		return this.data ? this.data.get(this.name) : null
 	}
 }
+export class Template extends Operand {
+	public data?: Data
+	constructor (name: string, type = 'any') {
+		super(name, [], type)
+		this.data = undefined
+	}
+
+	public eval (): any {
+		// info https://www.tutorialstonight.com/javascript-string-format.php
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		const me = this
+		return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
+			if (me.data) {
+				const value = me.data.get(field)
+				return typeof value === 'undefined' ? match : value
+			}
+		})
+	}
+}
+
 export class KeyValue extends Operand {
 	public property?: string
 	public eval (): any {
@@ -155,25 +175,30 @@ export class ArrowFunction extends FunctionRef {
 }
 export class Block extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		for (let i = 0; i < this.children.length; i++) {
-			this.children[i].eval()
+			lastValue = this.children[i].eval()
 		}
+		return lastValue
 	}
 }
 export class If extends Operand {
 	public eval (): any {
 		const condition = this.children[0].eval()
 		if (condition) {
-			this.children[1].eval()
+			const ifBlock = this.children[1]
+			return ifBlock.eval()
 		} else if (this.children.length > 2) {
 			for (let i = 2; i < this.children.length; i++) {
 				if (this.children[i] instanceof ElseIf) {
-					if (this.children[i].eval()) {
-						break
+					const elseIfCondition = this.children[i].children[0].eval()
+					if (elseIfCondition) {
+						const elseIfBlock = this.children[i].children[1]
+						return elseIfBlock.eval()
 					}
 				} else {
-					this.children[i].eval()
-					break
+					const elseBlock = this.children[i]
+					return elseBlock.eval()
 				}
 			}
 		}
@@ -181,58 +206,80 @@ export class If extends Operand {
 }
 export class ElseIf extends Operand {
 	public eval (): any {
-		const condition = this.children[0].eval()
-		const block = this.children[1]
-		if (condition) {
-			block.eval()
-			return true
-		}
-		return false
+		throw new Error('NotUsed')
 	}
 }
 export class Else extends Operand {
 	public eval (): any {
-		this.children[0].eval()
+		throw new Error('NotUsed')
 	}
 }
 export class While extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const condition = this.children[0]
 		const block = this.children[1]
 		while (condition.eval()) {
-			block.eval()
+			lastValue = block.eval()
 		}
+		return lastValue
 	}
 }
 export class For extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const initialize = this.children[0]
 		const condition = this.children[1]
 		const increment = this.children[2]
 		const block = this.children[3]
 		for (initialize.eval(); condition.eval(); increment.eval()) {
-			block.eval()
+			lastValue = block.eval()
 		}
+		return lastValue
 	}
 }
 export class ForIn extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const item = this.children[0]
 		const list = this.children[1].eval()
 		const block = this.children[2]
 		for (let i = 0; i < list.length; i++) {
 			const value = list[i]
 			item.set(value)
-			block.eval()
+			lastValue = block.eval()
+		}
+		return lastValue
+	}
+}
+export class Switch extends Operand {
+	public eval (): any {
+		const value = this.children[0].eval()
+		for (let i = 1; i < this.children.length; i++) {
+			const option = this.children[i]
+			if (option instanceof Case) {
+				if (option.name === value) {
+					const caseBlock = option.children[0]
+					return caseBlock.eval()
+				}
+			} else if (option instanceof Default) {
+				const defaultBlock = option.children[0]
+				return defaultBlock.eval()
+			}
 		}
 	}
 }
-// TODO:
-export class Switch extends Operand {
+export class Case extends Operand {
 	public eval (): any {
-		throw new Error('NotImplemented')
+		throw new Error('NotUsed')
 	}
 }
+export class Default extends Operand {
+	public eval (): any {
+		throw new Error('NotUsed')
+	}
+}
+
 export class Break extends Operand {
 	public eval (): any {
 		throw new Error('NotImplemented')

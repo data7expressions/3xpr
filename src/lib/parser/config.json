@@ -651,6 +651,30 @@
         }
       ]
     },
+    "stringify": {
+      "description": "Convert a JavaScript object or value to a JSON text string.",
+      "category": "general",
+      "deterministic": true,
+      "return": "string",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "parse": {
+      "description": "Parses a text string as JSON, optionally transforming the value produced by the parse.",
+      "category": "general",
+      "deterministic": true,
+      "return": "any",
+      "params": [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
     "between": {
       "description": "Specifies how to retrieve values from an expression within a specific range.",
       "category": "condition",

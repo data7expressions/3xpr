@@ -16,6 +16,7 @@ export declare class ParserManager {
     toExpression(node: Node): string;
     serialize(value: Node): any;
     deserialize(json: any): Node;
+    clearChildEmpty(node: Node): Node;
     setParent(node: Node, parent?: Node, index?: number): Node;
     minify(expression: string): string[];
     private _serialize;

@@ -71,6 +71,8 @@ export class CoreLib extends Library {
 
 	private generalFunctions () {
 		this.addFunction('sleep', Functions.sleep)
+		this.addFunction('stringify', (value: any):string => JSON.stringify(value))
+		this.addFunction('parse', (value: string): any => JSON.parse(value))
 	}
 
 	private conditionFunctions () {
