@@ -216,6 +216,11 @@ class Parser {
             const result = this.getString(char);
             operand = new node_1.Node(result, 'const');
         }
+        else if (char === '`') {
+            this.index += 1;
+            const result = this.getTemplate();
+            operand = new node_1.Node(result, 'template');
+        }
         else if (char === '(') {
             this.index += 1;
             operand = this.getExpression(undefined, undefined, ')');
@@ -293,6 +298,18 @@ class Parser {
                 if (!((this.index + 1 < this.length && this.next === char) || (this.previous === char))) {
                     break;
                 }
+            }
+            buff.push(this.current);
+            this.index += 1;
+        }
+        this.index += 1;
+        return buff.join('');
+    }
+    getTemplate() {
+        const buff = [];
+        while (!this.end) {
+            if (this.current === '`') {
+                break;
             }
             buff.push(this.current);
             this.index += 1;

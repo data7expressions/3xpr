@@ -75,7 +75,7 @@ class OperandManager {
         else if (operand instanceof operands_1.Operator) {
             operand.metadata = this.expressionConfig;
         }
-        else if (operand instanceof operands_1.Variable) {
+        else if (operand instanceof operands_1.Variable || operand instanceof operands_1.Template) {
             operand.data = current;
         }
         for (const k in operand.children) {
@@ -166,6 +166,8 @@ class OperandManager {
                 return new operands_1.Constant(node.name);
             case 'var':
                 return new operands_1.Variable(node.name);
+            case 'template':
+                return new operands_1.Template(node.name);
             case 'keyVal':
                 return new operands_1.KeyValue(node.name, children);
             case 'array':

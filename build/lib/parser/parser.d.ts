@@ -23,6 +23,7 @@ export declare class Parser {
     private getValue;
     private getOperator;
     private getString;
+    private getTemplate;
     private getArgs;
     private getObject;
     private getBlock;

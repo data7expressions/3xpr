@@ -74,6 +74,8 @@ class CoreLib extends library_1.Library {
     }
     generalFunctions() {
         this.addFunction('sleep', Functions.sleep);
+        this.addFunction('stringify', (value) => JSON.stringify(value));
+        this.addFunction('parse', (value) => JSON.parse(value));
     }
     conditionFunctions() {
         this.addFunction('between', Functions.between);

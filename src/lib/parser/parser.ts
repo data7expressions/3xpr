@@ -199,6 +199,10 @@ export class Parser {
 			this.index += 1
 			const result = this.getString(char)
 			operand = new Node(result, 'const')
+		} else if (char === '`') {
+			this.index += 1
+			const result = this.getTemplate()
+			operand = new Node(result, 'template')
 		} else if (char === '(') {
 			this.index += 1
 			operand = this.getExpression(undefined, undefined, ')')
@@ -266,6 +270,19 @@ export class Parser {
 		while (!this.end) {
 			if (this.current === char) {
 				if (!((this.index + 1 < this.length && this.next === char) || (this.previous === char))) { break }
+			}
+			buff.push(this.current)
+			this.index += 1
+		}
+		this.index += 1
+		return buff.join('')
+	}
+
+	private getTemplate ():string {
+		const buff = []
+		while (!this.end) {
+			if (this.current === '`') {
+				break
 			}
 			buff.push(this.current)
 			this.index += 1

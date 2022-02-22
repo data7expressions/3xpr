@@ -74,6 +74,26 @@ export class Variable extends Operand {
 		return this.data ? this.data.get(this.name) : null
 	}
 }
+export class Template extends Operand {
+	public data?: Data
+	constructor (name: string, type = 'any') {
+		super(name, [], type)
+		this.data = undefined
+	}
+
+	public eval (): any {
+		// info https://www.tutorialstonight.com/javascript-string-format.php
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		const me = this
+		return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
+			if (me.data) {
+				const value = me.data.get(field)
+				return typeof value === 'undefined' ? match : value
+			}
+		})
+	}
+}
+
 export class KeyValue extends Operand {
 	public property?: string
 	public eval (): any {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Template = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -63,6 +63,24 @@ class Variable extends Operand {
     }
 }
 exports.Variable = Variable;
+class Template extends Operand {
+    constructor(name, type = 'any') {
+        super(name, [], type);
+        this.data = undefined;
+    }
+    eval() {
+        // info https://www.tutorialstonight.com/javascript-string-format.php
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const me = this;
+        return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
+            if (me.data) {
+                const value = me.data.get(field);
+                return typeof value === 'undefined' ? match : value;
+            }
+        });
+    }
+}
+exports.Template = Template;
 class KeyValue extends Operand {
     eval() {
         return this.children[0].eval();
@@ -195,36 +213,42 @@ class Else extends Operand {
 exports.Else = Else;
 class While extends Operand {
     eval() {
+        let lastValue = null;
         const condition = this.children[0];
         const block = this.children[1];
         while (condition.eval()) {
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.While = While;
 class For extends Operand {
     eval() {
+        let lastValue = null;
         const initialize = this.children[0];
         const condition = this.children[1];
         const increment = this.children[2];
         const block = this.children[3];
         for (initialize.eval(); condition.eval(); increment.eval()) {
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.For = For;
 class ForIn extends Operand {
     eval() {
+        let lastValue = null;
         const item = this.children[0];
         const list = this.children[1].eval();
         const block = this.children[2];
         for (let i = 0; i < list.length; i++) {
             const value = list[i];
             item.set(value);
-            block.eval();
+            lastValue = block.eval();
         }
+        return lastValue;
     }
 }
 exports.ForIn = ForIn;

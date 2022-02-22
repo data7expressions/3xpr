@@ -3,7 +3,7 @@ import { Node, ExpressionConfig } from '../parser/index'
 import { Data, Parameter } from '../model'
 import {
 	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
-	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default
+	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template
 } from './operands'
 
 export class OperandManager {
@@ -78,7 +78,7 @@ export class OperandManager {
 			operand.metadata = this.expressionConfig
 		} else if (operand instanceof Operator) {
 			operand.metadata = this.expressionConfig
-		} else if (operand instanceof Variable) {
+		} else if (operand instanceof Variable || operand instanceof Template) {
 			operand.data = current
 		}
 		for (const k in operand.children) {
@@ -170,6 +170,8 @@ export class OperandManager {
 			return new Constant(node.name)
 		case 'var':
 			return new Variable(node.name)
+		case 'template':
+			return new Template(node.name)
 		case 'keyVal':
 			return new KeyValue(node.name, children)
 		case 'array':

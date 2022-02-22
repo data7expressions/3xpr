@@ -201,7 +201,7 @@ class ParserManager {
             const p = buffer[i];
             if (isString && p === quotes)
                 isString = false;
-            else if (!isString && (p === '\'' || p === '"')) {
+            else if (!isString && (p === '\'' || p === '"' || p === '`')) {
                 isString = true;
                 quotes = p;
             }
