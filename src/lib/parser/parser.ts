@@ -379,13 +379,12 @@ export class Parser {
 		return new Node('if', 'if', childs)
 	}
 
-	private getSwitchBlock ():Node {
-		const value = this.getExpression(undefined, undefined, ')')
-		if (this.current === '{') this.index += 1
-
-		let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : ''
-
+	private getSwitchBlock (): Node {
 		const childs = []
+		const value = this.getExpression(undefined, undefined, ')')
+		childs.push(value)
+		if (this.current === '{') this.index += 1
+		let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : ''
 		while (next === 'case') {
 			this.index += 'case'.length
 			let compare:string
@@ -399,7 +398,7 @@ export class Parser {
 			if (this.current === ':') this.index += 1
 			const lines:Node[] = []
 			while (true) {
-				const line = this.getExpression(undefined, undefined, ';')
+				const line = this.getExpression(undefined, undefined, ';}')
 				if (line !== undefined) lines.push(line)
 				if (this.nextIs('case')) {
 					next = 'case'
@@ -407,7 +406,7 @@ export class Parser {
 				} else if (this.nextIs('default:')) {
 					next = 'default:'
 					break
-				} else if (this.current === '}') {
+				} else if (this.current === '}' || this.previous === '}') {
 					next = 'end'
 					break
 				}
@@ -421,17 +420,18 @@ export class Parser {
 			this.index += 'default:'.length
 			const lines: Node[] = []
 			while (true) {
-				const line = this.getExpression(undefined, undefined, ';')
+				const line = this.getExpression(undefined, undefined, ';}')
 				if (line !== undefined) lines.push(line)
-				if (this.current === '}') break
+				if (this.current === '}' || this.previous === '}') break
 			}
 			const block = new Node('block', 'block', lines)
 			const defaultNode = new Node('default', 'default', [block])
 			childs.push(defaultNode)
 		}
-		if (this.current === '{') this.index += 1
-		const options = new Node('options', 'options', childs)
-		return new Node('switch', 'switch', [value, options])
+		if (this.current === '}') this.index += 1
+		return new Node('switch', 'switch', childs)
+		// const options = new Node('options', 'options', childs)
+		// return new Node('switch', 'switch', [value, options])
 	}
 
 	private getWhileBlock ():Node {

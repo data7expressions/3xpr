@@ -155,25 +155,30 @@ export class ArrowFunction extends FunctionRef {
 }
 export class Block extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		for (let i = 0; i < this.children.length; i++) {
-			this.children[i].eval()
+			lastValue = this.children[i].eval()
 		}
+		return lastValue
 	}
 }
 export class If extends Operand {
 	public eval (): any {
 		const condition = this.children[0].eval()
 		if (condition) {
-			this.children[1].eval()
+			const ifBlock = this.children[1]
+			return ifBlock.eval()
 		} else if (this.children.length > 2) {
 			for (let i = 2; i < this.children.length; i++) {
 				if (this.children[i] instanceof ElseIf) {
-					if (this.children[i].eval()) {
-						break
+					const elseIfCondition = this.children[i].children[0].eval()
+					if (elseIfCondition) {
+						const elseIfBlock = this.children[i].children[1]
+						return elseIfBlock.eval()
 					}
 				} else {
-					this.children[i].eval()
-					break
+					const elseBlock = this.children[i]
+					return elseBlock.eval()
 				}
 			}
 		}
@@ -181,18 +186,12 @@ export class If extends Operand {
 }
 export class ElseIf extends Operand {
 	public eval (): any {
-		const condition = this.children[0].eval()
-		const block = this.children[1]
-		if (condition) {
-			block.eval()
-			return true
-		}
-		return false
+		throw new Error('NotUsed')
 	}
 }
 export class Else extends Operand {
 	public eval (): any {
-		this.children[0].eval()
+		throw new Error('NotUsed')
 	}
 }
 export class While extends Operand {
@@ -227,12 +226,35 @@ export class ForIn extends Operand {
 		}
 	}
 }
-// TODO:
 export class Switch extends Operand {
 	public eval (): any {
-		throw new Error('NotImplemented')
+		const value = this.children[0].eval()
+		for (let i = 1; i < this.children.length; i++) {
+			const option = this.children[i]
+			if (option instanceof Case) {
+				if (option.name === value) {
+					const caseBlock = option.children[0]
+					return caseBlock.eval()
+				}
+			} else if (option instanceof Default) {
+				const defaultBlock = option.children[0]
+				return defaultBlock.eval()
+			}
+		}
 	}
 }
+
+export class Case extends Operand {
+	public eval (): any {
+		throw new Error('NotUsed')
+	}
+}
+export class Default extends Operand {
+	public eval (): any {
+		throw new Error('NotUsed')
+	}
+}
+
 export class Break extends Operand {
 	public eval (): any {
 		throw new Error('NotImplemented')

@@ -196,6 +196,10 @@ class OperandManager {
                 return new operands_1.ForIn(node.name, children);
             case 'switch':
                 return new operands_1.Switch(node.name, children);
+            case 'case':
+                return new operands_1.Case(node.name, children);
+            case 'default':
+                return new operands_1.Default(node.name, children);
             case 'break':
                 return new operands_1.Break(node.name, children);
             case 'continue':

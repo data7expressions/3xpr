@@ -74,6 +74,12 @@ export declare class ForIn extends Operand {
 export declare class Switch extends Operand {
     eval(): any;
 }
+export declare class Case extends Operand {
+    eval(): any;
+}
+export declare class Default extends Operand {
+    eval(): any;
+}
 export declare class Break extends Operand {
     eval(): any;
 }

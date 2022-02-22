@@ -59,6 +59,7 @@ export class ParserManager {
 			const parser = new Parser(this, buffer)
 			const node = parser.parse()
 			//  delete _parser
+			this.clearChildEmpty(node)
 			this.setParent(node)
 			return node
 		} catch (error:any) {
@@ -151,6 +152,25 @@ export class ParserManager {
 		return this.setParent(node)
 	}
 
+	public clearChildEmpty (node:Node) {
+		try {
+			if (node.children.length > 0) {
+				const toRemove:number[] = []
+				for (let i = 0; i < node.children.length; i++) {
+					if (node.children[i] === null) {
+						toRemove.push(i)
+					}
+				}
+				for (let i = 0; i < toRemove.length; i++) {
+					delete node.children[toRemove[i]]
+				}
+			}
+		} catch (error:any) {
+			throw new Error('set parent: ' + node.name + ' error: ' + error.toString())
+		}
+		return node
+	}
+
 	public setParent (node:Node, parent?:Node, index = 0) {
 		try {
 			if (parent) {
@@ -164,7 +184,11 @@ export class ParserManager {
 				node.index = 0
 				node.level = 0
 			}
-			if (node.children.length > 0) { for (let i = 0; i < node.children.length; i++) { this.setParent(node.children[i], node, i) } }
+			if (node.children.length > 0) {
+				for (let i = 0; i < node.children.length; i++) {
+					this.setParent(node.children[i], node, i)
+				}
+			}
 		} catch (error:any) {
 			throw new Error('set parent: ' + node.name + ' error: ' + error.toString())
 		}

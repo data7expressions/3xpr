@@ -3,7 +3,7 @@ import { Node, ExpressionConfig } from '../parser/index'
 import { Data, Parameter } from '../model'
 import {
 	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
-	, Switch, Break, Continue, Function, Return, Try, Catch, Throw
+	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default
 } from './operands'
 
 export class OperandManager {
@@ -200,6 +200,10 @@ export class OperandManager {
 			return new ForIn(node.name, children)
 		case 'switch':
 			return new Switch(node.name, children)
+		case 'case':
+			return new Case(node.name, children)
+		case 'default':
+			return new Default(node.name, children)
 		case 'break':
 			return new Break(node.name, children)
 		case 'continue':
