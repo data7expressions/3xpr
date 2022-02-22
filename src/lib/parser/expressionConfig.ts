@@ -35,42 +35,48 @@ export class ExpressionConfig {
 		}
 	}
 
-	public load (data:any):void {
-		for (const name in data.enums) {
-			this.addEnum(name, data.enums[name])
+	public load (data: any): void {
+		if (data.enums) {
+			for (const name in data.enums) {
+				this.addEnum(name, data.enums[name])
+			}
 		}
-		for (const type in data.operators) {
-			for (const name in data.operators[type]) {
-				const operatorData = data.operators[type][name]
+		if (data.operators) {
+			for (const type in data.operators) {
+				for (const name in data.operators[type]) {
+					const operatorData = data.operators[type][name]
+					const metadata: OperatorMetadata = {
+						operator: name,
+						deterministic: true,
+						name: operatorData.name,
+						category: operatorData.category,
+						type: OperatorType.operator,
+						operands: operatorData.params.length,
+						priority: operatorData.priority ? operatorData.priority : -1,
+						description: operatorData.description,
+						params: operatorData.params,
+						return: operatorData.return
+					}
+					this.addOperator(metadata)
+				}
+			}
+		}
+		if (data.functions) {
+			for (const name in data.functions) {
+				const functionData = data.functions[name]
 				const metadata: OperatorMetadata = {
 					operator: name,
-					deterministic: true,
-					name: operatorData.name,
-					category: operatorData.category,
-					type: OperatorType.operator,
-					operands: operatorData.params.length,
-					priority: operatorData.priority ? operatorData.priority : -1,
-					description: operatorData.description,
-					params: operatorData.params,
-					return: operatorData.return
+					name: name,
+					category: functionData.category,
+					deterministic: functionData.deterministic ? functionData.deterministic : true,
+					type: functionData.type ? functionData.type : OperatorType.function,
+					operands: functionData.params ? functionData.params.length : 0,
+					description: functionData.description,
+					params: functionData.params,
+					return: functionData.return
 				}
-				this.addOperator(metadata)
+				this.addFunction(metadata)
 			}
-		}
-		for (const name in data.functions) {
-			const functionData = data.functions[name]
-			const metadata: OperatorMetadata = {
-				operator: name,
-				name: name,
-				category: functionData.category,
-				deterministic: functionData.deterministic ? functionData.deterministic : true,
-				type: functionData.type ? functionData.type : OperatorType.function,
-				operands: functionData.params ? functionData.params.length : 0,
-				description: functionData.description,
-				params: functionData.params,
-				return: functionData.return
-			}
-			this.addFunction(metadata)
 		}
 	}
 
