@@ -196,34 +196,40 @@ export class Else extends Operand {
 }
 export class While extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const condition = this.children[0]
 		const block = this.children[1]
 		while (condition.eval()) {
-			block.eval()
+			lastValue = block.eval()
 		}
+		return lastValue
 	}
 }
 export class For extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const initialize = this.children[0]
 		const condition = this.children[1]
 		const increment = this.children[2]
 		const block = this.children[3]
 		for (initialize.eval(); condition.eval(); increment.eval()) {
-			block.eval()
+			lastValue = block.eval()
 		}
+		return lastValue
 	}
 }
 export class ForIn extends Operand {
 	public eval (): any {
+		let lastValue:any = null
 		const item = this.children[0]
 		const list = this.children[1].eval()
 		const block = this.children[2]
 		for (let i = 0; i < list.length; i++) {
 			const value = list[i]
 			item.set(value)
-			block.eval()
+			lastValue = block.eval()
 		}
+		return lastValue
 	}
 }
 export class Switch extends Operand {
@@ -243,7 +249,6 @@ export class Switch extends Operand {
 		}
 	}
 }
-
 export class Case extends Operand {
 	public eval (): any {
 		throw new Error('NotUsed')
