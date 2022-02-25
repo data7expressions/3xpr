@@ -43,6 +43,6 @@ import { expressions } from '../../lib'
 
 	console.log(expressions.eval('concat(type,"-",switch(type){case"phone":imei;default: mac;})', { type: 'phone', imei: 'imei', mac: 'mac' }))
 
-	console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'phone' }))
-	console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'other' }))
+	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
+	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
 })()

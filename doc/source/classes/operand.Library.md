@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[operand/library.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L15)
+[operand/library.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L15)
 
 ## Properties
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[operand/library.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L11)
+[operand/library.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L11)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L13)
+[operand/library.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L13)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L10)
+[operand/library.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L10)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L12)
+[operand/library.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L12)
 
 ## Methods
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L22)
+[operand/library.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L22)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L26)
+[operand/library.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L26)
 
 ___
 
@@ -144,4 +144,4 @@ ___
 
 #### Defined in
 
-[operand/library.ts:54](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/operand/library.ts#L54)
+[operand/library.ts:54](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/library.ts#L54)

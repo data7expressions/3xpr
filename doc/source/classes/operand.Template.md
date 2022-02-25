@@ -1,58 +1,58 @@
-[Expressions](../README.md) / [operand](../modules/operand.md) / While
+[Expressions](../README.md) / [operand](../modules/operand.md) / Template
 
-# Class: While
+# Class: Template
 
-[operand](../modules/operand.md).While
+[operand](../modules/operand.md).Template
 
 ## Hierarchy
 
 - [`Operand`](operand.Operand.md)
 
-  ↳ **`While`**
+  ↳ **`Template`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](operand.While.md#constructor)
+- [constructor](operand.Template.md#constructor)
 
 ### Properties
 
-- [children](operand.While.md#children)
-- [id](operand.While.md#id)
-- [index](operand.While.md#index)
-- [level](operand.While.md#level)
-- [name](operand.While.md#name)
-- [parent](operand.While.md#parent)
-- [type](operand.While.md#type)
+- [children](operand.Template.md#children)
+- [data](operand.Template.md#data)
+- [id](operand.Template.md#id)
+- [index](operand.Template.md#index)
+- [level](operand.Template.md#level)
+- [name](operand.Template.md#name)
+- [parent](operand.Template.md#parent)
+- [type](operand.Template.md#type)
 
 ### Methods
 
-- [clone](operand.While.md#clone)
-- [eval](operand.While.md#eval)
-- [set](operand.While.md#set)
+- [clone](operand.Template.md#clone)
+- [eval](operand.Template.md#eval)
+- [set](operand.Template.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new While**(`name`, `children?`, `type?`)
+• **new Template**(`name`, `type?`)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `name` | `string` | `undefined` |
-| `children` | [`Operand`](operand.Operand.md)[] | `[]` |
 | `type` | `string` | `'any'` |
 
-#### Inherited from
+#### Overrides
 
 [Operand](operand.Operand.md).[constructor](operand.Operand.md#constructor)
 
 #### Defined in
 
-[operand/operands.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L14)
+[operand/operands.ts:79](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L79)
 
 ## Properties
 
@@ -67,6 +67,16 @@
 #### Defined in
 
 [operand/operands.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L13)
+
+___
+
+### data
+
+• `Optional` **data**: [`Data`](model.Data.md)
+
+#### Defined in
+
+[operand/operands.ts:78](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L78)
 
 ___
 
@@ -186,7 +196,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:218](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L218)
+[operand/operands.ts:84](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L84)
 
 ___
 

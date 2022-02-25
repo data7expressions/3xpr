@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[model/cache.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/model/cache.ts#L4)
+[model/cache.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/model/cache.ts#L4)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[model/cache.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/model/cache.ts#L2)
+[model/cache.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/model/cache.ts#L2)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[model/cache.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/9478ec0/src/lib/model/cache.ts#L3)
+[model/cache.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/model/cache.ts#L3)

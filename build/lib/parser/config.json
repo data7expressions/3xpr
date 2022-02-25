@@ -694,7 +694,7 @@
                 }
             ]
         },
-        "in": {
+        "includes": {
             "description": "Is used to reduce the use of multiple OR conditions",
             "category": "condition",
             "return": "boolean",
