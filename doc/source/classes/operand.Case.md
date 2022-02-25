@@ -1,42 +1,42 @@
-[Expressions](../README.md) / [operand](../modules/operand.md) / While
+[Expressions](../README.md) / [operand](../modules/operand.md) / Case
 
-# Class: While
+# Class: Case
 
-[operand](../modules/operand.md).While
+[operand](../modules/operand.md).Case
 
 ## Hierarchy
 
 - [`Operand`](operand.Operand.md)
 
-  ↳ **`While`**
+  ↳ **`Case`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](operand.While.md#constructor)
+- [constructor](operand.Case.md#constructor)
 
 ### Properties
 
-- [children](operand.While.md#children)
-- [id](operand.While.md#id)
-- [index](operand.While.md#index)
-- [level](operand.While.md#level)
-- [name](operand.While.md#name)
-- [parent](operand.While.md#parent)
-- [type](operand.While.md#type)
+- [children](operand.Case.md#children)
+- [id](operand.Case.md#id)
+- [index](operand.Case.md#index)
+- [level](operand.Case.md#level)
+- [name](operand.Case.md#name)
+- [parent](operand.Case.md#parent)
+- [type](operand.Case.md#type)
 
 ### Methods
 
-- [clone](operand.While.md#clone)
-- [eval](operand.While.md#eval)
-- [set](operand.While.md#set)
+- [clone](operand.Case.md#clone)
+- [eval](operand.Case.md#eval)
+- [set](operand.Case.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new While**(`name`, `children?`, `type?`)
+• **new Case**(`name`, `children?`, `type?`)
 
 #### Parameters
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:218](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L218)
+[operand/operands.ts:273](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operands.ts#L273)
 
 ___
 
