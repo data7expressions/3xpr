@@ -79,7 +79,7 @@ class CoreLib extends library_1.Library {
     }
     conditionFunctions() {
         this.addFunction('between', Functions.between);
-        this.addFunction('includes', Functions.includes);
+        this.addFunction('in', Functions.in);
     }
     nullablesFunctions() {
         this.addFunction('nvl', Functions.nvl);
@@ -505,8 +505,13 @@ class Functions {
     static between(value, from, to) {
         return value >= from && value < to;
     }
-    static includes(value, list) {
-        return list.includes(value);
+    static in(value, list) {
+        if (list && value) {
+            return list.includes(value);
+        }
+        else {
+            return false;
+        }
     }
     static toString(value) {
         return Functions.isNull(value) ? '' : value.toString();

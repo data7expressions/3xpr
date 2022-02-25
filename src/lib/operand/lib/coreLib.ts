@@ -77,7 +77,7 @@ export class CoreLib extends Library {
 
 	private conditionFunctions () {
 		this.addFunction('between', Functions.between)
-		this.addFunction('includes', Functions.includes)
+		this.addFunction('in', Functions.in)
 	}
 
 	private nullablesFunctions () {
@@ -552,8 +552,12 @@ class Functions {
 		return value >= from && value < to
 	}
 
-	static includes (value: any, list: any[]): boolean {
-		return list.includes(value)
+	static in (value: any, list: any[]): boolean {
+		if (list && value) {
+			return list.includes(value)
+		} else {
+			return false
+		}
 	}
 
 	static toString (value: any): string {
