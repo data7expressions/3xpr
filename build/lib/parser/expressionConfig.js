@@ -35,41 +35,47 @@ class ExpressionConfig {
         }
     }
     load(data) {
-        for (const name in data.enums) {
-            this.addEnum(name, data.enums[name]);
-        }
-        for (const type in data.operators) {
-            for (const name in data.operators[type]) {
-                const operatorData = data.operators[type][name];
-                const metadata = {
-                    operator: name,
-                    deterministic: true,
-                    name: operatorData.name,
-                    category: operatorData.category,
-                    type: model_1.OperatorType.operator,
-                    operands: operatorData.params.length,
-                    priority: operatorData.priority ? operatorData.priority : -1,
-                    description: operatorData.description,
-                    params: operatorData.params,
-                    return: operatorData.return
-                };
-                this.addOperator(metadata);
+        if (data.enums) {
+            for (const name in data.enums) {
+                this.addEnum(name, data.enums[name]);
             }
         }
-        for (const name in data.functions) {
-            const functionData = data.functions[name];
-            const metadata = {
-                operator: name,
-                name: name,
-                category: functionData.category,
-                deterministic: functionData.deterministic ? functionData.deterministic : true,
-                type: functionData.type ? functionData.type : model_1.OperatorType.function,
-                operands: functionData.params ? functionData.params.length : 0,
-                description: functionData.description,
-                params: functionData.params,
-                return: functionData.return
-            };
-            this.addFunction(metadata);
+        if (data.operators) {
+            for (const type in data.operators) {
+                for (const name in data.operators[type]) {
+                    const operatorData = data.operators[type][name];
+                    const metadata = {
+                        operator: name,
+                        deterministic: true,
+                        name: operatorData.name,
+                        category: operatorData.category,
+                        type: model_1.OperatorType.operator,
+                        operands: operatorData.params.length,
+                        priority: operatorData.priority ? operatorData.priority : -1,
+                        description: operatorData.description,
+                        params: operatorData.params,
+                        return: operatorData.return
+                    };
+                    this.addOperator(metadata);
+                }
+            }
+        }
+        if (data.functions) {
+            for (const name in data.functions) {
+                const functionData = data.functions[name];
+                const metadata = {
+                    operator: name,
+                    name: name,
+                    category: functionData.category,
+                    deterministic: functionData.deterministic ? functionData.deterministic : true,
+                    type: functionData.type ? functionData.type : model_1.OperatorType.function,
+                    operands: functionData.params ? functionData.params.length : 0,
+                    description: functionData.description,
+                    params: functionData.params,
+                    return: functionData.return
+                };
+                this.addFunction(metadata);
+            }
         }
     }
     addEnum(key, source) {
