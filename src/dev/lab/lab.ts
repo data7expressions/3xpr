@@ -41,8 +41,60 @@ import { expressions } from '../../lib'
 	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111"); default: concat(type,"-",mac)}', { type: 'computer', imei: 'imei', mac: 'mac' }))
 	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111")}', { type: 'robot', imei: 'imei', mac: 'mac' }))
 
-	console.log(expressions.eval('concat(type,"-",switch(type){case"phone":imei;default: mac;})', { type: 'phone', imei: 'imei', mac: 'mac' }))
+	// console.log(expressions.eval('concat(type,"-",switch(type){case"phone":imei;default: mac;})', { type: 'phone', imei: 'imei', mac: 'mac' }))
 
-	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
-	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
+	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
+	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
+
+	const users = [
+		{
+			username: 'flaviolrita',
+			firstname: 'Flavio Lionel',
+			lastname: 'Rita',
+			email: 'flaviolrita@hotmail.com'
+		},
+		{
+			username: 'griss512',
+			firstname: 'Gricelda Rocio',
+			lastname: 'Puchuri Corilla',
+			email: 'griss512@hotmail.com'
+		},
+		{
+			username: 'micaela',
+			firstname: 'Micaela Valentina',
+			lastname: 'Rita Puchuri',
+			email: 'flaviolrita@hotmail.com'
+		},
+		{
+			username: 'joaquin',
+			firstname: 'Joaquin Ignacio',
+			lastname: 'Rita Puchuri',
+			email: 'flaviolrita@hotmail.com',
+			test: {
+				name: 'a'
+			}
+		}
+	]
+
+	// solve ambiguities
+	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
+	// console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'phone' }))
+	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
+	// console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'other' }))
+
+	// console.log(expressions.eval('users.filter(p=> p.username === "joaquin").map(p=> p.email).first()', { users: users }))
+	// console.log(expressions.eval('users.where(p-> p.username == "joaquin").select( p-> p.email).first()', { users: users }))
+	// console.log(expressions.eval('users.first(p-> p.username == "joaquin").email', { users: users }))
+	// console.log(expressions.eval('users.first(p-> p.username == "joaquin").test.name', { users: users }))
+	// console.log(expressions.eval('users.first(p-> p.username == "joaquin").test.x', { users: users }))
+	// console.log(expressions.eval('users.first(p-> p.username == "joaquin").x.x', { users: users }))
+	// console.log(expressions.eval('users.where(p-> p.username <> "joaquin").len()', { users: users }))
+	// console.log(expressions.eval('users.where(p-> p.username != "joaquin").length()', { users: users }))
+
+	console.log(expressions.eval('users.email', { users: users }))
+	console.log(expressions.eval('users.test.name', { users: users }))
+
+	// const context = { type: 'phone', imei: 'imei', mac: 'mac' }
+	// console.log(expressions.eval('imei=null', context))
+	// console.log(JSON.stringify(context))
 })()

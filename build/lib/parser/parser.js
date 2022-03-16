@@ -247,9 +247,15 @@ class Parser {
         if (!this.end && this.current === '.') {
             this.index += 1;
             const name = this.getValue();
-            if (this.current === '(')
+            if (this.current === '(') {
+                // .xxx(p=> p.xxx)
                 this.index += 1;
-            return this.solveChain(this.getChildFunction(name, operand));
+                return this.solveChain(this.getChildFunction(name, operand));
+            }
+            else {
+                // .xxx
+                return new node_1.Node(name, 'property', [operand]);
+            }
         }
         else {
             return operand;
@@ -522,21 +528,24 @@ class Parser {
         const variableName = this.getValue(false);
         if (variableName !== '') {
             // example: p => {name:p.name}
+            // example: p -> {name:p.name}
             const i = this.index + variableName.length;
-            if (this.char(i) === '=' && this.char(i + 1) === '>') {
+            if ((this.char(i) === '=' || this.char(i) === '-') && this.char(i + 1) === '>') {
                 isArrow = true;
                 this.index += (variableName.length + 2); // [VARIABLE+NAME] + [=>]
             }
         }
         else if (this.current + this.next === '()') {
             // example: ()=> {name:name}
-            if (this.offset(2) === '=' && this.offset(3) === '>') {
+            // example: ()-> {name:name}
+            if ((this.offset(2) === '=' || this.offset(2) === '-') && this.offset(3) === '>') {
                 isArrow = true;
                 this.index += 4; // [()=>]
             }
         }
-        else if (this.current + this.next === '=>') {
+        else if (this.current + this.next === '=>' || this.current + this.next === '->') {
             // example: => {name:name}
+            // example: -> {name:name}
             isArrow = true;
             this.index += 2; // [=>]
         }

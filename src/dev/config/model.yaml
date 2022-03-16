@@ -184,7 +184,17 @@ operators:
       - name: a
         type: T
       - name: b
-        type: T     
+        type: T
+    '<>':
+      name: notEqual
+      category: comparison
+      priority: 4
+      return: boolean
+      params:
+      - name: a
+        type: T
+      - name: b
+        type: T          
     '>':
       name: greaterThan
       category: comparison
@@ -443,7 +453,16 @@ functions:
     - name: value
       type: T
     - name: list
-      type: T[]      
+      type: T[]
+  in:
+    description: Is used to reduce the use of multiple OR conditions
+    category: condition 
+    return: boolean
+    params:
+    - name: value
+      type: T
+    - name: list
+      type: T[]           
 # numeric:---------------------------------------------------------       
   abs:
     description: Get the absolute value     
@@ -1046,6 +1065,16 @@ functions:
       type: any[]
     - name: method 
       type: function
+  each:
+    description: Calls a function for each element in an array.
+    type: arrow
+    category: array 
+    return: void 
+    params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function    
   filter:
     description: Creates a new array filled with elements that pass a test provided by a function
     type: arrow
@@ -1055,7 +1084,17 @@ functions:
     - name: list 
       type: T[]
     - name: method 
-      type: function  
+      type: function 
+  where:
+    description: Creates a new array filled with elements that pass a test provided by a function
+    type: arrow
+    category: array 
+    return: T[] 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function       
   first:
     description: Returns the first value of the array that meets a condition
     type: arrow
@@ -1086,6 +1125,16 @@ functions:
       type: any[]
     - name: method 
       type: function  
+  select:
+    description: Creates a new array from calling a function for every array element.
+    type: arrow
+    category: array 
+    return: any[] 
+    params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function     
   sort:
     description: Sorts the elements of an array.
     type: arrow
@@ -1095,7 +1144,17 @@ functions:
     - name: list 
       type: T[]
     - name: method 
-      type: function 
+      type: function
+  order:
+    description: Sorts the elements of an array.
+    type: arrow
+    category: array 
+    return: T[] 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function      
   reverse:
     description:  Reverses the order of the elements in an array.
     type: arrow 
@@ -1116,6 +1175,16 @@ functions:
       type: any[]
     - name: method 
       type: function
+  delete:
+    description: Eliminate the elements of the array that meet the filter condition
+    type: arrow
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function    
   push:
     description: Adds new items to the end of an array
     type: child
@@ -1125,7 +1194,17 @@ functions:
     - name: list 
       type: T[]
     - name: value 
-      type: T 
+      type: T
+  insert:
+    description: Adds new items to the end of an array
+    type: child
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: T[]
+    - name: value 
+      type: T      
   pop:
     description: Removes (pops) the last element of an array and return element
     type: child
@@ -1141,7 +1220,15 @@ functions:
     return: number 
     params:
     - name: list 
-      type: T[]    
+      type: T[]  
+  len:
+    description: Calculating the number of items in a array.
+    type: child
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: T[]        
 enums:
   DayOfWeek:
     Sunday: 0

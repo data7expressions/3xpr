@@ -295,6 +295,22 @@
                     }
                 ]
             },
+            "<>": {
+                "name": "notEqual",
+                "category": "comparison",
+                "priority": 4,
+                "return": "boolean",
+                "params": [
+                    {
+                        "name": "a",
+                        "type": "T"
+                    },
+                    {
+                        "name": "b",
+                        "type": "T"
+                    }
+                ]
+            },
             ">": {
                 "name": "greaterThan",
                 "category": "comparison",
@@ -695,6 +711,21 @@
             ]
         },
         "includes": {
+            "description": "Is used to reduce the use of multiple OR conditions",
+            "category": "condition",
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "T"
+                },
+                {
+                    "name": "list",
+                    "type": "T[]"
+                }
+            ]
+        },
+        "in": {
             "description": "Is used to reduce the use of multiple OR conditions",
             "category": "condition",
             "return": "boolean",
@@ -1628,7 +1659,39 @@
                 }
             ]
         },
+        "each": {
+            "description": "Calls a function for each element in an array.",
+            "type": "arrow",
+            "category": "array",
+            "return": "void",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "any[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
         "filter": {
+            "description": "Creates a new array filled with elements that pass a test provided by a function",
+            "type": "arrow",
+            "category": "array",
+            "return": "T[]",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "where": {
             "description": "Creates a new array filled with elements that pass a test provided by a function",
             "type": "arrow",
             "category": "array",
@@ -1692,7 +1755,39 @@
                 }
             ]
         },
+        "select": {
+            "description": "Creates a new array from calling a function for every array element.",
+            "type": "arrow",
+            "category": "array",
+            "return": "any[]",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "any[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
         "sort": {
+            "description": "Sorts the elements of an array.",
+            "type": "arrow",
+            "category": "array",
+            "return": "T[]",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "order": {
             "description": "Sorts the elements of an array.",
             "type": "arrow",
             "category": "array",
@@ -1740,7 +1835,39 @@
                 }
             ]
         },
+        "delete": {
+            "description": "Eliminate the elements of the array that meet the filter condition",
+            "type": "arrow",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "any[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
         "push": {
+            "description": "Adds new items to the end of an array",
+            "type": "child",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "value",
+                    "type": "T"
+                }
+            ]
+        },
+        "insert": {
             "description": "Adds new items to the end of an array",
             "type": "child",
             "category": "array",
@@ -1769,6 +1896,18 @@
             ]
         },
         "length": {
+            "description": "Calculating the number of items in a array.",
+            "type": "child",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                }
+            ]
+        },
+        "len": {
             "description": "Calculating the number of items in a array.",
             "type": "child",
             "category": "array",
