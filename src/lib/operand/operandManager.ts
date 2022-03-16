@@ -3,7 +3,7 @@ import { Node, ExpressionConfig } from '../parser/index'
 import { Data, Parameter } from '../model'
 import {
 	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
-	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template
+	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template, Property
 } from './operands'
 
 export class OperandManager {
@@ -170,6 +170,8 @@ export class OperandManager {
 			return new Constant(node.name)
 		case 'var':
 			return new Variable(node.name)
+		case 'property':
+			return new Property(node.name, children)
 		case 'template':
 			return new Template(node.name)
 		case 'keyVal':

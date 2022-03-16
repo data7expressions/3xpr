@@ -29,6 +29,9 @@ export declare class Template extends Operand {
     constructor(name: string, type?: string);
     eval(): any;
 }
+export declare class Property extends Operand {
+    eval(): any;
+}
 export declare class KeyValue extends Operand {
     property?: string;
     eval(): any;

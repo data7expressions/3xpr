@@ -49,7 +49,10 @@ class CoreLib extends library_1.Library {
         this.addOperator('<<', Operators.leftShift);
         this.addOperator('>>', Operators.rightShift);
         this.addOperator('==', Operators.equal);
+        this.addOperator('===', Operators.equal);
         this.addOperator('!=', Operators.notEqual);
+        this.addOperator('!==', Operators.notEqual);
+        this.addOperator('<>', Operators.notEqual);
         this.addOperator('>', Operators.greaterThan);
         this.addOperator('<', Operators.lessThan);
         this.addOperator('>=', Operators.greaterThanOrEqual);
@@ -80,6 +83,7 @@ class CoreLib extends library_1.Library {
     conditionFunctions() {
         this.addFunction('between', Functions.between);
         this.addFunction('includes', Functions.includes);
+        this.addFunction('in', Functions.includes);
     }
     nullablesFunctions() {
         this.addFunction('nvl', Functions.nvl);
@@ -227,16 +231,23 @@ class CoreLib extends library_1.Library {
     }
     initArrowFunctions() {
         this.addFunction('map', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
+        this.addFunction('select', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
         this.addFunction('foreach', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
+        this.addFunction('each', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
         this.addFunction('filter', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
+        this.addFunction('where', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
         this.addFunction('reverse', ArrayFunctions.reverse, model_1.OperatorType.arrow, Reverse);
         this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
         this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
         this.addFunction('sort', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
+        this.addFunction('order', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
+        this.addFunction('delete', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
         this.addFunction('push', (list, item) => list.push(item), model_1.OperatorType.child);
+        this.addFunction('insert', (list, item) => list.push(item), model_1.OperatorType.child);
         this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
         this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
+        this.addFunction('len', (list) => list.length, model_1.OperatorType.child);
         // this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
         // this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
     }
@@ -594,6 +605,9 @@ class First extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            return list && list.length > 0 ? list[0] : null;
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -608,6 +622,9 @@ class Last extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            return list && list.length > 0 ? list[list.length - 1] : null;
+        }
         for (let i = list.length - 1; i >= 0; i--) {
             const p = list[i];
             this.children[1].set(p);

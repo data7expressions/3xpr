@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Template = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -81,6 +81,34 @@ class Template extends Operand {
     }
 }
 exports.Template = Template;
+class Property extends Operand {
+    eval() {
+        let value = this.children[0].eval();
+        if (value === undefined || value === null)
+            return null;
+        const names = this.name.split('.');
+        for (const p in names) {
+            const name = names[p];
+            if (Array.isArray(value)) {
+                const result = [];
+                for (const i in value) {
+                    const item = value[i];
+                    if (item[name] !== undefined) {
+                        result.push(item[name]);
+                    }
+                }
+                value = result;
+            }
+            else {
+                if (value[name] === undefined)
+                    return null;
+                value = value[name];
+            }
+        }
+        return value;
+    }
+}
+exports.Property = Property;
 class KeyValue extends Operand {
     eval() {
         return this.children[0].eval();

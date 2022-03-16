@@ -166,6 +166,8 @@ class OperandManager {
                 return new operands_1.Constant(node.name);
             case 'var':
                 return new operands_1.Variable(node.name);
+            case 'property':
+                return new operands_1.Property(node.name, children);
             case 'template':
                 return new operands_1.Template(node.name);
             case 'keyVal':

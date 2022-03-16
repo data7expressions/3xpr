@@ -42,7 +42,10 @@ export class CoreLib extends Library {
 		this.addOperator('>>', Operators.rightShift)
 
 		this.addOperator('==', Operators.equal)
+		this.addOperator('===', Operators.equal)
 		this.addOperator('!=', Operators.notEqual)
+		this.addOperator('!==', Operators.notEqual)
+		this.addOperator('<>', Operators.notEqual)
 		this.addOperator('>', Operators.greaterThan)
 		this.addOperator('<', Operators.lessThan)
 		this.addOperator('>=', Operators.greaterThanOrEqual)
@@ -78,6 +81,7 @@ export class CoreLib extends Library {
 	private conditionFunctions () {
 		this.addFunction('between', Functions.between)
 		this.addFunction('includes', Functions.includes)
+		this.addFunction('in', Functions.includes)
 	}
 
 	private nullablesFunctions () {
@@ -230,16 +234,23 @@ export class CoreLib extends Library {
 
 	private initArrowFunctions () {
 		this.addFunction('map', ArrayFunctions.map, OperatorType.arrow, Map)
+		this.addFunction('select', ArrayFunctions.map, OperatorType.arrow, Map)
 		this.addFunction('foreach', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
+		this.addFunction('each', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
 		this.addFunction('filter', ArrayFunctions.filter, OperatorType.arrow, Filter)
+		this.addFunction('where', ArrayFunctions.filter, OperatorType.arrow, Filter)
 		this.addFunction('reverse', ArrayFunctions.reverse, OperatorType.arrow, Reverse)
 		this.addFunction('first', ArrayFunctions.first, OperatorType.arrow, First)
 		this.addFunction('last', ArrayFunctions.last, OperatorType.arrow, Last)
 		this.addFunction('sort', ArrayFunctions.sort, OperatorType.arrow, Sort)
+		this.addFunction('order', ArrayFunctions.sort, OperatorType.arrow, Sort)
 		this.addFunction('remove', ArrayFunctions.remove, OperatorType.arrow, Remove)
+		this.addFunction('delete', ArrayFunctions.remove, OperatorType.arrow, Remove)
 		this.addFunction('push', (list: any[], item: any): number => list.push(item), OperatorType.child)
+		this.addFunction('insert', (list: any[], item: any): number => list.push(item), OperatorType.child)
 		this.addFunction('pop', (list: any[]): number => list.pop(), OperatorType.child)
 		this.addFunction('length', (list: any[]) => list.length, OperatorType.child)
+		this.addFunction('len', (list: any[]) => list.length, OperatorType.child)
 		// this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
 		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
@@ -645,7 +656,10 @@ class Reverse extends ArrowFunction {
 class First extends ArrowFunction {
 	eval ():any {
 		const rows = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			return list && list.length > 0 ? list[0] : null
+		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -659,7 +673,10 @@ class First extends ArrowFunction {
 class Last extends ArrowFunction {
 	eval ():any {
 		const rows = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			return list && list.length > 0 ? list[list.length - 1] : null
+		}
 		for (let i = list.length - 1; i >= 0; i--) {
 			const p = list[i]
 			this.children[1].set(p)

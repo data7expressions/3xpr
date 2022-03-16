@@ -30,9 +30,21 @@ class Data {
         let value = this.getData(names[0]);
         for (const p in names) {
             const name = names[p];
-            if (value[name] === undefined)
-                return null;
-            value = value[name];
+            if (Array.isArray(value)) {
+                const result = [];
+                for (const i in value) {
+                    const item = value[i];
+                    if (item[name] !== undefined) {
+                        result.push(item[name]);
+                    }
+                }
+                value = result;
+            }
+            else {
+                if (value[name] === undefined)
+                    return null;
+                value = value[name];
+            }
         }
         return value;
     }
