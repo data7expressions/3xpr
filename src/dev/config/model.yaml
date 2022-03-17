@@ -868,7 +868,7 @@ functions:
     params:
     - name: value
       type: Date
-  hours:
+  hour:
     description: get hour from date
     category: datetime
     deterministic: true 
@@ -876,22 +876,30 @@ functions:
     params:
     - name: value
       type: Date
-  minutes:
-    description: Get minutes from date
+  minute:
+    description: Get minute from date
     category: datetime
     deterministic: true 
     return: number 
     params:
     - name: value
       type: Date    
-  seconds:
-    description: Get seconds from date
+  second:
+    description: Get second from date
     category: datetime
     deterministic: true 
     return: number 
     params:
     - name: value
       type: Date
+  millisecond:
+    description: Get millisecond from date
+    category: datetime
+    deterministic: true 
+    return: number 
+    params:
+    - name: value
+      type: Date    
   addYear:
     description: Add years to a date
     category: datetime
@@ -922,7 +930,7 @@ functions:
       type: Date
     - name: value
       type: number
-  addHours:
+  addHour:
     description: Add hours to a date
     category: datetime
     deterministic: true 
@@ -932,7 +940,7 @@ functions:
       type: Date
     - name: value
       type: number 
-  addMinutes:
+  addMinute:
     description: Add minutes to a date
     category: datetime
     deterministic: true 
@@ -942,7 +950,7 @@ functions:
       type: Date
     - name: value
       type: number 
-  addSeconds:
+  addSecond:
     description: Add seconds to a date
     category: datetime
     deterministic: true 
@@ -972,7 +980,7 @@ functions:
       type: Date
     - name: time
       type: Date 
-  daysDiff:
+  dayDiff:
     description: difference between two dates in days
     category: datetime
     deterministic: true 
@@ -982,7 +990,7 @@ functions:
       type: Date
     - name: date2
       type: Date 
-  hoursDiff:
+  hourDiff:
     description: difference between two dates in hours
     category: datetime
     deterministic: true 
@@ -992,7 +1000,7 @@ functions:
       type: Date
     - name: time2
       type: Date
-  secondsDiff:
+  secondDiff:
     description: difference between two dates in seconds
     category: datetime
     deterministic: true 
