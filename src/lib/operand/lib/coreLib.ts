@@ -228,6 +228,15 @@ export class CoreLib extends Library {
 			_date.setMilliseconds(_date.getSeconds() + _time.getMilliseconds())
 			return _date.toISOString()
 		})
+		this.addFunction('subtractTime', (date: string, time: string) => {
+			const _time = new Date('2000-01-01T' + time)
+			const _date = new Date(date)
+			_date.setHours(_date.getHours() - _time.getHours())
+			_date.setMinutes(_date.getMinutes() - _time.getMinutes())
+			_date.setSeconds(_date.getSeconds() - _time.getSeconds())
+			_date.setMilliseconds(_date.getSeconds() - _time.getMilliseconds())
+			return _date.toISOString()
+		})
 		this.addFunction('dayDiff', (date1: string, date2: string) => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)

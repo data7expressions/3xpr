@@ -980,6 +980,16 @@ functions:
       type: Date
     - name: time
       type: Date 
+  subtractTime:
+    description: subtract time to a date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: time
+      type: Date 
   dayDiff:
     description: difference between two dates in days
     category: datetime
