@@ -951,7 +951,17 @@ functions:
     - name: date
       type: Date
     - name: value
-      type: number  
+      type: number 
+  addMillisecond:
+    description: Add milliseconds to a date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: date
+      type: Date
+    - name: value
+      type: number      
   addTime:
     description: Add time to a date
     category: datetime
@@ -962,8 +972,8 @@ functions:
       type: Date
     - name: time
       type: Date 
-  dateDiff:
-    description: difference between two dates
+  daysDiff:
+    description: difference between two dates in days
     category: datetime
     deterministic: true 
     return: Date 
@@ -972,8 +982,8 @@ functions:
       type: Date
     - name: date2
       type: Date 
-  timeDiff:
-    description: difference between two times
+  hoursDiff:
+    description: difference between two dates in hours
     category: datetime
     deterministic: true 
     return: Date 
@@ -981,7 +991,27 @@ functions:
     - name: time
       type: Date
     - name: time2
-      type: Date                                    
+      type: Date
+  secondsDiff:
+    description: difference between two dates in seconds
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: time
+      type: Date
+    - name: time2
+      type: Date 
+  millisecondDiff:
+    description: difference between two dates in milliseconds
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: time
+      type: Date
+    - name: time2
+      type: Date                                              
 # convert :---------------------------------------------------------
   toString:
     description: convert to string
