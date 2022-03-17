@@ -257,6 +257,18 @@ export class CoreLib extends Library {
 			const _date2 = new Date(date2)
 			return Math.floor(_date1.getTime() - _date2.getTime())
 		})
+		this.addFunction('dayToDate', (value: number) => {
+			return new Date(value * 24 * 3600 * 1000).toISOString()
+		})
+		this.addFunction('hourToDate', (value: number) => {
+			return new Date(value * 3600 * 1000).toISOString()
+		})
+		this.addFunction('secondToDate', (value: number) => {
+			return new Date(value * 1000).toISOString()
+		})
+		this.addFunction('millisecondToDate', (value: number) => {
+			return new Date(value).toISOString()
+		})
 	}
 
 	private initArrowFunctions () {
