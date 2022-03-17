@@ -1029,7 +1029,40 @@ functions:
     - name: time
       type: Date
     - name: time2
-      type: Date                                              
+      type: Date
+  dayToDate:
+    description: days to  Date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: value
+      type: number
+  hourToDate:
+    description: hours to  Date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: value
+      type: number 
+  secondToDate:
+    description: seconds to  Date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: value
+      type: number  
+  millisecondToDate:
+    description: milliseconds to Date
+    category: datetime
+    deterministic: true 
+    return: Date 
+    params:
+    - name: value
+      type: number          
+                                                      
 # convert :---------------------------------------------------------
   toString:
     description: convert to string
