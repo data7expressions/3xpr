@@ -140,7 +140,7 @@ export class CoreLib extends Library {
 		})
 	}
 
-	// TODO: trabajar todas las fechas como strign en formato ISO
+	// TODO: trabajar todas las fechas como strign en formato ISO 8601
 	private datetimeFunctions () {
 		this.addFunction('curtime', () => {
 			const date = new Date()
@@ -211,6 +211,11 @@ export class CoreLib extends Library {
 			_date.setSeconds(_date.getSeconds() + value)
 			return _date.toISOString()
 		})
+		this.addFunction('addMillisecond', (date: string, value: number) => {
+			const _date = new Date(date)
+			_date.setMilliseconds(_date.getMilliseconds() + value)
+			return _date.toISOString()
+		})
 		this.addFunction('addTime', (date: string, time: string) => {
 			const _time = new Date('2000-01-01T' + time)
 			const _date = new Date(date)
@@ -220,15 +225,25 @@ export class CoreLib extends Library {
 			_date.setMilliseconds(_date.getSeconds() + _time.getMilliseconds())
 			return _date.toISOString()
 		})
-		this.addFunction('dateDiff', (date1: string, date2: string) => {
+		this.addFunction('daysDiff', (date1: string, date2: string) => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 3600 * 1000))
 		})
-		this.addFunction('timeDiff', (date1: string, date2: string) => {
+		this.addFunction('hoursDiff', (date1: string, date2: string) => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
-			return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 60))
+			return Math.floor((_date1.getTime() - _date2.getTime()) / (3600 * 1000))
+		})
+		this.addFunction('secondsDiff', (date1: string, date2: string) => {
+			const _date1 = new Date(date1)
+			const _date2 = new Date(date2)
+			return Math.floor((_date1.getTime() - _date2.getTime()) / (1000))
+		})
+		this.addFunction('millisecondDiff', (date1: string, date2: string) => {
+			const _date1 = new Date(date1)
+			const _date2 = new Date(date2)
+			return Math.floor(_date1.getTime() - _date2.getTime())
 		})
 	}
 
