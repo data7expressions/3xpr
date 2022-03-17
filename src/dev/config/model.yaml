@@ -791,7 +791,15 @@ functions:
     - name: value
       type: string
     - name: regexp
-      type: string 
+      type: string
+  mask:
+    description: General-purpose function that mask parts of arbitrary strings based on position within the string
+    category: string
+    deterministic: true
+    return: string    
+    params:
+    - name: value
+      type: string     
 # datetime :---------------------------------------------------------
   curtime:
     description: Get the current time 
@@ -1061,8 +1069,7 @@ functions:
     return: Date 
     params:
     - name: value
-      type: number          
-                                                      
+      type: number                                
 # convert :---------------------------------------------------------
   toString:
     description: convert to string

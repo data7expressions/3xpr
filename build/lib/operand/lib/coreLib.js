@@ -137,8 +137,21 @@ class CoreLib extends library_1.Library {
         this.addFunction('match', (value, regexp) => {
             return value ? value.match(regexp) : null;
         });
+        this.addFunction('mask', (value) => {
+            if (!value)
+                return value;
+            if (value.length > 8) {
+                return value.substring(0, 3) + '*****' + value.substring(value.length - 3, value.length);
+            }
+            else if (value.length > 5) {
+                return value.substring(0, 1) + '*****' + value.substring(value.length - 1, value.length);
+            }
+            else {
+                return '*';
+            }
+        });
     }
-    // TODO: trabajar todas las fechas como strign en formato ISO
+    // TODO: trabajar todas las fechas como strign en formato ISO 8601
     datetimeFunctions() {
         this.addFunction('curtime', () => {
             const date = new Date();
@@ -170,14 +183,17 @@ class CoreLib extends library_1.Library {
         this.addFunction('weekday', (value) => {
             return new Date(value).getDay();
         });
-        this.addFunction('hours', (value) => {
+        this.addFunction('hour', (value) => {
             return new Date(value).getHours();
         });
-        this.addFunction('minutes', (value) => {
+        this.addFunction('minute', (value) => {
             return new Date(value).getMinutes();
         });
-        this.addFunction('seconds', (value) => {
+        this.addFunction('second', (value) => {
             return new Date(value).getSeconds();
+        });
+        this.addFunction('millisecond', (value) => {
+            return new Date(value).getMilliseconds();
         });
         this.addFunction('addYear', (date, value) => {
             const _date = new Date(date);
@@ -194,19 +210,24 @@ class CoreLib extends library_1.Library {
             _date.setDate(_date.getDate() + value);
             return _date.toISOString();
         });
-        this.addFunction('addHours', (date, value) => {
+        this.addFunction('addHour', (date, value) => {
             const _date = new Date(date);
             _date.setHours(_date.getHours() + value);
             return _date.toISOString();
         });
-        this.addFunction('addMinutes', (date, value) => {
+        this.addFunction('addMinute', (date, value) => {
             const _date = new Date(date);
             _date.setMinutes(_date.getMinutes() + value);
             return _date.toISOString();
         });
-        this.addFunction('addSeconds', (date, value) => {
+        this.addFunction('addSecond', (date, value) => {
             const _date = new Date(date);
             _date.setSeconds(_date.getSeconds() + value);
+            return _date.toISOString();
+        });
+        this.addFunction('addMillisecond', (date, value) => {
+            const _date = new Date(date);
+            _date.setMilliseconds(_date.getMilliseconds() + value);
             return _date.toISOString();
         });
         this.addFunction('addTime', (date, time) => {
@@ -218,15 +239,46 @@ class CoreLib extends library_1.Library {
             _date.setMilliseconds(_date.getSeconds() + _time.getMilliseconds());
             return _date.toISOString();
         });
-        this.addFunction('dateDiff', (date1, date2) => {
+        this.addFunction('subtractTime', (date, time) => {
+            const _time = new Date('2000-01-01T' + time);
+            const _date = new Date(date);
+            _date.setHours(_date.getHours() - _time.getHours());
+            _date.setMinutes(_date.getMinutes() - _time.getMinutes());
+            _date.setSeconds(_date.getSeconds() - _time.getSeconds());
+            _date.setMilliseconds(_date.getSeconds() - _time.getMilliseconds());
+            return _date.toISOString();
+        });
+        this.addFunction('dayDiff', (date1, date2) => {
             const _date1 = new Date(date1);
             const _date2 = new Date(date2);
             return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 3600 * 1000));
         });
-        this.addFunction('timeDiff', (date1, date2) => {
+        this.addFunction('hourDiff', (date1, date2) => {
             const _date1 = new Date(date1);
             const _date2 = new Date(date2);
-            return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 60));
+            return Math.floor((_date1.getTime() - _date2.getTime()) / (3600 * 1000));
+        });
+        this.addFunction('secondDiff', (date1, date2) => {
+            const _date1 = new Date(date1);
+            const _date2 = new Date(date2);
+            return Math.floor((_date1.getTime() - _date2.getTime()) / (1000));
+        });
+        this.addFunction('millisecondDiff', (date1, date2) => {
+            const _date1 = new Date(date1);
+            const _date2 = new Date(date2);
+            return Math.floor(_date1.getTime() - _date2.getTime());
+        });
+        this.addFunction('dayToDate', (value) => {
+            return new Date(value * 24 * 3600 * 1000).toISOString();
+        });
+        this.addFunction('hourToDate', (value) => {
+            return new Date(value * 3600 * 1000).toISOString();
+        });
+        this.addFunction('secondToDate', (value) => {
+            return new Date(value * 1000).toISOString();
+        });
+        this.addFunction('millisecondToDate', (value) => {
+            return new Date(value).toISOString();
         });
     }
     initArrowFunctions() {

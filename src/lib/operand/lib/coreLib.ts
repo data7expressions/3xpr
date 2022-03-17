@@ -138,6 +138,16 @@ export class CoreLib extends Library {
 		this.addFunction('match', (value: string, regexp: string) => {
 			return value ? value.match(regexp) : null
 		})
+		this.addFunction('mask', (value: string) => {
+			if (!value) return value
+			if (value.length > 8) {
+				return value.substring(0, 3) + '*****' + value.substring(value.length - 3, value.length)
+			} else if (value.length > 5) {
+				return value.substring(0, 1) + '*****' + value.substring(value.length - 1, value.length)
+			} else {
+				return '*'
+			}
+		})
 	}
 
 	// TODO: trabajar todas las fechas como strign en formato ISO 8601

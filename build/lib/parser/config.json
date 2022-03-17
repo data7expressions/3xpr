@@ -1245,6 +1245,18 @@
                 }
             ]
         },
+        "mask": {
+            "description": "General-purpose function that mask parts of arbitrary strings based on position within the string",
+            "category": "string",
+            "deterministic": true,
+            "return": "string",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         "curtime": {
             "description": "Get the current time",
             "category": "datetime",
@@ -1355,7 +1367,7 @@
                 }
             ]
         },
-        "hours": {
+        "hour": {
             "description": "get hour from date",
             "category": "datetime",
             "deterministic": true,
@@ -1367,8 +1379,8 @@
                 }
             ]
         },
-        "minutes": {
-            "description": "Get minutes from date",
+        "minute": {
+            "description": "Get minute from date",
             "category": "datetime",
             "deterministic": true,
             "return": "number",
@@ -1379,8 +1391,20 @@
                 }
             ]
         },
-        "seconds": {
-            "description": "Get seconds from date",
+        "second": {
+            "description": "Get second from date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "number",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "Date"
+                }
+            ]
+        },
+        "millisecond": {
+            "description": "Get millisecond from date",
             "category": "datetime",
             "deterministic": true,
             "return": "number",
@@ -1439,7 +1463,7 @@
                 }
             ]
         },
-        "addHours": {
+        "addHour": {
             "description": "Add hours to a date",
             "category": "datetime",
             "deterministic": true,
@@ -1455,7 +1479,7 @@
                 }
             ]
         },
-        "addMinutes": {
+        "addMinute": {
             "description": "Add minutes to a date",
             "category": "datetime",
             "deterministic": true,
@@ -1471,8 +1495,24 @@
                 }
             ]
         },
-        "addSeconds": {
+        "addSecond": {
             "description": "Add seconds to a date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "Date"
+                },
+                {
+                    "name": "value",
+                    "type": "number"
+                }
+            ]
+        },
+        "addMillisecond": {
+            "description": "Add milliseconds to a date",
             "category": "datetime",
             "deterministic": true,
             "return": "Date",
@@ -1503,8 +1543,24 @@
                 }
             ]
         },
-        "dateDiff": {
-            "description": "difference between two dates",
+        "subtractTime": {
+            "description": "subtract time to a date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "date",
+                    "type": "Date"
+                },
+                {
+                    "name": "time",
+                    "type": "Date"
+                }
+            ]
+        },
+        "dayDiff": {
+            "description": "difference between two dates in days",
             "category": "datetime",
             "deterministic": true,
             "return": "Date",
@@ -1519,8 +1575,8 @@
                 }
             ]
         },
-        "timeDiff": {
-            "description": "difference between two times",
+        "hourDiff": {
+            "description": "difference between two dates in hours",
             "category": "datetime",
             "deterministic": true,
             "return": "Date",
@@ -1532,6 +1588,86 @@
                 {
                     "name": "time2",
                     "type": "Date"
+                }
+            ]
+        },
+        "secondDiff": {
+            "description": "difference between two dates in seconds",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "time",
+                    "type": "Date"
+                },
+                {
+                    "name": "time2",
+                    "type": "Date"
+                }
+            ]
+        },
+        "millisecondDiff": {
+            "description": "difference between two dates in milliseconds",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "time",
+                    "type": "Date"
+                },
+                {
+                    "name": "time2",
+                    "type": "Date"
+                }
+            ]
+        },
+        "dayToDate": {
+            "description": "days to  Date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number"
+                }
+            ]
+        },
+        "hourToDate": {
+            "description": "hours to  Date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number"
+                }
+            ]
+        },
+        "secondToDate": {
+            "description": "seconds to  Date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number"
+                }
+            ]
+        },
+        "millisecondToDate": {
+            "description": "milliseconds to Date",
+            "category": "datetime",
+            "deterministic": true,
+            "return": "Date",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "number"
                 }
             ]
         },

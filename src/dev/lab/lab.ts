@@ -94,6 +94,8 @@ import { expressions } from '../../lib'
 	console.log(expressions.eval('users.email', { users: users }))
 	console.log(expressions.eval('users.test.name', { users: users }))
 
+	console.log(expressions.eval('mask("flaviolrita@hotmail.com")', { users: users }))
+
 	// const context = { type: 'phone', imei: 'imei', mac: 'mac' }
 	// console.log(expressions.eval('imei=null', context))
 	// console.log(JSON.stringify(context))
