@@ -91,10 +91,13 @@ import { expressions } from '../../lib'
 	// console.log(expressions.eval('users.where(p-> p.username <> "joaquin").len()', { users: users }))
 	// console.log(expressions.eval('users.where(p-> p.username != "joaquin").length()', { users: users }))
 
-	console.log(expressions.eval('users.email', { users: users }))
-	console.log(expressions.eval('users.test.name', { users: users }))
+	// console.log(expressions.eval('users.email', { users: users }))
+	// console.log(expressions.eval('users.test.name', { users: users }))
 
-	console.log(expressions.eval('mask("flaviolrita@hotmail.com")', { users: users }))
+	// console.log(expressions.eval('mask("flaviolrita@hotmail.com")', { users: users }))
+
+	const result = expressions.eval('{imei:null}', {})
+	console.log(result)
 
 	// const context = { type: 'phone', imei: 'imei', mac: 'mac' }
 	// console.log(expressions.eval('imei=null', context))

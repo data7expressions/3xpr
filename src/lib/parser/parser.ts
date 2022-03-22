@@ -190,6 +190,8 @@ export class Parser {
 				operand = new Node(true, 'const')
 			} else if (value === 'false') {
 				operand = new Node(false, 'const')
+			} else if (value === 'null') {
+				operand = new Node(null, 'const')
 			} else if (this.mgr.isEnum(value)) {
 				operand = this.getEnum(value)
 			} else {

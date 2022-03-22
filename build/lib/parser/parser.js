@@ -204,6 +204,9 @@ class Parser {
             else if (value === 'false') {
                 operand = new node_1.Node(false, 'const');
             }
+            else if (value === 'null') {
+                operand = new node_1.Node(null, 'const');
+            }
             else if (this.mgr.isEnum(value)) {
                 operand = this.getEnum(value);
             }
