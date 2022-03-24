@@ -126,6 +126,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('replace', (str, source, target) => manager_1.Helper.replace(str, source, target));
         this.addFunction('rpad', (str, len, pad) => str.padEnd(len, pad));
         this.addFunction('rtrim', (str) => str.trimRight());
+        this.addFunction('substr', (str, from, count) => str.substring(from, count));
         this.addFunction('substring', (str, from, count) => str.substring(from, count));
         this.addFunction('trim', (str) => str.trim());
         this.addFunction('upper', (str) => str.toUpperCase());

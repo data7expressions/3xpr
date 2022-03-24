@@ -96,7 +96,7 @@ import { expressions } from '../../lib'
 
 	// console.log(expressions.eval('mask("flaviolrita@hotmail.com")', { users: users }))
 
-	const result = expressions.eval('{imei:null}', {})
+	const result = expressions.eval('substr("PmParty",0,2)=="Pm"', {})
 	console.log(result)
 
 	// const context = { type: 'phone', imei: 'imei', mac: 'mac' }

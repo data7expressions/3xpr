@@ -1164,6 +1164,26 @@
                 }
             ]
         },
+        "substring": {
+            "description": "Get a substring of string",
+            "category": "string",
+            "deterministic": true,
+            "return": "string",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                },
+                {
+                    "name": "from",
+                    "type": "number"
+                },
+                {
+                    "name": "count",
+                    "type": "number"
+                }
+            ]
+        },
         "trim": {
             "description": "Remove characters",
             "category": "string",
