@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L10)
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L10)
 
 ## Properties
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L8)
+[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L8)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L9)
+[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L9)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L6)
+[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L6)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L7)
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L7)
 
 ## Methods
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L18)
+[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L18)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:124](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L124)
+[parser/expressionConfig.ts:124](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L124)
 
 ___
 
@@ -136,7 +136,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:120](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L120)
+[parser/expressionConfig.ts:120](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L120)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:136](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L136)
+[parser/expressionConfig.ts:136](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L136)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:128](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L128)
+[parser/expressionConfig.ts:128](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L128)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:115](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L115)
+[parser/expressionConfig.ts:115](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L115)
 
 ___
 
@@ -217,4 +217,4 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/parser/expressionConfig.ts#L38)
+[parser/expressionConfig.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/parser/expressionConfig.ts#L38)

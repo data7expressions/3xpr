@@ -18,16 +18,99 @@ class OperandManager {
             throw error;
         }
     }
+    clone(value) {
+        const metadata = this.serialize(value);
+        const cloned = this.deserialize(metadata);
+        return cloned;
+    }
     serialize(operand) {
         const children = [];
         for (const k in operand.children) {
             children.push(this.serialize(operand.children[k]));
         }
-        return { n: operand.name, t: operand.constructor.name, c: children };
+        if (operand instanceof operands_1.KeyValue) {
+            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property };
+        }
+        else if (operand instanceof operands_1.Variable) {
+            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number };
+        }
+        else {
+            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type };
+        }
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    deserialize(serialized) {
-        throw new Error('NotImplemented');
+    deserialize(value) {
+        const children = [];
+        if (value.children) {
+            for (const k in value.children) {
+                children.push(this.deserialize(value.children[k]));
+            }
+        }
+        switch (value.classtype) {
+            case 'ArrowFunction':
+                return new operands_1.ArrowFunction(value.name, children);
+            case 'ChildFunction':
+                return new operands_1.ChildFunction(value.name, children);
+            case 'FunctionRef':
+                return new operands_1.FunctionRef(value.name, children);
+            case 'Operator':
+                return new operands_1.Operator(value.name, children);
+            case 'List':
+                return new operands_1.List(value.name, children);
+            case 'Obj':
+                return new operands_1.Obj(value.name, children);
+            case 'KeyValue':
+                // eslint-disable-next-line no-case-declarations
+                const keyValue = new operands_1.KeyValue(value.name, children, value.type);
+                keyValue.property = value.property;
+                return keyValue;
+            case 'Property':
+                return new operands_1.Property(value.name, children, value.type);
+            case 'Block':
+                return new operands_1.Block(value.name, children, value.type);
+            case 'If':
+                return new operands_1.If(value.name, children, value.type);
+            case 'ElseIf':
+                return new operands_1.ElseIf(value.name, children, value.type);
+            case 'Else':
+                return new operands_1.Else(value.name, children, value.type);
+            case 'While':
+                return new operands_1.While(value.name, children, value.type);
+            case 'For':
+                return new operands_1.For(value.name, children, value.type);
+            case 'ForIn':
+                return new operands_1.ForIn(value.name, children, value.type);
+            case 'Switch':
+                return new operands_1.Switch(value.name, children, value.type);
+            case 'Break':
+                return new operands_1.Break(value.name, children, value.type);
+            case 'Continue':
+                return new operands_1.Continue(value.name, children, value.type);
+            case 'Function':
+                return new operands_1.Function(value.name, children, value.type);
+            case 'Return':
+                return new operands_1.Return(value.name, children, value.type);
+            case 'Try':
+                return new operands_1.Try(value.name, children, value.type);
+            case 'Catch':
+                return new operands_1.Catch(value.name, children, value.type);
+            case 'Throw':
+                return new operands_1.Throw(value.name, children, value.type);
+            case 'Case':
+                return new operands_1.Case(value.name, children, value.type);
+            case 'Default':
+                return new operands_1.Default(value.name, children, value.type);
+            case 'Template':
+                return new operands_1.Template(value.name, value.type);
+            case 'Constant':
+                return new operands_1.Constant(value.name);
+            case 'Variable':
+                // eslint-disable-next-line no-case-declarations
+                const variable = new operands_1.Variable(value.name, value.type);
+                variable.number = value.number;
+                return variable;
+            default:
+                throw new Error(`Deserialize ${value.classtype} not implemented`);
+        }
     }
     eval(operand, data) {
         this.initialize(operand, data);

@@ -1,42 +1,42 @@
-[Expressions](../README.md) / [operand](../modules/operand.md) / Obj
+[Expressions](../README.md) / [operand](../modules/operand.md) / Property
 
-# Class: Obj
+# Class: Property
 
-[operand](../modules/operand.md).Obj
+[operand](../modules/operand.md).Property
 
 ## Hierarchy
 
 - [`Operand`](operand.Operand.md)
 
-  ↳ **`Obj`**
+  ↳ **`Property`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](operand.Obj.md#constructor)
+- [constructor](operand.Property.md#constructor)
 
 ### Properties
 
-- [children](operand.Obj.md#children)
-- [id](operand.Obj.md#id)
-- [index](operand.Obj.md#index)
-- [level](operand.Obj.md#level)
-- [name](operand.Obj.md#name)
-- [parent](operand.Obj.md#parent)
-- [type](operand.Obj.md#type)
+- [children](operand.Property.md#children)
+- [id](operand.Property.md#id)
+- [index](operand.Property.md#index)
+- [level](operand.Property.md#level)
+- [name](operand.Property.md#name)
+- [parent](operand.Property.md#parent)
+- [type](operand.Property.md#type)
 
 ### Methods
 
-- [clone](operand.Obj.md#clone)
-- [eval](operand.Obj.md#eval)
-- [set](operand.Obj.md#set)
+- [clone](operand.Property.md#clone)
+- [eval](operand.Property.md#eval)
+- [set](operand.Property.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new Obj**(`name`, `children?`)
+• **new Property**(`name`, `children?`, `type?`)
 
 #### Parameters
 
@@ -44,14 +44,15 @@
 | :------ | :------ | :------ |
 | `name` | `string` | `undefined` |
 | `children` | [`Operand`](operand.Operand.md)[] | `[]` |
+| `type` | `string` | `'any'` |
 
-#### Overrides
+#### Inherited from
 
 [Operand](operand.Operand.md).[constructor](operand.Operand.md#constructor)
 
 #### Defined in
 
-[operand/operands.ts:142](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operands.ts#L142)
+[operand/operands.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operands.ts#L14)
 
 ## Properties
 
@@ -185,7 +186,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operands.ts#L146)
+[operand/operands.ts:98](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operands.ts#L98)
 
 ___
 

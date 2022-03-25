@@ -47,7 +47,7 @@ class ParserManager {
     }
     parse(expression) {
         try {
-            const buffer = this.minify(expression);
+            const buffer = this._minify(expression);
             const parser = new parser_1.Parser(this, buffer);
             const node = parser.parse();
             //  delete _parser
@@ -191,6 +191,9 @@ class ParserManager {
         return node;
     }
     minify(expression) {
+        return this._minify(expression).join('');
+    }
+    _minify(expression) {
         let isString = false;
         let quotes = '';
         const buffer = expression.split('');

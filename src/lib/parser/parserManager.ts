@@ -55,7 +55,7 @@ export class ParserManager {
 
 	public parse (expression:string):Node {
 		try {
-			const buffer:string[] = this.minify(expression)
+			const buffer:string[] = this._minify(expression)
 			const parser = new Parser(this, buffer)
 			const node = parser.parse()
 			//  delete _parser
@@ -195,7 +195,11 @@ export class ParserManager {
 		return node
 	}
 
-	public minify (expression:string):string[] {
+	public minify (expression: string): string {
+		return this._minify(expression).join('')
+	}
+
+	private _minify (expression:string):string[] {
 		let isString = false
 		let quotes = ''
 		const buffer = expression.split('')
