@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L11)
+[parser/parserManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L11)
 
 ## Properties
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L8)
+[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L8)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L6)
+[parser/parserManager.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L6)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L7)
+[parser/parserManager.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L7)
 
 ## Methods
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:155](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L155)
+[parser/parserManager.ts:155](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L155)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:150](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L150)
+[parser/parserManager.ts:150](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L150)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L52)
+[parser/parserManager.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L52)
 
 ___
 
@@ -156,7 +156,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:48](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L48)
+[parser/parserManager.ts:48](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L48)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L44)
+[parser/parserManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L44)
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:198](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L198)
+[parser/parserManager.ts:198](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L198)
 
 ___
 
@@ -216,7 +216,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:56](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L56)
+[parser/parserManager.ts:56](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L56)
 
 ___
 
@@ -237,7 +237,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L35)
+[parser/parserManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L35)
 
 ___
 
@@ -251,7 +251,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L21)
+[parser/parserManager.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L21)
 
 ___
 
@@ -271,7 +271,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L146)
+[parser/parserManager.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L146)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:174](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L174)
+[parser/parserManager.ts:174](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L174)
 
 ___
 
@@ -313,4 +313,4 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:70](https://github.com/FlavioLionelRita/js-expressions/blob/77e13f7/src/lib/parser/parserManager.ts#L70)
+[parser/parserManager.ts:70](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/parser/parserManager.ts#L70)
