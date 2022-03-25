@@ -29,6 +29,7 @@
 - [Operand](../classes/operand.Operand.md)
 - [OperandManager](../classes/operand.OperandManager.md)
 - [Operator](../classes/operand.Operator.md)
+- [Property](../classes/operand.Property.md)
 - [Return](../classes/operand.Return.md)
 - [Switch](../classes/operand.Switch.md)
 - [Template](../classes/operand.Template.md)
@@ -40,3 +41,4 @@
 ### Interfaces
 
 - [Metadata](../interfaces/operand.Metadata.md)
+- [OperandMetadata](../interfaces/operand.OperandMetadata.md)

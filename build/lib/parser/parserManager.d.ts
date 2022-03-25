@@ -18,7 +18,8 @@ export declare class ParserManager {
     deserialize(json: any): Node;
     clearChildEmpty(node: Node): Node;
     setParent(node: Node, parent?: Node, index?: number): Node;
-    minify(expression: string): string[];
+    minify(expression: string): string;
+    private _minify;
     private _serialize;
     private _deserialize;
 }

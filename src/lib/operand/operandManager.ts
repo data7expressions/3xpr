@@ -6,6 +6,18 @@ import {
 	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template, Property
 } from './operands'
 
+export interface OperandMetadata
+{
+	classtype: string,
+	name: string,
+	children?: OperandMetadata[],
+	type?: string,
+	property?:string
+	parameters?: Parameter[],
+	clause?: string,
+	alias?: string,
+	number?:number
+}
 export class OperandManager {
 	private expressionConfig:ExpressionConfig
 	constructor (expressionConfig:ExpressionConfig) {
@@ -23,17 +35,99 @@ export class OperandManager {
 		}
 	}
 
-	public serialize (operand:Operand):any {
+	public clone (value:Operand): Operand {
+		const metadata = this.serialize(value)
+		const cloned = this.deserialize(metadata)
+		return cloned
+	}
+
+	public serialize (operand:Operand):OperandMetadata {
 		const children = []
 		for (const k in operand.children) {
 			children.push(this.serialize(operand.children[k]))
 		}
-		return { n: operand.name, t: operand.constructor.name, c: children }
+		if (operand instanceof KeyValue) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
+		} else if (operand instanceof Variable) {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
+		} else {
+			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type }
+		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	public deserialize (serialized:any):Operand {
-		throw new Error('NotImplemented')
+	public deserialize (value:OperandMetadata):Operand {
+		const children = []
+		if (value.children) {
+			for (const k in value.children) {
+				children.push(this.deserialize(value.children[k]))
+			}
+		}
+		switch (value.classtype) {
+		case 'ArrowFunction':
+			return new ArrowFunction(value.name, children)
+		case 'ChildFunction':
+			return new ChildFunction(value.name, children)
+		case 'FunctionRef':
+			return new FunctionRef(value.name, children)
+		case 'Operator':
+			return new Operator(value.name, children)
+		case 'List':
+			return new List(value.name, children)
+		case 'Obj':
+			return new Obj(value.name, children)
+		case 'KeyValue':
+			// eslint-disable-next-line no-case-declarations
+			const keyValue = new KeyValue(value.name, children, value.type)
+			keyValue.property = value.property
+			return keyValue
+		case 'Property':
+			return new Property(value.name, children, value.type)
+		case 'Block':
+			return new Block(value.name, children, value.type)
+		case 'If':
+			return new If(value.name, children, value.type)
+		case 'ElseIf':
+			return new ElseIf(value.name, children, value.type)
+		case 'Else':
+			return new Else(value.name, children, value.type)
+		case 'While':
+			return new While(value.name, children, value.type)
+		case 'For':
+			return new For(value.name, children, value.type)
+		case 'ForIn':
+			return new ForIn(value.name, children, value.type)
+		case 'Switch':
+			return new Switch(value.name, children, value.type)
+		case 'Break':
+			return new Break(value.name, children, value.type)
+		case 'Continue':
+			return new Continue(value.name, children, value.type)
+		case 'Function':
+			return new Function(value.name, children, value.type)
+		case 'Return':
+			return new Return(value.name, children, value.type)
+		case 'Try':
+			return new Try(value.name, children, value.type)
+		case 'Catch':
+			return new Catch(value.name, children, value.type)
+		case 'Throw':
+			return new Throw(value.name, children, value.type)
+		case 'Case':
+			return new Case(value.name, children, value.type)
+		case 'Default':
+			return new Default(value.name, children, value.type)
+		case 'Template':
+			return new Template(value.name, value.type)
+		case 'Constant':
+			return new Constant(value.name)
+		case 'Variable':
+			// eslint-disable-next-line no-case-declarations
+			const variable = new Variable(value.name, value.type)
+			variable.number = value.number
+			return variable
+		default:
+			throw new Error(`Deserialize ${value.classtype} not implemented`)
+		}
 	}
 
 	public eval (operand:Operand, data:Data):any {

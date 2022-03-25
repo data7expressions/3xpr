@@ -36,13 +36,14 @@ export class Expressions {
 
 	public parse (expression: string): Operand {
 		try {
-			const key = 'operand_' + expression
+			const minfyExpression = this.parser.minify(expression)
+			const key = `${minfyExpression}_operand`
 			let operand = this.cache.get(key)
 			if (!operand) {
-				const node = this.parserManager.parse(expression)
+				const node = this.parserManager.parse(minfyExpression)
 				this.parserManager.setParent(node)
 				operand = this.operandManager.build(node)
-				this.cache.set(key, operand)
+				this.cache.set(key, this.operandManager.clone(operand))
 			}
 			return operand as Operand
 		} catch (error: any) {

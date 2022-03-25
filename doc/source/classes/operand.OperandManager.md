@@ -13,6 +13,7 @@
 ### Methods
 
 - [build](operand.OperandManager.md#build)
+- [clone](operand.OperandManager.md#clone)
 - [deserialize](operand.OperandManager.md#deserialize)
 - [eval](operand.OperandManager.md#eval)
 - [parameters](operand.OperandManager.md#parameters)
@@ -32,7 +33,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L11)
+[operand/operandManager.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L23)
 
 ## Methods
 
@@ -52,19 +53,19 @@
 
 #### Defined in
 
-[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L15)
+[operand/operandManager.ts:27](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L27)
 
 ___
 
-### deserialize
+### clone
 
-▸ **deserialize**(`serialized`): [`Operand`](operand.Operand.md)
+▸ **clone**(`value`): [`Operand`](operand.Operand.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `serialized` | `any` |
+| `value` | [`Operand`](operand.Operand.md) |
 
 #### Returns
 
@@ -72,7 +73,27 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L35)
+[operand/operandManager.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L38)
+
+___
+
+### deserialize
+
+▸ **deserialize**(`value`): [`Operand`](operand.Operand.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | [`OperandMetadata`](../interfaces/operand.OperandMetadata.md) |
+
+#### Returns
+
+[`Operand`](operand.Operand.md)
+
+#### Defined in
+
+[operand/operandManager.ts:58](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L58)
 
 ___
 
@@ -93,7 +114,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L39)
+[operand/operandManager.ts:133](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L133)
 
 ___
 
@@ -113,13 +134,13 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L44)
+[operand/operandManager.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L138)
 
 ___
 
 ### serialize
 
-▸ **serialize**(`operand`): `any`
+▸ **serialize**(`operand`): [`OperandMetadata`](../interfaces/operand.OperandMetadata.md)
 
 #### Parameters
 
@@ -129,8 +150,8 @@ ___
 
 #### Returns
 
-`any`
+[`OperandMetadata`](../interfaces/operand.OperandMetadata.md)
 
 #### Defined in
 
-[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/99eafc5/src/lib/operand/operandManager.ts#L26)
+[operand/operandManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/3161ac6/src/lib/operand/operandManager.ts#L44)
