@@ -36,15 +36,17 @@ export class OperandManager {
 	}
 
 	public clone (value:Operand): Operand {
-		const metadata = this.serialize(value)
-		const cloned = this.deserialize(metadata)
-		return cloned
+		return this.deserialize(this.serialize(value))
 	}
 
-	public serialize (operand:Operand):OperandMetadata {
+	public serialize (operand: Operand): string {
+		return JSON.stringify(this._serialize(operand))
+	}
+
+	private _serialize (operand:Operand):OperandMetadata {
 		const children = []
 		for (const k in operand.children) {
-			children.push(this.serialize(operand.children[k]))
+			children.push(this._serialize(operand.children[k]))
 		}
 		if (operand instanceof KeyValue) {
 			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
@@ -55,11 +57,15 @@ export class OperandManager {
 		}
 	}
 
-	public deserialize (value:OperandMetadata):Operand {
+	public deserialize (value: string): Operand {
+		return (this._deserialize(JSON.parse(value))) as Operand
+	}
+
+	private _deserialize (value:OperandMetadata):Operand {
 		const children = []
 		if (value.children) {
 			for (const k in value.children) {
-				children.push(this.deserialize(value.children[k]))
+				children.push(this._deserialize(value.children[k]))
 			}
 		}
 		switch (value.classtype) {

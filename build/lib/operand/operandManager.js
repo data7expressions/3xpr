@@ -19,14 +19,15 @@ class OperandManager {
         }
     }
     clone(value) {
-        const metadata = this.serialize(value);
-        const cloned = this.deserialize(metadata);
-        return cloned;
+        return this.deserialize(this.serialize(value));
     }
     serialize(operand) {
+        return JSON.stringify(this._serialize(operand));
+    }
+    _serialize(operand) {
         const children = [];
         for (const k in operand.children) {
-            children.push(this.serialize(operand.children[k]));
+            children.push(this._serialize(operand.children[k]));
         }
         if (operand instanceof operands_1.KeyValue) {
             return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property };
@@ -39,10 +40,13 @@ class OperandManager {
         }
     }
     deserialize(value) {
+        return (this._deserialize(JSON.parse(value)));
+    }
+    _deserialize(value) {
         const children = [];
         if (value.children) {
             for (const k in value.children) {
-                children.push(this.deserialize(value.children[k]));
+                children.push(this._deserialize(value.children[k]));
             }
         }
         switch (value.classtype) {
