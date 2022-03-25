@@ -27,21 +27,18 @@ class Expressions {
         return this.expressionConfig;
     }
     parse(expression) {
-        try {
-            const minfyExpression = this.parser.minify(expression);
-            const key = `${minfyExpression}_operand`;
-            let operand = this.cache.get(key);
-            if (!operand) {
-                const node = this.parserManager.parse(minfyExpression);
-                this.parserManager.setParent(node);
-                operand = this.operandManager.build(node);
-                this.cache.set(key, this.operandManager.clone(operand));
-            }
+        const minfyExpression = this.parser.minify(expression);
+        const key = `${minfyExpression}_operand`;
+        const value = this.cache.get(key);
+        if (!value) {
+            const node = this.parserManager.parse(minfyExpression);
+            this.parserManager.setParent(node);
+            const operand = this.operandManager.build(node);
+            this.cache.set(key, this.operandManager.serialize(operand));
             return operand;
         }
-        catch (error) {
-            console.log(error);
-            throw new Error('build expression: ' + expression + ' error: ' + error.toString());
+        else {
+            return this.operandManager.deserialize(value);
         }
     }
     /**
