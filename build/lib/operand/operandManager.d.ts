@@ -17,8 +17,10 @@ export declare class OperandManager {
     constructor(expressionConfig: ExpressionConfig);
     build(node: Node): Operand;
     clone(value: Operand): Operand;
-    serialize(operand: Operand): OperandMetadata;
-    deserialize(value: OperandMetadata): Operand;
+    serialize(operand: Operand): string;
+    private _serialize;
+    deserialize(value: string): Operand;
+    private _deserialize;
     eval(operand: Operand, data: Data): any;
     parameters(operand: Operand): Parameter[];
     private loadParameters;
