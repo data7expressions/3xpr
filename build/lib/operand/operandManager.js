@@ -263,7 +263,7 @@ class OperandManager {
                 return new operands_1.List(node.name, children);
             case 'obj':
                 return new operands_1.Obj(node.name, children);
-            case 'oper':
+            case 'operator':
                 return new operands_1.Operator(node.name, children);
             case 'funcRef':
                 return new operands_1.FunctionRef(node.name, children);
@@ -311,7 +311,7 @@ class OperandManager {
     }
     // TODO: determinar el tipo de la variable de acuerdo a la expression.
     // si se usa en un operador con que se esta comparando.
-    // si se usa en una funcion que tipo corresponde de acuerdo en la posicion que esta ocupando.
+    // si se usa en una función que tipo corresponde de acuerdo en la posición que esta ocupando.
     // let type = this.solveType(operand,childNumber)
     solveTypes(operand) {
         if (operand instanceof operands_1.Constant || operand instanceof operands_1.Variable)
@@ -322,20 +322,20 @@ class OperandManager {
             const metadata = operand instanceof operands_1.Operator
                 ? this.expressionConfig.getOperator(operand.name, operand.children.length)
                 : this.expressionConfig.getFunction(operand.name);
-            // recorre todos los parametros
+            // recorre todos los parámetros
             for (let i = 0; i < metadata.params.length; i++) {
                 const param = metadata.params[i];
                 const child = operand.children[i];
                 if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
-                    // en el caso que el pametro tenga un tipo defido y el hijo no, asigna al hijo el tipo del parametro
+                    // en el caso que el parámetro tenga un tipo definido y el hijo no, asigna al hijo el tipo del parámetro
                     child.type = param.type;
                 }
                 else if (param.type === 'T' && child.type !== 'any') {
-                    // en el caso que el pametro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
+                    // en el caso que el parámetro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
                     tType = child.type;
                 }
                 else if (param.type === 'T' && child.type === 'any') {
-                    // en el caso que el pametro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
+                    // en el caso que el parámetro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
                     // en caso de lograrlo determina que T es el tipo de hijo
                     const childType = this.solveTypes(child);
                     if (childType !== 'any') {
@@ -350,7 +350,7 @@ class OperandManager {
                 if (metadata.return === 'T' && operand.type === 'any') {
                     operand.type = tType;
                 }
-                // busca los parametros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
+                // busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
                 for (let i = 0; i < metadata.params.length; i++) {
                     const param = metadata.params[i];
                     const child = operand.children[i];

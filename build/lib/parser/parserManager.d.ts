@@ -3,7 +3,7 @@ import { ExpressionConfig } from './expressionConfig';
 export declare class ParserManager {
     doubleOperators: string[];
     tripleOperators: string[];
-    assigmentOperators: string[];
+    assignmentOperators: string[];
     private expressionConfig;
     private reAlphanumeric;
     constructor(expressionConfig: ExpressionConfig);

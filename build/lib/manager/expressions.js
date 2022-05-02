@@ -27,11 +27,11 @@ class Expressions {
         return this.expressionConfig;
     }
     parse(expression) {
-        const minfyExpression = this.parser.minify(expression);
-        const key = `${minfyExpression}_operand`;
+        const minifyExpression = this.parser.minify(expression);
+        const key = `${minifyExpression}_operand`;
         const value = this.cache.get(key);
         if (!value) {
-            const node = this.parserManager.parse(minfyExpression);
+            const node = this.parserManager.parse(minifyExpression);
             this.parserManager.setParent(node);
             const operand = this.operandManager.build(node);
             this.cache.set(key, this.operandManager.serialize(operand));
@@ -45,7 +45,7 @@ class Expressions {
      * Evaluate and solve expression
      * @param expression  string expression
      * @param data Data with variables
-     * @returns Result of the evaluale expression
+     * @returns Result of the evaluate expression
      */
     eval(expression, data) {
         const operand = this.parse(expression);
