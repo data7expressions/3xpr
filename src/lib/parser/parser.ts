@@ -68,14 +68,14 @@ export class Parser {
 	private getExpression(operand1?: Node, operator?: string, _break = ''): Node {
 		let expression
 		let operand2
-		let isbreak = false
+		let isBreak = false
 		while (!this.end) {
 			if (!operand1 && !operator) {
 				operand1 = this.getOperand()
 				operator = this.getOperator() as string
 				if (!operator || _break.includes(operator)) {
 					expression = operand1
-					isbreak = true
+					isBreak = true
 					break
 				}
 			}
@@ -83,7 +83,7 @@ export class Parser {
 			const nextOperator = this.getOperator() as string
 			if (!nextOperator || _break.includes(nextOperator)) {
 				expression = new Node(operator, 'operator', [operand1 as Node, operand2])
-				isbreak = true
+				isBreak = true
 				break
 			} else if (this.mgr.priority(operator as string) >= this.mgr.priority(nextOperator)) {
 				operand1 = new Node(operator, 'operator', [operand1 as Node, operand2])
@@ -91,11 +91,11 @@ export class Parser {
 			} else {
 				operand2 = this.getExpression(operand2, nextOperator, _break)
 				expression = new Node(operator, 'operator', [operand1 as Node, operand2])
-				isbreak = true
+				isBreak = true
 				break
 			}
 		}
-		if (!isbreak) expression = new Node(operator, 'operator', [operand1 as Node, operand2 as Node])
+		if (!isBreak) expression = new Node(operator, 'operator', [operand1 as Node, operand2 as Node])
 		return expression as Node
 	}
 
@@ -356,24 +356,24 @@ export class Parser {
 	}
 
 	private getTryCatchBlock(): Node {
-		const childs: Node[] = []
+		const children: Node[] = []
 		const tryBlock = this.getControlBlock()
-		childs.push(tryBlock)
+		children.push(tryBlock)
 		if (this.nextIs('catch')) {
-			const catchChilds: Node[] = []
+			const catchChildren: Node[] = []
 			this.index += 'catch'.length
 			if (this.current === '(') {
 				this.index += 1
 				const variable = this.getExpression(undefined, undefined, ')')
-				catchChilds.push(variable)
+				catchChildren.push(variable)
 			}
 			const catchBlock = this.getControlBlock()
-			catchChilds.push(catchBlock)
-			const catchNode = new Node('catch', 'catch', catchChilds)
-			childs.push(catchNode)
+			catchChildren.push(catchBlock)
+			const catchNode = new Node('catch', 'catch', catchChildren)
+			children.push(catchNode)
 		}
 		if (this.current === ';') this.index += 1
-		return new Node('try', 'try', childs)
+		return new Node('try', 'try', children)
 	}
 
 	private getThrow(): Node {
@@ -382,32 +382,32 @@ export class Parser {
 	}
 
 	private getIfBlock(): Node {
-		const childs: Node[] = []
+		const children: Node[] = []
 		const condition = this.getExpression(undefined, undefined, ')')
-		childs.push(condition)
+		children.push(condition)
 		const block = this.getControlBlock()
-		childs.push(block)
+		children.push(block)
 
 		while (this.nextIs('else if(')) {
 			this.index += 'else if('.length
 			const condition = this.getExpression(undefined, undefined, ')')
 			const elseIfBlock = this.getControlBlock()
 			const elseIfNode = new Node('elseIf', 'elseIf', [condition, elseIfBlock])
-			childs.push(elseIfNode)
+			children.push(elseIfNode)
 		}
 
 		if (this.nextIs('else')) {
 			this.index += 'else'.length
 			const elseBlock = this.getControlBlock()
-			childs.push(elseBlock)
+			children.push(elseBlock)
 		}
-		return new Node('if', 'if', childs)
+		return new Node('if', 'if', children)
 	}
 
 	private getSwitchBlock(): Node {
-		const childs = []
+		const children = []
 		const value = this.getExpression(undefined, undefined, ')')
-		childs.push(value)
+		children.push(value)
 		if (this.current === '{') this.index += 1
 		let next = this.nextIs('case') ? 'case' : this.nextIs('default:') ? 'default:' : ''
 		while (next === 'case') {
@@ -438,7 +438,7 @@ export class Parser {
 			}
 			const block = new Node('block', 'block', lines)
 			const caseNode = new Node(compare, 'case', [block])
-			childs.push(caseNode)
+			children.push(caseNode)
 		}
 
 		if (next === 'default:') {
@@ -451,11 +451,11 @@ export class Parser {
 			}
 			const block = new Node('block', 'block', lines)
 			const defaultNode = new Node('default', 'default', [block])
-			childs.push(defaultNode)
+			children.push(defaultNode)
 		}
 		if (this.current === '}') this.index += 1
-		return new Node('switch', 'switch', childs)
-		// const options = new Node('options', 'options', childs)
+		return new Node('switch', 'switch', children)
+		// const options = new Node('options', 'options', children)
 		// return new Node('switch', 'switch', [value, options])
 	}
 

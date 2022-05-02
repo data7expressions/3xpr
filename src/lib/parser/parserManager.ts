@@ -5,7 +5,7 @@ import { Parser } from './parser'
 export class ParserManager {
 	public doubleOperators: string[]
 	public tripleOperators: string[]
-	public assigmentOperators: string[]
+	public assignmentOperators: string[]
 	private expressionConfig: ExpressionConfig
 	private reAlphanumeric: RegExp
 	constructor(expressionConfig: ExpressionConfig) {
@@ -14,7 +14,7 @@ export class ParserManager {
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$')
 		this.tripleOperators = []
 		this.doubleOperators = []
-		this.assigmentOperators = []
+		this.assignmentOperators = []
 		this.refresh()
 	}
 
@@ -27,7 +27,7 @@ export class ParserManager {
 				this.tripleOperators.push(metadata.operator)
 			}
 			if (metadata.category === 'assignment') {
-				this.assigmentOperators.push(metadata.operator)
+				this.assignmentOperators.push(metadata.operator)
 			}
 		}
 	}
@@ -214,8 +214,8 @@ export class ParserManager {
 				quotes = p
 			}
 			if (isString) { result.push(p) } else if (p === ' ') {
-				// solo deberia dejar los espacios cuando es entre caracteres alfanumericos.
-				// por ejemplo en el caso de "} if" no deberia quedar un espacio
+				// solo debería dejar los espacios cuando es entre caracteres alfanuméricos.
+				// por ejemplo en el caso de "} if" no debería quedar un espacio
 				if (i + 1 < length && i - 1 >= 0 && this.reAlphanumeric.test(buffer[i - 1]) && this.reAlphanumeric.test(buffer[i + 1])) { result.push(p) }
 			} else if (p !== '\n' && p !== '\r' && p !== '\t') { result.push(p) }
 			i += 1

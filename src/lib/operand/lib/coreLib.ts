@@ -6,25 +6,25 @@ import { Operator, ArrowFunction } from '../operands'
 import { Helper } from '../../manager'
 
 export class CoreLib extends Library {
-	constructor () {
+	constructor() {
 		super('core')
 		this.initEnums()
 		this.initOperators()
 		this.generalFunctions()
 		this.conditionFunctions()
-		this.nullablesFunctions()
+		this.nullFunctions()
 		this.mathFunctions()
 		this.stringFunctions()
 		this.initArrowFunctions()
-		this.datetimeFunctions()
+		this.dateTimeFunctions()
 		this.convertFunctions()
 	}
 
-	private initEnums () {
+	private initEnums() {
 		// empty
 	}
 
-	private initOperators () {
+	private initOperators() {
 		this.addOperator('+', Operators.addition)
 		this.addOperator('-', Operators.subtraction)
 		this.addOperator('-', Operators.negative)
@@ -57,34 +57,34 @@ export class CoreLib extends Library {
 
 		this.addOperator('[]', Operators.item)
 
-		this.addOperator('=', Operators.assigment, Assigment)
-		this.addOperator('+=', Operators.assigmentAddition, AssigmentAddition)
-		this.addOperator('-=', Operators.assigmentSubtraction, AssigmentSubtraction)
-		this.addOperator('*=', Operators.assigmentMultiplication, AssigmentMultiplication)
-		this.addOperator('/=', Operators.assigmentDivision, AssigmentDivision)
-		this.addOperator('**=', Operators.assigmentExponentiation, AssigmentExponentiation)
-		this.addOperator('//=', Operators.assigmentFloorDivision, AssigmentFloorDivision)
-		this.addOperator('%=', Operators.assigmentMod, AssigmentMod)
-		this.addOperator('&=', Operators.assigmentBitAnd, AssigmentBitAnd)
-		this.addOperator('|=', Operators.assigmentBitOr, AssigmentBitOr)
-		this.addOperator('^=', Operators.assigmentBitXor, AssigmentBitXor)
-		this.addOperator('<<=', Operators.assigmentLeftShift, AssigmentLeftShift)
-		this.addOperator('>>=', Operators.assigmentRightShift, AssigmentRightShift)
+		this.addOperator('=', Operators.assignment, Assignment)
+		this.addOperator('+=', Operators.assignmentAddition, AssignmentAddition)
+		this.addOperator('-=', Operators.assignmentSubtraction, AssignmentSubtraction)
+		this.addOperator('*=', Operators.assignmentMultiplication, AssignmentMultiplication)
+		this.addOperator('/=', Operators.assignmentDivision, AssignmentDivision)
+		this.addOperator('**=', Operators.assignmentExponentiation, AssignmentExponentiation)
+		this.addOperator('//=', Operators.assignmentFloorDivision, AssignmentFloorDivision)
+		this.addOperator('%=', Operators.assignmentMod, AssignmentMod)
+		this.addOperator('&=', Operators.assignmentBitAnd, AssignmentBitAnd)
+		this.addOperator('|=', Operators.assignmentBitOr, AssignmentBitOr)
+		this.addOperator('^=', Operators.assignmentBitXor, AssignmentBitXor)
+		this.addOperator('<<=', Operators.assignmentLeftShift, AssignmentLeftShift)
+		this.addOperator('>>=', Operators.assignmentRightShift, AssignmentRightShift)
 	}
 
-	private generalFunctions () {
+	private generalFunctions() {
 		this.addFunction('sleep', Functions.sleep)
-		this.addFunction('stringify', (value: any):string => JSON.stringify(value))
+		this.addFunction('stringify', (value: any): string => JSON.stringify(value))
 		this.addFunction('parse', (value: string): any => JSON.parse(value))
 	}
 
-	private conditionFunctions () {
+	private conditionFunctions() {
 		this.addFunction('between', Functions.between)
 		this.addFunction('includes', Functions.includes)
 		this.addFunction('in', Functions.includes)
 	}
 
-	private nullablesFunctions () {
+	private nullFunctions() {
 		this.addFunction('nvl', Functions.nvl)
 		this.addFunction('nvl2', Functions.nvl2)
 		this.addFunction('isNull', Functions.isNull)
@@ -92,7 +92,7 @@ export class CoreLib extends Library {
 		this.addFunction('isEmpty', Functions.isEmpty)
 	}
 
-	private mathFunctions () {
+	private mathFunctions() {
 		this.addFunction('abs', Math.abs)
 		this.addFunction('acos', Math.acos)
 		this.addFunction('asin', Math.asin)
@@ -106,7 +106,7 @@ export class CoreLib extends Library {
 		// this.addFunction('ln',)
 		this.addFunction('log10', Math.log10)
 		this.addFunction('log', Math.log)
-		this.addFunction('remainder', (n1:number, n2:number) => n1 % n2)
+		this.addFunction('remainder', (n1: number, n2: number) => n1 % n2)
 		this.addFunction('round', Math.round)
 		this.addFunction('sign', Math.sign)
 		this.addFunction('sin', Math.sin)
@@ -116,23 +116,23 @@ export class CoreLib extends Library {
 		this.addFunction('trunc', Math.trunc)
 	}
 
-	private stringFunctions () {
+	private stringFunctions() {
 		this.addFunction('chr', (ascii: number) => String.fromCharCode(ascii))
 		this.addFunction('capitalize', StringFunction.capitalize)
 		this.addFunction('initcap', StringFunction.initCap)
-		this.addFunction('strCount', (source:string, value:string) => source.split(value).length - 1)
-		this.addFunction('lower', (str:string) => str.toLowerCase())
-		this.addFunction('lpad', (str:string, len:number, pad:string) => str.padStart(len, pad))
-		this.addFunction('ltrim', (str:string) => str.trimLeft())
-		this.addFunction('replace', (str:string, source:string, target:string) => Helper.replace(str, source, target))
-		this.addFunction('rpad', (str:string, len:number, pad:string) => str.padEnd(len, pad))
+		this.addFunction('strCount', (source: string, value: string) => source.split(value).length - 1)
+		this.addFunction('lower', (str: string) => str.toLowerCase())
+		this.addFunction('lpad', (str: string, len: number, pad: string) => str.padStart(len, pad))
+		this.addFunction('ltrim', (str: string) => str.trimLeft())
+		this.addFunction('replace', (str: string, source: string, target: string) => Helper.replace(str, source, target))
+		this.addFunction('rpad', (str: string, len: number, pad: string) => str.padEnd(len, pad))
 		this.addFunction('rtrim', (str: string) => str.trimRight())
-		this.addFunction('substr', (str:string, from:number, count:number) => str.substring(from, count))
-		this.addFunction('substring', (str:string, from:number, count:number) => str.substring(from, count))
-		this.addFunction('trim', (str:string) => str.trim())
-		this.addFunction('upper', (str:string) => str.toUpperCase())
+		this.addFunction('substr', (str: string, from: number, count: number) => str.substring(from, count))
+		this.addFunction('substring', (str: string, from: number, count: number) => str.substring(from, count))
+		this.addFunction('trim', (str: string) => str.trim())
+		this.addFunction('upper', (str: string) => str.toUpperCase())
 		this.addFunction('concat', (...strings: string[]) => ''.concat(...strings))
-		this.addFunction('test', (value:any, regexp:string) => {
+		this.addFunction('test', (value: any, regexp: string) => {
 			const _regexp = new RegExp(regexp)
 			return _regexp.test(value)
 		})
@@ -151,8 +151,8 @@ export class CoreLib extends Library {
 		})
 	}
 
-	// TODO: trabajar todas las fechas como strign en formato ISO 8601
-	private datetimeFunctions () {
+	// TODO: trabajar todas las fechas como string en formato ISO 8601
+	private dateTimeFunctions() {
 		this.addFunction('curtime', () => {
 			const date = new Date()
 			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
@@ -162,15 +162,15 @@ export class CoreLib extends Library {
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
 		this.addFunction('now', () => new Date().toISOString())
-		this.addFunction('time', (value:string) => {
+		this.addFunction('time', (value: string) => {
 			const date = new Date(value)
 			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
 		})
-		this.addFunction('date', (value:string) => {
+		this.addFunction('date', (value: string) => {
 			const date = new Date(value)
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.addFunction('datetime', (value:string) => new Date(value).toISOString())
+		this.addFunction('datetime', (value: string) => new Date(value).toISOString())
 		this.addFunction('year', (value: string) => {
 			return new Date(value).getFullYear()
 		})
@@ -282,7 +282,7 @@ export class CoreLib extends Library {
 		})
 	}
 
-	private initArrowFunctions () {
+	private initArrowFunctions() {
 		this.addFunction('map', ArrayFunctions.map, OperatorType.arrow, Map)
 		this.addFunction('select', ArrayFunctions.map, OperatorType.arrow, Map)
 		this.addFunction('foreach', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
@@ -305,7 +305,7 @@ export class CoreLib extends Library {
 		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 
-	private convertFunctions () {
+	private convertFunctions() {
 		this.addFunction('toString', Functions.toString)
 		this.addFunction('toJson', Functions.toJson)
 		this.addFunction('toNumber', Functions.toNumber)
@@ -313,253 +313,253 @@ export class CoreLib extends Library {
 }
 
 class Operators {
-	static addition (a: number, b: number): number {
+	static addition(a: number, b: number): number {
 		return a + b
 	}
 
-	static subtraction (a: number, b: number): number {
+	static subtraction(a: number, b: number): number {
 		return a - b
 	}
 
-	static negative (a: number): number {
+	static negative(a: number): number {
 		return a * -1
 	}
 
-	static multiplication (a: number, b: number): number {
+	static multiplication(a: number, b: number): number {
 		return a * b
 	}
 
-	static division (a: number, b: number): number {
+	static division(a: number, b: number): number {
 		return a / b
 	}
 
-	static exponentiation (a: number, b: number): number {
+	static exponentiation(a: number, b: number): number {
 		return a ** b
 	}
 
-	static floorDivision (a: number, b: number): number {
+	static floorDivision(a: number, b: number): number {
 		return Math.pow(a, 1 / b)
 	}
 
-	static mod (a: number, b: number): number {
+	static mod(a: number, b: number): number {
 		return a % b
 	}
 
-	static bitAnd (a: number, b: number): number {
+	static bitAnd(a: number, b: number): number {
 		return a & b
 	}
 
-	static bitOr (a: number, b: number): number {
+	static bitOr(a: number, b: number): number {
 		return a | b
 	}
 
-	static bitXor (a: number, b: number): number {
+	static bitXor(a: number, b: number): number {
 		return a ^ b
 	}
 
-	static bitNot (a: number): number {
+	static bitNot(a: number): number {
 		return ~a
 	}
 
-	static leftShift (a: number, b: number): number {
+	static leftShift(a: number, b: number): number {
 		return a << b
 	}
 
-	static rightShift (a: number, b: number): number {
+	static rightShift(a: number, b: number): number {
 		return a >> b
 	}
 
-	static equal (a: any, b: any): boolean {
+	static equal(a: any, b: any): boolean {
 		return a === b
 	}
 
-	static notEqual (a: any, b: any): boolean {
+	static notEqual(a: any, b: any): boolean {
 		return a !== b
 	}
 
-	static greaterThan (a: any, b: any): boolean {
+	static greaterThan(a: any, b: any): boolean {
 		return a > b
 	}
 
-	static lessThan (a: any, b: any): boolean {
+	static lessThan(a: any, b: any): boolean {
 		return a < b
 	}
 
-	static greaterThanOrEqual (a: any, b: any): boolean {
+	static greaterThanOrEqual(a: any, b: any): boolean {
 		return a >= b
 	}
 
-	static lessThanOrEqual (a: any, b: any): boolean {
+	static lessThanOrEqual(a: any, b: any): boolean {
 		return a <= b
 	}
 
-	static and (a: boolean, b: boolean): boolean {
+	static and(a: boolean, b: boolean): boolean {
 		return a && b
 	}
 
-	static or (a: boolean, b: boolean): boolean {
+	static or(a: boolean, b: boolean): boolean {
 		return a || b
 	}
 
-	static not (a: boolean): boolean {
+	static not(a: boolean): boolean {
 		return !a
 	}
 
-	static item (list: any[], index: any):any {
+	static item(list: any[], index: any): any {
 		return list[index]
 	}
 
-	static assigment (a:any, b:any):any {
+	static assignment(a: any, b: any): any {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentAddition (a: number, b: number): number {
+	static assignmentAddition(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentSubtraction (a: number, b: number): number {
+	static assignmentSubtraction(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentMultiplication (a: number, b: number): number {
+	static assignmentMultiplication(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentDivision (a: number, b: number): number {
+	static assignmentDivision(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentExponentiation (a: number, b: number): number {
+	static assignmentExponentiation(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentFloorDivision (a: number, b: number): number {
+	static assignmentFloorDivision(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentMod (a: number, b: number): number {
+	static assignmentMod(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentBitAnd (a: number, b: number): number {
+	static assignmentBitAnd(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentBitOr (a: number, b: number): number {
+	static assignmentBitOr(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentBitXor (a: number, b: number): number {
+	static assignmentBitXor(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentLeftShift (a: number, b: number): number {
+	static assignmentLeftShift(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 
-	static assigmentRightShift (a: number, b: number): number {
+	static assignmentRightShift(a: number, b: number): number {
 		throw new Error('NotImplemented')
 	}
 }
 class And extends Operator {
-	eval ():boolean {
+	eval(): boolean {
 		if (!this.children[0].eval() as boolean) return false
 		return this.children[1].eval() as boolean
 	}
 }
 class Or extends Operator {
-	eval ():any {
+	eval(): any {
 		if (this.children[0].eval()) return true
 		return this.children[1].eval()
 	}
 }
 
-class Assigment extends Operator {
-	eval (): any {
+class Assignment extends Operator {
+	eval(): any {
 		const value = this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentAddition extends Operator {
-	eval (): any {
+class AssignmentAddition extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() + this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentSubtraction extends Operator {
-	eval (): any {
+class AssignmentSubtraction extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() - this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentMultiplication extends Operator {
-	eval (): any {
+class AssignmentMultiplication extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() * this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentDivision extends Operator {
-	eval (): any {
+class AssignmentDivision extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() / this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentExponentiation extends Operator {
-	eval (): any {
+class AssignmentExponentiation extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() ** this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentFloorDivision extends Operator {
-	eval (): any {
+class AssignmentFloorDivision extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() // this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentMod extends Operator {
-	eval (): any {
+class AssignmentMod extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() % this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentBitAnd extends Operator {
-	eval (): any {
+class AssignmentBitAnd extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() & this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentBitOr extends Operator {
-	eval (): any {
+class AssignmentBitOr extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() | this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentBitXor extends Operator {
-	eval (): any {
+class AssignmentBitXor extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() ^ this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentLeftShift extends Operator {
-	eval (): any {
+class AssignmentLeftShift extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() << this.children[1].eval()
 		this.children[0].set(value)
 		return value
 	}
 }
-class AssigmentRightShift extends Operator {
-	eval (): any {
+class AssignmentRightShift extends Operator {
+	eval(): any {
 		const value = this.children[0].eval() >> this.children[1].eval()
 		this.children[0].set(value)
 		return value
@@ -567,11 +567,11 @@ class AssigmentRightShift extends Operator {
 }
 
 class StringFunction {
-	public static capitalize = function (str:string):string {
+	public static capitalize = function (str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1)
 	}
 
-	public static initCap (str:string):string {
+	public static initCap(str: string): string {
 		const newStr = str.split(' ')
 		let i
 		const arr = []
@@ -583,37 +583,37 @@ class StringFunction {
 }
 
 class Functions {
-	static nvl (value: any, _default: any): any {
+	static nvl(value: any, _default: any): any {
 		return !Functions.isEmpty(value) ? value : _default
 	}
 
-	static nvl2 (value: any, a: any, b: any): any {
+	static nvl2(value: any, a: any, b: any): any {
 		return !Functions.isEmpty(value) ? a : b
 	}
 
-	static isNull (value: any): boolean {
+	static isNull(value: any): boolean {
 		return value === null || value === undefined
 	}
 
-	static isNotNull (value: any): boolean {
+	static isNotNull(value: any): boolean {
 		return !Functions.isNull(value)
 	}
 
-	static isEmpty (value: any): boolean {
+	static isEmpty(value: any): boolean {
 		return value === null || value === undefined || value.toString().trim().length === 0
 	}
 
-	static async sleep (ms = 1000): Promise<void> {
+	static async sleep(ms = 1000): Promise<void> {
 		return new Promise((resolve) => {
 			setTimeout(resolve, ms)
 		})
 	}
 
-	static between (value: any, from: any, to: any): boolean {
+	static between(value: any, from: any, to: any): boolean {
 		return value >= from && value < to
 	}
 
-	static includes (value: any, list: any[]): boolean {
+	static includes(value: any, list: any[]): boolean {
 		if (list && value) {
 			return list.includes(value)
 		} else {
@@ -621,37 +621,37 @@ class Functions {
 		}
 	}
 
-	static toString (value: any): string {
+	static toString(value: any): string {
 		return Functions.isNull(value) ? '' : value.toString()
 	}
 
-	static toJson (value: string): any {
+	static toJson(value: string): any {
 		return JSON.parse(value)
 	}
 
-	static toNumber (value: any): number {
+	static toNumber(value: any): number {
 		return Functions.isNull(value) ? 0 : parseFloat(value)
 	}
 }
 
 class ArrayFunctions {
-	static map (list: any[], method: Function): any[] { throw new Error('Empty') }
-	static foreach (list: any[], method: Function): void { throw new Error('Empty') }
-	static filter (list: any[], method: Function):any[] { throw new Error('Empty') }
-	static reverse (list: any[], method: Function): any[] { throw new Error('Empty') }
-	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
-	static last (list:any[], method:Function):any|null { throw new Error('Empty') }
-	static sort (list: any[], method: Function):any[] { throw new Error('Empty') }
-	static remove (list: any[], method: Function): number { throw new Error('Empty') }
+	static map(list: any[], method: Function): any[] { throw new Error('Empty') }
+	static foreach(list: any[], method: Function): void { throw new Error('Empty') }
+	static filter(list: any[], method: Function): any[] { throw new Error('Empty') }
+	static reverse(list: any[], method: Function): any[] { throw new Error('Empty') }
+	static first(list: any[], method: Function): any | null { throw new Error('Empty') }
+	static last(list: any[], method: Function): any | null { throw new Error('Empty') }
+	static sort(list: any[], method: Function): any[] { throw new Error('Empty') }
+	static remove(list: any[], method: Function): number { throw new Error('Empty') }
 
-	static insert (list:any[], item:any) { throw new Error('Empty') }
-	static update (list:any[], item:any, method:Function) { throw new Error('Empty') }
+	static insert(list: any[], item: any) { throw new Error('Empty') }
+	static update(list: any[], item: any, method: Function) { throw new Error('Empty') }
 }
 
 class Map extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const rows = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -662,8 +662,8 @@ class Map extends ArrowFunction {
 	}
 }
 class Foreach extends ArrowFunction {
-	eval ():any {
-		const list:any[] = this.children[0].eval()
+	eval(): any {
+		const list: any[] = this.children[0].eval()
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -672,9 +672,9 @@ class Foreach extends ArrowFunction {
 	}
 }
 class Filter extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const rows = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -686,7 +686,7 @@ class Filter extends ArrowFunction {
 	}
 }
 class Reverse extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
 			return list.reverse()
@@ -704,7 +704,7 @@ class Reverse extends ArrowFunction {
 	}
 }
 class First extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
@@ -721,7 +721,7 @@ class First extends ArrowFunction {
 	}
 }
 class Last extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
@@ -738,9 +738,9 @@ class Last extends ArrowFunction {
 	}
 }
 class Sort extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const values = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -752,9 +752,9 @@ class Sort extends ArrowFunction {
 	}
 }
 class Remove extends ArrowFunction {
-	eval ():any {
+	eval(): any {
 		const rows = []
-		const list:any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval()
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)

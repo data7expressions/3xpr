@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoreLib = void 0;
 /* eslint-disable @typescript-eslint/ban-types */
@@ -23,11 +14,11 @@ class CoreLib extends library_1.Library {
         this.initOperators();
         this.generalFunctions();
         this.conditionFunctions();
-        this.nullablesFunctions();
+        this.nullFunctions();
         this.mathFunctions();
         this.stringFunctions();
         this.initArrowFunctions();
-        this.datetimeFunctions();
+        this.dateTimeFunctions();
         this.convertFunctions();
     }
     initEnums() {
@@ -61,19 +52,19 @@ class CoreLib extends library_1.Library {
         this.addOperator('||', Operators.or, Or);
         this.addOperator('!', Operators.not);
         this.addOperator('[]', Operators.item);
-        this.addOperator('=', Operators.assigment, Assigment);
-        this.addOperator('+=', Operators.assigmentAddition, AssigmentAddition);
-        this.addOperator('-=', Operators.assigmentSubtraction, AssigmentSubtraction);
-        this.addOperator('*=', Operators.assigmentMultiplication, AssigmentMultiplication);
-        this.addOperator('/=', Operators.assigmentDivision, AssigmentDivision);
-        this.addOperator('**=', Operators.assigmentExponentiation, AssigmentExponentiation);
-        this.addOperator('//=', Operators.assigmentFloorDivision, AssigmentFloorDivision);
-        this.addOperator('%=', Operators.assigmentMod, AssigmentMod);
-        this.addOperator('&=', Operators.assigmentBitAnd, AssigmentBitAnd);
-        this.addOperator('|=', Operators.assigmentBitOr, AssigmentBitOr);
-        this.addOperator('^=', Operators.assigmentBitXor, AssigmentBitXor);
-        this.addOperator('<<=', Operators.assigmentLeftShift, AssigmentLeftShift);
-        this.addOperator('>>=', Operators.assigmentRightShift, AssigmentRightShift);
+        this.addOperator('=', Operators.assignment, Assignment);
+        this.addOperator('+=', Operators.assignmentAddition, AssignmentAddition);
+        this.addOperator('-=', Operators.assignmentSubtraction, AssignmentSubtraction);
+        this.addOperator('*=', Operators.assignmentMultiplication, AssignmentMultiplication);
+        this.addOperator('/=', Operators.assignmentDivision, AssignmentDivision);
+        this.addOperator('**=', Operators.assignmentExponentiation, AssignmentExponentiation);
+        this.addOperator('//=', Operators.assignmentFloorDivision, AssignmentFloorDivision);
+        this.addOperator('%=', Operators.assignmentMod, AssignmentMod);
+        this.addOperator('&=', Operators.assignmentBitAnd, AssignmentBitAnd);
+        this.addOperator('|=', Operators.assignmentBitOr, AssignmentBitOr);
+        this.addOperator('^=', Operators.assignmentBitXor, AssignmentBitXor);
+        this.addOperator('<<=', Operators.assignmentLeftShift, AssignmentLeftShift);
+        this.addOperator('>>=', Operators.assignmentRightShift, AssignmentRightShift);
     }
     generalFunctions() {
         this.addFunction('sleep', Functions.sleep);
@@ -85,7 +76,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('includes', Functions.includes);
         this.addFunction('in', Functions.includes);
     }
-    nullablesFunctions() {
+    nullFunctions() {
         this.addFunction('nvl', Functions.nvl);
         this.addFunction('nvl2', Functions.nvl2);
         this.addFunction('isNull', Functions.isNull);
@@ -152,8 +143,8 @@ class CoreLib extends library_1.Library {
             }
         });
     }
-    // TODO: trabajar todas las fechas como strign en formato ISO 8601
-    datetimeFunctions() {
+    // TODO: trabajar todas las fechas como string en formato ISO 8601
+    dateTimeFunctions() {
         this.addFunction('curtime', () => {
             const date = new Date();
             return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds();
@@ -328,7 +319,7 @@ class Operators {
         return a / b;
     }
     static exponentiation(a, b) {
-        return Math.pow(a, b);
+        return a ** b;
     }
     static floorDivision(a, b) {
         return Math.pow(a, 1 / b);
@@ -384,43 +375,43 @@ class Operators {
     static item(list, index) {
         return list[index];
     }
-    static assigment(a, b) {
+    static assignment(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentAddition(a, b) {
+    static assignmentAddition(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentSubtraction(a, b) {
+    static assignmentSubtraction(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentMultiplication(a, b) {
+    static assignmentMultiplication(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentDivision(a, b) {
+    static assignmentDivision(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentExponentiation(a, b) {
+    static assignmentExponentiation(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentFloorDivision(a, b) {
+    static assignmentFloorDivision(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentMod(a, b) {
+    static assignmentMod(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentBitAnd(a, b) {
+    static assignmentBitAnd(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentBitOr(a, b) {
+    static assignmentBitOr(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentBitXor(a, b) {
+    static assignmentBitXor(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentLeftShift(a, b) {
+    static assignmentLeftShift(a, b) {
         throw new Error('NotImplemented');
     }
-    static assigmentRightShift(a, b) {
+    static assignmentRightShift(a, b) {
         throw new Error('NotImplemented');
     }
 }
@@ -438,91 +429,91 @@ class Or extends operands_1.Operator {
         return this.children[1].eval();
     }
 }
-class Assigment extends operands_1.Operator {
+class Assignment extends operands_1.Operator {
     eval() {
         const value = this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentAddition extends operands_1.Operator {
+class AssignmentAddition extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() + this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentSubtraction extends operands_1.Operator {
+class AssignmentSubtraction extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() - this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentMultiplication extends operands_1.Operator {
+class AssignmentMultiplication extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() * this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentDivision extends operands_1.Operator {
+class AssignmentDivision extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() / this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentExponentiation extends operands_1.Operator {
+class AssignmentExponentiation extends operands_1.Operator {
     eval() {
-        const value = Math.pow(this.children[0].eval(), this.children[1].eval());
+        const value = this.children[0].eval() ** this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentFloorDivision extends operands_1.Operator {
+class AssignmentFloorDivision extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval(); // this.children[1].eval()
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentMod extends operands_1.Operator {
+class AssignmentMod extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() % this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentBitAnd extends operands_1.Operator {
+class AssignmentBitAnd extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() & this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentBitOr extends operands_1.Operator {
+class AssignmentBitOr extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() | this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentBitXor extends operands_1.Operator {
+class AssignmentBitXor extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() ^ this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentLeftShift extends operands_1.Operator {
+class AssignmentLeftShift extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() << this.children[1].eval();
         this.children[0].set(value);
         return value;
     }
 }
-class AssigmentRightShift extends operands_1.Operator {
+class AssignmentRightShift extends operands_1.Operator {
     eval() {
         const value = this.children[0].eval() >> this.children[1].eval();
         this.children[0].set(value);
@@ -559,11 +550,9 @@ class Functions {
     static isEmpty(value) {
         return value === null || value === undefined || value.toString().trim().length === 0;
     }
-    static sleep(ms = 1000) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
+    static async sleep(ms = 1000) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
         });
     }
     static between(value, from, to) {

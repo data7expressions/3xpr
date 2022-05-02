@@ -10,7 +10,7 @@ class ParserManager {
         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
         this.tripleOperators = [];
         this.doubleOperators = [];
-        this.assigmentOperators = [];
+        this.assignmentOperators = [];
         this.refresh();
     }
     refresh() {
@@ -23,7 +23,7 @@ class ParserManager {
                 this.tripleOperators.push(metadata.operator);
             }
             if (metadata.category === 'assignment') {
-                this.assigmentOperators.push(metadata.operator);
+                this.assignmentOperators.push(metadata.operator);
             }
         }
     }
@@ -91,7 +91,7 @@ class ParserManager {
                 }
                 list.push('}');
                 break;
-            case 'oper':
+            case 'operator':
                 if (node.children.length === 1) {
                     list.push(node.name);
                     list.push(this.toExpression(node.children[0]));
@@ -212,8 +212,8 @@ class ParserManager {
                 result.push(p);
             }
             else if (p === ' ') {
-                // solo deberia dejar los espacios cuando es entre caracteres alfanumericos.
-                // por ejemplo en el caso de "} if" no deberia quedar un espacio
+                // solo debería dejar los espacios cuando es entre caracteres alfanuméricos.
+                // por ejemplo en el caso de "} if" no debería quedar un espacio
                 if (i + 1 < length && i - 1 >= 0 && this.reAlphanumeric.test(buffer[i - 1]) && this.reAlphanumeric.test(buffer[i + 1])) {
                     result.push(p);
                 }

@@ -5,10 +5,10 @@ export declare class CoreLib extends Library {
     private initOperators;
     private generalFunctions;
     private conditionFunctions;
-    private nullablesFunctions;
+    private nullFunctions;
     private mathFunctions;
     private stringFunctions;
-    private datetimeFunctions;
+    private dateTimeFunctions;
     private initArrowFunctions;
     private convertFunctions;
 }

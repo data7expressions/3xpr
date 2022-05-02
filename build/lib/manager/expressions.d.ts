@@ -16,7 +16,7 @@ export declare class Expressions {
      * Evaluate and solve expression
      * @param expression  string expression
      * @param data Data with variables
-     * @returns Result of the evaluale expression
+     * @returns Result of the evaluate expression
      */
     eval(expression: string, data?: any): any;
     /**
