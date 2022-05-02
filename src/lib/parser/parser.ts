@@ -10,7 +10,7 @@ export class Parser {
 	private length: number
 	private index: number
 
-	constructor(mgr: ParserManager, buffer: string[]) {
+	constructor (mgr: ParserManager, buffer: string[]) {
 		this.mgr = mgr
 		// eslint-disable-next-line prefer-regex-literals
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') /// [a-zA-Z0-9_.]+$'/ //
@@ -22,23 +22,23 @@ export class Parser {
 		this.index = 0
 	}
 
-	get previous() {
+	get previous () {
 		return this.buffer[this.index - 1]
 	}
 
-	get current(): any {
+	get current (): any {
 		return this.buffer[this.index]
 	}
 
-	get next() {
+	get next () {
 		return this.buffer[this.index + 1]
 	}
 
-	get end() {
+	get end () {
 		return this.index >= this.length
 	}
 
-	private nextIs(key: string): boolean {
+	private nextIs (key: string): boolean {
 		const array = key.split('')
 		for (let i = 0; i < array.length; i++) {
 			if (this.buffer[this.index + i] !== array[i]) { return false }
@@ -46,7 +46,7 @@ export class Parser {
 		return true
 	}
 
-	public parse() {
+	public parse () {
 		const nodes: Node[] = []
 		while (!this.end) {
 			const node = this.getExpression(undefined, undefined, ';')
@@ -57,15 +57,15 @@ export class Parser {
 		return new Node('block', 'block', nodes)
 	}
 
-	private char(index: number) {
+	private char (index: number) {
 		return this.buffer[index]
 	}
 
-	private offset(value = 0) {
+	private offset (value = 0) {
 		return this.buffer[this.index + value]
 	}
 
-	private getExpression(operand1?: Node, operator?: string, _break = ''): Node {
+	private getExpression (operand1?: Node, operator?: string, _break = ''): Node {
 		let expression
 		let operand2
 		let isBreak = false
@@ -99,7 +99,7 @@ export class Parser {
 		return expression as Node
 	}
 
-	private getOperand(): Node {
+	private getOperand (): Node {
 		let isNegative = false
 		let isNot = false
 		let isBitNot = false
@@ -223,7 +223,7 @@ export class Parser {
 		return operand
 	}
 
-	private solveChain(operand: Node): Node {
+	private solveChain (operand: Node): Node {
 		if (!this.end && this.current === '.') {
 			this.index += 1
 			const name = this.getValue()
@@ -240,7 +240,7 @@ export class Parser {
 		}
 	}
 
-	private getValue(increment = true): string {
+	private getValue (increment = true): string {
 		const buff = []
 		if (increment) {
 			while (!this.end && this.reAlphanumeric.test(this.current)) {
@@ -257,7 +257,7 @@ export class Parser {
 		return buff.join('')
 	}
 
-	private getOperator(): any {
+	private getOperator (): any {
 		if (this.end) return null
 		let op = null
 		if (this.index + 2 < this.length) {
@@ -273,7 +273,7 @@ export class Parser {
 		return op
 	}
 
-	private getString(char: string): string {
+	private getString (char: string): string {
 		const buff = []
 		while (!this.end) {
 			if (this.current === char) {
@@ -286,7 +286,7 @@ export class Parser {
 		return buff.join('')
 	}
 
-	private getTemplate(): string {
+	private getTemplate (): string {
 		const buff = []
 		while (!this.end) {
 			if (this.current === '`') {
@@ -299,7 +299,7 @@ export class Parser {
 		return buff.join('')
 	}
 
-	private getArgs(end = ')'): Node[] {
+	private getArgs (end = ')'): Node[] {
 		const args = []
 		while (true) {
 			const arg = this.getExpression(undefined, undefined, ',' + end)
@@ -309,7 +309,7 @@ export class Parser {
 		return args
 	}
 
-	private getObject(): Node {
+	private getObject (): Node {
 		const attributes = []
 		while (true) {
 			let name = null
@@ -331,7 +331,7 @@ export class Parser {
 		return new Node('obj', 'obj', attributes)
 	}
 
-	private getBlock(): Node {
+	private getBlock (): Node {
 		const lines = []
 		while (true) {
 			const line = this.getExpression(undefined, undefined, ';}')
@@ -341,7 +341,7 @@ export class Parser {
 		return new Node('block', 'block', lines)
 	}
 
-	private getControlBlock(): Node {
+	private getControlBlock (): Node {
 		if (this.current === '{') {
 			this.index += 1
 			return this.getBlock()
@@ -350,12 +350,12 @@ export class Parser {
 		}
 	}
 
-	private getReturn(): Node {
+	private getReturn (): Node {
 		const value = this.getExpression(undefined, undefined, ';')
 		return new Node('return', 'return', [value])
 	}
 
-	private getTryCatchBlock(): Node {
+	private getTryCatchBlock (): Node {
 		const children: Node[] = []
 		const tryBlock = this.getControlBlock()
 		children.push(tryBlock)
@@ -376,12 +376,12 @@ export class Parser {
 		return new Node('try', 'try', children)
 	}
 
-	private getThrow(): Node {
+	private getThrow (): Node {
 		const exception = this.getExpression(undefined, undefined, ';')
 		return new Node('throw', 'throw', [exception])
 	}
 
-	private getIfBlock(): Node {
+	private getIfBlock (): Node {
 		const children: Node[] = []
 		const condition = this.getExpression(undefined, undefined, ')')
 		children.push(condition)
@@ -404,7 +404,7 @@ export class Parser {
 		return new Node('if', 'if', children)
 	}
 
-	private getSwitchBlock(): Node {
+	private getSwitchBlock (): Node {
 		const children = []
 		const value = this.getExpression(undefined, undefined, ')')
 		children.push(value)
@@ -459,13 +459,13 @@ export class Parser {
 		// return new Node('switch', 'switch', [value, options])
 	}
 
-	private getWhileBlock(): Node {
+	private getWhileBlock (): Node {
 		const condition = this.getExpression(undefined, undefined, ')')
 		const block = this.getControlBlock()
 		return new Node('while', 'while', [condition, block])
 	}
 
-	private getForBlock(): Node {
+	private getForBlock (): Node {
 		const first = this.getExpression(undefined, undefined, '; ')
 		if (this.previous === ';') {
 			const condition = this.getExpression(undefined, undefined, ';')
@@ -485,7 +485,7 @@ export class Parser {
 		throw new Error('expression for error')
 	}
 
-	private getFunctionBlock(): Node {
+	private getFunctionBlock (): Node {
 		const name = this.getValue()
 		if (this.current === '(') this.index += 1
 		const args = this.getArgs()
@@ -494,7 +494,7 @@ export class Parser {
 		return new Node(name, 'function', [argsNode, block])
 	}
 
-	private getChildFunction(name: string, parent: Node): Node {
+	private getChildFunction (name: string, parent: Node): Node {
 		let isArrow = false
 		const variableName = this.getValue(false)
 		if (variableName !== '') {
@@ -547,13 +547,13 @@ export class Parser {
 		//  }
 	}
 
-	private getIndexOperand(name: string): Node {
+	private getIndexOperand (name: string): Node {
 		const idx = this.getExpression(undefined, undefined, ']')
 		const operand = new Node(name, 'var')
 		return new Node('[]', 'operator', [operand, idx])
 	}
 
-	private getEnum(value: string): Node {
+	private getEnum (value: string): Node {
 		if (value.includes('.') && this.mgr.isEnum(value)) {
 			const names = value.split('.')
 			const enumName = names[0]

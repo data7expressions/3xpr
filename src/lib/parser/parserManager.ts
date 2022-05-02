@@ -8,7 +8,7 @@ export class ParserManager {
 	public assignmentOperators: string[]
 	private expressionConfig: ExpressionConfig
 	private reAlphanumeric: RegExp
-	constructor(expressionConfig: ExpressionConfig) {
+	constructor (expressionConfig: ExpressionConfig) {
 		this.expressionConfig = expressionConfig
 		// eslint-disable-next-line prefer-regex-literals
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$')
@@ -18,7 +18,7 @@ export class ParserManager {
 		this.refresh()
 	}
 
-	public refresh() {
+	public refresh () {
 		for (const p in this.expressionConfig.operators) {
 			const metadata = this.expressionConfig.operators[p]
 			if (metadata.operator.length === 2) {
@@ -32,7 +32,7 @@ export class ParserManager {
 		}
 	}
 
-	public priority(name: string, cardinality = 2): number {
+	public priority (name: string, cardinality = 2): number {
 		try {
 			const metadata = this.expressionConfig.getOperator(name, cardinality)
 			return metadata && metadata.priority ? metadata.priority : -1
@@ -41,19 +41,19 @@ export class ParserManager {
 		}
 	}
 
-	public isEnum(name: string) {
+	public isEnum (name: string) {
 		return this.expressionConfig.isEnum(name)
 	}
 
-	public getEnumValue(name: string, option: any) {
+	public getEnumValue (name: string, option: any) {
 		return this.expressionConfig.getEnumValue(name, option)
 	}
 
-	public getEnum(name: string) {
+	public getEnum (name: string) {
 		return this.expressionConfig.getEnum(name)
 	}
 
-	public parse(expression: string): Node {
+	public parse (expression: string): Node {
 		try {
 			const buffer: string[] = this._minify(expression)
 			const parser = new Parser(this, buffer)
@@ -67,92 +67,92 @@ export class ParserManager {
 		}
 	}
 
-	public toExpression(node: Node): string {
+	public toExpression (node: Node): string {
 		const list: string[] = []
 		if (!node || !node.type) {
 			console.log(node)
 		}
 		switch (node.type) {
-			case 'const':
-			case 'var':
+		case 'const':
+		case 'var':
+			list.push(node.name)
+			break
+		case 'array':
+			list.push('[')
+			for (let i = 0; i < node.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(node.children[i]))
+			}
+			list.push(']')
+			break
+		case 'keyVal':
+			list.push(node.name + ':')
+			list.push(this.toExpression(node.children[0]))
+			break
+		case 'obj':
+			list.push('{')
+			for (let i = 0; i < node.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(node.children[i]))
+			}
+			list.push('}')
+			break
+		case 'operator':
+			if (node.children.length === 1) {
 				list.push(node.name)
-				break
-			case 'array':
-				list.push('[')
-				for (let i = 0; i < node.children.length; i++) {
-					if (i > 0) list.push(',')
-					list.push(this.toExpression(node.children[i]))
-				}
-				list.push(']')
-				break
-			case 'keyVal':
-				list.push(node.name + ':')
 				list.push(this.toExpression(node.children[0]))
-				break
-			case 'obj':
-				list.push('{')
-				for (let i = 0; i < node.children.length; i++) {
-					if (i > 0) list.push(',')
-					list.push(this.toExpression(node.children[i]))
-				}
-				list.push('}')
-				break
-			case 'operator':
-				if (node.children.length === 1) {
-					list.push(node.name)
-					list.push(this.toExpression(node.children[0]))
-				} else if (node.children.length === 2) {
-					list.push('(')
-					list.push(this.toExpression(node.children[0]))
-					list.push(node.name)
-					list.push(this.toExpression(node.children[1]))
-					list.push(')')
-				}
-				break
-			case 'funcRef':
+			} else if (node.children.length === 2) {
+				list.push('(')
+				list.push(this.toExpression(node.children[0]))
 				list.push(node.name)
-				list.push('(')
-				for (let i = 0; i < node.children.length; i++) {
-					if (i > 0) list.push(',')
-					list.push(this.toExpression(node.children[i]))
-				}
+				list.push(this.toExpression(node.children[1]))
 				list.push(')')
-				break
-			case 'childFunc':
-				list.push(this.toExpression(node.children[0]))
-				list.push('.' + node.name)
-				list.push('(')
-				for (let i = 1; i < node.children.length; i++) {
-					if (i > 1) list.push(',')
-					list.push(this.toExpression(node.children[i]))
-				}
-				list.push(')')
-				break
-			case 'arrow':
-				list.push(this.toExpression(node.children[0]))
-				list.push('.' + node.name)
-				list.push('(')
-				list.push(node.children[1].name)
-				list.push('=>')
-				list.push(this.toExpression(node.children[2]))
-				list.push(')')
-				break
-			default:
-				throw new Error('node: ' + node.type + ' not supported')
+			}
+			break
+		case 'funcRef':
+			list.push(node.name)
+			list.push('(')
+			for (let i = 0; i < node.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(node.children[i]))
+			}
+			list.push(')')
+			break
+		case 'childFunc':
+			list.push(this.toExpression(node.children[0]))
+			list.push('.' + node.name)
+			list.push('(')
+			for (let i = 1; i < node.children.length; i++) {
+				if (i > 1) list.push(',')
+				list.push(this.toExpression(node.children[i]))
+			}
+			list.push(')')
+			break
+		case 'arrow':
+			list.push(this.toExpression(node.children[0]))
+			list.push('.' + node.name)
+			list.push('(')
+			list.push(node.children[1].name)
+			list.push('=>')
+			list.push(this.toExpression(node.children[2]))
+			list.push(')')
+			break
+		default:
+			throw new Error('node: ' + node.type + ' not supported')
 		}
 		return list.join('')
 	}
 
-	public serialize(value: Node): any {
+	public serialize (value: Node): any {
 		return this._serialize(value)
 	}
 
-	public deserialize(json: any): Node {
+	public deserialize (json: any): Node {
 		const node = this._deserialize(json)
 		return this.setParent(node)
 	}
 
-	public clearChildEmpty(node: Node) {
+	public clearChildEmpty (node: Node) {
 		try {
 			if (node.children.length > 0) {
 				const toRemove: number[] = []
@@ -171,7 +171,7 @@ export class ParserManager {
 		return node
 	}
 
-	public setParent(node: Node, parent?: Node, index = 0) {
+	public setParent (node: Node, parent?: Node, index = 0) {
 		try {
 			if (parent) {
 				node.id = parent.id + '.' + index.toString()
@@ -195,11 +195,11 @@ export class ParserManager {
 		return node
 	}
 
-	public minify(expression: string): string {
+	public minify (expression: string): string {
 		return this._minify(expression).join('')
 	}
 
-	private _minify(expression: string): string[] {
+	private _minify (expression: string): string[] {
 		let isString = false
 		let quotes = ''
 		const buffer = expression.split('')
@@ -223,14 +223,14 @@ export class ParserManager {
 		return result
 	}
 
-	private _serialize(node: Node): any {
+	private _serialize (node: Node): any {
 		const children = []
 		for (const p in node.children) { children.push(this._serialize(node.children[p])) }
 		if (children.length === 0) return { n: node.name, t: node.type }
 		return { n: node.name, t: node.type, c: children }
 	}
 
-	private _deserialize(serialized: any): Node {
+	private _deserialize (serialized: any): Node {
 		const children = []
 		if (serialized.c) {
 			for (const p in serialized.c) { children.push(this._deserialize(p)) }
