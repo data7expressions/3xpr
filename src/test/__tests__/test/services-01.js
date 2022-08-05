@@ -1,4 +1,4 @@
-//TODO: resolver metodos asincronicos
+//TODO: resolver métodos asíncronos
 
 result = await(rest(url, action, body, headers, cookies));
 

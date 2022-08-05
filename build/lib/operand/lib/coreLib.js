@@ -145,7 +145,7 @@ class CoreLib extends library_1.Library {
     }
     // TODO: trabajar todas las fechas como string en formato ISO 8601
     dateTimeFunctions() {
-        this.addFunction('curtime', () => {
+        this.addFunction('curTime', () => {
             const date = new Date();
             return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds();
         });

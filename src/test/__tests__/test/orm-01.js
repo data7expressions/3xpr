@@ -24,7 +24,7 @@ sentence = (ORM) => Product.select(p => { category = p.category.name, total = su
 //example query with having
 result = await(dataExec($DbCnx, sentence, { a: 1 }));
 
-// Filter using subquery 
+// Filter using subQuery 
 callback = dataExec($DbCnx, () => Product.select(p => { category = p.category.name, total = sum(p.cost) })
 	.where(p => p.category != a && !exists(Blacklist.where(q => q.categoryId == p.categoryId)))
 	.having(p => p.total > 100)

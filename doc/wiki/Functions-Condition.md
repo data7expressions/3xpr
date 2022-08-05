@@ -1,8 +1,7 @@
-|Function |Description                                   																|
-|---------|-----------------------------------------------------------------------------|
-|between	|Specifies how to retrieve values from an expression within a specific range	|
-|includes	|Is used to reduce the use of multiple OR conditions													|
-|in				|Is used to reduce the use of multiple OR conditions													|
+|Function 		|Description                                   																|
+|-------------|-----------------------------------------------------------------------------|
+|between			|Specifies how to retrieve values from an expression within a specific range	|
+|in/includes	|Is used to reduce the use of multiple OR conditions													|
 
 ## Definition
 
