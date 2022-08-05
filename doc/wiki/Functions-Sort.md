@@ -1,7 +1,7 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|desc|This statement is used to sort data in descending order|
-|asc|This statement is used to sort data in ascending order.|
+|Function    	|Description                                   					|
+|-------------|-------------------------------------------------------|
+|desc					|This statement is used to sort data in descending order|
+|asc					|This statement is used to sort data in ascending order.|
 
 ## Definition
 

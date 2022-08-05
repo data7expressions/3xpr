@@ -2,7 +2,7 @@ import { expressions } from '../../lib'
 
 describe('Array', () => {
 	
-	test('childs', () => {
+	test('children', () => {
 		let data: any = { "a": [1, 2, 3], "b": 0 }
 		expressions.eval('a.push(b)', data)
 		expect([1, 2, 3, 0]).toEqual(data.a)

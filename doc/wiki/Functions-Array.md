@@ -1,23 +1,18 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|foreach|Calls a function for each element in an array.|
-|each|Calls a function for each element in an array.|
-|filter|Creates a new array filled with elements that pass a test provided by a function|
-|where|Creates a new array filled with elements that pass a test provided by a function|
-|first|Returns the first value of the array that meets a condition|
-|last|Returns the last value of the array that meets a condition|
-|map|Creates a new array from calling a function for every array element.|
-|select|Creates a new array from calling a function for every array element.|
-|sort|Sorts the elements of an array.|
-|order|Sorts the elements of an array.|
-|reverse|Reverses the order of the elements in an array.|
-|remove|Eliminate the elements of the array that meet the filter condition|
-|delete|Eliminate the elements of the array that meet the filter condition|
-|push|Adds new items to the end of an array|
-|insert|Adds new items to the end of an array|
-|pop|Removes (pops) the last element of an array and return element|
-|length|Calculating the number of items in a array.|
-|len|Calculating the number of items in a array.|
+|Function    	|Description                                   																		|
+|-------------|---------------------------------------------------------------------------------|
+|foreach/each	|Calls a function for each element in an array.																		|
+|filter				|Creates a new array filled with elements that pass a test provided by a function	|
+|where				|Creates a new array filled with elements that pass a test provided by a function	|
+|first				|Returns the first value of the array that meets a condition											|
+|last					|Returns the last value of the array that meets a condition												|
+|map/select		|Creates a new array from calling a function for every array element.							|
+|sort/order		|Sorts the elements of an array.																									|
+|reverse			|Reverses the order of the elements in an array.																	|
+|remove/delete|Eliminate the elements of the array that meet the filter condition								|
+|push					|Adds new items to the end of an array																						|
+|insert				|Adds new items to the end of an array																						|
+|pop					|Removes (pops) the last element of an array and return element										|
+|length/len		|Calculating the number of items in a array.																			|
 
 ## Definition
 

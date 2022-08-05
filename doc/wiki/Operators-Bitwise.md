@@ -1,11 +1,11 @@
-|Operator    |Description                                   |
-|------------|----------------------------------------------|
-|~|bitNot|
-|&|bitAnd|
-|||bitOr|
-|^|bitXor|
-|<<|leftShift|
-|>>|rightShift|
+|Operator |Description  |
+|---------|-------------|
+|~				|bitNot				|
+|&				|bitAnd				|
+|\|				|bitOr				|
+|^				|bitXor				|
+|<<				|leftShift		|
+|>>				|rightShift		|
 
 ## Definition
 

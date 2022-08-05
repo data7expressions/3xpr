@@ -1,14 +1,11 @@
-|Operator    |Description                                   |
-|------------|----------------------------------------------|
-|==|equal|
-|===|equal|
-|!=|notEqual|
-|!==|notEqual|
-|<>|notEqual|
-|>|greaterThan|
-|<|lessThan|
-|>=|greaterThanOrEqual|
-|<=|lessThanOrEqual|
+|Operator    		|Description        |
+|---------------|-------------------|
+|==  ===			 	|equal							|
+|!=  !== <> 		|notEqual						|
+|>							|greaterThan				|
+|<							|lessThan						|
+|>=							|greaterThanOrEqual	|
+|<=							|lessThanOrEqual		|
 
 ## Definition
 

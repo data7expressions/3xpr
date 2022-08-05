@@ -1,23 +1,22 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|chr|Get character from ASCII code|
-|strCount|Count value in source|
-|initcap|Capitalize words|
-|lower|Lowercase string|
-|lpad|Pad the left-side of string|
-|ltrim|Remove leading chars|
-|replace|The replace() method searches a string for a specified value and returns a new string where the specified values are replaced.|
-|rpad|Pad the right-side of string|
-|rtrim|Remove trailing spaces|
-|substr|Get a substring of string|
-|substring|Get a substring of string|
-|trim|Remove characters|
-|upper|Uppercase string|
-|concat|String concatenation|
-|capitalize|Make the first character have upper case and the rest lower case|
-|test|Try a match on a string. Returns true or false.|
-|match|Returns an array containing all matches, including capturing groups, or null if no matches are found.|
-|mask|General-purpose function that mask parts of arbitrary strings based on position within the string|
+|Function   			|Description                                   																														|
+|-----------------|---------------------------------------------------------------------------------------------------------|
+|chr							|Get character from ASCII code																																						|
+|strCount					|Count value in source																																										|
+|initcap					|Capitalize words																																													|
+|lower						|Lowercase string																																													|
+|lpad							|Pad the left-side of string																																							|
+|ltrim						|Remove leading chars																																											|
+|replace					|Searches a string for a specified value and returns a new string where the specified values are replaced	|
+|rpad							|Pad the right-side of string																																							|
+|rtrim						|Remove trailing spaces																																										|
+|substr/substring	|Get a substring of string																																								|
+|trim							|Remove characters																																												|
+|upper						|Uppercase string																																													|
+|concat						|String concatenation																																											|
+|capitalize				|Make the first character have upper case and the rest lower case																					|
+|test							|Try a match on a string. Returns true or false																														|
+|match						|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
+|mask							|General-purpose function that mask parts of arbitrary strings based on position within the string				|
 
 ## Definition
 

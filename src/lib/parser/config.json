@@ -657,12 +657,12 @@
   },
   "functions": {
     "sleep": {
-      "description": "Delay a program execution for a given number of miliseconds.",
+      "description": "Delay a program execution for a given number of milliseconds.",
       "category": "general",
       "return": "void",
       "params": [
         {
-          "name": "miliseconds",
+          "name": "milliseconds",
           "type": "number"
         }
       ]
@@ -1277,7 +1277,7 @@
         }
       ]
     },
-    "curtime": {
+    "curTime": {
       "description": "Get the current time",
       "category": "datetime",
       "return": "Date"

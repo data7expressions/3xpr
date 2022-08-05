@@ -1,26 +1,26 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|abs|Get the absolute value|
-|acos|Get the arc cosine|
-|asin|Get the arc sine|
-|atan|Get the arc tangent|
-|atan2|Get the arc tangent of x and y|
-|ceil|Get the smallest following integer|
-|cos|Get the cosine|
-|cosh|Get hyperbolic cosine|
-|exp|Raise e to the nth power|
-|floor|Get the largest preceding integer|
-|ln|Get natural logarithm of num|
-|log|Get logarithm, base num1, of num2|
-|log10|Return the base 10 logarithm of x|
-|remainder|Get remainder|
-|round|Get rounded value|
-|sign|Get sign of exp|
-|sin|Get sine|
-|sinh|Get hyperbolic sine|
-|tan|Get tangent|
-|tanh|Get hyperbolic tangent|
-|trunc|Truncate num|
+|Function    	|Description                                   	|
+|-------------|-----------------------------------------------|
+|abs					|Get the absolute value													|
+|acos					|Get the arc cosine															|
+|asin					|Get the arc sine																|
+|atan					|Get the arc tangent														|
+|atan2				|Get the arc tangent of x and y									|
+|ceil					|Get the smallest following integer							|
+|cos					|Get the cosine																	|
+|cosh					|Get hyperbolic cosine													|
+|exp					|Raise e to the nth power												|
+|floor				|Get the largest preceding integer							|
+|ln						|Get natural logarithm of num										|
+|log					|Get logarithm, base num1, of num2							|
+|log10				|Return the base 10 logarithm of x							|
+|remainder		|Get remainder																	|
+|round				|Get rounded value															|
+|sign					|Get sign of exp																|
+|sin					|Get sine																				|
+|sinh					|Get hyperbolic sine														|
+|tan					|Get tangent																		|
+|tanh					|Get hyperbolic tangent													|
+|trunc				|Truncate num																		|
 
 ## Definition
 

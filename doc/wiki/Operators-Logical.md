@@ -1,8 +1,8 @@
-|Operator    |Description                                   |
-|------------|----------------------------------------------|
-|!|not|
-|&&|and|
-||||or|
+|Operator   |Description  |
+|-----------|-------------|
+|!					|not					|
+|&&					|and					|
+|\|\|				|or						|
 
 ## Definition
 

@@ -1,34 +1,35 @@
-|Operator    |Description                                   |
-|------------|----------------------------------------------|
-|-|negative|
-|+|addition|
-|-|subtraction|
-|*|multiplication|
-|/|division|
-|**|exponentiation|
-|//|floorDivision|
-|%|mod|
+|Operator |Description                                   	|
+|---------|-----------------------------------------------|
+|-				|negative /subtraction													|
+|+				|addition																				|
+|*				|multiplication																	|
+|/				|division																				|
+|**				|exponentiation																	|
+|//				|floorDivision																	|
+|%				|mod																						|
 
 ## Definition
 
 ### Operator -
+
+Negative:
 
 - description: negative
 - return: number
 - params:
 	- value: number
 
-### Operator +
+Subtraction:
 
-- description: addition
+- description: subtraction
 - return: number
 - params:
 	- a: number
 	- b: number
 
-### Operator -
+### Operator +
 
-- description: subtraction
+- description: addition
 - return: number
 - params:
 	- a: number

@@ -1,41 +1,41 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|curtime|Get the current time|
-|today|Get the current date|
-|now|Get the current datetime|
-|dateToString|Convert date to string with ISO 8601 format|
-|time|Convert string to time|
-|date|Convert string to date|
-|datetime|Convert string to datetime|
-|year|Get year from date|
-|month|Get month from date|
-|day|Get day of month from date|
-|weekday|get date of week from date|
-|hour|get hour from date|
-|minute|Get minute from date|
-|second|Get second from date|
-|millisecond|Get millisecond from date|
-|addYear|Add years to a date|
-|addMonth|Add months to a date|
-|addDay|Add days to a date|
-|addHour|Add hours to a date|
-|addMinute|Add minutes to a date|
-|addSecond|Add seconds to a date|
-|addMillisecond|Add milliseconds to a date|
-|addTime|Add time to a date|
-|subtractTime|subtract time to a date|
-|dayDiff|difference between two dates in days|
-|hourDiff|difference between two dates in hours|
-|secondDiff|difference between two dates in seconds|
-|millisecondDiff|difference between two dates in milliseconds|
-|dayToDate|days to  Date|
-|hourToDate|hours to  Date|
-|secondToDate|seconds to  Date|
-|millisecondToDate|milliseconds to Date|
+|Function    			|Description                                   	|
+|-----------------|-----------------------------------------------|
+|curTime					|Get the current time														|
+|today						|Get the current date														|
+|now							|Get the current datetime												|
+|dateToString			|Convert date to string with ISO 8601 format		|
+|time							|Convert string to time													|
+|date							|Convert string to date													|
+|datetime					|Convert string to datetime											|
+|year							|Get year from date															|
+|month						|Get month from date														|
+|day							|Get day of month from date											|
+|weekday					|Get date of week from date											|
+|hour							|Get hour from date															|
+|minute						|Get minute from date														|
+|second						|Get second from date														|
+|millisecond			|Get millisecond from date											|
+|addYear					|Add years to a date														|
+|addMonth					|Add months to a date														|
+|addDay						|Add days to a date															|
+|addHour					|Add hours to a date														|
+|addMinute				|Add minutes to a date													|
+|addSecond				|Add seconds to a date													|
+|addMillisecond		|Add milliseconds to a date											|
+|addTime					|Add time to a date															|
+|subtractTime			|subtract time to a date												|
+|dayDiff					|difference between two dates in days						|
+|hourDiff					|difference between two dates in hours					|
+|secondDiff				|difference between two dates in seconds				|
+|millisecondDiff	|difference between two dates in milliseconds		|
+|dayToDate				|days to  Date																	|
+|hourToDate				|hours to  Date																	|
+|secondToDate			|seconds to  Date																|
+|millisecondToDate|milliseconds to Date														|
 
 ## Definition
 
-### curtime
+### curTime
 
 - description: Get the current time
 - deterministic: true

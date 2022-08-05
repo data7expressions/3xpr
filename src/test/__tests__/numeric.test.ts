@@ -40,7 +40,7 @@ describe('Numeric', () => {
 		expect(5).toBe(expressions.eval('2**b+a',{"a":1,"b":2})) 
 		expect(5).toBe(expressions.eval('c.b', { "a": "1", "b": 2, "c": { "a": 4, "b": 5 } }))
 	})
-	test('assigments', () => {	
+	test('assignments', () => {	
 		const data = {"a":"1","b":2,"c":{"a":4,"b":5}}
 		expressions.eval('a=8',data)
 		expect(8).toBe(data['a'])

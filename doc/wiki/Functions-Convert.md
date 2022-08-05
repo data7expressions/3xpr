@@ -1,8 +1,8 @@
-|Function    |Description                                   |
-|------------|----------------------------------------------|
-|toString|convert to string|
-|toJson|convert to json|
-|toNumber|convert to number|
+|Function    	|Description                                   	|
+|-------------|-----------------------------------------------|
+|toString			|convert to string															|
+|toJson				|convert to json																|
+|toNumber			|convert to number															|
 
 ## Definition
 
