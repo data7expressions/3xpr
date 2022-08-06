@@ -1,22 +1,64 @@
 |Function   			|Description                                   																														|
 |-----------------|---------------------------------------------------------------------------------------------------------|
+|capitalize				|Make the first character have upper case and the rest lower case																					|
 |chr							|Get character from ASCII code																																						|
-|strCount					|Count value in source																																										|
+|concat						|String concatenation																																											|
 |initcap					|Capitalize words																																													|
 |lower						|Lowercase string																																													|
 |lpad							|Pad the left-side of string																																							|
 |ltrim						|Remove leading chars																																											|
 |replace					|Searches a string for a specified value and returns a new string where the specified values are replaced	|
+|match						|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
+|mask							|General-purpose function that mask parts of arbitrary strings based on position within the string				|
+|parse						|Parses a text string as JSON, optionally transforming the value produced by the parse.										|
 |rpad							|Pad the right-side of string																																							|
 |rtrim						|Remove trailing spaces																																										|
 |substr/substring	|Get a substring of string																																								|
 |trim							|Remove characters																																												|
 |upper						|Uppercase string																																													|
-|concat						|String concatenation																																											|
-|capitalize				|Make the first character have upper case and the rest lower case																					|
+|strCount					|Count value in source																																										|
+|stringify				|Convert a JavaScript object or value to a JSON text string.																							|
+|template					|Are literal strings that enable the use of embedded expression																						|
 |test							|Try a match on a string. Returns true or false																														|
-|match						|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
-|mask							|General-purpose function that mask parts of arbitrary strings based on position within the string				|
+
+## Examples
+
+Context:
+
+```js
+const context = { firstName: 'Juan'
+								, lastName: 'Lopez'
+								, email: 'jlopez@email.com'
+								, age: 44
+								, food: 'pizza'
+								, film: 'Estación central'
+								, data: '{"b":1}'
+								, coordinate: { lat: 48.87, long: 2.29 }  
+								}
+```
+
+| Example                                   					| Result 															|
+|-----------------------------------------------------|-------------------------------------|
+|	capitalize(food) 																		| Pizza																|
+|	chr(68) 																						| D																		|
+|	concat(lastName,", ",firstName) 										| Lopez, Juan													|
+|	initcap(film) 																			| Estación Central										|
+|	lower(film) 																				| estación central										|
+|	lpad(firstName,10,"_")  														| ______Juan													|
+|	ltrim("  a  ") 																			| a																		|
+|	replace(film,"a","*" ) 															|				Est*ción centr*l							|
+|	mask(email) 																				| jlo*****com													|
+|	parse(data).b 																			| 1 																	|
+|	rpad(firstName,10,"_") 															| Juan______													|
+|	rtrim("  a  ") 																			|   a 																|
+|	substr(film,1,3) 																		| st																	|
+|	substring(film,1,3) 																| st																	|
+|	upper(film) 																				| ESTACIÓN CENTRAL										|
+|	strCount(film,"a") 																	| 2																		|
+|	stringify(coordinate) 															| {"lat":48.87,"long":2.29}						|
+|	`${firstName} is ${age} years old and likes ${food}`| Juan is 44 years old and likes pizza|
+|	test("5","[a-zA-Z0-9_.]+$") 												| true																|
+|	test("%","[a-zA-Z0-9_.]+$") 												| false																|
 
 ## Definition
 
@@ -174,5 +216,21 @@
 - description: General-purpose function that mask parts of arbitrary strings based on position within the string
 - deterministic: true
 - return: string
+- params:
+	- value: string
+
+### stringify
+
+- description: Convert a JavaScript object or value to a JSON text string.
+- deterministic: true
+- return: string
+- params:
+	- value: any
+
+### parse
+
+- description: Parses a text string as JSON, optionally transforming the value produced by the parse.
+- deterministic: true
+- return: any
 - params:
 	- value: string

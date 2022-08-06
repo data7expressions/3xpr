@@ -33,6 +33,43 @@
 |secondToDate			|seconds to  Date																|
 |millisecondToDate|milliseconds to Date														|
 
+## Examples
+
+| Example                                   										| Result 										|
+|---------------------------------------------------------------|---------------------------|
+|	curTime() 																										| 18:14:13 									|
+|	today()																												| 2022-8-5 									|
+|	now()																													| 2022-08-05T16:13:13.510Z 	|
+|	dateToString(datetime("2021-09-06T14:39:11.444Z")) 						| 2021-09-06T14:39:11.444Z 	|
+|	time("2021-09-06T14:39:11.444Z")															| 16:39:11 									|
+|	date("2021-09-06T14:39:11.444Z")															| 2021-9-6									|
+|	datetime("2021-09-06T14:39:11.444Z")													| 2021-09-06T14:39:11.444Z 	|
+|	year("2021-09-06T14:39:11.444Z")															| 2021											|
+|	month("2021-09-06T14:39:11.444Z") 														| 9 												|
+|	day("2021-09-06T14:39:11.444Z")																| 6 												|
+|	weekday("2021-09-06T14:39:11.444Z") 													| 1 												|
+|	hour("2021-09-06T14:39:11.444Z") 															| 16 												|
+|	minute("2021-09-06T14:39:11.444Z")														| 39 												|
+| second("2021-09-06T14:39:11.444Z") 														| 11												|
+|	millisecond("2021-09-06T14:39:11.444Z")												| 444 											|
+|	addYear("2021-09-06T14:39:11.444Z",2)													| 2023-09-06T14:39:11.444Z 	|
+|	addMonth("2021-09-06T14:39:11.444Z",2)												| 2021-11-06T15:39:11.444Z 	|
+|	addDay("2021-09-06T14:39:11.444Z",2)													| 2021-09-08T14:39:11.444Z 	|
+|	addHour("2021-09-06T14:39:11.444Z",2) 												| 2021-09-06T16:39:11.444Z 	|
+|	addMinute("2021-09-06T14:39:11.444Z",2)												| 2021-09-06T14:41:11.444Z 	|
+|	addSecond("2021-09-06T14:39:11.444Z",2)												| 2021-09-06T14:39:13.444Z 	|
+| addMillisecond("2021-09-06T14:39:11.444Z",2)									| 2021-09-06T14:39:11.446Z 	|
+| addTime("2021-09-06T14:39:11.444Z","08:22:12")								| 2021-09-06T23:01:23.023Z 	|
+|	subtractTime("2021-09-06T14:39:11.444Z","08:22:12")						| 2021-09-06T06:16:59.059Z 	|
+|	dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 					| 4 												|
+|	hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")					| 98 												|
+|	secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 			| 353341										|
+|	millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10") 	| 353341000 								|
+|	dayToDate(2000) 																							| 1975-06-24T00:00:00.000Z 	|
+|	hourToDate(2000)																							| 1970-03-25T08:00:00.000Z 	|
+|	secondToDate(2000)																						| 1970-01-01T00:33:20.000Z 	|
+|	millisecondToDate(2000) 																			| 1970-01-01T00:00:02.000Z 	|
+
 ## Definition
 
 ### curTime
@@ -40,21 +77,18 @@
 - description: Get the current time
 - deterministic: true
 - return: Date
-- params:
 
 ### today
 
 - description: Get the current date
 - deterministic: true
 - return: Date
-- params:
 
 ### now
 
 - description: Get the current datetime
 - deterministic: true
 - return: Date
-- params:
 
 ### dateToString
 

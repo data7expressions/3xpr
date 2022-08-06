@@ -20,6 +20,24 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
+			"name": "lab datetime",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-datetime.ts"
+		},
+		{
+			"name": "lab string",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-string.ts"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

@@ -145,6 +145,12 @@ class CoreLib extends library_1.Library {
     }
     // TODO: trabajar todas las fechas como string en formato ISO 8601
     dateTimeFunctions() {
+        this.addFunction('dateToString', (date) => {
+            if (typeof date === 'string') {
+                return new Date(date).toISOString();
+            }
+            return date.toISOString();
+        });
         this.addFunction('curTime', () => {
             const date = new Date();
             return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds();
@@ -167,7 +173,7 @@ class CoreLib extends library_1.Library {
             return new Date(value).getFullYear();
         });
         this.addFunction('month', (value) => {
-            return new Date(value).getMonth();
+            return new Date(value).getMonth() + 1;
         });
         this.addFunction('day', (value) => {
             return new Date(value).getDate();

@@ -6,7 +6,11 @@
 |first				|Returns the first value of the array that meets a condition											|
 |last					|Returns the last value of the array that meets a condition												|
 |map/select		|Creates a new array from calling a function for every array element.							|
+|as						|																																									|
+|distinct			|																																									|
 |sort/order		|Sorts the elements of an array.																									|
+|desc					|This statement is used to sort data in descending order													|
+|asc					|This statement is used to sort data in ascending order 													|
 |reverse			|Reverses the order of the elements in an array.																	|
 |remove/delete|Eliminate the elements of the array that meet the filter condition								|
 |push					|Adds new items to the end of an array																						|
@@ -88,6 +92,23 @@
 	- list: any[]
 	- method: function
 
+### as
+
+- description: undefined
+- deterministic: true
+- return: T
+- params:
+	- value: T
+	- name: string
+
+### distinct
+
+- description: undefined
+- deterministic: true
+- return: T
+- params:
+	- value: T
+
 ### sort
 
 - description: Sorts the elements of an array.
@@ -106,6 +127,21 @@
 	- list: T[]
 	- method: function
 
+### desc
+
+- description: This statement is used to sort data in descending order
+- deterministic: true
+- return: void
+- params:
+	- value: any
+
+### asc
+
+- description: This statement is used to sort data in ascending order.
+- deterministic: true
+- return: void
+- params:
+	- value: any
 ### reverse
 
 - description: Reverses the order of the elements in an array.

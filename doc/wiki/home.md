@@ -13,8 +13,6 @@
 	- [Conversion](Functions-Convert)
 	- [Datetime](Functions-Datetime)
 	- [General](Functions-General)
-	- [Metadata](Functions-Metadata)
 	- [Nullable](Functions-Nullable)
 	- [Numeric](Functions-Numeric)
-	- [Sort](Functions-Sort)
 	- [String](Functions-String)

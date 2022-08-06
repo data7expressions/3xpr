@@ -9,12 +9,12 @@ import { expressions } from '../../lib'
 	// expressions.eval(expression, data)
 	// console.log(expressions.eval('lower(substring(replace(name," ","-"),0,32))', { name: 'La casa de PAPEL' }))
 	// eslint-disable-next-line no-template-curly-in-string
-	// console.log(expressions.eval('`${name} is ${age} years old and likes ${food}`', { name: 'juan', age: 44, food: 'pizza' }))
+	console.log(expressions.eval('`${name} is ${age} years old and likes ${food}`', { name: 'juan', age: 44, food: 'pizza' }))
 	// console.log(expressions.eval('stringify(a)', { a: { name: 'juan', age: 44, food: 'pizza' } }))
 	// console.log(expressions.eval('obj=parse(a);obj.name', { a: '{"name":"juan","age":44,"food":"pizza"}' }))
 
 	// DateTime labs
-	console.log(expressions.eval('today()', {}))
+	console.log(expressions.eval('user', {}))
 	console.log(expressions.eval('now()', {}))
 	console.log(expressions.eval('curTime()', {}))
 	console.log(expressions.eval('addHour(today(),8)', {}))
