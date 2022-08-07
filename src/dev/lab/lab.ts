@@ -14,15 +14,15 @@ import { expressions } from '../../lib'
 	// console.log(expressions.eval('obj=parse(a);obj.name', { a: '{"name":"juan","age":44,"food":"pizza"}' }))
 
 	// DateTime labs
-	console.log(expressions.eval('user', {}))
-	console.log(expressions.eval('now()', {}))
-	console.log(expressions.eval('curTime()', {}))
-	console.log(expressions.eval('addHour(today(),8)', {}))
-	console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
-	console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
-	console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
-	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
-	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
+	// console.log(expressions.eval('user', {}))
+	// console.log(expressions.eval('now()', {}))
+	// console.log(expressions.eval('curTime()', {}))
+	// console.log(expressions.eval('addHour(today(),8)', {}))
+	// console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
+	// console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
+	// console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
+	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
+	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
 
 	// console.log(JSON.stringify(expressions.parameters('(1+b/c)*b')))
 

@@ -38,6 +38,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-string.ts"
 		},
 		{
+			"name": "lab array",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-array.ts"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

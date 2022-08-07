@@ -98,7 +98,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('log10', Math.log10);
         this.addFunction('log', Math.log);
         this.addFunction('remainder', (n1, n2) => n1 % n2);
-        this.addFunction('round', Math.round);
+        this.addFunction('round', (num, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals));
         this.addFunction('sign', Math.sign);
         this.addFunction('sin', Math.sin);
         this.addFunction('sinh', Math.sinh);
@@ -293,8 +293,14 @@ class CoreLib extends library_1.Library {
         this.addFunction('order', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
         this.addFunction('delete', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
-        this.addFunction('push', (list, item) => list.push(item), model_1.OperatorType.child);
-        this.addFunction('insert', (list, item) => list.push(item), model_1.OperatorType.child);
+        this.addFunction('push', (list, item) => {
+            list.push(item);
+            return list;
+        }, model_1.OperatorType.child);
+        this.addFunction('insert', (list, item) => {
+            list.push(item);
+            return list;
+        }, model_1.OperatorType.child);
         this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
         this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
         this.addFunction('len', (list) => list.length, model_1.OperatorType.child);
@@ -615,6 +621,7 @@ class Foreach extends operands_1.ArrowFunction {
             this.children[1].set(p);
             this.children[2].eval();
         }
+        return list;
     }
 }
 class Filter extends operands_1.ArrowFunction {
