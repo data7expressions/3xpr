@@ -2,7 +2,7 @@ import { Node, ExpressionConfig } from '../parser/index';
 import { Data, Parameter } from '../model';
 import { Operand } from './operands';
 export interface OperandMetadata {
-    classtype: string;
+    classType: string;
     name: string;
     children?: OperandMetadata[];
     type?: string;

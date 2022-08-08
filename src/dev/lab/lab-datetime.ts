@@ -1,36 +1,40 @@
-import { expressions } from '../../lib'
+import { show } from './util'
 
 (async () => {
-	console.log('today()' + ' => ' + expressions.eval('today()', {}))
-	console.log('now()' + ' => ' + expressions.eval('now()', {}))
-	console.log('curTime()' + ' => ' + expressions.eval('curTime()', {}))
-	console.log('time("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('time("2021-09-06T14:39:11.444Z")', {}))
-	console.log('date("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('date("2021-09-06T14:39:11.444Z")', {}))
-	console.log('datetime("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('datetime("2021-09-06T14:39:11.444Z")', {}))
-	console.log('dateToString(datetime("2021-09-06T14:39:11.444Z"))' + ' => ' + expressions.eval('dateToString(datetime("2021-09-06T14:39:11.444Z"))', {}))
-	console.log('year("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('year("2021-09-06T14:39:11.444Z")', {}))
-	console.log('month("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('month("2021-09-06T14:39:11.444Z")', {}))
-	console.log('day("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('day("2021-09-06T14:39:11.444Z")', {}))
-	console.log('weekday("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('weekday("2021-09-06T14:39:11.444Z")', {}))
-	console.log('hour("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('hour("2021-09-06T14:39:11.444Z")', {}))
-	console.log('minute("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('minute("2021-09-06T14:39:11.444Z")', {}))
-	console.log('second("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('second("2021-09-06T14:39:11.444Z")', {}))
-	console.log('millisecond("2021-09-06T14:39:11.444Z")' + ' => ' + expressions.eval('millisecond("2021-09-06T14:39:11.444Z")', {}))
-	console.log('addYear("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addYear("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addMonth("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addMonth("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addDay("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addDay("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addHour("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addHour("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addMinute("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addMinute("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addSecond("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addSecond("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addMillisecond("2021-09-06T14:39:11.444Z",2)' + ' => ' + expressions.eval('addMillisecond("2021-09-06T14:39:11.444Z",2)', {}))
-	console.log('addTime("2021-09-06T14:39:11.444Z","08:22:12")' + ' => ' + expressions.eval('addTime("2021-09-06T14:39:11.444Z","08:22:12")', {}))
-	console.log('subtractTime("2021-09-06T14:39:11.444Z","08:22:12")' + ' => ' + expressions.eval('subtractTime("2021-09-06T14:39:11.444Z","08:22:12")', {}))
-	console.log('dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")' + ' => ' + expressions.eval('dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")', {}))
-	console.log('hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")' + ' => ' + expressions.eval('hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")', {}))
-	console.log('secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")' + ' => ' + expressions.eval('secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")', {}))
-	console.log('millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")' + ' => ' + expressions.eval('millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")', {}))
-	console.log('dayToDate(2000)' + ' => ' + expressions.eval('dayToDate(2000)', {}))
-	console.log('hourToDate(2000)' + ' => ' + expressions.eval('hourToDate(2000)', {}))
-	console.log('secondToDate(2000)' + ' => ' + expressions.eval('secondToDate(2000)', {}))
-	console.log('millisecondToDate(2000)' + ' => ' + expressions.eval('millisecondToDate(2000)', {}))
+	const context = {}
+	const list = [
+		'today()',
+		'now()',
+		'curTime()',
+		'time("2021-09-06T14:39:11.444Z")',
+		'date("2021-09-06T14:39:11.444Z")',
+		'datetime("2021-09-06T14:39:11.444Z")',
+		'dateToString(datetime("2021-09-06T14:39:11.444Z"))',
+		'year("2021-09-06T14:39:11.444Z")',
+		'month("2021-09-06T14:39:11.444Z")',
+		'day("2021-09-06T14:39:11.444Z")',
+		'weekday("2021-09-06T14:39:11.444Z")',
+		'hour("2021-09-06T14:39:11.444Z")',
+		'minute("2021-09-06T14:39:11.444Z")',
+		'second("2021-09-06T14:39:11.444Z")',
+		'millisecond("2021-09-06T14:39:11.444Z")',
+		'addYear("2021-09-06T14:39:11.444Z",2)',
+		'addMonth("2021-09-06T14:39:11.444Z",2)',
+		'addDay("2021-09-06T14:39:11.444Z",2)',
+		'addHour("2021-09-06T14:39:11.444Z",2)',
+		'addMinute("2021-09-06T14:39:11.444Z",2)',
+		'addSecond("2021-09-06T14:39:11.444Z",2)',
+		'addMillisecond("2021-09-06T14:39:11.444Z",2)',
+		'addTime("2021-09-06T14:39:11.444Z","08:22:12")',
+		'subtractTime("2021-09-06T14:39:11.444Z","08:22:12")',
+		'dayDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")',
+		'hourDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")',
+		'secondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")',
+		'millisecondDiff("2021-09-06T14:39:11","2021-09-02T12:30:10")',
+		'dayToDate(2000)',
+		'hourToDate(2000)',
+		'secondToDate(2000)',
+		'millisecondToDate(2000)'
+	]
+	show(list, context)
 })()

@@ -103,7 +103,7 @@ export class CoreLib extends Library {
 		this.addFunction('cosh', Math.cosh)
 		this.addFunction('exp', Math.exp)
 		this.addFunction('floor', Math.floor)
-		// this.addFunction('ln',)
+		this.addFunction('ln', Math.log)
 		this.addFunction('log10', Math.log10)
 		this.addFunction('log', Math.log)
 		this.addFunction('remainder', (n1: number, n2: number) => n1 % n2)

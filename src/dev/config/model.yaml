@@ -23,7 +23,15 @@ operators:
       return: boolean
       params:
       - name: value
-        type: boolean    
+        type: boolean
+    '$':
+      name: environmentVariable
+      category: string
+      priority: 9
+      return: string
+      params:
+      - name: value
+        type: string        
   binary:  
     '+': 
       name: addition

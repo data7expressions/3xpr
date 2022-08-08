@@ -122,21 +122,6 @@
 	- list: T[]
 	- method: function
 
-### desc
-
-- description: This statement is used to sort data in descending order
-- deterministic: true
-- return: void
-- params:
-	- value: any
-
-### asc
-
-- description: This statement is used to sort data in ascending order.
-- deterministic: true
-- return: void
-- params:
-	- value: any
 ### reverse
 
 - description: Reverses the order of the elements in an array.

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.Variable = exports.Constant = exports.Operand = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.EnvironmentVariable = exports.Variable = exports.Constant = exports.Operand = void 0;
 const helper_1 = require("../manager/helper");
 class Operand {
     constructor(name, children = [], type = 'any') {
@@ -63,6 +63,12 @@ class Variable extends Operand {
     }
 }
 exports.Variable = Variable;
+class EnvironmentVariable extends Operand {
+    eval() {
+        return process.env[this.name];
+    }
+}
+exports.EnvironmentVariable = EnvironmentVariable;
 class Template extends Operand {
     constructor(name, type = 'any') {
         super(name, [], type);
@@ -70,11 +76,13 @@ class Template extends Operand {
     }
     eval() {
         // info https://www.tutorialstonight.com/javascript-string-format.php
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const me = this;
-        return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
-            if (me.data) {
-                const value = me.data.get(field);
+        const result = this.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
+            const value = process.env[field];
+            return typeof value === 'undefined' ? match : value;
+        });
+        return result.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
+            if (this.data) {
+                const value = this.data.get(field);
                 return typeof value === 'undefined' ? match : value;
             }
         });
@@ -145,17 +153,17 @@ exports.Obj = Obj;
 class Operator extends Operand {
     eval() {
         if (this.metadata) {
-            const operMetadata = this.metadata.getOperator(this.name, this.children.length);
-            if (operMetadata.custom) {
+            const operatorMetadata = this.metadata.getOperator(this.name, this.children.length);
+            if (operatorMetadata.custom) {
                 // eslint-disable-next-line new-cap
-                return new operMetadata.custom(this.name, this.children).eval();
+                return new operatorMetadata.custom(this.name, this.children).eval();
             }
             else {
                 const args = [];
                 for (let i = 0; i < this.children.length; i++) {
                     args.push(this.children[i].eval());
                 }
-                return operMetadata.function(...args);
+                return operatorMetadata.function(...args);
             }
         }
         else {

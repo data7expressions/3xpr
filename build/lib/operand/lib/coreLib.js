@@ -94,7 +94,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('cosh', Math.cosh);
         this.addFunction('exp', Math.exp);
         this.addFunction('floor', Math.floor);
-        // this.addFunction('ln',)
+        this.addFunction('ln', Math.log);
         this.addFunction('log10', Math.log10);
         this.addFunction('log', Math.log);
         this.addFunction('remainder', (n1, n2) => n1 % n2);

@@ -74,6 +74,12 @@ export class Variable extends Operand {
 		return this.data ? this.data.get(this.name) : null
 	}
 }
+export class EnvironmentVariable extends Operand {
+	public eval (): any {
+		return process.env[this.name]
+	}
+}
+
 export class Template extends Operand {
 	public data?: Data
 	constructor (name: string, type = 'any') {
@@ -83,11 +89,13 @@ export class Template extends Operand {
 
 	public eval (): any {
 		// info https://www.tutorialstonight.com/javascript-string-format.php
-		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		const me = this
-		return this.name.replace(/\${([a-zA-Z0-9_.]+)}/g, function (match, field) {
-			if (me.data) {
-				const value = me.data.get(field)
+		const result = this.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
+			const value = process.env[field]
+			return typeof value === 'undefined' ? match : value
+		})
+		return result.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
+			if (this.data) {
+				const value = this.data.get(field)
 				return typeof value === 'undefined' ? match : value
 			}
 		})
@@ -156,16 +164,16 @@ export class Operator extends Operand {
 	public metadata?: ExpressionConfig
 	public eval (): any {
 		if (this.metadata) {
-			const operMetadata = this.metadata.getOperator(this.name, this.children.length)
-			if (operMetadata.custom) {
+			const operatorMetadata = this.metadata.getOperator(this.name, this.children.length)
+			if (operatorMetadata.custom) {
 				// eslint-disable-next-line new-cap
-				return new operMetadata.custom(this.name, this.children).eval()
+				return new operatorMetadata.custom(this.name, this.children).eval()
 			} else {
 				const args = []
 				for (let i = 0; i < this.children.length; i++) {
 					args.push(this.children[i].eval())
 				}
-				return operMetadata.function(...args)
+				return operatorMetadata.function(...args)
 			}
 		} else {
 			throw new Error(`Function ${this.name} not implemented`)

@@ -3,11 +3,11 @@ import { Node, ExpressionConfig } from '../parser/index'
 import { Data, Parameter } from '../model'
 import {
 	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
-	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template, Property
+	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template, Property, EnvironmentVariable
 } from './operands'
 
 export interface OperandMetadata {
-	classtype: string,
+	classType: string,
 	name: string,
 	children?: OperandMetadata[],
 	type?: string,
@@ -48,11 +48,11 @@ export class OperandManager {
 			children.push(this._serialize(operand.children[k]))
 		}
 		if (operand instanceof KeyValue) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, property: operand.property }
 		} else if (operand instanceof Variable) {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, number: operand.number }
 		} else {
-			return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type }
 		}
 	}
 
@@ -67,7 +67,7 @@ export class OperandManager {
 				children.push(this._deserialize(value.children[k]))
 			}
 		}
-		switch (value.classtype) {
+		switch (value.classType) {
 		case 'ArrowFunction':
 			return new ArrowFunction(value.name, children)
 		case 'ChildFunction':
@@ -131,7 +131,7 @@ export class OperandManager {
 			variable.number = value.number
 			return variable
 		default:
-			throw new Error(`Deserialize ${value.classtype} not implemented`)
+			throw new Error(`Deserialize ${value.classType} not implemented`)
 		}
 	}
 
@@ -269,6 +269,8 @@ export class OperandManager {
 			return new Constant(node.name)
 		case 'var':
 			return new Variable(node.name)
+		case 'env':
+			return new EnvironmentVariable(node.name)
 		case 'property':
 			return new Property(node.name, children)
 		case 'template':
