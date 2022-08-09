@@ -7,14 +7,13 @@ import { expressions } from 'js-expressions'
 const result = expressions.eval('1+1')
 ```
 
-Data:
+Context:
 
 ```typescript
 import { expressions } from 'js-expressions'
 
-data= { "a": [1, 2, 3], "b": 0 }
-expressions.eval('c=a.pop()', data)
-console.log(data.c)
+const context = { "a": [1, 2, 3], "b": 0 }
+expressions.eval('c=a.pop()', context)
 ```
 
 Lambda:
@@ -22,9 +21,8 @@ Lambda:
 ```typescript
 import { expressions } from 'js-expressions'
 
-data = {"a":[1,2,3,4,5],"b":0}
-expressions.eval('a.filter(p=> p<5).foreach(p => b=b+p)',data)
-console.log(data.b)
+const context = {"a":[1,2,3,4,5],"b":0}
+expressions.eval('a.filter(p=> p<5).foreach(p => b=b+p)',context)
 ```
 
 Control flow:
@@ -32,7 +30,7 @@ Control flow:
 ```typescript
 import { expressions } from 'js-expressions'
 
-data = {"a":[1,2,3,4,5],"b":0}
+const context = {"a":[1,2,3,4,5],"b":0}
 const expression = `
 list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 total = 0;
@@ -40,8 +38,7 @@ for (i = 0; i < list.length(); i += 1) {
 	total += list[i];
 }
 `
-expressions.eval(expression,data)
-console.log(data.total)
+expressions.eval(expression,context)
 ```
 
 Enum:
