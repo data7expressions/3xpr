@@ -5,7 +5,7 @@ const testPath = 'src/test/__tests__/test'
 
 describe('Block', () => {
 
-	test('multine', () => {	
+	test('multiline', () => {	
 		const lines=`a=4; 
 		b=a+2; 
 	  output=a*b;` 

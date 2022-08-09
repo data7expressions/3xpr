@@ -237,6 +237,24 @@ class Parser {
             const elements = this.getArgs(']');
             operand = new node_1.Node('array', 'array', elements);
         }
+        else if (char === '$') {
+            let variableName;
+            if (this.next === '{') {
+                this.index += 2;
+                variableName = this.getValue();
+                if (!this.end && this.nextIs('}')) {
+                    this.index += 1;
+                }
+                else {
+                    throw new Error(`Not found character "}" in Environment variable ${variableName}`);
+                }
+            }
+            else {
+                this.index += 1;
+                variableName = this.getValue();
+            }
+            operand = new node_1.Node(variableName, 'env');
+        }
         operand = this.solveChain(operand);
         if (isNegative)
             operand = new node_1.Node('-', 'operator', [operand]);

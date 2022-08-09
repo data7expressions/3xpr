@@ -23,7 +23,15 @@ operators:
       return: boolean
       params:
       - name: value
-        type: boolean    
+        type: boolean
+    '$':
+      name: environmentVariable
+      category: string
+      priority: 9
+      return: string
+      params:
+      - name: value
+        type: string        
   binary:  
     '+': 
       name: addition
@@ -411,11 +419,11 @@ operators:
 functions:
 # general:---------------------------------------------------------       
   sleep:
-    description:  Delay a program execution for a given number of miliseconds.
+    description:  Delay a program execution for a given number of milliseconds.
     category: general 
     return: void
     params:
-    - name: miliseconds
+    - name: milliseconds
       type: number
   stringify:
     description: Convert a JavaScript object or value to a JSON text string.
@@ -811,9 +819,9 @@ functions:
     return: string    
     params:
     - name: value
-      type: string     
-# datetime :---------------------------------------------------------
-  curtime:
+      type: string           
+# dateTime :---------------------------------------------------------
+  curTime:
     description: Get the current time 
     category: datetime 
     return: Date

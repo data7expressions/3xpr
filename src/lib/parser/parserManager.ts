@@ -32,13 +32,9 @@ export class ParserManager {
 		}
 	}
 
-	public priority (name: string, cardinality = 2): number {
-		try {
-			const metadata = this.expressionConfig.getOperator(name, cardinality)
-			return metadata && metadata.priority ? metadata.priority : -1
-		} catch (error) {
-			throw new Error('error to priority : ' + name)
-		}
+	public priority (name: string, cardinality?:number): number {
+		const metadata = this.expressionConfig.getOperator(name, cardinality)
+		return metadata && metadata.priority ? metadata.priority : -1
 	}
 
 	public isEnum (name: string) {

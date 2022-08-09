@@ -215,6 +215,21 @@ export class Parser {
 			this.index += 1
 			const elements = this.getArgs(']')
 			operand = new Node('array', 'array', elements)
+		} else if (char === '$') {
+			let variableName: string
+			if (this.next === '{') {
+				this.index += 2
+				variableName = this.getValue()
+				if (!this.end && this.nextIs('}')) {
+					this.index += 1
+				} else {
+					throw new Error(`Not found character "}" in Environment variable ${variableName}`)
+				}
+			} else {
+				this.index += 1
+				variableName = this.getValue()
+			}
+			operand = new Node(variableName, 'env')
 		}
 		operand = this.solveChain(operand as Node)
 		if (isNegative) operand = new Node('-', 'operator', [operand])

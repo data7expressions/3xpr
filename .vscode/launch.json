@@ -20,6 +20,96 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
+			"name": "lab datetime",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-datetime.ts"
+		},
+		{
+			"name": "lab string",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-string.ts"
+		},
+		{
+			"name": "lab array",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-array.ts"
+		},
+		{
+			"name": "lab numeric",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-numeric.ts"
+		},		
+		{
+			"name": "lab assignment",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-assignment.ts"
+		},
+		{
+			"name": "lab bitwise",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-bitwise.ts"
+		},		
+		{
+			"name": "lab comparison",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-comparison.ts"
+		},
+		{
+			"name": "lab condition",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-condition.ts"
+		},
+		{
+			"name": "lab logical",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-logical.ts"
+		},
+		{
+			"name": "lab nullable",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-nullable.ts"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

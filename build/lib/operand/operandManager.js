@@ -30,13 +30,13 @@ class OperandManager {
             children.push(this._serialize(operand.children[k]));
         }
         if (operand instanceof operands_1.KeyValue) {
-            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, property: operand.property };
+            return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, property: operand.property };
         }
         else if (operand instanceof operands_1.Variable) {
-            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type, number: operand.number };
+            return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, number: operand.number };
         }
         else {
-            return { name: operand.name, classtype: operand.constructor.name, children: children, type: operand.type };
+            return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type };
         }
     }
     deserialize(value) {
@@ -49,7 +49,7 @@ class OperandManager {
                 children.push(this._deserialize(value.children[k]));
             }
         }
-        switch (value.classtype) {
+        switch (value.classType) {
             case 'ArrowFunction':
                 return new operands_1.ArrowFunction(value.name, children);
             case 'ChildFunction':
@@ -113,7 +113,7 @@ class OperandManager {
                 variable.number = value.number;
                 return variable;
             default:
-                throw new Error(`Deserialize ${value.classtype} not implemented`);
+                throw new Error(`Deserialize ${value.classType} not implemented`);
         }
     }
     eval(operand, data) {
@@ -253,6 +253,8 @@ class OperandManager {
                 return new operands_1.Constant(node.name);
             case 'var':
                 return new operands_1.Variable(node.name);
+            case 'env':
+                return new operands_1.EnvironmentVariable(node.name);
             case 'property':
                 return new operands_1.Property(node.name, children);
             case 'template':

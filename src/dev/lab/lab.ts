@@ -9,20 +9,20 @@ import { expressions } from '../../lib'
 	// expressions.eval(expression, data)
 	// console.log(expressions.eval('lower(substring(replace(name," ","-"),0,32))', { name: 'La casa de PAPEL' }))
 	// eslint-disable-next-line no-template-curly-in-string
-	// console.log(expressions.eval('`${name} is ${age} years old and likes ${food}`', { name: 'juan', age: 44, food: 'pizza' }))
+	console.log(expressions.eval('`${name} is ${age} years old and likes ${food}`', { name: 'juan', age: 44, food: 'pizza' }))
 	// console.log(expressions.eval('stringify(a)', { a: { name: 'juan', age: 44, food: 'pizza' } }))
 	// console.log(expressions.eval('obj=parse(a);obj.name', { a: '{"name":"juan","age":44,"food":"pizza"}' }))
 
-	// Datetime labs
-	console.log(expressions.eval('today()', {}))
-	console.log(expressions.eval('now()', {}))
-	console.log(expressions.eval('curtime()', {}))
-	console.log(expressions.eval('addHour(today(),8)', {}))
-	console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
-	console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
-	console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
-	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
-	console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
+	// DateTime labs
+	// console.log(expressions.eval('user', {}))
+	// console.log(expressions.eval('now()', {}))
+	// console.log(expressions.eval('curTime()', {}))
+	// console.log(expressions.eval('addHour(today(),8)', {}))
+	// console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
+	// console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
+	// console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
+	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
+	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
 
 	// console.log(JSON.stringify(expressions.parameters('(1+b/c)*b')))
 
@@ -66,7 +66,7 @@ import { expressions } from '../../lib'
 			email: 'flaviolrita@hotmail.com'
 		},
 		{
-			username: 'joaquin',
+			username: 'Joaquin',
 			firstname: 'Joaquin Ignacio',
 			lastname: 'Rita Puchuri',
 			email: 'flaviolrita@hotmail.com',
@@ -82,14 +82,14 @@ import { expressions } from '../../lib'
 	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
 	console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'other' }))
 
-	console.log(expressions.eval('users.filter(p=> p.username === "joaquin").map(p=> p.email).first()', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username == "joaquin").select( p-> p.email).first()', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "joaquin").email', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "joaquin").test.name', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "joaquin").test.x', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "joaquin").x.x', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username <> "joaquin").len()', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username != "joaquin").length()', { users: users }))
+	console.log(expressions.eval('users.filter(p=> p.username === "Joaquin").map(p=> p.email).first()', { users: users }))
+	console.log(expressions.eval('users.where(p-> p.username == "Joaquin").select( p-> p.email).first()', { users: users }))
+	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").email', { users: users }))
+	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").test.name', { users: users }))
+	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").test.x', { users: users }))
+	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").x.x', { users: users }))
+	console.log(expressions.eval('users.where(p-> p.username <> "Joaquin").len()', { users: users }))
+	console.log(expressions.eval('users.where(p-> p.username != "Joaquin").length()', { users: users }))
 
 	console.log(expressions.eval('users.email', { users: users }))
 	console.log(expressions.eval('users.test.name', { users: users }))

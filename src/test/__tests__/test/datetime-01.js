@@ -47,7 +47,7 @@ diffDay(date10, date11);
 diffDate(date10, date11);
 diffYear(date10, date11);
 diffHours(date10, date11);
-diffilliseconds(date10, date11);
+diffMilliseconds(date10, date11);
 diffMinutes(date10, date11);
 diffMonth(date10, date11);
 diffSeconds(date10, date11);

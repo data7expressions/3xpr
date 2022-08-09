@@ -24,6 +24,9 @@ export declare class Variable extends Operand {
     set(value: any): void;
     eval(): any;
 }
+export declare class EnvironmentVariable extends Operand {
+    eval(): any;
+}
 export declare class Template extends Operand {
     data?: Data;
     constructor(name: string, type?: string);

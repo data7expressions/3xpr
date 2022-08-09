@@ -103,11 +103,11 @@ export class CoreLib extends Library {
 		this.addFunction('cosh', Math.cosh)
 		this.addFunction('exp', Math.exp)
 		this.addFunction('floor', Math.floor)
-		// this.addFunction('ln',)
+		this.addFunction('ln', Math.log)
 		this.addFunction('log10', Math.log10)
 		this.addFunction('log', Math.log)
 		this.addFunction('remainder', (n1: number, n2: number) => n1 % n2)
-		this.addFunction('round', Math.round)
+		this.addFunction('round', (num: number, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals))
 		this.addFunction('sign', Math.sign)
 		this.addFunction('sin', Math.sin)
 		this.addFunction('sinh', Math.sinh)
@@ -153,7 +153,13 @@ export class CoreLib extends Library {
 
 	// TODO: trabajar todas las fechas como string en formato ISO 8601
 	private dateTimeFunctions () {
-		this.addFunction('curtime', () => {
+		this.addFunction('dateToString', (date:Date) => {
+			if (typeof date === 'string') {
+				return new Date(date).toISOString()
+			}
+			return date.toISOString()
+		})
+		this.addFunction('curTime', () => {
 			const date = new Date()
 			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
 		})
@@ -175,7 +181,7 @@ export class CoreLib extends Library {
 			return new Date(value).getFullYear()
 		})
 		this.addFunction('month', (value: string) => {
-			return new Date(value).getMonth()
+			return new Date(value).getMonth() + 1
 		})
 		this.addFunction('day', (value: string) => {
 			return new Date(value).getDate()
@@ -296,9 +302,15 @@ export class CoreLib extends Library {
 		this.addFunction('order', ArrayFunctions.sort, OperatorType.arrow, Sort)
 		this.addFunction('remove', ArrayFunctions.remove, OperatorType.arrow, Remove)
 		this.addFunction('delete', ArrayFunctions.remove, OperatorType.arrow, Remove)
-		this.addFunction('push', (list: any[], item: any): number => list.push(item), OperatorType.child)
-		this.addFunction('insert', (list: any[], item: any): number => list.push(item), OperatorType.child)
-		this.addFunction('pop', (list: any[]): number => list.pop(), OperatorType.child)
+		this.addFunction('push', (list: any[], item: any): any => {
+			list.push(item)
+			return list
+		}, OperatorType.child)
+		this.addFunction('insert', (list: any[], item: any): any => {
+			list.push(item)
+			return list
+		}, OperatorType.child)
+		this.addFunction('pop', (list: any[]): any => list.pop(), OperatorType.child)
 		this.addFunction('length', (list: any[]) => list.length, OperatorType.child)
 		this.addFunction('len', (list: any[]) => list.length, OperatorType.child)
 		// this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
@@ -584,15 +596,15 @@ class StringFunction {
 
 class Functions {
 	static nvl (value: any, _default: any): any {
-		return !Functions.isEmpty(value) ? value : _default
+		return Functions.isNotNull(value) ? value : _default
 	}
 
 	static nvl2 (value: any, a: any, b: any): any {
-		return !Functions.isEmpty(value) ? a : b
+		return Functions.isNotNull(value) ? a : b
 	}
 
 	static isNull (value: any): boolean {
-		return value === null || value === undefined
+		return value === undefined || value === null
 	}
 
 	static isNotNull (value: any): boolean {
@@ -669,6 +681,7 @@ class Foreach extends ArrowFunction {
 			this.children[1].set(p)
 			this.children[2].eval()
 		}
+		return list
 	}
 }
 class Filter extends ArrowFunction {

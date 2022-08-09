@@ -94,11 +94,11 @@ class CoreLib extends library_1.Library {
         this.addFunction('cosh', Math.cosh);
         this.addFunction('exp', Math.exp);
         this.addFunction('floor', Math.floor);
-        // this.addFunction('ln',)
+        this.addFunction('ln', Math.log);
         this.addFunction('log10', Math.log10);
         this.addFunction('log', Math.log);
         this.addFunction('remainder', (n1, n2) => n1 % n2);
-        this.addFunction('round', Math.round);
+        this.addFunction('round', (num, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals));
         this.addFunction('sign', Math.sign);
         this.addFunction('sin', Math.sin);
         this.addFunction('sinh', Math.sinh);
@@ -145,7 +145,13 @@ class CoreLib extends library_1.Library {
     }
     // TODO: trabajar todas las fechas como string en formato ISO 8601
     dateTimeFunctions() {
-        this.addFunction('curtime', () => {
+        this.addFunction('dateToString', (date) => {
+            if (typeof date === 'string') {
+                return new Date(date).toISOString();
+            }
+            return date.toISOString();
+        });
+        this.addFunction('curTime', () => {
             const date = new Date();
             return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds();
         });
@@ -167,7 +173,7 @@ class CoreLib extends library_1.Library {
             return new Date(value).getFullYear();
         });
         this.addFunction('month', (value) => {
-            return new Date(value).getMonth();
+            return new Date(value).getMonth() + 1;
         });
         this.addFunction('day', (value) => {
             return new Date(value).getDate();
@@ -287,8 +293,14 @@ class CoreLib extends library_1.Library {
         this.addFunction('order', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
         this.addFunction('delete', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
-        this.addFunction('push', (list, item) => list.push(item), model_1.OperatorType.child);
-        this.addFunction('insert', (list, item) => list.push(item), model_1.OperatorType.child);
+        this.addFunction('push', (list, item) => {
+            list.push(item);
+            return list;
+        }, model_1.OperatorType.child);
+        this.addFunction('insert', (list, item) => {
+            list.push(item);
+            return list;
+        }, model_1.OperatorType.child);
         this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
         this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
         this.addFunction('len', (list) => list.length, model_1.OperatorType.child);
@@ -536,13 +548,13 @@ StringFunction.capitalize = function (str) {
 };
 class Functions {
     static nvl(value, _default) {
-        return !Functions.isEmpty(value) ? value : _default;
+        return Functions.isNotNull(value) ? value : _default;
     }
     static nvl2(value, a, b) {
-        return !Functions.isEmpty(value) ? a : b;
+        return Functions.isNotNull(value) ? a : b;
     }
     static isNull(value) {
-        return value === null || value === undefined;
+        return value === undefined || value === null;
     }
     static isNotNull(value) {
         return !Functions.isNull(value);
@@ -609,6 +621,7 @@ class Foreach extends operands_1.ArrowFunction {
             this.children[1].set(p);
             this.children[2].eval();
         }
+        return list;
     }
 }
 class Filter extends operands_1.ArrowFunction {
