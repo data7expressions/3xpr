@@ -48,7 +48,8 @@ describe('Array', () => {
 			],
 			salta: { name: 'Salta', province: 'SA', population: 520683, coordinates: { lat: 24.33, long: 64.30 } },
 			posadas: { name: 'Posadas', province: 'MI', population: 275028, coordinates: { lat: 27.22, long: 55.53 } },
-			numbers: [1, 2, 3]
+			numbers: [1, 2, 3],
+			musicians: ['Charly Garcia', 'Fito Paez', 'Luiz Alberto Spinetta'] 
 		}
 		expect('Buenos Aires').toBe(expressions.eval('cities.filter(p=> p.province === "BA").map(p=> p.name).first()',context))
 		expect('Buenos Aires').toBe(expressions.eval('cities.where(p-> p.province == "BA").select( p-> p.name).first()',context))
@@ -82,5 +83,7 @@ describe('Array', () => {
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata','Salta']).toStrictEqual(expressions.eval('cities.push(salta).name',context))
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata','Salta','Posadas']).toStrictEqual(expressions.eval('cities.insert(posadas).name',context))
 		expect('Posadas').toBe(expressions.eval('cities.pop().name',context))
+		expect('Charly Garcia').toBe(expressions.eval('musicians[0]',context))
+		expect(undefined).toBe(expressions.eval('musicians[3]',context))
 	})
 })	

@@ -4,6 +4,21 @@
 |&&					|and					|
 |\|\|				|or						|
 
+## Examples
+
+Context:
+
+```js
+const context = { a: '1', b: 2, c: { a: 4, b: 5 }, d: 'house', e: 'car' }
+```
+
+| Example           | Result 		|
+|-------------------|-----------|
+|a=="1" && b==2			|true				|
+|a=="1" && b>2			|false			|
+|a=="1" || b>2			|true				|
+|!(a=="1" || b>2)		|false			|
+
 ## Definition
 
 ### Operator !

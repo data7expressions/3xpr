@@ -4,7 +4,27 @@
 |nvl2				|It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.|
 |isNull			|Evaluate if it is null																		|
 |isNotNull	|Evaluate if it is not null																|
-|isEmpty		|Evaluate if it is empty																	|
+
+## Examples
+
+Context:
+
+```js
+const context = { a: 1, b: null, c: '', e: 'hello' }
+
+```
+
+| Example                             | Result 					|
+|-------------------------------------|-----------------|
+|nvl(a,2)															|1								|
+|nvl(b,2)															|2								|
+|nvl2(b,"is not null","is null")			|'is null'				|
+|nvl2(c,"is not null","is null")			|'is not null'		|
+|nvl2(d,"is not null","is null")			|'is null'				|
+|isNull(b)														|true							|
+|isNull(c)														|false						|
+|isNotNull(b)													|false						|
+|isNotNull(c)													|true							|
 
 ## Definition
 
@@ -38,14 +58,6 @@
 ### isNotNull
 
 - description: Evaluate if it is not null
-- deterministic: true
-- return: boolean
-- params:
-	- value: any
-
-### isEmpty
-
-- description: Evaluate if it is empty
 - deterministic: true
 - return: boolean
 - params:

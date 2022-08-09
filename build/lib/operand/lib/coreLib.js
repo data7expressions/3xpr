@@ -548,13 +548,13 @@ StringFunction.capitalize = function (str) {
 };
 class Functions {
     static nvl(value, _default) {
-        return !Functions.isEmpty(value) ? value : _default;
+        return Functions.isNotNull(value) ? value : _default;
     }
     static nvl2(value, a, b) {
-        return !Functions.isEmpty(value) ? a : b;
+        return Functions.isNotNull(value) ? a : b;
     }
     static isNull(value) {
-        return value === null || value === undefined;
+        return value === undefined || value === null;
     }
     static isNotNull(value) {
         return !Functions.isNull(value);

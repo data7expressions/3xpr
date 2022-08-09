@@ -7,6 +7,23 @@
 |<<				|leftShift		|
 |>>				|rightShift		|
 
+## Examples
+
+Context:
+
+```js
+const context = { }
+```
+
+| Example   | Result 		|
+|-----------|-----------|
+|5 & 1			|1					|
+|5 \| 1			|5					|
+|~ 5				|-6					|
+|5 << 1			|10					|
+|5 ^ 1			|4					|
+|5 >> 1			|2					|
+
 ## Definition
 
 ### Operator ~

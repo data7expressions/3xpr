@@ -14,6 +14,21 @@
 |<<=					|assignment leftShift														|
 |>>=					|assignment rightShift													|
 
+## Examples
+
+Context:
+
+```js
+const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
+```
+
+| Example                     | Result 						|
+|-----------------------------|-------------------|
+|a=8													|8									|
+|c.a=1												|1									|
+|d=c.b*2											|10									|
+|d=`value of a is: ${a}`			|'value of a is: 8'	|
+
 ## Definition
 
 ### Operator =

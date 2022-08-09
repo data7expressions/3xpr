@@ -10,7 +10,8 @@ import { show } from './util'
 		],
 		salta: { name: 'Salta', province: 'SA', population: 520683, coordinates: { lat: 24.33, long: 64.30 } },
 		posadas: { name: 'Posadas', province: 'MI', population: 275028, coordinates: { lat: 27.22, long: 55.53 } },
-		numbers: [1, 2, 3]
+		numbers: [1, 2, 3],
+		musicians: ['Charly Garcia', 'Fito Paez', 'Luiz Alberto Spinetta']
 	}
 
 	const list = [
@@ -45,7 +46,9 @@ import { show } from './util'
 		'cities.remove(p-> p.province === "BA").name',
 		'cities.push(salta).name',
 		'cities.insert(posadas).name',
-		'cities.pop().name'
+		'cities.pop().name',
+		'musicians[0]',
+		'musicians[3]'
 	]
 	show(list, context)
 })()

@@ -1,8 +1,22 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable indent */
+/* eslint-disable comma-style */
 /* eslint-disable no-template-curly-in-string */
 import { show } from './util'
 
 (async () => {
-	const context = { firstName: 'Juan', lastName: 'Lopez', email: 'jlopez@email.com', age: 44, food: 'pizza', film: 'Estación central', data: '{"b":1}', coordinate: { lat: 48.87, long: 2.29 } }
+	const context = { firstName: 'Juan'
+									, lastName: 'Lopez'
+									, email: 'jlopez@email.com'
+									, age: 44
+									, food: 'pizza'
+									, film: 'Estación central'
+									, data: '{"b":1}'
+									, coordinate: { lat: 48.87, long: 2.29 }
+									, a: null
+									, b: ''
+									, c: ' '
+									}
 	const list = [
 		'capitalize(food)',
 		'chr(68)',
@@ -25,6 +39,10 @@ import { show } from './util'
 		'`${firstName} is ${age} years old and likes ${food}`',
 		'test("5","[a-zA-Z0-9_.]+$")',
 		'test("%","[a-zA-Z0-9_.]+$")',
+		'isEmpty(a)',
+		'isEmpty(b)',
+		'isEmpty(c)',
+		'isEmpty(food)',
 		'$HOME',
 		'${USER}',
 		'concat($HOME,$USER)',

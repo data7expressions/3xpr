@@ -1,6 +1,6 @@
 import { expressions } from '../../lib'
 
-describe('Operator Array', () => {
+describe('Logical', () => {
 	test('labs', () => {	
 		const context = { a: '1', b: 2, c: { a: 4, b: 5 }, d: 'house', e: 'car' }
 

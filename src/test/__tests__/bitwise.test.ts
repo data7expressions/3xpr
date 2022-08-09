@@ -1,6 +1,6 @@
 import { expressions } from '../../lib'
 
-describe('Operator Array', () => {
+describe('Bitwise', () => {
 	test('labs', () => {	
 		const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
 

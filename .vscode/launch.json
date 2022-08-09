@@ -54,60 +54,60 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-numeric.ts"
-		},
+		},		
 		{
-			"name": "lab operators arithmetics",
+			"name": "lab assignment",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorArithmetics.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-assignment.ts"
 		},
 		{
-			"name": "lab operators array",
+			"name": "lab bitwise",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorArray.ts"
-		},
+			"program": "${workspaceFolder}/src/dev/lab/lab-bitwise.ts"
+		},		
 		{
-			"name": "lab operators assignment",
+			"name": "lab comparison",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorAssignment.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-comparison.ts"
 		},
 		{
-			"name": "lab operators bitwise",
+			"name": "lab condition",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorBitwise.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-condition.ts"
 		},
 		{
-			"name": "lab operators comparison",
+			"name": "lab logical",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorComparison.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-logical.ts"
 		},
 		{
-			"name": "lab operators logical",
+			"name": "lab nullable",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-operatorLogical.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-nullable.ts"
 		},
 		{
 			"name": "build wiki",

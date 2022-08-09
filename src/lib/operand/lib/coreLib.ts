@@ -596,15 +596,15 @@ class StringFunction {
 
 class Functions {
 	static nvl (value: any, _default: any): any {
-		return !Functions.isEmpty(value) ? value : _default
+		return Functions.isNotNull(value) ? value : _default
 	}
 
 	static nvl2 (value: any, a: any, b: any): any {
-		return !Functions.isEmpty(value) ? a : b
+		return Functions.isNotNull(value) ? a : b
 	}
 
 	static isNull (value: any): boolean {
-		return value === null || value === undefined
+		return value === undefined || value === null
 	}
 
 	static isNotNull (value: any): boolean {

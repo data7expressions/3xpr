@@ -20,6 +20,7 @@
 |stringify				|Convert a JavaScript object or value to a JSON text string.																							|
 |template					|Are literal strings that enable the use of embedded expression																						|
 |test							|Try a match on a string. Returns true or false																														|
+|isEmpty					|Evaluate if it is empty																																									|
 
 ## Examples
 
@@ -33,32 +34,41 @@ const context = { firstName: 'Juan'
 								, food: 'pizza'
 								, film: 'Estación central'
 								, data: '{"b":1}'
-								, coordinate: { lat: 48.87, long: 2.29 }  
+								, coordinate: { lat: 48.87, long: 2.29 } 
 								}
 ```
 
-| Example                                   					| Result 															|
-|-----------------------------------------------------|-------------------------------------|
-|	capitalize(food) 																		| Pizza																|
-|	chr(68) 																						| D																		|
-|	concat(lastName,", ",firstName) 										| Lopez, Juan													|
-|	initcap(film) 																			| Estación Central										|
-|	lower(film) 																				| estación central										|
-|	lpad(firstName,10,"_")  														| ______Juan													|
-|	ltrim("  a  ") 																			| a																		|
-|	replace(film,"a","*" ) 															|				Est*ción centr*l							|
-|	mask(email) 																				| jlo*****com													|
-|	parse(data).b 																			| 1 																	|
-|	rpad(firstName,10,"_") 															| Juan______													|
-|	rtrim("  a  ") 																			|   a 																|
-|	substr(film,1,3) 																		| st																	|
-|	substring(film,1,3) 																| st																	|
-|	upper(film) 																				| ESTACIÓN CENTRAL										|
-|	strCount(film,"a") 																	| 2																		|
-|	stringify(coordinate) 															| {"lat":48.87,"long":2.29}						|
-|	`${firstName} is ${age} years old and likes ${food}`| Juan is 44 years old and likes pizza|
-|	test("5","[a-zA-Z0-9_.]+$") 												| true																|
-|	test("%","[a-zA-Z0-9_.]+$") 												| false																|
+| Example                                   					| Result 																	|
+|-----------------------------------------------------|-----------------------------------------|
+|capitalize(food)																			|'Pizza'																	|
+|chr(68)																							|'D'																			|
+|concat(lastName,", ",firstName)											|'Lopez, Juan'														|
+|initcap(film)																				|'Estación Central'												|
+|lower(film)																					|'estación central'												|
+|lpad(firstName,10,"_")																|'______Juan'															|
+|ltrim("  a  ")																				|'a  '																		|
+|replace(film,"a","*")																|'Est*ción centr*l'												|
+|mask(email)																					|'jlo*****com'														|
+|parse(data).b																				|1																				|
+|rpad(firstName,10,"_")																|'Juan______'															|
+|rtrim("  a  ")																				|'  a'																		|
+|substr(film,1,3)																			|'st'																			|
+|substring(film,1,3)																	|'st'																			|
+|upper(film)																					|'ESTACIÓN CENTRAL'												|
+|strCount(film,"a")																		|2																				|
+|stringify(coordinate)																|'{"lat":48.87,"long":2.29}'							|
+|`${firstName} is ${age} years old and likes ${food}`	|'Juan is 44 years old and likes pizza'		|
+|test("5","[a-zA-Z0-9_.]+$")													|true																			|
+|test("%","[a-zA-Z0-9_.]+$")													|false																		|
+|isEmpty(a)																						|true																			|
+|isEmpty(b)																						|true																			|
+|isEmpty(c)																						|true																			|
+|isEmpty(food)																				|false																		|
+|$HOME																								|'/home/flavio'														|
+|${USER}																							|'flavio'																	|
+|concat($HOME,$USER)																	|'/home/flavioflavio'											|
+|concat(${HOME},$USER)																|'/home/flavioflavio'											|
+|`value of home: $HOME`																|'value of home: /home/flavio'						|
 
 ## Definition
 
@@ -234,3 +244,11 @@ const context = { firstName: 'Juan'
 - return: any
 - params:
 	- value: string
+
+### isEmpty
+
+- description: Evaluate if it is empty
+- deterministic: true
+- return: boolean
+- params:
+	- value: any
