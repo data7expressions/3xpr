@@ -1,4 +1,3 @@
-- [Arithmetic](Arithmetics)
 - [Array](Array)
 - [Assignment](Assignment)
 - [Bitwise](Bitwise)
