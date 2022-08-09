@@ -7,7 +7,7 @@ import { show } from './util'
 		'acos(0.434)',
 		'asin(0.434)',
 		'atan(2)',
-		'atan2(0.434)',
+		'atan2(90, 15)',
 		'ceil(2)',
 		'cos(2)',
 		'cosh(2)',

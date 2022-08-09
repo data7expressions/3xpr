@@ -6,9 +6,30 @@ export function show (list:string[], context:any) {
 	for (const exp of list) {
 		try {
 			const result = expressions.eval(exp, context)
-			examples.push(`|${exp}|${result}|`)
-			const expect = typeof result === 'string' ? `'${result}'` : result
-			tests.push(`expect(${expect}).toBe(expressions.eval('${exp}',context))`)
+			let expect:any
+			let testCompare = 'toBe'
+			if (typeof result === 'string') {
+				expect = `'${result}'`
+			} else if (Array.isArray(result)) {
+				testCompare = 'toStrictEqual'
+				if (result.length === 0) {
+					expect = '[]'
+				} else {
+					if (typeof result[0] === 'string') {
+						expect = '[' + result.map(p => `'${p}'`).join(',') + ']'
+					} else {
+						expect = '[' + result.join(',') + ']'
+					}
+				}
+			} else if (result === null) {
+				expect = 'null'
+			} else if (result === undefined) {
+				expect = 'undefined'
+			} else {
+				expect = result
+			}
+			examples.push(`|${exp}|${expect}|`)
+			tests.push(`expect(${expect}).${testCompare}(expressions.eval('${exp}',context))`)
 		} catch (error) {
 			console.log(`exp: ${exp} error: ${error}`)
 		}

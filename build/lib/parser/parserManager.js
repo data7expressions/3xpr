@@ -27,14 +27,9 @@ class ParserManager {
             }
         }
     }
-    priority(name, cardinality = 2) {
-        try {
-            const metadata = this.expressionConfig.getOperator(name, cardinality);
-            return metadata && metadata.priority ? metadata.priority : -1;
-        }
-        catch (error) {
-            throw new Error('error to priority : ' + name);
-        }
+    priority(name, cardinality) {
+        const metadata = this.expressionConfig.getOperator(name, cardinality);
+        return metadata && metadata.priority ? metadata.priority : -1;
     }
     isEnum(name) {
         return this.expressionConfig.isEnum(name);

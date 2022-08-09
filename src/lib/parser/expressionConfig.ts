@@ -125,12 +125,20 @@ export class ExpressionConfig {
 		return this.enums[name]
 	}
 
-	public getOperator (operator:string, operands:number):OperatorMetadata {
-		const metadata = this.operators.find(p => p.operator === operator && p.operands === operands)
-		if (metadata === undefined) {
+	public getOperator (operator:string, operands?:number): OperatorMetadata {
+		const list = operands !== undefined ? this.operators.filter(p => p.operator === operator && p.operands === operands) : this.operators.filter(p => p.operator === operator)
+		if (list.length === 0) {
 			throw new Error(`operator: ${operator} not found `)
+		} else if (list.length === 1) {
+			return list[0]
+		} else {
+			const operatorBinary = list.find(p => p.operands === 2)
+			if (operatorBinary === undefined) {
+				throw new Error(`operator: ${operator} not found `)
+			} else {
+				return operatorBinary
+			}
 		}
-		return metadata
 	}
 
 	public getFunction (name: string): OperatorMetadata {

@@ -14,6 +14,6 @@ export declare class ExpressionConfig {
     isEnum(name: string): boolean;
     getEnumValue(name: string, option: string): any;
     getEnum(name: string): any;
-    getOperator(operator: string, operands: number): OperatorMetadata;
+    getOperator(operator: string, operands?: number): OperatorMetadata;
     getFunction(name: string): OperatorMetadata;
 }

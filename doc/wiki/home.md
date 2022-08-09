@@ -4,7 +4,6 @@
 	- [Assignment](Operators-Assignment)
 	- [Bitwise](Operators-Bitwise)
 	- [Comparison](Operators-Comparison)
-	- [Conditional](Operators-Conditional)
 	- [Element](Operators-Element)
 	- [Logical](Operators-Logical)
 - Functions
