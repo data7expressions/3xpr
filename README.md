@@ -4,16 +4,15 @@ Js-expression is an extensible expression evaluator and parser. Besides the oper
 
 ## Features
 
-- Parse and evaluate
-    - Arithmetic, assignment, comparison, Logical and bitwise operators
-    - Variables
-    - Constants
-    - Functions
-    - Objects
-    - Arrays with arrow functions
-    - Environment variables
-    - Enums
-    - Control flows
+	- Arithmetic, assignment, comparison, Logical and bitwise operators
+	- Variables
+	- Constants
+	- Functions
+	- Objects
+	- Arrays with arrow functions
+	- Environment variables
+	- Enums
+	- Control flows
 
 - Simplify math operations where operands are constant
 - It allows to extend the model by adding or overwriting operators, functions and enums
