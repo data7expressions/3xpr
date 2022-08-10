@@ -4,13 +4,13 @@ Js-expression is an extensible expression evaluator and parser. Besides the oper
 
 ## Features
 
+- Constants, enums, variables, objects and arrays
 - Arithmetic, assignment, comparison, Logical and bitwise operators
-- Constants, enums, variables, objects, arrays
 - Functions and arrow functions
 - Control flows
 - Environment variables
 
-## Quick Start
+## Quick start
 
 ```javascript
 import { expressions as exp } from 'js-expressions'
@@ -92,7 +92,6 @@ while (p=timezones.pop()) {
 - [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
 - [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
 - [Comparison](https://github.com/FlavioLionelRita/js-expressions/wiki/Comparison)
-- [Condition](https://github.com/FlavioLionelRita/js-expressions/wiki/Condition)
 - [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
 - [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
 - [Logical](https://github.com/FlavioLionelRita/js-expressions/wiki/Logical)

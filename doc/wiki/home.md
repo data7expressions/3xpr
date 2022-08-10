@@ -2,7 +2,6 @@
 - [Assignment](Assignment)
 - [Bitwise](Bitwise)
 - [Comparison](Comparison)
-- [Condition](Condition)
 - [Datetime](Datetime)
 - [Extend](Extend)
 - [Logical](Logical)
