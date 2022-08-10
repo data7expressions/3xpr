@@ -92,7 +92,6 @@ while (p=timezones.pop()) {
 - [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
 - [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
 - [Comparison](https://github.com/FlavioLionelRita/js-expressions/wiki/Comparison)
-- [Condition](https://github.com/FlavioLionelRita/js-expressions/wiki/Condition)
 - [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
 - [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
 - [Logical](https://github.com/FlavioLionelRita/js-expressions/wiki/Logical)
