@@ -123,7 +123,6 @@ const context = {
 	- a: T
 	- b: T
 
-
 ### between
 
 - description: Specifies how to retrieve values from an expression within a specific range.
@@ -151,4 +150,3 @@ const context = {
 - params:
 	- value: T
 	- list: T[]
-
