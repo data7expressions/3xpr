@@ -15,16 +15,16 @@ Js-expression is an extensible expression evaluator and parser. Besides the oper
 ```javascript
 import { expressions as exp } from 'js-expressions'
 
-const context = {
-		name: 'Spain',
-		region: 'Europe',
-		phoneCode: '34',
-		timezones: [
-			{ name: 'Madrid', offset: 1, position: { lat: 40.4165, log: -3.70256 } },
-			{ name: 'Ceuta', offset: 1, position: { lat: 35.8883, log: -5.3162 } },
-			{ name: 'Canary', offset: 0, position: { lat: 28.1248, log: -15.43 } }
-		]
-	}
+const context = 
+{ name: 'Spain',
+	region: 'Europe',
+	phoneCode: '34',
+	timezones: [
+		{ name: 'Madrid', offset: 1, position: { lat: 40.4165, log: -3.70256 } },
+		{ name: 'Ceuta', offset: 1, position: { lat: 35.8883, log: -5.3162 } },
+		{ name: 'Canary', offset: 0, position: { lat: 28.1248, log: -15.43 } }
+	]
+}
 
 const result = exp.eval('5*(7+9)==(5*7+5*9)')
 console.log(result)
