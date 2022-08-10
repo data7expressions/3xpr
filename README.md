@@ -20,9 +20,9 @@ const context =
 	region: 'Europe',
 	phoneCode: '34',
 	timezones: [
-		{ name: 'Madrid', offset: 1, position: { lat: 40.4165, log: -3.70256 } },
-		{ name: 'Ceuta', offset: 1, position: { lat: 35.8883, log: -5.3162 } },
-		{ name: 'Canary', offset: 0, position: { lat: 28.1248, log: -15.43 } }
+		{ name: 'Madrid', offset: 1, pos: { lat: 40.4165, log: -3.70256 } },
+		{ name: 'Ceuta', offset: 1, pos: { lat: 35.8883, log: -5.3162 } },
+		{ name: 'Canary', offset: 0, pos: { lat: 28.1248, log: -15.43 } }
 	]
 }
 
@@ -39,16 +39,16 @@ exp.eval('`${name} belongs to ${region}`', context)
 // 'Spain belongs to Europe'
 
 exp.eval('timezones.filter(p => substring(p.name,0,1)=="C")', context)
-// ['{"name":"Ceuta","offset":1,"position":{"lat":35.8883,"log":-5.3162}}'
-// ,'{"name":"Canary","offset":0,"position":{"lat":28.1248,"log":-15.43}}']
+// ['{"name":"Ceuta","offset":1,"pos":{"lat":35.8883,"log":-5.3162}}'
+// ,'{"name":"Canary","offset":0,"pos":{"lat":28.1248,"log":-15.43}}']
 
-exp.eval('timezones.filter(p => p.offset == 1).sort(p => p.position.lat).name', context)
+exp.eval('timezones.filter(p => p.offset == 1).sort(p => p.pos.lat).name', context)
 // ['Ceuta','Madrid']
 
-exp.eval('stringify(timezones.first(p => p.name == "Madrid").position)', context)
+exp.eval('stringify(timezones.first(p => p.name == "Madrid").pos)', context)
 // '{"lat":40.4165,"log":-3.70256}'
 
-exp.eval('timezones.filter(p => p.position.lat > 30 && p.position.log > -4).position.lat', context)
+exp.eval('timezones.filter(p => p.pos.lat > 30 && p.pos.log > -4).pos.lat', context)
 // [40.4165]
 
 exp.eval('sort(timezones.name)', context)
@@ -57,13 +57,13 @@ exp.eval('sort(timezones.name)', context)
 exp.eval('timezones[0].name', context)
 // 'Madrid'
 
-exp.eval('round(timezones.first(p=> p.name =="Madrid").position.lat - timezones.first(p=> p.name =="Ceuta").position.lat,2)', context)
+exp.eval('round(timezones.first(p=> p.name =="Madrid").pos.lat - timezones.first(p=> p.name =="Ceuta").pos.lat,2)', context)
 // 4.55
 
-exp.eval('timezones.each(p => p.position={lat:round(p.position.lat,2),log:round(p.position.log,2)}).map(p=> stringify(p))', context)
-// ['{"name":"Madrid","offset":1,"position":{"lat":40.4,"log":-3.7}}'
-// ,'{"name":"Ceuta","offset":1,"position":{"lat":35.9,"log":-5.3}}'
-// ,'{"name":"Canary","offset":0,"position":{"lat":28.1,"log":-15.45}}']
+exp.eval('timezones.each(p => p.pos={lat:round(p.pos.lat,2),log:round(p.pos.log,2)}).map(p=> stringify(p))', context)
+// ['{"name":"Madrid","offset":1,"pos":{"lat":40.4,"log":-3.7}}'
+// ,'{"name":"Ceuta","offset":1,"pos":{"lat":35.9,"log":-5.3}}'
+// ,'{"name":"Canary","offset":0,"pos":{"lat":28.1,"log":-15.45}}']
 
 exp.eval(`
 list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -81,9 +81,9 @@ while (p=timezones.pop()) {
 }
 `, context)
 // outputs:
-//         {"name":"Canary","offset":0,"position":{"lat":28.1,"log":-15.45}}
-//         {"name":"Ceuta","offset":1,"position":{"lat":35.9,"log":-5.3}}
-//         {"name":"Madrid","offset":1,"position":{"lat":40.4,"log":-3.7}}
+//         {"name":"Canary","offset":0,"pos":{"lat":28.1,"log":-15.45}}
+//         {"name":"Ceuta","offset":1,"pos":{"lat":35.9,"log":-5.3}}
+//         {"name":"Madrid","offset":1,"pos":{"lat":40.4,"log":-3.7}}
 ```
 
 ## More examples:
