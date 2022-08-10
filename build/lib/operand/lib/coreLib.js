@@ -68,8 +68,9 @@ class CoreLib extends library_1.Library {
     }
     generalFunctions() {
         this.addFunction('sleep', Functions.sleep);
-        this.addFunction('stringify', (value) => JSON.stringify(value));
-        this.addFunction('parse', (value) => JSON.parse(value));
+        this.addFunction('console', (value) => {
+            console.log(typeof value === 'object' ? JSON.stringify(value) : value);
+        });
     }
     conditionFunctions() {
         this.addFunction('between', Functions.between);
@@ -142,8 +143,9 @@ class CoreLib extends library_1.Library {
                 return '*';
             }
         });
+        this.addFunction('stringify', (value) => JSON.stringify(value));
+        this.addFunction('parse', (value) => JSON.parse(value));
     }
-    // TODO: trabajar todas las fechas como string en formato ISO 8601
     dateTimeFunctions() {
         this.addFunction('dateToString', (date) => {
             if (typeof date === 'string') {
@@ -694,6 +696,9 @@ class Sort extends operands_1.ArrowFunction {
     eval() {
         const values = [];
         const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            return list.sort();
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
