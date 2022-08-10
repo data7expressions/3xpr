@@ -1,11 +1,11 @@
-import { expressions } from '../../lib'
+import { expressions as exp } from '../../lib'
 
 export function show (list:string[], context:any) {
 	const tests = []
 	const examples = []
-	for (const exp of list) {
+	for (const expression of list) {
 		try {
-			const result = expressions.eval(exp, context)
+			const result = exp.eval(expression, context)
 			let expect:any
 			let testCompare = 'toBe'
 			if (typeof result === 'string') {
@@ -28,10 +28,10 @@ export function show (list:string[], context:any) {
 			} else {
 				expect = result
 			}
-			examples.push(`|${exp}|${expect}|`)
-			tests.push(`expect(${expect}).${testCompare}(expressions.eval('${exp}',context))`)
+			examples.push(`|${expression}|${expect}|`)
+			tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
 		} catch (error) {
-			console.log(`exp: ${exp} error: ${error}`)
+			console.log(`exp: ${expression} error: ${error}`)
 		}
 	}
 	console.log(examples.join('\n'))

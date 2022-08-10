@@ -4,6 +4,7 @@ import { Library } from '../library'
 import { OperatorType } from './../../model'
 import { Operator, ArrowFunction } from '../operands'
 import { Helper } from '../../manager'
+import { stringify } from 'querystring'
 
 export class CoreLib extends Library {
 	constructor () {
@@ -74,8 +75,9 @@ export class CoreLib extends Library {
 
 	private generalFunctions () {
 		this.addFunction('sleep', Functions.sleep)
-		this.addFunction('stringify', (value: any): string => JSON.stringify(value))
-		this.addFunction('parse', (value: string): any => JSON.parse(value))
+		this.addFunction('console', (value: any) => {
+			console.log(typeof value === 'object' ? JSON.stringify(value) : value)
+		})
 	}
 
 	private conditionFunctions () {
@@ -149,9 +151,10 @@ export class CoreLib extends Library {
 				return '*'
 			}
 		})
+		this.addFunction('stringify', (value: any): string => JSON.stringify(value))
+		this.addFunction('parse', (value: string): any => JSON.parse(value))
 	}
 
-	// TODO: trabajar todas las fechas como string en formato ISO 8601
 	private dateTimeFunctions () {
 		this.addFunction('dateToString', (date:Date) => {
 			if (typeof date === 'string') {
@@ -754,6 +757,9 @@ class Sort extends ArrowFunction {
 	eval (): any {
 		const values = []
 		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			return list.sort()
+		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)

@@ -679,27 +679,14 @@
                 }
             ]
         },
-        "stringify": {
-            "description": "Convert a JavaScript object or value to a JSON text string.",
+        "console": {
+            "description": "Show a message on the console.",
             "category": "general",
-            "deterministic": true,
-            "return": "string",
+            "return": "void",
             "params": [
                 {
                     "name": "value",
                     "type": "any"
-                }
-            ]
-        },
-        "parse": {
-            "description": "Parses a text string as JSON, optionally transforming the value produced by the parse.",
-            "category": "general",
-            "deterministic": true,
-            "return": "any",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "string"
                 }
             ]
         },
@@ -1282,6 +1269,30 @@
             "category": "string",
             "deterministic": true,
             "return": "string",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
+        "stringify": {
+            "description": "Convert a JavaScript object or value to a JSON text string.",
+            "category": "string",
+            "deterministic": true,
+            "return": "string",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ]
+        },
+        "parse": {
+            "description": "Parses a text string as JSON, optionally transforming the value produced by the parse.",
+            "category": "string",
+            "deterministic": true,
+            "return": "any",
             "params": [
                 {
                     "name": "value",

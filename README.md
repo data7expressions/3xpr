@@ -4,89 +4,98 @@ Js-expression is an extensible expression evaluator and parser. Besides the oper
 
 ## Features
 
-	- Arithmetic, assignment, comparison, Logical and bitwise operators
-	- Variables
-	- Constants
-	- Functions
-	- Objects
-	- Arrays with arrow functions
-	- Environment variables
-	- Enums
-	- Control flows
+- Arithmetic, assignment, comparison, Logical and bitwise operators
+- Constants, enums, variables, objects, arrays
+- Functions and arrow functions
+- Control flows
+- Environment variables
 
-- Simplify math operations where operands are constant
-- It allows to extend the model by adding or overwriting operators, functions and enums
-- Supports multiline expressions using the semicolon character to separate them
-- The evaluation receives the context where the variables will be read, written, and created. This context must be a dictionary or a class derived from a dictionary
-- When parsing a string that contains expression, an expression object is returned, which can be reused to evolve the expression with different contexts, in this way the performance is notably improved.
-- You can create a new expression object using expression objects and combining them with operators
+## Quick Start
 
-## Use
+```javascript
+import { expressions as exp } from 'js-expressions'
 
-expressions is the main class of the library that contains the methods to parse, evaluate, get info of expression, etc . In order to use the library you need to create an instance of this class:
+const context = {
+		name: 'Spain',
+		region: 'Europe',
+		phoneCode: '34',
+		timezones: [
+			{ name: 'Madrid', offset: 1, position: { lat: 40.4165, log: -3.70256 } },
+			{ name: 'Ceuta', offset: 1, position: { lat: 35.8883, log: -5.3162 } },
+			{ name: 'Canary', offset: 0, position: { lat: 28.1248, log: -15.43 } }
+		]
+	}
 
-```typescript
-import { expressions } from 'js-expressions'
+const result = exp.eval('5*(7+9)==(5*7+5*9)')
+console.log(result)
+// Output: true
 
-const result = expressions.eval('1+1')
-```
+// use context
+exp.eval('toNumber(phoneCode) <= 30', context)
+// false
 
-Context:
+// template
+exp.eval('`${name} belongs to ${region}`', context)
+// 'Spain belongs to Europe'
 
-```typescript
-import { expressions } from 'js-expressions'
+exp.eval('timezones.filter(p => substring(p.name,0,1)=="C")', context)
+// ['{"name":"Ceuta","offset":1,"position":{"lat":35.8883,"log":-5.3162}}'
+// ,'{"name":"Canary","offset":0,"position":{"lat":28.1248,"log":-15.43}}']
 
-const context = { "a": [1, 2, 3], "b": 0 }
-expressions.eval('c=a.pop()', context)
-```
+exp.eval('timezones.filter(p => p.offset == 1).sort(p => p.position.lat).name', context)
+// ['Ceuta','Madrid']
 
-Lambda:
+exp.eval('stringify(timezones.first(p => p.name == "Madrid").position)', context)
+// '{"lat":40.4165,"log":-3.70256}'
 
-```typescript
-import { expressions } from 'js-expressions'
+exp.eval('timezones.filter(p => p.position.lat > 30 && p.position.log > -4).position.lat', context)
+// [40.4165]
 
-const context = {"a":[1,2,3,4,5],"b":0}
-expressions.eval('a.filter(p=> p<5).foreach(p => b=b+p)',context)
-```
+exp.eval('sort(timezones.name)', context)
+// ['Canary','Ceuta','Madrid']
 
-Control flow:
+exp.eval('timezones[0].name', context)
+// 'Madrid'
 
-```typescript
-import { expressions } from 'js-expressions'
+exp.eval('round(timezones.first(p=> p.name =="Madrid").position.lat - timezones.first(p=> p.name =="Ceuta").position.lat,2)', context)
+// 4.55
 
-const context = {"a":[1,2,3,4,5],"b":0}
-const expression = `
+exp.eval('timezones.each(p => p.position={lat:round(p.position.lat,2),log:round(p.position.log,2)}).map(p=> stringify(p))', context)
+// ['{"name":"Madrid","offset":1,"position":{"lat":40.4,"log":-3.7}}'
+// ,'{"name":"Ceuta","offset":1,"position":{"lat":35.9,"log":-5.3}}'
+// ,'{"name":"Canary","offset":0,"position":{"lat":28.1,"log":-15.45}}']
+
+exp.eval(`
 list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 total = 0;
 for (i = 0; i < list.length(); i += 1) {
 	total += list[i];
 }
-`
-expressions.eval(expression,context)
-```
+`, context)
+console.log(context.total)
+// 45
 
-Enum:
-
-```typescript
-import { expressions,Library } from 'js-expressions'
-
-class TestEnumLib extends Library {
-	constructor () {
-		super('testEnum')
-		this.initEnums()
-	}	
-	private initEnums (): any {
-		this.addEnum('ColorConversion', { BGR2GRAY: 6, BGR2HSV: 40, BGR2RGB: 4, GRAY2BGR: 8, HSV2BGR: 54, HSV2RGB: 55, RGB2GRAY: 7, RGB2HSV: 41 })
-		this.addEnum('Color', { RED: 1, GREEN: 2, BLUE: 3 })
-	}
+exp.eval(`
+while (p=timezones.pop()) {
+	console(p);
 }
-expressions.config.addLibrary(new TestEnumLib())
-
-console.log(expressions.eval('ColorConversion.GRAY2BGR'))
-console.log(expressions.eval('Color.GREEN')))
+`, context)
+// outputs:
+//         {"name":"Canary","offset":0,"position":{"lat":28.1,"log":-15.45}}
+//         {"name":"Ceuta","offset":1,"position":{"lat":35.9,"log":-5.3}}
+//         {"name":"Madrid","offset":1,"position":{"lat":40.4,"log":-3.7}}
 ```
 
-## Documentation
+## More examples:
 
-- [Wiki](https://github.com/FlavioLionelRita/js-expressions/wiki)
-- [Source Code](https://github.com/FlavioLionelRita/js-expressions/blob/main/doc/source/README.md)
+- [Array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
+- [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
+- [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
+- [Comparison](https://github.com/FlavioLionelRita/js-expressions/wiki/Comparison)
+- [Condition](https://github.com/FlavioLionelRita/js-expressions/wiki/Condition)
+- [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
+- [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
+- [Logical](https://github.com/FlavioLionelRita/js-expressions/wiki/Logical)
+- [Nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable)
+- [Numeric](https://github.com/FlavioLionelRita/js-expressions/wiki/Numeric)
+- [String](https://github.com/FlavioLionelRita/js-expressions/wiki/String)
