@@ -4,13 +4,13 @@ Js-expression is an extensible expression evaluator and parser. Besides the oper
 
 ## Features
 
+- Constants, enums, variables, objects and arrays
 - Arithmetic, assignment, comparison, Logical and bitwise operators
-- Constants, enums, variables, objects, arrays
 - Functions and arrow functions
 - Control flows
 - Environment variables
 
-## Quick Start
+## Quick start
 
 ```javascript
 import { expressions as exp } from 'js-expressions'
