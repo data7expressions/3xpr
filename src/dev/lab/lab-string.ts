@@ -36,6 +36,7 @@ import { show } from './util'
 		'upper(film)',
 		'strCount(film,"a")',
 		'stringify(coordinate)',
+		'toString(age)',
 		'`${firstName} is ${age} years old and likes ${food}`',
 		'test("5","[a-zA-Z0-9_.]+$")',
 		'test("%","[a-zA-Z0-9_.]+$")',

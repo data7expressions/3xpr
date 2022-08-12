@@ -67,7 +67,9 @@ export class Variable extends Operand {
 	}
 
 	public set (value: any) {
-		if (this.data) { this.data.set(this.name, value) }
+		if (this.data) {
+			this.data.set(this.name, value)
+		}
 	}
 
 	public eval (): any {

@@ -9,7 +9,7 @@
 |//=					|assignment floorDivision												|
 |%=						|assignment mod																	|
 |&=						|assignment bit And															|
-||=						|assignment bit Or															|
+|\|=					|assignment bit Or															|
 |^=						|assignment bit Xor															|
 |<<=					|assignment leftShift														|
 |>>=					|assignment rightShift													|

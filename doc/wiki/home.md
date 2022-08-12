@@ -2,6 +2,7 @@
 - [Assignment](Assignment)
 - [Bitwise](Bitwise)
 - [Comparison](Comparison)
+- [Control flows](Flows)
 - [Datetime](Datetime)
 - [Extend](Extend)
 - [Logical](Logical)

@@ -209,12 +209,25 @@ export class ParserManager {
 				isString = true
 				quotes = p
 			}
-			if (isString) { result.push(p) } else if (p === ' ') {
-				// solo debería dejar los espacios cuando es entre caracteres alfanuméricos.
-				// por ejemplo en el caso de "} if" no debería quedar un espacio
-				if (i + 1 < length && i - 1 >= 0 && this.reAlphanumeric.test(buffer[i - 1]) && this.reAlphanumeric.test(buffer[i + 1])) { result.push(p) }
-			} else if (p !== '\n' && p !== '\r' && p !== '\t') { result.push(p) }
+			if (isString) {
+				result.push(p)
+			} else if (p === ' ') {
+				// Only leave spaces when it's between alphanumeric characters.
+				// for example in the case of "} if" there should not be a space
+				if (i + 1 < length && i - 1 >= 0 && this.reAlphanumeric.test(buffer[i - 1]) && this.reAlphanumeric.test(buffer[i + 1])) {
+					result.push(p)
+				}
+			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
+			} else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+				result.push(';')
+			} else if (p !== '\n' && p !== '\r' && p !== '\t') {
+				result.push(p)
+			}
 			i += 1
+		}
+		if (result[result.length - 1] === ';') {
+			result.splice(-1)
+			return result
 		}
 		return result
 	}

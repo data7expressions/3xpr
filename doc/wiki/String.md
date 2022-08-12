@@ -13,7 +13,7 @@
 |parse						|Parses a text string as JSON, optionally transforming the value produced by the parse.										|
 |rpad							|Pad the right-side of string																																							|
 |rtrim						|Remove trailing spaces																																										|
-|substr/substring	|Get a substring of string																																								|
+|substr substring	|Get a substring of string																																								|
 |trim							|Remove characters																																												|
 |upper						|Uppercase string																																													|
 |strCount					|Count value in source																																										|
@@ -21,6 +21,8 @@
 |template					|Are literal strings that enable the use of embedded expression																						|
 |test							|Try a match on a string. Returns true or false																														|
 |isEmpty					|Evaluate if it is empty																																									|
+|toString					|Convert to string																																												|
+|$ ${}					  |Get environment variable																																									|
 
 ## Examples
 
@@ -57,6 +59,7 @@ const context = { firstName: 'Juan'
 |upper(film)																					|'ESTACIÓN CENTRAL'												|
 |strCount(film,"a")																		|2																				|
 |stringify(coordinate)																|'{"lat":48.87,"long":2.29}'							|
+|toString(age)																				|'44'																			|
 |`${firstName} is ${age} years old and likes ${food}`	|'Juan is 44 years old and likes pizza'		|
 |test("5","[a-zA-Z0-9_.]+$")													|true																			|
 |test("%","[a-zA-Z0-9_.]+$")													|false																		|
@@ -250,5 +253,13 @@ const context = { firstName: 'Juan'
 - description: Evaluate if it is empty
 - deterministic: true
 - return: boolean
+- params:
+	- value: any
+
+### toString
+
+- description: convert to string
+- deterministic: true
+- return: string
 - params:
 	- value: any

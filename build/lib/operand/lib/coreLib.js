@@ -15,11 +15,10 @@ class CoreLib extends library_1.Library {
         this.generalFunctions();
         this.conditionFunctions();
         this.nullFunctions();
-        this.mathFunctions();
+        this.numberFunctions();
         this.stringFunctions();
         this.initArrowFunctions();
         this.dateTimeFunctions();
-        this.convertFunctions();
     }
     initEnums() {
         // empty
@@ -84,7 +83,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('isNotNull', Functions.isNotNull);
         this.addFunction('isEmpty', Functions.isEmpty);
     }
-    mathFunctions() {
+    numberFunctions() {
         this.addFunction('abs', Math.abs);
         this.addFunction('acos', Math.acos);
         this.addFunction('asin', Math.asin);
@@ -106,6 +105,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('tan', Math.tan);
         this.addFunction('tanh', Math.tanh);
         this.addFunction('trunc', Math.trunc);
+        this.addFunction('toNumber', Functions.toNumber);
     }
     stringFunctions() {
         this.addFunction('chr', (ascii) => String.fromCharCode(ascii));
@@ -143,6 +143,7 @@ class CoreLib extends library_1.Library {
                 return '*';
             }
         });
+        this.addFunction('toString', Functions.toString);
         this.addFunction('stringify', (value) => JSON.stringify(value));
         this.addFunction('parse', (value) => JSON.parse(value));
     }
@@ -308,11 +309,6 @@ class CoreLib extends library_1.Library {
         this.addFunction('len', (list) => list.length, model_1.OperatorType.child);
         // this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
         // this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
-    }
-    convertFunctions() {
-        this.addFunction('toString', Functions.toString);
-        this.addFunction('toJson', Functions.toJson);
-        this.addFunction('toNumber', Functions.toNumber);
     }
 }
 exports.CoreLib = CoreLib;
@@ -582,9 +578,6 @@ class Functions {
     }
     static toString(value) {
         return Functions.isNull(value) ? '' : value.toString();
-    }
-    static toJson(value) {
-        return JSON.parse(value);
     }
     static toNumber(value) {
         return Functions.isNull(value) ? 0 : parseFloat(value);

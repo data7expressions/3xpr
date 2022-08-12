@@ -135,7 +135,7 @@ const context = {
 
 ### includes
 
-- description: Is used to reduce the use of multiple OR conditions
+- description: Determines if an array includes a certain element
 - deterministic: true
 - return: boolean
 - params:
@@ -144,7 +144,7 @@ const context = {
 
 ### in
 
-- description: Is used to reduce the use of multiple OR conditions
+- description: Determines if an array includes a certain element
 - deterministic: true
 - return: boolean
 - params:
