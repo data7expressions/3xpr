@@ -47,6 +47,7 @@ describe('Strings', () => {
 			expect('ESTACIÓN CENTRAL').toBe(expressions.eval('upper(film)',context))
 			expect(2).toBe(expressions.eval('strCount(film,"a")',context))
 			expect('{"lat":48.87,"long":2.29}').toBe(expressions.eval('stringify(coordinate)',context))
+			expect('44').toBe(expressions.eval('toString(age)',context))
 			expect('Juan is 44 years old and likes pizza').toBe(expressions.eval('`${firstName} is ${age} years old and likes ${food}`',context))
 			expect(true).toBe(expressions.eval('test("5","[a-zA-Z0-9_.]+$")',context))
 			expect(false).toBe(expressions.eval('test("%","[a-zA-Z0-9_.]+$")',context))

@@ -6,9 +6,8 @@ export declare class CoreLib extends Library {
     private generalFunctions;
     private conditionFunctions;
     private nullFunctions;
-    private mathFunctions;
+    private numberFunctions;
     private stringFunctions;
     private dateTimeFunctions;
     private initArrowFunctions;
-    private convertFunctions;
 }

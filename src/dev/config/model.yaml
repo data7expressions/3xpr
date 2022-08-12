@@ -445,7 +445,7 @@ functions:
     - name: to
       type: T  
   includes:
-    description: Is used to reduce the use of multiple OR conditions
+    description: Determines if an array includes a certain element	
     category: condition 
     return: boolean
     params:
@@ -454,7 +454,7 @@ functions:
     - name: list
       type: T[]
   in:
-    description: Is used to reduce the use of multiple OR conditions
+    description: Determines if an array includes a certain element	
     category: condition 
     return: boolean
     params:
@@ -638,7 +638,15 @@ functions:
     return: number
     params:
     - name: value
-      type: number                     
+      type: number
+  toNumber:
+    description: convert to number
+    category: convert
+    deterministic: true 
+    return: number 
+    params:
+    - name: value 
+      type: string                        
 # string:---------------------------------------------------------
   chr:
     description: Get character from ASCII code 
@@ -819,6 +827,14 @@ functions:
     params:
     - name: value
       type: any
+  toString:
+    description: convert to string
+    category: string
+    deterministic: true 
+    return: string 
+    params:
+    - name: value
+      type: any     
   parse:
     description: Parses a text string as JSON, optionally transforming the value produced by the parse.
     category: string
@@ -1096,32 +1112,7 @@ functions:
     return: Date 
     params:
     - name: value
-      type: number                                
-# convert :---------------------------------------------------------
-  toString:
-    description: convert to string
-    category: convert
-    deterministic: true 
-    return: string 
-    params:
-    - name: value
-      type: any 
-  toJson:
-    description: convert to json
-    category: convert
-    deterministic: true 
-    return: object 
-    params:
-    - name: value
-      type: string 
-  toNumber:
-    description: convert to number
-    category: convert
-    deterministic: true 
-    return: number 
-    params:
-    - name: value 
-      type: string                   
+      type: number
 # null: ---------------------------------------------------------
   nvl:
     description: Allows you to replace null values with a default value. 

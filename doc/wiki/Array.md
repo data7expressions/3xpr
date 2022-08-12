@@ -1,17 +1,17 @@
 |Function    	|Description                                   																		|
 |-------------|---------------------------------------------------------------------------------|
-|foreach/each	|Calls a function for each element in an array.																		|
-|filter/where	|Creates a new array filled with elements that pass a test provided by a function	|
+|foreach each	|Calls a function for each element in an array.																		|
+|filter where	|Creates a new array filled with elements that pass a test provided by a function	|
 |first				|Returns the first value of the array that meets a condition											|
 |last					|Returns the last value of the array that meets a condition												|
-|map/select		|Creates a new array from calling a function for every array element.							|
-|sort/order		|Sorts the elements of an array.																									|
+|map select		|Creates a new array from calling a function for every array element.							|
+|sort order		|Sorts the elements of an array.																									|
 |reverse			|Reverses the order of the elements in an array.																	|
-|remove/delete|Eliminate the elements of the array that meet the filter condition								|
+|remove delete|Eliminate the elements of the array that meet the filter condition								|
 |push					|Adds new items to the end of an array																						|
 |insert				|Adds new items to the end of an array																						|
 |pop					|Removes (pops) the last element of an array and return element										|
-|length/len		|Calculating the number of items in a array.																			|
+|length len		|Calculating the number of items in a array.																			|
 
 |Operator   |Description  |
 |-----------|-------------|
@@ -59,6 +59,7 @@ const context = {
 |numbers.filter(p=> p>1 && p<5).map(p=> p*2).reverse()										|[6,4]																																	|
 |cities.order(p=> p.name).name																						|['Buenos Aires','Córdoba','Mar del Plata','Rosario']										|
 |cities.name																															|['Buenos Aires','Córdoba','Rosario','Mar del Plata']										|
+|in("San Luis",cities.name)																								|false																																	|
 |cities.select(p=> p.coordinates).select(p=> p.lat)												|[34.36,31.42,32.58,38]																									|
 |cities.map(p=> p.coordinates).lat																				|[34.36,31.42,32.58,38]																									|
 |cities.coordinates.lat																										|[34.36,31.42,32.58,38]																									|

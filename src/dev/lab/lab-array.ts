@@ -37,6 +37,7 @@ import { show } from './util'
 		'numbers.filter(p=> p>1 && p<5).map(p=> p*2).reverse()',
 		'cities.order(p=> p.name).name',
 		'cities.name',
+		'in("San Luis",cities.name)',
 		'cities.select(p=> p.coordinates).select(p=> p.lat)',
 		'cities.map(p=> p.coordinates).lat',
 		'cities.coordinates.lat',

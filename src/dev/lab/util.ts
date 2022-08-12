@@ -28,8 +28,13 @@ export function show (list:string[], context:any) {
 			} else {
 				expect = result
 			}
-			examples.push(`|${expression}|${expect}|`)
-			tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
+			if (expression.includes('\n')) {
+				tests.push(`expect(${expect}).${testCompare}(expressions.eval(\`${expression}\`,context))`)
+				examples.push(`|\`${expression}\`|${expect}|`)
+			} else {
+				tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
+				examples.push(`|${expression}|${expect}|`)
+			}
 		} catch (error) {
 			console.log(`exp: ${expression} error: ${error}`)
 		}

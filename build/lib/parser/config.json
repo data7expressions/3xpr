@@ -710,7 +710,7 @@
             ]
         },
         "includes": {
-            "description": "Is used to reduce the use of multiple OR conditions",
+            "description": "Determines if an array includes a certain element",
             "category": "condition",
             "return": "boolean",
             "params": [
@@ -725,7 +725,7 @@
             ]
         },
         "in": {
-            "description": "Is used to reduce the use of multiple OR conditions",
+            "description": "Determines if an array includes a certain element",
             "category": "condition",
             "return": "boolean",
             "params": [
@@ -1007,6 +1007,18 @@
                 }
             ]
         },
+        "toNumber": {
+            "description": "convert to number",
+            "category": "convert",
+            "deterministic": true,
+            "return": "number",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         "chr": {
             "description": "Get character from ASCII code",
             "category": "string",
@@ -1278,6 +1290,18 @@
         },
         "stringify": {
             "description": "Convert a JavaScript object or value to a JSON text string.",
+            "category": "string",
+            "deterministic": true,
+            "return": "string",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ]
+        },
+        "toString": {
+            "description": "convert to string",
             "category": "string",
             "deterministic": true,
             "return": "string",
@@ -1711,42 +1735,6 @@
                 {
                     "name": "value",
                     "type": "number"
-                }
-            ]
-        },
-        "toString": {
-            "description": "convert to string",
-            "category": "convert",
-            "deterministic": true,
-            "return": "string",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
-                }
-            ]
-        },
-        "toJson": {
-            "description": "convert to json",
-            "category": "convert",
-            "deterministic": true,
-            "return": "object",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "string"
-                }
-            ]
-        },
-        "toNumber": {
-            "description": "convert to number",
-            "category": "convert",
-            "deterministic": true,
-            "return": "number",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "string"
                 }
             ]
         },

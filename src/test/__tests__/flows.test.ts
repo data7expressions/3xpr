@@ -68,6 +68,56 @@ describe('Block', () => {
 		expect(2).toBe(data.y) 
 	})
 
+	test('lab', async ()  =>  {	
+		let context = {
+			devices: [
+				{ type: 'phone', imei: '911784599437339', mac: '10:3d:1c:9b:7e:db' },
+				{ type: 'computer', mac: '11:3d:1c:9b:7e:db' },
+				{ type: 'robot', mac: '12:3d:1c:9b:7e:db' }
+			]
+		}
+
+		expect(45).toBe(expressions.eval(`
+			list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+			total = 0;
+			for (i = 0; i < list.length(); i += 1) {
+				total += list[i];
+			}
+			total;`,context))
+		expect(24).toBe(expressions.eval(`
+			list = [1, 2, 3, 4, 5, 6];
+			b = 1;
+			for (a in list) {
+				if (b < 10) {
+					b = a * b;
+				}
+			}
+			b;`,context))
+		expect('phone-911784599437339').toBe(expressions.eval(`
+			device = devices[0];
+			switch(device.type){ 
+				case "phone": 
+					key = device.imei; 
+				case "computer": 
+					key = device.mac; 
+				default:
+					if(isNotNull(device.imei)){
+						key = device.imei;
+					}else{
+						key = device.mac; 
+					} 
+				}
+				id= concat(device.type,"-",key);
+			`,context))
+		expect(['phone-911784599437339','computer-11:3d:1c:9b:7e:db','robot-12:3d:1c:9b:7e:db']).toStrictEqual(expressions.eval('devices.map(p=> concat(p.type,"-",if(p.type=="phone"){p.imei}else{p.mac}))',context))
+		expect([1,3,2]).toStrictEqual(expressions.eval('devices.map(p=> switch(p.type){ case "phone": 1; case "robot": 2 ; default: 3;})',context))
+		expect('10:3d:1c:9b:7e:db').toBe(expressions.eval(`
+			while (p=devices.pop()) {
+					mac=p.mac;
+			}
+			mac;`,context))
+	})
+
 	
 
 	// test('parseBlockControl', async () => {	
