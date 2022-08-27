@@ -2,8 +2,6 @@
 |-------------|---------------------------------------------------------------------------------|
 |foreach each	|Calls a function for each element in an array.																		|
 |filter where	|Creates a new array filled with elements that pass a test provided by a function	|
-|first				|Returns the first value of the array that meets a condition											|
-|last					|Returns the last value of the array that meets a condition												|
 |map select		|Creates a new array from calling a function for every array element.							|
 |sort order		|Sorts the elements of an array.																									|
 |reverse			|Reverses the order of the elements in an array.																	|
@@ -12,6 +10,13 @@
 |insert				|Adds new items to the end of an array																						|
 |pop					|Removes (pops) the last element of an array and return element										|
 |length len		|Calculating the number of items in a array.																			|
+|count				|Calculating the number of rows in a set.																					|
+|max					|Calculating the maximum.																													|
+|min					|Calculating the minimum.																													|
+|sum					|Calculating the sum.																															|
+|avg					|Calculates the average of the specified columns in a set of rows									|
+|first				|Returns the first value of the array that meets a condition											|
+|last					|Returns the last value of the array that meets a condition												|
 
 |Operator   |Description  |
 |-----------|-------------|
@@ -73,6 +78,48 @@ const context = {
 |musicians[0]																															|'Charly Garcia'																												|
 |musicians[3]																															|undefined																															|
 
+Context:
+
+```js
+const context = {
+			orders:[
+				{
+					number: '20001',
+					customer: 'John',
+					orderTime: '2022-07-30T10:15:54',
+					total: 12.19,
+					details: [
+						{ article: 'Potato', unitPrice: 1.54, qty: 5 },
+						{ article: 'Onion', unitPrice: 1.23, qty: 2 },
+						{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+					]
+				},
+				{
+					number: '20002',
+					customer: 'Paul',
+					orderTime: '2022-07-30T12:12:43',
+					total: 7.91,
+					details: [
+						{ article: 'Apple', unitPrice: 2.15, qty: 1 },
+						{ article: 'Banana', unitPrice: 1.99, qty: 2 },
+						{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+					]
+				}
+			]
+		}
+```
+
+| Example                                   								| Result 	|
+|-----------------------------------------------------------|---------|
+|orders.min(p=> p.total)																		|7.91			|
+|orders.details.min(p=> p.article )													|'Apple'	|
+|orders.details.max(p=> p.unitPrice * p.qty )								|7.7			|
+|orders.details.avg(p=> p.unitPrice * p.qty )								|3.35			|
+|orders[1].details.sum(p=> p.unitPrice * p.qty )						|7.91			|
+|orders.details.count(p=> p.unitPrice * p.qty < 3 )					|4				|
+|orders.details.first(p=> p.unitPrice * p.qty < 3 ).article	|'Onion'	|
+|orders.details.last(p=> p.unitPrice * p.qty < 3 ).article	|'Pear'		|
+
 ## Definition
 
 ### foreach
@@ -107,24 +154,6 @@ const context = {
 - description: Creates a new array filled with elements that pass a test provided by a function
 - deterministic: true
 - return: T[]
-- params:
-	- list: T[]
-	- method: function
-
-### first
-
-- description: Returns the first value of the array that meets a condition
-- deterministic: true
-- return: T
-- params:
-	- list: T[]
-	- method: function
-
-### last
-
-- description: Returns the last value of the array that meets a condition
-- deterministic: true
-- return: T
 - params:
 	- list: T[]
 	- method: function
@@ -250,6 +279,69 @@ const context = {
 - return: number
 - params:
 	- list: T[]
+
+### count
+
+- description: Calculating the number of rows in a set.
+- deterministic: true
+- return: number
+- params:
+	- list: T[]
+	- method: function
+
+### max
+
+- description: Calculating the maximum.
+- deterministic: true
+- return: T
+- params:
+	- list: T[]
+	- method: function
+
+### min
+
+- description: Calculating the minimum.
+- deterministic: true
+- return: T
+- params:
+	- list: T[]
+	- method: function
+
+### sum
+
+- description: Calculating the sum.
+- deterministic: true
+- return: number
+- params:
+	- list: T[]
+	- method: function
+
+### avg
+
+- description: Calculates the average of the specified columns in a set of rows
+- deterministic: true
+- return: number
+- params:
+	- list: T[]
+	- method: function
+
+### first
+
+- description: Returns the first value of the array that meets a condition
+- deterministic: true
+- return: T
+- params:
+	- list: T[]
+	- method: function
+
+### last
+
+- description: Returns the last value of the array that meets a condition
+- deterministic: true
+- return: T
+- params:
+	- list: T[]
+	- method: function
 
 ### Operator []
 

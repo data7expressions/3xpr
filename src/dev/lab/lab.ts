@@ -1,105 +1,38 @@
-import { expressions } from '../../lib'
+import { expressions as exp, Helper } from '../../lib'
 // import { Helper } from '../../lib/manager/helper'
 
-(async () => {
-	// String
-	// const data: any = {}
-	// const testPath = 'src/test/__tests__/test'
-	// const expression = await Helper.readFile(testPath + '/forIn-01.js') as string
-	// expressions.eval(expression, data)
-	// console.log(expressions.eval('lower(substring(replace(name," ","-"),0,32))', { name: 'La casa de PAPEL' }))
-	// eslint-disable-next-line no-template-curly-in-string
-	console.log(expressions.eval('`${name} is ${age} years old and likes ${food}`', { name: 'juan', age: 44, food: 'pizza' }))
-	// console.log(expressions.eval('stringify(a)', { a: { name: 'juan', age: 44, food: 'pizza' } }))
-	// console.log(expressions.eval('obj=parse(a);obj.name', { a: '{"name":"juan","age":44,"food":"pizza"}' }))
-
-	// DateTime labs
-	// console.log(expressions.eval('user', {}))
-	// console.log(expressions.eval('now()', {}))
-	// console.log(expressions.eval('curTime()', {}))
-	// console.log(expressions.eval('addHour(today(),8)', {}))
-	// console.log(expressions.eval('addTime(today(),"08:22:12")', {}))
-	// console.log(expressions.eval('test("5","[a-zA-Z0-9_.]+$")', {}))
-	// console.log(expressions.eval('test("%","[a-zA-Z0-9_.]+$")', {}))
-	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí.*día")', {}))
-	// console.log(expressions.eval('match("¡Por favor, sí\nhazme el día!","sí[^]*día")', {}))
-
-	// console.log(JSON.stringify(expressions.parameters('(1+b/c)*b')))
-
-	// console.log(expressions.eval('type=="phone"?concat(type,"-",imei):concat(type,"-",mac)', { type: 'phone', imei: 'imei', mac: 'mac' }))
-	// if
-	// console.log(expressions.eval('if(type=="phone"){id=concat(type,"-",imei)}else{id=concat(type,"-",mac)};id;', { type: 'phone', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('if(type=="phone"){concat(type,"-",imei)}else{concat(type,"-",mac)}', { type: 'phone', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('if(type=="phone"){concat(type,"-",imei)}else{concat(type,"-",mac)}', { type: 'computer', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('if(type=="phone"){concat(type,"-",imei)}else if(type=="robot"){concat(type,"-","111")}else{concat(type,"-",mac)}', { type: 'computer', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('if(type=="phone"){concat(type,"-",imei)}else if(type=="robot"){concat(type,"-","111")}else{concat(type,"-",mac)}', { type: 'robot', imei: 'imei', mac: 'mac' }))
-
-	// case
-	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111"); default: concat(type,"-",mac);}', { type: 'phone', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111"); default: concat(type,"-",mac);}', { type: 'computer', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111"); default: concat(type,"-",mac);}', { type: 'robot', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111"); default: concat(type,"-",mac)}', { type: 'computer', imei: 'imei', mac: 'mac' }))
-	// console.log(expressions.eval('switch(type){ case "phone": concat(type,"-",imei); case "robot": concat(type,"-","111")}', { type: 'robot', imei: 'imei', mac: 'mac' }))
-
-	// console.log(expressions.eval('concat(type,"-",switch(type){case"phone":imei;default: mac;})', { type: 'phone', imei: 'imei', mac: 'mac' }))
-
-	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
-	// console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
-
-	const users = [
-		{
-			username: 'flaviolrita',
-			firstname: 'Flavio Lionel',
-			lastname: 'Rita',
-			email: 'flaviolrita@hotmail.com'
-		},
-		{
-			username: 'griss512',
-			firstname: 'Gricelda Rocio',
-			lastname: 'Puchuri Corilla',
-			email: 'griss512@hotmail.com'
-		},
-		{
-			username: 'micaela',
-			firstname: 'Micaela Valentina',
-			lastname: 'Rita Puchuri',
-			email: 'flaviolrita@hotmail.com'
-		},
-		{
-			username: 'Joaquin',
-			firstname: 'Joaquin Ignacio',
-			lastname: 'Rita Puchuri',
-			email: 'flaviolrita@hotmail.com',
-			test: {
-				name: 'a'
-			}
+const test = async (expression:string) => {
+	try {
+		const source = '~/develop/js-expressions/countries.json'
+		const content = await Helper.readFile(source)
+		if (!content) {
+			throw Error(`can not read file ${source}`)
 		}
-	]
-
-	// solve ambiguities
-	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'phone' }))
-	console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'phone' }))
-	console.log(expressions.eval('includes(value,["phone","computer","robot"])', { value: 'other' }))
-	console.log(expressions.eval('in(value,["phone","computer","robot"])', { value: 'other' }))
-
-	console.log(expressions.eval('users.filter(p=> p.username === "Joaquin").map(p=> p.email).first()', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username == "Joaquin").select( p-> p.email).first()', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").email', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").test.name', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").test.x', { users: users }))
-	console.log(expressions.eval('users.first(p-> p.username == "Joaquin").x.x', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username <> "Joaquin").len()', { users: users }))
-	console.log(expressions.eval('users.where(p-> p.username != "Joaquin").length()', { users: users }))
-
-	console.log(expressions.eval('users.email', { users: users }))
-	console.log(expressions.eval('users.test.name', { users: users }))
-
-	console.log(expressions.eval('mask("flaviolrita@hotmail.com")', { users: users }))
-
-	const result = expressions.eval('substr("PmParty",0,2)=="Pm"', {})
-	console.log(result)
-
-	// const context = { type: 'phone', imei: 'imei', mac: 'mac' }
-	// console.log(expressions.eval('imei=null', context))
-	// console.log(JSON.stringify(context))
+		const data = Helper.tryParse(content)
+		if (data === null || data === undefined) {
+			throw Error(`can not parse content of ${source}`)
+		}
+		const result = exp.eval(expression, { '.': data })
+		console.log(JSON.stringify(result, null, 2))
+	} catch (error:any) {
+		console.error(error.stack)
+	}
+}
+(async () => {
+	await test('.[0].name')
+	await test('.[0].states')
+	await test('.[0].states.filter(p=>p.name === "Badghis")')
+	await test('.name')
+	await test('.states')
+	await test('.states.filter(p=>p.name === "Badghis")')
+	await test('.states.name')
+	await test('.states.name.filter(p=> substring(p,0,1)=="A")')
+	await test('.filter(p=>p.name === "Afghanistan")')
+	await test('.[0].states.count()')
+	await test('.[0].states.count(p=> startWith(p.name,"B"))')
+	await test('.states.max(p=> p.name)')
+	await test('.states.min(p=> p.name)')
+	await test('.states.sum(p=> toNumber(p.latitude))')
+	await test('.states.avg(p=> toNumber(p.latitude))')
+	await test('.states.filter(p=> startWith(p.name,"B")).sum(p=> toNumber(p.latitude))')
 })()

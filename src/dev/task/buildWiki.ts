@@ -31,7 +31,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 	}
 
 	const content = lines.join('\n')
-	const targetFolder = 'doc/wiki'
+	const targetFolder = 'doc/build'
 	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
@@ -65,7 +65,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 	}
 
 	const content = lines.join('\n')
-	const targetFolder = 'doc/wiki'
+	const targetFolder = 'doc/build'
 	if (!await Helper.existsPath(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
@@ -88,18 +88,18 @@ export async function apply (callback: any) {
 		await writeFunctions(p, category.list)
 	}
 
-	const operCategories:any = {}
+	const operatorCategories:any = {}
 	for (const p in expressions.config.operators) {
 		const item = expressions.config.operators[p]
 		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
-		if (operCategories[category] === undefined) {
-			operCategories[category] = { list: [] }
+		if (operatorCategories[category] === undefined) {
+			operatorCategories[category] = { list: [] }
 		}
-		operCategories[category].list.push(item)
+		operatorCategories[category].list.push(item)
 	}
 
-	for (const p in operCategories) {
-		const category = operCategories[p]
+	for (const p in operatorCategories) {
+		const category = operatorCategories[p]
 		await writeOperators(p, category.list)
 	}
 	callback()

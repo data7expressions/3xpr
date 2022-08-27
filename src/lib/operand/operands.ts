@@ -62,8 +62,6 @@ export class Variable extends Operand {
 	public number?: number
 	constructor (name: string, type = 'any') {
 		super(name, [], type)
-		this.data = undefined
-		this.number = undefined
 	}
 
 	public set (value: any) {
@@ -86,7 +84,6 @@ export class Template extends Operand {
 	public data?: Data
 	constructor (name: string, type = 'any') {
 		super(name, [], type)
-		this.data = undefined
 	}
 
 	public eval (): any {
@@ -106,26 +103,10 @@ export class Template extends Operand {
 
 export class Property extends Operand {
 	public eval (): any {
-		let value = this.children[0].eval()
+		const value = this.children[0].eval()
 		if (value === undefined || value === null) return null
-		const names = this.name.split('.')
-		for (const p in names) {
-			const name = names[p]
-			if (Array.isArray(value)) {
-				const result = []
-				for (const i in value) {
-					const item = value[i]
-					if (item[name] !== undefined) {
-						result.push(item[name])
-					}
-				}
-				value = result
-			} else {
-				if (value[name] === undefined) return null
-				value = value[name]
-			}
-		}
-		return value
+		const names = Helper.getNames(this.name)
+		return Helper.getValue(names, value)
 	}
 }
 
@@ -184,6 +165,7 @@ export class Operator extends Operand {
 }
 export class FunctionRef extends Operand {
 	public metadata?: ExpressionConfig
+
 	public eval (): any {
 		if (this.metadata) {
 			const funcMetadata = this.metadata.getFunction(this.name)

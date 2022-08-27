@@ -1,5 +1,6 @@
 import { Node } from './node'
 import { ParserManager } from './parserManager'
+import { Helper } from './../manager'
 
 export class Parser {
 	private mgr: ParserManager
@@ -104,10 +105,6 @@ export class Parser {
 		let isNot = false
 		let isBitNot = false
 		let operand = null
-		// while (this.current === ' ' && !this.end) {
-		// this.index += 1
-		// }
-		// if (this.end) return null
 		let char = this.current
 		if (char === '-') {
 			isNegative = true
@@ -142,11 +139,11 @@ export class Parser {
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
-					const names = value.split('.')
-					const name = names.pop()
+					const names = Helper.getNames(value)
+					const functionName = names.pop() as string
 					const variableName = names.join('.')
 					const variable = new Node(variableName, 'var')
-					operand = this.getChildFunction(name, variable)
+					operand = this.getChildFunction(functionName, variable)
 				} else {
 					const args = this.getArgs(')')
 					operand = new Node(value, 'funcRef', args)
@@ -243,9 +240,18 @@ export class Parser {
 			this.index += 1
 			const name = this.getValue()
 			if (this.current === '(') {
-				// .xxx(p=> p.xxx)
 				this.index += 1
-				return this.solveChain(this.getChildFunction(name, operand))
+				if (name.includes('.')) {
+					// .xxx.xxx(p=> p.xxx)
+					const names = Helper.getNames(name)
+					const propertyName = names.slice(0, -1).join('.')
+					const functionName = names.slice(-1)[0]
+					const property = new Node(propertyName, 'property', [operand])
+					return this.solveChain(this.getChildFunction(functionName, property))
+				} else {
+					// .xxx(p=> p.xxx)
+					return this.solveChain(this.getChildFunction(name, operand))
+				}
 			} else {
 				// .xxx
 				return new Node(name, 'property', [operand])

@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L13)
+[manager/expressions.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L13)
 
 ## Accessors
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:33](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L33)
+[manager/expressions.ts:33](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L33)
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L29)
+[manager/expressions.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L29)
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L22)
+[manager/expressions.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L22)
 
 ## Methods
 
@@ -93,11 +93,11 @@ Evaluate and solve expression
 
 `any`
 
-Result of the evaluale expression
+Result of the evaluate expression
 
 #### Defined in
 
-[manager/expressions.ts:58](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L58)
+[manager/expressions.ts:58](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L58)
 
 ___
 
@@ -121,7 +121,7 @@ Parameters of expression
 
 #### Defined in
 
-[manager/expressions.ts:69](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L69)
+[manager/expressions.ts:69](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L69)
 
 ___
 
@@ -141,4 +141,4 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:37](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/manager/expressions.ts#L37)
+[manager/expressions.ts:37](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/manager/expressions.ts#L37)

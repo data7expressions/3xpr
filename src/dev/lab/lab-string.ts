@@ -34,6 +34,7 @@ import { show } from './util'
 		'substr(film,1,3)',
 		'substring(film,1,3)',
 		'upper(film)',
+		'startWith(film,"E")',
 		'strCount(film,"a")',
 		'stringify(coordinate)',
 		'toString(age)',

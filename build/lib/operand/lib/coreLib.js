@@ -146,6 +146,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('toString', Functions.toString);
         this.addFunction('stringify', (value) => JSON.stringify(value));
         this.addFunction('parse', (value) => JSON.parse(value));
+        this.addFunction('startWith', (value, stringSearched, position) => value.startsWith(stringSearched, position));
     }
     dateTimeFunctions() {
         this.addFunction('dateToString', (date) => {
@@ -290,12 +291,17 @@ class CoreLib extends library_1.Library {
         this.addFunction('filter', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
         this.addFunction('where', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
         this.addFunction('reverse', ArrayFunctions.reverse, model_1.OperatorType.arrow, Reverse);
-        this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
-        this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
         this.addFunction('sort', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('order', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
         this.addFunction('delete', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
+        this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
+        this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
+        this.addFunction('count', ArrayFunctions.count, model_1.OperatorType.arrow, Count);
+        this.addFunction('max', ArrayFunctions.count, model_1.OperatorType.arrow, Max);
+        this.addFunction('min', ArrayFunctions.count, model_1.OperatorType.arrow, Min);
+        this.addFunction('avg', ArrayFunctions.count, model_1.OperatorType.arrow, Avg);
+        this.addFunction('sum', ArrayFunctions.count, model_1.OperatorType.arrow, Sum);
         this.addFunction('push', (list, item) => {
             list.push(item);
             return list;
@@ -588,10 +594,15 @@ class ArrayFunctions {
     static foreach(list, method) { throw new Error('Empty'); }
     static filter(list, method) { throw new Error('Empty'); }
     static reverse(list, method) { throw new Error('Empty'); }
-    static first(list, method) { throw new Error('Empty'); }
-    static last(list, method) { throw new Error('Empty'); }
     static sort(list, method) { throw new Error('Empty'); }
     static remove(list, method) { throw new Error('Empty'); }
+    static first(list, method) { throw new Error('Empty'); }
+    static last(list, method) { throw new Error('Empty'); }
+    static count(list, method) { throw new Error('Empty'); }
+    static max(list, method) { throw new Error('Empty'); }
+    static min(list, method) { throw new Error('Empty'); }
+    static avg(list, method) { throw new Error('Empty'); }
+    static sum(list, method) { throw new Error('Empty'); }
     static insert(list, item) { throw new Error('Empty'); }
     static update(list, item, method) { throw new Error('Empty'); }
 }
@@ -651,6 +662,37 @@ class Reverse extends operands_1.ArrowFunction {
         return values.map(p => p.p);
     }
 }
+class Sort extends operands_1.ArrowFunction {
+    eval() {
+        const values = [];
+        const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            return list.sort();
+        }
+        for (let i = 0; i < list.length; i++) {
+            const p = list[i];
+            this.children[1].set(p);
+            const value = this.children[2].eval();
+            values.push({ value: value, p: p });
+        }
+        values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
+        return values.map(p => p.p);
+    }
+}
+class Remove extends operands_1.ArrowFunction {
+    eval() {
+        const rows = [];
+        const list = this.children[0].eval();
+        for (let i = 0; i < list.length; i++) {
+            const p = list[i];
+            this.children[1].set(p);
+            if (!this.children[2].eval()) {
+                rows.push(p);
+            }
+        }
+        return rows;
+    }
+}
 class First extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
@@ -685,35 +727,113 @@ class Last extends operands_1.ArrowFunction {
         return null;
     }
 }
-class Sort extends operands_1.ArrowFunction {
+class Count extends operands_1.ArrowFunction {
     eval() {
-        const values = [];
+        let count = 0;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
-            return list.sort();
+            return list.length;
         }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
-            const value = this.children[2].eval();
-            values.push({ value: value, p: p });
-        }
-        values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
-        return values.map(p => p.p);
-    }
-}
-class Remove extends operands_1.ArrowFunction {
-    eval() {
-        const rows = [];
-        const list = this.children[0].eval();
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (!this.children[2].eval()) {
-                rows.push(p);
+            if (this.children[2].eval()) {
+                count++;
             }
         }
-        return rows;
+        return count;
+    }
+}
+class Max extends operands_1.ArrowFunction {
+    eval() {
+        let max;
+        const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            for (const item of list) {
+                if (max === undefined || (item !== null && item > max)) {
+                    max = item;
+                }
+            }
+        }
+        else {
+            for (const item of list) {
+                this.children[1].set(item);
+                const value = this.children[2].eval();
+                if (max === undefined || (value !== null && value > max)) {
+                    max = value;
+                }
+            }
+        }
+        return max;
+    }
+}
+class Min extends operands_1.ArrowFunction {
+    eval() {
+        let min;
+        const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            for (const item of list) {
+                if (min === undefined || (item !== null && item < min)) {
+                    min = item;
+                }
+            }
+        }
+        else {
+            for (const item of list) {
+                this.children[1].set(item);
+                const value = this.children[2].eval();
+                if (min === undefined || (value !== null && value < min)) {
+                    min = value;
+                }
+            }
+        }
+        return min;
+    }
+}
+class Avg extends operands_1.ArrowFunction {
+    eval() {
+        let sum = 0;
+        const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            for (const item of list) {
+                if (item !== null) {
+                    sum = sum + item;
+                }
+            }
+        }
+        else {
+            for (const item of list) {
+                this.children[1].set(item);
+                const value = this.children[2].eval();
+                if (value !== null) {
+                    sum = sum + value;
+                }
+            }
+        }
+        return list.length > 0 ? sum / list.length : 0;
+    }
+}
+class Sum extends operands_1.ArrowFunction {
+    eval() {
+        let sum = 0;
+        const list = this.children[0].eval();
+        if (this.children.length === 1) {
+            for (const item of list) {
+                if (item !== null) {
+                    sum = sum + item;
+                }
+            }
+        }
+        else {
+            for (const item of list) {
+                this.children[1].set(item);
+                const value = this.children[2].eval();
+                if (value !== null) {
+                    sum = sum + value;
+                }
+            }
+        }
+        return sum;
     }
 }
 // class Insert extends ArrowFunction {

@@ -119,6 +119,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-quick.ts"
 		},
 		{
+			"name": "lab group",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-group.ts"
+		},
+		{
 			"name": "lab flows",
 			"type": "node",
 			"request": "launch",
