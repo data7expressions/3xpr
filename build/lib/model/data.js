@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Data = void 0;
+const manager_1 = require("./../manager");
 class Data {
     constructor(data, parent) {
         this.data = data;
@@ -26,27 +27,9 @@ class Data {
         return true;
     }
     get(name) {
-        const names = name.split('.');
-        let value = this.getData(names[0]);
-        for (const p in names) {
-            const name = names[p];
-            if (Array.isArray(value)) {
-                const result = [];
-                for (const i in value) {
-                    const item = value[i];
-                    if (item[name] !== undefined) {
-                        result.push(item[name]);
-                    }
-                }
-                value = result;
-            }
-            else {
-                if (value[name] === undefined)
-                    return null;
-                value = value[name];
-            }
-        }
-        return value;
+        const names = manager_1.Helper.getNames(name);
+        const value = this.getData(names[0]);
+        return manager_1.Helper.getValue(names, value);
     }
     set(name, value) {
         const names = name.split('.');

@@ -52,4 +52,41 @@ import { show } from './util'
 		'musicians[3]'
 	]
 	show(list, context)
+
+	const orders = [
+		{
+			number: '20001',
+			customer: 'John',
+			orderTime: '2022-07-30T10:15:54',
+			total: 12.19,
+			details: [
+				{ article: 'Potato', unitPrice: 1.54, qty: 5 },
+				{ article: 'Onion', unitPrice: 1.23, qty: 2 },
+				{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+			]
+		},
+		{
+			number: '20002',
+			customer: 'Paul',
+			orderTime: '2022-07-30T12:12:43',
+			total: 7.91,
+			details: [
+				{ article: 'Apple', unitPrice: 2.15, qty: 1 },
+				{ article: 'Banana', unitPrice: 1.99, qty: 2 },
+				{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+			]
+		}
+	]
+
+	const expressions = [
+		'orders.min(p=> p.total)',
+		'orders.details.min(p=> p.article )',
+		'orders.details.max(p=> p.unitPrice * p.qty )',
+		'orders.details.avg(p=> p.unitPrice * p.qty )',
+		'orders[1].details.sum(p=> p.unitPrice * p.qty )',
+		'orders.details.count(p=> p.unitPrice * p.qty < 3 )',
+		'orders.details.first(p=> p.unitPrice * p.qty < 3 ).article',
+		'orders.details.last(p=> p.unitPrice * p.qty < 3 ).article'
+	]
+	show(expressions, { orders: orders })
 })()

@@ -153,6 +153,7 @@ export class CoreLib extends Library {
 		this.addFunction('toString', Functions.toString)
 		this.addFunction('stringify', (value: any): string => JSON.stringify(value))
 		this.addFunction('parse', (value: string): any => JSON.parse(value))
+		this.addFunction('startWith', (value:string, stringSearched:string, position:number) => value.startsWith(stringSearched, position))
 	}
 
 	private dateTimeFunctions () {
@@ -299,12 +300,17 @@ export class CoreLib extends Library {
 		this.addFunction('filter', ArrayFunctions.filter, OperatorType.arrow, Filter)
 		this.addFunction('where', ArrayFunctions.filter, OperatorType.arrow, Filter)
 		this.addFunction('reverse', ArrayFunctions.reverse, OperatorType.arrow, Reverse)
-		this.addFunction('first', ArrayFunctions.first, OperatorType.arrow, First)
-		this.addFunction('last', ArrayFunctions.last, OperatorType.arrow, Last)
 		this.addFunction('sort', ArrayFunctions.sort, OperatorType.arrow, Sort)
 		this.addFunction('order', ArrayFunctions.sort, OperatorType.arrow, Sort)
 		this.addFunction('remove', ArrayFunctions.remove, OperatorType.arrow, Remove)
 		this.addFunction('delete', ArrayFunctions.remove, OperatorType.arrow, Remove)
+		this.addFunction('first', ArrayFunctions.first, OperatorType.arrow, First)
+		this.addFunction('last', ArrayFunctions.last, OperatorType.arrow, Last)
+		this.addFunction('count', ArrayFunctions.count, OperatorType.arrow, Count)
+		this.addFunction('max', ArrayFunctions.count, OperatorType.arrow, Max)
+		this.addFunction('min', ArrayFunctions.count, OperatorType.arrow, Min)
+		this.addFunction('avg', ArrayFunctions.count, OperatorType.arrow, Avg)
+		this.addFunction('sum', ArrayFunctions.count, OperatorType.arrow, Sum)
 		this.addFunction('push', (list: any[], item: any): any => {
 			list.push(item)
 			return list
@@ -644,11 +650,15 @@ class ArrayFunctions {
 	static foreach (list: any[], method: Function): void { throw new Error('Empty') }
 	static filter (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static reverse (list: any[], method: Function): any[] { throw new Error('Empty') }
-	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
-	static last (list: any[], method: Function): any | null { throw new Error('Empty') }
 	static sort (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static remove (list: any[], method: Function): number { throw new Error('Empty') }
-
+	static first (list: any[], method: Function): any | null { throw new Error('Empty') }
+	static last (list: any[], method: Function): any | null { throw new Error('Empty') }
+	static count (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static max (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static min (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static avg (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static sum (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static insert (list: any[], item: any) { throw new Error('Empty') }
 	static update (list: any[], item: any, method: Function) { throw new Error('Empty') }
 }
@@ -709,6 +719,38 @@ class Reverse extends ArrowFunction {
 		return values.map(p => p.p)
 	}
 }
+class Sort extends ArrowFunction {
+	eval (): any {
+		const values = []
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			return list.sort()
+		}
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			const value = this.children[2].eval()
+			values.push({ value: value, p: p })
+		}
+		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
+		return values.map(p => p.p)
+	}
+}
+class Remove extends ArrowFunction {
+	eval (): any {
+		const rows = []
+		const list: any[] = this.children[0].eval()
+		for (let i = 0; i < list.length; i++) {
+			const p = list[i]
+			this.children[1].set(p)
+			if (!this.children[2].eval()) {
+				rows.push(p)
+			}
+		}
+		return rows
+	}
+}
+
 class First extends ArrowFunction {
 	eval (): any {
 		const rows = []
@@ -743,35 +785,110 @@ class Last extends ArrowFunction {
 		return null
 	}
 }
-class Sort extends ArrowFunction {
+
+class Count extends ArrowFunction {
 	eval (): any {
-		const values = []
+		let count = 0
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
-			return list.sort()
+			return list.length
 		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
-			const value = this.children[2].eval()
-			values.push({ value: value, p: p })
-		}
-		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
-		return values.map(p => p.p)
-	}
-}
-class Remove extends ArrowFunction {
-	eval (): any {
-		const rows = []
-		const list: any[] = this.children[0].eval()
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (!this.children[2].eval()) {
-				rows.push(p)
+			if (this.children[2].eval()) {
+				count++
 			}
 		}
-		return rows
+		return count
+	}
+}
+class Max extends ArrowFunction {
+	eval (): any {
+		let max:any
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			for (const item of list) {
+				if (max === undefined || (item !== null && item > max)) {
+					max = item
+				}
+			}
+		} else {
+			for (const item of list) {
+				this.children[1].set(item)
+				const value = this.children[2].eval()
+				if (max === undefined || (value !== null && value > max)) {
+					max = value
+				}
+			}
+		}
+		return max
+	}
+}
+class Min extends ArrowFunction {
+	eval (): any {
+		let min:any
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			for (const item of list) {
+				if (min === undefined || (item !== null && item < min)) {
+					min = item
+				}
+			}
+		} else {
+			for (const item of list) {
+				this.children[1].set(item)
+				const value = this.children[2].eval()
+				if (min === undefined || (value !== null && value < min)) {
+					min = value
+				}
+			}
+		}
+		return min
+	}
+}
+class Avg extends ArrowFunction {
+	eval (): any {
+		let sum = 0
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			for (const item of list) {
+				if (item !== null) {
+					sum = sum + item
+				}
+			}
+		} else {
+			for (const item of list) {
+				this.children[1].set(item)
+				const value = this.children[2].eval()
+				if (value !== null) {
+					sum = sum + value
+				}
+			}
+		}
+		return list.length > 0 ? sum / list.length : 0
+	}
+}
+class Sum extends ArrowFunction {
+	eval (): any {
+		let sum = 0
+		const list: any[] = this.children[0].eval()
+		if (this.children.length === 1) {
+			for (const item of list) {
+				if (item !== null) {
+					sum = sum + item
+				}
+			}
+		} else {
+			for (const item of list) {
+				this.children[1].set(item)
+				const value = this.children[2].eval()
+				if (value !== null) {
+					sum = sum + value
+				}
+			}
+		}
+		return sum
 	}
 }
 

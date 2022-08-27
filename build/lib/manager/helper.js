@@ -8,11 +8,6 @@ const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 class Helper {
-    static replace(string, search, replace) {
-        return string.split(search).join(replace);
-        // con la siguiente opción falla cuando se hace value=Helper.replace(value,"\\'","\\''")
-        // return string.replace(new RegExp(search, 'g'), replace)
-    }
     static getType(value) {
         if (Array.isArray(value))
             return 'array';
@@ -21,23 +16,6 @@ class Helper {
             return 'string';
         }
         return typeof value;
-    }
-    static isObject(obj) {
-        return obj && typeof obj === 'object' && obj.constructor === Object;
-    }
-    static isEmpty(value) {
-        return value === null || value === undefined || value.toString().trim().length === 0;
-    }
-    static nvl(value, _default) {
-        return !this.isEmpty(value) ? value : _default;
-    }
-    static tryParse(value) {
-        try {
-            return JSON.parse(value);
-        }
-        catch (_a) {
-            return null;
-        }
     }
     static async exec(command, cwd = process.cwd()) {
         return new Promise((resolve, reject) => {
@@ -52,7 +30,76 @@ class Helper {
             });
         });
     }
-    static async existsPath(fullPath) {
+    static replace(string, search, replace) {
+        return string.split(search).join(replace);
+    }
+    static clone(obj) {
+        return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj;
+    }
+    static cloneOperand(obj) {
+        const children = [];
+        if (obj.children) {
+            for (const k in obj.children) {
+                const p = obj.children[k];
+                const child = Helper.clone(p);
+                children.push(child);
+            }
+        }
+        return new obj.constructor(obj.name, children);
+    }
+    static getNames(value) {
+        if (value === '.') {
+            // in case "".[0].name" where var is "."
+            return [value];
+        }
+        else if (value.startsWith('..')) {
+            // in case ".name.filter"
+            return ['.'].concat(value.substring(2).split('.'));
+        }
+        else if (value.startsWith('.')) {
+            // in case ".name.filter"
+            return ['.'].concat(value.substring(1).split('.'));
+        }
+        else {
+            return value.split('.');
+        }
+    }
+    static getValue(names, source) {
+        let value = source;
+        for (const name of names) {
+            if (Array.isArray(value)) {
+                let result = [];
+                for (const item of value) {
+                    if (item[name] !== undefined) {
+                        if (Array.isArray(item[name])) {
+                            result = result.concat(item[name]);
+                        }
+                        else {
+                            result.push(item[name]);
+                        }
+                    }
+                }
+                value = result;
+            }
+            else {
+                if (value[name] === undefined)
+                    return null;
+                value = value[name];
+            }
+        }
+        return value;
+    }
+    static isObject(obj) {
+        return obj && typeof obj === 'object' && obj.constructor === Object;
+    }
+    static isEmpty(value) {
+        return value === null || value === undefined || value.toString().trim().length === 0;
+    }
+    static nvl(value, _default) {
+        return !this.isEmpty(value) ? value : _default;
+    }
+    static async existsPath(sourcePath) {
+        const fullPath = Helper.resolvePath(sourcePath);
         return new Promise((resolve) => {
             fs_1.default.access(fullPath, (err) => {
                 if (err) {
@@ -64,7 +111,8 @@ class Helper {
             });
         });
     }
-    static async createIfNotExists(fullPath) {
+    static async createIfNotExists(sourcePath) {
+        const fullPath = Helper.resolvePath(sourcePath);
         if (await Helper.existsPath(fullPath)) {
             return;
         }
@@ -72,12 +120,24 @@ class Helper {
             fs_1.default.mkdir(fullPath, { recursive: true }, err => err ? reject(err) : resolve());
         });
     }
+    static resolvePath(source) {
+        const _source = source.trim();
+        if (_source.startsWith('.')) {
+            const dir = path_1.default.dirname(process.argv[1]);
+            return path_1.default.join(dir, source);
+        }
+        if (_source.startsWith('~')) {
+            return _source.replace('~', process.env.HOME);
+        }
+        return source;
+    }
     static async readFile(filePath) {
-        if (!await Helper.existsPath(filePath)) {
+        const fullPath = Helper.resolvePath(filePath);
+        if (!await Helper.existsPath(fullPath)) {
             return null;
         }
         return new Promise((resolve, reject) => {
-            fs_1.default.readFile(filePath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')));
+            fs_1.default.readFile(fullPath, (err, data) => err ? reject(err) : resolve(data.toString('utf8')));
         });
     }
     static async removeFile(fullPath) {
@@ -112,8 +172,62 @@ class Helper {
     }
     static async lstat(fullPath) {
         return new Promise((resolve, reject) => {
-            fs_1.default.lstat(fullPath, (err, stats) => err ? reject(err) : resolve(stats));
+            fs_1.default.lstat(fullPath, (err, stats) => err
+                ? reject(err)
+                : resolve(stats));
         });
+    }
+    static getEnvironmentVariable(text) {
+        const startIndex = text.indexOf('${');
+        if (startIndex < 0) {
+            return undefined;
+        }
+        const endIndex = text.indexOf('}', startIndex + 2);
+        if (endIndex < 0) {
+            throw new Error(`Environment variable not found end character "?" in ${text}`);
+        }
+        return text.substring(startIndex + 2, endIndex);
+    }
+    static solveEnvironmentVariables(source) {
+        if (typeof source !== 'object') {
+            return;
+        }
+        for (const name in source) {
+            const child = source[name];
+            if (typeof child === 'string' && child.indexOf('${') >= 0) {
+                source[name] = Helper.replaceEnvironmentVariable(child);
+            }
+            else if (typeof child === 'object') {
+                Helper.solveEnvironmentVariables(child);
+            }
+        }
+    }
+    static replaceEnvironmentVariable(text) {
+        // there can be more than one environment variable in text
+        while (text.indexOf('${') >= 0) {
+            const environmentVariable = Helper.getEnvironmentVariable(text);
+            if (!environmentVariable) {
+                continue;
+            }
+            const environmentVariableValue = process.env[environmentVariable];
+            if (environmentVariableValue === undefined || environmentVariableValue === null) {
+                text = Helper.replace(text, '${' + environmentVariable + '}', '');
+            }
+            else {
+                const objValue = Helper.tryParse(environmentVariableValue);
+                const value = objValue ? JSON.stringify(objValue) : environmentVariableValue;
+                text = Helper.replace(text, '${' + environmentVariable + '}', value);
+            }
+        }
+        return text;
+    }
+    static tryParse(value) {
+        try {
+            return JSON.parse(value);
+        }
+        catch (_a) {
+            return null;
+        }
     }
 }
 exports.Helper = Helper;

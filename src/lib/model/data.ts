@@ -1,3 +1,4 @@
+import { Helper } from './../manager'
 export class Data {
 	public data: any
 	public parent: any
@@ -27,25 +28,9 @@ export class Data {
 	}
 
 	get (name:string):any {
-		const names = name.split('.')
-		let value = this.getData(names[0])
-		for (const p in names) {
-			const name = names[p]
-			if (Array.isArray(value)) {
-				const result = []
-				for (const i in value) {
-					const item = value[i]
-					if (item[name] !== undefined) {
-						result.push(item[name])
-					}
-				}
-				value = result
-			} else {
-				if (value[name] === undefined) return null
-				value = value[name]
-			}
-		}
-		return value
+		const names = Helper.getNames(name)
+		const value = this.getData(names[0])
+		return Helper.getValue(names, value)
 	}
 
 	set (name:string, value:any):void {

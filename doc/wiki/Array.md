@@ -73,6 +73,48 @@ const context = {
 |musicians[0]																															|'Charly Garcia'																												|
 |musicians[3]																															|undefined																															|
 
+Context:
+
+```js
+const context = {
+			orders:[
+				{
+					number: '20001',
+					customer: 'John',
+					orderTime: '2022-07-30T10:15:54',
+					total: 12.19,
+					details: [
+						{ article: 'Potato', unitPrice: 1.54, qty: 5 },
+						{ article: 'Onion', unitPrice: 1.23, qty: 2 },
+						{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+					]
+				},
+				{
+					number: '20002',
+					customer: 'Paul',
+					orderTime: '2022-07-30T12:12:43',
+					total: 7.91,
+					details: [
+						{ article: 'Apple', unitPrice: 2.15, qty: 1 },
+						{ article: 'Banana', unitPrice: 1.99, qty: 2 },
+						{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+					]
+				}
+			]
+		}
+```
+
+| Example                                   								| Result 	|
+|-----------------------------------------------------------|---------|
+|orders.min(p=> p.total)																		|7.91			|
+|orders.details.min(p=> p.article )													|'Apple'	|
+|orders.details.max(p=> p.unitPrice * p.qty )								|7.7			|
+|orders.details.avg(p=> p.unitPrice * p.qty )								|3.35			|
+|orders[1].details.sum(p=> p.unitPrice * p.qty )						|7.91			|
+|orders.details.count(p=> p.unitPrice * p.qty < 3 )					|4				|
+|orders.details.first(p=> p.unitPrice * p.qty < 3 ).article	|'Onion'	|
+|orders.details.last(p=> p.unitPrice * p.qty < 3 ).article	|'Pear'		|
+
 ## Definition
 
 ### foreach

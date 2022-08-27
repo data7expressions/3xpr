@@ -175,7 +175,10 @@ class OperandManager {
             return this.reduceOperand(operand);
         }
         else if (operand instanceof operands_1.FunctionRef) {
-            const funcMetadata = this.expressionConfig.getFunction(operand.name);
+            // Example: .[0].states.filter() where function name is states.filter
+            const names = operand.name.split('.');
+            const funcName = names[names.length - 1];
+            const funcMetadata = this.expressionConfig.getFunction(funcName);
             if (funcMetadata && funcMetadata.deterministic) {
                 return this.reduceOperand(operand);
             }

@@ -842,7 +842,19 @@ functions:
     return: any 
     params:
     - name: value
-      type: string                
+      type: string
+  startWith:
+    description: Indicates whether a text string begins with the characters of a given text string.  
+    category: string
+    deterministic: true 
+    return: boolean
+    params:
+    - name: value
+      type: string
+    - name: stringSearched
+      type: string  
+    - name: position
+      type: number  
 # dateTime :---------------------------------------------------------
   curTime:
     description: Get the current time 
@@ -1200,26 +1212,6 @@ functions:
     - name: list 
       type: T[]
     - name: method 
-      type: function       
-  first:
-    description: Returns the first value of the array that meets a condition
-    type: arrow
-    category: array 
-    return: T 
-    params:
-    - name: list 
-      type: T[]
-    - name: method 
-      type: function 
-  last:
-    description: Returns the last value of the array that meets a condition
-    type: arrow
-    category: array 
-    return: T 
-    params:
-    - name: list 
-      type: T[]
-    - name: method 
       type: function
   map:
     description: Creates a new array from calling a function for every array element.
@@ -1334,7 +1326,67 @@ functions:
     return: number 
     params:
     - name: list 
-      type: T[]        
+      type: T[]
+# group: ---------------------------------------------------------
+  count:
+    description: Calculating the number of rows in a set.
+    type: arrow
+    category: array 
+    return: number 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function
+  max:
+    description: Calculating the maximum.
+    category: group
+    return: T
+    params:
+      - name: value
+        type: T
+  min:
+    description: Calculating the minimum.
+    category: group
+    return: T
+    params:
+      - name: value
+        type: T
+  sum:
+    description: Calculating the sum.
+    category: group
+    return: number
+    params:
+      - name: value
+        type: number
+  avg:
+    description: Calculates the average of the specified columns in a set of rows
+    category: group
+    return: number
+    params:
+      - name: value
+        type: number      
+
+  first:
+    description: Returns the first value of the array that meets a condition
+    type: arrow
+    category: array 
+    return: T 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
+  last:
+    description: Returns the last value of the array that meets a condition
+    type: arrow
+    category: array 
+    return: T 
+    params:
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function               
 enums:
   DayOfWeek:
     Sunday: 0

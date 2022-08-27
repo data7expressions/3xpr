@@ -16,6 +16,7 @@
 |substr substring	|Get a substring of string																																								|
 |trim							|Remove characters																																												|
 |upper						|Uppercase string																																													|
+|startWith				|Indicates whether a text string begins with the characters of a given text string.												|
 |strCount					|Count value in source																																										|
 |stringify				|Convert a JavaScript object or value to a JSON text string.																							|
 |template					|Are literal strings that enable the use of embedded expression																						|
@@ -57,6 +58,7 @@ const context = { firstName: 'Juan'
 |substr(film,1,3)																			|'st'																			|
 |substring(film,1,3)																	|'st'																			|
 |upper(film)																					|'ESTACIÓN CENTRAL'												|
+|startWith(film,"E")																	|true																			|
 |strCount(film,"a")																		|2																				|
 |stringify(coordinate)																|'{"lat":48.87,"long":2.29}'							|
 |toString(age)																				|'44'																			|
@@ -153,6 +155,16 @@ const context = { firstName: 'Juan'
 - return: string
 - params:
 	- value: string
+
+### startWith
+
+- description: Indicates whether a text string begins with the characters of a given text string
+- deterministic: true
+- return: boolean
+- params:
+	- value: string
+	- stringSearched: string
+	- position: number
 
 ### substr
 

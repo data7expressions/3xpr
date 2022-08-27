@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parser = void 0;
 const node_1 = require("./node");
+const manager_1 = require("./../manager");
 class Parser {
     constructor(mgr, buffer) {
         this.mgr = mgr;
@@ -95,10 +96,6 @@ class Parser {
         let isNot = false;
         let isBitNot = false;
         let operand = null;
-        // while (this.current === ' ' && !this.end) {
-        // this.index += 1
-        // }
-        // if (this.end) return null
         let char = this.current;
         if (char === '-') {
             isNegative = true;
@@ -140,11 +137,11 @@ class Parser {
             else if (!this.end && this.current === '(') {
                 this.index += 1;
                 if (value.includes('.')) {
-                    const names = value.split('.');
-                    const name = names.pop();
+                    const names = manager_1.Helper.getNames(value);
+                    const functionName = names.pop();
                     const variableName = names.join('.');
                     const variable = new node_1.Node(variableName, 'var');
-                    operand = this.getChildFunction(name, variable);
+                    operand = this.getChildFunction(functionName, variable);
                 }
                 else {
                     const args = this.getArgs(')');
@@ -269,9 +266,19 @@ class Parser {
             this.index += 1;
             const name = this.getValue();
             if (this.current === '(') {
-                // .xxx(p=> p.xxx)
                 this.index += 1;
-                return this.solveChain(this.getChildFunction(name, operand));
+                if (name.includes('.')) {
+                    // .xxx.xxx(p=> p.xxx)
+                    const names = manager_1.Helper.getNames(name);
+                    const propertyName = names.slice(0, -1).join('.');
+                    const functionName = names.slice(-1)[0];
+                    const property = new node_1.Node(propertyName, 'property', [operand]);
+                    return this.solveChain(this.getChildFunction(functionName, property));
+                }
+                else {
+                    // .xxx(p=> p.xxx)
+                    return this.solveChain(this.getChildFunction(name, operand));
+                }
             }
             else {
                 // .xxx
