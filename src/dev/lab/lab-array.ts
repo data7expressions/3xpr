@@ -86,7 +86,8 @@ import { show } from './util'
 		'orders[1].details.sum(p=> p.unitPrice * p.qty )',
 		'orders.details.count(p=> p.unitPrice * p.qty < 3 )',
 		'orders.details.first(p=> p.unitPrice * p.qty < 3 ).article',
-		'orders.details.last(p=> p.unitPrice * p.qty < 3 ).article'
+		'orders.details.last(p=> p.unitPrice * p.qty < 3 ).article',
+		'orders.details.first(p=> p.unitPrice * p.qty < 3 )'
 	]
 	show(expressions, { orders: orders })
 })()
