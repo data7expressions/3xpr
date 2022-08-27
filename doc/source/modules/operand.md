@@ -17,6 +17,7 @@
 - [Default](../classes/operand.Default.md)
 - [Else](../classes/operand.Else.md)
 - [ElseIf](../classes/operand.ElseIf.md)
+- [EnvironmentVariable](../classes/operand.EnvironmentVariable.md)
 - [For](../classes/operand.For.md)
 - [ForIn](../classes/operand.ForIn.md)
 - [Function](../classes/operand.Function.md)

@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/operands.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/model/operands.ts#L4)
+[model/operands.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/model/operands.ts#L4)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/model/operands.ts#L2)
+[model/operands.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/model/operands.ts#L2)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/model/operands.ts#L3)
+[model/operands.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/model/operands.ts#L3)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/model/operands.ts#L5)
+[model/operands.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/model/operands.ts#L5)

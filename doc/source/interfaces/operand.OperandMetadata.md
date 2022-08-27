@@ -10,7 +10,7 @@
 
 - [alias](operand.OperandMetadata.md#alias)
 - [children](operand.OperandMetadata.md#children)
-- [classtype](operand.OperandMetadata.md#classtype)
+- [classType](operand.OperandMetadata.md#classtype)
 - [clause](operand.OperandMetadata.md#clause)
 - [name](operand.OperandMetadata.md#name)
 - [number](operand.OperandMetadata.md#number)
@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L18)
+[operand/operandManager.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L17)
 
 ___
 
@@ -36,17 +36,17 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L13)
+[operand/operandManager.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L12)
 
 ___
 
-### classtype
+### classType
 
-• **classtype**: `string`
+• **classType**: `string`
 
 #### Defined in
 
-[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L11)
+[operand/operandManager.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L10)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L17)
+[operand/operandManager.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L16)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L12)
+[operand/operandManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L11)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:19](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L19)
+[operand/operandManager.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L18)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L16)
+[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L15)
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L15)
+[operand/operandManager.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L14)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L14)
+[operand/operandManager.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L13)

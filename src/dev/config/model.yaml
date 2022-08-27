@@ -1337,35 +1337,47 @@ functions:
     - name: list 
       type: T[]
     - name: method 
-      type: function
+      type: function 
   max:
     description: Calculating the maximum.
-    category: group
+    type: arrow
+    category: array
     return: T
     params:
-      - name: value
-        type: T
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
   min:
     description: Calculating the minimum.
-    category: group
+    type: arrow
+    category: array
     return: T
     params:
-      - name: value
-        type: T
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
   sum:
     description: Calculating the sum.
-    category: group
+    type: arrow
+    category: array
     return: number
     params:
-      - name: value
-        type: number
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function 
   avg:
     description: Calculates the average of the specified columns in a set of rows
-    category: group
+    type: arrow
+    category: array
     return: number
     params:
-      - name: value
-        type: number      
+    - name: list 
+      type: T[]
+    - name: method 
+      type: function       
 
   first:
     description: Returns the first value of the array that meets a condition

@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L23)
+[operand/operandManager.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L22)
 
 ## Methods
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:27](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L27)
+[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L26)
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L38)
+[operand/operandManager.ts:37](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L37)
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:60](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L60)
+[operand/operandManager.ts:59](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L59)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:139](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L139)
+[operand/operandManager.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L138)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:144](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L144)
+[operand/operandManager.ts:143](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L143)
 
 ___
 
@@ -154,4 +154,4 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:42](https://github.com/FlavioLionelRita/js-expressions/blob/15d1765/src/lib/operand/operandManager.ts#L42)
+[operand/operandManager.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L41)

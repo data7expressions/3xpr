@@ -1324,6 +1324,26 @@
                 }
             ]
         },
+        "startWith": {
+            "description": "Indicates whether a text string begins with the characters of a given text string.",
+            "category": "string",
+            "deterministic": true,
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                },
+                {
+                    "name": "stringSearched",
+                    "type": "string"
+                },
+                {
+                    "name": "position",
+                    "type": "number"
+                }
+            ]
+        },
         "curTime": {
             "description": "Get the current time",
             "category": "datetime",
@@ -1874,38 +1894,6 @@
                 }
             ]
         },
-        "first": {
-            "description": "Returns the first value of the array that meets a condition",
-            "type": "arrow",
-            "category": "array",
-            "return": "T",
-            "params": [
-                {
-                    "name": "list",
-                    "type": "T[]"
-                },
-                {
-                    "name": "method",
-                    "type": "function"
-                }
-            ]
-        },
-        "last": {
-            "description": "Returns the last value of the array that meets a condition",
-            "type": "arrow",
-            "category": "array",
-            "return": "T",
-            "params": [
-                {
-                    "name": "list",
-                    "type": "T[]"
-                },
-                {
-                    "name": "method",
-                    "type": "function"
-                }
-            ]
-        },
         "map": {
             "description": "Creates a new array from calling a function for every array element.",
             "type": "arrow",
@@ -2083,6 +2071,118 @@
                 {
                     "name": "list",
                     "type": "T[]"
+                }
+            ]
+        },
+        "count": {
+            "description": "Calculating the number of rows in a set.",
+            "type": "arrow",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "max": {
+            "description": "Calculating the maximum.",
+            "type": "arrow",
+            "category": "array",
+            "return": "T",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "min": {
+            "description": "Calculating the minimum.",
+            "type": "arrow",
+            "category": "array",
+            "return": "T",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "sum": {
+            "description": "Calculating the sum.",
+            "type": "arrow",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "avg": {
+            "description": "Calculates the average of the specified columns in a set of rows",
+            "type": "arrow",
+            "category": "array",
+            "return": "number",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "first": {
+            "description": "Returns the first value of the array that meets a condition",
+            "type": "arrow",
+            "category": "array",
+            "return": "T",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
+                }
+            ]
+        },
+        "last": {
+            "description": "Returns the last value of the array that meets a condition",
+            "type": "arrow",
+            "category": "array",
+            "return": "T",
+            "params": [
+                {
+                    "name": "list",
+                    "type": "T[]"
+                },
+                {
+                    "name": "method",
+                    "type": "function"
                 }
             ]
         }

@@ -1,42 +1,42 @@
-[Expressions](../README.md) / [operand](../modules/operand.md) / Else
+[Expressions](../README.md) / [operand](../modules/operand.md) / EnvironmentVariable
 
-# Class: Else
+# Class: EnvironmentVariable
 
-[operand](../modules/operand.md).Else
+[operand](../modules/operand.md).EnvironmentVariable
 
 ## Hierarchy
 
 - [`Operand`](operand.Operand.md)
 
-  ↳ **`Else`**
+  ↳ **`EnvironmentVariable`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](operand.Else.md#constructor)
+- [constructor](operand.EnvironmentVariable.md#constructor)
 
 ### Properties
 
-- [children](operand.Else.md#children)
-- [id](operand.Else.md#id)
-- [index](operand.Else.md#index)
-- [level](operand.Else.md#level)
-- [name](operand.Else.md#name)
-- [parent](operand.Else.md#parent)
-- [type](operand.Else.md#type)
+- [children](operand.EnvironmentVariable.md#children)
+- [id](operand.EnvironmentVariable.md#id)
+- [index](operand.EnvironmentVariable.md#index)
+- [level](operand.EnvironmentVariable.md#level)
+- [name](operand.EnvironmentVariable.md#name)
+- [parent](operand.EnvironmentVariable.md#parent)
+- [type](operand.EnvironmentVariable.md#type)
 
 ### Methods
 
-- [clone](operand.Else.md#clone)
-- [eval](operand.Else.md#eval)
-- [set](operand.Else.md#set)
+- [clone](operand.EnvironmentVariable.md#clone)
+- [eval](operand.EnvironmentVariable.md#eval)
+- [set](operand.EnvironmentVariable.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new Else**(`name`, `children?`, `type?`)
+• **new EnvironmentVariable**(`name`, `children?`, `type?`)
 
 #### Parameters
 
@@ -186,7 +186,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:230](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operands.ts#L230)
+[operand/operands.ts:78](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operands.ts#L78)
 
 ___
 
