@@ -123,6 +123,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('trim', (str) => str.trim());
         this.addFunction('upper', (str) => str.toUpperCase());
         this.addFunction('concat', (...strings) => ''.concat(...strings));
+        this.addFunction('concatenate', (...strings) => ''.concat(...strings));
         this.addFunction('test', (value, regexp) => {
             const _regexp = new RegExp(regexp);
             return _regexp.test(value);

@@ -33,6 +33,7 @@ describe('Strings', () => {
 			expect('Pizza').toBe(expressions.eval('capitalize(food)',context))
 			expect('D').toBe(expressions.eval('chr(68)',context))
 			expect('Lopez, Juan').toBe(expressions.eval('concat(lastName,", ",firstName)',context))
+			expect('Lopez, Juan').toBe(expressions.eval('concatenate(lastName,", ",firstName)',context))
 			expect('Estación Central').toBe(expressions.eval('initcap(film)',context))
 			expect('estación central').toBe(expressions.eval('lower(film)',context))
 			expect('______Juan').toBe(expressions.eval('lpad(firstName,10,"_")',context))

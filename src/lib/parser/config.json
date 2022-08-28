@@ -1232,6 +1232,19 @@
         }
       ]
     },
+    "concatenate": {
+      "description": "String concatenation",
+      "category": "string",
+      "deterministic": true,
+      "multipleParams": true,
+      "return": "string",
+      "params": [
+        {
+          "name": "values",
+          "type": "string"
+        }
+      ]
+    },
     "capitalize": {
       "description": "Make the first character have upper case and the rest lower case",
       "category": "string",

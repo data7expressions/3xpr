@@ -21,6 +21,7 @@ import { show } from './util'
 		'capitalize(food)',
 		'chr(68)',
 		'concat(lastName,", ",firstName)',
+		'concatenate(lastName,", ",firstName)',
 		'initcap(film)',
 		'lower(film)',
 		'lpad(firstName,10,"_")',
