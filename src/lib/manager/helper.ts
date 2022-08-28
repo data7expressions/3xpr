@@ -117,8 +117,7 @@ export class Helper {
 	public static resolvePath (source:string):string {
 		const _source = source.trim()
 		if (_source.startsWith('.')) {
-			const dir = path.dirname(process.argv[1])
-			return path.join(dir, source)
+			return path.join(process.cwd(), source)
 		}
 		if (_source.startsWith('~')) {
 			return _source.replace('~', process.env.HOME as string)

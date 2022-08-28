@@ -123,8 +123,7 @@ class Helper {
     static resolvePath(source) {
         const _source = source.trim();
         if (_source.startsWith('.')) {
-            const dir = path_1.default.dirname(process.argv[1]);
-            return path_1.default.join(dir, source);
+            return path_1.default.join(process.cwd(), source);
         }
         if (_source.startsWith('~')) {
             return _source.replace('~', process.env.HOME);
