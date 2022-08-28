@@ -133,6 +133,7 @@ export class CoreLib extends Library {
 		this.addFunction('trim', (str: string) => str.trim())
 		this.addFunction('upper', (str: string) => str.toUpperCase())
 		this.addFunction('concat', (...strings: string[]) => ''.concat(...strings))
+		this.addFunction('concatenate', (...strings: string[]) => ''.concat(...strings))
 		this.addFunction('test', (value: any, regexp: string) => {
 			const _regexp = new RegExp(regexp)
 			return _regexp.test(value)

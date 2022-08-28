@@ -1,29 +1,29 @@
-|Function   			|Description                                   																														|
-|-----------------|---------------------------------------------------------------------------------------------------------|
-|capitalize				|Make the first character have upper case and the rest lower case																					|
-|chr							|Get character from ASCII code																																						|
-|concat						|String concatenation																																											|
-|initcap					|Capitalize words																																													|
-|lower						|Lowercase string																																													|
-|lpad							|Pad the left-side of string																																							|
-|ltrim						|Remove leading chars																																											|
-|replace					|Searches a string for a specified value and returns a new string where the specified values are replaced	|
-|match						|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
-|mask							|General-purpose function that mask parts of arbitrary strings based on position within the string				|
-|parse						|Parses a text string as JSON, optionally transforming the value produced by the parse.										|
-|rpad							|Pad the right-side of string																																							|
-|rtrim						|Remove trailing spaces																																										|
-|substr substring	|Get a substring of string																																								|
-|trim							|Remove characters																																												|
-|upper						|Uppercase string																																													|
-|startWith				|Indicates whether a text string begins with the characters of a given text string.												|
-|strCount					|Count value in source																																										|
-|stringify				|Convert a JavaScript object or value to a JSON text string.																							|
-|template					|Are literal strings that enable the use of embedded expression																						|
-|test							|Try a match on a string. Returns true or false																														|
-|isEmpty					|Evaluate if it is empty																																									|
-|toString					|Convert to string																																												|
-|$ ${}					  |Get environment variable																																									|
+|Function   				|Description                                   																														|
+|-------------------|---------------------------------------------------------------------------------------------------------|
+|capitalize					|Make the first character have upper case and the rest lower case																					|
+|chr								|Get character from ASCII code																																						|
+|concat concatenate	|String concatenation																																											|
+|initcap						|Capitalize words																																													|
+|lower							|Lowercase string																																													|
+|lpad								|Pad the left-side of string																																							|
+|ltrim							|Remove leading chars																																											|
+|replace						|Searches a string for a specified value and returns a new string where the specified values are replaced	|
+|match							|Returns an array containing all matches, including capturing groups, or null if no matches are found			|
+|mask								|General-purpose function that mask parts of arbitrary strings based on position within the string				|
+|parse							|Parses a text string as JSON, optionally transforming the value produced by the parse.										|
+|rpad								|Pad the right-side of string																																							|
+|rtrim							|Remove trailing spaces																																										|
+|substr substring		|Get a substring of string																																								|
+|trim								|Remove characters																																												|
+|upper							|Uppercase string																																													|
+|startWith					|Indicates whether a text string begins with the characters of a given text string.												|
+|strCount						|Count value in source																																										|
+|stringify					|Convert a JavaScript object or value to a JSON text string.																							|
+|template						|Are literal strings that enable the use of embedded expression																						|
+|test								|Try a match on a string. Returns true or false																														|
+|isEmpty						|Evaluate if it is empty																																									|
+|toString						|Convert to string																																												|
+|$ ${}					  	|Get environment variable																																									|
 
 ## Examples
 
@@ -46,6 +46,7 @@ const context = { firstName: 'Juan'
 |capitalize(food)																			|'Pizza'																	|
 |chr(68)																							|'D'																			|
 |concat(lastName,", ",firstName)											|'Lopez, Juan'														|
+|concatenate(lastName,", ",firstName)									|'Lopez, Juan'														|
 |initcap(film)																				|'Estación Central'												|
 |lower(film)																					|'estación central'												|
 |lpad(firstName,10,"_")																|'______Juan'															|
@@ -203,6 +204,14 @@ const context = { firstName: 'Juan'
 	- value: string
 
 ### concat
+
+- description: String concatenation
+- deterministic: true
+- return: string
+- params:
+	- values: string
+
+### concatenate
 
 - description: String concatenation
 - deterministic: true

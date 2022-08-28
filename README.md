@@ -86,7 +86,7 @@ while (p=timezones.pop()) {
 //         {"name":"Madrid","offset":1,"pos":{"lat":40.4,"log":-3.7}}
 ```
 
-## More examples:
+## Documentation
 
 - [Array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
 - [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
