@@ -17,10 +17,14 @@ export function show (list:string[], context:any) {
 				} else {
 					if (typeof result[0] === 'string') {
 						expect = '[' + result.map(p => `'${p}'`).join(',') + ']'
+					} else if (typeof result[0] === 'object') {
+						expect = JSON.stringify(result)
 					} else {
 						expect = '[' + result.join(',') + ']'
 					}
 				}
+			} else if (typeof result === 'object') {
+				expect = JSON.stringify(result)
 			} else if (result === null) {
 				expect = 'null'
 			} else if (result === undefined) {
