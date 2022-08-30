@@ -3,6 +3,7 @@
 |foreach each	|Calls a function for each element in an array.																		|
 |filter where	|Creates a new array filled with elements that pass a test provided by a function	|
 |map select		|Creates a new array from calling a function for every array element.							|
+|distinct			|Is used to retrieve unique values from a list.																		|
 |sort order		|Sorts the elements of an array.																									|
 |reverse			|Reverses the order of the elements in an array.																	|
 |remove delete|Eliminate the elements of the array that meet the filter condition								|
@@ -226,6 +227,15 @@ Result:
 ### select
 
 - description: Creates a new array from calling a function for every array element.
+- deterministic: true
+- return: any[]
+- params:
+	- list: any[]
+	- method: function
+
+### distinct
+
+- description: Is used to retrieve unique values from a list.
 - deterministic: true
 - return: any[]
 - params:
