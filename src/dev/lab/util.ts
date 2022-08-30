@@ -1,4 +1,4 @@
-import { expressions as exp } from '../../lib'
+import { expressions as exp, Helper } from '../../lib'
 
 export function show (list:string[], context:any) {
 	const tests = []
@@ -45,4 +45,21 @@ export function show (list:string[], context:any) {
 	}
 	console.log(examples.join('\n'))
 	console.log(tests.join('\n'))
+}
+
+export const test = async (expression:string, file:string) => {
+	try {
+		const content = await Helper.readFile(file)
+		if (!content) {
+			throw Error(`can not read file ${file}`)
+		}
+		const data = Helper.tryParse(content)
+		if (data === null || data === undefined) {
+			throw Error(`can not parse content of ${file}`)
+		}
+		const result = exp.eval(expression, { '.': data })
+		console.log(JSON.stringify(result, null, 2))
+	} catch (error:any) {
+		console.error(error.stack)
+	}
 }

@@ -1,6 +1,6 @@
 import { Parameter } from '../model';
 import { ParserManager, ExpressionConfig } from '../parser';
-import { Operand } from '../operand';
+import { OperandManager, Operand } from '../operand';
 export declare class Expressions {
     private cache;
     private parserManager;
@@ -11,6 +11,7 @@ export declare class Expressions {
     static get instance(): Expressions;
     get parser(): ParserManager;
     get config(): ExpressionConfig;
+    get operand(): OperandManager;
     parse(expression: string): Operand;
     /**
      * Evaluate and solve expression

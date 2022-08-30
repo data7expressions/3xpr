@@ -8,7 +8,7 @@ class Operand {
         this.children = children;
         this.type = type;
         this.id = undefined;
-        this.parent = undefined;
+        // this.parent = undefined
         this.index = 0;
         this.level = 0;
     }

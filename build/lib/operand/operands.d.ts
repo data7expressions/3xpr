@@ -4,7 +4,6 @@ export declare abstract class Operand {
     name: string;
     type: string;
     id?: string;
-    parent?: Operand;
     index?: number;
     level?: number;
     children: Operand[];
@@ -13,11 +12,14 @@ export declare abstract class Operand {
     set(value: any): void;
     abstract eval(): any;
 }
+export interface IOperandData {
+    data?: Data;
+}
 export declare class Constant extends Operand {
     constructor(name: string);
     eval(): any;
 }
-export declare class Variable extends Operand {
+export declare class Variable extends Operand implements IOperandData {
     data?: Data;
     number?: number;
     constructor(name: string, type?: string);
@@ -27,7 +29,7 @@ export declare class Variable extends Operand {
 export declare class EnvironmentVariable extends Operand {
     eval(): any;
 }
-export declare class Template extends Operand {
+export declare class Template extends Operand implements IOperandData {
     data?: Data;
     constructor(name: string, type?: string);
     eval(): any;
@@ -55,10 +57,10 @@ export declare class FunctionRef extends Operand {
     metadata?: ExpressionConfig;
     eval(): any;
 }
-export declare class ChildFunction extends FunctionRef {
+export declare class ChildFunction extends FunctionRef implements IOperandData {
     data?: Data;
 }
-export declare class ArrowFunction extends FunctionRef {
+export declare class ArrowFunction extends FunctionRef implements IOperandData {
     data?: Data;
 }
 export declare class Block extends Operand {

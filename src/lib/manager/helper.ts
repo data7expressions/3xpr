@@ -31,18 +31,6 @@ export class Helper {
 		return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj
 	}
 
-	public static cloneOperand (obj:any):any {
-		const children:any[] = []
-		if (obj.children) {
-			for (const k in obj.children) {
-				const p = obj.children[k]
-				const child = Helper.clone(p)
-				children.push(child)
-			}
-		}
-		return new obj.constructor(obj.name, children)
-	}
-
 	public static getNames (value:string):string[] {
 		if (value === '.') {
 			// in case "".[0].name" where var is "."

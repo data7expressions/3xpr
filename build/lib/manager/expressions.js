@@ -26,6 +26,9 @@ class Expressions {
     get config() {
         return this.expressionConfig;
     }
+    get operand() {
+        return this.operandManager;
+    }
     parse(expression) {
         const minifyExpression = this.parser.minify(expression);
         const key = `${minifyExpression}_operand`;

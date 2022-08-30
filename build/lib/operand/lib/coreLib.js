@@ -6,6 +6,7 @@ exports.CoreLib = void 0;
 const library_1 = require("../library");
 const model_1 = require("./../../model");
 const operands_1 = require("../operands");
+const index_1 = require("../../index");
 const manager_1 = require("../../manager");
 class CoreLib extends library_1.Library {
     constructor() {
@@ -287,6 +288,7 @@ class CoreLib extends library_1.Library {
     initArrowFunctions() {
         this.addFunction('map', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
         this.addFunction('select', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
+        this.addFunction('distinct', ArrayFunctions.distinct, model_1.OperatorType.arrow, Distinct);
         this.addFunction('foreach', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
         this.addFunction('each', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
         this.addFunction('filter', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
@@ -319,6 +321,173 @@ class CoreLib extends library_1.Library {
     }
 }
 exports.CoreLib = CoreLib;
+class CoreHelper {
+    static getKeys(variable, fields, list) {
+        const keys = [];
+        // loop through the list and group by the grouper fields
+        for (const item of list) {
+            let key = '';
+            const values = [];
+            for (const keyValue of fields) {
+                variable.set(item);
+                const value = keyValue.children[0].eval();
+                if (typeof value === 'object') {
+                    throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`);
+                }
+                key = key === '' ? value : `${key}-${value}`;
+                values.push({ name: keyValue.name, value: value });
+            }
+            // find if the key already exists in the list of keys
+            const keyItem = keys.find((p) => p.key === key);
+            if (keyItem) {
+                // if the key exists add the item
+                keyItem.items.push(item);
+            }
+            else {
+                // if the key does not exist add the key, the values and the item
+                keys.push({ key: key, values: values, items: [item], summarizers: [] });
+            }
+        }
+        return keys;
+    }
+    static haveAggregates(operand) {
+        if (!(operand instanceof operands_1.ArrowFunction) && operand instanceof operands_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            return true;
+        }
+        else if (operand.children && operand.children.length > 0) {
+            for (const child of operand.children) {
+                if (this.haveAggregates(child)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    static findAggregates(operand) {
+        if (!(operand instanceof operands_1.ArrowFunction) && operand instanceof operands_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            return [operand];
+        }
+        else if (operand.children && operand.children.length > 0) {
+            let aggregates = [];
+            for (const child of operand.children) {
+                const childAggregates = this.findAggregates(child);
+                if (childAggregates.length > 0) {
+                    aggregates = aggregates.concat(childAggregates);
+                }
+            }
+            return aggregates;
+        }
+        return [];
+    }
+    static solveAggregates(list, variable, operand) {
+        if (!(operand instanceof operands_1.ArrowFunction) && operand instanceof operands_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            let value;
+            switch (operand.name) {
+                case 'avg':
+                    value = this.avg(list, variable, operand.children[0]);
+                    break;
+                case 'count':
+                    value = this.count(list, variable, operand.children[0]);
+                    break;
+                case 'first':
+                    value = this.first(list, variable, operand.children[0]);
+                    break;
+                case 'last':
+                    value = this.last(list, variable, operand.children[0]);
+                    break;
+                case 'max':
+                    value = this.max(list, variable, operand.children[0]);
+                    break;
+                case 'min':
+                    value = this.min(list, variable, operand.children[0]);
+                    break;
+                case 'sum':
+                    value = this.sum(list, variable, operand.children[0]);
+                    break;
+            }
+            return new operands_1.Constant(value);
+        }
+        else if (operand.children && operand.children.length > 0) {
+            for (let i = 0; i < operand.children.length; i++) {
+                operand.children[i] = this.solveAggregates(list, variable, operand.children[i]);
+            }
+        }
+        return operand;
+    }
+    static count(list, variable, aggregate) {
+        let count = 0;
+        for (const item of list) {
+            variable.set(item);
+            if (aggregate.eval()) {
+                count++;
+            }
+        }
+        return count;
+    }
+    static first(list, variable, aggregate) {
+        for (const item of list) {
+            variable.set(item);
+            if (aggregate.eval()) {
+                return item;
+            }
+        }
+        return null;
+    }
+    static last(list, variable, aggregate) {
+        for (let i = list.length - 1; i >= 0; i--) {
+            const item = list[i];
+            variable.set(item);
+            if (aggregate.eval()) {
+                return item;
+            }
+        }
+        return null;
+    }
+    static max(list, variable, aggregate) {
+        let max;
+        for (const item of list) {
+            variable.set(item);
+            const value = aggregate.eval();
+            if (max === undefined || (value !== null && value > max)) {
+                max = value;
+            }
+        }
+        return max;
+    }
+    static min(list, variable, aggregate) {
+        let min;
+        for (const item of list) {
+            variable.set(item);
+            const value = aggregate.eval();
+            if (min === undefined || (value !== null && value < min)) {
+                min = value;
+            }
+        }
+        return min;
+    }
+    static avg(list, variable, aggregate) {
+        let sum = 0;
+        for (const item of list) {
+            variable.set(item);
+            const value = aggregate.eval();
+            if (value !== null) {
+                sum = sum + value;
+            }
+        }
+        return list.length > 0 ? sum / list.length : 0;
+    }
+    static sum(list, variable, aggregate) {
+        let sum = 0;
+        for (const item of list) {
+            variable.set(item);
+            const value = aggregate.eval();
+            if (value !== null) {
+                sum = sum + value;
+            }
+        }
+        return sum;
+    }
+}
 class Operators {
     static addition(a, b) {
         return a + b;
@@ -592,6 +761,7 @@ class Functions {
 }
 class ArrayFunctions {
     static map(list, method) { throw new Error('Empty'); }
+    static distinct(list, method) { throw new Error('Empty'); }
     static foreach(list, method) { throw new Error('Empty'); }
     static filter(list, method) { throw new Error('Empty'); }
     static reverse(list, method) { throw new Error('Empty'); }
@@ -611,11 +781,87 @@ class Map extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
+        if (this.children[2] instanceof operands_1.Obj) {
+            const groupers = [];
+            const aggregates = [];
+            for (const child of this.children[2].children) {
+                // In the case of being an object the value to return, find out if there are fields that are summarized
+                const keyValue = child;
+                if (keyValue) {
+                    if (CoreHelper.haveAggregates(keyValue.children[0])) {
+                        aggregates.push(keyValue);
+                    }
+                    else {
+                        groupers.push(keyValue);
+                    }
+                }
+            }
+            if (aggregates.length > 0) {
+                // case with aggregate functions
+                const keys = CoreHelper.getKeys(this.children[1], groupers, list);
+                // once you got all the keys you have to calculate the aggregates fields
+                const variable = this.children[1];
+                const mainData = index_1.expressions.operand.getMainData(variable);
+                for (const key of keys) {
+                    for (const keyValue of aggregates) {
+                        const operandCloned = index_1.expressions.operand.clone(keyValue.children[0]);
+                        index_1.expressions.operand.initialize(operandCloned, mainData);
+                        const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned);
+                        const value = operandResolved.eval();
+                        // const value = operandResolved.eval()
+                        key.summarizers.push({ name: keyValue.name, value: value });
+                    }
+                }
+                // build the list of results
+                for (const key of keys) {
+                    const row = {};
+                    for (const value of key.values) {
+                        row[value.name] = value.value;
+                    }
+                    for (const summarizer of key.summarizers) {
+                        row[summarizer.name] = summarizer.value;
+                    }
+                    rows.push(row);
+                }
+                return rows;
+            }
+        }
+        // simple case without aggregate functions
+        for (const item of list) {
+            this.children[1].set(item);
             const row = this.children[2].eval();
             rows.push(row);
+        }
+        return rows;
+    }
+}
+class Distinct extends operands_1.ArrowFunction {
+    eval() {
+        const rows = [];
+        const list = this.children[0].eval();
+        if (this.children[2] instanceof operands_1.Obj) {
+            // case with aggregate functions
+            const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list);
+            // build the list of results
+            for (const key of keys) {
+                const row = {};
+                for (const value of key.values) {
+                    row[value.name] = value.value;
+                }
+                rows.push(row);
+            }
+            return rows;
+        }
+        else if (this.children[2] instanceof operands_1.List) {
+            throw new Error('Distinct not support Array result');
+        }
+        // simple case without aggregate functions
+        for (const item of list) {
+            this.children[1].set(item);
+            const value = this.children[2].eval();
+            if (rows.find((p) => p === value) === undefined) {
+                rows.push(value);
+            }
         }
         return rows;
     }
@@ -696,145 +942,89 @@ class Remove extends operands_1.ArrowFunction {
 }
 class First extends operands_1.ArrowFunction {
     eval() {
-        const rows = [];
         const list = this.children[0].eval();
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[0] : null;
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (this.children[2].eval()) {
-                return p;
-            }
-        }
-        return null;
+        return CoreHelper.first(list, this.children[1], this.children[2]);
     }
 }
 class Last extends operands_1.ArrowFunction {
     eval() {
-        const rows = [];
         const list = this.children[0].eval();
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[list.length - 1] : null;
         }
-        for (let i = list.length - 1; i >= 0; i--) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (this.children[2].eval()) {
-                return p;
-            }
-        }
-        return null;
+        return CoreHelper.last(list, this.children[1], this.children[2]);
     }
 }
 class Count extends operands_1.ArrowFunction {
     eval() {
-        let count = 0;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
             return list.length;
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (this.children[2].eval()) {
-                count++;
-            }
-        }
-        return count;
+        return CoreHelper.count(list, this.children[1], this.children[2]);
     }
 }
 class Max extends operands_1.ArrowFunction {
     eval() {
-        let max;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
+            let max;
             for (const item of list) {
                 if (max === undefined || (item !== null && item > max)) {
                     max = item;
                 }
             }
+            return max;
         }
-        else {
-            for (const item of list) {
-                this.children[1].set(item);
-                const value = this.children[2].eval();
-                if (max === undefined || (value !== null && value > max)) {
-                    max = value;
-                }
-            }
-        }
-        return max;
+        return CoreHelper.max(list, this.children[1], this.children[2]);
     }
 }
 class Min extends operands_1.ArrowFunction {
     eval() {
-        let min;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
+            let min;
             for (const item of list) {
                 if (min === undefined || (item !== null && item < min)) {
                     min = item;
                 }
             }
+            return min;
         }
-        else {
-            for (const item of list) {
-                this.children[1].set(item);
-                const value = this.children[2].eval();
-                if (min === undefined || (value !== null && value < min)) {
-                    min = value;
-                }
-            }
-        }
-        return min;
+        return CoreHelper.min(list, this.children[1], this.children[2]);
     }
 }
 class Avg extends operands_1.ArrowFunction {
     eval() {
-        let sum = 0;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
+            let sum = 0;
             for (const item of list) {
                 if (item !== null) {
                     sum = sum + item;
                 }
             }
+            return list.length > 0 ? sum / list.length : 0;
         }
-        else {
-            for (const item of list) {
-                this.children[1].set(item);
-                const value = this.children[2].eval();
-                if (value !== null) {
-                    sum = sum + value;
-                }
-            }
-        }
-        return list.length > 0 ? sum / list.length : 0;
+        return CoreHelper.avg(list, this.children[1], this.children[2]);
     }
 }
 class Sum extends operands_1.ArrowFunction {
     eval() {
-        let sum = 0;
         const list = this.children[0].eval();
         if (this.children.length === 1) {
+            let sum = 0;
             for (const item of list) {
                 if (item !== null) {
                     sum = sum + item;
                 }
             }
+            return sum;
         }
-        else {
-            for (const item of list) {
-                this.children[1].set(item);
-                const value = this.children[2].eval();
-                if (value !== null) {
-                    sum = sum + value;
-                }
-            }
-        }
-        return sum;
+        return CoreHelper.sum(list, this.children[1], this.children[2]);
     }
 }
 // class Insert extends ArrowFunction {

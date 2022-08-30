@@ -7,7 +7,7 @@ export abstract class Operand {
 	public name: string
 	public type: string
 	public id?: string
-	public parent?: Operand
+	// public parent?: Operand
 	public index?: number
 	public level?: number
 	public children: Operand[]
@@ -16,7 +16,7 @@ export abstract class Operand {
 		this.children = children
 		this.type = type
 		this.id = undefined
-		this.parent = undefined
+		// this.parent = undefined
 		this.index = 0
 		this.level = 0
 	}
@@ -39,6 +39,11 @@ export abstract class Operand {
 	public set (value: any) { throw new Error('NotImplemented') }
 	public abstract eval(): any
 }
+
+export interface IOperandData{
+	data?: Data
+}
+
 export class Constant extends Operand {
 	constructor (name: string) {
 		super(name, [], Helper.getType(name))
@@ -57,7 +62,7 @@ export class Constant extends Operand {
 		}
 	}
 }
-export class Variable extends Operand {
+export class Variable extends Operand implements IOperandData {
 	public data?: Data
 	public number?: number
 	constructor (name: string, type = 'any') {
@@ -80,7 +85,7 @@ export class EnvironmentVariable extends Operand {
 	}
 }
 
-export class Template extends Operand {
+export class Template extends Operand implements IOperandData {
 	public data?: Data
 	constructor (name: string, type = 'any') {
 		super(name, [], type)
@@ -184,10 +189,10 @@ export class FunctionRef extends Operand {
 		}
 	}
 }
-export class ChildFunction extends FunctionRef {
+export class ChildFunction extends FunctionRef implements IOperandData {
 	public data?: Data
 }
-export class ArrowFunction extends FunctionRef {
+export class ArrowFunction extends FunctionRef implements IOperandData {
 	public data?: Data
 }
 export class Block extends Operand {

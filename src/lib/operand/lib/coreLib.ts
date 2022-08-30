@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Library } from '../library'
 import { OperatorType } from './../../model'
-import { Operator, ArrowFunction } from '../operands'
+import { Operator, Operand, ArrowFunction, Obj, KeyValue, Constant, Variable, List, FunctionRef } from '../operands'
+import { expressions as exp } from '../../index'
 import { Helper } from '../../manager'
 
 export class CoreLib extends Library {
@@ -296,6 +297,7 @@ export class CoreLib extends Library {
 	private initArrowFunctions () {
 		this.addFunction('map', ArrayFunctions.map, OperatorType.arrow, Map)
 		this.addFunction('select', ArrayFunctions.map, OperatorType.arrow, Map)
+		this.addFunction('distinct', ArrayFunctions.distinct, OperatorType.arrow, Distinct)
 		this.addFunction('foreach', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
 		this.addFunction('each', ArrayFunctions.foreach, OperatorType.arrow, Foreach)
 		this.addFunction('filter', ArrayFunctions.filter, OperatorType.arrow, Filter)
@@ -327,7 +329,179 @@ export class CoreLib extends Library {
 		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 }
+class CoreHelper {
+	public static getKeys (variable:Variable, fields: KeyValue[], list: any[]): any[] {
+		const keys:any[] = []
+		// loop through the list and group by the grouper fields
+		for (const item of list) {
+			let key = ''
+			const values = []
+			for (const keyValue of fields) {
+				variable.set(item)
+				const value = keyValue.children[0].eval()
+				if (typeof value === 'object') {
+					throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`)
+				}
+				key = key === '' ? value : `${key}-${value}`
+				values.push({ name: keyValue.name, value: value })
+			}
+			// find if the key already exists in the list of keys
+			const keyItem = keys.find((p:any) => p.key === key)
+			if (keyItem) {
+				// if the key exists add the item
+				keyItem.items.push(item)
+			} else {
+				// if the key does not exist add the key, the values and the item
+				keys.push({ key: key, values: values, items: [item], summarizers: [] })
+			}
+		}
+		return keys
+	}
 
+	public static haveAggregates (operand: Operand): boolean {
+		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+			return true
+		} else if (operand.children && operand.children.length > 0) {
+			for (const child of operand.children) {
+				if (this.haveAggregates(child)) {
+					return true
+				}
+			}
+		}
+		return false
+	}
+
+	public static findAggregates (operand: Operand): FunctionRef[] {
+		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+			return [operand]
+		} else if (operand.children && operand.children.length > 0) {
+			let aggregates:FunctionRef[] = []
+			for (const child of operand.children) {
+				const childAggregates = this.findAggregates(child)
+				if (childAggregates.length > 0) {
+					aggregates = aggregates.concat(childAggregates)
+				}
+			}
+			return aggregates
+		}
+		return []
+	}
+
+	public static solveAggregates (list: any[], variable: Variable, operand: Operand): Operand {
+		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+			let value:any
+			switch (operand.name) {
+			case 'avg':
+				value = this.avg(list, variable, operand.children[0])
+				break
+			case 'count':
+				value = this.count(list, variable, operand.children[0])
+				break
+			case 'first':
+				value = this.first(list, variable, operand.children[0])
+				break
+			case 'last':
+				value = this.last(list, variable, operand.children[0])
+				break
+			case 'max':
+				value = this.max(list, variable, operand.children[0])
+				break
+			case 'min':
+				value = this.min(list, variable, operand.children[0])
+				break
+			case 'sum':
+				value = this.sum(list, variable, operand.children[0])
+				break
+			}
+			return new Constant(value)
+		} else if (operand.children && operand.children.length > 0) {
+			for (let i = 0; i < operand.children.length; i++) {
+				operand.children[i] = this.solveAggregates(list, variable, operand.children[i])
+			}
+		}
+		return operand
+	}
+
+	public static count (list: any[], variable: Variable, aggregate: Operand): number {
+		let count = 0
+		for (const item of list) {
+			variable.set(item)
+			if (aggregate.eval()) {
+				count++
+			}
+		}
+		return count
+	}
+
+	public static first (list: any[], variable: Variable, aggregate: Operand): any {
+		for (const item of list) {
+			variable.set(item)
+			if (aggregate.eval()) {
+				return item
+			}
+		}
+		return null
+	}
+
+	public static last (list: any[], variable: Variable, aggregate: Operand): any {
+		for (let i = list.length - 1; i >= 0; i--) {
+			const item = list[i]
+			variable.set(item)
+			if (aggregate.eval()) {
+				return item
+			}
+		}
+		return null
+	}
+
+	public static max (list: any[], variable: Variable, aggregate: Operand): any {
+		let max:any
+		for (const item of list) {
+			variable.set(item)
+			const value = aggregate.eval()
+			if (max === undefined || (value !== null && value > max)) {
+				max = value
+			}
+		}
+		return max
+	}
+
+	public static min (list: any[], variable: Variable, aggregate: Operand): any {
+		let min:any
+		for (const item of list) {
+			variable.set(item)
+			const value = aggregate.eval()
+			if (min === undefined || (value !== null && value < min)) {
+				min = value
+			}
+		}
+		return min
+	}
+
+	public static avg (list: any[], variable: Variable, aggregate: Operand): number {
+		let sum = 0
+		for (const item of list) {
+			variable.set(item)
+			const value = aggregate.eval()
+			if (value !== null) {
+				sum = sum + value
+			}
+		}
+		return list.length > 0 ? sum / list.length : 0
+	}
+
+	public static sum (list: any[], variable: Variable, aggregate: Operand): number {
+		let sum = 0
+		for (const item of list) {
+			variable.set(item)
+			const value = aggregate.eval()
+			if (value !== null) {
+				sum = sum + value
+			}
+		}
+		return sum
+	}
+}
 class Operators {
 	static addition (a: number, b: number): number {
 		return a + b
@@ -489,7 +663,6 @@ class Or extends Operator {
 		return this.children[1].eval()
 	}
 }
-
 class Assignment extends Operator {
 	eval (): any {
 		const value = this.children[1].eval()
@@ -581,7 +754,6 @@ class AssignmentRightShift extends Operator {
 		return value
 	}
 }
-
 class StringFunction {
 	public static capitalize = function (str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1)
@@ -597,7 +769,6 @@ class StringFunction {
 		return arr.join(' ')
 	}
 }
-
 class Functions {
 	static nvl (value: any, _default: any): any {
 		return Functions.isNotNull(value) ? value : _default
@@ -648,6 +819,7 @@ class Functions {
 
 class ArrayFunctions {
 	static map (list: any[], method: Function): any[] { throw new Error('Empty') }
+	static distinct (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static foreach (list: any[], method: Function): void { throw new Error('Empty') }
 	static filter (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static reverse (list: any[], method: Function): any[] { throw new Error('Empty') }
@@ -668,15 +840,91 @@ class Map extends ArrowFunction {
 	eval (): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
+		if (this.children[2] instanceof Obj) {
+			const groupers:KeyValue[] = []
+			const aggregates:KeyValue[] = []
+			for (const child of this.children[2].children) {
+				// In the case of being an object the value to return, find out if there are fields that are summarized
+				const keyValue = child as KeyValue
+				if (keyValue) {
+					if (CoreHelper.haveAggregates(keyValue.children[0])) {
+						aggregates.push(keyValue)
+					} else {
+						groupers.push(keyValue)
+					}
+				}
+			}
+			if (aggregates.length > 0) {
+				// case with aggregate functions
+				const keys = CoreHelper.getKeys(this.children[1], groupers, list)
+				// once you got all the keys you have to calculate the aggregates fields
+				const variable = this.children[1] as Variable
+				const mainData = exp.operand.getMainData(variable)
+				for (const key of keys) {
+					for (const keyValue of aggregates) {
+						const operandCloned = exp.operand.clone(keyValue.children[0])
+						exp.operand.initialize(operandCloned, mainData)
+						const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned)
+						const value = operandResolved.eval()
+						// const value = operandResolved.eval()
+						key.summarizers.push({ name: keyValue.name, value: value })
+					}
+				}
+				// build the list of results
+				for (const key of keys) {
+					const row:any = {}
+					for (const value of key.values) {
+						row[value.name] = value.value
+					}
+					for (const summarizer of key.summarizers) {
+						row[summarizer.name] = summarizer.value
+					}
+					rows.push(row)
+				}
+				return rows
+			}
+		}
+		// simple case without aggregate functions
+		for (const item of list) {
+			this.children[1].set(item)
 			const row = this.children[2].eval()
 			rows.push(row)
 		}
 		return rows
 	}
 }
+
+class Distinct extends ArrowFunction {
+	eval (): any {
+		const rows = []
+		const list: any[] = this.children[0].eval()
+		if (this.children[2] instanceof Obj) {
+			// case with aggregate functions
+			const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list)
+			// build the list of results
+			for (const key of keys) {
+				const row:any = {}
+				for (const value of key.values) {
+					row[value.name] = value.value
+				}
+				rows.push(row)
+			}
+			return rows
+		} else if (this.children[2] instanceof List) {
+			throw new Error('Distinct not support Array result')
+		}
+		// simple case without aggregate functions
+		for (const item of list) {
+			this.children[1].set(item)
+			const value = this.children[2].eval()
+			if (rows.find((p:any) => p === value) === undefined) {
+				rows.push(value)
+			}
+		}
+		return rows
+	}
+}
+
 class Foreach extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
@@ -754,142 +1002,90 @@ class Remove extends ArrowFunction {
 
 class First extends ArrowFunction {
 	eval (): any {
-		const rows = []
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (this.children[2].eval()) {
-				return p
-			}
-		}
-		return null
+		return CoreHelper.first(list, this.children[1], this.children[2])
 	}
 }
 class Last extends ArrowFunction {
 	eval (): any {
-		const rows = []
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		for (let i = list.length - 1; i >= 0; i--) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (this.children[2].eval()) {
-				return p
-			}
-		}
-		return null
+		return CoreHelper.last(list, this.children[1], this.children[2])
 	}
 }
 
 class Count extends ArrowFunction {
 	eval (): any {
-		let count = 0
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
 			return list.length
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (this.children[2].eval()) {
-				count++
-			}
-		}
-		return count
+		return CoreHelper.count(list, this.children[1], this.children[2])
 	}
 }
 class Max extends ArrowFunction {
 	eval (): any {
-		let max:any
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
+			let max:any
 			for (const item of list) {
 				if (max === undefined || (item !== null && item > max)) {
 					max = item
 				}
 			}
-		} else {
-			for (const item of list) {
-				this.children[1].set(item)
-				const value = this.children[2].eval()
-				if (max === undefined || (value !== null && value > max)) {
-					max = value
-				}
-			}
+			return max
 		}
-		return max
+		return CoreHelper.max(list, this.children[1], this.children[2])
 	}
 }
 class Min extends ArrowFunction {
 	eval (): any {
-		let min:any
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
+			let min:any
 			for (const item of list) {
 				if (min === undefined || (item !== null && item < min)) {
 					min = item
 				}
 			}
-		} else {
-			for (const item of list) {
-				this.children[1].set(item)
-				const value = this.children[2].eval()
-				if (min === undefined || (value !== null && value < min)) {
-					min = value
-				}
-			}
+			return min
 		}
-		return min
+		return CoreHelper.min(list, this.children[1], this.children[2])
 	}
 }
 class Avg extends ArrowFunction {
 	eval (): any {
-		let sum = 0
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
+			let sum = 0
 			for (const item of list) {
 				if (item !== null) {
 					sum = sum + item
 				}
 			}
-		} else {
-			for (const item of list) {
-				this.children[1].set(item)
-				const value = this.children[2].eval()
-				if (value !== null) {
-					sum = sum + value
-				}
-			}
+			return list.length > 0 ? sum / list.length : 0
 		}
-		return list.length > 0 ? sum / list.length : 0
+		return CoreHelper.avg(list, this.children[1], this.children[2])
 	}
 }
 class Sum extends ArrowFunction {
 	eval (): any {
-		let sum = 0
 		const list: any[] = this.children[0].eval()
 		if (this.children.length === 1) {
+			let sum = 0
 			for (const item of list) {
 				if (item !== null) {
 					sum = sum + item
 				}
 			}
-		} else {
-			for (const item of list) {
-				this.children[1].set(item)
-				const value = this.children[2].eval()
-				if (value !== null) {
-					sum = sum + value
-				}
-			}
+			return sum
 		}
-		return sum
+		return CoreHelper.sum(list, this.children[1], this.children[2])
 	}
 }
 

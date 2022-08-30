@@ -3,6 +3,7 @@
 |foreach each	|Calls a function for each element in an array.																		|
 |filter where	|Creates a new array filled with elements that pass a test provided by a function	|
 |map select		|Creates a new array from calling a function for every array element.							|
+|distinct			|Is used to retrieve unique values from a list.																		|
 |sort order		|Sorts the elements of an array.																									|
 |reverse			|Reverses the order of the elements in an array.																	|
 |remove delete|Eliminate the elements of the array that meet the filter condition								|
@@ -77,48 +78,104 @@ const context = {
 |cities.pop().name																												|'Posadas'																															|
 |musicians[0]																															|'Charly Garcia'																												|
 |musicians[3]																															|undefined																															|
+|musicians[musicians.length()-1]																					|'Luiz Alberto Spinetta'																								|
 
 Context:
 
 ```js
 const context = {
-			orders:[
-				{
-					number: '20001',
-					customer: 'John',
-					orderTime: '2022-07-30T10:15:54',
-					total: 12.19,
-					details: [
-						{ article: 'Potato', unitPrice: 1.54, qty: 5 },
-						{ article: 'Onion', unitPrice: 1.23, qty: 2 },
-						{ article: 'White grape', unitPrice: 2.03, qty: 1 }
-					]
-				},
-				{
-					number: '20002',
-					customer: 'Paul',
-					orderTime: '2022-07-30T12:12:43',
-					total: 7.91,
-					details: [
-						{ article: 'Apple', unitPrice: 2.15, qty: 1 },
-						{ article: 'Banana', unitPrice: 1.99, qty: 2 },
-						{ article: 'Pear', unitPrice: 1.78, qty: 1 }
-					]
-				}
-			]
+	orders: [
+			{
+				number: '20001',
+				customer: { firstName: 'John', lastName: 'Murphy' },
+				orderTime: '2022-07-30T10:15:54',
+				details: [
+					{ article: 'Pear', unitPrice: 1.78, qty: 2 },
+					{ article: 'Banana', unitPrice: 1.99, qty: 1 },
+					{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+				]
+			},
+			{
+				number: '20002',
+				customer: { firstName: 'Paul', lastName: 'Smith' },
+				orderTime: '2022-07-30T12:12:43',
+				details: [
+					{ article: 'Apple', unitPrice: 2.15, qty: 1 },
+					{ article: 'Banana', unitPrice: 1.99, qty: 2 },
+					{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+				]
+			}
+		]
 		}
 ```
 
-| Example                                   								| Result 	|
-|-----------------------------------------------------------|---------|
-|orders.min(p=> p.total)																		|7.91			|
-|orders.details.min(p=> p.article )													|'Apple'	|
-|orders.details.max(p=> p.unitPrice * p.qty )								|7.7			|
-|orders.details.avg(p=> p.unitPrice * p.qty )								|3.35			|
-|orders[1].details.sum(p=> p.unitPrice * p.qty )						|7.91			|
-|orders.details.count(p=> p.unitPrice * p.qty < 3 )					|4				|
-|orders.details.first(p=> p.unitPrice * p.qty < 3 ).article	|'Onion'	|
-|orders.details.last(p=> p.unitPrice * p.qty < 3 ).article	|'Pear'		|
+| Example                                   															| Result 																										|
+|-------------------------------------------------------------------------|-----------------------------------------------------------|
+|orders.min(p=> p.number)																									|'20001'																										|
+|orders.details.min(p=> p.article )																				|'Apple'																										|
+|orders.details.max(p=> p.unitPrice * p.qty )															|3.98																												|
+|orders.details.avg(p=> p.unitPrice * p.qty )															|2.5816666666666666																					|
+|orders[1].details.sum(p=> p.unitPrice * p.qty )													|7.91																												|
+|orders.details.count(p=> p.unitPrice * p.qty < 3 )												|4																													|
+|orders.details.first(p=> p.unitPrice * p.qty < 3 ).article								|'Banana'																										|
+|orders.details.last(p=> p.unitPrice * p.qty < 3 ).article								|'Pear'																											|
+|orders.details.first(p=> p.unitPrice * p.qty < 3 )												|{"article":"Banana","unitPrice":1.99,"qty":1}							|
+|orders.details.foreach(p=>p.subtotal=p.qty*p.unitPrice).subtotal					|[3.56,1.99,2.03,2.15,3.98,1.78]														|
+|orders.details.foreach(p=>total=nvl(total,0)+p.qty*p.unitPrice);total		|15.49																											|
+|orders.details.distinct(p=>p.article)																		|['Pear','Banana','White grape','Apple']										|
+|{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}										|{"total":7.58}																							|
+|orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})|[{"nro":"20001","total":7.58},{"nro":"20002","total":7.91}]|
+
+Example
+
+```ts
+orders.each(p=>p.total=p.details.sum(q=>q.qty*q.unitPrice)).map(p=>{nro:p.number,total:p.total})	
+```
+
+Result:
+
+```json
+[
+	{"nro":"20001","total":7.58},
+	{"nro":"20002","total":7.91}
+]
+```
+
+Example
+
+```ts
+orders.details.distinct(p=>{article:p.article,qty:p.qty})	
+```
+
+Result:
+
+```json
+[
+	{"article":"Pear","qty":2},
+	{"article":"Banana","qty":1},
+	{"article":"White grape","qty":1},
+	{"article":"Apple","qty":1},
+	{"article":"Banana","qty":2},
+	{"article":"Pear","qty":1}
+]
+```
+
+Example
+
+```ts
+orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})
+```
+
+Result:
+
+```json
+[
+	{"article":"Pear","count":2,"total":5.34},
+	{"article":"Banana","count":2,"total":5.97},
+	{"article":"White grape","count":1,"total":2.03},
+	{"article":"Apple","count":1,"total":2.15}
+]
+```
 
 ## Definition
 
@@ -170,6 +227,15 @@ const context = {
 ### select
 
 - description: Creates a new array from calling a function for every array element.
+- deterministic: true
+- return: any[]
+- params:
+	- list: any[]
+	- method: function
+
+### distinct
+
+- description: Is used to retrieve unique values from a list.
 - deterministic: true
 - return: any[]
 - params:

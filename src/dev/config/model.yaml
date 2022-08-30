@@ -1241,7 +1241,17 @@ functions:
     - name: list 
       type: any[]
     - name: method 
-      type: function     
+      type: function
+  distinct:
+    description: Is used to retrieve unique values from a list.
+    type: arrow
+    category: array 
+    return: any[] 
+    params:
+    - name: list 
+      type: any[]
+    - name: method 
+      type: function           
   sort:
     description: Sorts the elements of an array.
     type: arrow

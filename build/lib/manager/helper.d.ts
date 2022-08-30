@@ -5,7 +5,6 @@ export declare class Helper {
     static exec(command: string, cwd?: string): Promise<any>;
     static replace(string: string, search: string, replace: string): string;
     static clone(obj: any): any;
-    static cloneOperand(obj: any): any;
     static getNames(value: string): string[];
     static getValue(names: string[], source: any): any;
     static isObject(obj: any): boolean;
