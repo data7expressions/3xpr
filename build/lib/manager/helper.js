@@ -36,17 +36,6 @@ class Helper {
     static clone(obj) {
         return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj;
     }
-    static cloneOperand(obj) {
-        const children = [];
-        if (obj.children) {
-            for (const k in obj.children) {
-                const p = obj.children[k];
-                const child = Helper.clone(p);
-                children.push(child);
-            }
-        }
-        return new obj.constructor(obj.name, children);
-    }
     static getNames(value) {
         if (value === '.') {
             // in case "".[0].name" where var is "."

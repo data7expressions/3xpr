@@ -197,7 +197,7 @@ class OperandManager {
         if (allConstants) {
             const value = this.eval(operand, new model_1.Data({}));
             const constant = new operands_1.Constant(value);
-            constant.parent = operand.parent;
+            // constant.parent = operand.parent
             constant.index = operand.index;
             return constant;
         }
@@ -213,13 +213,13 @@ class OperandManager {
         try {
             if (parent) {
                 operand.id = parent.id + '.' + index;
-                operand.parent = parent;
+                // operand.parent = parent
                 operand.index = index;
                 operand.level = parent.level ? parent.level + 1 : 0;
             }
             else {
                 operand.id = '0';
-                operand.parent = undefined;
+                // operand.parent = undefined
                 operand.index = 0;
                 operand.level = 0;
             }
@@ -245,7 +245,7 @@ class OperandManager {
         const operand = this.createOperand(node, children);
         for (let i = 0; i < children.length; i++) {
             const child = children[i];
-            child.parent = operand;
+            // child.parent = operand
             child.index = i;
         }
         return operand;
@@ -370,6 +370,18 @@ class OperandManager {
             this.solveTypes(operand.children[i]);
         }
         return operand.type;
+    }
+    getMainData(operand) {
+        if (operand.data === undefined) {
+            return new model_1.Data({});
+        }
+        let main = operand.data;
+        let parent = operand.data.parent;
+        while (parent !== undefined) {
+            main = parent;
+            parent = parent.parent;
+        }
+        return main;
     }
 }
 exports.OperandManager = OperandManager;

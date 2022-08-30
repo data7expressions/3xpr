@@ -1,38 +1,14 @@
-import { expressions as exp, Helper } from '../../lib'
-// import { Helper } from '../../lib/manager/helper'
+import { test } from './util'
 
-const test = async (expression:string) => {
-	try {
-		const source = '~/develop/js-expressions/countries.json'
-		const content = await Helper.readFile(source)
-		if (!content) {
-			throw Error(`can not read file ${source}`)
-		}
-		const data = Helper.tryParse(content)
-		if (data === null || data === undefined) {
-			throw Error(`can not parse content of ${source}`)
-		}
-		const result = exp.eval(expression, { '.': data })
-		console.log(JSON.stringify(result, null, 2))
-	} catch (error:any) {
-		console.error(error.stack)
-	}
-}
 (async () => {
-	await test('.[0].name')
-	await test('.[0].states')
-	await test('.[0].states.filter(p=>p.name === "Badghis")')
-	await test('.name')
-	await test('.states')
-	await test('.states.filter(p=>p.name === "Badghis")')
-	await test('.states.name')
-	await test('.states.name.filter(p=> substring(p,0,1)=="A")')
-	await test('.filter(p=>p.name === "Afghanistan")')
-	await test('.[0].states.count()')
-	await test('.[0].states.count(p=> startWith(p.name,"B"))')
-	await test('.states.max(p=> p.name)')
-	await test('.states.min(p=> p.name)')
-	await test('.states.sum(p=> toNumber(p.latitude))')
-	await test('.states.avg(p=> toNumber(p.latitude))')
-	await test('.states.filter(p=> startWith(p.name,"B")).sum(p=> toNumber(p.latitude))')
+	const file = './data/orders.json'
+	// await test('.map(p=>p.customer.firstName)', file)
+	// await test('.map(p=>[p.customer.firstName,p.customer.lastName])', file)
+	// await test('.map(p=>{customer:concatenate(p.customer.firstName," ",p.customer.lastName),total:p.total})', file)
+	// await test('.details.map(p=>{article:p.article,count: count(1),total:sum(p.qty * p.unitPrice)})', file)
+	// await test('.details.map(p=>{article:p.article,result: round(max(p.qty * p.unitPrice) - avg(p.qty * p.unitPrice),2)})', file)
+	await test('.details.distinct(p=>p.article)', file)
+	await test('.details.distinct(p=>{article:p.article,qty:p.qty})', file)
+	await test('{total:.[0].details.sum(p=>p.qty * p.unitPrice)}', file)
+	await test('.map(p=>{customer:concatenate(p.customer.firstName," ",p.customer.lastName),total:p.details.sum(q=>q.qty * q.unitPrice)})', file)
 })()

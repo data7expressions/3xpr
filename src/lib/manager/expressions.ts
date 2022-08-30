@@ -34,6 +34,10 @@ export class Expressions {
 		return this.expressionConfig
 	}
 
+	public get operand (): OperandManager {
+		return this.operandManager
+	}
+
 	public parse (expression: string): Operand {
 		const minifyExpression = this.parser.minify(expression)
 		const key = `${minifyExpression}_operand`

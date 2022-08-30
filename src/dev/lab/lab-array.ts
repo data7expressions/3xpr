@@ -15,16 +15,6 @@ import { show } from './util'
 	}
 
 	const list = [
-		'cities.filter(p=> p.province === "BA").map(p=> p.name).first()',
-		'cities.where(p-> p.province == "BA").select( p-> p.name).first()',
-		'cities.where(p-> p.province == "BA").select( p-> p.name).last()',
-		'cities.first(p-> p.province === "BA").name',
-		'cities.first(p-> p.province === "BA").coordinates.lat',
-		'cities.first(p-> p.province === "BA").coordinates.x',
-		'cities.first(p-> p.province === "BA").x.x',
-		'numbers.filter(p=> p>1 && p<5).map(p=> p*2)',
-		'numbers.first(p => p%2==0)',
-		'numbers.last(p=> p%2==0)',
 		'cities.length()',
 		'cities.where(p-> p.province <> "BA").len()',
 		'cities.where(p-> p.province != "BA").length()',
@@ -40,6 +30,8 @@ import { show } from './util'
 		'in("San Luis",cities.name)',
 		'cities.select(p=> p.coordinates).select(p=> p.lat)',
 		'cities.map(p=> p.coordinates).lat',
+		'cities.map(p=>[p.coordinates.lat,p.coordinates.long])',
+		'cities.distinct(p=> p.province)',
 		'cities.coordinates.lat',
 		'cities.x',
 		'cities.x.x',
@@ -49,37 +41,40 @@ import { show } from './util'
 		'cities.insert(posadas).name',
 		'cities.pop().name',
 		'musicians[0]',
-		'musicians[3]'
+		'musicians[3]',
+		'musicians[musicians.length()-1]'
 	]
+
+	// await test('cities.map(p=>[p.customer.firstName,p.customer.lastName])', file)
 	show(list, context)
 
-	const orders = [
-		{
-			number: '20001',
-			customer: 'John',
-			orderTime: '2022-07-30T10:15:54',
-			total: 12.19,
-			details: [
-				{ article: 'Potato', unitPrice: 1.54, qty: 5 },
-				{ article: 'Onion', unitPrice: 1.23, qty: 2 },
-				{ article: 'White grape', unitPrice: 2.03, qty: 1 }
-			]
-		},
-		{
-			number: '20002',
-			customer: 'Paul',
-			orderTime: '2022-07-30T12:12:43',
-			total: 7.91,
-			details: [
-				{ article: 'Apple', unitPrice: 2.15, qty: 1 },
-				{ article: 'Banana', unitPrice: 1.99, qty: 2 },
-				{ article: 'Pear', unitPrice: 1.78, qty: 1 }
-			]
-		}
-	]
+	const context2 = {
+		orders: [
+			{
+				number: '20001',
+				customer: { firstName: 'John', lastName: 'Murphy' },
+				orderTime: '2022-07-30T10:15:54',
+				details: [
+					{ article: 'Pear', unitPrice: 1.78, qty: 2 },
+					{ article: 'Banana', unitPrice: 1.99, qty: 1 },
+					{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+				]
+			},
+			{
+				number: '20002',
+				customer: { firstName: 'Paul', lastName: 'Smith' },
+				orderTime: '2022-07-30T12:12:43',
+				details: [
+					{ article: 'Apple', unitPrice: 2.15, qty: 1 },
+					{ article: 'Banana', unitPrice: 1.99, qty: 2 },
+					{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+				]
+			}
+		]
+	}
 
-	const expressions = [
-		'orders.min(p=> p.total)',
+	const groups = [
+		'orders.min(p=> p.number)',
 		'orders.details.min(p=> p.article )',
 		'orders.details.max(p=> p.unitPrice * p.qty )',
 		'orders.details.avg(p=> p.unitPrice * p.qty )',
@@ -87,7 +82,15 @@ import { show } from './util'
 		'orders.details.count(p=> p.unitPrice * p.qty < 3 )',
 		'orders.details.first(p=> p.unitPrice * p.qty < 3 ).article',
 		'orders.details.last(p=> p.unitPrice * p.qty < 3 ).article',
-		'orders.details.first(p=> p.unitPrice * p.qty < 3 )'
+		'orders.details.first(p=> p.unitPrice * p.qty < 3 )',
+		'orders.each(p=>p.total=p.details.sum(q=>q.qty*q.unitPrice)).map(p=>{nro:p.number,total:p.total})',
+		'orders.details.foreach(p=>total=p.qty*p.unitPrice).total',
+		'orders.details.filter(p=>p.article=="Banana").foreach(p=>total=p.qty*p.unitPrice).total',
+		'orders.details.distinct(p=>p.article)',
+		'orders.details.distinct(p=>{article:p.article,qty:p.qty})',
+		'orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})',
+		'{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}',
+		'orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})'
 	]
-	show(expressions, { orders: orders })
+	show(groups, context2)
 })()

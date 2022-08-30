@@ -2,8 +2,9 @@
 import { Node, ExpressionConfig } from '../parser/index'
 import { Data, Parameter } from '../model'
 import {
-	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction, If, ElseIf, Else, While, For, ForIn
-	, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default, Template, Property, EnvironmentVariable
+	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
+	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
+	Template, Property, EnvironmentVariable, IOperandData
 } from './operands'
 
 export interface OperandMetadata {
@@ -161,7 +162,7 @@ export class OperandManager {
 		}
 	}
 
-	private initialize (operand: Operand, data: Data) {
+	public initialize (operand: Operand, data: Data) {
 		let current = data
 		if (operand instanceof ArrowFunction) {
 			const childData = current.newData()
@@ -213,7 +214,7 @@ export class OperandManager {
 		if (allConstants) {
 			const value = this.eval(operand, new Data({}))
 			const constant = new Constant(value)
-			constant.parent = operand.parent
+			// constant.parent = operand.parent
 			constant.index = operand.index
 			return constant
 		} else {
@@ -229,12 +230,12 @@ export class OperandManager {
 		try {
 			if (parent) {
 				operand.id = parent.id + '.' + index
-				operand.parent = parent
+				// operand.parent = parent
 				operand.index = index
 				operand.level = parent.level ? parent.level + 1 : 0
 			} else {
 				operand.id = '0'
-				operand.parent = undefined
+				// operand.parent = undefined
 				operand.index = 0
 				operand.level = 0
 			}
@@ -260,7 +261,7 @@ export class OperandManager {
 		const operand = this.createOperand(node, children)
 		for (let i = 0; i < children.length; i++) {
 			const child = children[i]
-			child.parent = operand
+			// child.parent = operand
 			child.index = i
 		}
 		return operand
@@ -384,5 +385,18 @@ export class OperandManager {
 		}
 
 		return operand.type
+	}
+
+	public getMainData (operand:IOperandData) : Data {
+		if (operand.data === undefined) {
+			return new Data({})
+		}
+		let main = operand.data
+		let parent = operand.data.parent
+		while (parent !== undefined) {
+			main = parent
+			parent = parent.parent
+		}
+		return main
 	}
 }
