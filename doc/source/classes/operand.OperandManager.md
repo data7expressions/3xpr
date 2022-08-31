@@ -16,6 +16,8 @@
 - [clone](operand.OperandManager.md#clone)
 - [deserialize](operand.OperandManager.md#deserialize)
 - [eval](operand.OperandManager.md#eval)
+- [getMainData](operand.OperandManager.md#getmaindata)
+- [initialize](operand.OperandManager.md#initialize)
 - [parameters](operand.OperandManager.md#parameters)
 - [serialize](operand.OperandManager.md#serialize)
 
@@ -33,7 +35,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L22)
+[operand/operandManager.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L23)
 
 ## Methods
 
@@ -53,7 +55,7 @@
 
 #### Defined in
 
-[operand/operandManager.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L26)
+[operand/operandManager.ts:27](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L27)
 
 ___
 
@@ -73,7 +75,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:37](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L37)
+[operand/operandManager.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L38)
 
 ___
 
@@ -93,7 +95,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:59](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L59)
+[operand/operandManager.ts:60](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L60)
 
 ___
 
@@ -114,7 +116,48 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L138)
+[operand/operandManager.ts:139](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L139)
+
+___
+
+### getMainData
+
+▸ **getMainData**(`operand`): [`Data`](model.Data.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `operand` | [`IOperandData`](../interfaces/operand.IOperandData.md) |
+
+#### Returns
+
+[`Data`](model.Data.md)
+
+#### Defined in
+
+[operand/operandManager.ts:390](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L390)
+
+___
+
+### initialize
+
+▸ **initialize**(`operand`, `data`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `operand` | [`Operand`](operand.Operand.md) |
+| `data` | [`Data`](model.Data.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[operand/operandManager.ts:165](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L165)
 
 ___
 
@@ -134,7 +177,7 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:143](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L143)
+[operand/operandManager.ts:144](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L144)
 
 ___
 
@@ -154,4 +197,4 @@ ___
 
 #### Defined in
 
-[operand/operandManager.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/3a4f5e6/src/lib/operand/operandManager.ts#L41)
+[operand/operandManager.ts:42](https://github.com/FlavioLionelRita/js-expressions/blob/46de85e/src/lib/operand/operandManager.ts#L42)

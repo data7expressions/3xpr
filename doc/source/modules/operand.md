@@ -41,5 +41,6 @@
 
 ### Interfaces
 
+- [IOperandData](../interfaces/operand.IOperandData.md)
 - [Metadata](../interfaces/operand.Metadata.md)
 - [OperandMetadata](../interfaces/operand.OperandMetadata.md)

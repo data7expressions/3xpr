@@ -47,6 +47,24 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-array.ts"
 		},
 		{
+			"name": "lab arrow",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-arrow.ts"
+		},
+		{
+			"name": "lab group",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-group.ts"
+		},
+		{
 			"name": "lab numeric",
 			"type": "node",
 			"request": "launch",
@@ -92,6 +110,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-condition.ts"
 		},
 		{
+			"name": "lab conversion",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-conversion.ts"
+		},
+		{
 			"name": "lab logical",
 			"type": "node",
 			"request": "launch",
@@ -126,6 +153,15 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-group.ts"
+		},
+		{
+			"name": "lab sets",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-sets.ts"
 		},
 		{
 			"name": "lab flows",

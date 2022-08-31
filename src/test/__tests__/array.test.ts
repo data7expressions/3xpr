@@ -48,19 +48,22 @@ describe('Array', () => {
 			],
 			salta: { name: 'Salta', province: 'SA', population: 520683, coordinates: { lat: 24.33, long: 64.30 } },
 			posadas: { name: 'Posadas', province: 'MI', population: 275028, coordinates: { lat: 27.22, long: 55.53 } },
-			numbers: [1, 2, 3],
-			musicians: ['Charly Garcia', 'Fito Paez', 'Luiz Alberto Spinetta']
+			musicians: ['Charly Garcia', 'Fito Paez', 'Luiz Alberto Spinetta'],
+			pair: [2, 4, 6],
+			ods: [1, 3, 5]
 		}
 		expect(4).toBe(expressions.eval('cities.length()',context))
 		expect(2).toBe(expressions.eval('cities.where(p-> p.province <> "BA").len()',context))
 		expect(2).toBe(expressions.eval('cities.where(p-> p.province != "BA").length()',context))
 		expect([2.9,1.3,0.95,0.6]).toStrictEqual(expressions.eval('cities.each(p=> p.population=round(p.population/1000000,2)).population',context))
-		expect([1,2,3]).toStrictEqual(expressions.eval('numbers.foreach(p=>b=b+p)',context))
-		expect([1,2,3]).toStrictEqual(expressions.eval('numbers.filter(p=> p<5).foreach(p => b=b+p)',context))
+		expect([2,4,6]).toStrictEqual(expressions.eval('pair.foreach(p=>b=b+p)',context))
+		expect([2,4]).toStrictEqual(expressions.eval('pair.filter(p=> p<5).foreach(p => b=b+p)',context))
 		expect(['Buenos Aires','Córdoba','Mar del Plata','Rosario']).toStrictEqual(expressions.eval('cities.sort(p=> p.name).name',context))
 		expect(['Rosario','Mar del Plata','Córdoba','Buenos Aires']).toStrictEqual(expressions.eval('cities.reverse(p=> p.name).name',context))
-		expect([3,2]).toStrictEqual(expressions.eval('numbers.filter(p=> p>1 && p<5).reverse()',context))
-		expect([6,4]).toStrictEqual(expressions.eval('numbers.filter(p=> p>1 && p<5).map(p=> p*2).reverse()',context))
+		expect([3]).toStrictEqual(expressions.eval('ods.filter(p=> p>1 && p<5).reverse()',context))
+		expect([6]).toStrictEqual(expressions.eval('ods.filter(p=> p>1 && p<5).map(p=> p*2).reverse()',context))
+		expect([1,3,5,2,4,6]).toStrictEqual(expressions.eval('concat(ods,pair)',context))
+		expect([1,2,3,4,5,6]).toStrictEqual(expressions.eval('concatenate(pair,ods).sort()',context))
 		expect(['Buenos Aires','Córdoba','Mar del Plata','Rosario']).toStrictEqual(expressions.eval('cities.order(p=> p.name).name',context))
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata']).toStrictEqual(expressions.eval('cities.name',context))
 		expect(false).toBe(expressions.eval('in("San Luis",cities.name)',context))
@@ -124,5 +127,39 @@ describe('Array', () => {
 		expect([{"article":"Pear","count":2,"total":5.34},{"article":"Banana","count":2,"total":5.97},{"article":"White grape","count":1,"total":2.03},{"article":"Apple","count":1,"total":2.15}]).toStrictEqual(expressions.eval('orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})',context))
 		expect({"total":7.58}).toStrictEqual(expressions.eval('{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}',context))
 		expect([{"nro":"20001","total":7.58},{"nro":"20002","total":7.91}]).toStrictEqual(expressions.eval('orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})',context))
+	})
+
+	test('sets', () => {
+		const context = {
+			ods: [1, 3, 5, 7, 9],
+			prime: [2, 3, 5, 7],
+			orders: [
+				{
+					number: '20003',
+					details: [
+						{ article: 'Pear', qty: 2 },
+						{ article: 'Banana', qty: 2 },
+						{ article: 'White grape', qty: 1 },
+						{ article: 'Apple', qty: 1 }
+					]
+				},
+				{
+					number: '20004',
+					details: [
+						{ article: 'Apple', qty: 1 },
+						{ article: 'Banana', qty: 2 },
+						{ article: 'Pear', qty: 1 }
+					]
+				}
+			]
+		}
+		expect([1,3,5,7,9,2]).toStrictEqual(expressions.eval('ods.union(prime)',context))
+		expect([3,5,7]).toStrictEqual(expressions.eval('ods.intersection(prime)',context))
+		expect([1,9]).toStrictEqual(expressions.eval('ods.difference(prime)',context))
+		expect([1,9,2]).toStrictEqual(expressions.eval('ods.symmetricDifference(prime)',context))
+		expect([{"article":"Pear","qty":2},{"article":"Banana","qty":2},{"article":"White grape","qty":1},{"article":"Apple","qty":1},{"article":"Pear","qty":1}]).toStrictEqual(expressions.eval('orders[0].details.union(orders[1].details)',context))
+		expect([{"article":"Apple","qty":1},{"article":"Banana","qty":2}]).toStrictEqual(expressions.eval('orders[0].details.intersection(orders[1].details)',context))
+		expect([{"article":"Pear","qty":2},{"article":"White grape","qty":1}]).toStrictEqual(expressions.eval('orders[0].details.difference(orders[1].details)',context))
+		expect([{"article":"Pear","qty":2},{"article":"White grape","qty":1},{"article":"Pear","qty":1}]).toStrictEqual(expressions.eval('orders[0].details.symmetricDifference(orders[1].details)',context))
 	})
 })	

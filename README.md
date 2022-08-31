@@ -1,14 +1,31 @@
 # js-expressions
 
-Js-expression is an extensible expression evaluator and parser. Besides the operators, functions, variables, objects and arrays that are supported; it is possible to extend it with your own functions, operators, etc
+>Js-expression is an extensible expression evaluator and parser.
+>
+>Besides the operators, functions, variables, objects and arrays that are supported.
+>
+>It is possible to extend it with your own functions, operators, etc
 
 ## Features
 
-- Constants, enums, variables, objects and arrays
-- Arithmetic, assignment, comparison, Logical and bitwise operators
-- Functions and arrow functions
-- Control flows
+- Constants, enums, number, string, datetime, variables, objects and array
+- [Arithmetic](https://github.com/FlavioLionelRita/js-expressions/wiki/Arithmetic)
+, [assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
+, [comparison](https://github.com/FlavioLionelRita/js-expressions/wiki/Comparison)
+, [logical](https://github.com/FlavioLionelRita/js-expressions/wiki/Logical)
+and [bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise) operators
+- [Number](https://github.com/FlavioLionelRita/js-expressions/wiki/Numeric)
+, [string](https://github.com/FlavioLionelRita/js-expressions/wiki/String)
+,	[datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
+, [array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
+and [nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable) functions
+- [Conversion](https://github.com/FlavioLionelRita/js-expressions/wiki/Conversion) functions
+- [Arrow](https://github.com/FlavioLionelRita/js-expressions/wiki/Array) functions
+- [Group](https://github.com/FlavioLionelRita/js-expressions/wiki/Group) functions (distinct, first, last, min, max, sum and avg)
+- [Sets](https://github.com/FlavioLionelRita/js-expressions/wiki/String) functions (union, intersection, difference and symmetric difference)
+- [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows) flows
 - Environment variables
+- [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
 
 ## Quick start
 
@@ -88,14 +105,19 @@ while (p=timezones.pop()) {
 
 ## Documentation
 
-- [Array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
-- [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
-- [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
+- [Arithmetic](https://github.com/FlavioLionelRita/js-expressions/wiki/Arithmetic)
 - [Comparison](https://github.com/FlavioLionelRita/js-expressions/wiki/Comparison)
-- [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows)
-- [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
-- [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
 - [Logical](https://github.com/FlavioLionelRita/js-expressions/wiki/Logical)
-- [Nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable)
+- [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
 - [Numeric](https://github.com/FlavioLionelRita/js-expressions/wiki/Numeric)
 - [String](https://github.com/FlavioLionelRita/js-expressions/wiki/String)
+- [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
+- [Nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable)
+- [Conversion](https://github.com/FlavioLionelRita/js-expressions/wiki/Conversion)
+- [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)
+- [Array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
+- [Arrow](https://github.com/FlavioLionelRita/js-expressions/wiki/Arrow)
+- [Group](https://github.com/FlavioLionelRita/js-expressions/wiki/Group)
+- [Sets](https://github.com/FlavioLionelRita/js-expressions/wiki/Sets)
+- [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows)
+- [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)

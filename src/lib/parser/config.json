@@ -1007,18 +1007,6 @@
         }
       ]
     },
-    "toNumber": {
-      "description": "convert to number",
-      "category": "convert",
-      "deterministic": true,
-      "return": "number",
-      "params": [
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
     "chr": {
       "description": "Get character from ASCII code",
       "category": "string",
@@ -1301,42 +1289,6 @@
         }
       ]
     },
-    "stringify": {
-      "description": "Convert a JavaScript object or value to a JSON text string.",
-      "category": "string",
-      "deterministic": true,
-      "return": "string",
-      "params": [
-        {
-          "name": "value",
-          "type": "any"
-        }
-      ]
-    },
-    "toString": {
-      "description": "convert to string",
-      "category": "string",
-      "deterministic": true,
-      "return": "string",
-      "params": [
-        {
-          "name": "value",
-          "type": "any"
-        }
-      ]
-    },
-    "parse": {
-      "description": "Parses a text string as JSON, optionally transforming the value produced by the parse.",
-      "category": "string",
-      "deterministic": true,
-      "return": "any",
-      "params": [
-        {
-          "name": "value",
-          "type": "string"
-        }
-      ]
-    },
     "startWith": {
       "description": "Indicates whether a text string begins with the characters of a given text string.",
       "category": "string",
@@ -1371,17 +1323,6 @@
       "description": "Get the current datetime",
       "category": "datetime",
       "return": "Date"
-    },
-    "dateToString": {
-      "description": "Convert date to string with ISO 8601 format",
-      "category": "datetime",
-      "return": "string",
-      "params": [
-        {
-          "name": "value",
-          "type": "Date"
-        }
-      ]
     },
     "time": {
       "description": "Convert string to time",
@@ -1659,6 +1600,22 @@
         }
       ]
     },
+    "yearDiff": {
+      "description": "difference between two dates in years",
+      "category": "datetime",
+      "deterministic": true,
+      "return": "Date",
+      "params": [
+        {
+          "name": "date",
+          "type": "Date"
+        },
+        {
+          "name": "date2",
+          "type": "Date"
+        }
+      ]
+    },
     "dayDiff": {
       "description": "difference between two dates in days",
       "category": "datetime",
@@ -1846,7 +1803,7 @@
     "foreach": {
       "description": "Calls a function for each element in an array.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "void",
       "params": [
         {
@@ -1862,7 +1819,7 @@
     "each": {
       "description": "Calls a function for each element in an array.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "void",
       "params": [
         {
@@ -1878,7 +1835,7 @@
     "filter": {
       "description": "Creates a new array filled with elements that pass a test provided by a function",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "T[]",
       "params": [
         {
@@ -1894,7 +1851,7 @@
     "where": {
       "description": "Creates a new array filled with elements that pass a test provided by a function",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "T[]",
       "params": [
         {
@@ -1910,7 +1867,7 @@
     "map": {
       "description": "Creates a new array from calling a function for every array element.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "any[]",
       "params": [
         {
@@ -1926,23 +1883,7 @@
     "select": {
       "description": "Creates a new array from calling a function for every array element.",
       "type": "arrow",
-      "category": "array",
-      "return": "any[]",
-      "params": [
-        {
-          "name": "list",
-          "type": "any[]"
-        },
-        {
-          "name": "method",
-          "type": "function"
-        }
-      ]
-    },
-    "distinct": {
-      "description": "Is used to retrieve unique values from a list.",
-      "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "any[]",
       "params": [
         {
@@ -1958,7 +1899,7 @@
     "sort": {
       "description": "Sorts the elements of an array.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "T[]",
       "params": [
         {
@@ -1974,7 +1915,7 @@
     "order": {
       "description": "Sorts the elements of an array.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "T[]",
       "params": [
         {
@@ -1990,7 +1931,7 @@
     "reverse": {
       "description": "Reverses the order of the elements in an array.",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "T[]",
       "params": [
         {
@@ -2006,7 +1947,7 @@
     "remove": {
       "description": "Eliminate the elements of the array that meet the filter condition",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "number",
       "params": [
         {
@@ -2022,7 +1963,7 @@
     "delete": {
       "description": "Eliminate the elements of the array that meet the filter condition",
       "type": "arrow",
-      "category": "array",
+      "category": "arrow",
       "return": "number",
       "params": [
         {
@@ -2103,10 +2044,62 @@
         }
       ]
     },
+    "slice": {
+      "description": "Returns a copy of a portion of the array into a new array from start to end.",
+      "type": "child",
+      "category": "array",
+      "return": "any[]",
+      "params": [
+        {
+          "name": "list",
+          "type": "any[]"
+        },
+        {
+          "name": "from",
+          "type": "number"
+        },
+        {
+          "name": "to",
+          "type": "number"
+        }
+      ]
+    },
+    "page": {
+      "description": "Returns a portion of the records.",
+      "type": "child",
+      "category": "array",
+      "return": "number",
+      "params": [
+        {
+          "name": "page",
+          "type": "number"
+        },
+        {
+          "name": "records",
+          "type": "number"
+        }
+      ]
+    },
+    "distinct": {
+      "description": "Is used to retrieve unique values from a list.",
+      "type": "arrow",
+      "category": "group",
+      "return": "any[]",
+      "params": [
+        {
+          "name": "list",
+          "type": "any[]"
+        },
+        {
+          "name": "method",
+          "type": "function"
+        }
+      ]
+    },
     "count": {
       "description": "Calculating the number of rows in a set.",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "number",
       "params": [
         {
@@ -2122,7 +2115,7 @@
     "max": {
       "description": "Calculating the maximum.",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "T",
       "params": [
         {
@@ -2138,7 +2131,7 @@
     "min": {
       "description": "Calculating the minimum.",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "T",
       "params": [
         {
@@ -2154,7 +2147,7 @@
     "sum": {
       "description": "Calculating the sum.",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "number",
       "params": [
         {
@@ -2170,7 +2163,7 @@
     "avg": {
       "description": "Calculates the average of the specified columns in a set of rows",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "number",
       "params": [
         {
@@ -2186,7 +2179,7 @@
     "first": {
       "description": "Returns the first value of the array that meets a condition",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "T",
       "params": [
         {
@@ -2202,7 +2195,7 @@
     "last": {
       "description": "Returns the last value of the array that meets a condition",
       "type": "arrow",
-      "category": "array",
+      "category": "group",
       "return": "T",
       "params": [
         {
@@ -2212,6 +2205,177 @@
         {
           "name": "method",
           "type": "function"
+        }
+      ]
+    },
+    "toString": {
+      "description": "convert to string",
+      "category": "conversion",
+      "deterministic": true,
+      "return": "string",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "toNumber": {
+      "description": "convert to number",
+      "category": "conversion",
+      "deterministic": true,
+      "return": "number",
+      "params": [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    "dateToString": {
+      "description": "Convert date to string with ISO 8601 format",
+      "category": "conversion",
+      "return": "string",
+      "params": [
+        {
+          "name": "value",
+          "type": "Date"
+        }
+      ]
+    },
+    "keys": {
+      "description": "Convert all keys of an object to an array",
+      "category": "conversion",
+      "return": "any[]",
+      "params": [
+        {
+          "name": "obj",
+          "type": "any"
+        }
+      ]
+    },
+    "values": {
+      "description": "Extract the values of an object into an array",
+      "category": "conversion",
+      "return": "any[]",
+      "params": [
+        {
+          "name": "obj",
+          "type": "any"
+        }
+      ]
+    },
+    "entries": {
+      "description": "Extract the keys and values of an object into an array",
+      "category": "conversion",
+      "return": "any[]",
+      "params": [
+        {
+          "name": "obj",
+          "type": "any"
+        }
+      ]
+    },
+    "fromEntries": {
+      "description": "Convert a generated array with entries into an object",
+      "category": "conversion",
+      "return": "any",
+      "params": [
+        {
+          "name": "array",
+          "type": "any[]"
+        }
+      ]
+    },
+    "stringify": {
+      "description": "Convert a JavaScript object or value to a JSON text string.",
+      "category": "conversion",
+      "deterministic": true,
+      "return": "string",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "parse": {
+      "description": "Parses a text string as JSON, optionally transforming the value produced by the parse.",
+      "category": "conversion",
+      "deterministic": true,
+      "return": "any",
+      "params": [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    },
+    "union": {
+      "description": "Is the set A U B that contains all the elements of A and B.",
+      "type": "child",
+      "category": "sets",
+      "deterministic": true,
+      "return": "T[]",
+      "params": [
+        {
+          "name": "a",
+          "type": "T[]"
+        },
+        {
+          "name": "b",
+          "type": "T[]"
+        }
+      ]
+    },
+    "intersection": {
+      "description": "Is the set A \\ B that contains all the elements of A that do not belong to B.",
+      "type": "child",
+      "category": "sets",
+      "deterministic": true,
+      "return": "T[]",
+      "params": [
+        {
+          "name": "a",
+          "type": "T[]"
+        },
+        {
+          "name": "b",
+          "type": "T[]"
+        }
+      ]
+    },
+    "difference": {
+      "description": "Is the set containing the elements of A and B that are not common",
+      "type": "child",
+      "category": "sets",
+      "deterministic": true,
+      "return": "T[]",
+      "params": [
+        {
+          "name": "a",
+          "type": "T[]"
+        },
+        {
+          "name": "b",
+          "type": "T[]"
+        }
+      ]
+    },
+    "symmetricDifference": {
+      "description": "Is the set containing the elements of A and B that are not common",
+      "type": "child",
+      "category": "sets",
+      "deterministic": true,
+      "return": "T[]",
+      "params": [
+        {
+          "name": "a",
+          "type": "T[]"
+        },
+        {
+          "name": "b",
+          "type": "T[]"
         }
       ]
     }
