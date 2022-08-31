@@ -18,8 +18,11 @@ class CoreLib extends library_1.Library {
         this.nullFunctions();
         this.numberFunctions();
         this.stringFunctions();
-        this.initArrowFunctions();
+        this.initArrayFunctions();
+        this.initArrayGroupFunctions();
         this.dateTimeFunctions();
+        this.conversionFunctions();
+        this.initSetsFunctions();
     }
     initEnums() {
         // empty
@@ -106,7 +109,34 @@ class CoreLib extends library_1.Library {
         this.addFunction('tan', Math.tan);
         this.addFunction('tanh', Math.tanh);
         this.addFunction('trunc', Math.trunc);
+    }
+    conversionFunctions() {
+        this.addFunction('toString', Functions.toString);
         this.addFunction('toNumber', Functions.toNumber);
+        this.addFunction('dateToString', (date) => {
+            if (typeof date === 'string') {
+                return new Date(date).toISOString();
+            }
+            return date.toISOString();
+        });
+        this.addFunction('stringify', (value) => JSON.stringify(value));
+        this.addFunction('parse', (value) => JSON.parse(value));
+        this.addFunction('keys', (obj) => typeof obj === 'object' ? Object.keys(obj) : []);
+        this.addFunction('values', (obj) => typeof obj === 'object' ? Object.values(obj) : []);
+        this.addFunction('entries', (obj) => typeof obj === 'object' ? Object.entries(obj) : []);
+        this.addFunction('fromEntries', (array) => {
+            if (!Array.isArray(array)) {
+                return {};
+            }
+            const obj = {};
+            for (const element of array) {
+                if (!Array.isArray(element) || element.length !== 2) {
+                    continue;
+                }
+                obj[element[0]] = element[1];
+            }
+            return obj;
+        });
     }
     stringFunctions() {
         this.addFunction('chr', (ascii) => String.fromCharCode(ascii));
@@ -123,8 +153,8 @@ class CoreLib extends library_1.Library {
         this.addFunction('substring', (str, from, count) => str.substring(from, count));
         this.addFunction('trim', (str) => str.trim());
         this.addFunction('upper', (str) => str.toUpperCase());
-        this.addFunction('concat', (...strings) => ''.concat(...strings));
-        this.addFunction('concatenate', (...strings) => ''.concat(...strings));
+        this.addFunction('concat', Functions.concat);
+        this.addFunction('concatenate', Functions.concat);
         this.addFunction('test', (value, regexp) => {
             const _regexp = new RegExp(regexp);
             return _regexp.test(value);
@@ -145,18 +175,9 @@ class CoreLib extends library_1.Library {
                 return '*';
             }
         });
-        this.addFunction('toString', Functions.toString);
-        this.addFunction('stringify', (value) => JSON.stringify(value));
-        this.addFunction('parse', (value) => JSON.parse(value));
         this.addFunction('startWith', (value, stringSearched, position) => value.startsWith(stringSearched, position));
     }
     dateTimeFunctions() {
-        this.addFunction('dateToString', (date) => {
-            if (typeof date === 'string') {
-                return new Date(date).toISOString();
-            }
-            return date.toISOString();
-        });
         this.addFunction('curTime', () => {
             const date = new Date();
             return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds();
@@ -252,6 +273,11 @@ class CoreLib extends library_1.Library {
             _date.setMilliseconds(_date.getSeconds() - _time.getMilliseconds());
             return _date.toISOString();
         });
+        this.addFunction('yearDiff', (date1, date2) => {
+            const _date1 = new Date(date1);
+            const _date2 = new Date(date2);
+            return Math.abs(_date2.getFullYear() - _date1.getFullYear());
+        });
         this.addFunction('dayDiff', (date1, date2) => {
             const _date1 = new Date(date1);
             const _date2 = new Date(date2);
@@ -285,10 +311,9 @@ class CoreLib extends library_1.Library {
             return new Date(value).toISOString();
         });
     }
-    initArrowFunctions() {
+    initArrayFunctions() {
         this.addFunction('map', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
         this.addFunction('select', ArrayFunctions.map, model_1.OperatorType.arrow, Map);
-        this.addFunction('distinct', ArrayFunctions.distinct, model_1.OperatorType.arrow, Distinct);
         this.addFunction('foreach', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
         this.addFunction('each', ArrayFunctions.foreach, model_1.OperatorType.arrow, Foreach);
         this.addFunction('filter', ArrayFunctions.filter, model_1.OperatorType.arrow, Filter);
@@ -298,13 +323,6 @@ class CoreLib extends library_1.Library {
         this.addFunction('order', ArrayFunctions.sort, model_1.OperatorType.arrow, Sort);
         this.addFunction('remove', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
         this.addFunction('delete', ArrayFunctions.remove, model_1.OperatorType.arrow, Remove);
-        this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
-        this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
-        this.addFunction('count', ArrayFunctions.count, model_1.OperatorType.arrow, Count);
-        this.addFunction('max', ArrayFunctions.count, model_1.OperatorType.arrow, Max);
-        this.addFunction('min', ArrayFunctions.count, model_1.OperatorType.arrow, Min);
-        this.addFunction('avg', ArrayFunctions.count, model_1.OperatorType.arrow, Avg);
-        this.addFunction('sum', ArrayFunctions.count, model_1.OperatorType.arrow, Sum);
         this.addFunction('push', (list, item) => {
             list.push(item);
             return list;
@@ -316,12 +334,49 @@ class CoreLib extends library_1.Library {
         this.addFunction('pop', (list) => list.pop(), model_1.OperatorType.child);
         this.addFunction('length', (list) => list.length, model_1.OperatorType.child);
         this.addFunction('len', (list) => list.length, model_1.OperatorType.child);
+        this.addFunction('slice', (list, from, to) => list.slice(from, to), model_1.OperatorType.child);
+        this.addFunction('page', (list, page, records) => {
+            let from = (page - 1) * records;
+            if (from < 0) {
+                from = 0;
+            }
+            let to = from + records;
+            if (to > list.length) {
+                to = list.length - 1;
+            }
+            return list.slice(from, to);
+        }, model_1.OperatorType.child);
         // this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
         // this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
+    }
+    initArrayGroupFunctions() {
+        this.addFunction('distinct', ArrayFunctions.distinct, model_1.OperatorType.arrow, Distinct);
+        this.addFunction('first', ArrayFunctions.first, model_1.OperatorType.arrow, First);
+        this.addFunction('last', ArrayFunctions.last, model_1.OperatorType.arrow, Last);
+        this.addFunction('count', ArrayFunctions.count, model_1.OperatorType.arrow, Count);
+        this.addFunction('max', ArrayFunctions.count, model_1.OperatorType.arrow, Max);
+        this.addFunction('min', ArrayFunctions.count, model_1.OperatorType.arrow, Min);
+        this.addFunction('avg', ArrayFunctions.count, model_1.OperatorType.arrow, Avg);
+        this.addFunction('sum', ArrayFunctions.count, model_1.OperatorType.arrow, Sum);
+    }
+    initSetsFunctions() {
+        this.addFunction('union', SetsFunctions.union, model_1.OperatorType.child, Union);
+        this.addFunction('intersection', SetsFunctions.intersection, model_1.OperatorType.child, Intersection);
+        this.addFunction('difference', SetsFunctions.difference, model_1.OperatorType.child, Difference);
+        this.addFunction('symmetricDifference', SetsFunctions.symmetricDifference, model_1.OperatorType.child, SymmetricDifference);
     }
 }
 exports.CoreLib = CoreLib;
 class CoreHelper {
+    static objectKey(obj) {
+        const keys = Object.keys(obj).sort();
+        const list = [];
+        for (const key of keys) {
+            list.push(key);
+            list.push(obj[key].toString());
+        }
+        return list.join('|');
+    }
     static getKeys(variable, fields, list) {
         const keys = [];
         // loop through the list and group by the grouper fields
@@ -758,6 +813,24 @@ class Functions {
     static toNumber(value) {
         return Functions.isNull(value) ? 0 : parseFloat(value);
     }
+    static concat(...values) {
+        if (!values || values.length === 0) {
+            return '';
+        }
+        if (typeof values[0] === 'string') {
+            return ''.concat(...values);
+        }
+        else if (Array.isArray(values[0])) {
+            return [].concat(...values);
+        }
+        else {
+            const list = [];
+            for (const value of values) {
+                list.push(value);
+            }
+            return list;
+        }
+    }
 }
 class ArrayFunctions {
     static map(list, method) { throw new Error('Empty'); }
@@ -776,6 +849,12 @@ class ArrayFunctions {
     static sum(list, method) { throw new Error('Empty'); }
     static insert(list, item) { throw new Error('Empty'); }
     static update(list, item, method) { throw new Error('Empty'); }
+}
+class SetsFunctions {
+    static union(a, b) { throw new Error('Empty'); }
+    static intersection(a, b) { throw new Error('Empty'); }
+    static difference(a, b) { throw new Error('Empty'); }
+    static symmetricDifference(a, b) { throw new Error('Empty'); }
 }
 class Map extends operands_1.ArrowFunction {
     eval() {
@@ -1025,6 +1104,153 @@ class Sum extends operands_1.ArrowFunction {
             return sum;
         }
         return CoreHelper.sum(list, this.children[1], this.children[2]);
+    }
+}
+class Union extends operands_1.ChildFunction {
+    eval() {
+        const a = this.children[0].eval();
+        const b = this.children[1].eval();
+        if (!a || a.length === 0) {
+            return b;
+        }
+        if (!b || b.length === 0) {
+            return a;
+        }
+        let result = [];
+        if (Array.isArray(a[0]) || Array.isArray(b[0])) {
+            throw new Error('Cannot union arrays of arrays');
+        }
+        else if (typeof a[0] === 'object') {
+            for (const element of a) {
+                const key = CoreHelper.objectKey(element);
+                result.push({ key: key, value: element });
+            }
+            for (const element of b) {
+                const key = CoreHelper.objectKey(element);
+                if (!result.find((p) => p.key === key)) {
+                    result.push({ key: key, value: element });
+                }
+            }
+            return result.map((p) => p.value);
+        }
+        result = result.concat(a);
+        for (const element of b) {
+            if (!result.includes(element)) {
+                result.push(element);
+            }
+        }
+        return result;
+    }
+}
+class Intersection extends operands_1.ChildFunction {
+    eval() {
+        const a = this.children[0].eval();
+        const b = this.children[1].eval();
+        if (!a || a.length === 0 || !b || b.length === 0) {
+            return [];
+        }
+        const result = [];
+        if (Array.isArray(a[0]) || Array.isArray(b[0])) {
+            throw new Error('Cannot union arrays of arrays');
+        }
+        else if (typeof a[0] === 'object') {
+            const keys = a.map((p) => CoreHelper.objectKey(p));
+            for (const element of b) {
+                const key = CoreHelper.objectKey(element);
+                if (keys.includes(key)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+        else {
+            for (const element of b) {
+                if (a.includes(element)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+    }
+}
+class Difference extends operands_1.ChildFunction {
+    eval() {
+        const a = this.children[0].eval();
+        const b = this.children[1].eval();
+        if (!a || a.length === 0) {
+            return [];
+        }
+        if (!b || b.length === 0) {
+            return a;
+        }
+        const result = [];
+        if (Array.isArray(a[0]) || Array.isArray(b[0])) {
+            throw new Error('Cannot union arrays of arrays');
+        }
+        else if (typeof a[0] === 'object') {
+            const keys = b.map((p) => CoreHelper.objectKey(p));
+            for (const element of a) {
+                const key = CoreHelper.objectKey(element);
+                if (!keys.includes(key)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+        else {
+            for (const element of a) {
+                if (!b.includes(element)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+    }
+}
+class SymmetricDifference extends operands_1.ChildFunction {
+    eval() {
+        const a = this.children[0].eval();
+        const b = this.children[1].eval();
+        if (!a || a.length === 0) {
+            return b;
+        }
+        if (!b || b.length === 0) {
+            return a;
+        }
+        const result = [];
+        if (Array.isArray(a[0]) || Array.isArray(b[0])) {
+            throw new Error('Cannot union arrays of arrays');
+        }
+        else if (typeof a[0] === 'object') {
+            const aKeys = a.map((p) => CoreHelper.objectKey(p));
+            const bKeys = b.map((p) => CoreHelper.objectKey(p));
+            for (const element of a) {
+                const key = CoreHelper.objectKey(element);
+                if (!bKeys.includes(key)) {
+                    result.push(element);
+                }
+            }
+            for (const element of b) {
+                const key = CoreHelper.objectKey(element);
+                if (!aKeys.includes(key)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
+        else {
+            for (const element of a) {
+                if (!b.includes(element)) {
+                    result.push(element);
+                }
+            }
+            for (const element of b) {
+                if (!a.includes(element)) {
+                    result.push(element);
+                }
+            }
+            return result;
+        }
     }
 }
 // class Insert extends ArrowFunction {

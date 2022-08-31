@@ -17,11 +17,15 @@
 Context:
 
 ```js
-const context = { 
-	a: '1', b: 2, c: { a: 4, b: 5 }, 
-	d: 'house', e: 'car',
-	devices: ['phone', 'computer', 'robot'],
-	pi: 3.141516 }	
+const context = {
+		a: '1',
+		b: 2,
+		c: { a: 4, b: 5 },
+		d: 'house',
+		e: 'car',
+		devices: ['phone', 'computer', 'robot'],
+		pi: 3.141516
+	}
 ```
 
 | Example         						| Result 			|

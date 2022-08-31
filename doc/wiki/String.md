@@ -30,15 +30,17 @@
 Context:
 
 ```js
-const context = { firstName: 'Juan'
-								, lastName: 'Lopez'
-								, email: 'jlopez@email.com'
-								, age: 44
-								, food: 'pizza'
-								, film: 'Estación central'
-								, data: '{"b":1}'
-								, coordinate: { lat: 48.87, long: 2.29 } 
-								}
+const context = 
+{ firstName: 'Juan'
+, lastName: 'Lopez'
+, email: 'jlopez@email.com'
+, age: 44
+, food: 'pizza'
+, film: 'Estación central'
+, a: null
+, b: ''
+, c: ' '
+}
 ```
 
 | Example                                   					| Result 																	|
@@ -53,7 +55,6 @@ const context = { firstName: 'Juan'
 |ltrim("  a  ")																				|'a  '																		|
 |replace(film,"a","*")																|'Est*ción centr*l'												|
 |mask(email)																					|'jlo*****com'														|
-|parse(data).b																				|1																				|
 |rpad(firstName,10,"_")																|'Juan______'															|
 |rtrim("  a  ")																				|'  a'																		|
 |substr(film,1,3)																			|'st'																			|
@@ -61,8 +62,6 @@ const context = { firstName: 'Juan'
 |upper(film)																					|'ESTACIÓN CENTRAL'												|
 |startWith(film,"E")																	|true																			|
 |strCount(film,"a")																		|2																				|
-|stringify(coordinate)																|'{"lat":48.87,"long":2.29}'							|
-|toString(age)																				|'44'																			|
 |`${firstName} is ${age} years old and likes ${food}`	|'Juan is 44 years old and likes pizza'		|
 |test("5","[a-zA-Z0-9_.]+$")													|true																			|
 |test("%","[a-zA-Z0-9_.]+$")													|false																		|

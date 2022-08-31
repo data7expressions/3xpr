@@ -3,16 +3,6 @@ import { show } from './util'
 (async () => {
 	const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
 	const list = [
-		'3+2-1',
-		'3*4-1',
-		'1-2-5',
-		'(2+3)*2',
-		'2*(3+2)',
-		'1+2*3*4',
-		'(1+(2**3)*4',
-		'1+2**(3*4)',
-		'(a*b)+(2*a+2*b)',
-		'2**b+a',
 		'c.b',
 		'abs(-9)',
 		'acos(0.434)',
@@ -34,8 +24,7 @@ import { show } from './util'
 		'sinh(7)',
 		'tan(7)',
 		'tanh(7)',
-		'trunc(7.984938,2)',
-		'toNumber("3.141516")'
+		'trunc(7.984938,2)'
 	]
 	show(list, context)
 })()

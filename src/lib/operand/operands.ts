@@ -177,7 +177,7 @@ export class FunctionRef extends Operand {
 			if (funcMetadata.custom) {
 				// eslint-disable-next-line new-cap
 				return new funcMetadata.custom(this.name, this.children).eval()
-			} else {
+			} else if (funcMetadata.function) {
 				const args = []
 				for (let i = 0; i < this.children.length; i++) {
 					args.push(this.children[i].eval())
