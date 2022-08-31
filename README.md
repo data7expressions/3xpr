@@ -20,9 +20,9 @@ and [bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise) o
 , [array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
 and [nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable) functions
 - [Conversion](https://github.com/FlavioLionelRita/js-expressions/wiki/Conversion) functions
-- [Arrow](https://github.com/FlavioLionelRita/js-expressions/wiki/Array) functions
+- [Arrow](https://github.com/FlavioLionelRita/js-expressions/wiki/Arrow) functions
 - [Group](https://github.com/FlavioLionelRita/js-expressions/wiki/Group) functions (distinct, first, last, min, max, sum and avg)
-- [Sets](https://github.com/FlavioLionelRita/js-expressions/wiki/String) functions (union, intersection, difference and symmetric difference)
+- [Sets](https://github.com/FlavioLionelRita/js-expressions/wiki/Sets) functions (union, intersection, difference and symmetric difference)
 - [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows) flows
 - Environment variables
 - [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
