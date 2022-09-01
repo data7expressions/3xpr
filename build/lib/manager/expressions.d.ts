@@ -1,4 +1,4 @@
-import { Parameter } from '../model';
+import { Parameter, ActionObserver } from '../model';
 import { ParserManager, ExpressionConfig } from '../parser';
 import { OperandManager, Operand } from '../operand';
 export declare class Expressions {
@@ -6,6 +6,7 @@ export declare class Expressions {
     private parserManager;
     private expressionConfig;
     private operandManager;
+    private observers;
     constructor();
     private static _instance;
     static get instance(): Expressions;
@@ -14,16 +15,21 @@ export declare class Expressions {
     get operand(): OperandManager;
     parse(expression: string): Operand;
     /**
+     * Get parameters of expression
+     * @param expression  expression
+     * @returns Parameters of expression
+     */
+    parameters(expression: string): Parameter[];
+    /**
      * Evaluate and solve expression
      * @param expression  string expression
      * @param data Data with variables
      * @returns Result of the evaluate expression
      */
     eval(expression: string, data?: any): any;
-    /**
-     * Get parameters of expression
-     * @param expression  expression
-     * @returns Parameters of expression
-     */
-    parameters(expression: string): Parameter[];
+    subscribe(observer: ActionObserver): void;
+    unsubscribe(observer: ActionObserver): void;
+    private beforeExecutionNotify;
+    private afterExecutionNotify;
+    private errorExecutionNotify;
 }

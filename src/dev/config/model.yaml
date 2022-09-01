@@ -1331,7 +1331,7 @@ functions:
       type: number             
 # group: ---------------------------------------------------------
   distinct:
-    description: Is used to retrieve unique values from a list.
+    description: Is used to retrieve unique values from a list
     type: arrow
     category: group 
     return: any[] 
@@ -1341,7 +1341,7 @@ functions:
     - name: method 
       type: function   
   count:
-    description: Calculating the number of rows in a set.
+    description: Returns the number of rows in a set
     type: arrow
     category: group 
     return: number 
@@ -1351,7 +1351,7 @@ functions:
     - name: method 
       type: function 
   max:
-    description: Calculating the maximum.
+    description: Returns the maximum of rows in a set
     type: arrow
     category: group
     return: T
@@ -1361,7 +1361,7 @@ functions:
     - name: method 
       type: function 
   min:
-    description: Calculating the minimum.
+    description: Returns the minimum of rows in a set
     type: arrow
     category: group
     return: T
@@ -1371,7 +1371,7 @@ functions:
     - name: method 
       type: function 
   sum:
-    description: Calculating the sum.
+    description: Returns the sum of rows in a set
     type: arrow
     category: group
     return: number
@@ -1381,7 +1381,7 @@ functions:
     - name: method 
       type: function 
   avg:
-    description: Calculates the average of the specified columns in a set of rows
+    description: Returns the average of rows in a set
     type: arrow
     category: group
     return: number
@@ -1391,7 +1391,7 @@ functions:
     - name: method 
       type: function 
   first:
-    description: Returns the first value of the array that meets a condition
+    description:  Returns the first value of the array that meets a condition
     type: arrow
     category: group 
     return: T 
@@ -1505,7 +1505,7 @@ functions:
     - name: b
       type: T[] 
   difference:
-    description: Is the set containing the elements of A and B that are not common
+    description: Is the set containing all the elements of A that do not belong to B
     type: child
     category: sets 
     deterministic: true 

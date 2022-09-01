@@ -2,7 +2,7 @@
 |---------------------|-----------------------------------------------------------------------------|
 |union								|Is the set A U B that contains all the elements of A and B.									|
 |intersection					|Is the set A \ B that contains all the elements of A that do not belong to B.|
-|difference						|Is the set containing the elements of A and B that are not common						|
+|difference						|Is the set containing all the elements of A that do not belong to B					|
 |symmetricDifference	|Is the set containing the elements of A and B that are not common						|
 
 # Examples
