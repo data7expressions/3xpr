@@ -1,11 +1,11 @@
 |Function    	|Description                                   																		|
 |-------------|---------------------------------------------------------------------------------|
-|distinct			|Is used to retrieve unique values from a list.																		|
-|count				|Calculating the number of rows in a set.																					|
-|max					|Calculating the maximum.																													|
-|min					|Calculating the minimum.																													|
-|sum					|Calculating the sum.																															|
-|avg					|Calculates the average of the specified columns in a set of rows									|
+|distinct			|Is used to retrieve unique values from a list																		|
+|count				|Returns the number of rows in a set																							|
+|max					|Returns the maximum of rows in a set																							|
+|min					|Returns the minimum of rows in a set																							|
+|sum					|Returns the sum of rows in a set																									|
+|avg					|Returns the average of rows in a set																							|
 |first				|Returns the first value of the array that meets a condition											|
 |last					|Returns the last value of the array that meets a condition												|
 

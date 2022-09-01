@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./data"), exports);
 __exportStar(require("./operands"), exports);
 __exportStar(require("./cache"), exports);
+__exportStar(require("./observer"), exports);
 //# sourceMappingURL=index.js.map
