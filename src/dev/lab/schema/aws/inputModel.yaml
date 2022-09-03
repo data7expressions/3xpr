@@ -1,0 +1,79 @@
+enums:
+  - name: InvoiceStatus
+    values:
+      - name: Pending
+      - name: Payable
+      - name: Paid
+  - name: DetailType
+    values:
+      - name: ExpenseDetail
+  - name: LineStatus
+    values:
+      - name: Billable
+formats:
+  - name: email
+    regExp: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$          
+entities:
+  - name : Reference
+    type: object
+    properties:
+      - name: value
+      - name: name
+  - name: Invoice
+    properties:
+      - name: DocNumber
+        format: DocumentNumber
+        min: 6
+        max: 12        
+      - name: DueDate
+        type: date
+        required: false                
+      - name: Status
+        enum: InvoiceStatus
+      - name: Balance
+        type: decimal
+      - name: Lines
+        type: array
+        entity: Line
+      - name: Vendor
+        extends: Reference
+      - name: APRef
+        extends: Reference
+      - name: TotalAmt
+        type: decimal
+    constraints:
+      - message: There must be at least one line
+        condition: Lines.count()> 0
+      - message: The total amount does not coincide with the sum of the amounts of the lines
+        condition: Round(Lines.sum(p=> p.Amount),2) == TotalAmt
+  - name: Line
+    properties:
+      - name: Description
+      - name: Amount
+        type: decimal
+      - name: DetailType
+        enum: DetailType
+      - name: ExpenseDetail
+        type: object
+        entity: ExpenseDetail
+  - name: ExpenseDetail
+    properties:
+      - name: Customer
+        extends: Reference
+      - name: Ref
+        extends: Reference
+      - name: Account
+        extends: Reference
+      - name: LineStatus
+        enum: LineStatus
+models:       
+  - name: Invoices    
+    type: array
+    entity: Invoice   
+
+
+
+
+
+
+

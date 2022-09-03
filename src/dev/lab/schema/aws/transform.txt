@@ -1,0 +1,17 @@
+Invoices.map( i => 
+		{ DueDate: i.DueDate,
+			Balance: i.Balance,
+			DocNumber: i.DocNumber
+			Status: i.Status
+			Line: Line.map( l =>
+				{ Description: l.Description,
+					Amount : l.Amount ,
+					DetailType: l.DetailType ,
+					Customer: `${l.Customer.value} (${l.Customer.name})`,
+					Ref: `${l.Ref.value} (${l.Ref.name})`,
+					Account: `${l.Account.value} (${l.Account.name})`,
+					LineStatus: l.LineStatus
+				}),
+			TotalAmt: i.TotalAmt	
+		})
+)

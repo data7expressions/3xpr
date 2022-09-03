@@ -22,6 +22,8 @@
 - [eval](manager_expressions.Expressions.md#eval)
 - [parameters](manager_expressions.Expressions.md#parameters)
 - [parse](manager_expressions.Expressions.md#parse)
+- [subscribe](manager_expressions.Expressions.md#subscribe)
+- [unsubscribe](manager_expressions.Expressions.md#unsubscribe)
 
 ## Constructors
 
@@ -31,7 +33,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L13)
+[manager/expressions.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L14)
 
 ## Accessors
 
@@ -45,7 +47,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:33](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L33)
+[manager/expressions.ts:34](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L34)
 
 ___
 
@@ -59,7 +61,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:37](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L37)
+[manager/expressions.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L38)
 
 ___
 
@@ -73,7 +75,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L29)
+[manager/expressions.ts:30](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L30)
 
 ___
 
@@ -87,7 +89,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L22)
+[manager/expressions.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L23)
 
 ## Methods
 
@@ -112,7 +114,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[manager/expressions.ts:62](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L62)
+[manager/expressions.ts:75](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L75)
 
 ___
 
@@ -136,7 +138,7 @@ Parameters of expression
 
 #### Defined in
 
-[manager/expressions.ts:73](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L73)
+[manager/expressions.ts:64](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L64)
 
 ___
 
@@ -156,4 +158,44 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/manager/expressions.ts#L41)
+[manager/expressions.ts:42](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L42)
+
+___
+
+### subscribe
+
+▸ **subscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](model.ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[manager/expressions.ts:90](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L90)
+
+___
+
+### unsubscribe
+
+▸ **unsubscribe**(`observer`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `observer` | [`ActionObserver`](model.ActionObserver.md) |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[manager/expressions.ts:94](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/manager/expressions.ts#L94)

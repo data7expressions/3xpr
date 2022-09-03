@@ -23,7 +23,10 @@
 |test								|Try a match on a string. Returns true or false																														|
 |isEmpty						|Evaluate if it is empty																																									|
 |toString						|Convert to string																																												|
+|isEmpty						|Evaluate if it is empty																																									|
+|isNotEmpty					|Evaluate if it is not empty																																							|
 |$ ${}					  	|Get environment variable																																									|
+|length					  	|Returns the length of a string																																						|
 
 ## Examples
 
@@ -74,6 +77,11 @@ const context =
 |concat($HOME,$USER)																	|'/home/flavioflavio'											|
 |concat(${HOME},$USER)																|'/home/flavioflavio'											|
 |`value of home: $HOME`																|'value of home: /home/flavio'						|
+|length(email) > 10 && length(email) < 100						|true																			|
+|email.length() > 10 && email.length() < 100					|true																			|
+|isEmpty(b)																						|true																			|
+|isNotEmpty(c)																				|false																		|
+|isNotEmpty(film)																			|true																			|
 
 ## Definition
 
@@ -274,7 +282,15 @@ const context =
 - deterministic: true
 - return: boolean
 - params:
-	- value: any
+	- value: string
+
+### isNotEmpty
+
+- description: Evaluate if it is not empty
+- deterministic: true
+- return: boolean
+- params:
+	- value: string
 
 ### toString
 
@@ -283,3 +299,11 @@ const context =
 - return: string
 - params:
 	- value: any
+
+### length
+
+- description: Returns the length of a string.
+- deterministic: true
+- return: number
+- params:
+	- value: string

@@ -12,7 +12,7 @@ export class CoreLib extends Library {
 		this.initEnums()
 		this.initOperators()
 		this.generalFunctions()
-		this.conditionFunctions()
+		this.comparisonFunctions()
 		this.nullFunctions()
 		this.numberFunctions()
 		this.stringFunctions()
@@ -82,18 +82,36 @@ export class CoreLib extends Library {
 		})
 	}
 
-	private conditionFunctions () {
+	private comparisonFunctions () {
 		this.addFunction('between', Functions.between)
 		this.addFunction('includes', Functions.includes)
 		this.addFunction('in', Functions.includes)
+		this.addFunction('isNull', Functions.isNull)
+		this.addFunction('isNotNull', Functions.isNotNull)
+		this.addFunction('isEmpty', Functions.isEmpty)
+		this.addFunction('isNotEmpty', Functions.isNotEmpty)
+		this.addFunction('isBoolean', Functions.isBoolean)
+		this.addFunction('isNumber', Functions.isNumber)
+		this.addFunction('isInteger', Functions.isInteger)
+		this.addFunction('isDecimal', Functions.isDecimal)
+		this.addFunction('isString', Functions.isString)
+		this.addFunction('isDate', Functions.isDate)
+		this.addFunction('isDatetime', Functions.isDatetime)
+		this.addFunction('isTime', Functions.isTime)
+		this.addFunction('isObject', Functions.isObject)
+		this.addFunction('isArray', Functions.isArray)
+		this.addFunction('isBooleanFormat', Functions.isBooleanFormat)
+		this.addFunction('isNumberFormat', Functions.isNumberFormat)
+		this.addFunction('isIntegerFormat', Functions.isIntegerFormat)
+		this.addFunction('isDecimalFormat', Functions.isDecimalFormat)
+		this.addFunction('isDateFormat', Functions.isDateFormat)
+		this.addFunction('isDatetimeFormat', Functions.isDatetimeFormat)
+		this.addFunction('isTimeFormat', Functions.isTimeFormat)
 	}
 
 	private nullFunctions () {
 		this.addFunction('nvl', Functions.nvl)
 		this.addFunction('nvl2', Functions.nvl2)
-		this.addFunction('isNull', Functions.isNull)
-		this.addFunction('isNotNull', Functions.isNotNull)
-		this.addFunction('isEmpty', Functions.isEmpty)
 	}
 
 	private numberFunctions () {
@@ -848,8 +866,103 @@ class Functions {
 		return !Functions.isNull(value)
 	}
 
-	static isEmpty (value: any): boolean {
+	static isEmpty (value: string): boolean {
 		return value === null || value === undefined || value.toString().trim().length === 0
+	}
+
+	static isNotEmpty (value: string): boolean {
+		return !Functions.isEmpty(value)
+	}
+
+	static isBoolean (value: any): boolean {
+		return typeof value === 'boolean'
+	}
+
+	static isNumber (value: any): boolean {
+		return Functions.isDecimal(value)
+	}
+
+	static isInteger (value: any): boolean {
+		return Number.isInteger(value)
+	}
+
+	static isDecimal (value: any): boolean {
+		return !isNaN(value)
+	}
+
+	static isString (value: any): boolean {
+		return typeof value === 'string'
+	}
+
+	static isDate (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isDateFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isDatetime (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isDatetimeFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isObject (value: any): boolean {
+		return typeof value === 'object' && !Array.isArray(value)
+	}
+
+	static isArray (value: any): boolean {
+		return Array.isArray(value)
+	}
+
+	static isTime (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isTimeFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isBooleanFormat (value: any): boolean {
+		return ['true', 'false'].includes(value)
+	}
+
+	static isNumberFormat (value: any): boolean {
+		return Functions.isDecimalFormat(value)
+	}
+
+	static isIntegerFormat (value: any): boolean {
+		const regex = /^\d+$/
+		return value.match(regex) !== null
+	}
+
+	static isDecimalFormat (value: any): boolean {
+		const regex = /^\d+\.\d+$/
+		return value.match(regex) !== null
+	}
+
+	static isStringFormat (value: any): boolean {
+		const regex = /[a-zA-Z0-9_.]+$/
+		return value.match(regex) !== null
+	}
+
+	static isDateFormat (value: any): boolean {
+		const regex = /^\d{4}-\d{2}-\d{2}$/
+		return value.match(regex) !== null
+	}
+
+	static isDatetimeFormat (value: any): boolean {
+		const regex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/
+		return value.match(regex) !== null
+	}
+
+	static isTimeFormat (value: any): boolean {
+		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+		const regex = /\[0-2]\d:[0-5]\d:[0-5]\d/
+		return value.match(regex) !== null
 	}
 
 	static async sleep (ms = 1000): Promise<void> {

@@ -12,6 +12,6 @@
 - [Array](Array)
 - [Arrow](Arrow)
 - [Group](Group)
-- [Sets](String)
+- [Sets](Sets)
 - [Control flows](Flows)
 - [Extend](Extend)

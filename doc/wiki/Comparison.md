@@ -11,6 +11,8 @@
 |-------------|-----------------------------------------------------------------------------|
 |between			|Specifies how to retrieve values from an expression within a specific range	|
 |in/includes	|Is used to reduce the use of multiple OR conditions													|
+|isNull				|Evaluate if it is null																												|
+|isNotNull		|Evaluate if it is not null																										|
 
 ## Examples
 
@@ -52,6 +54,10 @@ const context = {
 |between(12,10,20)						|true					|
 |between(2,10,20)							|false				|
 |between(pi,1,5)							|true					|
+|isNull(f)										|false				|
+|isNull(g)										|true					|
+|isNotNull(f)									|true					|
+|isNotNull(g)									|false				|
 
 ## Definition
 
@@ -154,3 +160,19 @@ const context = {
 - params:
 	- value: T
 	- list: T[]
+
+### isNull
+
+- description: Evaluate if it is null
+- deterministic: true
+- return: boolean
+- params:
+	- value: any
+
+### isNotNull
+
+- description: Evaluate if it is not null
+- deterministic: true
+- return: boolean
+- params:
+	- value: any

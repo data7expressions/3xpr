@@ -725,7 +725,7 @@
             ]
         },
         "in": {
-            "description": "Determines if an array includes a certain element",
+            "description": "Determines if an array includes a element or string includes substring",
             "category": "condition",
             "return": "boolean",
             "params": [
@@ -736,6 +736,30 @@
                 {
                     "name": "list",
                     "type": "T[]"
+                }
+            ]
+        },
+        "isNull": {
+            "description": "Evaluate if it is null",
+            "category": "nullable",
+            "deterministic": true,
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ]
+        },
+        "isNotNull": {
+            "description": "Evaluate if it is not null",
+            "category": "nullable",
+            "deterministic": true,
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "any"
                 }
             ]
         },
@@ -1309,6 +1333,30 @@
                 }
             ]
         },
+        "isEmpty": {
+            "description": "Evaluate if it is empty",
+            "category": "string",
+            "deterministic": true,
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
+        "isNotEmpty": {
+            "description": "Evaluate if it is not empty",
+            "category": "string",
+            "deterministic": true,
+            "return": "boolean",
+            "params": [
+                {
+                    "name": "value",
+                    "type": "string"
+                }
+            ]
+        },
         "curTime": {
             "description": "Get the current time",
             "category": "datetime",
@@ -1745,7 +1793,7 @@
             ]
         },
         "nvl2": {
-            "description": "Extends the functionality found in the NVL function. It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.",
+            "description": "It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.",
             "category": "nullable",
             "deterministic": true,
             "return": "T",
@@ -1761,42 +1809,6 @@
                 {
                     "name": "b",
                     "type": "T"
-                }
-            ]
-        },
-        "isNull": {
-            "description": "Evaluate if it is null",
-            "category": "nullable",
-            "deterministic": true,
-            "return": "boolean",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
-                }
-            ]
-        },
-        "isNotNull": {
-            "description": "Evaluate if it is not null",
-            "category": "nullable",
-            "deterministic": true,
-            "return": "boolean",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
-                }
-            ]
-        },
-        "isEmpty": {
-            "description": "Evaluate if it is empty",
-            "category": "nullable",
-            "deterministic": true,
-            "return": "boolean",
-            "params": [
-                {
-                    "name": "value",
-                    "type": "any"
                 }
             ]
         },

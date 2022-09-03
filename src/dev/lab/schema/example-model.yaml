@@ -1,0 +1,31 @@
+entities:
+  - name: Position
+    abstract: true
+    properties:
+      - name: latitude
+        type: decimal
+      - name: longitude
+        type: decimal
+  - name: Country
+    extends: Position
+    properties:
+      - name: name
+        required: true
+      - name: iso3
+        length: 3
+        required: true
+      - name: native  
+      - name: region
+      - name: subregion
+      - name: states
+        type: State[]
+  - name: State
+    extends: Position
+    properties:
+      - name: id
+        type: integer
+        required: true
+      - name: name
+        required: true
+      - name: state_code
+        required: true

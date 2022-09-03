@@ -4,7 +4,7 @@ export declare class CoreLib extends Library {
     private initEnums;
     private initOperators;
     private generalFunctions;
-    private conditionFunctions;
+    private comparisonFunctions;
     private nullFunctions;
     private numberFunctions;
     private conversionFunctions;

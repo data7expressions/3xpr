@@ -2,8 +2,6 @@
 |-----------|---------------------------------------------------------|
 |nvl				|Allows you to replace null values with a default value.	|
 |nvl2				|It lets you substitutes a value when a null value is encountered as well as when a non-null value is encountered.|
-|isNull			|Evaluate if it is null																		|
-|isNotNull	|Evaluate if it is not null																|
 
 ## Examples
 
@@ -21,10 +19,6 @@ const context = { a: 1, b: null, c: '', e: 'hello' }
 |nvl2(b,"is not null","is null")			|'is null'				|
 |nvl2(c,"is not null","is null")			|'is not null'		|
 |nvl2(d,"is not null","is null")			|'is null'				|
-|isNull(b)														|true							|
-|isNull(c)														|false						|
-|isNotNull(b)													|false						|
-|isNotNull(c)													|true							|
 
 ## Definition
 
@@ -46,19 +40,3 @@ const context = { a: 1, b: null, c: '', e: 'hello' }
 	- value: T
 	- a: T
 	- b: T
-
-### isNull
-
-- description: Evaluate if it is null
-- deterministic: true
-- return: boolean
-- params:
-	- value: any
-
-### isNotNull
-
-- description: Evaluate if it is not null
-- deterministic: true
-- return: boolean
-- params:
-	- value: any
