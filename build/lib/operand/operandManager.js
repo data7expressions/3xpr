@@ -8,15 +8,9 @@ class OperandManager {
         this.expressionConfig = expressionConfig;
     }
     build(node) {
-        try {
-            const operand = this.nodeToOperand(node);
-            const reduced = this.reduce(operand);
-            return this.setParent(reduced);
-        }
-        catch (error) {
-            console.error(error);
-            throw error;
-        }
+        const operand = this.nodeToOperand(node);
+        const reduced = this.reduce(operand);
+        return this.setParent(reduced);
     }
     clone(value) {
         return this.deserialize(this.serialize(value));

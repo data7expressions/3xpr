@@ -1,18 +1,13 @@
-import { Parameter, ActionObserver } from '../model';
+import { Cache, Parameter } from '../model';
 import { ParserManager, ExpressionConfig } from '../parser';
 import { OperandManager, Operand } from '../operand';
-export declare class Expressions {
+export declare class ExpressionsManager {
     private cache;
     private parserManager;
-    private expressionConfig;
+    private configManager;
     private operandManager;
     private observers;
-    constructor();
-    private static _instance;
-    static get instance(): Expressions;
-    get parser(): ParserManager;
-    get config(): ExpressionConfig;
-    get operand(): OperandManager;
+    constructor(cache: Cache, configManager: ExpressionConfig, operandManager: OperandManager, parserManager: ParserManager);
     parse(expression: string): Operand;
     /**
      * Get parameters of expression
@@ -27,9 +22,4 @@ export declare class Expressions {
      * @returns Result of the evaluate expression
      */
     eval(expression: string, data?: any): any;
-    subscribe(observer: ActionObserver): void;
-    unsubscribe(observer: ActionObserver): void;
-    private beforeExecutionNotify;
-    private afterExecutionNotify;
-    private errorExecutionNotify;
 }

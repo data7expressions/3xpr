@@ -40,17 +40,6 @@ export abstract class Library {
 		})
 	}
 
-	// // eslint-disable-next-line @typescript-eslint/ban-types
-	// private getData (method:Function) {
-	// for (const argument of method.arguments) {
-	// console.log(argument.getName())
-	// console.log(argument.getType().getText())
-	// console.log(argument.isOptional())
-	// console.log(argument.getInitializer() != null)
-	// }
-	// return {}
-	// }
-
 	public addOperator (name:string, source:any, custom:any = null):any {
 		const metadata = this.getMetadata(source)
 		this.operators.push({

@@ -182,6 +182,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-file.ts"
 		},
 		{
+			"name": "lab schema aws",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/schema/aws/lab.ts"
+		},
+		{
 			"name": "build wiki",
 			"type": "node",
 			"request": "launch",

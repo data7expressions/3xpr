@@ -692,7 +692,7 @@
     },
     "between": {
       "description": "Specifies how to retrieve values from an expression within a specific range.",
-      "category": "condition",
+      "category": "comparison",
       "return": "boolean",
       "params": [
         {
@@ -711,7 +711,7 @@
     },
     "includes": {
       "description": "Determines if an array includes a certain element",
-      "category": "condition",
+      "category": "comparison",
       "return": "boolean",
       "params": [
         {
@@ -726,7 +726,7 @@
     },
     "in": {
       "description": "Determines if an array includes a element or string includes substring",
-      "category": "condition",
+      "category": "comparison",
       "return": "boolean",
       "params": [
         {
@@ -741,7 +741,7 @@
     },
     "isNull": {
       "description": "Evaluate if it is null",
-      "category": "nullable",
+      "category": "comparison",
       "deterministic": true,
       "return": "boolean",
       "params": [
@@ -753,7 +753,211 @@
     },
     "isNotNull": {
       "description": "Evaluate if it is not null",
-      "category": "nullable",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isBoolean": {
+      "description": "Evaluate if it is boolean",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isNumber": {
+      "description": "Evaluate if it is a number",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isInteger": {
+      "description": "Evaluate if it is a integer number",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDecimal": {
+      "description": "Evaluate if it is a decimal number",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isString": {
+      "description": "Evaluate if it is a string",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDate": {
+      "description": "Evaluate if it is a date",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDatetime": {
+      "description": "Evaluate if it is a datetime",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isTime": {
+      "description": "Evaluate if it is a time",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isObject": {
+      "description": "Evaluate if it is a object",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isArray": {
+      "description": "Evaluate if it is a array",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isBooleanFormat": {
+      "description": "Evaluates if it has boolean format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isNumberFormat": {
+      "description": "Evaluates if it has number format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isIntegerFormat": {
+      "description": "Evaluates if it has integer format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDecimalFormat": {
+      "description": "Evaluates if it has decimal format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDateFormat": {
+      "description": "Evaluates if it has date format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isDatetimeFormat": {
+      "description": "Evaluates if it has datetime format",
+      "category": "comparison",
+      "deterministic": true,
+      "return": "boolean",
+      "params": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ]
+    },
+    "isTimeFormat": {
+      "description": "Evaluates if it has time format",
+      "category": "comparison",
       "deterministic": true,
       "return": "boolean",
       "params": [

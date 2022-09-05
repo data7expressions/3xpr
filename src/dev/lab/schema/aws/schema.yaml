@@ -12,10 +12,13 @@ enums:
       - name: Billable
 formats:
   - name: email
-    regExp: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$          
+    regExp: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
+  - name: DocumentNumber
+    regExp: ^\w{6,8}$           
 entities:
   - name : Reference
     type: object
+    entity: Reference
     properties:
       - name: value
       - name: name
@@ -32,7 +35,7 @@ entities:
         enum: InvoiceStatus
       - name: Balance
         type: decimal
-      - name: Lines
+      - name: Line
         type: array
         entity: Line
       - name: Vendor
@@ -43,9 +46,9 @@ entities:
         type: decimal
     constraints:
       - message: There must be at least one line
-        condition: Lines.count()> 0
+        condition: Line.count()> 0
       - message: The total amount does not coincide with the sum of the amounts of the lines
-        condition: Round(Lines.sum(p=> p.Amount),2) == TotalAmt
+        condition: Line.sum(p=> p.Amount).round(2) == TotalAmt
   - name: Line
     properties:
       - name: Description
@@ -67,13 +70,42 @@ entities:
       - name: LineStatus
         enum: LineStatus
 models:       
-  - name: Invoices    
+  - name: inputInvoices    
     type: array
-    entity: Invoice   
-
-
-
-
-
-
-
+    entity: Invoice
+  - name: outputInvoices    
+    type: array
+    items: 
+      type: object
+      properties:
+      - name: DocNumber
+        format: DocumentNumber
+        min: 6
+        max: 12        
+      - name: DueDate
+        type: date
+        required: false                
+      - name: Status
+        enum: InvoiceStatus
+      - name: Balance
+        type: decimal
+      - name: Line
+        type: array
+        items:
+          type: object
+          properties:
+            - name: Description
+            - name: Amount
+              type: decimal
+            - name: DetailType
+            - name: Customer
+            - name: Ref
+            - name: Account
+            - name: LineStatus
+      - name: TotalAmt
+        type: decimal
+    constraints:
+      - message: There must be at least one invoice
+        condition: .count()> 0
+      - message: There must be at least one Line for invoice
+        condition: .count(p=> p.Line.count() == 0 ) == 0

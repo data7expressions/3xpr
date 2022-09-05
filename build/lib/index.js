@@ -15,10 +15,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.expressions = void 0;
-const manager_1 = require("./manager");
+const expressions_1 = require("./expressions");
 __exportStar(require("./model"), exports);
 __exportStar(require("./operand"), exports);
 __exportStar(require("./manager"), exports);
 __exportStar(require("./parser"), exports);
-exports.expressions = manager_1.Expressions.instance;
+exports.expressions = expressions_1.Expressions.instance;
 //# sourceMappingURL=index.js.map

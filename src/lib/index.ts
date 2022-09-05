@@ -1,5 +1,4 @@
-import { Expressions } from './manager'
-
+import { Expressions } from './expressions'
 export * from './model'
 export * from './operand'
 export * from './manager'

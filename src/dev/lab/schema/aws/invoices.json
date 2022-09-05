@@ -7,7 +7,7 @@
 		"Line": [
 			{
 				"Description": "Sample Expense",
-				"Amount": 500,
+				"Amount": 1990.19,
 				"DetailType": "ExpenseDetail",
 				"ExpenseDetail": {
 					"Customer": {

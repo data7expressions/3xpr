@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./expressions"), exports);
 __exportStar(require("./memoryCache"), exports);
 __exportStar(require("./helper"), exports);
+__exportStar(require("./schema"), exports);
 //# sourceMappingURL=index.js.map

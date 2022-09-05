@@ -10,9 +10,18 @@ export enum PropertyType {
 	object = 'object',
 	array = 'array'
 }
+
+export enum ConstraintType {
+	value = 'value',
+	enum = 'enum',
+	format = 'format',
+	range = 'range',
+	custom = 'custom',
+}
 export interface Constraint {
 	message: string
 	condition: string
+	type: ConstraintType
 }
 export interface Format {
 	name: string
@@ -28,6 +37,7 @@ export interface Enum {
 }
 export interface EntityProperty {
 	name: string
+	extends?: string
 	type: PropertyType
 	enum?: string
 	entity?:string
@@ -50,8 +60,19 @@ export interface Model extends EntityProperty {
 	constraints: Constraint[]
 }
 export interface Schema {
+	name: string
 	enums: Enum[]
 	formats: Format[]
 	entities: Entity[]
 	models: Model[]
+}
+
+export interface ValidateError {
+	message:string
+	condition?:string
+	data:any
+}
+export interface ValidateResult {
+	errors:ValidateError[]
+	result: 'ok' | 'error'
 }

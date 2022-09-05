@@ -56,9 +56,9 @@ class ParserManager {
     }
     toExpression(node) {
         const list = [];
-        if (!node || !node.type) {
-            console.log(node);
-        }
+        // if (!node || !node.type) {
+        // console.log(node)
+        // }
         switch (node.type) {
             case 'const':
             case 'var':
@@ -197,8 +197,9 @@ class ParserManager {
         let i = 0;
         while (i < length) {
             const p = buffer[i];
-            if (isString && p === quotes)
+            if (isString && p === quotes) {
                 isString = false;
+            }
             else if (!isString && (p === '\'' || p === '"' || p === '`')) {
                 isString = true;
                 quotes = p;
@@ -213,9 +214,8 @@ class ParserManager {
                     result.push(p);
                 }
                 // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
-            }
-            else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-                result.push(';');
+                // } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+                // result.push(';')
             }
             else if (p !== '\n' && p !== '\r' && p !== '\t') {
                 result.push(p);

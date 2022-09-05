@@ -120,7 +120,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('log10', Math.log10);
         this.addFunction('log', Math.log);
         this.addFunction('remainder', (n1, n2) => n1 % n2);
-        this.addFunction('round', (num, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals));
+        this.addFunction('round', (num, decimals = 0) => decimals > 0 ? Number(num.toFixed(decimals)) : Math.round(num));
         this.addFunction('sign', Math.sign);
         this.addFunction('sin', Math.sin);
         this.addFunction('sinh', Math.sinh);
@@ -957,6 +957,9 @@ class Map extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children[2] instanceof operands_1.Obj) {
             const groupers = [];
             const aggregates = [];
@@ -1015,6 +1018,9 @@ class Distinct extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children[2] instanceof operands_1.Obj) {
             // case with aggregate functions
             const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list);
@@ -1045,6 +1051,9 @@ class Distinct extends operands_1.ArrowFunction {
 class Foreach extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -1057,6 +1066,9 @@ class Filter extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -1070,6 +1082,9 @@ class Filter extends operands_1.ArrowFunction {
 class Reverse extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.reverse();
         }
@@ -1089,6 +1104,9 @@ class Sort extends operands_1.ArrowFunction {
     eval() {
         const values = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.sort();
         }
@@ -1106,6 +1124,9 @@ class Remove extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -1119,6 +1140,9 @@ class Remove extends operands_1.ArrowFunction {
 class First extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[0] : null;
         }
@@ -1128,6 +1152,9 @@ class First extends operands_1.ArrowFunction {
 class Last extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[list.length - 1] : null;
         }
@@ -1137,6 +1164,9 @@ class Last extends operands_1.ArrowFunction {
 class Count extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.length;
         }
@@ -1146,6 +1176,9 @@ class Count extends operands_1.ArrowFunction {
 class Max extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let max;
             for (const item of list) {
@@ -1161,6 +1194,9 @@ class Max extends operands_1.ArrowFunction {
 class Min extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let min;
             for (const item of list) {
@@ -1176,6 +1212,9 @@ class Min extends operands_1.ArrowFunction {
 class Avg extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let sum = 0;
             for (const item of list) {
@@ -1191,6 +1230,9 @@ class Avg extends operands_1.ArrowFunction {
 class Sum extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let sum = 0;
             for (const item of list) {
@@ -1207,10 +1249,16 @@ class Union extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return b;
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         let result = [];
@@ -1243,7 +1291,13 @@ class Intersection extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0 || !b || b.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0 || b.length === 0) {
             return [];
         }
         const result = [];
@@ -1274,10 +1328,16 @@ class Difference extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return [];
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         const result = [];
@@ -1308,10 +1368,16 @@ class SymmetricDifference extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return b;
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         const result = [];
