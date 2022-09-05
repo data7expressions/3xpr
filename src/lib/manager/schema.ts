@@ -1,4 +1,4 @@
-import { Schema, Entity, Constraint, ConstraintType, PropertyType, Enum, EnumValue, EntityProperty, ValidateResult, ValidateError } from '../model'
+import { Schema, Entity, Constraint, ConstraintType, PropertyType, Enum, EntityProperty, ValidateResult, ValidateError } from '../model'
 import { Helper, ExpressionsManager } from './'
 
 export class SchemaExtender {
