@@ -30,7 +30,7 @@ import yaml from 'js-yaml'
 		if (!transformExpression) {
 			throw new Error('invalid file transform.txt')
 		}
-		const transformResult = exp.eval(transformExpression, invoices)
+		const transformResult = exp.eval(transformExpression, { '.': invoices })
 		await Helper.writeFile('./src/dev/lab/schema/aws/transformed.json', JSON.stringify(transformResult, null, 2))
 
 		// validate output

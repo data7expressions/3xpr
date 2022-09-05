@@ -1,8 +1,8 @@
 .map( i => 
 	{ DueDate: i.DueDate,
 		Balance: i.Balance,
-		DocNumber: i.DocNumber
-		Status: i.Status
+		DocNumber: i.DocNumber,
+		Status: i.Status,
 		Line: i.Line.map( l =>
 			{ Description: l.Description,
 				Amount : l.Amount ,

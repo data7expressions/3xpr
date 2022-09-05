@@ -176,7 +176,7 @@ export class SchemaExtender {
 				for (const constraint of entity.constraints) {
 					constraint.type = ConstraintType.custom
 				}
-				const constraints = this.createConstraintsProperty(schema, property, entity.name)
+				const constraints = this.createConstraintsProperty(schema, property, property.name, entity.name)
 				entity.constraints.unshift(...constraints)
 			}
 		}
@@ -184,14 +184,14 @@ export class SchemaExtender {
 			for (const constraint of model.constraints) {
 				constraint.type = ConstraintType.custom
 			}
-			const constraints = this.createConstraintsProperty(schema, model)
+			const constraints = this.createConstraintsProperty(schema, model, '.')
 			model.constraints.unshift(...constraints)
 		}
 	}
 
-	protected createConstraintsProperty (schema: Schema, property: EntityProperty, entity?:string, parent?:string): Constraint[] {
+	protected createConstraintsProperty (schema: Schema, property: EntityProperty, propertyName:string, entity?:string): Constraint[] {
 		const constraints:Constraint[] = []
-		const propertyName = parent ? `${parent}.${property.name}` : property.name
+		// const propertyName = parent ? `${parent}.${property.name}` : property.name
 		const propertyRef = entity ? `${entity}.${propertyName}` : propertyName
 		const valueConstraint = this.createValueConstraint(propertyRef, property, propertyName)
 		if (valueConstraint) {
@@ -208,7 +208,7 @@ export class SchemaExtender {
 		}
 		if (property.properties && property.properties.length > 0) {
 			for (const child of property.properties) {
-				const childConstraints = this.createConstraintsProperty(schema, child, entity, propertyName)
+				const childConstraints = this.createConstraintsProperty(schema, child, `${propertyName}.${child.name}`, entity)
 				constraints.push(...childConstraints)
 			}
 		}

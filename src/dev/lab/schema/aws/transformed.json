@@ -1,0 +1,20 @@
+[
+  {
+    "DueDate": "2013-02-15",
+    "Balance": 1990.19,
+    "DocNumber": "SAMP001",
+    "Status": "Payable",
+    "Line": [
+      {
+        "Description": "Sample Expense",
+        "Amount": 1990.19,
+        "DetailType": "ExpenseDetail",
+        "Customer": "ABC123 (Sample Customer)",
+        "Ref": "DEF234 (Sample Construction)",
+        "Account": "EFG345 (Fuel)",
+        "LineStatus": "Billable"
+      }
+    ],
+    "TotalAmt": 1990.19
+  }
+]
