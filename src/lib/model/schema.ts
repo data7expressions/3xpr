@@ -13,24 +13,10 @@ export enum PropertyType {
 	object = 'object',
 	array = 'array'
 }
-
-export enum ConstraintType {
-	type = 'type',
-	enum = 'enum',
-	format = 'format',
-	range = 'range',
-	custom = 'custom'
-}
-export enum ConstraintEvaluateType {
-	expression = 'expression',
-	function = 'function'
-}
 export interface Constraint {
 	message: string
-	type: ConstraintType
-	evaluateType: ConstraintEvaluateType
-	expression?: string
 	func?: Function
+	expression?: string
 }
 export interface ContentSchema {
 	type:PropertyType
@@ -44,6 +30,12 @@ export interface PropertyNames {
 
 export interface Contains {
 	type:PropertyType
+}
+
+export interface BuildedSchema {
+	$id?: string
+	type: PropertyType
+	constraints: Constraint[]
 }
 
 export interface Schema {

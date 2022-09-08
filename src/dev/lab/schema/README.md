@@ -14,3 +14,4 @@
 - [JSONata](https://docs.jsonata.org/overview.html)
 - [json-validator](https://www.npmjs.com/package/json-validator)
 - [jsonschema](https://www.npmjs.com/package/jsonschema)
+- [repository](https://www.schemastore.org/json/)

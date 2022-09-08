@@ -2,14 +2,26 @@ import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import https from 'https'
+import url from 'url'
 
 export class Helper {
 	public static async get (uri: any): Promise<any> {
 		// https://www.geeksforgeeks.org/node-js-https-request-function/
 		return new Promise<string>((resolve, reject) => {
 			let data = ''
-			const req = https.request(uri, res => {
-				console.log(`statusCode: ${res.statusCode}`)
+			// https://www.geeksforgeeks.org/node-js-url-method/
+			const _url = new url.URL(uri)
+			const options = {
+				hostname: _url.hostname,
+				port: _url.protocol === 'https' ? 443 : 80,
+				path: _url.pathname,
+				method: 'GET'
+				// https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+				// https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+				// NO FUNCIONO
+				// rejectUnauthorized: false
+			}
+			const req = https.request(options, res => {
 				res.on('data', chunk => {
 					data = data + chunk.toString()
 				})

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Cache, Schema, Constraint, ConstraintType, PropertyType, ValidateResult, ValidateError, ConstraintEvaluateType } from '../model'
+import { Cache, Schema, Constraint, PropertyType, ValidateResult, ValidateError } from '../model'
 import { Helper, ExpressionsManager } from './'
 import { ExpressionConfig } from '../parser'
 
@@ -163,8 +163,6 @@ export class SchemaBuilder {
 		}
 		return {
 			message: `invalid type ${property.name}`,
-			type: ConstraintType.type,
-			evaluateType: ConstraintEvaluateType.function,
 			func: func
 		}
 	}
@@ -187,57 +185,41 @@ export class SchemaBuilder {
 		if (property.minimum && property.maximum && !property.exclusiveMinimum && !property.exclusiveMaximum) {
 			return {
 				message: `${property.name} outside the range form ${property.minimum} to ${property.maximum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p > property.minimum && p < property.maximum
 			}
 		} else if (property.minimum && property.maximum && property.exclusiveMinimum && property.exclusiveMaximum) {
 			return {
 				message: `${property.name} outside the range form ${property.minimum} inclusive to ${property.maximum} inclusive`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p >= property.minimum && p <= property.maximum
 			}
 		} else if (property.minimum && property.maximum && !property.exclusiveMinimum && property.exclusiveMaximum) {
 			return {
 				message: `${property.name} outside the range form ${property.minimum} to ${property.maximum} inclusive`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p > property.minimum && p <= property.maximum
 			}
 		} else if (property.minimum && property.maximum && property.exclusiveMinimum && !property.exclusiveMaximum) {
 			return {
 				message: `${property.name} outside the range form ${property.minimum} inclusive to ${property.maximum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p >= property.minimum && p < property.maximum
 			}
 		} else if (property.minimum && !property.exclusiveMinimum) {
 			return {
 				message: `${property.name} is less or equal than ${property.minimum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p >= property.minimum
 			}
 		} else if (property.minimum && property.exclusiveMinimum) {
 			return {
 				message: `${property.name} is less than ${property.minimum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p > property.minimum
 			}
 		} else if (property.maximum && !property.exclusiveMaximum) {
 			return {
 				message: `${property.name} is greater or equal than ${property.maximum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p <= property.maximum
 			}
 		} else if (property.maximum && property.exclusiveMaximum) {
 			return {
 				message: `${property.name} is greater than ${property.maximum}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => p <= property.maximum
 			}
 		}
@@ -250,8 +232,6 @@ export class SchemaBuilder {
 		}
 		return {
 			message: `${property.name}  is not multiple of ${property.multipleOf}`,
-			type: ConstraintType.range,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:number) => p % property.multipleOf === 0
 		}
 	}
@@ -262,26 +242,17 @@ export class SchemaBuilder {
 		if (min && max) {
 			return {
 				message: `${property.name} outside the range of ${min} to ${max}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:string) => p.length >= min && p.length <= max
-				// expression: `${_propertyName} >= ${property.minimum} && ${_propertyName} <= ${property.maximum}`
 			}
 		} else if (min) {
 			return {
 				message: `${property.name} is less than ${min}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:string) => p.length >= min
-				// expression: `${_propertyName} >= ${property.minimum}`
 			}
 		} else if (max) {
 			return {
 				message: `${property.name} is greater than ${max}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:string) => p.length <= max
-				// expression: `${_propertyName} <= ${property.maximum}`
 			}
 		}
 		throw new Error(`${property.name} constraint minLength or maxLength undefined`)
@@ -304,15 +275,9 @@ export class SchemaBuilder {
 			throw new Error(`Invalid enum define in ${property.name}`)
 		}
 		const showValues = values.join(',')
-		// const values = _enum.values.map(p => p.value)
-		// const values = _enum.values.map(p => typeof p.value === 'string' ? `"${p.value}"` : p.value).join(',')
-		// const showValues = _enum.values.map(p => p.value).join(',')
 		return {
 			message: `${property.name}  not in [${showValues}]`,
-			type: ConstraintType.enum,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:string) => values.includes(p)
-			// expression: `${propertyName}.in([${values}])`
 		}
 	}
 
@@ -326,10 +291,7 @@ export class SchemaBuilder {
 		}
 		return {
 			message: `${property.name} does not comply with the format ${property.format}`,
-			type: ConstraintType.format,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:string) => format.regExp.test(p)
-			// expression: `${propertyName}.test("${format.regExp}")`
 		}
 	}
 
@@ -340,8 +302,6 @@ export class SchemaBuilder {
 		const regExp = new RegExp(property.pattern)
 		return {
 			message: `${property.name} does not comply with the format ${property.pattern}`,
-			type: ConstraintType.format,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:string) => regExp.test(p)
 		}
 	}
@@ -349,8 +309,6 @@ export class SchemaBuilder {
 	protected createRequiredConstraint (property: Schema): Constraint {
 		return {
 			message: `${property.name} does not comply with the format ${property.pattern}`,
-			type: ConstraintType.format,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:string) => {
 				if (!property.required) {
 					return false
@@ -370,8 +328,6 @@ export class SchemaBuilder {
 		if (min && max) {
 			return {
 				message: `${property.name} outside the range from ${min} inclusive to ${max} inclusive properties`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => {
 					const properties = Object.keys(p).length
 					return properties >= min && properties <= max
@@ -380,15 +336,11 @@ export class SchemaBuilder {
 		} else if (min) {
 			return {
 				message: `${property.name} is less or equal than ${min}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => Object.keys(p).length >= min
 			}
 		} else if (max) {
 			return {
 				message: `${property.name} is greater or equal than ${max}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any) => Object.keys(p).length <= max
 			}
 		}
@@ -401,22 +353,16 @@ export class SchemaBuilder {
 		if (min && max) {
 			return {
 				message: `${property.name} outside the range from ${min} inclusive to ${max} inclusive items`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any[]) => p.length >= min && p.length <= max
 			}
 		} else if (min) {
 			return {
 				message: `${property.name} is less or equal than ${min}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any[]) => p.length >= min
 			}
 		} else if (max) {
 			return {
 				message: `${property.name} is greater or equal than ${max}`,
-				type: ConstraintType.range,
-				evaluateType: ConstraintEvaluateType.function,
 				func: (p:any[]) => p.length <= max
 			}
 		}
@@ -426,8 +372,6 @@ export class SchemaBuilder {
 	protected createUniqueItemsConstraint (property: Schema): Constraint {
 		return {
 			message: `Does not comply with the format ${property.uniqueItems}`,
-			type: ConstraintType.range,
-			evaluateType: ConstraintEvaluateType.function,
 			func: (p:any[]) => {
 				const unique = (value:any, index:number, self:any) => {
 					return self.indexOf(value) !== index
@@ -613,11 +557,11 @@ export class SchemaValidator {
 		if (source.constraints) {
 			for (const constraint of source.constraints) {
 				try {
-					if (constraint.evaluateType === ConstraintEvaluateType.function && constraint.func) {
+					if (constraint.func) {
 						if (!constraint.func(data)) {
 							errors.push({ message: constraint.message, data: data })
 						}
-					} else if (constraint.evaluateType === ConstraintEvaluateType.expression && constraint.expression) {
+					} else if (constraint.expression) {
 						if (!this.expressions.eval(constraint.expression, { '.': data })) {
 							errors.push({ message: constraint.message, data: data })
 						}
