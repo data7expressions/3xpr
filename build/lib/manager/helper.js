@@ -7,7 +7,27 @@ exports.Helper = void 0;
 const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const https_1 = __importDefault(require("https"));
 class Helper {
+    static async get(uri) {
+        // https://www.geeksforgeeks.org/node-js-https-request-function/
+        return new Promise((resolve, reject) => {
+            let data = '';
+            const req = https_1.default.request(uri, res => {
+                console.log(`statusCode: ${res.statusCode}`);
+                res.on('data', chunk => {
+                    data = data + chunk.toString();
+                });
+                res.on('end', () => {
+                    resolve(data);
+                });
+            });
+            req.on('error', error => {
+                reject(error);
+            });
+            req.end();
+        });
+    }
     static getType(value) {
         if (Array.isArray(value))
             return 'array';
@@ -35,6 +55,30 @@ class Helper {
     }
     static clone(obj) {
         return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj;
+    }
+    static extendObject(obj, base) {
+        if (Array.isArray(base)) {
+            for (const baseChild of base) {
+                const objChild = obj.find((p) => p.name === baseChild.name);
+                if (objChild === undefined) {
+                    obj.push(Helper.clone(baseChild));
+                }
+                else {
+                    Helper.extendObject(objChild, baseChild);
+                }
+            }
+        }
+        else if (typeof base === 'object') {
+            for (const k in base) {
+                if (obj[k] === undefined) {
+                    obj[k] = Helper.clone(base[k]);
+                }
+                else if (typeof obj[k] === 'object') {
+                    Helper.extendObject(obj[k], base[k]);
+                }
+            }
+        }
+        return obj;
     }
     static getNames(value) {
         if (value === '.') {

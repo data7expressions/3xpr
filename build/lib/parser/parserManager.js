@@ -4,8 +4,8 @@ exports.ParserManager = void 0;
 const node_1 = require("./node");
 const parser_1 = require("./parser");
 class ParserManager {
-    constructor(expressionConfig) {
-        this.expressionConfig = expressionConfig;
+    constructor(config) {
+        this.config = config;
         // eslint-disable-next-line prefer-regex-literals
         this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
         this.tripleOperators = [];
@@ -14,8 +14,8 @@ class ParserManager {
         this.refresh();
     }
     refresh() {
-        for (const p in this.expressionConfig.operators) {
-            const metadata = this.expressionConfig.operators[p];
+        for (const p in this.config.operators) {
+            const metadata = this.config.operators[p];
             if (metadata.operator.length === 2) {
                 this.doubleOperators.push(metadata.operator);
             }
@@ -28,17 +28,17 @@ class ParserManager {
         }
     }
     priority(name, cardinality) {
-        const metadata = this.expressionConfig.getOperator(name, cardinality);
+        const metadata = this.config.getOperator(name, cardinality);
         return metadata && metadata.priority ? metadata.priority : -1;
     }
     isEnum(name) {
-        return this.expressionConfig.isEnum(name);
+        return this.config.isEnum(name);
     }
     getEnumValue(name, option) {
-        return this.expressionConfig.getEnumValue(name, option);
+        return this.config.getEnumValue(name, option);
     }
     getEnum(name) {
-        return this.expressionConfig.getEnum(name);
+        return this.config.getEnum(name);
     }
     parse(expression) {
         try {

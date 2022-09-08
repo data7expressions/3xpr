@@ -9,18 +9,24 @@ export interface Metadata {
 export abstract class Library {
 	public name:string
 	public enums:any
+	public formats:any
 	public operators:OperatorMetadata[]
 	public functions: OperatorMetadata[]
 
 	constructor (name:string) {
 		this.name = name
 		this.enums = {}
+		this.formats = {}
 		this.operators = []
 		this.functions = []
 	}
 
-	public addEnum (key:string, source:any) {
-		this.enums[key] = source
+	public addEnum (name:string, source:any) {
+		this.enums[name] = source
+	}
+
+	public addFormat (name:string, pattern:any) {
+		this.formats[name] = pattern
 	}
 
 	public addFunction (name:string, source:any, type:OperatorType = OperatorType.function, custom:any = null, deterministic = true):any {

@@ -3,10 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExpressionsManager = void 0;
 const model_1 = require("../model");
 class ExpressionsManager {
-    constructor(cache, configManager, operandManager, parserManager) {
-        this.observers = [];
+    constructor(cache, operandManager, parserManager) {
         this.cache = cache;
-        this.configManager = configManager;
         this.operandManager = operandManager;
         this.parserManager = parserManager;
     }

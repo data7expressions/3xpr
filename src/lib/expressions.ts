@@ -1,7 +1,7 @@
 import { Cache, Parameter, ActionObserver, ValidateResult, Schema } from './model'
 import { ParserManager, ExpressionConfig } from './parser'
 import { OperandManager, Operand } from './operand'
-import { MemoryCache, ExpressionsManager, SchemaManager, SchemaValidator, SchemaExtender } from './manager'
+import { MemoryCache, ExpressionsManager, SchemaManager, SchemaValidator, SchemaBuilder, SchemaCollection } from './manager'
 import { CoreLib } from './operand/lib/coreLib'
 
 export class Expressions {
@@ -10,7 +10,8 @@ export class Expressions {
 	private expressionConfig: ExpressionConfig
 	private operandManager: OperandManager
 	private expressionsManager: ExpressionsManager
-	private schemaExtender: SchemaExtender
+	private schemaBuilder: SchemaBuilder
+	private schemas: SchemaCollection
 	private schemaValidator: SchemaValidator
 	private schemaManager: SchemaManager
 
@@ -22,10 +23,11 @@ export class Expressions {
 		this.expressionConfig.addLibrary(new CoreLib())
 		this.operandManager = new OperandManager(this.expressionConfig)
 		this.parserManager = new ParserManager(this.expressionConfig)
-		this.expressionsManager = new ExpressionsManager(this.cache, this.expressionConfig, this.operandManager, this.parserManager)
-		this.schemaExtender = new SchemaExtender()
-		this.schemaValidator = new SchemaValidator(this.expressionsManager)
-		this.schemaManager = new SchemaManager(this.schemaExtender, this.schemaValidator)
+		this.expressionsManager = new ExpressionsManager(this.cache, this.operandManager, this.parserManager)
+		this.schemaBuilder = new SchemaBuilder(this.expressionConfig)
+		this.schemas = new SchemaCollection(this.cache, this.schemaBuilder)
+		this.schemaValidator = new SchemaValidator(this.schemas, this.expressionsManager)
+		this.schemaManager = new SchemaManager(this.schemaBuilder, this.schemas, this.schemaValidator)
 	}
 
 	private static _instance: Expressions
@@ -48,6 +50,11 @@ export class Expressions {
 		return this.operandManager
 	}
 
+	/**
+	 * Parser expression
+	 * @param expression  expression
+	 * @returns Operand
+	 */
 	public parse (expression: string): Operand {
 		return this.expressionsManager.parse(expression)
 	}
@@ -83,10 +90,10 @@ export class Expressions {
 		return this.schemaManager.add(schema)
 	}
 
-	public validate (data:any, schema: string, model?:string): ValidateResult
-	public validate (data:any, schema: Schema, model?:string) : ValidateResult
-	public validate (data:any, schema: string|Schema, model?:string) : ValidateResult {
-		return this.schemaManager.validate(data, schema, model)
+	// public async validate (schema: string, data:any): Promise<ValidateResult>
+	// public async validate (schema: Schema, data:any) : Promise<ValidateResult>
+	public async validate (schema: string|Schema, data:any) : Promise<ValidateResult> {
+		return this.schemaManager.validate(schema, data)
 	}
 
 	// Listeners and subscribers

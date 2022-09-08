@@ -6,10 +6,10 @@ export class ParserManager {
 	public doubleOperators: string[]
 	public tripleOperators: string[]
 	public assignmentOperators: string[]
-	private expressionConfig: ExpressionConfig
+	private config: ExpressionConfig
 	private reAlphanumeric: RegExp
-	constructor (expressionConfig: ExpressionConfig) {
-		this.expressionConfig = expressionConfig
+	constructor (config: ExpressionConfig) {
+		this.config = config
 		// eslint-disable-next-line prefer-regex-literals
 		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$')
 		this.tripleOperators = []
@@ -19,8 +19,8 @@ export class ParserManager {
 	}
 
 	public refresh () {
-		for (const p in this.expressionConfig.operators) {
-			const metadata = this.expressionConfig.operators[p]
+		for (const p in this.config.operators) {
+			const metadata = this.config.operators[p]
 			if (metadata.operator.length === 2) {
 				this.doubleOperators.push(metadata.operator)
 			} else if (metadata.operator.length === 3) {
@@ -33,20 +33,20 @@ export class ParserManager {
 	}
 
 	public priority (name: string, cardinality?:number): number {
-		const metadata = this.expressionConfig.getOperator(name, cardinality)
+		const metadata = this.config.getOperator(name, cardinality)
 		return metadata && metadata.priority ? metadata.priority : -1
 	}
 
 	public isEnum (name: string) {
-		return this.expressionConfig.isEnum(name)
+		return this.config.isEnum(name)
 	}
 
 	public getEnumValue (name: string, option: any) {
-		return this.expressionConfig.getEnumValue(name, option)
+		return this.config.getEnumValue(name, option)
 	}
 
 	public getEnum (name: string) {
-		return this.expressionConfig.getEnum(name)
+		return this.config.getEnum(name)
 	}
 
 	public parse (expression: string): Node {

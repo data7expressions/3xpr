@@ -5,13 +5,10 @@ import { OperandManager, Operand } from '../operand'
 export class ExpressionsManager {
 	private cache: Cache
 	private parserManager: ParserManager
-	private configManager: ExpressionConfig
 	private operandManager: OperandManager
-	private observers:ActionObserver[]=[];
 
-	constructor (cache:Cache, configManager:ExpressionConfig, operandManager:OperandManager, parserManager:ParserManager) {
+	constructor (cache:Cache, operandManager:OperandManager, parserManager:ParserManager) {
 		this.cache = cache
-		this.configManager = configManager
 		this.operandManager = operandManager
 		this.parserManager = parserManager
 	}

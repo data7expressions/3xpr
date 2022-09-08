@@ -1,8 +1,29 @@
 import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
+import https from 'https'
 
 export class Helper {
+	public static async get (uri: any): Promise<any> {
+		// https://www.geeksforgeeks.org/node-js-https-request-function/
+		return new Promise<string>((resolve, reject) => {
+			let data = ''
+			const req = https.request(uri, res => {
+				console.log(`statusCode: ${res.statusCode}`)
+				res.on('data', chunk => {
+					data = data + chunk.toString()
+				})
+				res.on('end', () => {
+					resolve(data)
+				})
+			})
+			req.on('error', error => {
+				reject(error)
+			})
+			req.end()
+		})
+	}
+
 	public static getType (value: any): string {
 		if (Array.isArray(value)) return 'array'
 		if (typeof value === 'string') {
@@ -29,6 +50,28 @@ export class Helper {
 
 	public static clone (obj:any):any {
 		return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj
+	}
+
+	public static extendObject (obj: any, base: any) {
+		if (Array.isArray(base)) {
+			for (const baseChild of base) {
+				const objChild = obj.find((p: any) => p.name === baseChild.name)
+				if (objChild === undefined) {
+					obj.push(Helper.clone(baseChild))
+				} else {
+					Helper.extendObject(objChild, baseChild)
+				}
+			}
+		} else if (typeof base === 'object') {
+			for (const k in base) {
+				if (obj[k] === undefined) {
+					obj[k] = Helper.clone(base[k])
+				} else if (typeof obj[k] === 'object') {
+					Helper.extendObject(obj[k], base[k])
+				}
+			}
+		}
+		return obj
 	}
 
 	public static getNames (value:string):string[] {

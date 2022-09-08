@@ -1670,6 +1670,15 @@ functions:
       type: T[]
     - name: b
       type: T[]
+formats:
+  email: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
+  integer: ^\d+$
+  decimal: ^\d+\.\d+$
+  string: ^[a-zA-Z0-9_.]+$
+  # https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  date: ^\d{4}-\d{2}-\d{2}$
+  datetime: \d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)
+  time: \[0-2]\d:[0-5]\d:[0-5]\d
 enums:
   DayOfWeek:
     Sunday: 0
@@ -1678,5 +1687,4 @@ enums:
     Wednesday: 3
     Thursday: 4
     Friday: 5
-    Saturday: 6   
-
+    Saturday: 6 

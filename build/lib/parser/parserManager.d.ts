@@ -4,9 +4,9 @@ export declare class ParserManager {
     doubleOperators: string[];
     tripleOperators: string[];
     assignmentOperators: string[];
-    private expressionConfig;
+    private config;
     private reAlphanumeric;
-    constructor(expressionConfig: ExpressionConfig);
+    constructor(config: ExpressionConfig);
     refresh(): void;
     priority(name: string, cardinality?: number): number;
     isEnum(name: string): boolean;

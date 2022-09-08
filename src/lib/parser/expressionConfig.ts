@@ -2,15 +2,23 @@ import expConfig from './config.json'
 import { OperatorMetadata, OperatorType } from '../model'
 import { Library } from './../operand'
 
+export interface Format {
+	name: string
+	pattern: string
+	regExp: RegExp
+}
+
 export class ExpressionConfig {
 	public libraries:Library[]
 	public operators: OperatorMetadata[]
 	public enums: any
+	public formats: any
 	public functions: OperatorMetadata[]
 	constructor () {
 		this.libraries = []
 		this.operators = []
 		this.enums = {}
+		this.formats = {}
 		this.functions = []
 		this.load(expConfig)
 	}
@@ -33,12 +41,20 @@ export class ExpressionConfig {
 		for (const name in library.enums) {
 			this.addEnum(name, library.enums[name])
 		}
+		for (const name in library.formats) {
+			this.addEnum(name, library.formats[name])
+		}
 	}
 
 	public load (data: any): void {
 		if (data.enums) {
 			for (const name in data.enums) {
 				this.addEnum(name, data.enums[name])
+			}
+		}
+		if (data.formats) {
+			for (const name in data.formats) {
+				this.addFormat(name, data.formats[name])
 			}
 		}
 		if (data.operators) {
@@ -84,6 +100,10 @@ export class ExpressionConfig {
 		this.enums[key] = source
 	}
 
+	private addFormat (key:string, pattern:string):void {
+		this.formats[key] = { name: key, pattern: pattern, regExp: new RegExp(pattern) } as Format
+	}
+
 	private addOperator (metadata: OperatorMetadata): void {
 		const index = this.operators.findIndex(p => p.operator === metadata.operator && p.operands === metadata.operands)
 		if (index === -1) {
@@ -123,6 +143,10 @@ export class ExpressionConfig {
 
 	public getEnum (name:string):any {
 		return this.enums[name]
+	}
+
+	public getFormat (name:string): Format | undefined {
+		return this.formats[name]
 	}
 
 	public getOperator (operator:string, operands?:number): OperatorMetadata {

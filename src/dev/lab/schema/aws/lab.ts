@@ -18,7 +18,7 @@ import yaml from 'js-yaml'
 		const schema = yaml.load(yamlSchema) as Schema
 		exp.addSchema(schema)
 		// validate input
-		const validateInputResult = exp.validate(invoices, schema, 'inputInvoices')
+		const validateInputResult = await exp.validate(schema, invoices)
 		if (validateInputResult.result === 'error') {
 			await Helper.writeFile('./src/dev/lab/schema/aws/validate-input-errors.json', JSON.stringify(validateInputResult, null, 2))
 			return

@@ -6,11 +6,15 @@ class Library {
     constructor(name) {
         this.name = name;
         this.enums = {};
+        this.formats = {};
         this.operators = [];
         this.functions = [];
     }
-    addEnum(key, source) {
-        this.enums[key] = source;
+    addEnum(name, source) {
+        this.enums[name] = source;
+    }
+    addFormat(name, pattern) {
+        this.formats[name] = pattern;
     }
     addFunction(name, source, type = model_1.OperatorType.function, custom = null, deterministic = true) {
         const metadata = this.getMetadata(source);

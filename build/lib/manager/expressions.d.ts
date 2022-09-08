@@ -1,13 +1,11 @@
 import { Cache, Parameter } from '../model';
-import { ParserManager, ExpressionConfig } from '../parser';
+import { ParserManager } from '../parser';
 import { OperandManager, Operand } from '../operand';
 export declare class ExpressionsManager {
     private cache;
     private parserManager;
-    private configManager;
     private operandManager;
-    private observers;
-    constructor(cache: Cache, configManager: ExpressionConfig, operandManager: OperandManager, parserManager: ParserManager);
+    constructor(cache: Cache, operandManager: OperandManager, parserManager: ParserManager);
     parse(expression: string): Operand;
     /**
      * Get parameters of expression

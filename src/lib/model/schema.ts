@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+
 export enum PropertyType {
 	any = 'any',
 	boolean = 'boolean',
@@ -12,65 +14,67 @@ export enum PropertyType {
 }
 
 export enum ConstraintType {
-	value = 'value',
+	type = 'type',
 	enum = 'enum',
 	format = 'format',
 	range = 'range',
-	custom = 'custom',
+	custom = 'custom'
+}
+export enum ConstraintEvaluateType {
+	expression = 'expression',
+	function = 'function'
 }
 export interface Constraint {
 	message: string
-	condition: string
 	type: ConstraintType
-}
-export interface Format {
-	name: string
-	regExp: string
-}
-export interface EnumValue {
-	name: string
-	value: any
-}
-export interface Enum {
-	name: string
-	values: EnumValue[]
-}
-export interface EntityProperty {
-	name: string
-	extends?: string
-	type: PropertyType
-	enum?: string
-	entity?:string
-	properties?: EntityProperty[]
-	min?: any
-	max?: any
-	format?: string
-	required?: boolean
-	default?: string
-	readExp?: string
-	writeExp?: string
-}
-export interface Entity {
-	name: string
-	extends?: string
-	properties: EntityProperty[]
-	constraints: Constraint[]
-}
-export interface Model extends EntityProperty {
-	constraints: Constraint[]
+	evaluateType: ConstraintEvaluateType
+	expression?: string
+	func?: Function
 }
 export interface Schema {
-	name: string
-	enums: Enum[]
-	formats: Format[]
-	entities: Entity[]
-	models: Model[]
-}
+	$id?: string
+	$schema?: string
+	// https://json-schema.org/understanding-json-schema/structuring.html?highlight=ref
+	$ref?: string
+	$extends?: string
+	// https://json-schema.org/understanding-json-schema/structuring.html?highlight=defs
+	$defs: any
 
+	title?: string
+	name?: string
+	type: PropertyType
+	enum?: string | string[]
+	items?: Schema
+	properties?: any
+	constraints?: Constraint[]
+
+	// Validation Keywords for Numeric Instances (number and integer)
+	// https://json-schema.org/draft/2020-12/json-schema-validation.html
+	multipleOf:number
+	minimum?: any
+	maximum?: any
+	exclusiveMaximum?: number
+	exclusiveMinimum?: number
+	// Validation Keywords for Strings
+	maxLength?: number
+	minLength?: number
+	format?: string
+	pattern?: string
+	// Validation Keywords for Arrays
+	maxItems?: number
+	minItems?: number
+	uniqueItems?: boolean
+	maxContains?: number
+	minContains?: number
+	// Validation Keywords for Objects
+	maxProperties?: number
+	minProperties?: number
+	// required?: boolean
+	required?: string[]
+}
 export interface ValidateError {
 	message:string
-	condition?:string
-	data:any
+	data?:any
 }
 export interface ValidateResult {
 	errors:ValidateError[]
