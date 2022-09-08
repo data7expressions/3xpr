@@ -1,7 +1,7 @@
-import { Cache, Parameter, ActionObserver, ValidateResult, Schema } from './model'
+import { Cache, Parameter, ActionObserver, ValidateResult, Schema, BuildedSchema } from './model'
 import { ParserManager, ExpressionConfig } from './parser'
 import { OperandManager, Operand } from './operand'
-import { MemoryCache, ExpressionsManager, SchemaManager, SchemaValidator, SchemaBuilder, SchemaCollection } from './manager'
+import { MemoryCache, ExpressionsManager, SchemaManager, SchemaValidator, SchemaCompleter, SchemaBuilder, SchemaCollection } from './manager'
 import { CoreLib } from './operand/lib/coreLib'
 
 export class Expressions {
@@ -10,6 +10,7 @@ export class Expressions {
 	private expressionConfig: ExpressionConfig
 	private operandManager: OperandManager
 	private expressionsManager: ExpressionsManager
+	private schemaCompleter: SchemaCompleter
 	private schemaBuilder: SchemaBuilder
 	private schemas: SchemaCollection
 	private schemaValidator: SchemaValidator
@@ -24,10 +25,11 @@ export class Expressions {
 		this.operandManager = new OperandManager(this.expressionConfig)
 		this.parserManager = new ParserManager(this.expressionConfig)
 		this.expressionsManager = new ExpressionsManager(this.cache, this.operandManager, this.parserManager)
+		this.schemaCompleter = new SchemaCompleter()
 		this.schemaBuilder = new SchemaBuilder(this.expressionConfig)
-		this.schemas = new SchemaCollection(this.cache, this.schemaBuilder)
+		this.schemas = new SchemaCollection(this.cache, this.schemaCompleter, this.schemaBuilder)
 		this.schemaValidator = new SchemaValidator(this.schemas, this.expressionsManager)
-		this.schemaManager = new SchemaManager(this.schemaBuilder, this.schemas, this.schemaValidator)
+		this.schemaManager = new SchemaManager(this.schemaCompleter, this.schemaBuilder, this.schemas, this.schemaValidator)
 	}
 
 	private static _instance: Expressions
@@ -48,6 +50,10 @@ export class Expressions {
 
 	public get operand (): OperandManager {
 		return this.operandManager
+	}
+
+	public get schema (): SchemaManager {
+		return this.schemaManager
 	}
 
 	/**
@@ -86,7 +92,7 @@ export class Expressions {
 		}
 	}
 
-	public addSchema (schema:Schema):Schema {
+	public addSchema (schema:Schema):BuildedSchema {
 		return this.schemaManager.add(schema)
 	}
 

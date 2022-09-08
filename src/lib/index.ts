@@ -1,5 +1,5 @@
 import { Expressions } from './expressions'
-import { Parameter, ActionObserver, ValidateResult, Schema } from './model'
+import { Parameter, ActionObserver, ValidateResult, Schema, BuildedSchema } from './model'
 import { Operand } from './operand'
 
 export * from './model'
@@ -36,7 +36,7 @@ export const evaluate = (expression: string, data?: any): any => {
 	return expressions.eval(expression, data)
 }
 
-export const addSchema = (schema:Schema):Schema => {
+export const addSchema = (schema:Schema):BuildedSchema => {
 	return expressions.addSchema(schema)
 }
 

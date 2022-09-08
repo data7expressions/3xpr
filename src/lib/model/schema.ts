@@ -32,10 +32,18 @@ export interface Contains {
 	type:PropertyType
 }
 
+export interface BuildedPropertySchema {
+	name:string
+	ref?:string
+	// eslint-disable-next-line no-use-before-define
+	schema?: BuildedSchema
+}
+
 export interface BuildedSchema {
 	$id?: string
 	type: PropertyType
 	constraints: Constraint[]
+	properties: BuildedPropertySchema[]
 }
 
 export interface Schema {
