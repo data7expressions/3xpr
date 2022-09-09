@@ -8,25 +8,25 @@ const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const https_1 = __importDefault(require("https"));
-const url_1 = __importDefault(require("url"));
+// import url from 'url'
 class Helper {
     static async get(uri) {
         // https://www.geeksforgeeks.org/node-js-https-request-function/
         return new Promise((resolve, reject) => {
             let data = '';
             // https://www.geeksforgeeks.org/node-js-url-method/
-            const _url = new url_1.default.URL(uri);
-            const options = {
-                hostname: _url.hostname,
-                port: _url.protocol === 'https' ? 443 : 80,
-                path: _url.pathname,
-                method: 'GET'
-                // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
-                // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
-                // NO FUNCIONO
-                // rejectUnauthorized: false
-            };
-            const req = https_1.default.request(options, res => {
+            // const _url = new url.URL(uri)
+            // const options = {
+            // hostname: _url.hostname,
+            // port: _url.protocol === 'https' ? 443 : 80,
+            // path: _url.pathname,
+            // method: 'GET'
+            // // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+            // // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+            // // NO FUNCIONO
+            // // rejectUnauthorized: false
+            // }
+            const req = https_1.default.request(uri, res => {
                 res.on('data', chunk => {
                     data = data + chunk.toString();
                 });

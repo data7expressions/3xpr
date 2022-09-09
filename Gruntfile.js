@@ -8,6 +8,7 @@ module.exports = function (grunt) {
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			tsc: { cmd: 'npx tsc ' },
+			publish: { cmd: 'cd ./dist && npm publish' },
 			typedoc: { cmd: 'npx typedoc ' }
 		},
 		clean: {
@@ -42,10 +43,11 @@ module.exports = function (grunt) {
 	})
 
 	grunt.registerTask('clean-test', ['exec:clean_test'])
-	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc'])
 	grunt.registerTask('lint', ['exec:lint'])
+	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('publish', ['lint', 'build', 'unit-test', 'dist', 'exec:publish'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
 
 	grunt.registerTask('default', [])
