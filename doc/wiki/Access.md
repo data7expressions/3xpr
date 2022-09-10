@@ -12,23 +12,23 @@ Context:
 const context = {
 		orders: [
 			{
-				number: '20001',
-				customer: { firstName: 'John', lastName: 'Murphy' },
-				orderTime: '2022-07-30T10:15:54',
+				number: "20001",
+				customer: { firstName: "John", lastName: "Murphy" },
+				orderTime: "2022-07-30T10:15:54",
 				details: [
-					{ article: 'Pear', unitPrice: 1.78, qty: 2 },
-					{ article: 'Banana', unitPrice: 1.99, qty: 1 },
-					{ article: 'White grape', unitPrice: 2.03, qty: 1 }
+					{ article: "Pear", unitPrice: 1.78, qty: 2 },
+					{ article: "Banana", unitPrice: 1.99, qty: 1 },
+					{ article: "White grape", unitPrice: 2.03, qty: 1 }
 				]
 			},
 			{
-				number: '20002',
-				customer: { firstName: 'Paul', lastName: 'Smith' },
-				orderTime: '2022-07-30T12:12:43',
+				number: "20002",
+				customer: { firstName: "Paul", lastName: "Smith" },
+				orderTime: "2022-07-30T12:12:43",
 				details: [
-					{ article: 'Apple', unitPrice: 2.15, qty: 1 },
-					{ article: 'Banana', unitPrice: 1.99, qty: 2 },
-					{ article: 'Pear', unitPrice: 1.78, qty: 1 }
+					{ article: "Apple", unitPrice: 2.15, qty: 1 },
+					{ article: "Banana", unitPrice: 1.99, qty: 2 },
+					{ article: "Pear", unitPrice: 1.78, qty: 1 }
 				]
 			}
 		]
@@ -37,22 +37,22 @@ const context = {
 
 | Example         																				| Result 												|
 |---------------------------------------------------------|-------------------------------|
-|orders.number																						|['20001','20002']							|
-|orders.0.number																					|'20001'												|
-|orders.1.customer.firstName															|'Paul'													|
-|orders.customer.firstName																|['John','Paul']								|
-|orders.0.details.article																	|['Pear','Banana','White grape']|
-|orders.0.details.2.article																|'White grape'									|
-|orders[0].number																					|'20001'												|
-|orders[0]["number"]																			|'20001'												|
-|orders[1].customer.firstName															|'Paul'													|
-|orders.customer[0]["firstName"]													|'John'													|
-|orders.customer[0]["first"+"Name"]												|'John'													|
-|orders[1].customer["firstName"]													|'Paul'													|
-|orders.1["customer"]["firstName"]												|'Paul'													|
-|orders.customer.firstName																|['John','Paul']								|
-|orders[0].details.2.article															|'White grape'									|
-|orders.customer[orders.customer.length()-1]["firstName"]	|'Paul'													|
+|orders.number																						|["20001","20002"]							|
+|orders.0.number																					|"20001"												|
+|orders.1.customer.firstName															|"Paul"													|
+|orders.customer.firstName																|["John","Paul"]								|
+|orders.0.details.article																	|["Pear","Banana","White grape"]|
+|orders.0.details.2.article																|"White grape"									|
+|orders[0].number																					|"20001"												|
+|orders[0]["number"]																			|"20001"												|
+|orders[1].customer.firstName															|"Paul"													|
+|orders.customer[0]["firstName"]													|"John"													|
+|orders.customer[0]["first"+"Name"]												|"John"													|
+|orders[1].customer["firstName"]													|"Paul"													|
+|orders.1["customer"]["firstName"]												|"Paul"													|
+|orders.customer.firstName																|["John","Paul"]								|
+|orders[0].details.2.article															|"White grape"									|
+|orders.customer[orders.customer.length()-1]["firstName"]	|"Paul"													|
 
 **First order details:**
 
@@ -78,7 +78,7 @@ orders.details.article.distinct()
 *Result*:
 
 ```json
-['Pear','Banana','White grape','Apple']
+["Pear","Banana","White grape","Apple"]
 ```
 
 **Articles containing the letter e:**
@@ -90,7 +90,7 @@ orders.details.article.filter(p => p.includes("e"))
 *Result*:
 
 ```json
-['Pear','White grape','Apple','Pear']
+["Pear","White grape","Apple","Pear"]
 ```
 
 **Articles that contain the letter e without repeating:**
@@ -102,7 +102,7 @@ orders.details.article.filter(p => p.includes("e")).distinct()
 *Result*:
 
 ```json
-['Pear','White grape','Apple']
+["Pear","White grape","Apple"]
 ```
 
 **Articles that contain the letter e of the order number 20002:**
@@ -114,7 +114,7 @@ orders.filter(p=> p.number == "20002").details.article.filter(p => p.includes("e
 *Result*:
 
 ```json
-['Apple','Pear']
+["Apple","Pear"]
 ```
 
 **Order number and full name of the client:**
