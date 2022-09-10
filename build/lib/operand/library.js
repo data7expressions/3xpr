@@ -6,11 +6,15 @@ class Library {
     constructor(name) {
         this.name = name;
         this.enums = {};
+        this.formats = {};
         this.operators = [];
         this.functions = [];
     }
-    addEnum(key, source) {
-        this.enums[key] = source;
+    addEnum(name, source) {
+        this.enums[name] = source;
+    }
+    addFormat(name, pattern) {
+        this.formats[name] = pattern;
     }
     addFunction(name, source, type = model_1.OperatorType.function, custom = null, deterministic = true) {
         const metadata = this.getMetadata(source);
@@ -28,16 +32,6 @@ class Library {
             custom: custom
         });
     }
-    // // eslint-disable-next-line @typescript-eslint/ban-types
-    // private getData (method:Function) {
-    // for (const argument of method.arguments) {
-    // console.log(argument.getName())
-    // console.log(argument.getType().getText())
-    // console.log(argument.isOptional())
-    // console.log(argument.getInitializer() != null)
-    // }
-    // return {}
-    // }
     addOperator(name, source, custom = null) {
         const metadata = this.getMetadata(source);
         this.operators.push({

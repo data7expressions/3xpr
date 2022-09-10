@@ -25,4 +25,4 @@
 
 #### Defined in
 
-[operand/operands.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/30d0497/src/lib/operand/operands.ts#L44)
+[operand/operands.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L44)

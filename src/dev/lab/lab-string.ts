@@ -36,7 +36,7 @@ import { show } from './util'
 		'strCount(film,"a")',
 		'`${firstName} is ${age} years old and likes ${food}`',
 		'test("5","[a-zA-Z0-9_.]+$")',
-		'test("%","[a-zA-Z0-9_.]+$")',
+		'firstName.test("[a-zA-Z0-9_.]+$")',
 		'isEmpty(a)',
 		'isEmpty(b)',
 		'isEmpty(c)',
@@ -45,7 +45,12 @@ import { show } from './util'
 		'${USER}',
 		'concat($HOME,$USER)',
 		'concat(${HOME},$USER)',
-		'`value of home: $HOME`'
+		'`value of home: $HOME`',
+		'length(email) > 10 && length(email) < 100',
+		'email.length() > 10 && email.length() < 100',
+		'isEmpty(b)',
+		'isNotEmpty(c)',
+		'isNotEmpty(film)'
 	]
 	show(list, context)
 })()

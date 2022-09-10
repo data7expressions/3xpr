@@ -7,11 +7,7 @@ import { show } from './util'
 		'nvl(b,2)',
 		'nvl2(b,"is not null","is null")',
 		'nvl2(c,"is not null","is null")',
-		'nvl2(d,"is not null","is null")',
-		'isNull(b)',
-		'isNull(c)',
-		'isNotNull(b)',
-		'isNotNull(c)'
+		'nvl2(d,"is not null","is null")'
 	]
 	show(list, context)
 })()

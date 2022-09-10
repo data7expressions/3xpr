@@ -12,7 +12,7 @@ export class CoreLib extends Library {
 		this.initEnums()
 		this.initOperators()
 		this.generalFunctions()
-		this.conditionFunctions()
+		this.comparisonFunctions()
 		this.nullFunctions()
 		this.numberFunctions()
 		this.stringFunctions()
@@ -82,18 +82,36 @@ export class CoreLib extends Library {
 		})
 	}
 
-	private conditionFunctions () {
+	private comparisonFunctions () {
 		this.addFunction('between', Functions.between)
 		this.addFunction('includes', Functions.includes)
 		this.addFunction('in', Functions.includes)
+		this.addFunction('isNull', Functions.isNull)
+		this.addFunction('isNotNull', Functions.isNotNull)
+		this.addFunction('isEmpty', Functions.isEmpty)
+		this.addFunction('isNotEmpty', Functions.isNotEmpty)
+		this.addFunction('isBoolean', Functions.isBoolean)
+		this.addFunction('isNumber', Functions.isNumber)
+		this.addFunction('isInteger', Functions.isInteger)
+		this.addFunction('isDecimal', Functions.isDecimal)
+		this.addFunction('isString', Functions.isString)
+		this.addFunction('isDate', Functions.isDate)
+		this.addFunction('isDatetime', Functions.isDatetime)
+		this.addFunction('isTime', Functions.isTime)
+		this.addFunction('isObject', Functions.isObject)
+		this.addFunction('isArray', Functions.isArray)
+		this.addFunction('isBooleanFormat', Functions.isBooleanFormat)
+		this.addFunction('isNumberFormat', Functions.isNumberFormat)
+		this.addFunction('isIntegerFormat', Functions.isIntegerFormat)
+		this.addFunction('isDecimalFormat', Functions.isDecimalFormat)
+		this.addFunction('isDateFormat', Functions.isDateFormat)
+		this.addFunction('isDatetimeFormat', Functions.isDatetimeFormat)
+		this.addFunction('isTimeFormat', Functions.isTimeFormat)
 	}
 
 	private nullFunctions () {
 		this.addFunction('nvl', Functions.nvl)
 		this.addFunction('nvl2', Functions.nvl2)
-		this.addFunction('isNull', Functions.isNull)
-		this.addFunction('isNotNull', Functions.isNotNull)
-		this.addFunction('isEmpty', Functions.isEmpty)
 	}
 
 	private numberFunctions () {
@@ -111,7 +129,9 @@ export class CoreLib extends Library {
 		this.addFunction('log10', Math.log10)
 		this.addFunction('log', Math.log)
 		this.addFunction('remainder', (n1: number, n2: number) => n1 % n2)
-		this.addFunction('round', (num: number, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals))
+		this.addFunction('round', (num: number, decimals = 0) =>
+			decimals > 0 ? Number(num.toFixed(decimals)) : Math.round(num)
+		)
 		this.addFunction('sign', Math.sign)
 		this.addFunction('sin', Math.sin)
 		this.addFunction('sinh', Math.sinh)
@@ -830,7 +850,6 @@ class StringFunction {
 		return arr.join(' ')
 	}
 }
-
 class Functions {
 	static nvl (value: any, _default: any): any {
 		return Functions.isNotNull(value) ? value : _default
@@ -848,8 +867,103 @@ class Functions {
 		return !Functions.isNull(value)
 	}
 
-	static isEmpty (value: any): boolean {
+	static isEmpty (value: string): boolean {
 		return value === null || value === undefined || value.toString().trim().length === 0
+	}
+
+	static isNotEmpty (value: string): boolean {
+		return !Functions.isEmpty(value)
+	}
+
+	static isBoolean (value: any): boolean {
+		return typeof value === 'boolean'
+	}
+
+	static isNumber (value: any): boolean {
+		return Functions.isDecimal(value)
+	}
+
+	static isInteger (value: any): boolean {
+		return Number.isInteger(value)
+	}
+
+	static isDecimal (value: any): boolean {
+		return !isNaN(value)
+	}
+
+	static isString (value: any): boolean {
+		return typeof value === 'string'
+	}
+
+	static isDate (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isDateFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isDatetime (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isDatetimeFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isObject (value: any): boolean {
+		return typeof value === 'object' && !Array.isArray(value)
+	}
+
+	static isArray (value: any): boolean {
+		return Array.isArray(value)
+	}
+
+	static isTime (value: any): boolean {
+		if (typeof value === 'string') {
+			return Functions.isTimeFormat(value as string)
+		} else {
+			return typeof value.getMonth === 'function'
+		}
+	}
+
+	static isBooleanFormat (value: any): boolean {
+		return ['true', 'false'].includes(value)
+	}
+
+	static isNumberFormat (value: any): boolean {
+		return Functions.isDecimalFormat(value)
+	}
+
+	static isIntegerFormat (value: any): boolean {
+		const regex = /^\d+$/
+		return value.match(regex) !== null
+	}
+
+	static isDecimalFormat (value: any): boolean {
+		const regex = /^\d+\.\d+$/
+		return value.match(regex) !== null
+	}
+
+	static isStringFormat (value: any): boolean {
+		const regex = /[a-zA-Z0-9_.]+$/
+		return value.match(regex) !== null
+	}
+
+	static isDateFormat (value: any): boolean {
+		const regex = /^\d{4}-\d{2}-\d{2}$/
+		return value.match(regex) !== null
+	}
+
+	static isDatetimeFormat (value: any): boolean {
+		const regex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/
+		return value.match(regex) !== null
+	}
+
+	static isTimeFormat (value: any): boolean {
+		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+		const regex = /\[0-2]\d:[0-5]\d:[0-5]\d/
+		return value.match(regex) !== null
 	}
 
 	static async sleep (ms = 1000): Promise<void> {
@@ -862,7 +976,7 @@ class Functions {
 		return value >= from && value < to
 	}
 
-	static includes (value: any, list: any[]|string): boolean {
+	static includes (list: any[]|string, value: any): boolean {
 		if (list && value) {
 			return list.includes(value)
 		} else {
@@ -895,7 +1009,6 @@ class Functions {
 		}
 	}
 }
-
 class ArrayFunctions {
 	static map (list: any[], method: Function): any[] { throw new Error('Empty') }
 	static distinct (list: any[], method: Function): any[] { throw new Error('Empty') }
@@ -920,11 +1033,13 @@ class SetsFunctions {
 	static difference (a: any[], b: any[]): any[] { throw new Error('Empty') }
 	static symmetricDifference (a: any[], b: any[]): any[] { throw new Error('Empty') }
 }
-
 class Map extends ArrowFunction {
 	eval (): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children[2] instanceof Obj) {
 			const groupers:KeyValue[] = []
 			const aggregates:KeyValue[] = []
@@ -978,12 +1093,22 @@ class Map extends ArrowFunction {
 		return rows
 	}
 }
-
 class Distinct extends ArrowFunction {
 	eval (): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
-		if (this.children[2] instanceof Obj) {
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
+		if (this.children.length === 1) {
+			// simple case
+			for (const item of list) {
+				if (rows.find((p:any) => p === item) === undefined) {
+					rows.push(item)
+				}
+			}
+			return rows
+		} else if (this.children[2] instanceof Obj) {
 			// case with aggregate functions
 			const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list)
 			// build the list of results
@@ -1009,10 +1134,12 @@ class Distinct extends ArrowFunction {
 		return rows
 	}
 }
-
 class Foreach extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -1025,6 +1152,9 @@ class Filter extends ArrowFunction {
 	eval (): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -1038,6 +1168,9 @@ class Filter extends ArrowFunction {
 class Reverse extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			return list.reverse()
 		}
@@ -1057,6 +1190,9 @@ class Sort extends ArrowFunction {
 	eval (): any {
 		const values = []
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			return list.sort()
 		}
@@ -1074,6 +1210,9 @@ class Remove extends ArrowFunction {
 	eval (): any {
 		const rows = []
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		for (let i = 0; i < list.length; i++) {
 			const p = list[i]
 			this.children[1].set(p)
@@ -1084,10 +1223,12 @@ class Remove extends ArrowFunction {
 		return rows
 	}
 }
-
 class First extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
@@ -1097,16 +1238,21 @@ class First extends ArrowFunction {
 class Last extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
 		return CoreHelper.last(list, this.children[1], this.children[2])
 	}
 }
-
 class Count extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			return list.length
 		}
@@ -1116,6 +1262,9 @@ class Count extends ArrowFunction {
 class Max extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			let max:any
 			for (const item of list) {
@@ -1131,6 +1280,9 @@ class Max extends ArrowFunction {
 class Min extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			let min:any
 			for (const item of list) {
@@ -1146,6 +1298,9 @@ class Min extends ArrowFunction {
 class Avg extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			let sum = 0
 			for (const item of list) {
@@ -1161,6 +1316,9 @@ class Avg extends ArrowFunction {
 class Sum extends ArrowFunction {
 	eval (): any {
 		const list: any[] = this.children[0].eval()
+		if (!list) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
 		if (this.children.length === 1) {
 			let sum = 0
 			for (const item of list) {
@@ -1173,15 +1331,20 @@ class Sum extends ArrowFunction {
 		return CoreHelper.sum(list, this.children[1], this.children[2])
 	}
 }
-
 class Union extends ChildFunction {
 	eval (): any {
 		const a: any[] = this.children[0].eval()
 		const b: any[] = this.children[1].eval()
-		if (!a || a.length === 0) {
+		if (!a) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
+		if (!b) {
+			throw new Error(`Array ${this.children[1].name} undefined`)
+		}
+		if (a.length === 0) {
 			return b
 		}
-		if (!b || b.length === 0) {
+		if (b.length === 0) {
 			return a
 		}
 		let result:any[] = []
@@ -1209,12 +1372,17 @@ class Union extends ChildFunction {
 		return result
 	}
 }
-
 class Intersection extends ChildFunction {
 	eval (): any {
 		const a: any[] = this.children[0].eval()
 		const b: any[] = this.children[1].eval()
-		if (!a || a.length === 0 || !b || b.length === 0) {
+		if (!a) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
+		if (!b) {
+			throw new Error(`Array ${this.children[1].name} undefined`)
+		}
+		if (a.length === 0 || b.length === 0) {
 			return []
 		}
 		const result:any[] = []
@@ -1239,15 +1407,20 @@ class Intersection extends ChildFunction {
 		}
 	}
 }
-
 class Difference extends ChildFunction {
 	eval (): any {
 		const a: any[] = this.children[0].eval()
 		const b: any[] = this.children[1].eval()
-		if (!a || a.length === 0) {
+		if (!a) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
+		if (!b) {
+			throw new Error(`Array ${this.children[1].name} undefined`)
+		}
+		if (a.length === 0) {
 			return []
 		}
-		if (!b || b.length === 0) {
+		if (b.length === 0) {
 			return a
 		}
 		const result:any[] = []
@@ -1272,15 +1445,20 @@ class Difference extends ChildFunction {
 		}
 	}
 }
-
 class SymmetricDifference extends ChildFunction {
 	eval (): any {
 		const a: any[] = this.children[0].eval()
 		const b: any[] = this.children[1].eval()
-		if (!a || a.length === 0) {
+		if (!a) {
+			throw new Error(`Array ${this.children[0].name} undefined`)
+		}
+		if (!b) {
+			throw new Error(`Array ${this.children[1].name} undefined`)
+		}
+		if (a.length === 0) {
 			return b
 		}
-		if (!b || b.length === 0) {
+		if (b.length === 0) {
 			return a
 		}
 		const result:any[] = []

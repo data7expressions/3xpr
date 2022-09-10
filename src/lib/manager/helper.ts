@@ -1,8 +1,41 @@
 import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
+import https from 'https'
+// import url from 'url'
 
 export class Helper {
+	public static async get (uri: any): Promise<any> {
+		// https://www.geeksforgeeks.org/node-js-https-request-function/
+		return new Promise<string>((resolve, reject) => {
+			let data = ''
+			// https://www.geeksforgeeks.org/node-js-url-method/
+			// const _url = new url.URL(uri)
+			// const options = {
+			// hostname: _url.hostname,
+			// port: _url.protocol === 'https' ? 443 : 80,
+			// path: _url.pathname,
+			// method: 'GET'
+			// // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+			// // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+			// // NO FUNCIONO
+			// // rejectUnauthorized: false
+			// }
+			const req = https.request(uri, res => {
+				res.on('data', chunk => {
+					data = data + chunk.toString()
+				})
+				res.on('end', () => {
+					resolve(data)
+				})
+			})
+			req.on('error', error => {
+				reject(error)
+			})
+			req.end()
+		})
+	}
+
 	public static getType (value: any): string {
 		if (Array.isArray(value)) return 'array'
 		if (typeof value === 'string') {
@@ -31,6 +64,28 @@ export class Helper {
 		return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj
 	}
 
+	public static extendObject (obj: any, base: any) {
+		if (Array.isArray(base)) {
+			for (const baseChild of base) {
+				const objChild = obj.find((p: any) => p.name === baseChild.name)
+				if (objChild === undefined) {
+					obj.push(Helper.clone(baseChild))
+				} else {
+					Helper.extendObject(objChild, baseChild)
+				}
+			}
+		} else if (typeof base === 'object') {
+			for (const k in base) {
+				if (obj[k] === undefined) {
+					obj[k] = Helper.clone(base[k])
+				} else if (typeof obj[k] === 'object') {
+					Helper.extendObject(obj[k], base[k])
+				}
+			}
+		}
+		return obj
+	}
+
 	public static getNames (value:string):string[] {
 		if (value === '.') {
 			// in case "".[0].name" where var is "."
@@ -50,17 +105,27 @@ export class Helper {
 		let value = source
 		for (const name of names) {
 			if (Array.isArray(value)) {
-				let result:any[] = []
-				for (const item of value) {
-					if (item[name] !== undefined) {
-						if (Array.isArray(item[name])) {
-							result = result.concat(item[name])
-						} else {
-							result.push(item[name])
+				// if name is an integer , look for the value with that index in the array
+				if (Helper.isPositiveInteger(name)) {
+					const index = Number(name)
+					if (index >= value.length) {
+						return null
+					}
+					value = value[Number(name)]
+				} else {
+					// if name is not numeric, find all the properties of the array
+					let result:any[] = []
+					for (const item of value) {
+						if (item[name] !== undefined) {
+							if (Array.isArray(item[name])) {
+								result = result.concat(item[name])
+							} else {
+								result.push(item[name])
+							}
 						}
 					}
+					value = result
 				}
-				value = result
 			} else {
 				if (value[name] === undefined) return null
 				value = value[name]
@@ -75,6 +140,14 @@ export class Helper {
 
 	public static isEmpty (value:any):boolean {
 		return value === null || value === undefined || value.toString().trim().length === 0
+	}
+
+	public static isPositiveInteger (value:any) {
+		if (typeof value !== 'string') {
+			return false
+		}
+		const num = Number(value)
+		return Number.isInteger(num) && num >= 0
 	}
 
 	public static nvl (value:any, _default:any):any {

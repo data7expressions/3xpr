@@ -11,6 +11,7 @@ class ExpressionConfig {
         this.libraries = [];
         this.operators = [];
         this.enums = {};
+        this.formats = {};
         this.functions = [];
         this.load(config_json_1.default);
     }
@@ -33,11 +34,19 @@ class ExpressionConfig {
         for (const name in library.enums) {
             this.addEnum(name, library.enums[name]);
         }
+        for (const name in library.formats) {
+            this.addEnum(name, library.formats[name]);
+        }
     }
     load(data) {
         if (data.enums) {
             for (const name in data.enums) {
                 this.addEnum(name, data.enums[name]);
+            }
+        }
+        if (data.formats) {
+            for (const name in data.formats) {
+                this.addFormat(name, data.formats[name]);
             }
         }
         if (data.operators) {
@@ -81,6 +90,9 @@ class ExpressionConfig {
     addEnum(key, source) {
         this.enums[key] = source;
     }
+    addFormat(key, pattern) {
+        this.formats[key] = { name: key, pattern: pattern, regExp: new RegExp(pattern) };
+    }
     addOperator(metadata) {
         const index = this.operators.findIndex(p => p.operator === metadata.operator && p.operands === metadata.operands);
         if (index === -1) {
@@ -118,6 +130,9 @@ class ExpressionConfig {
     }
     getEnum(name) {
         return this.enums[name];
+    }
+    getFormat(name) {
+        return this.formats[name];
     }
     getOperator(operator, operands) {
         const list = operands !== undefined ? this.operators.filter(p => p.operator === operator && p.operands === operands) : this.operators.filter(p => p.operator === operator);

@@ -164,6 +164,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab-sets.ts"
 		},
 		{
+			"name": "lab access",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-access.ts"
+		},
+		{
 			"name": "lab flows",
 			"type": "node",
 			"request": "launch",
@@ -180,7 +189,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-file.ts"
-		},
+		},		
 		{
 			"name": "build wiki",
 			"type": "node",

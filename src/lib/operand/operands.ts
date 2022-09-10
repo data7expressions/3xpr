@@ -301,7 +301,6 @@ export class Default extends Operand {
 		throw new Error('NotUsed')
 	}
 }
-
 export class Break extends Operand {
 	public eval (): any {
 		throw new Error('NotImplemented')

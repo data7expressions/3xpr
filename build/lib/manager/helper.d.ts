@@ -1,14 +1,17 @@
 /// <reference types="node" />
 import fs from 'fs';
 export declare class Helper {
+    static get(uri: any): Promise<any>;
     static getType(value: any): string;
     static exec(command: string, cwd?: string): Promise<any>;
     static replace(string: string, search: string, replace: string): string;
     static clone(obj: any): any;
+    static extendObject(obj: any, base: any): any;
     static getNames(value: string): string[];
     static getValue(names: string[], source: any): any;
     static isObject(obj: any): boolean;
     static isEmpty(value: any): boolean;
+    static isPositiveInteger(value: any): boolean;
     static nvl(value: any, _default: any): any;
     static existsPath(sourcePath: string): Promise<boolean>;
     static createIfNotExists(sourcePath: string): Promise<void>;

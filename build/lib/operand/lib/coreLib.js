@@ -14,7 +14,7 @@ class CoreLib extends library_1.Library {
         this.initEnums();
         this.initOperators();
         this.generalFunctions();
-        this.conditionFunctions();
+        this.comparisonFunctions();
         this.nullFunctions();
         this.numberFunctions();
         this.stringFunctions();
@@ -75,17 +75,35 @@ class CoreLib extends library_1.Library {
             console.log(typeof value === 'object' ? JSON.stringify(value) : value);
         });
     }
-    conditionFunctions() {
+    comparisonFunctions() {
         this.addFunction('between', Functions.between);
         this.addFunction('includes', Functions.includes);
         this.addFunction('in', Functions.includes);
+        this.addFunction('isNull', Functions.isNull);
+        this.addFunction('isNotNull', Functions.isNotNull);
+        this.addFunction('isEmpty', Functions.isEmpty);
+        this.addFunction('isNotEmpty', Functions.isNotEmpty);
+        this.addFunction('isBoolean', Functions.isBoolean);
+        this.addFunction('isNumber', Functions.isNumber);
+        this.addFunction('isInteger', Functions.isInteger);
+        this.addFunction('isDecimal', Functions.isDecimal);
+        this.addFunction('isString', Functions.isString);
+        this.addFunction('isDate', Functions.isDate);
+        this.addFunction('isDatetime', Functions.isDatetime);
+        this.addFunction('isTime', Functions.isTime);
+        this.addFunction('isObject', Functions.isObject);
+        this.addFunction('isArray', Functions.isArray);
+        this.addFunction('isBooleanFormat', Functions.isBooleanFormat);
+        this.addFunction('isNumberFormat', Functions.isNumberFormat);
+        this.addFunction('isIntegerFormat', Functions.isIntegerFormat);
+        this.addFunction('isDecimalFormat', Functions.isDecimalFormat);
+        this.addFunction('isDateFormat', Functions.isDateFormat);
+        this.addFunction('isDatetimeFormat', Functions.isDatetimeFormat);
+        this.addFunction('isTimeFormat', Functions.isTimeFormat);
     }
     nullFunctions() {
         this.addFunction('nvl', Functions.nvl);
         this.addFunction('nvl2', Functions.nvl2);
-        this.addFunction('isNull', Functions.isNull);
-        this.addFunction('isNotNull', Functions.isNotNull);
-        this.addFunction('isEmpty', Functions.isEmpty);
     }
     numberFunctions() {
         this.addFunction('abs', Math.abs);
@@ -102,7 +120,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('log10', Math.log10);
         this.addFunction('log', Math.log);
         this.addFunction('remainder', (n1, n2) => n1 % n2);
-        this.addFunction('round', (num, decimals = 0) => Math.round(num * (10 * decimals)) / (10 * decimals));
+        this.addFunction('round', (num, decimals = 0) => decimals > 0 ? Number(num.toFixed(decimals)) : Math.round(num));
         this.addFunction('sign', Math.sign);
         this.addFunction('sin', Math.sin);
         this.addFunction('sinh', Math.sinh);
@@ -791,6 +809,85 @@ class Functions {
     static isEmpty(value) {
         return value === null || value === undefined || value.toString().trim().length === 0;
     }
+    static isNotEmpty(value) {
+        return !Functions.isEmpty(value);
+    }
+    static isBoolean(value) {
+        return typeof value === 'boolean';
+    }
+    static isNumber(value) {
+        return Functions.isDecimal(value);
+    }
+    static isInteger(value) {
+        return Number.isInteger(value);
+    }
+    static isDecimal(value) {
+        return !isNaN(value);
+    }
+    static isString(value) {
+        return typeof value === 'string';
+    }
+    static isDate(value) {
+        if (typeof value === 'string') {
+            return Functions.isDateFormat(value);
+        }
+        else {
+            return typeof value.getMonth === 'function';
+        }
+    }
+    static isDatetime(value) {
+        if (typeof value === 'string') {
+            return Functions.isDatetimeFormat(value);
+        }
+        else {
+            return typeof value.getMonth === 'function';
+        }
+    }
+    static isObject(value) {
+        return typeof value === 'object' && !Array.isArray(value);
+    }
+    static isArray(value) {
+        return Array.isArray(value);
+    }
+    static isTime(value) {
+        if (typeof value === 'string') {
+            return Functions.isTimeFormat(value);
+        }
+        else {
+            return typeof value.getMonth === 'function';
+        }
+    }
+    static isBooleanFormat(value) {
+        return ['true', 'false'].includes(value);
+    }
+    static isNumberFormat(value) {
+        return Functions.isDecimalFormat(value);
+    }
+    static isIntegerFormat(value) {
+        const regex = /^\d+$/;
+        return value.match(regex) !== null;
+    }
+    static isDecimalFormat(value) {
+        const regex = /^\d+\.\d+$/;
+        return value.match(regex) !== null;
+    }
+    static isStringFormat(value) {
+        const regex = /[a-zA-Z0-9_.]+$/;
+        return value.match(regex) !== null;
+    }
+    static isDateFormat(value) {
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
+        return value.match(regex) !== null;
+    }
+    static isDatetimeFormat(value) {
+        const regex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+        return value.match(regex) !== null;
+    }
+    static isTimeFormat(value) {
+        // https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+        const regex = /\[0-2]\d:[0-5]\d:[0-5]\d/;
+        return value.match(regex) !== null;
+    }
     static async sleep(ms = 1000) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
@@ -799,7 +896,7 @@ class Functions {
     static between(value, from, to) {
         return value >= from && value < to;
     }
-    static includes(value, list) {
+    static includes(list, value) {
         if (list && value) {
             return list.includes(value);
         }
@@ -860,6 +957,9 @@ class Map extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children[2] instanceof operands_1.Obj) {
             const groupers = [];
             const aggregates = [];
@@ -918,7 +1018,19 @@ class Distinct extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
-        if (this.children[2] instanceof operands_1.Obj) {
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (this.children.length === 1) {
+            // simple case
+            for (const item of list) {
+                if (rows.find((p) => p === item) === undefined) {
+                    rows.push(item);
+                }
+            }
+            return rows;
+        }
+        else if (this.children[2] instanceof operands_1.Obj) {
             // case with aggregate functions
             const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list);
             // build the list of results
@@ -948,6 +1060,9 @@ class Distinct extends operands_1.ArrowFunction {
 class Foreach extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -960,6 +1075,9 @@ class Filter extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -973,6 +1091,9 @@ class Filter extends operands_1.ArrowFunction {
 class Reverse extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.reverse();
         }
@@ -992,6 +1113,9 @@ class Sort extends operands_1.ArrowFunction {
     eval() {
         const values = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.sort();
         }
@@ -1009,6 +1133,9 @@ class Remove extends operands_1.ArrowFunction {
     eval() {
         const rows = [];
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         for (let i = 0; i < list.length; i++) {
             const p = list[i];
             this.children[1].set(p);
@@ -1022,6 +1149,9 @@ class Remove extends operands_1.ArrowFunction {
 class First extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[0] : null;
         }
@@ -1031,6 +1161,9 @@ class First extends operands_1.ArrowFunction {
 class Last extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[list.length - 1] : null;
         }
@@ -1040,6 +1173,9 @@ class Last extends operands_1.ArrowFunction {
 class Count extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             return list.length;
         }
@@ -1049,6 +1185,9 @@ class Count extends operands_1.ArrowFunction {
 class Max extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let max;
             for (const item of list) {
@@ -1064,6 +1203,9 @@ class Max extends operands_1.ArrowFunction {
 class Min extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let min;
             for (const item of list) {
@@ -1079,6 +1221,9 @@ class Min extends operands_1.ArrowFunction {
 class Avg extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let sum = 0;
             for (const item of list) {
@@ -1094,6 +1239,9 @@ class Avg extends operands_1.ArrowFunction {
 class Sum extends operands_1.ArrowFunction {
     eval() {
         const list = this.children[0].eval();
+        if (!list) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
         if (this.children.length === 1) {
             let sum = 0;
             for (const item of list) {
@@ -1110,10 +1258,16 @@ class Union extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return b;
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         let result = [];
@@ -1146,7 +1300,13 @@ class Intersection extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0 || !b || b.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0 || b.length === 0) {
             return [];
         }
         const result = [];
@@ -1177,10 +1337,16 @@ class Difference extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return [];
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         const result = [];
@@ -1211,10 +1377,16 @@ class SymmetricDifference extends operands_1.ChildFunction {
     eval() {
         const a = this.children[0].eval();
         const b = this.children[1].eval();
-        if (!a || a.length === 0) {
+        if (!a) {
+            throw new Error(`Array ${this.children[0].name} undefined`);
+        }
+        if (!b) {
+            throw new Error(`Array ${this.children[1].name} undefined`);
+        }
+        if (a.length === 0) {
             return b;
         }
-        if (!b || b.length === 0) {
+        if (b.length === 0) {
             return a;
         }
         const result = [];

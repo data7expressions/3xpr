@@ -7,7 +7,39 @@ exports.Helper = void 0;
 const child_process_1 = require("child_process");
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const https_1 = __importDefault(require("https"));
+// import url from 'url'
 class Helper {
+    static async get(uri) {
+        // https://www.geeksforgeeks.org/node-js-https-request-function/
+        return new Promise((resolve, reject) => {
+            let data = '';
+            // https://www.geeksforgeeks.org/node-js-url-method/
+            // const _url = new url.URL(uri)
+            // const options = {
+            // hostname: _url.hostname,
+            // port: _url.protocol === 'https' ? 443 : 80,
+            // path: _url.pathname,
+            // method: 'GET'
+            // // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+            // // https://levelup.gitconnected.com/how-to-resolve-certificate-errors-in-nodejs-app-involving-ssl-calls-781ce48daded
+            // // NO FUNCIONO
+            // // rejectUnauthorized: false
+            // }
+            const req = https_1.default.request(uri, res => {
+                res.on('data', chunk => {
+                    data = data + chunk.toString();
+                });
+                res.on('end', () => {
+                    resolve(data);
+                });
+            });
+            req.on('error', error => {
+                reject(error);
+            });
+            req.end();
+        });
+    }
     static getType(value) {
         if (Array.isArray(value))
             return 'array';
@@ -36,6 +68,30 @@ class Helper {
     static clone(obj) {
         return obj && typeof obj === 'object' ? JSON.parse(JSON.stringify(obj)) : obj;
     }
+    static extendObject(obj, base) {
+        if (Array.isArray(base)) {
+            for (const baseChild of base) {
+                const objChild = obj.find((p) => p.name === baseChild.name);
+                if (objChild === undefined) {
+                    obj.push(Helper.clone(baseChild));
+                }
+                else {
+                    Helper.extendObject(objChild, baseChild);
+                }
+            }
+        }
+        else if (typeof base === 'object') {
+            for (const k in base) {
+                if (obj[k] === undefined) {
+                    obj[k] = Helper.clone(base[k]);
+                }
+                else if (typeof obj[k] === 'object') {
+                    Helper.extendObject(obj[k], base[k]);
+                }
+            }
+        }
+        return obj;
+    }
     static getNames(value) {
         if (value === '.') {
             // in case "".[0].name" where var is "."
@@ -57,18 +113,29 @@ class Helper {
         let value = source;
         for (const name of names) {
             if (Array.isArray(value)) {
-                let result = [];
-                for (const item of value) {
-                    if (item[name] !== undefined) {
-                        if (Array.isArray(item[name])) {
-                            result = result.concat(item[name]);
-                        }
-                        else {
-                            result.push(item[name]);
+                // if name is an integer , look for the value with that index in the array
+                if (Helper.isPositiveInteger(name)) {
+                    const index = Number(name);
+                    if (index >= value.length) {
+                        return null;
+                    }
+                    value = value[Number(name)];
+                }
+                else {
+                    // if name is not numeric, find all the properties of the array
+                    let result = [];
+                    for (const item of value) {
+                        if (item[name] !== undefined) {
+                            if (Array.isArray(item[name])) {
+                                result = result.concat(item[name]);
+                            }
+                            else {
+                                result.push(item[name]);
+                            }
                         }
                     }
+                    value = result;
                 }
-                value = result;
             }
             else {
                 if (value[name] === undefined)
@@ -83,6 +150,13 @@ class Helper {
     }
     static isEmpty(value) {
         return value === null || value === undefined || value.toString().trim().length === 0;
+    }
+    static isPositiveInteger(value) {
+        if (typeof value !== 'string') {
+            return false;
+        }
+        const num = Number(value);
+        return Number.isInteger(num) && num >= 0;
     }
     static nvl(value, _default) {
         return !this.isEmpty(value) ? value : _default;

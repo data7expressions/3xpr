@@ -25,14 +25,9 @@ export class OperandManager {
 	}
 
 	public build (node: Node): Operand {
-		try {
-			const operand = this.nodeToOperand(node)
-			const reduced = this.reduce(operand)
-			return this.setParent(reduced)
-		} catch (error) {
-			console.error(error)
-			throw error
-		}
+		const operand = this.nodeToOperand(node)
+		const reduced = this.reduce(operand)
+		return this.setParent(reduced)
 	}
 
 	public clone (value: Operand): Operand {

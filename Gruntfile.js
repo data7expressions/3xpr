@@ -1,14 +1,15 @@
 const fs = require('fs')
 
 module.exports = function (grunt) {
-	// Load the plugins
 	require('load-grunt-tasks')(grunt)
 	grunt.initConfig({
 		exec: {
 			lint: { cmd: 'npx eslint src ' },
 			unit_test: { cmd: 'npx jest --config jest-unit-config.json ' },
 			tsc: { cmd: 'npx tsc ' },
-			typedoc: { cmd: 'npx typedoc ' }
+			release: { cmd: './release.sh' },
+			to_develop: { cmd: './to_develop.sh' },
+			doc: { cmd: 'npx typedoc ' }
 		},
 		clean: {
 			build: ['build'],
@@ -41,12 +42,12 @@ module.exports = function (grunt) {
 		task.apply(this.async())
 	})
 
-	grunt.registerTask('clean-test', ['exec:clean_test'])
-	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc'])
 	grunt.registerTask('lint', ['exec:lint'])
+	grunt.registerTask('build', ['clean:build', 'build-config', 'exec:tsc'])
 	grunt.registerTask('unit-test', ['exec:unit_test'])
 	grunt.registerTask('dist', ['clean:dist', 'copy:lib', 'copy:readme', 'copy:license', 'create-package'])
-	grunt.registerTask('doc', ['build-wiki', 'exec:typedoc'])
-
+	grunt.registerTask('release', ['lint', 'build', 'unit-test', 'dist', 'exec:release'])
+	grunt.registerTask('to_develop', ['lint', 'build', 'unit-test', 'exec:to_develop'])
+	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('default', [])
 }
