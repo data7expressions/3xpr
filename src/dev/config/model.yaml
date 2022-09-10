@@ -265,7 +265,8 @@ operators:
         type: boolean 
     '[]':
       name: item
-      category: list
+      category: access
+      description: Access an element of a list through the index
       priority: 2
       return: T
       params:
@@ -448,20 +449,20 @@ functions:
     description: Determines if an array includes a certain element	
     category: comparison 
     return: boolean
-    params:
-    - name: value
-      type: T
+    params:    
     - name: list
       type: T[]
+    - name: value
+      type: T  
   in:
     description: Determines if an array includes a element or string includes substring	
     category: comparison 
     return: boolean
     params:
-    - name: value
-      type: T
     - name: list
       type: T[]
+    - name: value
+      type: T    
   isNull:
     description: Evaluate if it is null
     category: comparison

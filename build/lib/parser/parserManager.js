@@ -214,8 +214,10 @@ class ParserManager {
                     result.push(p);
                 }
                 // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
-                // } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-                // result.push(';')
+                // TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
+            }
+            else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+                result.push(';');
             }
             else if (p !== '\n' && p !== '\r' && p !== '\t') {
                 result.push(p);

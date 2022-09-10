@@ -9,10 +9,6 @@
 |slice							|Returns a copy of a portion of the array into a new array from start to end.			|
 |page								|Returns a portion of the records.																								|
 
-|Operator   |Description  |
-|-----------|-------------|
-|[]					|element  		|
-
 ## Examples
 
 Context:
@@ -114,11 +110,3 @@ const context = {
 - params:
 	- page: number
 	- records: number
-
-### Operator []
-
-- description: element
-- return: T
-- params:
-	- array: T[]
-	- index: number

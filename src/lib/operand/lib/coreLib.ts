@@ -976,7 +976,7 @@ class Functions {
 		return value >= from && value < to
 	}
 
-	static includes (value: any, list: any[]|string): boolean {
+	static includes (list: any[]|string, value: any): boolean {
 		if (list && value) {
 			return list.includes(value)
 		} else {
@@ -1100,7 +1100,15 @@ class Distinct extends ArrowFunction {
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
-		if (this.children[2] instanceof Obj) {
+		if (this.children.length === 1) {
+			// simple case
+			for (const item of list) {
+				if (rows.find((p:any) => p === item) === undefined) {
+					rows.push(item)
+				}
+			}
+			return rows
+		} else if (this.children[2] instanceof Obj) {
 			// case with aggregate functions
 			const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list)
 			// build the list of results

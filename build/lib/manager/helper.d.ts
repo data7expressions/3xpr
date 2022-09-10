@@ -11,6 +11,7 @@ export declare class Helper {
     static getValue(names: string[], source: any): any;
     static isObject(obj: any): boolean;
     static isEmpty(value: any): boolean;
+    static isPositiveInteger(value: any): boolean;
     static nvl(value: any, _default: any): any;
     static existsPath(sourcePath: string): Promise<boolean>;
     static createIfNotExists(sourcePath: string): Promise<void>;

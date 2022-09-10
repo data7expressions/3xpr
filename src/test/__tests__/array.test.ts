@@ -18,7 +18,6 @@ describe('Array', () => {
 		expect([1, 2, 3]).toEqual(data.a)
 	})
 
-
 	test('arrow', () => {
 		let data: any = { "a": [1, 2, 3], "b": 0 }
 		expressions.eval('a.foreach(p=>b=b+p)', data)
@@ -51,31 +50,18 @@ describe('Array', () => {
 			musicians: ['Charly Garcia', 'Fito Paez', 'Luiz Alberto Spinetta'],
 			pair: [2, 4, 6],
 			ods: [1, 3, 5]
-		}
+		}		
+
 		expect(4).toBe(expressions.eval('cities.length()',context))
-		expect(2).toBe(expressions.eval('cities.where(p-> p.province <> "BA").len()',context))
-		expect(2).toBe(expressions.eval('cities.where(p-> p.province != "BA").length()',context))
-		expect([2.9,1.3,0.95,0.6]).toStrictEqual(expressions.eval('cities.each(p=> p.population=round(p.population/1000000,2)).population',context))
-		expect([2,4,6]).toStrictEqual(expressions.eval('pair.foreach(p=>b=b+p)',context))
-		expect([2,4]).toStrictEqual(expressions.eval('pair.filter(p=> p<5).foreach(p => b=b+p)',context))
-		expect(['Buenos Aires','Córdoba','Mar del Plata','Rosario']).toStrictEqual(expressions.eval('cities.sort(p=> p.name).name',context))
-		expect(['Rosario','Mar del Plata','Córdoba','Buenos Aires']).toStrictEqual(expressions.eval('cities.reverse(p=> p.name).name',context))
-		expect([3]).toStrictEqual(expressions.eval('ods.filter(p=> p>1 && p<5).reverse()',context))
-		expect([6]).toStrictEqual(expressions.eval('ods.filter(p=> p>1 && p<5).map(p=> p*2).reverse()',context))
 		expect([1,3,5,2,4,6]).toStrictEqual(expressions.eval('concat(ods,pair)',context))
 		expect([1,2,3,4,5,6]).toStrictEqual(expressions.eval('concatenate(pair,ods).sort()',context))
-		expect(['Buenos Aires','Córdoba','Mar del Plata','Rosario']).toStrictEqual(expressions.eval('cities.order(p=> p.name).name',context))
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata']).toStrictEqual(expressions.eval('cities.name',context))
 		expect(false).toBe(expressions.eval('in("San Luis",cities.name)',context))
-		expect([34.36,31.42,32.58,38]).toStrictEqual(expressions.eval('cities.select(p=> p.coordinates).select(p=> p.lat)',context))
-		expect([34.36,31.42,32.58,38]).toStrictEqual(expressions.eval('cities.map(p=> p.coordinates).lat',context))
-		expect([[34.36,58.26],[31.42,64.18],[32.58,60.36],[38,57.33]]).toStrictEqual(expressions.eval('cities.map(p=>[p.coordinates.lat,p.coordinates.long])',context))
-		expect(['BA','CB','SF']).toStrictEqual(expressions.eval('cities.distinct(p=> p.province)',context))
 		expect([34.36,31.42,32.58,38]).toStrictEqual(expressions.eval('cities.coordinates.lat',context))
 		expect([]).toStrictEqual(expressions.eval('cities.x',context))
 		expect([]).toStrictEqual(expressions.eval('cities.x.x',context))
-		expect(['Córdoba','Rosario']).toStrictEqual(expressions.eval('cities.delete(p-> p.province === "BA").name',context))
-		expect(['Córdoba','Rosario']).toStrictEqual(expressions.eval('cities.remove(p-> p.province === "BA").name',context))
+		expect([6]).toStrictEqual(expressions.eval('concatenate(pair,ods).slice(2,3)',context))
+		expect([1,3,5]).toStrictEqual(expressions.eval('concatenate(pair,ods).page(2,3)',context))
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata','Salta']).toStrictEqual(expressions.eval('cities.push(salta).name',context))
 		expect(['Buenos Aires','Córdoba','Rosario','Mar del Plata','Salta','Posadas']).toStrictEqual(expressions.eval('cities.insert(posadas).name',context))
 		expect('Posadas').toBe(expressions.eval('cities.pop().name',context))

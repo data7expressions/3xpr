@@ -36,12 +36,28 @@ class Data {
         const level = names.length - 1;
         let list = this.getData(names[0]);
         for (let i = 0; i < names.length; i++) {
-            const p = names[i];
-            if (i === level) {
-                list[p] = value;
+            const name = names[i];
+            // if is an array and name is a positive integer
+            if (Array.isArray(list) && manager_1.Helper.isPositiveInteger(name)) {
+                const index = Number(name);
+                // If the index exceeds the length of the array, nothing assigns it.
+                if (index >= list.length) {
+                    return;
+                }
+                if (i === level) {
+                    list[index] = value;
+                }
+                else {
+                    list = list[index];
+                }
             }
             else {
-                list = list[p];
+                if (i === level) {
+                    list[name] = value;
+                }
+                else {
+                    list = list[name];
+                }
             }
         }
     }

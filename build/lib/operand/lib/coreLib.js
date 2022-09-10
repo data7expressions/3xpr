@@ -896,7 +896,7 @@ class Functions {
     static between(value, from, to) {
         return value >= from && value < to;
     }
-    static includes(value, list) {
+    static includes(list, value) {
         if (list && value) {
             return list.includes(value);
         }
@@ -1021,7 +1021,16 @@ class Distinct extends operands_1.ArrowFunction {
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        if (this.children[2] instanceof operands_1.Obj) {
+        if (this.children.length === 1) {
+            // simple case
+            for (const item of list) {
+                if (rows.find((p) => p === item) === undefined) {
+                    rows.push(item);
+                }
+            }
+            return rows;
+        }
+        else if (this.children[2] instanceof operands_1.Obj) {
             // case with aggregate functions
             const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list);
             // build the list of results

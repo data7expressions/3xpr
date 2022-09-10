@@ -1,5 +1,5 @@
 import { Expressions } from './expressions';
-import { Parameter, ActionObserver, ValidateResult, Schema, BuildedSchema } from './model';
+import { Parameter, ActionObserver } from './model';
 import { Operand } from './operand';
 export * from './model';
 export * from './operand';
@@ -25,7 +25,5 @@ export declare const parameters: (expression: string) => Parameter[];
  * @returns Result of the evaluate expression
  */
 export declare const evaluate: (expression: string, data?: any) => any;
-export declare const addSchema: (schema: Schema) => BuildedSchema;
-export declare const validate: (schema: string | Schema, data: any) => Promise<ValidateResult>;
 export declare const subscribe: (observer: ActionObserver) => void;
 export declare const unsubscribe: (observer: ActionObserver) => void;

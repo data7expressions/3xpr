@@ -151,10 +151,6 @@ class Parser {
             else if (value === 'try' && this.current === '{') {
                 operand = this.getTryCatchBlock();
             }
-            else if (!this.end && this.current === '[') {
-                this.index += 1;
-                operand = this.getIndexOperand(value);
-            }
             else if (value === 'throw') {
                 operand = this.getThrow();
             }
@@ -166,6 +162,10 @@ class Parser {
             }
             else if (value === 'continue') {
                 operand = new node_1.Node('continue', 'continue');
+            }
+            else if (!this.end && this.current === '[') {
+                this.index += 1;
+                operand = this.getIndexOperand(value);
             }
             else if (this.reInt.test(value)) {
                 if (isNegative) {
@@ -262,7 +262,10 @@ class Parser {
         return operand;
     }
     solveChain(operand) {
-        if (!this.end && this.current === '.') {
+        if (this.end) {
+            return operand;
+        }
+        if (this.current === '.') {
             this.index += 1;
             const name = this.getValue();
             if (this.current === '(') {
@@ -280,10 +283,31 @@ class Parser {
                     return this.solveChain(this.getChildFunction(name, operand));
                 }
             }
+            else if (this.current === '[') {
+                this.index += 1;
+                if (name.includes('.')) {
+                    // .xxx.xxx[x]
+                    const property = new node_1.Node(name, 'property', [operand]);
+                    const idx = this.getExpression(undefined, undefined, ']');
+                    return new node_1.Node('[]', 'operator', [property, idx]);
+                }
+                else {
+                    // .xxx[x]
+                    const property = new node_1.Node(name, 'property', [operand]);
+                    const idx = this.getExpression(undefined, undefined, ']');
+                    return new node_1.Node('[]', 'operator', [property, idx]);
+                }
+            }
             else {
                 // .xxx
                 return new node_1.Node(name, 'property', [operand]);
             }
+        }
+        else if (this.current === '[') {
+            // xxx[x][x] or xxx[x].xxx[x]
+            this.index += 1;
+            const idx = this.getExpression(undefined, undefined, ']');
+            return new node_1.Node('[]', 'operator', [operand, idx]);
         }
         else {
             return operand;

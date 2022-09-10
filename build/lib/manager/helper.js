@@ -113,18 +113,29 @@ class Helper {
         let value = source;
         for (const name of names) {
             if (Array.isArray(value)) {
-                let result = [];
-                for (const item of value) {
-                    if (item[name] !== undefined) {
-                        if (Array.isArray(item[name])) {
-                            result = result.concat(item[name]);
-                        }
-                        else {
-                            result.push(item[name]);
+                // if name is an integer , look for the value with that index in the array
+                if (Helper.isPositiveInteger(name)) {
+                    const index = Number(name);
+                    if (index >= value.length) {
+                        return null;
+                    }
+                    value = value[Number(name)];
+                }
+                else {
+                    // if name is not numeric, find all the properties of the array
+                    let result = [];
+                    for (const item of value) {
+                        if (item[name] !== undefined) {
+                            if (Array.isArray(item[name])) {
+                                result = result.concat(item[name]);
+                            }
+                            else {
+                                result.push(item[name]);
+                            }
                         }
                     }
+                    value = result;
                 }
-                value = result;
             }
             else {
                 if (value[name] === undefined)
@@ -139,6 +150,13 @@ class Helper {
     }
     static isEmpty(value) {
         return value === null || value === undefined || value.toString().trim().length === 0;
+    }
+    static isPositiveInteger(value) {
+        if (typeof value !== 'string') {
+            return false;
+        }
+        const num = Number(value);
+        return Number.isInteger(num) && num >= 0;
     }
     static nvl(value, _default) {
         return !this.isEmpty(value) ? value : _default;

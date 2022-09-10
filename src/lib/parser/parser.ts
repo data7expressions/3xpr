@@ -150,9 +150,6 @@ export class Parser {
 				}
 			} else if (value === 'try' && this.current === '{') {
 				operand = this.getTryCatchBlock()
-			} else if (!this.end && this.current === '[') {
-				this.index += 1
-				operand = this.getIndexOperand(value)
 			} else if (value === 'throw') {
 				operand = this.getThrow()
 			} else if (value === 'return') {
@@ -161,6 +158,9 @@ export class Parser {
 				operand = new Node('break', 'break')
 			} else if (value === 'continue') {
 				operand = new Node('continue', 'continue')
+			} else if (!this.end && this.current === '[') {
+				this.index += 1
+				operand = this.getIndexOperand(value)
 			} else if (this.reInt.test(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
@@ -236,7 +236,10 @@ export class Parser {
 	}
 
 	private solveChain (operand: Node): Node {
-		if (!this.end && this.current === '.') {
+		if (this.end) {
+			return operand
+		}
+		if (this.current === '.') {
 			this.index += 1
 			const name = this.getValue()
 			if (this.current === '(') {
@@ -252,10 +255,28 @@ export class Parser {
 					// .xxx(p=> p.xxx)
 					return this.solveChain(this.getChildFunction(name, operand))
 				}
+			} else if (this.current === '[') {
+				this.index += 1
+				if (name.includes('.')) {
+					// .xxx.xxx[x]
+					const property = new Node(name, 'property', [operand])
+					const idx = this.getExpression(undefined, undefined, ']')
+					return new Node('[]', 'operator', [property, idx])
+				} else {
+					// .xxx[x]
+					const property = new Node(name, 'property', [operand])
+					const idx = this.getExpression(undefined, undefined, ']')
+					return new Node('[]', 'operator', [property, idx])
+				}
 			} else {
 				// .xxx
 				return new Node(name, 'property', [operand])
 			}
+		} else if (this.current === '[') {
+			// xxx[x][x] or xxx[x].xxx[x]
+			this.index += 1
+			const idx = this.getExpression(undefined, undefined, ']')
+			return new Node('[]', 'operator', [operand, idx])
 		} else {
 			return operand
 		}
