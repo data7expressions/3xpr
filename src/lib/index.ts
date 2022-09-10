@@ -6,6 +6,7 @@ export * from './model'
 export * from './operand'
 export * from './manager'
 export * from './parser'
+export * from './expressions'
 export const expressions = Expressions.instance
 
 /**

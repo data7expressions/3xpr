@@ -20,6 +20,7 @@ __exportStar(require("./model"), exports);
 __exportStar(require("./operand"), exports);
 __exportStar(require("./manager"), exports);
 __exportStar(require("./parser"), exports);
+__exportStar(require("./expressions"), exports);
 exports.expressions = expressions_1.Expressions.instance;
 /**
      * Parser expression
