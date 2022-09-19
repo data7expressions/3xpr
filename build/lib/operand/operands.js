@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.EnvironmentVariable = exports.Variable = exports.Constant = exports.Operand = void 0;
-const helper_1 = require("../manager/helper");
+const lib_1 = require("../../lib");
 class Operand {
     constructor(name, children = [], type = 'any') {
         this.name = name;
@@ -31,7 +31,7 @@ class Operand {
 exports.Operand = Operand;
 class Constant extends Operand {
     constructor(name) {
-        super(name, [], helper_1.Helper.getType(name));
+        super(name, [], lib_1.Helper.getType(name));
     }
     eval() {
         switch (this.type) {
@@ -91,8 +91,8 @@ class Property extends Operand {
         const value = this.children[0].eval();
         if (value === undefined || value === null)
             return null;
-        const names = helper_1.Helper.getNames(this.name);
-        return helper_1.Helper.getValue(names, value);
+        const names = lib_1.Helper.getNames(this.name);
+        return lib_1.Helper.getValue(names, value);
     }
 }
 exports.Property = Property;

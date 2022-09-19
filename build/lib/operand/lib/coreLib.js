@@ -142,19 +142,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('keys', (obj) => typeof obj === 'object' ? Object.keys(obj) : []);
         this.addFunction('values', (obj) => typeof obj === 'object' ? Object.values(obj) : []);
         this.addFunction('entries', (obj) => typeof obj === 'object' ? Object.entries(obj) : []);
-        this.addFunction('fromEntries', (array) => {
-            if (!Array.isArray(array)) {
-                return {};
-            }
-            const obj = {};
-            for (const element of array) {
-                if (!Array.isArray(element) || element.length !== 2) {
-                    continue;
-                }
-                obj[element[0]] = element[1];
-            }
-            return obj;
-        });
+        this.addFunction('fromEntries', (array) => manager_1.Helper.fromEntries(array));
     }
     stringFunctions() {
         this.addFunction('chr', (ascii) => String.fromCharCode(ascii));

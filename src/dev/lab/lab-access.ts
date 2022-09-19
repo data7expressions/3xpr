@@ -34,7 +34,7 @@ import { show } from './util'
 		'orders.customer[0]["firstName"]',
 		'orders.customer[0]["first"+"Name"]',
 		'orders[1].customer["firstName"]',
-		'orders.1["customer"]["firstName"]',
+		// 'orders.1["customer"]["firstName"]',
 		'orders.0.number',
 		'orders.1.customer.firstName',
 		'orders.customer.firstName',

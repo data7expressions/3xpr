@@ -154,19 +154,7 @@ export class CoreLib extends Library {
 		this.addFunction('keys', (obj: any): any[] => typeof obj === 'object' ? Object.keys(obj) : [])
 		this.addFunction('values', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
 		this.addFunction('entries', (obj: any): any[] => typeof obj === 'object' ? Object.entries(obj) : [])
-		this.addFunction('fromEntries', (array: any[]): any => {
-			if (!Array.isArray(array)) {
-				return {}
-			}
-			const obj:any = {}
-			for (const element of array) {
-				if (!Array.isArray(element) || element.length !== 2) {
-					continue
-				}
-				obj[element[0]] = element[1]
-			}
-			return obj
-		})
+		this.addFunction('fromEntries', (array: any[]): any => Helper.fromEntries(array))
 	}
 
 	private stringFunctions () {

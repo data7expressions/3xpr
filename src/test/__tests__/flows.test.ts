@@ -1,5 +1,4 @@
-import { expressions } from '../../lib'
-import { Helper } from '../../lib/manager/helper'
+import { expressions, Helper } from '../../lib'
 
 const testPath = 'src/test/__tests__/test'
 

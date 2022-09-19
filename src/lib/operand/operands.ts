@@ -1,7 +1,7 @@
 
 import { Data } from '../model'
 import { ExpressionConfig } from '../parser'
-import { Helper } from '../manager/helper'
+import { Helper } from '../../lib'
 
 export abstract class Operand {
 	public name: string

@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Helper } from '../../lib/manager/helper'
-import { expressions } from '../../lib'
+import { expressions, Helper } from '../../lib'
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
