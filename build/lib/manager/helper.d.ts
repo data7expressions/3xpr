@@ -1,3 +1,3 @@
-import { Helper } from 'h3lp';
-export declare class ExpHelper extends Helper {
+import { H3lp } from 'h3lp';
+export declare class ExpHelper extends H3lp {
 }

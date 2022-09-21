@@ -1,4 +1,4 @@
-import { Helper } from 'h3lp'
+import { H3lp } from 'h3lp'
 
-export class ExpHelper extends Helper {
+export class ExpHelper extends H3lp {
 }

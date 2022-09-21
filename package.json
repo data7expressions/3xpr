@@ -1,6 +1,6 @@
 {
 	"name": "js-expressions",
-	"version": "1.1.11",
+	"version": "1.1.12",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -22,6 +22,9 @@
 		"to_develop": "grunt to_develop",
 		"release": "grunt release",
 		"doc": "grunt doc"
+	},
+	"dependencies": {
+		"h3lp": "^0.0.9"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.15.4",
@@ -68,8 +71,5 @@
 		"parser",
 		"eval",
 		"evaluator"
-	],
-	"dependencies": {
-		"h3lp": "^0.0.5"
-	}
+	]
 }
