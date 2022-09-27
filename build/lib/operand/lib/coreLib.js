@@ -142,7 +142,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('keys', (obj) => typeof obj === 'object' ? Object.keys(obj) : []);
         this.addFunction('values', (obj) => typeof obj === 'object' ? Object.values(obj) : []);
         this.addFunction('entries', (obj) => typeof obj === 'object' ? Object.entries(obj) : []);
-        this.addFunction('fromEntries', (array) => manager_1.Helper.fromEntries(array));
+        this.addFunction('fromEntries', (array) => manager_1.Helper.obj.fromEntries(array));
     }
     stringFunctions() {
         this.addFunction('chr', (ascii) => String.fromCharCode(ascii));
@@ -152,7 +152,7 @@ class CoreLib extends library_1.Library {
         this.addFunction('lower', (str) => str.toLowerCase());
         this.addFunction('lpad', (str, len, pad) => str.padStart(len, pad));
         this.addFunction('ltrim', (str) => str.trimLeft());
-        this.addFunction('replace', (str, source, target) => manager_1.Helper.replace(str, source, target));
+        this.addFunction('replace', (str, source, target) => manager_1.Helper.string.replace(str, source, target));
         this.addFunction('rpad', (str, len, pad) => str.padEnd(len, pad));
         this.addFunction('rtrim', (str) => str.trimRight());
         this.addFunction('substr', (str, from, count) => str.substring(from, count));

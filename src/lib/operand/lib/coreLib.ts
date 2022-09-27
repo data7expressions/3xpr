@@ -154,7 +154,7 @@ export class CoreLib extends Library {
 		this.addFunction('keys', (obj: any): any[] => typeof obj === 'object' ? Object.keys(obj) : [])
 		this.addFunction('values', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
 		this.addFunction('entries', (obj: any): any[] => typeof obj === 'object' ? Object.entries(obj) : [])
-		this.addFunction('fromEntries', (array: any[]): any => Helper.fromEntries(array))
+		this.addFunction('fromEntries', (array: any[]): any => Helper.obj.fromEntries(array))
 	}
 
 	private stringFunctions () {
@@ -165,7 +165,7 @@ export class CoreLib extends Library {
 		this.addFunction('lower', (str: string) => str.toLowerCase())
 		this.addFunction('lpad', (str: string, len: number, pad: string) => str.padStart(len, pad))
 		this.addFunction('ltrim', (str: string) => str.trimLeft())
-		this.addFunction('replace', (str: string, source: string, target: string) => Helper.replace(str, source, target))
+		this.addFunction('replace', (str: string, source: string, target: string) => Helper.string.replace(str, source, target))
 		this.addFunction('rpad', (str: string, len: number, pad: string) => str.padEnd(len, pad))
 		this.addFunction('rtrim', (str: string) => str.trimRight())
 		this.addFunction('substr', (str: string, from: number, count: number) => str.substring(from, count))

@@ -46,7 +46,7 @@ export interface IOperandData{
 
 export class Constant extends Operand {
 	constructor (name: string) {
-		super(name, [], Helper.getType(name))
+		super(name, [], Helper.utils.getType(name))
 	}
 
 	public eval (): any {
@@ -110,8 +110,8 @@ export class Property extends Operand {
 	public eval (): any {
 		const value = this.children[0].eval()
 		if (value === undefined || value === null) return null
-		const names = Helper.getNames(this.name)
-		return Helper.getValue(names, value)
+		const names = Helper.obj.getNames(this.name)
+		return Helper.obj.getValue(names, value)
 	}
 }
 

@@ -49,11 +49,11 @@ export function show (list:string[], context:any) {
 
 export const test = async (expression:string, file:string) => {
 	try {
-		const content = await Helper.readFile(file)
+		const content = await Helper.fs.readFile(file)
 		if (!content) {
 			throw Error(`can not read file ${file}`)
 		}
-		const data = Helper.tryParse(content)
+		const data = Helper.utils.tryParse(content)
 		if (data === null || data === undefined) {
 			throw Error(`can not parse content of ${file}`)
 		}

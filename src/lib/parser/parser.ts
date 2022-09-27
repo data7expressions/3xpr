@@ -139,7 +139,7 @@ export class Parser {
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
-					const names = Helper.getNames(value)
+					const names = Helper.obj.getNames(value)
 					const functionName = names.pop() as string
 					const variableName = names.join('.')
 					const variable = new Node(variableName, 'var')
@@ -246,7 +246,7 @@ export class Parser {
 				this.index += 1
 				if (name.includes('.')) {
 					// .xxx.xxx(p=> p.xxx)
-					const names = Helper.getNames(name)
+					const names = Helper.obj.getNames(name)
 					const propertyName = names.slice(0, -1).join('.')
 					const functionName = names.slice(-1)[0]
 					const property = new Node(propertyName, 'property', [operand])

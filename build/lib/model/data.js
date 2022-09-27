@@ -27,9 +27,9 @@ class Data {
         return true;
     }
     get(name) {
-        const names = manager_1.Helper.getNames(name);
+        const names = manager_1.Helper.obj.getNames(name);
         const value = this.getData(names[0]);
-        return manager_1.Helper.getValue(names, value);
+        return manager_1.Helper.obj.getValue(names, value);
     }
     set(name, value) {
         const names = name.split('.');
@@ -38,7 +38,7 @@ class Data {
         for (let i = 0; i < names.length; i++) {
             const name = names[i];
             // if is an array and name is a positive integer
-            if (Array.isArray(list) && manager_1.Helper.isPositiveInteger(name)) {
+            if (Array.isArray(list) && manager_1.Helper.validator.isPositiveInteger(name)) {
                 const index = Number(name);
                 // If the index exceeds the length of the array, nothing assigns it.
                 if (index >= list.length) {

@@ -31,7 +31,7 @@ class Operand {
 exports.Operand = Operand;
 class Constant extends Operand {
     constructor(name) {
-        super(name, [], lib_1.Helper.getType(name));
+        super(name, [], lib_1.Helper.utils.getType(name));
     }
     eval() {
         switch (this.type) {
@@ -91,8 +91,8 @@ class Property extends Operand {
         const value = this.children[0].eval();
         if (value === undefined || value === null)
             return null;
-        const names = lib_1.Helper.getNames(this.name);
-        return lib_1.Helper.getValue(names, value);
+        const names = lib_1.Helper.obj.getNames(this.name);
+        return lib_1.Helper.obj.getValue(names, value);
     }
 }
 exports.Property = Property;
