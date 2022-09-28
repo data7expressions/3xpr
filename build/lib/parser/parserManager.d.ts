@@ -1,11 +1,11 @@
 import { Node } from './node';
 import { ExpressionConfig } from './expressionConfig';
-export declare class ParserManager {
+import { IParserManager } from './../model';
+export declare class ParserManager implements IParserManager {
     doubleOperators: string[];
     tripleOperators: string[];
     assignmentOperators: string[];
     private config;
-    private reAlphanumeric;
     constructor(config: ExpressionConfig);
     refresh(): void;
     priority(name: string, cardinality?: number): number;
@@ -14,12 +14,7 @@ export declare class ParserManager {
     getEnum(name: string): any;
     parse(expression: string): Node;
     toExpression(node: Node): string;
-    serialize(value: Node): any;
-    deserialize(json: any): Node;
     clearChildEmpty(node: Node): Node;
-    setParent(node: Node, parent?: Node, index?: number): Node;
     minify(expression: string): string;
     private _minify;
-    private _serialize;
-    private _deserialize;
 }

@@ -1,9 +1,9 @@
-import { Helper } from './../manager'
+import { Helper } from '../manager'
 export class Data {
 	public data: any
 	public parent: any
-	constructor (data:any, parent?:Data) {
-		this.data = data
+	constructor (data?:any, parent?:Data) {
+		this.data = data || {}
 		this.parent = parent
 	}
 
@@ -63,5 +63,18 @@ export class Data {
 
 	init (name:string, value:any):void {
 		this.data[name] = value
+	}
+}
+
+export class Context {
+	public data:Data
+	public parent?: Context
+	constructor (data?:Data, parent?:Context) {
+		this.data = data || new Data({})
+		this.parent = parent
+	}
+
+	public newContext ():Context {
+		return new Context(this.data.newData(), this)
 	}
 }

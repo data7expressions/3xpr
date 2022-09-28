@@ -383,16 +383,16 @@ class CoreHelper {
         }
         return list.join('|');
     }
-    static getKeys(variable, fields, list, data) {
+    static getKeys(variable, fields, list, context) {
         const keys = [];
         // loop through the list and group by the grouper fields
         for (const item of list) {
             let key = '';
             const values = [];
             for (const keyValue of fields) {
-                data.set(variable.name, item);
+                context.data.set(variable.name, item);
                 // variable.set(item)
-                const value = keyValue.children[0].eval(data);
+                const value = keyValue.children[0].eval(context);
                 if (typeof value === 'object') {
                     throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`);
                 }
@@ -441,115 +441,115 @@ class CoreHelper {
         }
         return [];
     }
-    static solveAggregates(list, variable, operand, data) {
+    static solveAggregates(list, variable, operand, context) {
         if (!(operand instanceof operands_1.ArrowFunction) && operand instanceof operands_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
             let value;
             switch (operand.name) {
                 case 'avg':
-                    value = this.avg(list, variable, operand.children[0], data);
+                    value = this.avg(list, variable, operand.children[0], context);
                     break;
                 case 'count':
-                    value = this.count(list, variable, operand.children[0], data);
+                    value = this.count(list, variable, operand.children[0], context);
                     break;
                 case 'first':
-                    value = this.first(list, variable, operand.children[0], data);
+                    value = this.first(list, variable, operand.children[0], context);
                     break;
                 case 'last':
-                    value = this.last(list, variable, operand.children[0], data);
+                    value = this.last(list, variable, operand.children[0], context);
                     break;
                 case 'max':
-                    value = this.max(list, variable, operand.children[0], data);
+                    value = this.max(list, variable, operand.children[0], context);
                     break;
                 case 'min':
-                    value = this.min(list, variable, operand.children[0], data);
+                    value = this.min(list, variable, operand.children[0], context);
                     break;
                 case 'sum':
-                    value = this.sum(list, variable, operand.children[0], data);
+                    value = this.sum(list, variable, operand.children[0], context);
                     break;
             }
             return new operands_1.Constant(value);
         }
         else if (operand.children && operand.children.length > 0) {
             for (let i = 0; i < operand.children.length; i++) {
-                operand.children[i] = this.solveAggregates(list, variable, operand.children[i], data);
+                operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context);
             }
         }
         return operand;
     }
-    static count(list, variable, aggregate, data) {
+    static count(list, variable, aggregate, context) {
         let count = 0;
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            if (aggregate.eval(data)) {
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
                 count++;
             }
         }
         return count;
     }
-    static first(list, variable, aggregate, data) {
+    static first(list, variable, aggregate, context) {
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            if (aggregate.eval(data)) {
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
                 return item;
             }
         }
         return null;
     }
-    static last(list, variable, aggregate, data) {
+    static last(list, variable, aggregate, context) {
         for (let i = list.length - 1; i >= 0; i--) {
             const item = list[i];
             // variable.set(item)
-            data.set(variable.name, item);
-            if (aggregate.eval(data)) {
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
                 return item;
             }
         }
         return null;
     }
-    static max(list, variable, aggregate, data) {
+    static max(list, variable, aggregate, context) {
         let max;
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            const value = aggregate.eval(data);
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
             if (max === undefined || (value !== null && value > max)) {
                 max = value;
             }
         }
         return max;
     }
-    static min(list, variable, aggregate, data) {
+    static min(list, variable, aggregate, context) {
         let min;
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            const value = aggregate.eval(data);
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
             if (min === undefined || (value !== null && value < min)) {
                 min = value;
             }
         }
         return min;
     }
-    static avg(list, variable, aggregate, data) {
+    static avg(list, variable, aggregate, context) {
         let sum = 0;
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            const value = aggregate.eval(data);
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
             if (value !== null) {
                 sum = sum + value;
             }
         }
         return list.length > 0 ? sum / list.length : 0;
     }
-    static sum(list, variable, aggregate, data) {
+    static sum(list, variable, aggregate, context) {
         let sum = 0;
         for (const item of list) {
             // variable.set(item)
-            data.set(variable.name, item);
-            const value = aggregate.eval(data);
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
             if (value !== null) {
                 sum = sum + value;
             }
@@ -671,120 +671,107 @@ class Operators {
     }
 }
 class And extends operands_1.Operator {
-    eval(data) {
-        if (!this.children[0].eval(data))
+    eval(context) {
+        if (!this.children[0].eval(context))
             return false;
-        return this.children[1].eval(data);
+        return this.children[1].eval(context);
     }
 }
 class Or extends operands_1.Operator {
-    eval(data) {
-        if (this.children[0].eval(data))
+    eval(context) {
+        if (this.children[0].eval(context))
             return true;
-        return this.children[1].eval(data);
+        return this.children[1].eval(context);
     }
 }
 class Assignment extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[1].eval(data);
-        data.set(this.children[0].name, value);
-        // this.children[0].set(value)
+    eval(context) {
+        const value = this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentAddition extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) + this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) + this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentSubtraction extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) - this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) - this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentMultiplication extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) * this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) * this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentDivision extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) / this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) / this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentExponentiation extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) ** this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) ** this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentFloorDivision extends operands_1.Operator {
-    eval(data) {
-        const value = Math.floor(this.children[0].eval(data) / this.children[1].eval(data));
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = Math.floor(this.children[0].eval(context) / this.children[1].eval(context));
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentMod extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) % this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) % this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitAnd extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) & this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) & this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitOr extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) | this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) | this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitXor extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) ^ this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) ^ this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentLeftShift extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) << this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) << this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentRightShift extends operands_1.Operator {
-    eval(data) {
-        const value = this.children[0].eval(data) >> this.children[1].eval(data);
-        // this.children[0].set(value)
-        data.set(this.children[0].name, value);
+    eval(context) {
+        const value = this.children[0].eval(context) >> this.children[1].eval(context);
+        context.data.set(this.children[0].name, value);
         return value;
     }
 }
@@ -1002,9 +989,9 @@ class SetsFunctions {
     static symmetricDifference(a, b) { throw new Error('Empty'); }
 }
 class Map extends operands_1.ArrowFunction {
-    eval(data) {
+    eval(context) {
         const rows = [];
-        const list = this.children[0].eval(data);
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1025,15 +1012,14 @@ class Map extends operands_1.ArrowFunction {
             }
             if (aggregates.length > 0) {
                 // case with aggregate functions
-                const keys = CoreHelper.getKeys(this.children[1], groupers, list, data);
+                const keys = CoreHelper.getKeys(this.children[1], groupers, list, context);
                 // once you got all the keys you have to calculate the aggregates fields
                 const variable = this.children[1];
                 for (const key of keys) {
                     for (const keyValue of aggregates) {
-                        const operandCloned = index_1.expressions.operand.clone(keyValue.children[0]);
-                        index_1.expressions.operand.initialize(operandCloned);
-                        const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned, data);
-                        const value = operandResolved.eval(data);
+                        const operandCloned = index_1.expressions.clone(keyValue.children[0]);
+                        const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned, context);
+                        const value = operandResolved.eval(context);
                         key.summarizers.push({ name: keyValue.name, value: value });
                     }
                 }
@@ -1052,19 +1038,19 @@ class Map extends operands_1.ArrowFunction {
             }
         }
         // simple case without aggregate functions
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            const row = this.children[2].eval(childData);
+            childContext.data.set(this.children[1].name, item);
+            const row = this.children[2].eval(childContext);
             rows.push(row);
         }
         return rows;
     }
 }
 class Distinct extends operands_1.ArrowFunction {
-    eval(data) {
+    eval(context) {
         const rows = [];
-        const list = this.children[0].eval(data);
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1079,7 +1065,7 @@ class Distinct extends operands_1.ArrowFunction {
         }
         else if (this.children[2] instanceof operands_1.Obj) {
             // case with aggregate functions
-            const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list, data.newData());
+            const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list, context.newContext());
             // build the list of results
             for (const key of keys) {
                 const row = {};
@@ -1094,10 +1080,10 @@ class Distinct extends operands_1.ArrowFunction {
             throw new Error('Distinct not support Array result');
         }
         // simple case without aggregate functions
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            const value = this.children[2].eval(childData);
+            childContext.data.set(this.children[1].name, item);
+            const value = this.children[2].eval(childContext);
             if (rows.find((p) => p === value) === undefined) {
                 rows.push(value);
             }
@@ -1106,30 +1092,30 @@ class Distinct extends operands_1.ArrowFunction {
     }
 }
 class Foreach extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            this.children[2].eval(childData);
+            childContext.data.set(this.children[1].name, item);
+            this.children[2].eval(childContext);
         }
         return list;
     }
 }
 class Filter extends operands_1.ArrowFunction {
-    eval(data) {
+    eval(context) {
         const rows = [];
-        const list = this.children[0].eval(data);
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            if (this.children[2].eval(childData)) {
+            childContext.data.set(this.children[1].name, item);
+            if (this.children[2].eval(childContext)) {
                 rows.push(item);
             }
         }
@@ -1137,8 +1123,8 @@ class Filter extends operands_1.ArrowFunction {
     }
 }
 class Reverse extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1146,10 +1132,10 @@ class Reverse extends operands_1.ArrowFunction {
             return list.reverse();
         }
         const values = [];
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            const value = this.children[2].eval(childData);
+            childContext.data.set(this.children[1].name, item);
+            const value = this.children[2].eval(childContext);
             values.push({ value: value, p: item });
         }
         values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
@@ -1158,19 +1144,19 @@ class Reverse extends operands_1.ArrowFunction {
     }
 }
 class Sort extends operands_1.ArrowFunction {
-    eval(data) {
+    eval(context) {
         const values = [];
-        const list = this.children[0].eval(data);
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list.sort();
         }
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            const value = this.children[2].eval(childData);
+            childContext.data.set(this.children[1].name, item);
+            const value = this.children[2].eval(childContext);
             values.push({ value: value, p: item });
         }
         values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
@@ -1178,16 +1164,16 @@ class Sort extends operands_1.ArrowFunction {
     }
 }
 class Remove extends operands_1.ArrowFunction {
-    eval(data) {
+    eval(context) {
         const rows = [];
-        const list = this.children[0].eval(data);
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        const childData = data.newData();
+        const childContext = context.newContext();
         for (const item of list) {
-            childData.set(this.children[1].name, item);
-            if (!this.children[2].eval(childData)) {
+            childContext.data.set(this.children[1].name, item);
+            if (!this.children[2].eval(childContext)) {
                 rows.push(item);
             }
         }
@@ -1195,44 +1181,44 @@ class Remove extends operands_1.ArrowFunction {
     }
 }
 class First extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[0] : null;
         }
-        return CoreHelper.first(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.first(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Last extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[list.length - 1] : null;
         }
-        return CoreHelper.last(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.last(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Count extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list.length;
         }
-        return CoreHelper.count(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.count(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Max extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1245,12 +1231,12 @@ class Max extends operands_1.ArrowFunction {
             }
             return max;
         }
-        return CoreHelper.max(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.max(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Min extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1263,12 +1249,12 @@ class Min extends operands_1.ArrowFunction {
             }
             return min;
         }
-        return CoreHelper.min(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.min(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Avg extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1281,12 +1267,12 @@ class Avg extends operands_1.ArrowFunction {
             }
             return list.length > 0 ? sum / list.length : 0;
         }
-        return CoreHelper.avg(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.avg(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Sum extends operands_1.ArrowFunction {
-    eval(data) {
-        const list = this.children[0].eval(data);
+    eval(context) {
+        const list = this.children[0].eval(context);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1299,13 +1285,13 @@ class Sum extends operands_1.ArrowFunction {
             }
             return sum;
         }
-        return CoreHelper.sum(list, this.children[1], this.children[2], data.newData());
+        return CoreHelper.sum(list, this.children[1], this.children[2], context.newContext());
     }
 }
 class Union extends operands_1.ChildFunction {
-    eval(data) {
-        const a = this.children[0].eval(data);
-        const b = this.children[1].eval(data);
+    eval(context) {
+        const a = this.children[0].eval(context);
+        const b = this.children[1].eval(context);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1345,9 +1331,9 @@ class Union extends operands_1.ChildFunction {
     }
 }
 class Intersection extends operands_1.ChildFunction {
-    eval(data) {
-        const a = this.children[0].eval(data);
-        const b = this.children[1].eval(data);
+    eval(context) {
+        const a = this.children[0].eval(context);
+        const b = this.children[1].eval(context);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1382,9 +1368,9 @@ class Intersection extends operands_1.ChildFunction {
     }
 }
 class Difference extends operands_1.ChildFunction {
-    eval(data) {
-        const a = this.children[0].eval(data);
-        const b = this.children[1].eval(data);
+    eval(context) {
+        const a = this.children[0].eval(context);
+        const b = this.children[1].eval(context);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1422,9 +1408,9 @@ class Difference extends operands_1.ChildFunction {
     }
 }
 class SymmetricDifference extends operands_1.ChildFunction {
-    eval(data) {
-        const a = this.children[0].eval(data);
-        const b = this.children[1].eval(data);
+    eval(context) {
+        const a = this.children[0].eval(context);
+        const b = this.children[1].eval(context);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }

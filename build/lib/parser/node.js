@@ -6,7 +6,7 @@ class Node {
         this.name = name;
         this.type = type;
         this.children = children;
-        this.parent = undefined;
+        // this.parent = undefined
         this.index = undefined;
     }
 }

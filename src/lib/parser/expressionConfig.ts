@@ -1,14 +1,8 @@
 import expConfig from './config.json'
-import { OperatorMetadata, OperatorType } from '../model'
+import { OperatorMetadata, OperatorType, IExpressionConfig, Format } from '../model'
 import { Library } from './../operand'
 
-export interface Format {
-	name: string
-	pattern: string
-	regExp: RegExp
-}
-
-export class ExpressionConfig {
+export class ExpressionConfig implements IExpressionConfig {
 	public libraries:Library[]
 	public operators: OperatorMetadata[]
 	public enums: any

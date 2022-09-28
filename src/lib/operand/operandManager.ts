@@ -1,154 +1,18 @@
 
 import { Node, ExpressionConfig } from '../parser/index'
-import { Data, Parameter } from '../model'
+import { Context, Data, Parameter } from '../model'
 import {
-	Operand, Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
+	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property, EnvironmentVariable
 	// , IOperandData
 } from './operands'
+import { Operand, IOperandTypeManager, IOperandManager } from './../model'
 
-export interface OperandMetadata {
-	classType: string,
-	name: string,
-	children?: OperandMetadata[],
-	type?: string,
-	property?: string
-	parameters?: Parameter[],
-	clause?: string,
-	alias?: string,
-	number?: number
-}
-
-export class OperandTypeManager {
+export class OperandManager implements IOperandManager {
 	private expressionConfig: ExpressionConfig
-	constructor (expressionConfig: ExpressionConfig) {
-		this.expressionConfig = expressionConfig
-	}
-
-	public solve (operand: Operand):string {
-		return this.solveTypes(operand)
-	}
-
-	private solveVariableType (name:string, type:string, operand: Operand) {
-		if (operand instanceof Variable && operand.name === name && operand.type === 'any') {
-			operand.type = type
-		}
-		for (const child of operand.children) {
-			this.solveVariableType(name, type, child)
-		}
-	}
-
-	private solveArrayType (array: Operand):void {
-		this.solveTypes(array)
-		if (array.children.length > 0 && array.children[0].type !== 'any') {
-			array.type = `${array.children[0].type}[]`
-		}
-	}
-
-	private solveArrowType (arrow:Operand) {
-		const metadata = this.expressionConfig.getFunction(arrow.name)
-		const array = arrow.children[0]
-		const variable = arrow.children[1]
-		const predicate = arrow.children[2]
-		this.solveArrayType(array)
-		const elementType = this.elementType(array)
-		if (array.type !== 'any[]' && array.type !== 'T[]') {
-			variable.type = elementType
-			this.solveVariableType(variable.name, variable.type, predicate)
-			if ((metadata.return === 'T[]' || metadata.return === 'any[]') && (arrow.type === 'any' || arrow.type === 'any[]')) {
-				arrow.type = array.type
-			} else if ((metadata.return === 'T' || metadata.return === 'any') && arrow.type === 'any') {
-				arrow.type = elementType
-			}
-		}
-	}
-
-	private elementType (array: Operand):string {
-		if (array.type.endsWith('[]')) {
-			return array.type.substring(0, array.type.length - 2)
-		}
-		return 'any'
-	}
-
-	// TODO: determinar el tipo de la variable de acuerdo a la expression.
-	// si se usa en un operador con que se esta comparando.
-	// si se usa en una función que tipo corresponde de acuerdo en la posición que esta ocupando.
-	// let type = this.solveType(operand,childNumber)
-	private solveTypes (operand: Operand): string {
-		if (operand instanceof Constant || operand instanceof Variable) return operand.type
-		if (operand instanceof ArrowFunction) {
-			this.solveArrowType(operand)
-		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
-		// if (!(operand instanceof ArrowFunction || operand instanceof ChildFunction) && (operand instanceof Operator || operand instanceof FunctionRef)) {
-			let tType = 'any'
-			// get metadata of operand
-			const metadata = operand instanceof Operator
-				? this.expressionConfig.getOperator(operand.name, operand.children.length)
-				: this.expressionConfig.getFunction(operand.name)
-
-			// recorre todos los parámetros
-			for (let i = 0; i < metadata.params.length; i++) {
-				const param = metadata.params[i]
-				const child = operand.children[i]
-				if (child === undefined) {
-					break
-				}
-				if (param.type !== 'T' && param.type !== 'any' && child.type === 'any') {
-					// en el caso que el parámetro tenga un tipo definido y el hijo no, asigna al hijo el tipo del parámetro
-					child.type = param.type
-				} else if (param.type === 'T' && child.type !== 'any') {
-					// en el caso que el parámetro sea T y el hijo tiene un tipo definido, determina que T es el tipo de hijo
-					tType = child.type
-				} else if (param.type === 'T[]' && child.type === 'any[]') {
-					this.solveArrayType(child)
-					if (child.type !== 'any[]') {
-						tType = child.type
-						break
-					}
-				} else if (param.type === 'T' && child.type === 'any') {
-					// en el caso que el parámetro sea T y el hijo no tiene un tipo definido, intenta resolver el hijo
-					// en caso de lograrlo determina que T es el tipo de hijo
-					const childType = this.solveTypes(child)
-					if (childType !== 'any') {
-						tType = childType
-						break
-					}
-				}
-			}
-			// si el tipo del operador no fue definido y se puede definir por la metadata
-			if (metadata.return !== 'T' && metadata.return !== 'any' && operand.type === 'any') {
-				operand.type = metadata.return
-			}
-			// en el caso que se haya podido resolver T
-			if (tType !== 'any') {
-				// en el caso que el operando sea T asigna el tipo correspondiente al operando
-				if (metadata.return === 'T' && operand.type === 'any') {
-					operand.type = tType
-				}
-				// busca los parámetros que sea T y los hijos aun no fueron definidos para asignarle el tipo correspondiente
-				for (let i = 0; i < metadata.params.length; i++) {
-					const param = metadata.params[i]
-					const child = operand.children[i]
-					if (param.type === 'T' && child.type === 'any') {
-						child.type = tType
-					}
-				}
-			}
-		}
-		// recorre todos los hijos para resolver el tipo
-		for (let i = 0; i < operand.children.length; i++) {
-			this.solveTypes(operand.children[i])
-		}
-
-		return operand.type
-	}
-}
-
-export class OperandManager {
-	private expressionConfig: ExpressionConfig
-	private typeManager: OperandTypeManager
-	constructor (expressionConfig: ExpressionConfig, typeManager: OperandTypeManager) {
+	private typeManager: IOperandTypeManager
+	constructor (expressionConfig: ExpressionConfig, typeManager: IOperandTypeManager) {
 		this.expressionConfig = expressionConfig
 		this.typeManager = typeManager
 	}
@@ -157,161 +21,31 @@ export class OperandManager {
 		const operand = this.nodeToOperand(node)
 		const reduced = this.reduce(operand)
 		this.typeManager.solve(reduced)
-		return this.setParent(reduced)
-	}
-
-	public clone (value: Operand): Operand {
-		return this.deserialize(this.serialize(value))
-	}
-
-	public serialize (operand: Operand): string {
-		return JSON.stringify(this._serialize(operand))
-	}
-
-	private _serialize (operand: Operand): OperandMetadata {
-		const children = []
-		for (const k in operand.children) {
-			children.push(this._serialize(operand.children[k]))
-		}
-		if (operand instanceof KeyValue) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, property: operand.property }
-		} else if (operand instanceof Variable) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, number: operand.number }
-		} else {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type }
-		}
-	}
-
-	public deserialize (value: string): Operand {
-		return (this._deserialize(JSON.parse(value))) as Operand
-	}
-
-	private _deserialize (value: OperandMetadata): Operand {
-		const children = []
-		if (value.children) {
-			for (const k in value.children) {
-				children.push(this._deserialize(value.children[k]))
-			}
-		}
-		switch (value.classType) {
-		case 'ArrowFunction':
-			return new ArrowFunction(value.name, children)
-		case 'ChildFunction':
-			return new ChildFunction(value.name, children)
-		case 'FunctionRef':
-			return new FunctionRef(value.name, children)
-		case 'Operator':
-			return new Operator(value.name, children)
-		case 'List':
-			return new List(value.name, children)
-		case 'Obj':
-			return new Obj(value.name, children)
-		case 'KeyValue':
-			// eslint-disable-next-line no-case-declarations
-			const keyValue = new KeyValue(value.name, children, value.type)
-			keyValue.property = value.property
-			return keyValue
-		case 'Property':
-			return new Property(value.name, children, value.type)
-		case 'Block':
-			return new Block(value.name, children, value.type)
-		case 'If':
-			return new If(value.name, children, value.type)
-		case 'ElseIf':
-			return new ElseIf(value.name, children, value.type)
-		case 'Else':
-			return new Else(value.name, children, value.type)
-		case 'While':
-			return new While(value.name, children, value.type)
-		case 'For':
-			return new For(value.name, children, value.type)
-		case 'ForIn':
-			return new ForIn(value.name, children, value.type)
-		case 'Switch':
-			return new Switch(value.name, children, value.type)
-		case 'Break':
-			return new Break(value.name, children, value.type)
-		case 'Continue':
-			return new Continue(value.name, children, value.type)
-		case 'Function':
-			return new Function(value.name, children, value.type)
-		case 'Return':
-			return new Return(value.name, children, value.type)
-		case 'Try':
-			return new Try(value.name, children, value.type)
-		case 'Catch':
-			return new Catch(value.name, children, value.type)
-		case 'Throw':
-			return new Throw(value.name, children, value.type)
-		case 'Case':
-			return new Case(value.name, children, value.type)
-		case 'Default':
-			return new Default(value.name, children, value.type)
-		case 'Template':
-			return new Template(value.name, value.type)
-		case 'Constant':
-			return new Constant(value.name)
-		case 'Variable':
-			// eslint-disable-next-line no-case-declarations
-			const variable = new Variable(value.name, value.type)
-			variable.number = value.number
-			return variable
-		default:
-			throw new Error(`Deserialize ${value.classType} not implemented`)
-		}
-	}
-
-	public eval (operand: Operand, data: Data): any {
-		this.initialize(operand)
-		// this.initialize(operand, data)
-		return operand.eval(data)
+		return reduced
+		// return this.setParent(reduced)
 	}
 
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
-		this.loadParameters(operand, parameters)
-		return parameters
-	}
-
-	private loadParameters (operand: Operand, parameters: Parameter[]) {
 		if (operand instanceof Variable) {
-			if (parameters.find(p => p.name === operand.name) === undefined) {
-				let type: string
-				if (operand.type === '') type = 'any'
-				else if (operand.type === 'T[]') type = 'array'
-				else type = operand.type
-				parameters.push({ name: operand.name, type: type })
+			let type: string
+			if (operand.type === '') {
+				type = 'any'
+			} else if (operand.type === 'T[]') {
+				type = 'any[]'
+			} else {
+				type = operand.type
 			}
-		}
-		for (let i = 0; i < operand.children.length; i++) {
-			this.loadParameters(operand.children[i], parameters)
-		}
-	}
-
-	// public initialize (operand: Operand, data: Data) {
-	public initialize (operand: Operand) {
-		// let current = data
-		if (operand instanceof ArrowFunction) {
-			// const childData = current.newData()
-			// operand.data = childData
-			operand.metadata = this.expressionConfig
-			// current = childData
-		// } else if (operand instanceof ChildFunction) {
-		// const childData = current.newData()
-		// operand.data = childData
-		// operand.metadata = this.expressionConfig
-		// current = childData
-		} else if (operand instanceof FunctionRef) {
-			operand.metadata = this.expressionConfig
-		} else if (operand instanceof Operator) {
-			operand.metadata = this.expressionConfig
-		} else if (operand instanceof Variable || operand instanceof Template) {
-			// operand.data = current
+			parameters.push({ name: operand.name, type: type })
 		}
 		for (const child of operand.children) {
-			this.initialize(child)
-			// this.initialize(p, current)
+			const childParameters = this.parameters(child)
+			const newParameters = childParameters.filter((p:Parameter) => !parameters.map((p:Parameter) => p.name).includes(p.name))
+			if (newParameters.length > 0) {
+				parameters.push(...newParameters)
+			}
 		}
+		return parameters
 	}
 
 	private reduce (operand: Operand): Operand {
@@ -330,7 +64,6 @@ export class OperandManager {
 	}
 
 	private reduceOperand (operand: Operand): Operand {
-		// TODO: falta consultar que el operand sea deterministic
 		let allConstants = true
 		for (const k in operand.children) {
 			const p = operand.children[k]
@@ -340,9 +73,8 @@ export class OperandManager {
 			}
 		}
 		if (allConstants) {
-			const value = this.eval(operand, new Data({}))
+			const value = operand.eval(new Context())
 			const constant = new Constant(value)
-			// constant.parent = operand.parent
 			constant.index = operand.index
 			return constant
 		} else {
@@ -354,28 +86,27 @@ export class OperandManager {
 		return operand
 	}
 
-	private setParent (operand: Operand, index = 0, parent?: Operand) {
-		try {
-			if (parent) {
-				operand.id = parent.id + '.' + index
-				// operand.parent = parent
-				operand.index = index
-				operand.level = parent.level ? parent.level + 1 : 0
-			} else {
-				operand.id = '0'
-				// operand.parent = undefined
-				operand.index = 0
-				operand.level = 0
-			}
-			for (let i = 0; i < operand.children.length; i++) {
-				const p = operand.children[i]
-				this.setParent(p, i, operand)
-			}
-			return operand
-		} catch (error: any) {
-			throw new Error('set parent: ' + operand.name + ' error: ' + error.toString())
-		}
-	}
+	// private setParent (operand: Operand, index = 0, parent?: Operand) {
+	// try {
+	// if (parent) {
+	// operand.id = parent.id + '.' + index
+	// operand.index = index
+	// operand.level = parent.level ? parent.level + 1 : 0
+	// } else {
+	// operand.id = '0'
+	// // operand.parent = undefined
+	// operand.index = 0
+	// operand.level = 0
+	// }
+	// for (let i = 0; i < operand.children.length; i++) {
+	// const p = operand.children[i]
+	// this.setParent(p, i, operand)
+	// }
+	// return operand
+	// } catch (error: any) {
+	// throw new Error('set parent: ' + operand.name + ' error: ' + error.toString())
+	// }
+	// }
 
 	private nodeToOperand (node: Node): Operand {
 		const children: Operand[] = []
@@ -408,19 +139,19 @@ export class OperandManager {
 		case 'template':
 			return new Template(node.name)
 		case 'keyVal':
-			return new KeyValue(node.name, children)
+			return new KeyValue(node.name, children, node.name)
 		case 'array':
 			return new List(node.name, children)
 		case 'obj':
 			return new Obj(node.name, children)
 		case 'operator':
-			return new Operator(node.name, children)
+			return new Operator(node.name, children, this.expressionConfig)
 		case 'funcRef':
-			return new FunctionRef(node.name, children)
+			return new FunctionRef(node.name, children, this.expressionConfig)
 		case 'arrow':
-			return new ArrowFunction(node.name, children)
+			return new ArrowFunction(node.name, children, this.expressionConfig)
 		case 'childFunc':
-			return new ChildFunction(node.name, children)
+			return new ChildFunction(node.name, children, this.expressionConfig)
 		case 'block':
 			return new Block(node.name, children)
 		case 'if':
@@ -459,17 +190,4 @@ export class OperandManager {
 			throw new Error('node name: ' + node.name + ' type: ' + node.type + ' not supported')
 		}
 	}
-
-// public getMainData (operand:IOperandData) : Data {
-// if (operand.data === undefined) {
-// return new Data({})
-// }
-// let main = operand.data
-// let parent = operand.data.parent
-// while (parent !== undefined) {
-// main = parent
-// parent = parent.parent
-// }
-// return main
-// }
 }

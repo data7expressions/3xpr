@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParserManager = void 0;
-const node_1 = require("./node");
 const parser_1 = require("./parser");
+const manager_1 = require("./../manager");
 class ParserManager {
     constructor(config) {
         this.config = config;
-        // eslint-disable-next-line prefer-regex-literals
-        this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$');
         this.tripleOperators = [];
         this.doubleOperators = [];
         this.assignmentOperators = [];
@@ -47,7 +45,7 @@ class ParserManager {
             const node = parser.parse();
             //  delete _parser
             this.clearChildEmpty(node);
-            this.setParent(node);
+            // this.setParent(node)
             return node;
         }
         catch (error) {
@@ -134,13 +132,6 @@ class ParserManager {
         }
         return list.join('');
     }
-    serialize(value) {
-        return this._serialize(value);
-    }
-    deserialize(json) {
-        const node = this._deserialize(json);
-        return this.setParent(node);
-    }
     clearChildEmpty(node) {
         try {
             if (node.children.length > 0) {
@@ -152,31 +143,6 @@ class ParserManager {
                 }
                 for (let i = 0; i < toRemove.length; i++) {
                     delete node.children[toRemove[i]];
-                }
-            }
-        }
-        catch (error) {
-            throw new Error('set parent: ' + node.name + ' error: ' + error.toString());
-        }
-        return node;
-    }
-    setParent(node, parent, index = 0) {
-        try {
-            if (parent) {
-                node.id = parent.id + '.' + index.toString();
-                node.parent = parent;
-                node.index = index;
-                node.level = parent.level ? parent.level + 1 : 0;
-            }
-            else {
-                node.id = '0';
-                node.parent = undefined;
-                node.index = 0;
-                node.level = 0;
-            }
-            if (node.children.length > 0) {
-                for (let i = 0; i < node.children.length; i++) {
-                    this.setParent(node.children[i], node, i);
                 }
             }
         }
@@ -210,7 +176,7 @@ class ParserManager {
             else if (p === ' ') {
                 // Only leave spaces when it's between alphanumeric characters.
                 // for example in the case of "} if" there should not be a space
-                if (i + 1 < length && i - 1 >= 0 && this.reAlphanumeric.test(buffer[i - 1]) && this.reAlphanumeric.test(buffer[i + 1])) {
+                if (i + 1 < length && i - 1 >= 0 && manager_1.Helper.isAlphanumeric(buffer[i - 1]) && manager_1.Helper.isAlphanumeric(buffer[i + 1])) {
                     result.push(p);
                 }
                 // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
@@ -229,24 +195,6 @@ class ParserManager {
             return result;
         }
         return result;
-    }
-    _serialize(node) {
-        const children = [];
-        for (const p in node.children) {
-            children.push(this._serialize(node.children[p]));
-        }
-        if (children.length === 0)
-            return { n: node.name, t: node.type };
-        return { n: node.name, t: node.type, c: children };
-    }
-    _deserialize(serialized) {
-        const children = [];
-        if (serialized.c) {
-            for (const p in serialized.c) {
-                children.push(this._deserialize(p));
-            }
-        }
-        return new node_1.Node(serialized.n, serialized.t, children);
     }
 }
 exports.ParserManager = ParserManager;
