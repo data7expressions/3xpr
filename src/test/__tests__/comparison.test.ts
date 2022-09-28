@@ -65,7 +65,7 @@ describe('Comparison', () => {
 		expect(false).toBe(expressions.eval('isArray(c)',context))
 		expect(false).toBe(expressions.eval('isArray(device)',context))
 		expect(true).toBe(expressions.eval('isArray(devices)',context))
-		expect(false).toBe(expressions.eval('isBooleanFormat(requerid)',context))
+		expect(true).toBe(expressions.eval('isBooleanFormat(requerid)',context))
 		expect(true).toBe(expressions.eval('isDateFormat(date)',context))
 		expect(true).toBe(expressions.eval('isDatetimeFormat(datetime)',context))
 		expect(false).toBe(expressions.eval('isDatetimeFormat(time)',context))

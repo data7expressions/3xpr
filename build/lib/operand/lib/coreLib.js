@@ -383,15 +383,16 @@ class CoreHelper {
         }
         return list.join('|');
     }
-    static getKeys(variable, fields, list) {
+    static getKeys(variable, fields, list, data) {
         const keys = [];
         // loop through the list and group by the grouper fields
         for (const item of list) {
             let key = '';
             const values = [];
             for (const keyValue of fields) {
-                variable.set(item);
-                const value = keyValue.children[0].eval();
+                data.set(variable.name, item);
+                // variable.set(item)
+                const value = keyValue.children[0].eval(data);
                 if (typeof value === 'object') {
                     throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`);
                 }
@@ -440,108 +441,115 @@ class CoreHelper {
         }
         return [];
     }
-    static solveAggregates(list, variable, operand) {
+    static solveAggregates(list, variable, operand, data) {
         if (!(operand instanceof operands_1.ArrowFunction) && operand instanceof operands_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
             let value;
             switch (operand.name) {
                 case 'avg':
-                    value = this.avg(list, variable, operand.children[0]);
+                    value = this.avg(list, variable, operand.children[0], data);
                     break;
                 case 'count':
-                    value = this.count(list, variable, operand.children[0]);
+                    value = this.count(list, variable, operand.children[0], data);
                     break;
                 case 'first':
-                    value = this.first(list, variable, operand.children[0]);
+                    value = this.first(list, variable, operand.children[0], data);
                     break;
                 case 'last':
-                    value = this.last(list, variable, operand.children[0]);
+                    value = this.last(list, variable, operand.children[0], data);
                     break;
                 case 'max':
-                    value = this.max(list, variable, operand.children[0]);
+                    value = this.max(list, variable, operand.children[0], data);
                     break;
                 case 'min':
-                    value = this.min(list, variable, operand.children[0]);
+                    value = this.min(list, variable, operand.children[0], data);
                     break;
                 case 'sum':
-                    value = this.sum(list, variable, operand.children[0]);
+                    value = this.sum(list, variable, operand.children[0], data);
                     break;
             }
             return new operands_1.Constant(value);
         }
         else if (operand.children && operand.children.length > 0) {
             for (let i = 0; i < operand.children.length; i++) {
-                operand.children[i] = this.solveAggregates(list, variable, operand.children[i]);
+                operand.children[i] = this.solveAggregates(list, variable, operand.children[i], data);
             }
         }
         return operand;
     }
-    static count(list, variable, aggregate) {
+    static count(list, variable, aggregate, data) {
         let count = 0;
         for (const item of list) {
-            variable.set(item);
-            if (aggregate.eval()) {
+            // variable.set(item)
+            data.set(variable.name, item);
+            if (aggregate.eval(data)) {
                 count++;
             }
         }
         return count;
     }
-    static first(list, variable, aggregate) {
+    static first(list, variable, aggregate, data) {
         for (const item of list) {
-            variable.set(item);
-            if (aggregate.eval()) {
+            // variable.set(item)
+            data.set(variable.name, item);
+            if (aggregate.eval(data)) {
                 return item;
             }
         }
         return null;
     }
-    static last(list, variable, aggregate) {
+    static last(list, variable, aggregate, data) {
         for (let i = list.length - 1; i >= 0; i--) {
             const item = list[i];
-            variable.set(item);
-            if (aggregate.eval()) {
+            // variable.set(item)
+            data.set(variable.name, item);
+            if (aggregate.eval(data)) {
                 return item;
             }
         }
         return null;
     }
-    static max(list, variable, aggregate) {
+    static max(list, variable, aggregate, data) {
         let max;
         for (const item of list) {
-            variable.set(item);
-            const value = aggregate.eval();
+            // variable.set(item)
+            data.set(variable.name, item);
+            const value = aggregate.eval(data);
             if (max === undefined || (value !== null && value > max)) {
                 max = value;
             }
         }
         return max;
     }
-    static min(list, variable, aggregate) {
+    static min(list, variable, aggregate, data) {
         let min;
         for (const item of list) {
-            variable.set(item);
-            const value = aggregate.eval();
+            // variable.set(item)
+            data.set(variable.name, item);
+            const value = aggregate.eval(data);
             if (min === undefined || (value !== null && value < min)) {
                 min = value;
             }
         }
         return min;
     }
-    static avg(list, variable, aggregate) {
+    static avg(list, variable, aggregate, data) {
         let sum = 0;
         for (const item of list) {
-            variable.set(item);
-            const value = aggregate.eval();
+            // variable.set(item)
+            data.set(variable.name, item);
+            const value = aggregate.eval(data);
             if (value !== null) {
                 sum = sum + value;
             }
         }
         return list.length > 0 ? sum / list.length : 0;
     }
-    static sum(list, variable, aggregate) {
+    static sum(list, variable, aggregate, data) {
         let sum = 0;
         for (const item of list) {
-            variable.set(item);
-            const value = aggregate.eval();
+            // variable.set(item)
+            data.set(variable.name, item);
+            const value = aggregate.eval(data);
             if (value !== null) {
                 sum = sum + value;
             }
@@ -663,107 +671,120 @@ class Operators {
     }
 }
 class And extends operands_1.Operator {
-    eval() {
-        if (!this.children[0].eval())
+    eval(data) {
+        if (!this.children[0].eval(data))
             return false;
-        return this.children[1].eval();
+        return this.children[1].eval(data);
     }
 }
 class Or extends operands_1.Operator {
-    eval() {
-        if (this.children[0].eval())
+    eval(data) {
+        if (this.children[0].eval(data))
             return true;
-        return this.children[1].eval();
+        return this.children[1].eval(data);
     }
 }
 class Assignment extends operands_1.Operator {
-    eval() {
-        const value = this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[1].eval(data);
+        data.set(this.children[0].name, value);
+        // this.children[0].set(value)
         return value;
     }
 }
 class AssignmentAddition extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() + this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) + this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentSubtraction extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() - this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) - this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentMultiplication extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() * this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) * this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentDivision extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() / this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) / this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentExponentiation extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() ** this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) ** this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentFloorDivision extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval(); // this.children[1].eval()
-        this.children[0].set(value);
+    eval(data) {
+        const value = Math.floor(this.children[0].eval(data) / this.children[1].eval(data));
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentMod extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() % this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) % this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitAnd extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() & this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) & this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitOr extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() | this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) | this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentBitXor extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() ^ this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) ^ this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentLeftShift extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() << this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) << this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
 class AssignmentRightShift extends operands_1.Operator {
-    eval() {
-        const value = this.children[0].eval() >> this.children[1].eval();
-        this.children[0].set(value);
+    eval(data) {
+        const value = this.children[0].eval(data) >> this.children[1].eval(data);
+        // this.children[0].set(value)
+        data.set(this.children[0].name, value);
         return value;
     }
 }
@@ -813,9 +834,15 @@ class Functions {
         return !isNaN(value);
     }
     static isString(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         return typeof value === 'string';
     }
     static isDate(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         if (typeof value === 'string') {
             return Functions.isDateFormat(value);
         }
@@ -824,6 +851,9 @@ class Functions {
         }
     }
     static isDatetime(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         if (typeof value === 'string') {
             return Functions.isDatetimeFormat(value);
         }
@@ -832,12 +862,21 @@ class Functions {
         }
     }
     static isObject(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         return typeof value === 'object' && !Array.isArray(value);
     }
     static isArray(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         return Array.isArray(value);
     }
     static isTime(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         if (typeof value === 'string') {
             return Functions.isTimeFormat(value);
         }
@@ -846,35 +885,56 @@ class Functions {
         }
     }
     static isBooleanFormat(value) {
-        return ['true', 'false'].includes(value);
+        if (value === null || value === undefined) {
+            return false;
+        }
+        return ['true', 'false'].includes(value.toString());
     }
     static isNumberFormat(value) {
         return Functions.isDecimalFormat(value);
     }
     static isIntegerFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         const regex = /^\d+$/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static isDecimalFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         const regex = /^\d+\.\d+$/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static isStringFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         const regex = /[a-zA-Z0-9_.]+$/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static isDateFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         const regex = /^\d{4}-\d{2}-\d{2}$/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static isDatetimeFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         const regex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static isTimeFormat(value) {
+        if (value === null || value === undefined) {
+            return false;
+        }
         // https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
         const regex = /\[0-2]\d:[0-5]\d:[0-5]\d/;
-        return value.match(regex) !== null;
+        return value.toString().match(regex) !== null;
     }
     static async sleep(ms = 1000) {
         return new Promise((resolve) => {
@@ -942,9 +1002,9 @@ class SetsFunctions {
     static symmetricDifference(a, b) { throw new Error('Empty'); }
 }
 class Map extends operands_1.ArrowFunction {
-    eval() {
+    eval(data) {
         const rows = [];
-        const list = this.children[0].eval();
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -965,17 +1025,15 @@ class Map extends operands_1.ArrowFunction {
             }
             if (aggregates.length > 0) {
                 // case with aggregate functions
-                const keys = CoreHelper.getKeys(this.children[1], groupers, list);
+                const keys = CoreHelper.getKeys(this.children[1], groupers, list, data);
                 // once you got all the keys you have to calculate the aggregates fields
                 const variable = this.children[1];
-                const mainData = index_1.expressions.operand.getMainData(variable);
                 for (const key of keys) {
                     for (const keyValue of aggregates) {
                         const operandCloned = index_1.expressions.operand.clone(keyValue.children[0]);
-                        index_1.expressions.operand.initialize(operandCloned, mainData);
-                        const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned);
-                        const value = operandResolved.eval();
-                        // const value = operandResolved.eval()
+                        index_1.expressions.operand.initialize(operandCloned);
+                        const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned, data);
+                        const value = operandResolved.eval(data);
                         key.summarizers.push({ name: keyValue.name, value: value });
                     }
                 }
@@ -994,18 +1052,19 @@ class Map extends operands_1.ArrowFunction {
             }
         }
         // simple case without aggregate functions
+        const childData = data.newData();
         for (const item of list) {
-            this.children[1].set(item);
-            const row = this.children[2].eval();
+            childData.set(this.children[1].name, item);
+            const row = this.children[2].eval(childData);
             rows.push(row);
         }
         return rows;
     }
 }
 class Distinct extends operands_1.ArrowFunction {
-    eval() {
+    eval(data) {
         const rows = [];
-        const list = this.children[0].eval();
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1020,7 +1079,7 @@ class Distinct extends operands_1.ArrowFunction {
         }
         else if (this.children[2] instanceof operands_1.Obj) {
             // case with aggregate functions
-            const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list);
+            const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list, data.newData());
             // build the list of results
             for (const key of keys) {
                 const row = {};
@@ -1035,9 +1094,10 @@ class Distinct extends operands_1.ArrowFunction {
             throw new Error('Distinct not support Array result');
         }
         // simple case without aggregate functions
+        const childData = data.newData();
         for (const item of list) {
-            this.children[1].set(item);
-            const value = this.children[2].eval();
+            childData.set(this.children[1].name, item);
+            const value = this.children[2].eval(childData);
             if (rows.find((p) => p === value) === undefined) {
                 rows.push(value);
             }
@@ -1046,39 +1106,39 @@ class Distinct extends operands_1.ArrowFunction {
     }
 }
 class Foreach extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            this.children[2].eval();
+        const childData = data.newData();
+        for (const item of list) {
+            childData.set(this.children[1].name, item);
+            this.children[2].eval(childData);
         }
         return list;
     }
 }
 class Filter extends operands_1.ArrowFunction {
-    eval() {
+    eval(data) {
         const rows = [];
-        const list = this.children[0].eval();
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (this.children[2].eval()) {
-                rows.push(p);
+        const childData = data.newData();
+        for (const item of list) {
+            childData.set(this.children[1].name, item);
+            if (this.children[2].eval(childData)) {
+                rows.push(item);
             }
         }
         return rows;
     }
 }
 class Reverse extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1086,11 +1146,11 @@ class Reverse extends operands_1.ArrowFunction {
             return list.reverse();
         }
         const values = [];
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            const value = this.children[2].eval();
-            values.push({ value: value, p: p });
+        const childData = data.newData();
+        for (const item of list) {
+            childData.set(this.children[1].name, item);
+            const value = this.children[2].eval(childData);
+            values.push({ value: value, p: item });
         }
         values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
         values.reverse();
@@ -1098,81 +1158,81 @@ class Reverse extends operands_1.ArrowFunction {
     }
 }
 class Sort extends operands_1.ArrowFunction {
-    eval() {
+    eval(data) {
         const values = [];
-        const list = this.children[0].eval();
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list.sort();
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            const value = this.children[2].eval();
-            values.push({ value: value, p: p });
+        const childData = data.newData();
+        for (const item of list) {
+            childData.set(this.children[1].name, item);
+            const value = this.children[2].eval(childData);
+            values.push({ value: value, p: item });
         }
         values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0);
         return values.map(p => p.p);
     }
 }
 class Remove extends operands_1.ArrowFunction {
-    eval() {
+    eval(data) {
         const rows = [];
-        const list = this.children[0].eval();
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
-        for (let i = 0; i < list.length; i++) {
-            const p = list[i];
-            this.children[1].set(p);
-            if (!this.children[2].eval()) {
-                rows.push(p);
+        const childData = data.newData();
+        for (const item of list) {
+            childData.set(this.children[1].name, item);
+            if (!this.children[2].eval(childData)) {
+                rows.push(item);
             }
         }
         return rows;
     }
 }
 class First extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[0] : null;
         }
-        return CoreHelper.first(list, this.children[1], this.children[2]);
+        return CoreHelper.first(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Last extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list && list.length > 0 ? list[list.length - 1] : null;
         }
-        return CoreHelper.last(list, this.children[1], this.children[2]);
+        return CoreHelper.last(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Count extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
         if (this.children.length === 1) {
             return list.length;
         }
-        return CoreHelper.count(list, this.children[1], this.children[2]);
+        return CoreHelper.count(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Max extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1185,12 +1245,12 @@ class Max extends operands_1.ArrowFunction {
             }
             return max;
         }
-        return CoreHelper.max(list, this.children[1], this.children[2]);
+        return CoreHelper.max(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Min extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1203,12 +1263,12 @@ class Min extends operands_1.ArrowFunction {
             }
             return min;
         }
-        return CoreHelper.min(list, this.children[1], this.children[2]);
+        return CoreHelper.min(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Avg extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1221,12 +1281,12 @@ class Avg extends operands_1.ArrowFunction {
             }
             return list.length > 0 ? sum / list.length : 0;
         }
-        return CoreHelper.avg(list, this.children[1], this.children[2]);
+        return CoreHelper.avg(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Sum extends operands_1.ArrowFunction {
-    eval() {
-        const list = this.children[0].eval();
+    eval(data) {
+        const list = this.children[0].eval(data);
         if (!list) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1239,13 +1299,13 @@ class Sum extends operands_1.ArrowFunction {
             }
             return sum;
         }
-        return CoreHelper.sum(list, this.children[1], this.children[2]);
+        return CoreHelper.sum(list, this.children[1], this.children[2], data.newData());
     }
 }
 class Union extends operands_1.ChildFunction {
-    eval() {
-        const a = this.children[0].eval();
-        const b = this.children[1].eval();
+    eval(data) {
+        const a = this.children[0].eval(data);
+        const b = this.children[1].eval(data);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1285,9 +1345,9 @@ class Union extends operands_1.ChildFunction {
     }
 }
 class Intersection extends operands_1.ChildFunction {
-    eval() {
-        const a = this.children[0].eval();
-        const b = this.children[1].eval();
+    eval(data) {
+        const a = this.children[0].eval(data);
+        const b = this.children[1].eval(data);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1322,9 +1382,9 @@ class Intersection extends operands_1.ChildFunction {
     }
 }
 class Difference extends operands_1.ChildFunction {
-    eval() {
-        const a = this.children[0].eval();
-        const b = this.children[1].eval();
+    eval(data) {
+        const a = this.children[0].eval(data);
+        const b = this.children[1].eval(data);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }
@@ -1362,9 +1422,9 @@ class Difference extends operands_1.ChildFunction {
     }
 }
 class SymmetricDifference extends operands_1.ChildFunction {
-    eval() {
-        const a = this.children[0].eval();
-        const b = this.children[1].eval();
+    eval(data) {
+        const a = this.children[0].eval(data);
+        const b = this.children[1].eval(data);
         if (!a) {
             throw new Error(`Array ${this.children[0].name} undefined`);
         }

@@ -1,6 +1,6 @@
 import { Cache, Parameter, ActionObserver } from './model'
 import { ParserManager, ExpressionConfig } from './parser'
-import { OperandManager, Operand } from './operand'
+import { OperandManager, OperandTypeManager, Operand } from './operand'
 import { MemoryCache, ExpressionsManager } from './manager'
 import { CoreLib } from './operand/lib/coreLib'
 
@@ -16,7 +16,8 @@ export class Expressions {
 		this.cache = new MemoryCache()
 		this.expressionConfig = new ExpressionConfig()
 		this.expressionConfig.addLibrary(new CoreLib())
-		this.operandManager = new OperandManager(this.expressionConfig)
+		const typeManager = new OperandTypeManager(this.expressionConfig)
+		this.operandManager = new OperandManager(this.expressionConfig, typeManager)
 		this.parserManager = new ParserManager(this.expressionConfig)
 		this.expressionsManager = new ExpressionsManager(this.cache, this.operandManager, this.parserManager)
 	}

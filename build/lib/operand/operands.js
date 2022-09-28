@@ -25,10 +25,11 @@ class Operand {
         // }
         // return new this.constructor(this.name, children)
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    set(value) { throw new Error('NotImplemented'); }
 }
 exports.Operand = Operand;
+// export interface IOperandData{
+// data?: Data
+// }
 class Constant extends Operand {
     constructor(name) {
         super(name, [], manager_1.Helper.utils.getType(name));
@@ -47,17 +48,18 @@ class Constant extends Operand {
     }
 }
 exports.Constant = Constant;
+// export class Variable extends Operand implements IOperandData
 class Variable extends Operand {
     constructor(name, type = 'any') {
         super(name, [], type);
     }
-    set(value) {
-        if (this.data) {
-            this.data.set(this.name, value);
-        }
-    }
-    eval() {
-        return this.data ? this.data.get(this.name) : null;
+    // public set (data: Data, value: any) {
+    // if (data) {
+    // data.set(this.name, value)
+    // }
+    // }
+    eval(data) {
+        return data ? data.get(this.name) : null;
     }
 }
 exports.Variable = Variable;
@@ -67,19 +69,20 @@ class EnvironmentVariable extends Operand {
     }
 }
 exports.EnvironmentVariable = EnvironmentVariable;
+// export class Template extends Operand implements IOperandData {
 class Template extends Operand {
     constructor(name, type = 'any') {
         super(name, [], type);
     }
-    eval() {
+    eval(data) {
         // info https://www.tutorialstonight.com/javascript-string-format.php
         const result = this.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
             const value = process.env[field];
             return typeof value === 'undefined' ? match : value;
         });
         return result.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
-            if (this.data) {
-                const value = this.data.get(field);
+            if (data) {
+                const value = data.get(field);
                 return typeof value === 'undefined' ? match : value;
             }
         });
@@ -87,8 +90,8 @@ class Template extends Operand {
 }
 exports.Template = Template;
 class Property extends Operand {
-    eval() {
-        const value = this.children[0].eval();
+    eval(data) {
+        const value = this.children[0].eval(data);
         if (value === undefined || value === null)
             return null;
         const names = manager_1.Helper.obj.getNames(this.name);
@@ -97,19 +100,19 @@ class Property extends Operand {
 }
 exports.Property = Property;
 class KeyValue extends Operand {
-    eval() {
-        return this.children[0].eval();
+    eval(data) {
+        return this.children[0].eval(data);
     }
 }
 exports.KeyValue = KeyValue;
 class List extends Operand {
     constructor(name, children = []) {
-        super(name, children, 'array');
+        super(name, children, 'any[]');
     }
-    eval() {
+    eval(data) {
         const values = [];
         for (let i = 0; i < this.children.length; i++) {
-            values.push(this.children[i].eval());
+            values.push(this.children[i].eval(data));
         }
         return values;
     }
@@ -119,10 +122,10 @@ class Obj extends Operand {
     constructor(name, children = []) {
         super(name, children, 'object');
     }
-    eval() {
+    eval(data) {
         const obj = {};
         for (let i = 0; i < this.children.length; i++) {
-            const value = this.children[i].eval();
+            const value = this.children[i].eval(data);
             obj[this.children[i].name] = value;
         }
         return obj;
@@ -130,17 +133,17 @@ class Obj extends Operand {
 }
 exports.Obj = Obj;
 class Operator extends Operand {
-    eval() {
+    eval(data) {
         if (this.metadata) {
             const operatorMetadata = this.metadata.getOperator(this.name, this.children.length);
             if (operatorMetadata.custom) {
                 // eslint-disable-next-line new-cap
-                return new operatorMetadata.custom(this.name, this.children).eval();
+                return new operatorMetadata.custom(this.name, this.children).eval(data);
             }
             else {
                 const args = [];
-                for (let i = 0; i < this.children.length; i++) {
-                    args.push(this.children[i].eval());
+                for (const child of this.children) {
+                    args.push(child.eval(data));
                 }
                 return operatorMetadata.function(...args);
             }
@@ -152,17 +155,17 @@ class Operator extends Operand {
 }
 exports.Operator = Operator;
 class FunctionRef extends Operand {
-    eval() {
+    eval(data) {
         if (this.metadata) {
             const funcMetadata = this.metadata.getFunction(this.name);
             if (funcMetadata.custom) {
                 // eslint-disable-next-line new-cap
-                return new funcMetadata.custom(this.name, this.children).eval();
+                return new funcMetadata.custom(this.name, this.children).eval(data);
             }
             else if (funcMetadata.function) {
                 const args = [];
                 for (let i = 0; i < this.children.length; i++) {
-                    args.push(this.children[i].eval());
+                    args.push(this.children[i].eval(data));
                 }
                 return funcMetadata.function(...args);
             }
@@ -173,41 +176,43 @@ class FunctionRef extends Operand {
     }
 }
 exports.FunctionRef = FunctionRef;
+// export class ChildFunction extends FunctionRef implements IOperandData
 class ChildFunction extends FunctionRef {
 }
 exports.ChildFunction = ChildFunction;
+// export class ArrowFunction extends FunctionRef implements IOperandData
 class ArrowFunction extends FunctionRef {
 }
 exports.ArrowFunction = ArrowFunction;
 class Block extends Operand {
-    eval() {
+    eval(data) {
         let lastValue = null;
         for (let i = 0; i < this.children.length; i++) {
-            lastValue = this.children[i].eval();
+            lastValue = this.children[i].eval(data);
         }
         return lastValue;
     }
 }
 exports.Block = Block;
 class If extends Operand {
-    eval() {
-        const condition = this.children[0].eval();
+    eval(data) {
+        const condition = this.children[0].eval(data);
         if (condition) {
             const ifBlock = this.children[1];
-            return ifBlock.eval();
+            return ifBlock.eval(data);
         }
         else if (this.children.length > 2) {
             for (let i = 2; i < this.children.length; i++) {
                 if (this.children[i] instanceof ElseIf) {
-                    const elseIfCondition = this.children[i].children[0].eval();
+                    const elseIfCondition = this.children[i].children[0].eval(data);
                     if (elseIfCondition) {
                         const elseIfBlock = this.children[i].children[1];
-                        return elseIfBlock.eval();
+                        return elseIfBlock.eval(data);
                     }
                 }
                 else {
                     const elseBlock = this.children[i];
-                    return elseBlock.eval();
+                    return elseBlock.eval(data);
                 }
             }
         }
@@ -227,60 +232,63 @@ class Else extends Operand {
 }
 exports.Else = Else;
 class While extends Operand {
-    eval() {
+    eval(data) {
         let lastValue = null;
         const condition = this.children[0];
         const block = this.children[1];
-        while (condition.eval()) {
-            lastValue = block.eval();
+        while (condition.eval(data)) {
+            lastValue = block.eval(data);
         }
         return lastValue;
     }
 }
 exports.While = While;
 class For extends Operand {
-    eval() {
+    eval(data) {
         let lastValue = null;
         const initialize = this.children[0];
         const condition = this.children[1];
         const increment = this.children[2];
         const block = this.children[3];
-        for (initialize.eval(); condition.eval(); increment.eval()) {
-            lastValue = block.eval();
+        for (initialize.eval(data); condition.eval(data); increment.eval(data)) {
+            lastValue = block.eval(data);
         }
         return lastValue;
     }
 }
 exports.For = For;
 class ForIn extends Operand {
-    eval() {
+    eval(data) {
         let lastValue = null;
         const item = this.children[0];
-        const list = this.children[1].eval();
+        const list = this.children[1].eval(data);
         const block = this.children[2];
         for (let i = 0; i < list.length; i++) {
             const value = list[i];
-            item.set(value);
-            lastValue = block.eval();
+            if (data) {
+                data.set(item.name, value);
+            }
+            // item.set(value)
+            lastValue = block.eval(data);
         }
         return lastValue;
     }
 }
 exports.ForIn = ForIn;
 class Switch extends Operand {
-    eval() {
-        const value = this.children[0].eval();
+    eval(data) {
+        const value = this.children[0].eval(data);
         for (let i = 1; i < this.children.length; i++) {
             const option = this.children[i];
             if (option instanceof Case) {
                 if (option.name === value) {
                     const caseBlock = option.children[0];
-                    return caseBlock.eval();
+                    return caseBlock.eval(data);
                 }
             }
             else if (option instanceof Default) {
                 const defaultBlock = option.children[0];
-                return defaultBlock.eval();
+                return defaultBlock.eval(data);
             }
         }
     }

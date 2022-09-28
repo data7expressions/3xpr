@@ -1,11 +1,11 @@
 import { expressions as exp, Helper } from '../../lib'
 
-export function show (list:string[], context:any) {
+export function show (list:string[], context:any, func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
 	const tests = []
 	const examples = []
 	for (const expression of list) {
 		try {
-			const result = exp.eval(expression, context)
+			const result = func(expression, context)
 			let expect:any
 			let testCompare = 'toBe'
 			if (typeof result === 'string') {
@@ -39,7 +39,8 @@ export function show (list:string[], context:any) {
 				tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
 				examples.push(`|${expression}|${expect}|`)
 			}
-		} catch (error) {
+		} catch (error:any) {
+			console.log(error.stack)
 			console.log(`exp: ${expression} error: ${error}`)
 		}
 	}

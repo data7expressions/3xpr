@@ -1,6 +1,6 @@
 import { Node, ExpressionConfig } from '../parser/index';
 import { Data, Parameter } from '../model';
-import { Operand, IOperandData } from './operands';
+import { Operand } from './operands';
 export interface OperandMetadata {
     classType: string;
     name: string;
@@ -12,9 +12,20 @@ export interface OperandMetadata {
     alias?: string;
     number?: number;
 }
-export declare class OperandManager {
+export declare class OperandTypeManager {
     private expressionConfig;
     constructor(expressionConfig: ExpressionConfig);
+    solve(operand: Operand): string;
+    private solveVariableType;
+    private solveArrayType;
+    private solveArrowType;
+    private elementType;
+    private solveTypes;
+}
+export declare class OperandManager {
+    private expressionConfig;
+    private typeManager;
+    constructor(expressionConfig: ExpressionConfig, typeManager: OperandTypeManager);
     build(node: Node): Operand;
     clone(value: Operand): Operand;
     serialize(operand: Operand): string;
@@ -24,12 +35,10 @@ export declare class OperandManager {
     eval(operand: Operand, data: Data): any;
     parameters(operand: Operand): Parameter[];
     private loadParameters;
-    initialize(operand: Operand, data: Data): void;
+    initialize(operand: Operand): void;
     private reduce;
     private reduceOperand;
     private setParent;
     private nodeToOperand;
     private createOperand;
-    private solveTypes;
-    getMainData(operand: IOperandData): Data;
 }

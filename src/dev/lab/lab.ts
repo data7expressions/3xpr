@@ -1,11 +1,6 @@
-import { test } from './util'
+import { expressions as exp } from '../../lib'
 
 (async () => {
-	const file = './data/orders.json'
-	await test('.details.len()', file)
-	await test('.details.slice(1,3)', file)
-	await test('.details.page(2,3)', file)
-	await test('.details.len()', file)
-	await test('.details.slice(1,3)', file)
-	await test('.details.page(2,3)', file)
+	const parameters = exp.parameters('a + 1')
+	console.log(JSON.stringify(parameters))
 })()

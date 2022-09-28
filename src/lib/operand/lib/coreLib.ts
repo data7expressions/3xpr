@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Library } from '../library'
-import { OperatorType } from './../../model'
+import { OperatorType, Data } from './../../model'
 import { Operator, Operand, ArrowFunction, ChildFunction, Obj, KeyValue, Constant, Variable, List, FunctionRef } from '../operands'
 import { expressions as exp } from '../../index'
 import { Helper } from '../../manager'
@@ -399,15 +399,16 @@ class CoreHelper {
 		return list.join('|')
 	}
 
-	public static getKeys (variable:Variable, fields: KeyValue[], list: any[]): any[] {
+	public static getKeys (variable:Variable, fields: KeyValue[], list: any[], data:Data): any[] {
 		const keys:any[] = []
 		// loop through the list and group by the grouper fields
 		for (const item of list) {
 			let key = ''
 			const values = []
 			for (const keyValue of fields) {
-				variable.set(item)
-				const value = keyValue.children[0].eval()
+				data.set(variable.name, item)
+				// variable.set(item)
+				const value = keyValue.children[0].eval(data)
 				if (typeof value === 'object') {
 					throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`)
 				}
@@ -456,78 +457,82 @@ class CoreHelper {
 		return []
 	}
 
-	public static solveAggregates (list: any[], variable: Variable, operand: Operand): Operand {
+	public static solveAggregates (list: any[], variable: Variable, operand: Operand, data:Data): Operand {
 		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			let value:any
 			switch (operand.name) {
 			case 'avg':
-				value = this.avg(list, variable, operand.children[0])
+				value = this.avg(list, variable, operand.children[0], data)
 				break
 			case 'count':
-				value = this.count(list, variable, operand.children[0])
+				value = this.count(list, variable, operand.children[0], data)
 				break
 			case 'first':
-				value = this.first(list, variable, operand.children[0])
+				value = this.first(list, variable, operand.children[0], data)
 				break
 			case 'last':
-				value = this.last(list, variable, operand.children[0])
+				value = this.last(list, variable, operand.children[0], data)
 				break
 			case 'max':
-				value = this.max(list, variable, operand.children[0])
+				value = this.max(list, variable, operand.children[0], data)
 				break
 			case 'min':
-				value = this.min(list, variable, operand.children[0])
+				value = this.min(list, variable, operand.children[0], data)
 				break
 			case 'sum':
-				value = this.sum(list, variable, operand.children[0])
+				value = this.sum(list, variable, operand.children[0], data)
 				break
 			}
 			return new Constant(value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
-				operand.children[i] = this.solveAggregates(list, variable, operand.children[i])
+				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], data)
 			}
 		}
 		return operand
 	}
 
-	public static count (list: any[], variable: Variable, aggregate: Operand): number {
+	public static count (list: any[], variable: Variable, aggregate: Operand, data:Data): number {
 		let count = 0
 		for (const item of list) {
-			variable.set(item)
-			if (aggregate.eval()) {
+			// variable.set(item)
+			data.set(variable.name, item)
+			if (aggregate.eval(data)) {
 				count++
 			}
 		}
 		return count
 	}
 
-	public static first (list: any[], variable: Variable, aggregate: Operand): any {
+	public static first (list: any[], variable: Variable, aggregate: Operand, data:Data): any {
 		for (const item of list) {
-			variable.set(item)
-			if (aggregate.eval()) {
+			// variable.set(item)
+			data.set(variable.name, item)
+			if (aggregate.eval(data)) {
 				return item
 			}
 		}
 		return null
 	}
 
-	public static last (list: any[], variable: Variable, aggregate: Operand): any {
+	public static last (list: any[], variable: Variable, aggregate: Operand, data:Data): any {
 		for (let i = list.length - 1; i >= 0; i--) {
 			const item = list[i]
-			variable.set(item)
-			if (aggregate.eval()) {
+			// variable.set(item)
+			data.set(variable.name, item)
+			if (aggregate.eval(data)) {
 				return item
 			}
 		}
 		return null
 	}
 
-	public static max (list: any[], variable: Variable, aggregate: Operand): any {
+	public static max (list: any[], variable: Variable, aggregate: Operand, data:Data): any {
 		let max:any
 		for (const item of list) {
-			variable.set(item)
-			const value = aggregate.eval()
+			// variable.set(item)
+			data.set(variable.name, item)
+			const value = aggregate.eval(data)
 			if (max === undefined || (value !== null && value > max)) {
 				max = value
 			}
@@ -535,11 +540,12 @@ class CoreHelper {
 		return max
 	}
 
-	public static min (list: any[], variable: Variable, aggregate: Operand): any {
+	public static min (list: any[], variable: Variable, aggregate: Operand, data:Data): any {
 		let min:any
 		for (const item of list) {
-			variable.set(item)
-			const value = aggregate.eval()
+			// variable.set(item)
+			data.set(variable.name, item)
+			const value = aggregate.eval(data)
 			if (min === undefined || (value !== null && value < min)) {
 				min = value
 			}
@@ -547,11 +553,12 @@ class CoreHelper {
 		return min
 	}
 
-	public static avg (list: any[], variable: Variable, aggregate: Operand): number {
+	public static avg (list: any[], variable: Variable, aggregate: Operand, data:Data): number {
 		let sum = 0
 		for (const item of list) {
-			variable.set(item)
-			const value = aggregate.eval()
+			// variable.set(item)
+			data.set(variable.name, item)
+			const value = aggregate.eval(data)
 			if (value !== null) {
 				sum = sum + value
 			}
@@ -559,11 +566,12 @@ class CoreHelper {
 		return list.length > 0 ? sum / list.length : 0
 	}
 
-	public static sum (list: any[], variable: Variable, aggregate: Operand): number {
+	public static sum (list: any[], variable: Variable, aggregate: Operand, data:Data): number {
 		let sum = 0
 		for (const item of list) {
-			variable.set(item)
-			const value = aggregate.eval()
+			// variable.set(item)
+			data.set(variable.name, item)
+			const value = aggregate.eval(data)
 			if (value !== null) {
 				sum = sum + value
 			}
@@ -721,105 +729,118 @@ class Operators {
 	}
 }
 class And extends Operator {
-	eval (): boolean {
-		if (!this.children[0].eval() as boolean) return false
-		return this.children[1].eval() as boolean
+	eval (data: Data): boolean {
+		if (!this.children[0].eval(data) as boolean) return false
+		return this.children[1].eval(data) as boolean
 	}
 }
 class Or extends Operator {
-	eval (): any {
-		if (this.children[0].eval()) return true
-		return this.children[1].eval()
+	eval (data: Data): any {
+		if (this.children[0].eval(data)) return true
+		return this.children[1].eval(data)
 	}
 }
 class Assignment extends Operator {
-	eval (): any {
-		const value = this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[1].eval(data)
+		data.set(this.children[0].name, value)
+		// this.children[0].set(value)
 		return value
 	}
 }
 class AssignmentAddition extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() + this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) + this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentSubtraction extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() - this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) - this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentMultiplication extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() * this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) * this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentDivision extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() / this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) / this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentExponentiation extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() ** this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) ** this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentFloorDivision extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() // this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = Math.floor(this.children[0].eval(data) / this.children[1].eval(data))
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentMod extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() % this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) % this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentBitAnd extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() & this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) & this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentBitOr extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() | this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) | this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentBitXor extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() ^ this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) ^ this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentLeftShift extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() << this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) << this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
 class AssignmentRightShift extends Operator {
-	eval (): any {
-		const value = this.children[0].eval() >> this.children[1].eval()
-		this.children[0].set(value)
+	eval (data: Data): any {
+		const value = this.children[0].eval(data) >> this.children[1].eval(data)
+		// this.children[0].set(value)
+		data.set(this.children[0].name, value)
 		return value
 	}
 }
@@ -880,10 +901,16 @@ class Functions {
 	}
 
 	static isString (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		return typeof value === 'string'
 	}
 
 	static isDate (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		if (typeof value === 'string') {
 			return Functions.isDateFormat(value as string)
 		} else {
@@ -892,6 +919,9 @@ class Functions {
 	}
 
 	static isDatetime (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		if (typeof value === 'string') {
 			return Functions.isDatetimeFormat(value as string)
 		} else {
@@ -900,14 +930,23 @@ class Functions {
 	}
 
 	static isObject (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		return typeof value === 'object' && !Array.isArray(value)
 	}
 
 	static isArray (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		return Array.isArray(value)
 	}
 
 	static isTime (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		if (typeof value === 'string') {
 			return Functions.isTimeFormat(value as string)
 		} else {
@@ -916,7 +955,10 @@ class Functions {
 	}
 
 	static isBooleanFormat (value: any): boolean {
-		return ['true', 'false'].includes(value)
+		if (value === null || value === undefined) {
+			return false
+		}
+		return ['true', 'false'].includes(value.toString())
 	}
 
 	static isNumberFormat (value: any): boolean {
@@ -924,34 +966,52 @@ class Functions {
 	}
 
 	static isIntegerFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		const regex = /^\d+$/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static isDecimalFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		const regex = /^\d+\.\d+$/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static isStringFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		const regex = /[a-zA-Z0-9_.]+$/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static isDateFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		const regex = /^\d{4}-\d{2}-\d{2}$/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static isDatetimeFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		const regex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static isTimeFormat (value: any): boolean {
+		if (value === null || value === undefined) {
+			return false
+		}
 		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
 		const regex = /\[0-2]\d:[0-5]\d:[0-5]\d/
-		return value.match(regex) !== null
+		return value.toString().match(regex) !== null
 	}
 
 	static async sleep (ms = 1000): Promise<void> {
@@ -1022,9 +1082,9 @@ class SetsFunctions {
 	static symmetricDifference (a: any[], b: any[]): any[] { throw new Error('Empty') }
 }
 class Map extends ArrowFunction {
-	eval (): any {
+	eval (data: Data): any {
 		const rows = []
-		const list: any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1044,17 +1104,15 @@ class Map extends ArrowFunction {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = CoreHelper.getKeys(this.children[1], groupers, list)
+				const keys = CoreHelper.getKeys(this.children[1], groupers, list, data)
 				// once you got all the keys you have to calculate the aggregates fields
 				const variable = this.children[1] as Variable
-				const mainData = exp.operand.getMainData(variable)
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = exp.operand.clone(keyValue.children[0])
-						exp.operand.initialize(operandCloned, mainData)
-						const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned)
-						const value = operandResolved.eval()
-						// const value = operandResolved.eval()
+						exp.operand.initialize(operandCloned)
+						const operandResolved = CoreHelper.solveAggregates(key.items, variable, operandCloned, data)
+						const value = operandResolved.eval(data)
 						key.summarizers.push({ name: keyValue.name, value: value })
 					}
 				}
@@ -1073,18 +1131,19 @@ class Map extends ArrowFunction {
 			}
 		}
 		// simple case without aggregate functions
+		const childData = data.newData()
 		for (const item of list) {
-			this.children[1].set(item)
-			const row = this.children[2].eval()
+			childData.set(this.children[1].name, item)
+			const row = this.children[2].eval(childData)
 			rows.push(row)
 		}
 		return rows
 	}
 }
 class Distinct extends ArrowFunction {
-	eval (): any {
+	eval (data: Data): any {
 		const rows = []
-		const list: any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1098,7 +1157,7 @@ class Distinct extends ArrowFunction {
 			return rows
 		} else if (this.children[2] instanceof Obj) {
 			// case with aggregate functions
-			const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list)
+			const keys = CoreHelper.getKeys(this.children[1], this.children[2].children, list, data.newData())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -1112,9 +1171,10 @@ class Distinct extends ArrowFunction {
 			throw new Error('Distinct not support Array result')
 		}
 		// simple case without aggregate functions
+		const childData = data.newData()
 		for (const item of list) {
-			this.children[1].set(item)
-			const value = this.children[2].eval()
+			childData.set(this.children[1].name, item)
+			const value = this.children[2].eval(childData)
 			if (rows.find((p:any) => p === value) === undefined) {
 				rows.push(value)
 			}
@@ -1123,39 +1183,39 @@ class Distinct extends ArrowFunction {
 	}
 }
 class Foreach extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			this.children[2].eval()
+		const childData = data.newData()
+		for (const item of list) {
+			childData.set(this.children[1].name, item)
+			this.children[2].eval(childData)
 		}
 		return list
 	}
 }
 class Filter extends ArrowFunction {
-	eval (): any {
+	eval (data: Data): any {
 		const rows = []
-		const list: any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (this.children[2].eval()) {
-				rows.push(p)
+		const childData = data.newData()
+		for (const item of list) {
+			childData.set(this.children[1].name, item)
+			if (this.children[2].eval(childData)) {
+				rows.push(item)
 			}
 		}
 		return rows
 	}
 }
 class Reverse extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1163,11 +1223,11 @@ class Reverse extends ArrowFunction {
 			return list.reverse()
 		}
 		const values = []
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			const value = this.children[2].eval()
-			values.push({ value: value, p: p })
+		const childData = data.newData()
+		for (const item of list) {
+			childData.set(this.children[1].name, item)
+			const value = this.children[2].eval(childData)
+			values.push({ value: value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		values.reverse()
@@ -1175,81 +1235,81 @@ class Reverse extends ArrowFunction {
 	}
 }
 class Sort extends ArrowFunction {
-	eval (): any {
+	eval (data: Data): any {
 		const values = []
-		const list: any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
 		if (this.children.length === 1) {
 			return list.sort()
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			const value = this.children[2].eval()
-			values.push({ value: value, p: p })
+		const childData = data.newData()
+		for (const item of list) {
+			childData.set(this.children[1].name, item)
+			const value = this.children[2].eval(childData)
+			values.push({ value: value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		return values.map(p => p.p)
 	}
 }
 class Remove extends ArrowFunction {
-	eval (): any {
+	eval (data: Data): any {
 		const rows = []
-		const list: any[] = this.children[0].eval()
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
-		for (let i = 0; i < list.length; i++) {
-			const p = list[i]
-			this.children[1].set(p)
-			if (!this.children[2].eval()) {
-				rows.push(p)
+		const childData = data.newData()
+		for (const item of list) {
+			childData.set(this.children[1].name, item)
+			if (!this.children[2].eval(childData)) {
+				rows.push(item)
 			}
 		}
 		return rows
 	}
 }
 class First extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		return CoreHelper.first(list, this.children[1], this.children[2])
+		return CoreHelper.first(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Last extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		return CoreHelper.last(list, this.children[1], this.children[2])
+		return CoreHelper.last(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Count extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
 		if (this.children.length === 1) {
 			return list.length
 		}
-		return CoreHelper.count(list, this.children[1], this.children[2])
+		return CoreHelper.count(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Max extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1262,12 +1322,12 @@ class Max extends ArrowFunction {
 			}
 			return max
 		}
-		return CoreHelper.max(list, this.children[1], this.children[2])
+		return CoreHelper.max(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Min extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1280,12 +1340,12 @@ class Min extends ArrowFunction {
 			}
 			return min
 		}
-		return CoreHelper.min(list, this.children[1], this.children[2])
+		return CoreHelper.min(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Avg extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1298,12 +1358,12 @@ class Avg extends ArrowFunction {
 			}
 			return list.length > 0 ? sum / list.length : 0
 		}
-		return CoreHelper.avg(list, this.children[1], this.children[2])
+		return CoreHelper.avg(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Sum extends ArrowFunction {
-	eval (): any {
-		const list: any[] = this.children[0].eval()
+	eval (data: Data): any {
+		const list: any[] = this.children[0].eval(data)
 		if (!list) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1316,13 +1376,13 @@ class Sum extends ArrowFunction {
 			}
 			return sum
 		}
-		return CoreHelper.sum(list, this.children[1], this.children[2])
+		return CoreHelper.sum(list, this.children[1], this.children[2], data.newData())
 	}
 }
 class Union extends ChildFunction {
-	eval (): any {
-		const a: any[] = this.children[0].eval()
-		const b: any[] = this.children[1].eval()
+	eval (data: Data): any {
+		const a: any[] = this.children[0].eval(data)
+		const b: any[] = this.children[1].eval(data)
 		if (!a) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1361,9 +1421,9 @@ class Union extends ChildFunction {
 	}
 }
 class Intersection extends ChildFunction {
-	eval (): any {
-		const a: any[] = this.children[0].eval()
-		const b: any[] = this.children[1].eval()
+	eval (data: Data): any {
+		const a: any[] = this.children[0].eval(data)
+		const b: any[] = this.children[1].eval(data)
 		if (!a) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1396,9 +1456,9 @@ class Intersection extends ChildFunction {
 	}
 }
 class Difference extends ChildFunction {
-	eval (): any {
-		const a: any[] = this.children[0].eval()
-		const b: any[] = this.children[1].eval()
+	eval (data: Data): any {
+		const a: any[] = this.children[0].eval(data)
+		const b: any[] = this.children[1].eval(data)
 		if (!a) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
@@ -1434,9 +1494,9 @@ class Difference extends ChildFunction {
 	}
 }
 class SymmetricDifference extends ChildFunction {
-	eval (): any {
-		const a: any[] = this.children[0].eval()
-		const b: any[] = this.children[1].eval()
+	eval (data: Data): any {
+		const a: any[] = this.children[0].eval(data)
+		const b: any[] = this.children[1].eval(data)
 		if (!a) {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
