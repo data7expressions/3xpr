@@ -176,7 +176,7 @@ class ParserManager {
             else if (p === ' ') {
                 // Only leave spaces when it's between alphanumeric characters.
                 // for example in the case of "} if" there should not be a space
-                if (i + 1 < length && i - 1 >= 0 && manager_1.Helper.isAlphanumeric(buffer[i - 1]) && manager_1.Helper.isAlphanumeric(buffer[i + 1])) {
+                if (i + 1 < length && i - 1 >= 0 && manager_1.Helper.validator.isAlphanumeric(buffer[i - 1]) && manager_1.Helper.validator.isAlphanumeric(buffer[i + 1])) {
                     result.push(p);
                 }
                 // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"

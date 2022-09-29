@@ -37,12 +37,12 @@ operators:
       name: addition
       category: arithmetic
       priority: 5
-      return: number
+      return: number|string
       params:
       - name: a
-        type: number
+        type: number|string
       - name: b
-        type: number  
+        type: number|string  
     '-':
       name: subtraction
       category: arithmetic
@@ -266,16 +266,16 @@ operators:
     '[]':
       name: item
       category: access
-      description: Access an element of a list through the index
+      description: Access an element of a array through the index
       priority: 2
       return: T
       params:
       - name: array
-        type: T[]
+        type: [T]
       - name: index
         type: number   
     '=':
-      name: assigment
+      name: assignment
       category: assignment
       priority: 1
       return: T
@@ -285,7 +285,7 @@ operators:
       - name: b
         type: T 
     '+=':
-      name: assigmentAddition
+      name: assignmentAddition
       category: assignment
       priority: 1
       return: number
@@ -295,7 +295,7 @@ operators:
       - name: b
         type: number 
     '-=':
-      name: assigmentSubtraction
+      name: assignmentSubtraction
       category: assignment
       priority: 1
       return: number
@@ -305,7 +305,7 @@ operators:
       - name: b
         type: number  
     '*=':
-      name: assigmentMultiplication
+      name: assignmentMultiplication
       category: assignment
       priority: 1
       return: number
@@ -315,7 +315,7 @@ operators:
       - name: b
         type: number  
     '/=':
-      name: assigmentDivision
+      name: assignmentDivision
       category: assignment
       priority: 1
       return: number
@@ -325,7 +325,7 @@ operators:
       - name: b
         type: number  
     '**=':
-      name: assigmentExponentiation
+      name: assignmentExponentiation
       category: assignment
       priority: 1
       return: number
@@ -335,7 +335,7 @@ operators:
       - name: b
         type: number 
     '//=':
-      name: assigmentFloorDivision
+      name: assignmentFloorDivision
       category: assignment
       priority: 1
       return: number
@@ -345,7 +345,7 @@ operators:
       - name: b
         type: number  
     '%=':
-      name: assigmentMod
+      name: assignmentMod
       category: assignment
       priority: 1
       return: number
@@ -355,7 +355,7 @@ operators:
       - name: b
         type: number 
     '&=':
-      name: assigmentBitAnd
+      name: assignmentBitAnd
       category: assignment
       priority: 1
       return: number
@@ -365,7 +365,7 @@ operators:
       - name: b
         type: number 
     '|=':
-      name: assigmentBitOr
+      name: assignmentBitOr
       category: assignment
       priority: 1
       return: number
@@ -375,7 +375,7 @@ operators:
       - name: b
         type: number  
     '^=':
-      name: assigmentBitXor
+      name: assignmentBitXor
       category: assignment
       priority: 1
       return: number
@@ -385,7 +385,7 @@ operators:
       - name: b
         type: number 
     '<<=':
-      name: assigmentLeftShift
+      name: assignmentLeftShift
       category: assignment
       priority: 1 
       return: number
@@ -395,7 +395,7 @@ operators:
       - name: b
         type: number 
     '>>=':
-      name: assigmentRightShift
+      name: assignmentRightShift
       category: assignment
       priority: 1
       return: number
@@ -407,7 +407,7 @@ operators:
   ternary:    
     '?':
       name: condicional
-      category: flowcontrol
+      category: flowControl
       priority: 1
       return: T
       params:
@@ -450,8 +450,8 @@ functions:
     category: comparison 
     return: boolean
     params:    
-    - name: list
-      type: T[]
+    - name: array
+      type: [T]
     - name: value
       type: T  
   in:
@@ -459,8 +459,8 @@ functions:
     category: comparison 
     return: boolean
     params:
-    - name: list
-      type: T[]
+    - name: array
+      type: [T]
     - name: value
       type: T    
   isNull:
@@ -1304,8 +1304,8 @@ functions:
     category: arrow 
     return: void 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
       type: function
   each:
@@ -1314,108 +1314,108 @@ functions:
     category: arrow 
     return: void 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
-      type: function    
+      type: predicate   
   filter:
     description: Creates a new array filled with elements that pass a test provided by a function
     type: arrow
     category: arrow 
-    return: T[] 
+    return: [T] 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   where:
     description: Creates a new array filled with elements that pass a test provided by a function
     type: arrow
     category: arrow 
-    return: T[] 
+    return: [T] 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
       type: function
   map:
     description: Creates a new array from calling a function for every array element.
     type: arrow
     category: arrow 
-    return: any[] 
+    return: any 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
-      type: function  
+      type: predicate 
   select:
     description: Creates a new array from calling a function for every array element.
     type: arrow
     category: arrow 
-    return: any[] 
+    return: any
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
-      type: function      
+      type: predicate     
   sort:
     description: Sorts the elements of an array.
     type: arrow
     category: arrow 
-    return: T[] 
+    return: [T] 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
       type: function
   order:
     description: Sorts the elements of an array.
     type: arrow
     category: arrow 
-    return: T[] 
+    return: [T] 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function      
+      type: predicate     
   reverse:
     description:  Reverses the order of the elements in an array.
     type: arrow 
     category: arrow 
-    return: T[] 
+    return: [T] 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   remove:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
     category: arrow 
-    return: number 
+    return: integer 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
       type: function
   delete:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
     category: arrow 
-    return: number 
+    return: integer 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: method 
-      type: function    
+      type: predicate   
   push:
     description: Adds new items to the end of an array
     type: child
     category: array 
     return: number 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: value 
       type: T
   insert:
@@ -1424,8 +1424,8 @@ functions:
     category: array 
     return: number 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: value 
       type: T      
   pop:
@@ -1434,32 +1434,32 @@ functions:
     category: array 
     return: T 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
   length:
     description: Calculating the number of items in a array.
     type: child
     category: array 
     return: number 
     params:
-    - name: list 
-      type: T[]  
+    - name: array 
+      type: [T]  
   len:
     description: Calculating the number of items in a array.
     type: child
     category: array 
     return: number 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
   slice:
     description: Returns a copy of a portion of the array into a new array from start to end.
     type: child
     category: array 
-    return: any[] 
+    return: [any] 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [any]
     - name: from 
       type: number
     - name: to 
@@ -1468,93 +1468,95 @@ functions:
     description: Returns a portion of the records.
     type: child
     category: array 
-    return: number 
+    return: [T]  
     params:
+    - name: array 
+      type: [T]   
     - name: page 
-      type: number
+      type: integer
     - name: records 
-      type: number             
+      type: integer             
 # group: ---------------------------------------------------------
   distinct:
-    description: Is used to retrieve unique values from a list
+    description: Is used to retrieve unique values from a array
     type: arrow
     category: group 
-    return: any[] 
+    return: [T] 
     params:
-    - name: list 
-      type: any[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function   
+      type: predicate   
   count:
     description: Returns the number of rows in a set
     type: arrow
     category: group 
-    return: number 
+    return: integer 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [any]
     - name: method 
-      type: function 
+      type: predicate
   max:
     description: Returns the maximum of rows in a set
     type: arrow
     category: group
     return: T
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   min:
     description: Returns the minimum of rows in a set
     type: arrow
     category: group
     return: T
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   sum:
     description: Returns the sum of rows in a set
     type: arrow
     category: group
     return: number
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   avg:
     description: Returns the average of rows in a set
     type: arrow
     category: group
     return: number
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   first:
     description:  Returns the first value of the array that meets a condition
     type: arrow
     category: group 
     return: T 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function 
+      type: predicate
   last:
     description: Returns the last value of the array that meets a condition
     type: arrow
     category: group 
     return: T 
     params:
-    - name: list 
-      type: T[]
+    - name: array 
+      type: [T]
     - name: method 
-      type: function               
+      type: predicate              
 # conversion: --------------------------------------------------------- 
   toString:
     description: convert to string
@@ -1583,31 +1585,31 @@ functions:
   keys:
     description: Convert all keys of an object to an array
     category: conversion
-    return: any[]
+    return: string[]
     params:
       - name: obj
         type: any
   values:
     description: Extract the values of an object into an array
     category: conversion
-    return: any[]
+    return: [any]
     params:
       - name: obj
         type: any
   entries:
     description: Extract the keys and values of an object into an array
     category: conversion
-    return: any[]
+    return: [string,any]
     params:
       - name: obj
-        type: any
+        type: object
   fromEntries:
-    description: Convert a generated array with entries into an object
+    description: Convert a generated tuple with entries into an object
     category: conversion
-    return: any
+    return: object
     params:
-      - name: array
-        type: any[]                               
+      - name: tuple
+        type: [string,any]                               
   stringify:
     description: Convert a JavaScript object or value to a JSON text string.
     category: conversion
@@ -1632,45 +1634,45 @@ functions:
     type: child
     category: sets 
     deterministic: true 
-    return: T[] 
+    return: [T] 
     params:
     - name: a
-      type: T[]
+      type: [T]
     - name: b
-      type: T[]
+      type: [T]
   intersection:
     description: Is the set A \ B that contains all the elements of A that do not belong to B.
     type: child
     category: sets 
     deterministic: true 
-    return: T[] 
+    return: [T] 
     params:
     - name: a
-      type: T[]
+      type: [T]
     - name: b
-      type: T[] 
+      type: [T] 
   difference:
     description: Is the set containing all the elements of A that do not belong to B
     type: child
     category: sets 
     deterministic: true 
-    return: T[] 
+    return: [T] 
     params:
     - name: a
-      type: T[]
+      type: [T]
     - name: b
-      type: T[]
+      type: [T]
   symmetricDifference:
     description: Is the set containing the elements of A and B that are not common
     type: child
     category: sets 
     deterministic: true 
-    return: T[] 
+    return: [T] 
     params:
     - name: a
-      type: T[]
+      type: [T]
     - name: b
-      type: T[]
+      type: [T]
 formats:
   email: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
   integer: ^\d+$

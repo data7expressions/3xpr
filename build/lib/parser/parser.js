@@ -6,10 +6,6 @@ const manager_1 = require("./../manager");
 class Parser {
     constructor(mgr, buffer) {
         this.mgr = mgr;
-        // eslint-disable-next-line prefer-regex-literals
-        this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$'); /// [a-zA-Z0-9_.]+$'/ //
-        this.reInt = /^[0-9]+$/; // new RegExp('^d+$')
-        this.reFloat = /^[0-9]*[.][0-9]+$/; // new RegExp('^d+(\.\d+)?$/')//'d+(\.\d+)?$'
         this.buffer = [];
         this.buffer = buffer;
         this.length = this.buffer.length;
@@ -112,7 +108,7 @@ class Parser {
             this.index += 1;
             char = this.current;
         }
-        if (this.reAlphanumeric.test(char)) {
+        if (manager_1.Helper.validator.isAlphanumeric(char)) {
             let value = this.getValue();
             if (value === 'function' && this.current === '(') {
                 this.index += 1;
@@ -167,7 +163,7 @@ class Parser {
                 this.index += 1;
                 operand = this.getIndexOperand(value);
             }
-            else if (this.reInt.test(value)) {
+            else if (manager_1.Helper.validator.isIntegerFormat(value)) {
                 if (isNegative) {
                     value = parseInt(value) * -1;
                     isNegative = false;
@@ -181,7 +177,7 @@ class Parser {
                 }
                 operand = new node_1.Node(value, 'const');
             }
-            else if (this.reFloat.test(value)) {
+            else if (manager_1.Helper.validator.isDecimalFormat(value)) {
                 if (isNegative) {
                     value = parseFloat(value) * -1;
                     isNegative = false;
@@ -316,14 +312,14 @@ class Parser {
     getValue(increment = true) {
         const buff = [];
         if (increment) {
-            while (!this.end && this.reAlphanumeric.test(this.current)) {
+            while (!this.end && manager_1.Helper.validator.isAlphanumeric(this.current)) {
                 buff.push(this.current);
                 this.index += 1;
             }
         }
         else {
             let index = this.index;
-            while (!this.end && this.reAlphanumeric.test(this.buffer[index])) {
+            while (!this.end && manager_1.Helper.validator.isAlphanumeric(this.buffer[index])) {
                 buff.push(this.buffer[index]);
                 index += 1;
             }

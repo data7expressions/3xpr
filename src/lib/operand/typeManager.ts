@@ -9,49 +9,20 @@ export class OperandTypeManager implements IOperandTypeManager {
 		this.expressionConfig = expressionConfig
 	}
 
+	// Example
+	// {
+	// users:[{name:string,age:integer}],
+	// tuple: [integer,string]
+	// entries:[string,any]
+	// }
+	// Primitives: integer, decimal, string, boolean, datetime, date, time
+	// array: [<<type>>]
+	// object {key:<<type>>}
+	// predicate:  c + b < a
+	// indeterminate: any
+
 	public solve (operand: Operand):string {
 		return this.solveTypes(operand)
-	}
-
-	private solveVariableType (name:string, type:string, operand: Operand) {
-		if (operand instanceof Variable && operand.name === name && operand.type === 'any') {
-			operand.type = type
-		}
-		for (const child of operand.children) {
-			this.solveVariableType(name, type, child)
-		}
-	}
-
-	private solveArrayType (array: Operand):void {
-		this.solveTypes(array)
-		if (array.children.length > 0 && array.children[0].type !== 'any') {
-			array.type = `${array.children[0].type}[]`
-		}
-	}
-
-	private solveArrowType (arrow:Operand) {
-		const metadata = this.expressionConfig.getFunction(arrow.name)
-		const array = arrow.children[0]
-		const variable = arrow.children[1]
-		const predicate = arrow.children[2]
-		this.solveArrayType(array)
-		const elementType = this.elementType(array)
-		if (array.type !== 'any[]' && array.type !== 'T[]') {
-			variable.type = elementType
-			this.solveVariableType(variable.name, variable.type, predicate)
-			if ((metadata.return === 'T[]' || metadata.return === 'any[]') && (arrow.type === 'any' || arrow.type === 'any[]')) {
-				arrow.type = array.type
-			} else if ((metadata.return === 'T' || metadata.return === 'any') && arrow.type === 'any') {
-				arrow.type = elementType
-			}
-		}
-	}
-
-	private elementType (array: Operand):string {
-		if (array.type.endsWith('[]')) {
-			return array.type.substring(0, array.type.length - 2)
-		}
-		return 'any'
 	}
 
 	// TODO: determinar el tipo de la variable de acuerdo a la expression.
@@ -125,5 +96,46 @@ export class OperandTypeManager implements IOperandTypeManager {
 		}
 
 		return operand.type
+	}
+
+	private solveVariableType (name:string, type:string, operand: Operand) {
+		if (operand instanceof Variable && operand.name === name && operand.type === 'any') {
+			operand.type = type
+		}
+		for (const child of operand.children) {
+			this.solveVariableType(name, type, child)
+		}
+	}
+
+	private solveArrayType (array: Operand):void {
+		this.solveTypes(array)
+		if (array.children.length > 0 && array.children[0].type !== 'any') {
+			array.type = `${array.children[0].type}[]`
+		}
+	}
+
+	private solveArrowType (arrow:Operand) {
+		const metadata = this.expressionConfig.getFunction(arrow.name)
+		const array = arrow.children[0]
+		const variable = arrow.children[1]
+		const predicate = arrow.children[2]
+		this.solveArrayType(array)
+		const elementType = this.elementType(array)
+		if (array.type !== 'any[]' && array.type !== 'T[]') {
+			variable.type = elementType
+			this.solveVariableType(variable.name, variable.type, predicate)
+			if ((metadata.return === 'T[]' || metadata.return === 'any[]') && (arrow.type === 'any' || arrow.type === 'any[]')) {
+				arrow.type = array.type
+			} else if ((metadata.return === 'T' || metadata.return === 'any') && arrow.type === 'any') {
+				arrow.type = elementType
+			}
+		}
+	}
+
+	private elementType (array: Operand):string {
+		if (array.type.endsWith('[]')) {
+			return array.type.substring(0, array.type.length - 2)
+		}
+		return 'any'
 	}
 }
