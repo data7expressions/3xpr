@@ -4,3 +4,4 @@ export * from './cache';
 export * from './observer';
 export * from './managers';
 export * from './parser';
+export * from './type';

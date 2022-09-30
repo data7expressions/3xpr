@@ -1,10 +1,10 @@
 
-import { Context, Operand } from '../model'
+import { Context, Operand, Type } from '../model'
 import { ExpressionConfig } from '../parser'
 import { Helper } from '../manager'
 export class Constant extends Operand {
 	constructor (name: string) {
-		super(name, [], Helper.utils.getType(name))
+		super(name, [], Helper.getType(name))
 	}
 
 	public eval (): any {
@@ -24,7 +24,7 @@ export class Constant extends Operand {
 // export class Variable extends Operand implements IOperandData
 export class Variable extends Operand {
 	public number?: number
-	constructor (name: string, type = 'any') {
+	constructor (name: string, type?:Type) {
 		super(name, [], type)
 	}
 
@@ -33,14 +33,18 @@ export class Variable extends Operand {
 	}
 }
 export class EnvironmentVariable extends Operand {
+	constructor (name: string) {
+		super(name, [], 'string')
+	}
+
 	public eval (): any {
 		return process.env[this.name]
 	}
 }
 
 export class Template extends Operand {
-	constructor (name: string, type = 'any') {
-		super(name, [], type)
+	constructor (name: string) {
+		super(name, [], 'string')
 	}
 
 	public eval (context: Context): any {
@@ -69,7 +73,7 @@ export class Property extends Operand {
 
 export class KeyValue extends Operand {
 	public property?: string
-	constructor (name: string, children: Operand[] = [], property: string, type?: string) {
+	constructor (name: string, children: Operand[] = [], property: string, type?: Type) {
 		super(name, children, type)
 		this.property = property
 	}
@@ -80,7 +84,7 @@ export class KeyValue extends Operand {
 }
 export class List extends Operand {
 	constructor (name: string, children: Operand[] = []) {
-		super(name, children, 'any[]')
+		super(name, children)
 	}
 
 	public eval (context: Context): any {
@@ -93,14 +97,13 @@ export class List extends Operand {
 }
 export class Obj extends Operand {
 	constructor (name: string, children: Operand[] = []) {
-		super(name, children, 'object')
+		super(name, children)
 	}
 
 	public eval (context: Context): any {
 		const obj: { [k: string]: any } = {}
-		for (let i = 0; i < this.children.length; i++) {
-			const value = this.children[i].eval(context)
-			obj[this.children[i].name] = value
+		for (const child of this.children) {
+			obj[child.name] = child.eval(context)
 		}
 		return obj
 	}

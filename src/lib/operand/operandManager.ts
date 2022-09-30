@@ -28,15 +28,7 @@ export class OperandManager implements IOperandManager {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand instanceof Variable) {
-			let type: string
-			if (operand.type === '') {
-				type = 'any'
-			} else if (operand.type === 'T[]') {
-				type = 'any[]'
-			} else {
-				type = operand.type
-			}
-			parameters.push({ name: operand.name, type: type })
+			parameters.push({ name: operand.name, type: operand.type || 'any' })
 		}
 		for (const child of operand.children) {
 			const childParameters = this.parameters(child)

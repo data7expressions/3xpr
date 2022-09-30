@@ -1,9 +1,11 @@
 import { Context } from './context'
+import { Type } from './type'
 import { Node } from './../parser'
 import { Library } from './../operand'
+
 export interface Parameter {
 	name: string
-	type: string
+	type: Type
 	default?: any
 	value?:any
 }
@@ -17,38 +19,20 @@ export enum OperatorType
 
 export abstract class Operand {
 	public name: string
-	public type: string
+	public type?: Type
 	public id?: string
-	// public parent?: Operand
 	public index?: number
 	public level?: number
 	public children: Operand[]
-	constructor (name: string, children: Operand[] = [], type = 'any') {
+	constructor (name: string, children: Operand[] = [], type?:Type) {
 		this.name = name
 		this.children = children
 		this.type = type
 		this.id = undefined
-		// this.parent = undefined
 		this.index = 0
 		this.level = 0
 	}
 
-	public clone () {
-		throw new Error('NotImplemented')
-		// // const obj = this
-		// const children = []
-		// if (this.children) {
-		// for (const k in this.children) {
-		// const p = this.children[k]
-		// const child = p && typeof p === 'object' ? JSON.parse(JSON.stringify(p)) : p
-		// children.push(child)
-		// }
-		// }
-		// return new this.constructor(this.name, children)
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	// public set (value: any) { throw new Error('NotImplemented') }
 	public abstract eval(context: Context): any
 }
 
@@ -72,7 +56,7 @@ export interface OperandMetadata {
 	classType: string,
 	name: string,
 	children?: OperandMetadata[],
-	type?: string,
+	type?: Type,
 	property?: string
 	parameters?: Parameter[],
 	clause?: string,
@@ -81,7 +65,7 @@ export interface OperandMetadata {
 }
 
 export interface IOperandTypeManager {
-	solve (operand: Operand):string
+	solve (operand: Operand):Type
 }
 
 export interface IOperandManager {

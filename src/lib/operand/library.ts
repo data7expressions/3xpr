@@ -1,4 +1,4 @@
-import { Parameter, OperatorMetadata, OperatorType } from '../model'
+import { Type, Parameter, OperatorMetadata, OperatorType } from '../model'
 
 export interface Metadata {
 	description?: string
@@ -71,7 +71,7 @@ export abstract class Library {
 			const data = p.split('=')
 			const arg = {
 				name: data[0],
-				type: 'any',
+				type: 'any' as Type,
 				default: data.length > 1 ? data[1] : null
 			}
 			args.push(arg)

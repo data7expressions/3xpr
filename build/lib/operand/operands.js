@@ -5,7 +5,7 @@ const model_1 = require("../model");
 const manager_1 = require("../manager");
 class Constant extends model_1.Operand {
     constructor(name) {
-        super(name, [], manager_1.Helper.utils.getType(name));
+        super(name, [], manager_1.Helper.getType(name));
     }
     eval() {
         switch (this.type) {
@@ -23,7 +23,7 @@ class Constant extends model_1.Operand {
 exports.Constant = Constant;
 // export class Variable extends Operand implements IOperandData
 class Variable extends model_1.Operand {
-    constructor(name, type = 'any') {
+    constructor(name, type) {
         super(name, [], type);
     }
     eval(context) {
@@ -32,14 +32,17 @@ class Variable extends model_1.Operand {
 }
 exports.Variable = Variable;
 class EnvironmentVariable extends model_1.Operand {
+    constructor(name) {
+        super(name, [], 'string');
+    }
     eval() {
         return process.env[this.name];
     }
 }
 exports.EnvironmentVariable = EnvironmentVariable;
 class Template extends model_1.Operand {
-    constructor(name, type = 'any') {
-        super(name, [], type);
+    constructor(name) {
+        super(name, [], 'string');
     }
     eval(context) {
         // info https://www.tutorialstonight.com/javascript-string-format.php
@@ -78,7 +81,7 @@ class KeyValue extends model_1.Operand {
 exports.KeyValue = KeyValue;
 class List extends model_1.Operand {
     constructor(name, children = []) {
-        super(name, children, 'any[]');
+        super(name, children);
     }
     eval(context) {
         const values = [];
@@ -91,13 +94,12 @@ class List extends model_1.Operand {
 exports.List = List;
 class Obj extends model_1.Operand {
     constructor(name, children = []) {
-        super(name, children, 'object');
+        super(name, children);
     }
     eval(context) {
         const obj = {};
-        for (let i = 0; i < this.children.length; i++) {
-            const value = this.children[i].eval(context);
-            obj[this.children[i].name] = value;
+        for (const child of this.children) {
+            obj[child.name] = child.eval(context);
         }
         return obj;
     }

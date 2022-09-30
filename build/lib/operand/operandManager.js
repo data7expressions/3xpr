@@ -18,17 +18,7 @@ class OperandManager {
     parameters(operand) {
         const parameters = [];
         if (operand instanceof operands_1.Variable) {
-            let type;
-            if (operand.type === '') {
-                type = 'any';
-            }
-            else if (operand.type === 'T[]') {
-                type = 'any[]';
-            }
-            else {
-                type = operand.type;
-            }
-            parameters.push({ name: operand.name, type: type });
+            parameters.push({ name: operand.name, type: operand.type || 'any' });
         }
         for (const child of operand.children) {
             const childParameters = this.parameters(child);

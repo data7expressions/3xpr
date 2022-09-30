@@ -1,4 +1,4 @@
-import { Context, Operand } from '../model';
+import { Context, Operand, Type } from '../model';
 import { ExpressionConfig } from '../parser';
 export declare class Constant extends Operand {
     constructor(name: string);
@@ -6,14 +6,15 @@ export declare class Constant extends Operand {
 }
 export declare class Variable extends Operand {
     number?: number;
-    constructor(name: string, type?: string);
+    constructor(name: string, type?: Type);
     eval(context: Context): any;
 }
 export declare class EnvironmentVariable extends Operand {
+    constructor(name: string);
     eval(): any;
 }
 export declare class Template extends Operand {
-    constructor(name: string, type?: string);
+    constructor(name: string);
     eval(context: Context): any;
 }
 export declare class Property extends Operand {
@@ -21,7 +22,7 @@ export declare class Property extends Operand {
 }
 export declare class KeyValue extends Operand {
     property?: string;
-    constructor(name: string, children: Operand[] | undefined, property: string, type?: string);
+    constructor(name: string, children: Operand[] | undefined, property: string, type?: Type);
     eval(context: Context): any;
 }
 export declare class List extends Operand {

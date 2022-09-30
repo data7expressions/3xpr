@@ -98,7 +98,7 @@ export class OperandSerializer implements ISerializer<Operand> {
 		case 'Default':
 			return new Default(value.name, children, value.type)
 		case 'Template':
-			return new Template(value.name, value.type)
+			return new Template(value.name)
 		case 'Constant':
 			return new Constant(value.name)
 		case 'Variable':

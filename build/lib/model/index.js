@@ -20,4 +20,5 @@ __exportStar(require("./cache"), exports);
 __exportStar(require("./observer"), exports);
 __exportStar(require("./managers"), exports);
 __exportStar(require("./parser"), exports);
+__exportStar(require("./type"), exports);
 //# sourceMappingURL=index.js.map
