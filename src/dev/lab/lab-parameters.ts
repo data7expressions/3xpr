@@ -9,7 +9,7 @@ import { show } from './util'
 		// 'nvl(a ,1)',
 		// 'nvl(a ,"text")',
 		// 'nvl(a , b * 5 )',
-		// 'a.strCount("o")'
+		// 'a.strCount("o")',
 		// '[1,2,3].map(p => nvl(a, p))',
 		'a = max([1,2,3])'
 		// 'a = max([1,2,3]) > c'

@@ -7,8 +7,8 @@ declare class TypeHelper {
     isPrimitive(type: Type | string): boolean;
     isArrayType(type: Type | string): boolean;
     isObjectType(type: Type | string): boolean;
-    serialize(type?: Type): string;
-    deserialize(type: string): Type;
+    serialize(type?: Type): string | undefined;
+    deserialize(type?: string): Type | undefined;
 }
 export declare class ExpHelper extends H3lp {
     type: TypeHelper;

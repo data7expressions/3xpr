@@ -59,13 +59,16 @@ class TypeHelper {
     }
     serialize(type) {
         if (type === undefined || type === null) {
-            return 'any';
+            return undefined;
         }
         return JSON.stringify(type);
     }
     deserialize(type) {
         if (type === undefined || type === null) {
-            return 'any';
+            return undefined;
+        }
+        if (this.isPrimitive(type)) {
+            return type;
         }
         return JSON.parse(type);
     }

@@ -1,4 +1,4 @@
-import { Cache, Operand, Parameter, Format, OperatorMetadata, IExpressionConfig, ActionObserver, IParserManager, ISerializer, IOperandManager } from '../model';
+import { Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, IParserManager, ISerializer, IOperandBuilder } from '../model';
 import { Library } from './../operand';
 export declare class ExpressionsBuilder {
     build(): Expressions;
@@ -8,9 +8,10 @@ export declare class Expressions {
     private config;
     private observers;
     private parserManager;
-    private operandManager;
+    private operandBuilder;
+    private typeManager;
     private serializer;
-    constructor(cache: Cache, config: IExpressionConfig, parserManager: IParserManager, serializer: ISerializer<Operand>, operandManager: IOperandManager);
+    constructor(cache: Cache, config: IExpressionConfig, parserManager: IParserManager, serializer: ISerializer<Operand>, operandBuilder: IOperandBuilder, typeManager: IOperandTypeManager);
     private static _instance;
     static get instance(): Expressions;
     get parser(): IParserManager;
@@ -34,6 +35,7 @@ export declare class Expressions {
      * @returns Operand
      */
     parse(expression: string): Operand;
+    private typed;
     /**
      * Get parameters of expression
      * @param expression  expression

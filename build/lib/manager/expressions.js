@@ -14,18 +14,19 @@ class ExpressionsBuilder {
         const parserManager = new parser_1.ParserManager(expressionConfig);
         const typeManager = new operand_1.OperandTypeManager(expressionConfig);
         const serializer = new operand_1.OperandSerializer(expressionConfig);
-        const operandManager = new operand_1.OperandManager(expressionConfig, typeManager);
-        return new Expressions(cache, expressionConfig, parserManager, serializer, operandManager);
+        const operandBuilder = new operand_1.OperandBuilder(expressionConfig);
+        return new Expressions(cache, expressionConfig, parserManager, serializer, operandBuilder, typeManager);
     }
 }
 exports.ExpressionsBuilder = ExpressionsBuilder;
 class Expressions {
-    constructor(cache, config, parserManager, serializer, operandManager) {
+    constructor(cache, config, parserManager, serializer, operandBuilder, typeManager) {
         this.observers = [];
         this.cache = cache;
         this.config = config;
         this.serializer = serializer;
-        this.operandManager = operandManager;
+        this.operandBuilder = operandBuilder;
+        this.typeManager = typeManager;
         this.parserManager = parserManager;
     }
     static get instance() {
@@ -90,14 +91,31 @@ class Expressions {
         const value = this.cache.get(key);
         if (!value) {
             const node = this.parserManager.parse(minifyExpression);
-            // this.parserManager.setParent(node)
-            const operand = this.operandManager.build(node);
+            const operand = this.operandBuilder.build(node);
             this.cache.set(key, operand);
-            // this.cache.set(key, this.operandManager.serialize(operand))
             return operand;
         }
         else {
-            // return this.operandManager.deserialize(value)
+            return value;
+        }
+    }
+    typed(expression) {
+        const minifyExpression = this.parserManager.minify(expression);
+        const key = `${minifyExpression}_operand`;
+        const value = this.cache.get(key);
+        if (!value) {
+            const node = this.parserManager.parse(minifyExpression);
+            const operand = this.operandBuilder.build(node);
+            this.typeManager.solve(operand);
+            this.cache.set(key, operand);
+            return operand;
+        }
+        else if (value.type === undefined) {
+            this.typeManager.solve(value);
+            this.cache.set(key, value);
+            return value;
+        }
+        else {
             return value;
         }
     }
@@ -107,8 +125,8 @@ class Expressions {
      * @returns Parameters of expression
      */
     parameters(expression) {
-        const operand = this.parse(expression);
-        return this.operandManager.parameters(operand);
+        const operand = this.typed(expression);
+        return this.typeManager.parameters(operand);
     }
     /**
      * Evaluate and solve expression

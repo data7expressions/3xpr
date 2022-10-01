@@ -57,16 +57,19 @@ class TypeHelper {
 		return (type as ObjectType).properties !== undefined
 	}
 
-	public serialize (type?: Type):string {
+	public serialize (type?: Type):string| undefined {
 		if (type === undefined || type === null) {
-			return 'any'
+			return undefined
 		}
 		return JSON.stringify(type)
 	}
 
-	public deserialize (type: string):Type {
+	public deserialize (type?: string):Type | undefined {
 		if (type === undefined || type === null) {
-			return 'any'
+			return undefined
+		}
+		if (this.isPrimitive(type)) {
+			return type as Type
 		}
 		return JSON.parse(type) as Type
 	}

@@ -55,15 +55,15 @@
                 "name": "addition",
                 "category": "arithmetic",
                 "priority": 5,
-                "return": "number|string",
+                "return": "T",
                 "params": [
                     {
                         "name": "a",
-                        "type": "number|string"
+                        "type": "T"
                     },
                     {
                         "name": "b",
-                        "type": "number|string"
+                        "type": "T"
                     }
                 ]
             },
@@ -428,9 +428,7 @@
                 "params": [
                     {
                         "name": "array",
-                        "type": [
-                            "T"
-                        ]
+                        "type": "T[]"
                     },
                     {
                         "name": "index",
@@ -719,9 +717,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "value",
@@ -736,9 +732,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "value",
@@ -2031,9 +2025,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
                     "name": "method",
@@ -2049,9 +2041,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
                     "name": "method",
@@ -2063,15 +2053,11 @@
             "description": "Creates a new array filled with elements that pass a test provided by a function",
             "type": "arrow",
             "category": "arrow",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "method",
@@ -2083,15 +2069,11 @@
             "description": "Creates a new array filled with elements that pass a test provided by a function",
             "type": "arrow",
             "category": "arrow",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "method",
@@ -2103,17 +2085,15 @@
             "description": "Creates a new array from calling a function for every array element.",
             "type": "arrow",
             "category": "arrow",
-            "return": "any",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "T"
                 }
             ]
         },
@@ -2121,17 +2101,15 @@
             "description": "Creates a new array from calling a function for every array element.",
             "type": "arrow",
             "category": "arrow",
-            "return": "any",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "T"
                 }
             ]
         },
@@ -2139,19 +2117,15 @@
             "description": "Sorts the elements of an array.",
             "type": "arrow",
             "category": "arrow",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "function"
+                    "name": "predicate",
+                    "type": "any"
                 }
             ]
         },
@@ -2159,19 +2133,15 @@
             "description": "Sorts the elements of an array.",
             "type": "arrow",
             "category": "arrow",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "any"
                 }
             ]
         },
@@ -2179,19 +2149,15 @@
             "description": "Reverses the order of the elements in an array.",
             "type": "arrow",
             "category": "arrow",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "any"
                 }
             ]
         },
@@ -2203,13 +2169,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "function"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2221,13 +2185,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2239,9 +2201,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "value",
@@ -2257,9 +2217,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "value",
@@ -2275,9 +2233,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2289,9 +2245,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2303,9 +2257,7 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2313,15 +2265,11 @@
             "description": "Returns a copy of a portion of the array into a new array from start to end.",
             "type": "child",
             "category": "array",
-            "return": [
-                "any"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "from",
@@ -2337,15 +2285,11 @@
             "description": "Returns a portion of the records.",
             "type": "child",
             "category": "array",
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "page",
@@ -2361,19 +2305,15 @@
             "description": "Is used to retrieve unique values from a array",
             "type": "arrow",
             "category": "group",
-            "return": [
-                "T"
-            ],
+            "return": "any[]",
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "any"
                 }
             ]
         },
@@ -2385,13 +2325,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "any"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2403,13 +2341,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2421,13 +2357,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2439,13 +2373,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "any[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "number"
                 }
             ]
         },
@@ -2457,13 +2389,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "number"
                 }
             ]
         },
@@ -2475,13 +2405,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2493,13 +2421,11 @@
             "params": [
                 {
                     "name": "array",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
-                    "name": "method",
-                    "type": "predicate"
+                    "name": "predicate",
+                    "type": "boolean"
                 }
             ]
         },
@@ -2552,9 +2478,7 @@
         "values": {
             "description": "Extract the values of an object into an array",
             "category": "conversion",
-            "return": [
-                "any"
-            ],
+            "return": "any[]",
             "params": [
                 {
                     "name": "obj",
@@ -2565,10 +2489,7 @@
         "entries": {
             "description": "Extract the keys and values of an object into an array",
             "category": "conversion",
-            "return": [
-                "string",
-                "any"
-            ],
+            "return": "tuple(string,any)[]",
             "params": [
                 {
                     "name": "obj",
@@ -2577,16 +2498,13 @@
             ]
         },
         "fromEntries": {
-            "description": "Convert a generated tuple with entries into an object",
+            "description": "Convert a generated array with entries into an object",
             "category": "conversion",
             "return": "object",
             "params": [
                 {
-                    "name": "tuple",
-                    "type": [
-                        "string",
-                        "any"
-                    ]
+                    "name": "array",
+                    "type": "tuple(string,any)[]"
                 }
             ]
         },
@@ -2619,21 +2537,15 @@
             "type": "child",
             "category": "sets",
             "deterministic": true,
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "a",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "b",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2642,21 +2554,15 @@
             "type": "child",
             "category": "sets",
             "deterministic": true,
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "a",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "b",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2665,21 +2571,15 @@
             "type": "child",
             "category": "sets",
             "deterministic": true,
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "a",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "b",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         },
@@ -2688,21 +2588,15 @@
             "type": "child",
             "category": "sets",
             "deterministic": true,
-            "return": [
-                "T"
-            ],
+            "return": "T[]",
             "params": [
                 {
                     "name": "a",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 },
                 {
                     "name": "b",
-                    "type": [
-                        "T"
-                    ]
+                    "type": "T[]"
                 }
             ]
         }

@@ -37,12 +37,12 @@ operators:
       name: addition
       category: arithmetic
       priority: 5
-      return: number|string
+      return: T
       params:
       - name: a
-        type: number|string
+        type: T
       - name: b
-        type: number|string  
+        type: T  
     '-':
       name: subtraction
       category: arithmetic
@@ -1342,22 +1342,22 @@ functions:
     description: Creates a new array from calling a function for every array element.
     type: arrow
     category: arrow 
-    return: any 
+    return: T[] 
     params:
     - name: array 
       type: any[]
-    - name: method 
-      type: predicate 
+    - name: predicate 
+      type: T 
   select:
     description: Creates a new array from calling a function for every array element.
     type: arrow
     category: arrow 
-    return: any
+    return: T[]
     params:
     - name: array 
       type: any[]
-    - name: method 
-      type: predicate     
+    - name: predicate 
+      type: T     
   sort:
     description: Sorts the elements of an array.
     type: arrow
@@ -1366,8 +1366,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: function
+    - name: predicate 
+      type: any
   order:
     description: Sorts the elements of an array.
     type: arrow
@@ -1376,8 +1376,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate     
+    - name: predicate 
+      type: any     
   reverse:
     description:  Reverses the order of the elements in an array.
     type: arrow 
@@ -1386,8 +1386,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: any
   remove:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
@@ -1396,8 +1396,8 @@ functions:
     params:
     - name: array 
       type: any[]
-    - name: method 
-      type: function
+    - name: predicate 
+      type: boolean
   delete:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
@@ -1406,8 +1406,8 @@ functions:
     params:
     - name: array 
       type: any[]
-    - name: method 
-      type: predicate   
+    - name: predicate 
+      type: boolean   
   push:
     description: Adds new items to the end of an array
     type: child
@@ -1456,10 +1456,10 @@ functions:
     description: Returns a copy of a portion of the array into a new array from start to end.
     type: child
     category: array 
-    return: any[] 
+    return: T[] 
     params:
     - name: array 
-      type: any[]
+      type: T[]
     - name: from 
       type: number
     - name: to 
@@ -1481,12 +1481,12 @@ functions:
     description: Is used to retrieve unique values from a array
     type: arrow
     category: group 
-    return: T[] 
+    return: any[] 
     params:
     - name: array 
-      type: T[]
-    - name: method 
-      type: predicate   
+      type: any[]
+    - name: predicate 
+      type: any   
   count:
     description: Returns the number of rows in a set
     type: arrow
@@ -1495,8 +1495,8 @@ functions:
     params:
     - name: array 
       type: any[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: boolean
   max:
     description: Returns the maximum of rows in a set
     type: arrow
@@ -1505,8 +1505,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: boolean
   min:
     description: Returns the minimum of rows in a set
     type: arrow
@@ -1515,8 +1515,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: boolean
   sum:
     description: Returns the sum of rows in a set
     type: arrow
@@ -1524,9 +1524,9 @@ functions:
     return: number
     params:
     - name: array 
-      type: T[]
-    - name: method 
-      type: predicate
+      type: any[]
+    - name: predicate 
+      type: number
   avg:
     description: Returns the average of rows in a set
     type: arrow
@@ -1535,8 +1535,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: number
   first:
     description:  Returns the first value of the array that meets a condition
     type: arrow
@@ -1545,8 +1545,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate
+    - name: predicate 
+      type: boolean
   last:
     description: Returns the last value of the array that meets a condition
     type: arrow
@@ -1555,8 +1555,8 @@ functions:
     params:
     - name: array 
       type: T[]
-    - name: method 
-      type: predicate              
+    - name: predicate 
+      type: boolean              
 # conversion: --------------------------------------------------------- 
   toString:
     description: convert to string

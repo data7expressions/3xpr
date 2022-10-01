@@ -5,7 +5,7 @@ import { Library } from './../operand'
 
 export interface Parameter {
 	name: string
-	type: string
+	type?: string
 	default?: any
 	value?:any
 }
@@ -56,7 +56,7 @@ export interface OperandMetadata {
 	classType: string,
 	name: string,
 	children?: OperandMetadata[],
-	type: string,
+	type?: string,
 	property?: string
 	parameters?: Parameter[],
 	clause?: string,
@@ -66,11 +66,11 @@ export interface OperandMetadata {
 
 export interface IOperandTypeManager {
 	solve (operand: Operand):Type
+	parameters (operand: Operand): Parameter[]
 }
 
-export interface IOperandManager {
+export interface IOperandBuilder {
 	build (node: Node): Operand
-	parameters (operand: Operand): Parameter[]
 }
 
 export interface Format {

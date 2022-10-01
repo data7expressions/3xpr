@@ -1,44 +1,25 @@
 
 import { Node, ExpressionConfig } from '../parser/index'
-import { Context, Parameter } from '../model'
+import { Context, Operand, IOperandBuilder } from '../model'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property, EnvironmentVariable
 	// , IOperandData
 } from './operands'
-import { Operand, IOperandTypeManager, IOperandManager } from './../model'
-import { Helper } from 'lib/manager'
 
-export class OperandManager implements IOperandManager {
+export class OperandBuilder implements IOperandBuilder {
 	private expressionConfig: ExpressionConfig
-	private typeManager: IOperandTypeManager
-	constructor (expressionConfig: ExpressionConfig, typeManager: IOperandTypeManager) {
+	constructor (expressionConfig: ExpressionConfig) {
 		this.expressionConfig = expressionConfig
-		this.typeManager = typeManager
 	}
 
 	public build (node: Node): Operand {
 		const operand = this.nodeToOperand(node)
 		const reduced = this.reduce(operand)
-		this.typeManager.solve(reduced)
+		// this.typeManager.solve(reduced)
 		return reduced
 		// return this.setParent(reduced)
-	}
-
-	public parameters (operand: Operand): Parameter[] {
-		const parameters: Parameter[] = []
-		if (operand instanceof Variable) {
-			parameters.push({ name: operand.name, type: Helper.type.serialize(operand.type) })
-		}
-		for (const child of operand.children) {
-			const childParameters = this.parameters(child)
-			const newParameters = childParameters.filter((p:Parameter) => !parameters.map((p:Parameter) => p.name).includes(p.name))
-			if (newParameters.length > 0) {
-				parameters.push(...newParameters)
-			}
-		}
-		return parameters
 	}
 
 	private reduce (operand: Operand): Operand {

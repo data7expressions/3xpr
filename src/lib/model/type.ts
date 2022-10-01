@@ -1,10 +1,10 @@
-export type PrimitiveType = 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'datetime'| 'time'| 'any'
+export type PrimitiveType = 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'datetime'| 'time'| 'any' | 'void'
 // eslint-disable-next-line no-use-before-define
 export type Type = PrimitiveType | ObjectType | ArrayType
 
 export interface PropertyType {
 	name:string
-	type: Type
+	type?: Type
 }
 export interface ObjectType {
 	properties: PropertyType[]
