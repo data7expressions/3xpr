@@ -22,13 +22,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 	// predicate:  c + b < a
 	// indeterminate: any
 
-	public solve (operand: Operand): Type {
-		this.solveType(operand)
-		this.solveTemplate(operand)
-		this.setUndefinedAsAny(operand)
-		return operand.type || 'any'
-	}
-
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand instanceof Variable) {
@@ -44,6 +37,13 @@ export class OperandTypeManager implements IOperandTypeManager {
 		return parameters
 	}
 
+	public solve (operand: Operand): Type {
+		this.solveType(operand)
+		this.solveTemplate(operand)
+		this.setUndefinedAsAny(operand)
+		return operand.type || 'any'
+	}
+
 	private solveType (operand: Operand):void {
 		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
 			return
@@ -56,6 +56,27 @@ export class OperandTypeManager implements IOperandTypeManager {
 			this.solveArrow(operand)
 		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
 			this.solveOperator(operand)
+		} else {
+			throw new Error(`${operand.name} not supported`)
+		}
+	}
+
+	private solveTemplate (operand: Operand):void {
+		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
+			return
+		}
+		if (operand instanceof List) {
+			this.solveTemplateArray(operand)
+		} else if (operand instanceof Obj) {
+			this.solveTemplateObject(operand)
+		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
+			const metadata = this.metadata(operand)
+			if (this.hadTemplate(metadata) && this.undefinedTypes(operand)) {
+				this.solveTemplateOperator(operand, metadata)
+			}
+			for (const child of operand.children) {
+				this.solveTemplate(child)
+			}
 		} else {
 			throw new Error(`${operand.name} not supported`)
 		}
@@ -85,10 +106,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 		if (array.children[0].type !== undefined) {
 			array.type = { items: array.children[0].type }
 		}
-	}
-
-	private getElementType (array: List): Type | undefined {
-		return array.type ? (array.type as ArrayType).items : undefined
 	}
 
 	private solveArrow (arrow: Operand): void {
@@ -121,25 +138,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 		}
 		if (this.hadTemplate(metadata)) {
 			this.solveTemplateOperator(arrow, metadata)
-		}
-	}
-
-	private isIndeterminateType (type?:string): boolean {
-		if (type === undefined) {
-			return true
-		}
-		return ['T', 'T[]', 'any', 'any[]'].includes(type)
-	}
-
-	private setVariableType (name: string, type: Type, operand: Operand) {
-		if (operand instanceof Variable && operand.name === name) {
-			operand.type = type
-		}
-		for (const child of operand.children) {
-			// es por si se da el caso  xxx.filter( p=> p.filter( p => p + 1 ) )
-			if (!(child instanceof ArrowFunction && child.children[1].name === name)) {
-				this.setVariableType(name, type, child)
-			}
 		}
 	}
 
@@ -194,35 +192,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 		return undefined
 	}
 
-	private solveTemplate (operand: Operand):void {
-		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
-			return
-		}
-		if (operand instanceof List) {
-			this.solveTemplateArray(operand)
-		} else if (operand instanceof Obj) {
-			this.solveTemplateObject(operand)
-		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
-			const metadata = this.metadata(operand)
-			if (this.hadTemplate(metadata) && this.undefinedTypes(operand)) {
-				this.solveTemplateOperator(operand, metadata)
-			}
-			for (const child of operand.children) {
-				this.solveTemplate(child)
-			}
-		} else {
-			throw new Error(`${operand.name} not supported`)
-		}
-	}
-
-	private hadTemplate (metadata: OperatorMetadata): boolean {
-		return metadata.return === 'T' || metadata.return === 'T[]' || metadata.params.find(p => p.type === 'T' || p.type === 'T[]') !== undefined
-	}
-
-	private undefinedTypes (operator: Operand): boolean {
-		return operator.type === undefined || operator.children.find(p => p.type === undefined) !== undefined
-	}
-
 	private solveTemplateArray (array: Operand): void {
 		const beforeType = array.children[0].type
 		this.solveTemplate(array.children[0])
@@ -247,17 +216,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 			}
 			obj.type = { properties: properties }
 		}
-	}
-
-	/**
-	 * get metadata of operand
-	 * @param operator
-	 * @returns
-	 */
-	private metadata (operator: Operand): OperatorMetadata {
-		return operator instanceof Operator
-			? this.expressionConfig.getOperator(operator.name, operator.children.length)
-			: this.expressionConfig.getFunction(operator.name)
 	}
 
 	private solveTemplateOperator (operator: Operand, metadata:OperatorMetadata): void {
@@ -319,5 +277,47 @@ export class OperandTypeManager implements IOperandTypeManager {
 				}
 			}
 		}
+	}
+
+	private getElementType (array: List): Type | undefined {
+		return array.type ? (array.type as ArrayType).items : undefined
+	}
+
+	private setVariableType (name: string, type: Type, operand: Operand) {
+		if (operand instanceof Variable && operand.name === name) {
+			operand.type = type
+		}
+		for (const child of operand.children) {
+			// es por si se da el caso  xxx.filter( p=> p.filter( p => p + 1 ) )
+			if (!(child instanceof ArrowFunction && child.children[1].name === name)) {
+				this.setVariableType(name, type, child)
+			}
+		}
+	}
+
+	private isIndeterminateType (type?:string): boolean {
+		if (type === undefined) {
+			return true
+		}
+		return ['T', 'T[]', 'any', 'any[]'].includes(type)
+	}
+
+	private hadTemplate (metadata: OperatorMetadata): boolean {
+		return metadata.return === 'T' || metadata.return === 'T[]' || metadata.params.find(p => p.type === 'T' || p.type === 'T[]') !== undefined
+	}
+
+	private undefinedTypes (operator: Operand): boolean {
+		return operator.type === undefined || operator.children.find(p => p.type === undefined) !== undefined
+	}
+
+	/**
+	 * get metadata of operand
+	 * @param operator
+	 * @returns
+	 */
+	private metadata (operator: Operand): OperatorMetadata {
+		return operator instanceof Operator
+			? this.expressionConfig.getOperator(operator.name, operator.children.length)
+			: this.expressionConfig.getFunction(operator.name)
 	}
 }
