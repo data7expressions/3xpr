@@ -55,14 +55,14 @@ describe('Block', () => {
 		expect(12).toBe(data['output']) 
 		
 		data = {}
-		let expression = await Helper.fs.readFile(testPath+'/for-01.js') as string
+		let expression = await Helper.fs.read(testPath+'/for-01.js') as string
 		expressions.eval(expression, data)
 		expect(45).toBe(data.total) 
 	})
 
 	test('forIn', async ()  =>  {	
 		let data:any = {}
-		const expression = await Helper.fs.readFile(testPath + '/forIn-01.js') as string
+		const expression = await Helper.fs.read(testPath + '/forIn-01.js') as string
 		expressions.eval(expression, data)
 		expect(2).toBe(data.y) 
 	})

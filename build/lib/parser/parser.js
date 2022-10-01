@@ -133,7 +133,7 @@ class Parser {
             else if (!this.end && this.current === '(') {
                 this.index += 1;
                 if (value.includes('.')) {
-                    const names = manager_1.Helper.obj.getNames(value);
+                    const names = manager_1.Helper.obj.names(value);
                     const functionName = names.pop();
                     const variableName = names.join('.');
                     const variable = new node_1.Node(variableName, 'var');
@@ -268,7 +268,7 @@ class Parser {
                 this.index += 1;
                 if (name.includes('.')) {
                     // .xxx.xxx(p=> p.xxx)
-                    const names = manager_1.Helper.obj.getNames(name);
+                    const names = manager_1.Helper.obj.names(name);
                     const propertyName = names.slice(0, -1).join('.');
                     const functionName = names.slice(-1)[0];
                     const property = new node_1.Node(propertyName, 'property', [operand]);

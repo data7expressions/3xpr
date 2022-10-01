@@ -64,7 +64,7 @@ class Property extends model_1.Operand {
         const value = this.children[0].eval(context);
         if (value === undefined || value === null)
             return null;
-        const names = manager_1.Helper.obj.getNames(this.name);
+        const names = manager_1.Helper.obj.names(this.name);
         return manager_1.Helper.obj.getValue(names, value);
     }
 }

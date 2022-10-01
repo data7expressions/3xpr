@@ -66,7 +66,7 @@ export class Property extends Operand {
 	public eval (context: Context): any {
 		const value = this.children[0].eval(context)
 		if (value === undefined || value === null) return null
-		const names = Helper.obj.getNames(this.name)
+		const names = Helper.obj.names(this.name)
 		return Helper.obj.getValue(names, value)
 	}
 }

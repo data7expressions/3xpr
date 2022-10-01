@@ -28,7 +28,7 @@ export class Data {
 	}
 
 	get (name:string):any {
-		const names = Helper.obj.getNames(name)
+		const names = Helper.obj.names(name)
 		const value = this.getData(names[0])
 		return Helper.obj.getValue(names, value)
 	}

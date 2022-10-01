@@ -50,7 +50,7 @@ export function show (list:string[], context:any, func:(expression:string, conte
 
 export const test = async (expression:string, file:string) => {
 	try {
-		const content = await Helper.fs.readFile(file)
+		const content = await Helper.fs.read(file)
 		if (!content) {
 			throw Error(`can not read file ${file}`)
 		}
