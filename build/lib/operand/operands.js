@@ -5,7 +5,7 @@ const model_1 = require("../model");
 const manager_1 = require("../manager");
 class Constant extends model_1.Operand {
     constructor(name) {
-        super(name, [], manager_1.Helper.getType(name));
+        super(name, [], manager_1.Helper.type.getType(name));
     }
     eval() {
         switch (this.type) {

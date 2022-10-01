@@ -4,7 +4,7 @@ import { ExpressionConfig } from '../parser'
 import { Helper } from '../manager'
 export class Constant extends Operand {
 	constructor (name: string) {
-		super(name, [], Helper.getType(name))
+		super(name, [], Helper.type.getType(name))
 	}
 
 	public eval (): any {

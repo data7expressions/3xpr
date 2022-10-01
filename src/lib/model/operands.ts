@@ -5,7 +5,7 @@ import { Library } from './../operand'
 
 export interface Parameter {
 	name: string
-	type: Type
+	type: string
 	default?: any
 	value?:any
 }
@@ -56,7 +56,7 @@ export interface OperandMetadata {
 	classType: string,
 	name: string,
 	children?: OperandMetadata[],
-	type?: Type,
+	type: string,
 	property?: string
 	parameters?: Parameter[],
 	clause?: string,

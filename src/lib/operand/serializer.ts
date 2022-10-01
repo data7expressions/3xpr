@@ -1,4 +1,5 @@
 import { ExpressionConfig } from '../parser/index'
+import { Helper } from '../manager'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
@@ -27,11 +28,11 @@ export class OperandSerializer implements ISerializer<Operand> {
 			children.push(this._serialize(operand.children[k]))
 		}
 		if (operand instanceof KeyValue) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, property: operand.property }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type), property: operand.property }
 		} else if (operand instanceof Variable) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type, number: operand.number }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type), number: operand.number }
 		} else {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: operand.type }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type) }
 		}
 	}
 
@@ -60,50 +61,50 @@ export class OperandSerializer implements ISerializer<Operand> {
 		case 'Obj':
 			return new Obj(value.name, children)
 		case 'KeyValue':
-			return new KeyValue(value.name, children, value.property as string, value.type)
+			return new KeyValue(value.name, children, value.property as string, Helper.type.deserialize(value.type))
 		case 'Property':
-			return new Property(value.name, children, value.type)
+			return new Property(value.name, children, Helper.type.deserialize(value.type))
 		case 'Block':
-			return new Block(value.name, children, value.type)
+			return new Block(value.name, children, Helper.type.deserialize(value.type))
 		case 'If':
-			return new If(value.name, children, value.type)
+			return new If(value.name, children, Helper.type.deserialize(value.type))
 		case 'ElseIf':
-			return new ElseIf(value.name, children, value.type)
+			return new ElseIf(value.name, children, Helper.type.deserialize(value.type))
 		case 'Else':
-			return new Else(value.name, children, value.type)
+			return new Else(value.name, children, Helper.type.deserialize(value.type))
 		case 'While':
-			return new While(value.name, children, value.type)
+			return new While(value.name, children, Helper.type.deserialize(value.type))
 		case 'For':
-			return new For(value.name, children, value.type)
+			return new For(value.name, children, Helper.type.deserialize(value.type))
 		case 'ForIn':
-			return new ForIn(value.name, children, value.type)
+			return new ForIn(value.name, children, Helper.type.deserialize(value.type))
 		case 'Switch':
-			return new Switch(value.name, children, value.type)
+			return new Switch(value.name, children, Helper.type.deserialize(value.type))
 		case 'Break':
-			return new Break(value.name, children, value.type)
+			return new Break(value.name, children, Helper.type.deserialize(value.type))
 		case 'Continue':
-			return new Continue(value.name, children, value.type)
+			return new Continue(value.name, children, Helper.type.deserialize(value.type))
 		case 'Function':
-			return new Function(value.name, children, value.type)
+			return new Function(value.name, children, Helper.type.deserialize(value.type))
 		case 'Return':
-			return new Return(value.name, children, value.type)
+			return new Return(value.name, children, Helper.type.deserialize(value.type))
 		case 'Try':
-			return new Try(value.name, children, value.type)
+			return new Try(value.name, children, Helper.type.deserialize(value.type))
 		case 'Catch':
-			return new Catch(value.name, children, value.type)
+			return new Catch(value.name, children, Helper.type.deserialize(value.type))
 		case 'Throw':
-			return new Throw(value.name, children, value.type)
+			return new Throw(value.name, children, Helper.type.deserialize(value.type))
 		case 'Case':
-			return new Case(value.name, children, value.type)
+			return new Case(value.name, children, Helper.type.deserialize(value.type))
 		case 'Default':
-			return new Default(value.name, children, value.type)
+			return new Default(value.name, children, Helper.type.deserialize(value.type))
 		case 'Template':
 			return new Template(value.name)
 		case 'Constant':
 			return new Constant(value.name)
 		case 'Variable':
 			// eslint-disable-next-line no-case-declarations
-			const variable = new Variable(value.name, value.type)
+			const variable = new Variable(value.name, Helper.type.deserialize(value.type))
 			variable.number = value.number
 			return variable
 		default:

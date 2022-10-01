@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OperandManager = void 0;
 const model_1 = require("../model");
 const operands_1 = require("./operands");
+const manager_1 = require("lib/manager");
 class OperandManager {
     constructor(expressionConfig, typeManager) {
         this.expressionConfig = expressionConfig;
@@ -18,7 +19,7 @@ class OperandManager {
     parameters(operand) {
         const parameters = [];
         if (operand instanceof operands_1.Variable) {
-            parameters.push({ name: operand.name, type: operand.type || 'any' });
+            parameters.push({ name: operand.name, type: manager_1.Helper.type.serialize(operand.type) });
         }
         for (const child of operand.children) {
             const childParameters = this.parameters(child);

@@ -1,7 +1,8 @@
 
 import { ExpressionConfig } from '../parser/index'
-import { Constant, Variable, Operator, FunctionRef, ArrowFunction, List, Obj } from './operands'
-import { Type, ObjectType, ArrayType, Operand, IOperandTypeManager, PropertyType } from './../model'
+import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj } from './operands'
+import { Type, ArrayType, Operand, IOperandTypeManager } from './../model'
+import { Helper } from 'lib/manager'
 
 export class OperandTypeManager implements IOperandTypeManager {
 	private expressionConfig: ExpressionConfig
@@ -23,57 +24,52 @@ export class OperandTypeManager implements IOperandTypeManager {
 
 	public solve (operand: Operand): Type {
 		this.solveType(operand)
+		this.solveTemplates(operand)
 		return operand.type || 'any'
 	}
 
-	private solveType (operand: Operand): Type | undefined {
-		if (operand instanceof Constant || operand instanceof Variable) {
-			return operand.type
+	private solveType (operand: Operand):void {
+		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
+			return
 		}
 		if (operand instanceof List) {
-			return this.solveArray(operand)
+			this.solveArray(operand)
 		} else if (operand instanceof Obj) {
-			return this.solveObject(operand)
+			this.solveObject(operand)
 		} else if (operand instanceof ArrowFunction) {
-			return this.solveArrow(operand)
+			this.solveArrow(operand)
+		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
+			this.solveOperator(operand)
+		} else {
+			throw new Error(`${operand.name} not supported`)
 		}
-		// TODO: faltan resolver casos
-
-		return undefined
 	}
 
-	/**
-	 *
-	 * @example { a:integer, b:string  }
-	 * @param obj
-	 */
-	private solveObject (obj: Operand): ObjectType {
-		const properties:PropertyType[] = []
+	private solveObject (obj: Operand): void {
 		for (const child of obj.children) {
-			properties.push({ name: child.name, type: this.solveType(child) })
+			this.solveType(child)
 		}
-		return { properties: properties }
 	}
 
-	private solveArray (array: Operand): Type | undefined {
+	private solveArray (array: Operand): void {
 		// si el tipo del elemento no esta definido , intenta resolverlo
 		if (array.children[0].type === undefined) {
 			this.solveType(array.children[0])
 		}
-		// si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
-		if (array.children[0].type !== undefined) {
-			array.type = { ElementType: array.children[0].type }
-		} else {
-			array.type = { ElementType: undefined }
-		}
-		return array.type
+		// // si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
+		// if (array.children[0].type !== undefined) {
+		// array.type = { ElementType: array.children[0].type }
+		// } else {
+		// array.type = { ElementType: undefined }
+		// }
+		// return array.type
 	}
 
-	private getElementType (array: List) : Type | undefined {
-		return array.type ? (array.type as ArrayType).ElementType : undefined
+	private getElementType (array: List): Type | undefined {
+		return array.type ? (array.type as ArrayType).items : undefined
 	}
 
-	private solveArrow (arrow:Operand) : Type | undefined {
+	private solveArrow (arrow: Operand): void {
 		const array = arrow.children[0]
 		const variable = arrow.children[1]
 		const predicate = arrow.children[2]
@@ -89,10 +85,10 @@ export class OperandTypeManager implements IOperandTypeManager {
 				arrow.type = array.type
 			}
 		}
-		return arrow.type
+		this.solveType(predicate)
 	}
 
-	private setVariableType (name:string, type:Type, operand: Operand) {
+	private setVariableType (name: string, type: Type, operand: Operand) {
 		if (operand instanceof Variable && operand.name === name) {
 			operand.type = type
 		}
@@ -101,6 +97,111 @@ export class OperandTypeManager implements IOperandTypeManager {
 			if (!(child instanceof ArrowFunction && child.children[1].name === name)) {
 				this.setVariableType(name, type, child)
 			}
+		}
+	}
+
+	private solveOperator (operator: Operand): void {
+		// get metadata of operand
+		const metadata = operator instanceof Operator
+			? this.expressionConfig.getOperator(operator.name, operator.children.length)
+			: this.expressionConfig.getFunction(operator.name)
+
+		// intenta resolver el return type por metadata
+		if (metadata.return !== 'void') {
+			const returnType = this.trySolveFromMetadata(metadata.return)
+			if (returnType) {
+				operator.type = returnType
+			}
+		}
+		// tries to resolve the types of the operands
+		for (let i = 0; i < metadata.params.length; i++) {
+			const paramInfo = metadata.params[i]
+			const operand = operator.children[i]
+			if (operand === undefined) {
+				break
+			}
+			// intenta resolver el tipo del operand por metadata
+			const paramType = this.trySolveFromMetadata(paramInfo.type)
+			if (paramType) {
+				operand.type = paramType
+			}
+		}
+		for (const child of operator.children) {
+			this.solveType(child)
+		}
+	}
+
+	private trySolveFromMetadata (type:string) : Type | undefined {
+		// si de acuerdo a la metadata el tipo es primitivo, asigna el tipo
+		if (Helper.type.isPrimitive(type)) {
+			return type as Type
+		}
+		// si de acuerdo a la metadata el tipo es un array de primitivo, asigna el tipo, example: string[]
+		if (type.endsWith('[]')) {
+			const elementType = type.substring(0, type.length - 2)
+			if (Helper.type.isPrimitive(elementType)) {
+				return { items: elementType as Type }
+			}
+		}
+		return undefined
+	}
+
+	private solveTemplates (operand: Operand):void {
+		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
+			return
+		}
+		if (operand instanceof List) {
+			this.solveArray(operand)
+		} else if (operand instanceof Obj) {
+			this.solveObject(operand)
+		} else if (operand instanceof ArrowFunction) {
+			this.solveArrow(operand)
+		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
+			this.solveTemplateOperator(operand)
+		} else {
+			throw new Error(`${operand.name} not supported`)
+		}
+	}
+
+	private solveTemplateOperator (operator: Operand): void {
+		// get metadata of operand
+		const metadata = operator instanceof Operator
+			? this.expressionConfig.getOperator(operator.name, operator.children.length)
+			: this.expressionConfig.getFunction(operator.name)
+
+		let templateType:Type|undefined
+		// intenta resolver T por return
+		if (operator.type) {
+			if (metadata.return === 'T') {
+				templateType = operator.type
+			} else if (metadata.return === 'T[]' && Helper.type.isArrayType(operator.type)) {
+				templateType = (operator.type as ArrayType).items
+			}
+		}
+		// intenta resolver T por alguno de los parámetros
+		if (templateType === undefined) {
+			for (let i = 0; i < metadata.params.length; i++) {
+				const paramMetadata = metadata.params[i]
+				const child = operator.children[i]
+				if (child === undefined) {
+					break
+				}
+				if (child.type) {
+					if (paramMetadata.type === 'T') {
+						templateType = child.type
+					} else if (paramMetadata.type === 'T[]' && Helper.type.isArrayType(child.type)) {
+						templateType = (child.type as ArrayType).items
+						break
+					}
+				}
+			}
+		}
+		// si pudo resolver el T, resuelve donde se utiliza
+		// if (templateType !== undefined) {
+		// TODO:
+		// }
+		for (const child of operator.children) {
+			this.solveType(child)
 		}
 	}
 
@@ -173,7 +274,6 @@ export class OperandTypeManager implements IOperandTypeManager {
 	// for (let i = 0; i < operand.children.length; i++) {
 	// this.solveTypes(operand.children[i])
 	// }
-
 	// return operand.type
 	// }
 }

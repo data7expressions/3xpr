@@ -271,7 +271,7 @@ operators:
       return: T
       params:
       - name: array
-        type: [T]
+        type: T[]
       - name: index
         type: number   
     '=':
@@ -451,7 +451,7 @@ functions:
     return: boolean
     params:    
     - name: array
-      type: [T]
+      type: T[]
     - name: value
       type: T  
   in:
@@ -460,7 +460,7 @@ functions:
     return: boolean
     params:
     - name: array
-      type: [T]
+      type: T[]
     - name: value
       type: T    
   isNull:
@@ -1305,7 +1305,7 @@ functions:
     return: void 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: function
   each:
@@ -1315,27 +1315,27 @@ functions:
     return: void 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: predicate   
   filter:
     description: Creates a new array filled with elements that pass a test provided by a function
     type: arrow
     category: arrow 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   where:
     description: Creates a new array filled with elements that pass a test provided by a function
     type: arrow
     category: arrow 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: function
   map:
@@ -1345,7 +1345,7 @@ functions:
     return: any 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: predicate 
   select:
@@ -1355,37 +1355,37 @@ functions:
     return: any
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: predicate     
   sort:
     description: Sorts the elements of an array.
     type: arrow
     category: arrow 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: function
   order:
     description: Sorts the elements of an array.
     type: arrow
     category: arrow 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate     
   reverse:
     description:  Reverses the order of the elements in an array.
     type: arrow 
     category: arrow 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   remove:
@@ -1395,7 +1395,7 @@ functions:
     return: integer 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: function
   delete:
@@ -1405,7 +1405,7 @@ functions:
     return: integer 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: predicate   
   push:
@@ -1415,7 +1415,7 @@ functions:
     return: number 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: value 
       type: T
   insert:
@@ -1425,7 +1425,7 @@ functions:
     return: number 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: value 
       type: T      
   pop:
@@ -1435,7 +1435,7 @@ functions:
     return: T 
     params:
     - name: array 
-      type: [T]
+      type: T[]
   length:
     description: Calculating the number of items in a array.
     type: child
@@ -1443,7 +1443,7 @@ functions:
     return: number 
     params:
     - name: array 
-      type: [T]  
+      type: T[]  
   len:
     description: Calculating the number of items in a array.
     type: child
@@ -1451,15 +1451,15 @@ functions:
     return: number 
     params:
     - name: array 
-      type: [T]
+      type: T[]
   slice:
     description: Returns a copy of a portion of the array into a new array from start to end.
     type: child
     category: array 
-    return: [any] 
+    return: any[] 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: from 
       type: number
     - name: to 
@@ -1468,10 +1468,10 @@ functions:
     description: Returns a portion of the records.
     type: child
     category: array 
-    return: [T]  
+    return: T[]  
     params:
     - name: array 
-      type: [T]   
+      type: T[]   
     - name: page 
       type: integer
     - name: records 
@@ -1481,10 +1481,10 @@ functions:
     description: Is used to retrieve unique values from a array
     type: arrow
     category: group 
-    return: [T] 
+    return: T[] 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate   
   count:
@@ -1494,7 +1494,7 @@ functions:
     return: integer 
     params:
     - name: array 
-      type: [any]
+      type: any[]
     - name: method 
       type: predicate
   max:
@@ -1504,7 +1504,7 @@ functions:
     return: T
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   min:
@@ -1514,7 +1514,7 @@ functions:
     return: T
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   sum:
@@ -1524,7 +1524,7 @@ functions:
     return: number
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   avg:
@@ -1534,7 +1534,7 @@ functions:
     return: number
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   first:
@@ -1544,7 +1544,7 @@ functions:
     return: T 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate
   last:
@@ -1554,7 +1554,7 @@ functions:
     return: T 
     params:
     - name: array 
-      type: [T]
+      type: T[]
     - name: method 
       type: predicate              
 # conversion: --------------------------------------------------------- 
@@ -1592,24 +1592,24 @@ functions:
   values:
     description: Extract the values of an object into an array
     category: conversion
-    return: [any]
+    return: any[]
     params:
       - name: obj
         type: any
   entries:
     description: Extract the keys and values of an object into an array
     category: conversion
-    return: [string,any]
+    return: tuple(string,any)[] 
     params:
       - name: obj
         type: object
   fromEntries:
-    description: Convert a generated tuple with entries into an object
+    description: Convert a generated array with entries into an object
     category: conversion
     return: object
     params:
-      - name: tuple
-        type: [string,any]                               
+      - name: array
+        type: tuple(string,any)[]                               
   stringify:
     description: Convert a JavaScript object or value to a JSON text string.
     category: conversion
@@ -1634,45 +1634,45 @@ functions:
     type: child
     category: sets 
     deterministic: true 
-    return: [T] 
+    return: T[] 
     params:
     - name: a
-      type: [T]
+      type: T[]
     - name: b
-      type: [T]
+      type: T[]
   intersection:
     description: Is the set A \ B that contains all the elements of A that do not belong to B.
     type: child
     category: sets 
     deterministic: true 
-    return: [T] 
+    return: T[] 
     params:
     - name: a
-      type: [T]
+      type: T[]
     - name: b
-      type: [T] 
+      type: T[] 
   difference:
     description: Is the set containing all the elements of A that do not belong to B
     type: child
     category: sets 
     deterministic: true 
-    return: [T] 
+    return: T[] 
     params:
     - name: a
-      type: [T]
+      type: T[]
     - name: b
-      type: [T]
+      type: T[]
   symmetricDifference:
     description: Is the set containing the elements of A and B that are not common
     type: child
     category: sets 
     deterministic: true 
-    return: [T] 
+    return: T[] 
     params:
     - name: a
-      type: [T]
+      type: T[]
     - name: b
-      type: [T]
+      type: T[]
 formats:
   email: ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$
   integer: ^\d+$

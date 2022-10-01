@@ -8,6 +8,7 @@ import {
 	// , IOperandData
 } from './operands'
 import { Operand, IOperandTypeManager, IOperandManager } from './../model'
+import { Helper } from 'lib/manager'
 
 export class OperandManager implements IOperandManager {
 	private expressionConfig: ExpressionConfig
@@ -28,7 +29,7 @@ export class OperandManager implements IOperandManager {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand instanceof Variable) {
-			parameters.push({ name: operand.name, type: operand.type || 'any' })
+			parameters.push({ name: operand.name, type: Helper.type.serialize(operand.type) })
 		}
 		for (const child of operand.children) {
 			const childParameters = this.parameters(child)
