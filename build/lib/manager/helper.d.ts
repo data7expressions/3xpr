@@ -7,6 +7,7 @@ declare class TypeHelper {
     isPrimitive(type: Type | string): boolean;
     isArrayType(type: Type | string): boolean;
     isObjectType(type: Type | string): boolean;
+    toString(type?: Type): string;
     serialize(type?: Type): string | undefined;
     deserialize(type?: string): Type | undefined;
 }

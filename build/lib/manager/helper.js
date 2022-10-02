@@ -57,6 +57,27 @@ class TypeHelper {
         }
         return type.properties !== undefined;
     }
+    toString(type) {
+        if (type === undefined) {
+            return 'any';
+        }
+        if (this.isPrimitive(type)) {
+            return type.toString();
+        }
+        if (this.isObjectType(type)) {
+            const properties = [];
+            const objectType = type;
+            for (const propertyType of objectType.properties) {
+                properties.push(`${propertyType.name}:${this.toString(propertyType.type)}`);
+            }
+            return `{${properties.join(',')}}`;
+        }
+        if (this.isArrayType(type)) {
+            const arrayType = type;
+            return `[${this.toString(arrayType.items)}]`;
+        }
+        return 'any';
+    }
     serialize(type) {
         if (type === undefined || type === null) {
             return undefined;

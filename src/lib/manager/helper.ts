@@ -57,6 +57,28 @@ class TypeHelper {
 		return (type as ObjectType).properties !== undefined
 	}
 
+	public toString (type?: Type): string {
+		if (type === undefined) {
+			return 'any'
+		}
+		if (this.isPrimitive(type)) {
+			return type.toString()
+		}
+		if (this.isObjectType(type)) {
+			const properties:string[] = []
+			const objectType = type as ObjectType
+			for (const propertyType of objectType.properties) {
+				properties.push(`${propertyType.name}:${this.toString(propertyType.type)}`)
+			}
+			return `{${properties.join(',')}}`
+		}
+		if (this.isArrayType(type)) {
+			const arrayType = type as ArrayType
+			return `[${this.toString(arrayType.items)}]`
+		}
+		return 'any'
+	}
+
 	public serialize (type?: Type):string| undefined {
 		if (type === undefined || type === null) {
 			return undefined

@@ -1392,27 +1392,27 @@ functions:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
     category: arrow 
-    return: integer 
+    return: T[]
     params:
     - name: array 
-      type: any[]
+      type: T[]
     - name: predicate 
       type: boolean
   delete:
     description: Eliminate the elements of the array that meet the filter condition
     type: arrow
     category: arrow 
-    return: integer 
+    return: T[] 
     params:
     - name: array 
-      type: any[]
+      type: T[]
     - name: predicate 
       type: boolean   
   push:
     description: Adds new items to the end of an array
     type: child
     category: array 
-    return: number 
+    return: T[] 
     params:
     - name: array 
       type: T[]
@@ -1422,7 +1422,7 @@ functions:
     description: Adds new items to the end of an array
     type: child
     category: array 
-    return: number 
+    return: T[] 
     params:
     - name: array 
       type: T[]

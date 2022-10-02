@@ -43,6 +43,12 @@ export declare class Expressions {
      */
     parameters(expression: string): Parameter[];
     /**
+     * Get type of expression
+     * @param expression  expression
+     * @returns Type of expression
+     */
+    getType(expression: string): string;
+    /**
      * Evaluate and solve expression
      * @param expression  string expression
      * @param data Data with variables

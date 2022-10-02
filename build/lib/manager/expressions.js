@@ -129,6 +129,15 @@ class Expressions {
         return this.typeManager.parameters(operand);
     }
     /**
+     * Get type of expression
+     * @param expression  expression
+     * @returns Type of expression
+     */
+    getType(expression) {
+        const operand = this.typed(expression);
+        return _1.Helper.type.toString(operand.type);
+    }
+    /**
      * Evaluate and solve expression
      * @param expression  string expression
      * @param data Data with variables

@@ -2165,11 +2165,11 @@
             "description": "Eliminate the elements of the array that meet the filter condition",
             "type": "arrow",
             "category": "arrow",
-            "return": "integer",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": "any[]"
+                    "type": "T[]"
                 },
                 {
                     "name": "predicate",
@@ -2181,11 +2181,11 @@
             "description": "Eliminate the elements of the array that meet the filter condition",
             "type": "arrow",
             "category": "arrow",
-            "return": "integer",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
-                    "type": "any[]"
+                    "type": "T[]"
                 },
                 {
                     "name": "predicate",
@@ -2197,7 +2197,7 @@
             "description": "Adds new items to the end of an array",
             "type": "child",
             "category": "array",
-            "return": "number",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",
@@ -2213,7 +2213,7 @@
             "description": "Adds new items to the end of an array",
             "type": "child",
             "category": "array",
-            "return": "number",
+            "return": "T[]",
             "params": [
                 {
                     "name": "array",

@@ -1,6 +1,6 @@
 import { expressions as exp, Helper } from '../../lib'
 
-export function show (list:string[], context:any, func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
+export function show (list:string[], context:any, method = 'eval', func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
 	const tests = []
 	const examples = []
 	for (const expression of list) {
@@ -33,10 +33,10 @@ export function show (list:string[], context:any, func:(expression:string, conte
 				expect = result
 			}
 			if (expression.includes('\n')) {
-				tests.push(`expect(${expect}).${testCompare}(expressions.eval(\`${expression}\`,context))`)
+				tests.push(`expect(${expect}).${testCompare}(expressions.${method}(\`${expression}\`${method === 'eval' ? ', context' : ''}))`)
 				examples.push(`|\`${expression}\`|${expect}|`)
 			} else {
-				tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
+				tests.push(`expect(${expect}).${testCompare}(expressions.${method}('${expression}'${method === 'eval' ? ', context' : ''}))`)
 				examples.push(`|${expression}|${expect}|`)
 			}
 		} catch (error:any) {

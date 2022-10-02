@@ -1,7 +1,7 @@
 
 import { ExpressionConfig } from '../parser/index'
-import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj } from './operands'
-import { Type, PropertyType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
+import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj, Property } from './operands'
+import { Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '../manager'
 
 export class OperandTypeManager implements IOperandTypeManager {
@@ -25,7 +25,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand instanceof Variable) {
-			parameters.push({ name: operand.name, type: Helper.type.serialize(operand.type) })
+			parameters.push({ name: operand.name, type: Helper.type.toString(operand.type) })
 		}
 		for (const child of operand.children) {
 			const childParameters = this.parameters(child)
@@ -56,6 +56,8 @@ export class OperandTypeManager implements IOperandTypeManager {
 			this.solveArrow(operand)
 		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
 			this.solveOperator(operand)
+		} else if (operand instanceof Property) {
+			this.solveProperty(operand)
 		} else {
 			throw new Error(`${operand.name} not supported`)
 		}
@@ -77,6 +79,8 @@ export class OperandTypeManager implements IOperandTypeManager {
 			for (const child of operand.children) {
 				this.solveTemplate(child)
 			}
+		} else if (operand instanceof Property) {
+			this.solveTemplateProperty(operand)
 		} else {
 			throw new Error(`${operand.name} not supported`)
 		}
@@ -94,10 +98,26 @@ export class OperandTypeManager implements IOperandTypeManager {
 	private solveObject (obj: Operand): void {
 		const properties: PropertyType[] = []
 		for (const child of obj.children) {
-			this.solveType(child)
-			properties.push({ name: child.name, type: child.type })
+			this.solveType(child.children[0])
+			properties.push({ name: child.name, type: child.children[0].type })
 		}
 		obj.type = { properties: properties }
+	}
+
+	private solveProperty (property: Operand): void {
+		this.solveType(property.children[0])
+		if (property.children[0].type === undefined) {
+			property.children[0].type = { items: { properties: [{ name: property.name }] } }
+		} else if (Helper.type.isArrayType(property.children[0].type)) {
+			const arrayType = property.children[0].type as ArrayType
+			if (Helper.type.isObjectType(arrayType.items)) {
+				const objectType = arrayType.items as ObjectType
+				const propertyType = objectType.properties.find(p => p.name === property.name)
+				if (propertyType) {
+					property.type = propertyType.type
+				}
+			}
+		}
 	}
 
 	private solveArray (array: Operand): void {
@@ -200,19 +220,35 @@ export class OperandTypeManager implements IOperandTypeManager {
 		}
 	}
 
+	private solveTemplateProperty (property: Operand): void {
+		const beforeType = property.children[0].type
+		this.solveTemplate(property.children[0])
+		if (property.children[0].type !== undefined && property.children[0].type !== beforeType && Helper.type.isArrayType(property.children[0].type)) {
+			const arrayType = property.children[0].type as ArrayType
+			if (Helper.type.isObjectType(arrayType.items)) {
+				const objectType = arrayType.items as ObjectType
+				const propertyType = objectType.properties.find(p => p.name === property.name)
+				if (propertyType) {
+					property.type = propertyType.type
+				}
+			}
+		}
+	}
+
 	private solveTemplateObject (obj: Operand): void {
 		let changed = false
 		for (const child of obj.children) {
-			const beforeType = child.type
-			this.solveTemplate(child)
-			if (child.type !== beforeType) {
+			const value = child.children[0]
+			const beforeType = value.type
+			this.solveTemplate(value)
+			if (value.type !== beforeType) {
 				changed = true
 			}
 		}
 		if (changed) {
 			const properties: PropertyType[] = []
 			for (const child of obj.children) {
-				properties.push({ name: child.name, type: child.type })
+				properties.push({ name: child.name, type: child.children[0].type })
 			}
 			obj.type = { properties: properties }
 		}

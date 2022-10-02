@@ -21,5 +21,5 @@ import { show } from './util'
 		'cities.push(salta).name',
 		'a = cities.push(salta).name'
 	]
-	show(list, {}, 'parameters', (expression:string) => exp.parameters(expression))
+	show(list, {}, 'getType', (expression:string) => exp.getType(expression))
 })()

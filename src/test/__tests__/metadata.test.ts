@@ -1,0 +1,42 @@
+import { expressions } from '../../lib'
+
+describe('Metadata', () => {
+	test('Parameters', () => {
+		expect([{"name":"a","type":"integer"}]).toStrictEqual(expressions.parameters('1 + a'))
+		expect([{"name":"b","type":"any"},{"name":"a","type":"any"}]).toStrictEqual(expressions.parameters('b + a'))
+		expect([{"name":"a","type":"integer"}]).toStrictEqual(expressions.parameters('nvl(a ,1)'))
+		expect([{"name":"a","type":"string"}]).toStrictEqual(expressions.parameters('nvl(a ,"text")'))
+		expect([{"name":"a","type":"number"},{"name":"b","type":"number"}]).toStrictEqual(expressions.parameters('nvl(a , b * 5 )'))
+		expect([{"name":"a","type":"string"}]).toStrictEqual(expressions.parameters('a.strCount("o")'))
+		expect([{"name":"p","type":"integer"},{"name":"a","type":"integer"}]).toStrictEqual(expressions.parameters('[1,2,3].map(p => nvl(a, p))'))
+		expect([{"name":"a","type":"integer"}]).toStrictEqual(expressions.parameters('a = max([1,2,3])'))
+		expect([{"name":"a","type":"boolean"},{"name":"c","type":"integer"}]).toStrictEqual(expressions.parameters('a = max([1,2,3]) > c'))
+		expect([{"name":"d","type":"number"},{"name":"c.b","type":"number"}]).toStrictEqual(expressions.parameters('d=c.b*2'))
+		expect([{"name":"d","type":"string"}]).toStrictEqual(expressions.parameters('d=`value of a is: ${a}`'))
+		expect([{"name":"a","type":"string"},{"name":"b","type":"integer"}]).toStrictEqual(expressions.parameters('!(a=="1" || b>2)'))
+		expect([{"name":"a","type":"{firstName:string,lastName:string,age:integer}"}]).toStrictEqual(expressions.parameters('a = {firstName: "John", lastName: "Lennon", age: 40}'))
+		expect([{"name":"ods","type":"any"},{"name":"prime","type":"any"}]).toStrictEqual(expressions.parameters('ods.union(prime)'))
+		expect([{"name":"cities","type":"[{name:any}]"},{"name":"salta","type":"{name:any}"}]).toStrictEqual(expressions.parameters('cities.push(salta).name'))
+		expect([{"name":"a","type":"any"},{"name":"cities","type":"[{name:any}]"},{"name":"salta","type":"{name:any}"}]).toStrictEqual(expressions.parameters('a = cities.push(salta).name'))		
+	})
+	
+	test('Type', () => {		
+		expect('integer').toBe(expressions.getType('1 + a'))
+		expect('any').toBe(expressions.getType('b + a'))
+		expect('integer').toBe(expressions.getType('nvl(a ,1)'))
+		expect('string').toBe(expressions.getType('nvl(a ,"text")'))
+		expect('number').toBe(expressions.getType('nvl(a , b * 5 )'))
+		expect('number').toBe(expressions.getType('a.strCount("o")'))
+		expect('[integer]').toBe(expressions.getType('[1,2,3].map(p => nvl(a, p))'))
+		expect('integer').toBe(expressions.getType('a = max([1,2,3])'))
+		expect('boolean').toBe(expressions.getType('a = max([1,2,3]) > c'))
+		expect('number').toBe(expressions.getType('d=c.b*2'))
+		expect('string').toBe(expressions.getType('d=`value of a is: ${a}`'))
+		expect('boolean').toBe(expressions.getType('!(a=="1" || b>2)'))
+		expect('{firstName:string,lastName:string,age:integer}').toBe(expressions.getType('a = {firstName: "John", lastName: "Lennon", age: 40}'))
+		expect('any').toBe(expressions.getType('ods.union(prime)'))
+		expect('any').toBe(expressions.getType('cities.push(salta).name'))
+		expect('any').toBe(expressions.getType('a = cities.push(salta).name'))
+			
+	})
+})	

@@ -1,7 +1,7 @@
 import { Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, IParserManager, ISerializer, IOperandBuilder, Context } from '../model'
 import { ParserManager, ExpressionConfig } from '../parser'
 import { OperandBuilder, OperandTypeManager, OperandSerializer, Library } from './../operand'
-import { MemoryCache } from '.'
+import { Helper, MemoryCache } from '.'
 import { CoreLib } from '../operand/lib/coreLib'
 
 export class ExpressionsBuilder {
@@ -149,6 +149,16 @@ export class Expressions {
 	public parameters (expression: string): Parameter[] {
 		const operand = this.typed(expression)
 		return this.typeManager.parameters(operand)
+	}
+
+	/**
+	 * Get type of expression
+	 * @param expression  expression
+	 * @returns Type of expression
+	 */
+	public getType (expression: string): string {
+		const operand = this.typed(expression)
+		return Helper.type.toString(operand.type)
 	}
 
 	/**
