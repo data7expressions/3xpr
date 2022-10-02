@@ -45,6 +45,7 @@ import { show } from './util'
 		'${USER}',
 		'concat($HOME,$USER)',
 		'concat(${HOME},$USER)',
+		'"Hello"+" "+"world"',
 		'`value of home: $HOME`',
 		'length(email) > 10 && length(email) < 100',
 		'email.length() > 10 && email.length() < 100',

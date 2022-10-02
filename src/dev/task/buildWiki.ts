@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Helper } from '../../lib/manager/helper'
-import { expressions } from '../../lib'
+import { expressions, Helper } from '../../lib'
 
 async function writeFunctions (category:string, list: any): Promise<void> {
 	const lines: string[] = []
@@ -32,7 +31,7 @@ async function writeFunctions (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/build'
-	if (!await Helper.existsPath(targetFolder)) {
+	if (!await Helper.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
@@ -66,7 +65,7 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 	const content = lines.join('\n')
 	const targetFolder = 'doc/build'
-	if (!await Helper.existsPath(targetFolder)) {
+	if (!await Helper.fs.exists(targetFolder)) {
 		fs.mkdirSync(targetFolder, { recursive: true })
 	}
 	fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)
@@ -74,8 +73,8 @@ async function writeOperators (category:string, list: any): Promise<void> {
 
 export async function apply (callback: any) {
 	const funcCategories:any = {}
-	for (const p in expressions.config.functions) {
-		const item = expressions.config.functions[p]
+	for (const p in expressions.functions) {
+		const item = expressions.functions[p]
 		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
 		if (funcCategories[category] === undefined) {
 			funcCategories[category] = { list: [] }
@@ -89,8 +88,8 @@ export async function apply (callback: any) {
 	}
 
 	const operatorCategories:any = {}
-	for (const p in expressions.config.operators) {
-		const item = expressions.config.operators[p]
+	for (const p in expressions.operators) {
+		const item = expressions.operators[p]
 		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
 		if (operatorCategories[category] === undefined) {
 			operatorCategories[category] = { list: [] }

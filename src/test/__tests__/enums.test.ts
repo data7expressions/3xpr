@@ -12,7 +12,7 @@ describe('Enums', () => {
 				this.addEnum('Color', { RED: 1, GREEN: 2, BLUE: 3 })
 			}
 		}
-		expressions.config.addLibrary(new TestEnumLib())
+		expressions.addLibrary(new TestEnumLib())
 		expect(8).toBe(expressions.eval('ColorConversion.GRAY2BGR'))
     expect(2).toBe(expressions.eval('Color.GREEN')) 
 	})

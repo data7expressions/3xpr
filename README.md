@@ -26,6 +26,7 @@ and [nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable)
 - [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows) flows
 - Environment variables
 - [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
+- [Metadata](https://github.com/FlavioLionelRita/js-expressions/wiki/Metadata)
 
 ## Quick start
 
@@ -122,3 +123,4 @@ while (p=timezones.pop()) {
 - [Sets](https://github.com/FlavioLionelRita/js-expressions/wiki/Sets)
 - [Control flows](https://github.com/FlavioLionelRita/js-expressions/wiki/Flows)
 - [Extend](https://github.com/FlavioLionelRita/js-expressions/wiki/Extend)
+- [Metadata](https://github.com/FlavioLionelRita/js-expressions/wiki/Metadata)

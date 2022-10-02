@@ -3,7 +3,7 @@ export class Node {
 	public type: string
 	public children: Node[]
 	public id?:string
-	public parent?: Node
+	// public parent?: Node
 	public index?: number
 	public level?:number
 
@@ -11,7 +11,7 @@ export class Node {
 		this.name = name
 		this.type = type
 		this.children = children
-		this.parent = undefined
+		// this.parent = undefined
 		this.index = undefined
 	}
 }

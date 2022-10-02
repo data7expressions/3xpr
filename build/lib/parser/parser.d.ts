@@ -2,9 +2,6 @@ import { Node } from './node';
 import { ParserManager } from './parserManager';
 export declare class Parser {
     private mgr;
-    private reAlphanumeric;
-    private reInt;
-    private reFloat;
     private buffer;
     private length;
     private index;

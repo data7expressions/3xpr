@@ -6,7 +6,7 @@
 
 ## Hierarchy
 
-- [`Operand`](operand.Operand.md)
+- [`Operand`](model.Operand.md)
 
   ↳ **`List`**
 
@@ -27,9 +27,7 @@
 
 ### Methods
 
-- [clone](operand.List.md#clone)
 - [eval](operand.List.md#eval)
-- [set](operand.List.md#set)
 
 ## Constructors
 
@@ -42,29 +40,29 @@
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `name` | `string` | `undefined` |
-| `children` | [`Operand`](operand.Operand.md)[] | `[]` |
+| `children` | [`Operand`](model.Operand.md)[] | `[]` |
 
 #### Overrides
 
-[Operand](operand.Operand.md).[constructor](operand.Operand.md#constructor)
+[Operand](model.Operand.md).[constructor](model.Operand.md#constructor)
 
 #### Defined in
 
-[operand/operands.ts:125](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L125)
+[operand/operands.ts:86](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L86)
 
 ## Properties
 
 ### children
 
-• **children**: [`Operand`](operand.Operand.md)[]
+• **children**: [`Operand`](model.Operand.md)[]
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[children](operand.Operand.md#children)
+[Operand](model.Operand.md).[children](model.Operand.md#children)
 
 #### Defined in
 
-[operand/operands.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L13)
+[model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L26)
 
 ___
 
@@ -74,11 +72,11 @@ ___
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[id](operand.Operand.md#id)
+[Operand](model.Operand.md).[id](model.Operand.md#id)
 
 #### Defined in
 
-[operand/operands.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L9)
+[model/operands.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L23)
 
 ___
 
@@ -88,11 +86,11 @@ ___
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[index](operand.Operand.md#index)
+[Operand](model.Operand.md).[index](model.Operand.md#index)
 
 #### Defined in
 
-[operand/operands.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L11)
+[model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L24)
 
 ___
 
@@ -102,11 +100,11 @@ ___
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[level](operand.Operand.md#level)
+[Operand](model.Operand.md).[level](model.Operand.md#level)
 
 #### Defined in
 
-[operand/operands.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L12)
+[model/operands.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L25)
 
 ___
 
@@ -116,49 +114,37 @@ ___
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[name](operand.Operand.md#name)
+[Operand](model.Operand.md).[name](model.Operand.md#name)
 
 #### Defined in
 
-[operand/operands.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L7)
+[model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L21)
 
 ___
 
 ### type
 
-• **type**: `string`
+• `Optional` **type**: [`Type`](../modules/model.md#type)
 
 #### Inherited from
 
-[Operand](operand.Operand.md).[type](operand.Operand.md#type)
+[Operand](model.Operand.md).[type](model.Operand.md#type)
 
 #### Defined in
 
-[operand/operands.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L8)
+[model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L22)
 
 ## Methods
 
-### clone
-
-▸ **clone**(): `void`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[Operand](operand.Operand.md).[clone](operand.Operand.md#clone)
-
-#### Defined in
-
-[operand/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L24)
-
-___
-
 ### eval
 
-▸ **eval**(): `any`
+▸ **eval**(`context`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](model.Context.md) |
 
 #### Returns
 
@@ -166,32 +152,8 @@ ___
 
 #### Overrides
 
-[Operand](operand.Operand.md).[eval](operand.Operand.md#eval)
+[Operand](model.Operand.md).[eval](model.Operand.md#eval)
 
 #### Defined in
 
-[operand/operands.ts:129](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L129)
-
-___
-
-### set
-
-▸ **set**(`value`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `any` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[Operand](operand.Operand.md).[set](operand.Operand.md#set)
-
-#### Defined in
-
-[operand/operands.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L39)
+[operand/operands.ts:90](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L90)

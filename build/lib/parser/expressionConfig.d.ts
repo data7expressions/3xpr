@@ -1,11 +1,6 @@
-import { OperatorMetadata } from '../model';
+import { OperatorMetadata, IExpressionConfig, Format } from '../model';
 import { Library } from './../operand';
-export interface Format {
-    name: string;
-    pattern: string;
-    regExp: RegExp;
-}
-export declare class ExpressionConfig {
+export declare class ExpressionConfig implements IExpressionConfig {
     libraries: Library[];
     operators: OperatorMetadata[];
     enums: any;

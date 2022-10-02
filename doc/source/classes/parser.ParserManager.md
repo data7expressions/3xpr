@@ -4,6 +4,10 @@
 
 [parser](../modules/parser.md).ParserManager
 
+## Implements
+
+- [`IParserManager`](../interfaces/model.IParserManager.md)
+
 ## Table of contents
 
 ### Constructors
@@ -19,7 +23,6 @@
 ### Methods
 
 - [clearChildEmpty](parser.ParserManager.md#clearchildempty)
-- [deserialize](parser.ParserManager.md#deserialize)
 - [getEnum](parser.ParserManager.md#getenum)
 - [getEnumValue](parser.ParserManager.md#getenumvalue)
 - [isEnum](parser.ParserManager.md#isenum)
@@ -27,25 +30,23 @@
 - [parse](parser.ParserManager.md#parse)
 - [priority](parser.ParserManager.md#priority)
 - [refresh](parser.ParserManager.md#refresh)
-- [serialize](parser.ParserManager.md#serialize)
-- [setParent](parser.ParserManager.md#setparent)
 - [toExpression](parser.ParserManager.md#toexpression)
 
 ## Constructors
 
 ### constructor
 
-• **new ParserManager**(`expressionConfig`)
+• **new ParserManager**(`config`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expressionConfig` | [`ExpressionConfig`](parser.ExpressionConfig.md) |
+| `config` | [`ExpressionConfig`](parser.ExpressionConfig.md) |
 
 #### Defined in
 
-[parser/parserManager.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L11)
+[parser/parserManager.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L12)
 
 ## Properties
 
@@ -55,7 +56,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L8)
+[parser/parserManager.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L10)
 
 ___
 
@@ -65,7 +66,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L6)
+[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L8)
 
 ___
 
@@ -75,7 +76,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L7)
+[parser/parserManager.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L9)
 
 ## Methods
 
@@ -95,27 +96,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:151](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L151)
-
-___
-
-### deserialize
-
-▸ **deserialize**(`json`): [`Node`](parser.Node.md)
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `json` | `any` |
-
-#### Returns
-
-[`Node`](parser.Node.md)
-
-#### Defined in
-
-[parser/parserManager.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L146)
+[parser/parserManager.ts:141](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L141)
 
 ___
 
@@ -133,9 +114,13 @@ ___
 
 `any`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[getEnum](../interfaces/model.IParserManager.md#getenum)
+
 #### Defined in
 
-[parser/parserManager.ts:48](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L48)
+[parser/parserManager.ts:47](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L47)
 
 ___
 
@@ -154,9 +139,13 @@ ___
 
 `any`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[getEnumValue](../interfaces/model.IParserManager.md#getenumvalue)
+
 #### Defined in
 
-[parser/parserManager.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L44)
+[parser/parserManager.ts:43](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L43)
 
 ___
 
@@ -174,9 +163,13 @@ ___
 
 `boolean`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[isEnum](../interfaces/model.IParserManager.md#isenum)
+
 #### Defined in
 
-[parser/parserManager.ts:40](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L40)
+[parser/parserManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L39)
 
 ___
 
@@ -194,9 +187,13 @@ ___
 
 `string`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[minify](../interfaces/model.IParserManager.md#minify)
+
 #### Defined in
 
-[parser/parserManager.ts:194](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L194)
+[parser/parserManager.ts:160](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L160)
 
 ___
 
@@ -214,9 +211,13 @@ ___
 
 [`Node`](parser.Node.md)
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[parse](../interfaces/model.IParserManager.md#parse)
+
 #### Defined in
 
-[parser/parserManager.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L52)
+[parser/parserManager.ts:51](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L51)
 
 ___
 
@@ -235,9 +236,13 @@ ___
 
 `number`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[priority](../interfaces/model.IParserManager.md#priority)
+
 #### Defined in
 
-[parser/parserManager.ts:35](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L35)
+[parser/parserManager.ts:34](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L34)
 
 ___
 
@@ -249,51 +254,13 @@ ___
 
 `void`
 
-#### Defined in
+#### Implementation of
 
-[parser/parserManager.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L21)
-
-___
-
-### serialize
-
-▸ **serialize**(`value`): `any`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Node`](parser.Node.md) |
-
-#### Returns
-
-`any`
+[IParserManager](../interfaces/model.IParserManager.md).[refresh](../interfaces/model.IParserManager.md#refresh)
 
 #### Defined in
 
-[parser/parserManager.ts:142](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L142)
-
-___
-
-### setParent
-
-▸ **setParent**(`node`, `parent?`, `index?`): [`Node`](parser.Node.md)
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `node` | [`Node`](parser.Node.md) | `undefined` |
-| `parent?` | [`Node`](parser.Node.md) | `undefined` |
-| `index` | `number` | `0` |
-
-#### Returns
-
-[`Node`](parser.Node.md)
-
-#### Defined in
-
-[parser/parserManager.ts:170](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L170)
+[parser/parserManager.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L20)
 
 ___
 
@@ -311,6 +278,10 @@ ___
 
 `string`
 
+#### Implementation of
+
+[IParserManager](../interfaces/model.IParserManager.md).[toExpression](../interfaces/model.IParserManager.md#toexpression)
+
 #### Defined in
 
-[parser/parserManager.ts:66](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/parserManager.ts#L66)
+[parser/parserManager.ts:65](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L65)

@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/operands.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/operands.ts#L4)
+[model/operands.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L9)
 
 ___
 
@@ -31,17 +31,17 @@ ___
 
 #### Defined in
 
-[model/operands.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/operands.ts#L2)
+[model/operands.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L7)
 
 ___
 
 ### type
 
-• **type**: `string`
+• `Optional` **type**: `string`
 
 #### Defined in
 
-[model/operands.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/operands.ts#L3)
+[model/operands.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L8)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/operands.ts#L5)
+[model/operands.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L10)

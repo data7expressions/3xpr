@@ -10,10 +10,6 @@
 
   ↳ **`ChildFunction`**
 
-## Implements
-
-- [`IOperandData`](../interfaces/operand.IOperandData.md)
-
 ## Table of contents
 
 ### Constructors
@@ -23,33 +19,29 @@
 ### Properties
 
 - [children](operand.ChildFunction.md#children)
-- [data](operand.ChildFunction.md#data)
 - [id](operand.ChildFunction.md#id)
 - [index](operand.ChildFunction.md#index)
 - [level](operand.ChildFunction.md#level)
-- [metadata](operand.ChildFunction.md#metadata)
 - [name](operand.ChildFunction.md#name)
 - [type](operand.ChildFunction.md#type)
 
 ### Methods
 
-- [clone](operand.ChildFunction.md#clone)
 - [eval](operand.ChildFunction.md#eval)
-- [set](operand.ChildFunction.md#set)
 
 ## Constructors
 
 ### constructor
 
-• **new ChildFunction**(`name`, `children?`, `type?`)
+• **new ChildFunction**(`name`, `children?`, `metadata`)
 
 #### Parameters
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
 | `name` | `string` | `undefined` |
-| `children` | [`Operand`](operand.Operand.md)[] | `[]` |
-| `type` | `string` | `'any'` |
+| `children` | [`Operand`](model.Operand.md)[] | `[]` |
+| `metadata` | [`ExpressionConfig`](parser.ExpressionConfig.md) | `undefined` |
 
 #### Inherited from
 
@@ -57,13 +49,13 @@
 
 #### Defined in
 
-[operand/operands.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L14)
+[operand/operands.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L138)
 
 ## Properties
 
 ### children
 
-• **children**: [`Operand`](operand.Operand.md)[]
+• **children**: [`Operand`](model.Operand.md)[]
 
 #### Inherited from
 
@@ -71,21 +63,7 @@
 
 #### Defined in
 
-[operand/operands.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L13)
-
-___
-
-### data
-
-• `Optional` **data**: [`Data`](model.Data.md)
-
-#### Implementation of
-
-[IOperandData](../interfaces/operand.IOperandData.md).[data](../interfaces/operand.IOperandData.md#data)
-
-#### Defined in
-
-[operand/operands.ts:193](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L193)
+[model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L26)
 
 ___
 
@@ -99,7 +77,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L9)
+[model/operands.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L23)
 
 ___
 
@@ -113,7 +91,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L11)
+[model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L24)
 
 ___
 
@@ -127,21 +105,7 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L12)
-
-___
-
-### metadata
-
-• `Optional` **metadata**: [`ExpressionConfig`](parser.ExpressionConfig.md)
-
-#### Inherited from
-
-[FunctionRef](operand.FunctionRef.md).[metadata](operand.FunctionRef.md#metadata)
-
-#### Defined in
-
-[operand/operands.ts:172](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L172)
+[model/operands.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L25)
 
 ___
 
@@ -155,13 +119,13 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L7)
+[model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L21)
 
 ___
 
 ### type
 
-• **type**: `string`
+• `Optional` **type**: [`Type`](../modules/model.md#type)
 
 #### Inherited from
 
@@ -169,31 +133,19 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L8)
+[model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L22)
 
 ## Methods
 
-### clone
-
-▸ **clone**(): `void`
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[FunctionRef](operand.FunctionRef.md).[clone](operand.FunctionRef.md#clone)
-
-#### Defined in
-
-[operand/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L24)
-
-___
-
 ### eval
 
-▸ **eval**(): `any`
+▸ **eval**(`context`): `any`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](model.Context.md) |
 
 #### Returns
 
@@ -205,28 +157,4 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:174](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L174)
-
-___
-
-### set
-
-▸ **set**(`value`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `any` |
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[FunctionRef](operand.FunctionRef.md).[set](operand.FunctionRef.md#set)
-
-#### Defined in
-
-[operand/operands.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/operands.ts#L39)
+[operand/operands.ts:143](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L143)

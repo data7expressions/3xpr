@@ -1,37 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.EnvironmentVariable = exports.Variable = exports.Constant = exports.Operand = void 0;
-const helper_1 = require("../manager/helper");
-class Operand {
-    constructor(name, children = [], type = 'any') {
-        this.name = name;
-        this.children = children;
-        this.type = type;
-        this.id = undefined;
-        // this.parent = undefined
-        this.index = 0;
-        this.level = 0;
-    }
-    clone() {
-        throw new Error('NotImplemented');
-        // // const obj = this
-        // const children = []
-        // if (this.children) {
-        // for (const k in this.children) {
-        // const p = this.children[k]
-        // const child = p && typeof p === 'object' ? JSON.parse(JSON.stringify(p)) : p
-        // children.push(child)
-        // }
-        // }
-        // return new this.constructor(this.name, children)
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    set(value) { throw new Error('NotImplemented'); }
-}
-exports.Operand = Operand;
-class Constant extends Operand {
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.EnvironmentVariable = exports.Variable = exports.Constant = void 0;
+const model_1 = require("../model");
+const manager_1 = require("../manager");
+class Constant extends model_1.Operand {
     constructor(name) {
-        super(name, [], helper_1.Helper.getType(name));
+        super(name, [], manager_1.Helper.type.getType(name));
     }
     eval() {
         switch (this.type) {
@@ -47,100 +21,106 @@ class Constant extends Operand {
     }
 }
 exports.Constant = Constant;
-class Variable extends Operand {
-    constructor(name, type = 'any') {
+// export class Variable extends Operand implements IOperandData
+class Variable extends model_1.Operand {
+    constructor(name, type) {
         super(name, [], type);
     }
-    set(value) {
-        if (this.data) {
-            this.data.set(this.name, value);
-        }
-    }
-    eval() {
-        return this.data ? this.data.get(this.name) : null;
+    eval(context) {
+        return context.data.get(this.name);
     }
 }
 exports.Variable = Variable;
-class EnvironmentVariable extends Operand {
+class EnvironmentVariable extends model_1.Operand {
+    constructor(name) {
+        super(name, [], 'string');
+    }
     eval() {
         return process.env[this.name];
     }
 }
 exports.EnvironmentVariable = EnvironmentVariable;
-class Template extends Operand {
-    constructor(name, type = 'any') {
-        super(name, [], type);
+class Template extends model_1.Operand {
+    constructor(name) {
+        super(name, [], 'string');
     }
-    eval() {
+    eval(context) {
         // info https://www.tutorialstonight.com/javascript-string-format.php
         const result = this.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
             const value = process.env[field];
             return typeof value === 'undefined' ? match : value;
         });
         return result.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
-            if (this.data) {
-                const value = this.data.get(field);
+            if (context.data) {
+                const value = context.data.get(field);
                 return typeof value === 'undefined' ? match : value;
             }
         });
     }
 }
 exports.Template = Template;
-class Property extends Operand {
-    eval() {
-        const value = this.children[0].eval();
+class Property extends model_1.Operand {
+    eval(context) {
+        const value = this.children[0].eval(context);
         if (value === undefined || value === null)
             return null;
-        const names = helper_1.Helper.getNames(this.name);
-        return helper_1.Helper.getValue(names, value);
+        const names = manager_1.Helper.obj.names(this.name);
+        return manager_1.Helper.obj.getValue(names, value);
     }
 }
 exports.Property = Property;
-class KeyValue extends Operand {
-    eval() {
-        return this.children[0].eval();
+class KeyValue extends model_1.Operand {
+    constructor(name, children = [], property, type) {
+        super(name, children, type);
+        this.property = property;
+    }
+    eval(context) {
+        return this.children[0].eval(context);
     }
 }
 exports.KeyValue = KeyValue;
-class List extends Operand {
+class List extends model_1.Operand {
     constructor(name, children = []) {
-        super(name, children, 'array');
+        super(name, children);
     }
-    eval() {
+    eval(context) {
         const values = [];
         for (let i = 0; i < this.children.length; i++) {
-            values.push(this.children[i].eval());
+            values.push(this.children[i].eval(context));
         }
         return values;
     }
 }
 exports.List = List;
-class Obj extends Operand {
+class Obj extends model_1.Operand {
     constructor(name, children = []) {
-        super(name, children, 'object');
+        super(name, children);
     }
-    eval() {
+    eval(context) {
         const obj = {};
-        for (let i = 0; i < this.children.length; i++) {
-            const value = this.children[i].eval();
-            obj[this.children[i].name] = value;
+        for (const child of this.children) {
+            obj[child.name] = child.eval(context);
         }
         return obj;
     }
 }
 exports.Obj = Obj;
-class Operator extends Operand {
-    eval() {
+class Operator extends model_1.Operand {
+    constructor(name, children = [], metadata) {
+        super(name, children);
+        this.metadata = metadata;
+    }
+    eval(context) {
         if (this.metadata) {
             const operatorMetadata = this.metadata.getOperator(this.name, this.children.length);
             if (operatorMetadata.custom) {
                 // eslint-disable-next-line new-cap
-                return new operatorMetadata.custom(this.name, this.children).eval();
+                return new operatorMetadata.custom(this.name, this.children).eval(context);
             }
             else {
                 const args = [];
-                for (let i = 0; i < this.children.length; i++) {
-                    args.push(this.children[i].eval());
+                for (const child of this.children) {
+                    args.push(child.eval(context));
                 }
                 return operatorMetadata.function(...args);
             }
@@ -151,18 +131,22 @@ class Operator extends Operand {
     }
 }
 exports.Operator = Operator;
-class FunctionRef extends Operand {
-    eval() {
+class FunctionRef extends model_1.Operand {
+    constructor(name, children = [], metadata) {
+        super(name, children);
+        this.metadata = metadata;
+    }
+    eval(context) {
         if (this.metadata) {
             const funcMetadata = this.metadata.getFunction(this.name);
             if (funcMetadata.custom) {
                 // eslint-disable-next-line new-cap
-                return new funcMetadata.custom(this.name, this.children).eval();
+                return new funcMetadata.custom(this.name, this.children).eval(context);
             }
             else if (funcMetadata.function) {
                 const args = [];
                 for (let i = 0; i < this.children.length; i++) {
-                    args.push(this.children[i].eval());
+                    args.push(this.children[i].eval(context));
                 }
                 return funcMetadata.function(...args);
             }
@@ -179,162 +163,165 @@ exports.ChildFunction = ChildFunction;
 class ArrowFunction extends FunctionRef {
 }
 exports.ArrowFunction = ArrowFunction;
-class Block extends Operand {
-    eval() {
+class Block extends model_1.Operand {
+    eval(context) {
         let lastValue = null;
         for (let i = 0; i < this.children.length; i++) {
-            lastValue = this.children[i].eval();
+            lastValue = this.children[i].eval(context);
         }
         return lastValue;
     }
 }
 exports.Block = Block;
-class If extends Operand {
-    eval() {
-        const condition = this.children[0].eval();
+class If extends model_1.Operand {
+    eval(context) {
+        const condition = this.children[0].eval(context);
         if (condition) {
             const ifBlock = this.children[1];
-            return ifBlock.eval();
+            return ifBlock.eval(context);
         }
         else if (this.children.length > 2) {
             for (let i = 2; i < this.children.length; i++) {
                 if (this.children[i] instanceof ElseIf) {
-                    const elseIfCondition = this.children[i].children[0].eval();
+                    const elseIfCondition = this.children[i].children[0].eval(context);
                     if (elseIfCondition) {
                         const elseIfBlock = this.children[i].children[1];
-                        return elseIfBlock.eval();
+                        return elseIfBlock.eval(context);
                     }
                 }
                 else {
                     const elseBlock = this.children[i];
-                    return elseBlock.eval();
+                    return elseBlock.eval(context);
                 }
             }
         }
     }
 }
 exports.If = If;
-class ElseIf extends Operand {
+class ElseIf extends model_1.Operand {
     eval() {
         throw new Error('NotUsed');
     }
 }
 exports.ElseIf = ElseIf;
-class Else extends Operand {
+class Else extends model_1.Operand {
     eval() {
         throw new Error('NotUsed');
     }
 }
 exports.Else = Else;
-class While extends Operand {
-    eval() {
+class While extends model_1.Operand {
+    eval(context) {
         let lastValue = null;
         const condition = this.children[0];
         const block = this.children[1];
-        while (condition.eval()) {
-            lastValue = block.eval();
+        while (condition.eval(context)) {
+            lastValue = block.eval(context);
         }
         return lastValue;
     }
 }
 exports.While = While;
-class For extends Operand {
-    eval() {
+class For extends model_1.Operand {
+    eval(context) {
         let lastValue = null;
         const initialize = this.children[0];
         const condition = this.children[1];
         const increment = this.children[2];
         const block = this.children[3];
-        for (initialize.eval(); condition.eval(); increment.eval()) {
-            lastValue = block.eval();
+        for (initialize.eval(context); condition.eval(context); increment.eval(context)) {
+            lastValue = block.eval(context);
         }
         return lastValue;
     }
 }
 exports.For = For;
-class ForIn extends Operand {
-    eval() {
+class ForIn extends model_1.Operand {
+    eval(context) {
         let lastValue = null;
         const item = this.children[0];
-        const list = this.children[1].eval();
+        const list = this.children[1].eval(context);
         const block = this.children[2];
         for (let i = 0; i < list.length; i++) {
             const value = list[i];
-            item.set(value);
-            lastValue = block.eval();
+            if (context) {
+                context.data.set(item.name, value);
+            }
+            // item.set(value)
+            lastValue = block.eval(context);
         }
         return lastValue;
     }
 }
 exports.ForIn = ForIn;
-class Switch extends Operand {
-    eval() {
-        const value = this.children[0].eval();
+class Switch extends model_1.Operand {
+    eval(context) {
+        const value = this.children[0].eval(context);
         for (let i = 1; i < this.children.length; i++) {
             const option = this.children[i];
             if (option instanceof Case) {
                 if (option.name === value) {
                     const caseBlock = option.children[0];
-                    return caseBlock.eval();
+                    return caseBlock.eval(context);
                 }
             }
             else if (option instanceof Default) {
                 const defaultBlock = option.children[0];
-                return defaultBlock.eval();
+                return defaultBlock.eval(context);
             }
         }
     }
 }
 exports.Switch = Switch;
-class Case extends Operand {
+class Case extends model_1.Operand {
     eval() {
         throw new Error('NotUsed');
     }
 }
 exports.Case = Case;
-class Default extends Operand {
+class Default extends model_1.Operand {
     eval() {
         throw new Error('NotUsed');
     }
 }
 exports.Default = Default;
-class Break extends Operand {
+class Break extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Break = Break;
-class Continue extends Operand {
+class Continue extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Continue = Continue;
-class Function extends Operand {
+class Function extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Function = Function;
-class Return extends Operand {
+class Return extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Return = Return;
-class Try extends Operand {
+class Try extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Try = Try;
-class Catch extends Operand {
+class Catch extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
 exports.Catch = Catch;
-class Throw extends Operand {
+class Throw extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }

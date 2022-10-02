@@ -14,7 +14,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Helper = void 0;
+const helper_1 = require("./helper");
 __exportStar(require("./expressions"), exports);
 __exportStar(require("./memoryCache"), exports);
-__exportStar(require("./helper"), exports);
+exports.Helper = new helper_1.ExpHelper();
 //# sourceMappingURL=index.js.map

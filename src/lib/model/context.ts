@@ -1,9 +1,9 @@
-import { Helper } from './../manager'
+import { Helper } from '../manager'
 export class Data {
 	public data: any
 	public parent: any
-	constructor (data:any, parent?:Data) {
-		this.data = data
+	constructor (data?:any, parent?:Data) {
+		this.data = data || {}
 		this.parent = parent
 	}
 
@@ -28,9 +28,9 @@ export class Data {
 	}
 
 	get (name:string):any {
-		const names = Helper.getNames(name)
+		const names = Helper.obj.names(name)
 		const value = this.getData(names[0])
-		return Helper.getValue(names, value)
+		return Helper.obj.getValue(names, value)
 	}
 
 	set (name:string, value:any):void {
@@ -40,7 +40,7 @@ export class Data {
 		for (let i = 0; i < names.length; i++) {
 			const name = names[i]
 			// if is an array and name is a positive integer
-			if (Array.isArray(list) && Helper.isPositiveInteger(name)) {
+			if (Array.isArray(list) && Helper.validator.isPositiveInteger(name)) {
 				const index = Number(name)
 				// If the index exceeds the length of the array, nothing assigns it.
 				if (index >= list.length) {
@@ -63,5 +63,18 @@ export class Data {
 
 	init (name:string, value:any):void {
 		this.data[name] = value
+	}
+}
+
+export class Context {
+	public data:Data
+	public parent?: Context
+	constructor (data?:Data, parent?:Context) {
+		this.data = data || new Data({})
+		this.parent = parent
+	}
+
+	public newContext ():Context {
+		return new Context(this.data.newData(), this)
 	}
 }

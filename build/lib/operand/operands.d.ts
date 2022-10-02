@@ -1,73 +1,57 @@
-import { Data } from '../model';
+import { Context, Operand, Type } from '../model';
 import { ExpressionConfig } from '../parser';
-export declare abstract class Operand {
-    name: string;
-    type: string;
-    id?: string;
-    index?: number;
-    level?: number;
-    children: Operand[];
-    constructor(name: string, children?: Operand[], type?: string);
-    clone(): void;
-    set(value: any): void;
-    abstract eval(): any;
-}
-export interface IOperandData {
-    data?: Data;
-}
 export declare class Constant extends Operand {
     constructor(name: string);
     eval(): any;
 }
-export declare class Variable extends Operand implements IOperandData {
-    data?: Data;
+export declare class Variable extends Operand {
     number?: number;
-    constructor(name: string, type?: string);
-    set(value: any): void;
-    eval(): any;
+    constructor(name: string, type?: Type);
+    eval(context: Context): any;
 }
 export declare class EnvironmentVariable extends Operand {
+    constructor(name: string);
     eval(): any;
 }
-export declare class Template extends Operand implements IOperandData {
-    data?: Data;
-    constructor(name: string, type?: string);
-    eval(): any;
+export declare class Template extends Operand {
+    constructor(name: string);
+    eval(context: Context): any;
 }
 export declare class Property extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class KeyValue extends Operand {
     property?: string;
-    eval(): any;
+    constructor(name: string, children: Operand[] | undefined, property: string, type?: Type);
+    eval(context: Context): any;
 }
 export declare class List extends Operand {
     constructor(name: string, children?: Operand[]);
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class Obj extends Operand {
     constructor(name: string, children?: Operand[]);
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class Operator extends Operand {
-    metadata?: ExpressionConfig;
-    eval(): any;
+    private metadata;
+    constructor(name: string, children: Operand[] | undefined, metadata: ExpressionConfig);
+    eval(context: Context): any;
 }
 export declare class FunctionRef extends Operand {
-    metadata?: ExpressionConfig;
-    eval(): any;
+    private metadata;
+    constructor(name: string, children: Operand[] | undefined, metadata: ExpressionConfig);
+    eval(context: Context): any;
 }
-export declare class ChildFunction extends FunctionRef implements IOperandData {
-    data?: Data;
+export declare class ChildFunction extends FunctionRef {
 }
-export declare class ArrowFunction extends FunctionRef implements IOperandData {
-    data?: Data;
+export declare class ArrowFunction extends FunctionRef {
 }
 export declare class Block extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class If extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class ElseIf extends Operand {
     eval(): any;
@@ -76,16 +60,16 @@ export declare class Else extends Operand {
     eval(): any;
 }
 export declare class While extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class For extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class ForIn extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class Switch extends Operand {
-    eval(): any;
+    eval(context: Context): any;
 }
 export declare class Case extends Operand {
     eval(): any;

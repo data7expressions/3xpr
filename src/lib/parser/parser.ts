@@ -4,19 +4,12 @@ import { Helper } from './../manager'
 
 export class Parser {
 	private mgr: ParserManager
-	private reAlphanumeric: RegExp
-	private reInt: RegExp
-	private reFloat: RegExp
 	private buffer: string[]
 	private length: number
 	private index: number
 
 	constructor (mgr: ParserManager, buffer: string[]) {
 		this.mgr = mgr
-		// eslint-disable-next-line prefer-regex-literals
-		this.reAlphanumeric = new RegExp('[a-zA-Z0-9_.]+$') /// [a-zA-Z0-9_.]+$'/ //
-		this.reInt = /^[0-9]+$/ // new RegExp('^d+$')
-		this.reFloat = /^[0-9]*[.][0-9]+$/ // new RegExp('^d+(\.\d+)?$/')//'d+(\.\d+)?$'
 		this.buffer = []
 		this.buffer = buffer
 		this.length = this.buffer.length
@@ -119,7 +112,7 @@ export class Parser {
 			this.index += 1
 			char = this.current
 		}
-		if (this.reAlphanumeric.test(char)) {
+		if (Helper.validator.isAlphanumeric(char)) {
 			let value: any = this.getValue()
 			if (value === 'function' && this.current === '(') {
 				this.index += 1
@@ -139,7 +132,7 @@ export class Parser {
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
-					const names = Helper.getNames(value)
+					const names = Helper.obj.names(value)
 					const functionName = names.pop() as string
 					const variableName = names.join('.')
 					const variable = new Node(variableName, 'var')
@@ -161,7 +154,7 @@ export class Parser {
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
 				operand = this.getIndexOperand(value)
-			} else if (this.reInt.test(value)) {
+			} else if (Helper.validator.isIntegerFormat(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
 					isNegative = false
@@ -172,7 +165,7 @@ export class Parser {
 					value = parseInt(value)
 				}
 				operand = new Node(value, 'const')
-			} else if (this.reFloat.test(value)) {
+			} else if (Helper.validator.isDecimalFormat(value)) {
 				if (isNegative) {
 					value = parseFloat(value) * -1
 					isNegative = false
@@ -246,7 +239,7 @@ export class Parser {
 				this.index += 1
 				if (name.includes('.')) {
 					// .xxx.xxx(p=> p.xxx)
-					const names = Helper.getNames(name)
+					const names = Helper.obj.names(name)
 					const propertyName = names.slice(0, -1).join('.')
 					const functionName = names.slice(-1)[0]
 					const property = new Node(propertyName, 'property', [operand])
@@ -285,13 +278,13 @@ export class Parser {
 	private getValue (increment = true): string {
 		const buff = []
 		if (increment) {
-			while (!this.end && this.reAlphanumeric.test(this.current)) {
+			while (!this.end && Helper.validator.isAlphanumeric(this.current)) {
 				buff.push(this.current)
 				this.index += 1
 			}
 		} else {
 			let index = this.index
-			while (!this.end && this.reAlphanumeric.test(this.buffer[index])) {
+			while (!this.end && Helper.validator.isAlphanumeric(this.buffer[index])) {
 				buff.push(this.buffer[index])
 				index += 1
 			}

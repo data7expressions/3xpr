@@ -20,6 +20,24 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
+			"name": "lab parameters",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-parameters.ts"
+		},
+		{
+			"name": "lab type",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-type.ts"
+		},
+		{
 			"name": "lab datetime",
 			"type": "node",
 			"request": "launch",

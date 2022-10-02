@@ -15,6 +15,7 @@
 		"Lanús",
 		"lpad",
 		"ltrim",
+		"nlohmann",
 		"nullable",
 		"rpad",
 		"rtrim",

@@ -1,11 +1,11 @@
 import { expressions as exp, Helper } from '../../lib'
 
-export function show (list:string[], context:any) {
+export function show (list:string[], context:any, method = 'eval', func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
 	const tests = []
 	const examples = []
 	for (const expression of list) {
 		try {
-			const result = exp.eval(expression, context)
+			const result = func(expression, context)
 			let expect:any
 			let testCompare = 'toBe'
 			if (typeof result === 'string') {
@@ -33,13 +33,14 @@ export function show (list:string[], context:any) {
 				expect = result
 			}
 			if (expression.includes('\n')) {
-				tests.push(`expect(${expect}).${testCompare}(expressions.eval(\`${expression}\`,context))`)
+				tests.push(`expect(${expect}).${testCompare}(expressions.${method}(\`${expression}\`${method === 'eval' ? ', context' : ''}))`)
 				examples.push(`|\`${expression}\`|${expect}|`)
 			} else {
-				tests.push(`expect(${expect}).${testCompare}(expressions.eval('${expression}',context))`)
+				tests.push(`expect(${expect}).${testCompare}(expressions.${method}('${expression}'${method === 'eval' ? ', context' : ''}))`)
 				examples.push(`|${expression}|${expect}|`)
 			}
-		} catch (error) {
+		} catch (error:any) {
+			console.log(error.stack)
 			console.log(`exp: ${expression} error: ${error}`)
 		}
 	}
@@ -49,11 +50,11 @@ export function show (list:string[], context:any) {
 
 export const test = async (expression:string, file:string) => {
 	try {
-		const content = await Helper.readFile(file)
+		const content = await Helper.fs.read(file)
 		if (!content) {
 			throw Error(`can not read file ${file}`)
 		}
-		const data = Helper.tryParse(content)
+		const data = Helper.utils.tryParse(content)
 		if (data === null || data === undefined) {
 			throw Error(`can not parse content of ${file}`)
 		}
