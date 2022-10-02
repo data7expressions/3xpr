@@ -28,18 +28,18 @@
 
 ### constructor
 
-• **new Data**(`data`, `parent?`)
+• **new Data**(`data?`, `parent?`)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | `any` |
+| `data?` | `any` |
 | `parent?` | [`Data`](model.Data.md) |
 
 #### Defined in
 
-[model/data.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L5)
+[model/context.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L5)
 
 ## Properties
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[model/data.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L3)
+[model/context.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L3)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L4)
+[model/context.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L4)
 
 ## Methods
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L20)
+[model/context.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L20)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:30](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L30)
+[model/context.ts:30](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L30)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L14)
+[model/context.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L14)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:46](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L46)
+[model/context.ts:64](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L64)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[model/data.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L10)
+[model/context.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L10)
 
 ___
 
@@ -175,4 +175,4 @@ ___
 
 #### Defined in
 
-[model/data.ts:36](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/model/data.ts#L36)
+[model/context.ts:36](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L36)

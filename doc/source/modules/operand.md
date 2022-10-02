@@ -27,8 +27,9 @@
 - [Library](../classes/operand.Library.md)
 - [List](../classes/operand.List.md)
 - [Obj](../classes/operand.Obj.md)
-- [Operand](../classes/operand.Operand.md)
-- [OperandManager](../classes/operand.OperandManager.md)
+- [OperandBuilder](../classes/operand.OperandBuilder.md)
+- [OperandSerializer](../classes/operand.OperandSerializer.md)
+- [OperandTypeManager](../classes/operand.OperandTypeManager.md)
 - [Operator](../classes/operand.Operator.md)
 - [Property](../classes/operand.Property.md)
 - [Return](../classes/operand.Return.md)
@@ -41,6 +42,4 @@
 
 ### Interfaces
 
-- [IOperandData](../interfaces/operand.IOperandData.md)
 - [Metadata](../interfaces/operand.Metadata.md)
-- [OperandMetadata](../interfaces/operand.OperandMetadata.md)

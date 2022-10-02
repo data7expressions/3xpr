@@ -17,7 +17,6 @@
 - [index](parser.Node.md#index)
 - [level](parser.Node.md#level)
 - [name](parser.Node.md#name)
-- [parent](parser.Node.md#parent)
 - [type](parser.Node.md#type)
 
 ## Constructors
@@ -36,7 +35,7 @@
 
 #### Defined in
 
-[parser/node.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L10)
+[parser/node.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L10)
 
 ## Properties
 
@@ -46,7 +45,7 @@
 
 #### Defined in
 
-[parser/node.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L4)
+[parser/node.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L4)
 
 ___
 
@@ -56,7 +55,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L5)
+[parser/node.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L5)
 
 ___
 
@@ -66,7 +65,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L7)
+[parser/node.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L7)
 
 ___
 
@@ -76,7 +75,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L8)
+[parser/node.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L8)
 
 ___
 
@@ -86,17 +85,7 @@ ___
 
 #### Defined in
 
-[parser/node.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L2)
-
-___
-
-### parent
-
-• `Optional` **parent**: [`Node`](parser.Node.md)
-
-#### Defined in
-
-[parser/node.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L6)
+[parser/node.ts:2](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L2)
 
 ___
 
@@ -106,4 +95,4 @@ ___
 
 #### Defined in
 
-[parser/node.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/node.ts#L3)
+[parser/node.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/node.ts#L3)

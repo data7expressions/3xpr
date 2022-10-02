@@ -1,39 +1,91 @@
-[Expressions](../README.md) / [operand](../modules/operand.md) / If
+[Expressions](../README.md) / [model](../modules/model.md) / Operand
 
-# Class: If
+# Class: Operand
 
-[operand](../modules/operand.md).If
+[model](../modules/model.md).Operand
 
 ## Hierarchy
 
-- [`Operand`](model.Operand.md)
+- **`Operand`**
 
-  ↳ **`If`**
+  ↳ [`Constant`](operand.Constant.md)
+
+  ↳ [`Variable`](operand.Variable.md)
+
+  ↳ [`EnvironmentVariable`](operand.EnvironmentVariable.md)
+
+  ↳ [`Template`](operand.Template.md)
+
+  ↳ [`Property`](operand.Property.md)
+
+  ↳ [`KeyValue`](operand.KeyValue.md)
+
+  ↳ [`List`](operand.List.md)
+
+  ↳ [`Obj`](operand.Obj.md)
+
+  ↳ [`Operator`](operand.Operator.md)
+
+  ↳ [`FunctionRef`](operand.FunctionRef.md)
+
+  ↳ [`Block`](operand.Block.md)
+
+  ↳ [`If`](operand.If.md)
+
+  ↳ [`ElseIf`](operand.ElseIf.md)
+
+  ↳ [`Else`](operand.Else.md)
+
+  ↳ [`While`](operand.While.md)
+
+  ↳ [`For`](operand.For.md)
+
+  ↳ [`ForIn`](operand.ForIn.md)
+
+  ↳ [`Switch`](operand.Switch.md)
+
+  ↳ [`Case`](operand.Case.md)
+
+  ↳ [`Default`](operand.Default.md)
+
+  ↳ [`Break`](operand.Break.md)
+
+  ↳ [`Continue`](operand.Continue.md)
+
+  ↳ [`Function`](operand.Function.md)
+
+  ↳ [`Return`](operand.Return.md)
+
+  ↳ [`Try`](operand.Try.md)
+
+  ↳ [`Catch`](operand.Catch.md)
+
+  ↳ [`Throw`](operand.Throw.md)
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](operand.If.md#constructor)
+- [constructor](model.Operand.md#constructor)
 
 ### Properties
 
-- [children](operand.If.md#children)
-- [id](operand.If.md#id)
-- [index](operand.If.md#index)
-- [level](operand.If.md#level)
-- [name](operand.If.md#name)
-- [type](operand.If.md#type)
+- [children](model.Operand.md#children)
+- [id](model.Operand.md#id)
+- [index](model.Operand.md#index)
+- [level](model.Operand.md#level)
+- [name](model.Operand.md#name)
+- [type](model.Operand.md#type)
 
 ### Methods
 
-- [eval](operand.If.md#eval)
+- [eval](model.Operand.md#eval)
 
 ## Constructors
 
 ### constructor
 
-• **new If**(`name`, `children?`, `type?`)
+• **new Operand**(`name`, `children?`, `type?`)
 
 #### Parameters
 
@@ -42,10 +94,6 @@
 | `name` | `string` | `undefined` |
 | `children` | [`Operand`](model.Operand.md)[] | `[]` |
 | `type?` | [`Type`](../modules/model.md#type) | `undefined` |
-
-#### Inherited from
-
-[Operand](model.Operand.md).[constructor](model.Operand.md#constructor)
 
 #### Defined in
 
@@ -57,10 +105,6 @@
 
 • **children**: [`Operand`](model.Operand.md)[]
 
-#### Inherited from
-
-[Operand](model.Operand.md).[children](model.Operand.md#children)
-
 #### Defined in
 
 [model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L26)
@@ -70,10 +114,6 @@ ___
 ### id
 
 • `Optional` **id**: `string`
-
-#### Inherited from
-
-[Operand](model.Operand.md).[id](model.Operand.md#id)
 
 #### Defined in
 
@@ -85,10 +125,6 @@ ___
 
 • `Optional` **index**: `number`
 
-#### Inherited from
-
-[Operand](model.Operand.md).[index](model.Operand.md#index)
-
 #### Defined in
 
 [model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L24)
@@ -98,10 +134,6 @@ ___
 ### level
 
 • `Optional` **level**: `number`
-
-#### Inherited from
-
-[Operand](model.Operand.md).[level](model.Operand.md#level)
 
 #### Defined in
 
@@ -113,10 +145,6 @@ ___
 
 • **name**: `string`
 
-#### Inherited from
-
-[Operand](model.Operand.md).[name](model.Operand.md#name)
-
 #### Defined in
 
 [model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L21)
@@ -127,10 +155,6 @@ ___
 
 • `Optional` **type**: [`Type`](../modules/model.md#type)
 
-#### Inherited from
-
-[Operand](model.Operand.md).[type](model.Operand.md#type)
-
 #### Defined in
 
 [model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L22)
@@ -139,7 +163,7 @@ ___
 
 ### eval
 
-▸ **eval**(`context`): `any`
+▸ `Abstract` **eval**(`context`): `any`
 
 #### Parameters
 
@@ -151,10 +175,6 @@ ___
 
 `any`
 
-#### Overrides
-
-[Operand](model.Operand.md).[eval](model.Operand.md#eval)
-
 #### Defined in
 
-[operand/operands.ts:176](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L176)
+[model/operands.ts:36](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L36)

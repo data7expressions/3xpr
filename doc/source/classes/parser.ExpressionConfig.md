@@ -4,6 +4,10 @@
 
 [parser](../modules/parser.md).ExpressionConfig
 
+## Implements
+
+- [`IExpressionConfig`](../interfaces/model.IExpressionConfig.md)
+
 ## Table of contents
 
 ### Constructors
@@ -13,6 +17,7 @@
 ### Properties
 
 - [enums](parser.ExpressionConfig.md#enums)
+- [formats](parser.ExpressionConfig.md#formats)
 - [functions](parser.ExpressionConfig.md#functions)
 - [libraries](parser.ExpressionConfig.md#libraries)
 - [operators](parser.ExpressionConfig.md#operators)
@@ -22,6 +27,7 @@
 - [addLibrary](parser.ExpressionConfig.md#addlibrary)
 - [getEnum](parser.ExpressionConfig.md#getenum)
 - [getEnumValue](parser.ExpressionConfig.md#getenumvalue)
+- [getFormat](parser.ExpressionConfig.md#getformat)
 - [getFunction](parser.ExpressionConfig.md#getfunction)
 - [getOperator](parser.ExpressionConfig.md#getoperator)
 - [isEnum](parser.ExpressionConfig.md#isenum)
@@ -35,7 +41,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L10)
+[parser/expressionConfig.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L11)
 
 ## Properties
 
@@ -43,9 +49,27 @@
 
 • **enums**: `any`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[enums](../interfaces/model.IExpressionConfig.md#enums)
+
 #### Defined in
 
-[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L8)
+[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L8)
+
+___
+
+### formats
+
+• **formats**: `any`
+
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[formats](../interfaces/model.IExpressionConfig.md#formats)
+
+#### Defined in
+
+[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L9)
 
 ___
 
@@ -53,9 +77,13 @@ ___
 
 • **functions**: [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)[]
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[functions](../interfaces/model.IExpressionConfig.md#functions)
+
 #### Defined in
 
-[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L9)
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L10)
 
 ___
 
@@ -63,9 +91,13 @@ ___
 
 • **libraries**: [`Library`](operand.Library.md)[]
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[libraries](../interfaces/model.IExpressionConfig.md#libraries)
+
 #### Defined in
 
-[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L6)
+[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L6)
 
 ___
 
@@ -73,9 +105,13 @@ ___
 
 • **operators**: [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)[]
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[operators](../interfaces/model.IExpressionConfig.md#operators)
+
 #### Defined in
 
-[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L7)
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L7)
 
 ## Methods
 
@@ -93,9 +129,13 @@ ___
 
 `void`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[addLibrary](../interfaces/model.IExpressionConfig.md#addlibrary)
+
 #### Defined in
 
-[parser/expressionConfig.ts:18](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L18)
+[parser/expressionConfig.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L20)
 
 ___
 
@@ -113,9 +153,13 @@ ___
 
 `any`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[getEnum](../interfaces/model.IExpressionConfig.md#getenum)
+
 #### Defined in
 
-[parser/expressionConfig.ts:124](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L124)
+[parser/expressionConfig.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L138)
 
 ___
 
@@ -134,9 +178,37 @@ ___
 
 `any`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[getEnumValue](../interfaces/model.IExpressionConfig.md#getenumvalue)
+
 #### Defined in
 
-[parser/expressionConfig.ts:120](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L120)
+[parser/expressionConfig.ts:134](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L134)
+
+___
+
+### getFormat
+
+▸ **getFormat**(`name`): `undefined` \| [`Format`](../interfaces/model.Format.md)
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+
+#### Returns
+
+`undefined` \| [`Format`](../interfaces/model.Format.md)
+
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[getFormat](../interfaces/model.IExpressionConfig.md#getformat)
+
+#### Defined in
+
+[parser/expressionConfig.ts:142](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L142)
 
 ___
 
@@ -154,9 +226,13 @@ ___
 
 [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[getFunction](../interfaces/model.IExpressionConfig.md#getfunction)
+
 #### Defined in
 
-[parser/expressionConfig.ts:144](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L144)
+[parser/expressionConfig.ts:162](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L162)
 
 ___
 
@@ -175,9 +251,13 @@ ___
 
 [`OperatorMetadata`](../interfaces/model.OperatorMetadata.md)
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[getOperator](../interfaces/model.IExpressionConfig.md#getoperator)
+
 #### Defined in
 
-[parser/expressionConfig.ts:128](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L128)
+[parser/expressionConfig.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L146)
 
 ___
 
@@ -195,9 +275,13 @@ ___
 
 `boolean`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[isEnum](../interfaces/model.IExpressionConfig.md#isenum)
+
 #### Defined in
 
-[parser/expressionConfig.ts:115](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L115)
+[parser/expressionConfig.ts:129](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L129)
 
 ___
 
@@ -215,6 +299,10 @@ ___
 
 `void`
 
+#### Implementation of
+
+[IExpressionConfig](../interfaces/model.IExpressionConfig.md).[load](../interfaces/model.IExpressionConfig.md#load)
+
 #### Defined in
 
-[parser/expressionConfig.ts:38](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/parser/expressionConfig.ts#L38)
+[parser/expressionConfig.ts:43](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L43)

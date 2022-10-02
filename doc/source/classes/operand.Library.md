@@ -13,6 +13,7 @@
 ### Properties
 
 - [enums](operand.Library.md#enums)
+- [formats](operand.Library.md#formats)
 - [functions](operand.Library.md#functions)
 - [name](operand.Library.md#name)
 - [operators](operand.Library.md#operators)
@@ -20,6 +21,7 @@
 ### Methods
 
 - [addEnum](operand.Library.md#addenum)
+- [addFormat](operand.Library.md#addformat)
 - [addFunction](operand.Library.md#addfunction)
 - [addOperator](operand.Library.md#addoperator)
 
@@ -37,7 +39,7 @@
 
 #### Defined in
 
-[operand/library.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L15)
+[operand/library.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L16)
 
 ## Properties
 
@@ -47,7 +49,17 @@
 
 #### Defined in
 
-[operand/library.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L11)
+[operand/library.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L11)
+
+___
+
+### formats
+
+• **formats**: `any`
+
+#### Defined in
+
+[operand/library.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L12)
 
 ___
 
@@ -57,7 +69,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L13)
+[operand/library.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L14)
 
 ___
 
@@ -67,7 +79,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L10)
+[operand/library.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L10)
 
 ___
 
@@ -77,19 +89,19 @@ ___
 
 #### Defined in
 
-[operand/library.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L12)
+[operand/library.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L13)
 
 ## Methods
 
 ### addEnum
 
-▸ **addEnum**(`key`, `source`): `void`
+▸ **addEnum**(`name`, `source`): `void`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `key` | `string` |
+| `name` | `string` |
 | `source` | `any` |
 
 #### Returns
@@ -98,7 +110,28 @@ ___
 
 #### Defined in
 
-[operand/library.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L22)
+[operand/library.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L24)
+
+___
+
+### addFormat
+
+▸ **addFormat**(`name`, `pattern`): `void`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `name` | `string` |
+| `pattern` | `any` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[operand/library.ts:28](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L28)
 
 ___
 
@@ -122,7 +155,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L26)
+[operand/library.ts:32](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L32)
 
 ___
 
@@ -144,4 +177,4 @@ ___
 
 #### Defined in
 
-[operand/library.ts:54](https://github.com/FlavioLionelRita/js-expressions/blob/5f366b7/src/lib/operand/library.ts#L54)
+[operand/library.ts:49](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L49)
