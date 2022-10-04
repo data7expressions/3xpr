@@ -1,19 +1,17 @@
-import { Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, IParserManager, ISerializer, IOperandBuilder, Context } from '../model'
-import { ParserManager, ExpressionConfig } from '../parser'
-import { OperandBuilder, OperandTypeManager, OperandSerializer, Library } from './../operand'
+import { Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
+import { Parser } from '../parser'
+import { OperandBuilder, OperandTypeManager, OperandSerializer } from './../operand'
 import { Helper, MemoryCache } from '.'
-import { CoreLib } from '../operand/lib/coreLib'
+import { ExpressionConfigBuilder } from './expressionConfigBuilder'
 
 export class ExpressionsBuilder {
 	public build ():Expressions {
 		const cache = new MemoryCache()
-		const expressionConfig = new ExpressionConfig()
-		expressionConfig.addLibrary(new CoreLib())
-		const parserManager = new ParserManager(expressionConfig)
+		const expressionConfig = new ExpressionConfigBuilder().build()
 		const typeManager = new OperandTypeManager(expressionConfig)
 		const serializer = new OperandSerializer(expressionConfig)
 		const operandBuilder = new OperandBuilder(expressionConfig)
-		return new Expressions(cache, expressionConfig, parserManager, serializer, operandBuilder, typeManager)
+		return new Expressions(cache, expressionConfig, serializer, operandBuilder, typeManager)
 	}
 }
 
@@ -21,18 +19,16 @@ export class Expressions {
 	private cache: Cache
 	private config: IExpressionConfig
 	private observers:ActionObserver[]=[];
-	private parserManager: IParserManager
 	private operandBuilder: IOperandBuilder
 	private typeManager: IOperandTypeManager
 	private serializer: ISerializer<Operand>
 
-	constructor (cache:Cache, config: IExpressionConfig, parserManager:IParserManager, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
+	constructor (cache:Cache, config: IExpressionConfig, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
 		this.cache = cache
 		this.config = config
 		this.serializer = serializer
 		this.operandBuilder = operandBuilder
 		this.typeManager = typeManager
-		this.parserManager = parserManager
 	}
 
 	private static _instance: Expressions
@@ -41,14 +37,6 @@ export class Expressions {
 			this._instance = new ExpressionsBuilder().build()
 		}
 		return this._instance
-	}
-
-	public get parser (): IParserManager {
-		return this.parserManager
-	}
-
-	public get libraries (): Library[] {
-		return this.config.libraries
 	}
 
 	public get operators (): OperatorMetadata[] {
@@ -67,12 +55,28 @@ export class Expressions {
 		return this.config.functions
 	}
 
-	public addLibrary (library:Library):void {
-		this.config.addLibrary(library)
+	public addFunction (source:any, sing:string, deterministic?:boolean):void {
+		this.config.addFunction(source, sing, deterministic)
 	}
 
-	public load (data: any): void {
-		this.config.load(data)
+	public addEnum (key:string, source:any):void {
+		this.config.addEnum(key, source)
+	}
+
+	public addFormat (key:string, pattern:string):void {
+		this.config.addFormat(key, pattern)
+	}
+
+	public addConstant (key:string, value:any):void {
+		this.config.addConstant(key, value)
+	}
+
+	public refresh ():void {
+		this.config.refresh()
+	}
+
+	public addAlias (alias:string, reference:string):void {
+		this.config.addAlias(alias, reference)
 	}
 
 	public isEnum (name:string): boolean {
@@ -85,6 +89,14 @@ export class Expressions {
 
 	public getEnum (name:string):any {
 		return this.config.getEnum(name)
+	}
+
+	public isConstant (name:string): boolean {
+		return this.config.isConstant(name)
+	}
+
+	public getConstantValue (name:string):any {
+		return this.config.getConstantValue(name)
 	}
 
 	public getFormat (name:string): Format | undefined {
@@ -109,26 +121,28 @@ export class Expressions {
 	 * @returns Operand
 	 */
 	public parse (expression: string): Operand {
-		const minifyExpression = this.parserManager.minify(expression)
-		const key = `${minifyExpression}_operand`
-		const value = this.cache.get(key)
-		if (!value) {
-			const node = this.parserManager.parse(minifyExpression)
-			const operand = this.operandBuilder.build(node)
-			this.cache.set(key, operand)
-			return operand
-		} else {
-			return value
+		try {
+			const minifyExpression = Helper.exp.minify(expression)
+			const key = `${minifyExpression.join('')}_operand`
+			const value = this.cache.get(key)
+			if (!value) {
+				const operand = this._parse(minifyExpression)
+				this.cache.set(key, operand)
+				return operand
+			} else {
+				return value
+			}
+		} catch (error: any) {
+			throw new Error('expression: ' + expression + ' error: ' + error.toString())
 		}
 	}
 
 	private typed (expression: string): Operand {
-		const minifyExpression = this.parserManager.minify(expression)
-		const key = `${minifyExpression}_operand`
+		const minifyExpression = Helper.exp.minify(expression)
+		const key = `${minifyExpression.join('')}_operand`
 		const value = this.cache.get(key) as Operand
 		if (!value) {
-			const node = this.parserManager.parse(minifyExpression)
-			const operand = this.operandBuilder.build(node)
+			const operand = this._parse(minifyExpression)
 			this.typeManager.solve(operand)
 			this.cache.set(key, operand)
 			return operand
@@ -139,6 +153,14 @@ export class Expressions {
 		} else {
 			return value
 		}
+	}
+
+	private _parse (buffer: string[]): Operand {
+		const parser = new Parser(this.config, buffer)
+		const node = parser.parse()
+		Helper.exp.clearChildEmpty(node)
+		const operand = this.operandBuilder.build(node)
+		return operand
 	}
 
 	/**

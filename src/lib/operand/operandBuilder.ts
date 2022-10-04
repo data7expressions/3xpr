@@ -1,6 +1,6 @@
 
-import { Node, ExpressionConfig } from '../parser/index'
-import { Context, Operand, IOperandBuilder } from '../model'
+import { Node } from '../parser/index'
+import { Context, Operand, IOperandBuilder, IExpressionConfig } from '../model'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
@@ -9,8 +9,8 @@ import {
 } from './operands'
 
 export class OperandBuilder implements IOperandBuilder {
-	private expressionConfig: ExpressionConfig
-	constructor (expressionConfig: ExpressionConfig) {
+	private expressionConfig: IExpressionConfig
+	constructor (expressionConfig: IExpressionConfig) {
 		this.expressionConfig = expressionConfig
 	}
 

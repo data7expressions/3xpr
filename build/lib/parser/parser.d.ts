@@ -1,11 +1,11 @@
 import { Node } from './node';
-import { ParserManager } from './parserManager';
+import { IExpressionConfig } from './..';
 export declare class Parser {
-    private mgr;
+    private config;
     private buffer;
     private length;
     private index;
-    constructor(mgr: ParserManager, buffer: string[]);
+    constructor(config: IExpressionConfig, buffer: string[]);
     get previous(): string;
     get current(): any;
     get next(): string;

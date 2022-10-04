@@ -1,7 +1,7 @@
 import { Context } from './context'
 import { Type } from './type'
 import { Node } from './../parser'
-import { Library } from './../operand'
+// import { Library } from './../operand'
 
 export interface Parameter {
 	name: string
@@ -41,9 +41,9 @@ export interface OperatorMetadata {
 	operator:string
 	type: OperatorType
 	deterministic:boolean
-	category?:string
-	description?: string
-	lib?: string
+	// category?:string
+	// description?: string
+	// lib?: string
 	operands: number
 	priority?:number
 	return:string
@@ -78,18 +78,42 @@ export interface Format {
 	pattern: string
 	regExp: RegExp
 }
+
+export interface Metadata {
+	name:string
+	params:Parameter[]
+	return:string
+	description?: string
+	deterministic?:boolean
+	multipleParams?:boolean
+}
+
 export interface IExpressionConfig {
-	get libraries():Library[]
+	// get libraries():Library[]
 	get operators(): OperatorMetadata[]
 	get enums(): any
 	get formats(): any
 	get functions(): OperatorMetadata[]
-	addLibrary (library:Library):void
-	load (data: any): void
+	doubleOperators: string[]
+	tripleOperators: string[]
+	assignmentOperators: string[]
+	// addLibrary (library:Library):void
+
+	addEnum (key:string, source:any):void
+	addConstant (key:string, value:any):void
+	addFormat (key:string, pattern:string):void
+	addOperator (sing:string, source:any, priority:number):void
+	addFunction (sing:string, source:any, deterministic?:boolean):void
+	addAlias (alias:string, reference:string):void
+	// load (data: any): void
 	isEnum (name:string):boolean
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any
 	getFormat (name:string): Format | undefined
 	getOperator (operator:string, operands?:number): OperatorMetadata
 	getFunction (name: string): OperatorMetadata
+	priority (name: string, cardinality?:number): number
+	isConstant (name:string):boolean
+	getConstantValue (name:string): any | undefined
+	refresh () :void
 }

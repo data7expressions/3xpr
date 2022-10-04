@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Parser = void 0;
 const node_1 = require("./node");
-const manager_1 = require("./../manager");
+const __1 = require("./..");
 class Parser {
-    constructor(mgr, buffer) {
-        this.mgr = mgr;
+    constructor(config, buffer) {
+        this.config = config;
         this.buffer = [];
         this.buffer = buffer;
         this.length = this.buffer.length;
@@ -72,7 +72,7 @@ class Parser {
                 isBreak = true;
                 break;
             }
-            else if (this.mgr.priority(operator) >= this.mgr.priority(nextOperator)) {
+            else if (this.config.priority(operator) >= this.config.priority(nextOperator)) {
                 operand1 = new node_1.Node(operator, 'operator', [operand1, operand2]);
                 operator = nextOperator;
             }
@@ -108,7 +108,7 @@ class Parser {
             this.index += 1;
             char = this.current;
         }
-        if (manager_1.Helper.validator.isAlphanumeric(char)) {
+        if (__1.Helper.validator.isAlphanumeric(char)) {
             let value = this.getValue();
             if (value === 'function' && this.current === '(') {
                 this.index += 1;
@@ -133,7 +133,7 @@ class Parser {
             else if (!this.end && this.current === '(') {
                 this.index += 1;
                 if (value.includes('.')) {
-                    const names = manager_1.Helper.obj.names(value);
+                    const names = __1.Helper.obj.names(value);
                     const functionName = names.pop();
                     const variableName = names.join('.');
                     const variable = new node_1.Node(variableName, 'var');
@@ -163,7 +163,7 @@ class Parser {
                 this.index += 1;
                 operand = this.getIndexOperand(value);
             }
-            else if (manager_1.Helper.validator.isIntegerFormat(value)) {
+            else if (__1.Helper.validator.isIntegerFormat(value)) {
                 if (isNegative) {
                     value = parseInt(value) * -1;
                     isNegative = false;
@@ -177,7 +177,7 @@ class Parser {
                 }
                 operand = new node_1.Node(value, 'const');
             }
-            else if (manager_1.Helper.validator.isDecimalFormat(value)) {
+            else if (__1.Helper.validator.isDecimalFormat(value)) {
                 if (isNegative) {
                     value = parseFloat(value) * -1;
                     isNegative = false;
@@ -190,17 +190,18 @@ class Parser {
                     value = parseFloat(value);
                 }
                 operand = new node_1.Node(value, 'const');
+                // } else if (value === 'true') {
+                // operand = new Node(true, 'const')
+                // } else if (value === 'false') {
+                // operand = new Node(false, 'const')
+                // } else if (value === 'null') {
+                // operand = new Node(null, 'const')
             }
-            else if (value === 'true') {
-                operand = new node_1.Node(true, 'const');
+            else if (this.config.isConstant(value)) {
+                const constantValue = this.config.getConstantValue(value);
+                operand = new node_1.Node(constantValue, 'const');
             }
-            else if (value === 'false') {
-                operand = new node_1.Node(false, 'const');
-            }
-            else if (value === 'null') {
-                operand = new node_1.Node(null, 'const');
-            }
-            else if (this.mgr.isEnum(value)) {
+            else if (this.config.isEnum(value)) {
                 operand = this.getEnum(value);
             }
             else {
@@ -268,7 +269,7 @@ class Parser {
                 this.index += 1;
                 if (name.includes('.')) {
                     // .xxx.xxx(p=> p.xxx)
-                    const names = manager_1.Helper.obj.names(name);
+                    const names = __1.Helper.obj.names(name);
                     const propertyName = names.slice(0, -1).join('.');
                     const functionName = names.slice(-1)[0];
                     const property = new node_1.Node(propertyName, 'property', [operand]);
@@ -312,14 +313,14 @@ class Parser {
     getValue(increment = true) {
         const buff = [];
         if (increment) {
-            while (!this.end && manager_1.Helper.validator.isAlphanumeric(this.current)) {
+            while (!this.end && __1.Helper.validator.isAlphanumeric(this.current)) {
                 buff.push(this.current);
                 this.index += 1;
             }
         }
         else {
             let index = this.index;
-            while (!this.end && manager_1.Helper.validator.isAlphanumeric(this.buffer[index])) {
+            while (!this.end && __1.Helper.validator.isAlphanumeric(this.buffer[index])) {
                 buff.push(this.buffer[index]);
                 index += 1;
             }
@@ -332,12 +333,12 @@ class Parser {
         let op = null;
         if (this.index + 2 < this.length) {
             const triple = this.current + this.next + this.buffer[this.index + 2];
-            if (this.mgr.tripleOperators.includes(triple))
+            if (this.config.tripleOperators.includes(triple))
                 op = triple;
         }
         if (op == null && this.index + 1 < this.length) {
             const double = this.current + this.next;
-            if (this.mgr.doubleOperators.includes(double))
+            if (this.config.doubleOperators.includes(double))
                 op = double;
         }
         if (op == null)
@@ -632,15 +633,15 @@ class Parser {
         return new node_1.Node('[]', 'operator', [operand, idx]);
     }
     getEnum(value) {
-        if (value.includes('.') && this.mgr.isEnum(value)) {
+        if (value.includes('.') && this.config.isEnum(value)) {
             const names = value.split('.');
             const enumName = names[0];
             const enumOption = names[1];
-            const enumValue = this.mgr.getEnumValue(enumName, enumOption);
+            const enumValue = this.config.getEnumValue(enumName, enumOption);
             return new node_1.Node(enumValue, 'const');
         }
         else {
-            const values = this.mgr.getEnum(value);
+            const values = this.config.getEnum(value);
             const attributes = [];
             for (const name in values) {
                 const _value = values[name];

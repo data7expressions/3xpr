@@ -1,15 +1,14 @@
 import { Node } from './node'
-import { ParserManager } from './parserManager'
-import { Helper } from './../manager'
+import { Helper, IExpressionConfig } from './..'
 
 export class Parser {
-	private mgr: ParserManager
+	private config: IExpressionConfig
 	private buffer: string[]
 	private length: number
 	private index: number
 
-	constructor (mgr: ParserManager, buffer: string[]) {
-		this.mgr = mgr
+	constructor (config: IExpressionConfig, buffer: string[]) {
+		this.config = config
 		this.buffer = []
 		this.buffer = buffer
 		this.length = this.buffer.length
@@ -79,7 +78,7 @@ export class Parser {
 				expression = new Node(operator, 'operator', [operand1 as Node, operand2])
 				isBreak = true
 				break
-			} else if (this.mgr.priority(operator as string) >= this.mgr.priority(nextOperator)) {
+			} else if (this.config.priority(operator as string) >= this.config.priority(nextOperator)) {
 				operand1 = new Node(operator, 'operator', [operand1 as Node, operand2])
 				operator = nextOperator
 			} else {
@@ -176,13 +175,16 @@ export class Parser {
 					value = parseFloat(value)
 				}
 				operand = new Node(value, 'const')
-			} else if (value === 'true') {
-				operand = new Node(true, 'const')
-			} else if (value === 'false') {
-				operand = new Node(false, 'const')
-			} else if (value === 'null') {
-				operand = new Node(null, 'const')
-			} else if (this.mgr.isEnum(value)) {
+			// } else if (value === 'true') {
+			// operand = new Node(true, 'const')
+			// } else if (value === 'false') {
+			// operand = new Node(false, 'const')
+			// } else if (value === 'null') {
+			// operand = new Node(null, 'const')
+			} else if (this.config.isConstant(value)) {
+				const constantValue = this.config.getConstantValue(value)
+				operand = new Node(constantValue, 'const')
+			} else if (this.config.isEnum(value)) {
 				operand = this.getEnum(value)
 			} else {
 				operand = new Node(value, 'var')
@@ -297,11 +299,11 @@ export class Parser {
 		let op = null
 		if (this.index + 2 < this.length) {
 			const triple = this.current + this.next + this.buffer[this.index + 2]
-			if (this.mgr.tripleOperators.includes(triple)) op = triple
+			if (this.config.tripleOperators.includes(triple)) op = triple
 		}
 		if (op == null && this.index + 1 < this.length) {
 			const double = this.current + this.next
-			if (this.mgr.doubleOperators.includes(double)) op = double
+			if (this.config.doubleOperators.includes(double)) op = double
 		}
 		if (op == null) op = this.current
 		this.index += op.length
@@ -589,14 +591,14 @@ export class Parser {
 	}
 
 	private getEnum (value: string): Node {
-		if (value.includes('.') && this.mgr.isEnum(value)) {
+		if (value.includes('.') && this.config.isEnum(value)) {
 			const names = value.split('.')
 			const enumName = names[0]
 			const enumOption = names[1]
-			const enumValue = this.mgr.getEnumValue(enumName, enumOption)
+			const enumValue = this.config.getEnumValue(enumName, enumOption)
 			return new Node(enumValue, 'const')
 		} else {
-			const values = this.mgr.getEnum(value)
+			const values = this.config.getEnum(value)
 			const attributes = []
 			for (const name in values) {
 				const _value = values[name]

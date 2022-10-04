@@ -1,12 +1,11 @@
 
-import { ExpressionConfig } from '../parser/index'
 import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj, Property } from './operands'
-import { Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
+import { IExpressionConfig, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '../manager'
 
 export class OperandTypeManager implements IOperandTypeManager {
-	private expressionConfig: ExpressionConfig
-	constructor (expressionConfig: ExpressionConfig) {
+	private expressionConfig: IExpressionConfig
+	constructor (expressionConfig: IExpressionConfig) {
 		this.expressionConfig = expressionConfig
 	}
 

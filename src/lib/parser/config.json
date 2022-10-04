@@ -2610,6 +2610,12 @@
     "datetime": "\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)",
     "time": "\\[0-2]\\d:[0-5]\\d:[0-5]\\d"
   },
+  "constants": {
+    "true": true,
+    "false": false,
+    "null": null,
+    "pi": 3.14159265359
+  },
   "enums": {
     "DayOfWeek": {
       "Sunday": 0,

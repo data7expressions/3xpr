@@ -5,41 +5,32 @@ const model_1 = require("../model");
 const parser_1 = require("../parser");
 const operand_1 = require("./../operand");
 const _1 = require(".");
-const coreLib_1 = require("../operand/lib/coreLib");
+const expressionConfigBuilder_1 = require("./expressionConfigBuilder");
 class ExpressionsBuilder {
     build() {
         const cache = new _1.MemoryCache();
-        const expressionConfig = new parser_1.ExpressionConfig();
-        expressionConfig.addLibrary(new coreLib_1.CoreLib());
-        const parserManager = new parser_1.ParserManager(expressionConfig);
+        const expressionConfig = new expressionConfigBuilder_1.ExpressionConfigBuilder().build();
         const typeManager = new operand_1.OperandTypeManager(expressionConfig);
         const serializer = new operand_1.OperandSerializer(expressionConfig);
         const operandBuilder = new operand_1.OperandBuilder(expressionConfig);
-        return new Expressions(cache, expressionConfig, parserManager, serializer, operandBuilder, typeManager);
+        return new Expressions(cache, expressionConfig, serializer, operandBuilder, typeManager);
     }
 }
 exports.ExpressionsBuilder = ExpressionsBuilder;
 class Expressions {
-    constructor(cache, config, parserManager, serializer, operandBuilder, typeManager) {
+    constructor(cache, config, serializer, operandBuilder, typeManager) {
         this.observers = [];
         this.cache = cache;
         this.config = config;
         this.serializer = serializer;
         this.operandBuilder = operandBuilder;
         this.typeManager = typeManager;
-        this.parserManager = parserManager;
     }
     static get instance() {
         if (!this._instance) {
             this._instance = new ExpressionsBuilder().build();
         }
         return this._instance;
-    }
-    get parser() {
-        return this.parserManager;
-    }
-    get libraries() {
-        return this.config.libraries;
     }
     get operators() {
         return this.config.operators;
@@ -53,11 +44,23 @@ class Expressions {
     get functions() {
         return this.config.functions;
     }
-    addLibrary(library) {
-        this.config.addLibrary(library);
+    addFunction(source, sing, deterministic) {
+        this.config.addFunction(source, sing, deterministic);
     }
-    load(data) {
-        this.config.load(data);
+    addEnum(key, source) {
+        this.config.addEnum(key, source);
+    }
+    addFormat(key, pattern) {
+        this.config.addFormat(key, pattern);
+    }
+    addConstant(key, value) {
+        this.config.addConstant(key, value);
+    }
+    refresh() {
+        this.config.refresh();
+    }
+    addAlias(alias, reference) {
+        this.config.addAlias(alias, reference);
     }
     isEnum(name) {
         return this.config.isEnum(name);
@@ -67,6 +70,12 @@ class Expressions {
     }
     getEnum(name) {
         return this.config.getEnum(name);
+    }
+    isConstant(name) {
+        return this.config.isConstant(name);
+    }
+    getConstantValue(name) {
+        return this.config.getConstantValue(name);
     }
     getFormat(name) {
         return this.config.getFormat(name);
@@ -86,26 +95,29 @@ class Expressions {
      * @returns Operand
      */
     parse(expression) {
-        const minifyExpression = this.parserManager.minify(expression);
-        const key = `${minifyExpression}_operand`;
-        const value = this.cache.get(key);
-        if (!value) {
-            const node = this.parserManager.parse(minifyExpression);
-            const operand = this.operandBuilder.build(node);
-            this.cache.set(key, operand);
-            return operand;
+        try {
+            const minifyExpression = _1.Helper.exp.minify(expression);
+            const key = `${minifyExpression.join('')}_operand`;
+            const value = this.cache.get(key);
+            if (!value) {
+                const operand = this._parse(minifyExpression);
+                this.cache.set(key, operand);
+                return operand;
+            }
+            else {
+                return value;
+            }
         }
-        else {
-            return value;
+        catch (error) {
+            throw new Error('expression: ' + expression + ' error: ' + error.toString());
         }
     }
     typed(expression) {
-        const minifyExpression = this.parserManager.minify(expression);
-        const key = `${minifyExpression}_operand`;
+        const minifyExpression = _1.Helper.exp.minify(expression);
+        const key = `${minifyExpression.join('')}_operand`;
         const value = this.cache.get(key);
         if (!value) {
-            const node = this.parserManager.parse(minifyExpression);
-            const operand = this.operandBuilder.build(node);
+            const operand = this._parse(minifyExpression);
             this.typeManager.solve(operand);
             this.cache.set(key, operand);
             return operand;
@@ -118,6 +130,13 @@ class Expressions {
         else {
             return value;
         }
+    }
+    _parse(buffer) {
+        const parser = new parser_1.Parser(this.config, buffer);
+        const node = parser.parse();
+        _1.Helper.exp.clearChildEmpty(node);
+        const operand = this.operandBuilder.build(node);
+        return operand;
     }
     /**
      * Get parameters of expression

@@ -29,19 +29,25 @@ class ParserManager {
         const metadata = this.config.getOperator(name, cardinality);
         return metadata && metadata.priority ? metadata.priority : -1;
     }
-    isEnum(name) {
-        return this.config.isEnum(name);
-    }
-    getEnumValue(name, option) {
-        return this.config.getEnumValue(name, option);
-    }
-    getEnum(name) {
-        return this.config.getEnum(name);
-    }
+    // public isEnum (name: string) {
+    // return this.config.isEnum(name)
+    // }
+    // public isConstant (name: string) {
+    // return this.config.isConstant(name)
+    // }
+    // public getEnumValue (name: string, option: any) {
+    // return this.config.getEnumValue(name, option)
+    // }
+    // public getEnum (name: string) {
+    // return this.config.getEnum(name)
+    // }
+    // public getConstant (name: string) {
+    // return this.config.getConstant(name)
+    // }
     parse(expression) {
         try {
             const buffer = this._minify(expression);
-            const parser = new parser_1.Parser(this, buffer);
+            const parser = new parser_1.Parser(this, this.config, buffer);
             const node = parser.parse();
             //  delete _parser
             this.clearChildEmpty(node);

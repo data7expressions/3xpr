@@ -20,6 +20,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
+			"name": "lab constants",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-constants.ts"
+		},
+		{
 			"name": "lab parameters",
 			"type": "node",
 			"request": "launch",
