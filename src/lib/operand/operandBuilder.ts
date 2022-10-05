@@ -1,6 +1,6 @@
 
 import { Node } from '../parser/index'
-import { Context, Operand, IOperandBuilder, IExpressionConfig } from '../model'
+import { Context, Operand, IOperandBuilder, IExpressionModel } from '../model'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
@@ -8,9 +8,9 @@ import {
 } from './operands'
 
 export class OperandBuilder implements IOperandBuilder {
-	private expressionConfig: IExpressionConfig
-	constructor (expressionConfig: IExpressionConfig) {
-		this.expressionConfig = expressionConfig
+	private model: IExpressionModel
+	constructor (model: IExpressionModel) {
+		this.model = model
 	}
 
 	public build (node: Node): Operand {
@@ -27,7 +27,7 @@ export class OperandBuilder implements IOperandBuilder {
 			// Example: .[0].states.filter() where function name is states.filter
 			const names = operand.name.split('.')
 			const funcName = names[names.length - 1]
-			const funcMetadata = this.expressionConfig.getFunction(funcName)
+			const funcMetadata = this.model.getFunction(funcName)
 			if (funcMetadata && funcMetadata.deterministic) {
 				return this.reduceOperand(operand)
 			}
@@ -117,13 +117,13 @@ export class OperandBuilder implements IOperandBuilder {
 		case 'obj':
 			return new Obj(node.name, children)
 		case 'operator':
-			return new Operator(node.name, children, this.expressionConfig)
+			return new Operator(node.name, children, this.model)
 		case 'funcRef':
-			return new FunctionRef(node.name, children, this.expressionConfig)
+			return new FunctionRef(node.name, children, this.model)
 		case 'arrow':
-			return new ArrowFunction(node.name, children, this.expressionConfig)
+			return new ArrowFunction(node.name, children, this.model)
 		case 'childFunc':
-			return new ChildFunction(node.name, children, this.expressionConfig)
+			return new ChildFunction(node.name, children, this.model)
 		case 'block':
 			return new Block(node.name, children)
 		case 'if':

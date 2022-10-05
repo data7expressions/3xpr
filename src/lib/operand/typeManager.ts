@@ -1,12 +1,12 @@
 
 import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj, Property } from './operands'
-import { IExpressionConfig, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
+import { IExpressionModel, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '../manager'
 
 export class OperandTypeManager implements IOperandTypeManager {
-	private expressionConfig: IExpressionConfig
-	constructor (expressionConfig: IExpressionConfig) {
-		this.expressionConfig = expressionConfig
+	private model: IExpressionModel
+	constructor (model: IExpressionModel) {
+		this.model = model
 	}
 
 	// Example
@@ -128,7 +128,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 	}
 
 	private solveArrow (arrow: Operand): void {
-		const metadata = this.expressionConfig.getFunction(arrow.name)
+		const metadata = this.model.getFunction(arrow.name)
 		const array = arrow.children[0]
 		const variable = arrow.children.length > 1 ? arrow.children[1] : undefined
 		const predicate = arrow.children.length > 2 ? arrow.children[2] : undefined
@@ -352,7 +352,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 	 */
 	private metadata (operator: Operand): OperatorMetadata {
 		return operator instanceof Operator
-			? this.expressionConfig.getOperator(operator.name, operator.children.length)
-			: this.expressionConfig.getFunction(operator.name)
+			? this.model.getOperator(operator.name, operator.children.length)
+			: this.model.getFunction(operator.name)
 	}
 }

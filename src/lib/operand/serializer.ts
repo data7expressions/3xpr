@@ -4,12 +4,12 @@ import {
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property
 } from './operands'
-import { ISerializer, IExpressionConfig, OperandMetadata, Operand } from './../model'
+import { ISerializer, IExpressionModel, OperandMetadata, Operand } from './../model'
 
 export class OperandSerializer implements ISerializer<Operand> {
-	private expressionConfig: IExpressionConfig
-	constructor (expressionConfig: IExpressionConfig) {
-		this.expressionConfig = expressionConfig
+	private model: IExpressionModel
+	constructor (model: IExpressionModel) {
+		this.model = model
 	}
 
 	public clone (value: Operand): Operand {
@@ -47,13 +47,13 @@ export class OperandSerializer implements ISerializer<Operand> {
 		}
 		switch (value.classType) {
 		case 'ArrowFunction':
-			return new ArrowFunction(value.name, children, this.expressionConfig)
+			return new ArrowFunction(value.name, children, this.model)
 		case 'ChildFunction':
-			return new ChildFunction(value.name, children, this.expressionConfig)
+			return new ChildFunction(value.name, children, this.model)
 		case 'FunctionRef':
-			return new FunctionRef(value.name, children, this.expressionConfig)
+			return new FunctionRef(value.name, children, this.model)
 		case 'Operator':
-			return new Operator(value.name, children, this.expressionConfig)
+			return new Operator(value.name, children, this.model)
 		case 'List':
 			return new List(value.name, children)
 		case 'Obj':

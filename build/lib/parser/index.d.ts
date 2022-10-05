@@ -1,3 +1,3 @@
-export * from './expressionConfig';
+export * from './expressionModel';
 export * from './node';
 export * from './parser';

@@ -1,14 +1,14 @@
 import { Node } from './node';
-import { IExpressionConfig } from './..';
+import { IExpressionModel } from './..';
 export declare class Parser {
-    private config;
+    private model;
     private buffer;
     private length;
     private index;
     private doubleOperators;
     private tripleOperators;
     private assignmentOperators;
-    constructor(config: IExpressionConfig, buffer: string[]);
+    constructor(model: IExpressionModel, buffer: string[]);
     private setOperators;
     get previous(): string;
     get current(): any;

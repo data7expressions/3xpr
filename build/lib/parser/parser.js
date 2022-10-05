@@ -4,8 +4,8 @@ exports.Parser = void 0;
 const node_1 = require("./node");
 const __1 = require("./..");
 class Parser {
-    constructor(config, buffer) {
-        this.config = config;
+    constructor(model, buffer) {
+        this.model = model;
         this.buffer = [];
         this.buffer = buffer;
         this.length = this.buffer.length;
@@ -16,8 +16,8 @@ class Parser {
         this.setOperators();
     }
     setOperators() {
-        for (const p in this.config.operators) {
-            const metadata = this.config.operators[p];
+        for (const p in this.model.operators) {
+            const metadata = this.model.operators[p];
             if (metadata.operator.length === 2) {
                 this.doubleOperators.push(metadata.operator);
             }
@@ -91,7 +91,7 @@ class Parser {
                 isBreak = true;
                 break;
             }
-            else if (this.config.priority(operator) >= this.config.priority(nextOperator)) {
+            else if (this.model.priority(operator) >= this.model.priority(nextOperator)) {
                 operand1 = new node_1.Node(operator, 'operator', [operand1, operand2]);
                 operator = nextOperator;
             }
@@ -216,11 +216,11 @@ class Parser {
                 // } else if (value === 'null') {
                 // operand = new Node(null, 'const')
             }
-            else if (this.config.isConstant(value)) {
-                const constantValue = this.config.getConstantValue(value);
+            else if (this.model.isConstant(value)) {
+                const constantValue = this.model.getConstantValue(value);
                 operand = new node_1.Node(constantValue, 'const');
             }
-            else if (this.config.isEnum(value)) {
+            else if (this.model.isEnum(value)) {
                 operand = this.getEnum(value);
             }
             else {
@@ -652,15 +652,15 @@ class Parser {
         return new node_1.Node('[]', 'operator', [operand, idx]);
     }
     getEnum(value) {
-        if (value.includes('.') && this.config.isEnum(value)) {
+        if (value.includes('.') && this.model.isEnum(value)) {
             const names = value.split('.');
             const enumName = names[0];
             const enumOption = names[1];
-            const enumValue = this.config.getEnumValue(enumName, enumOption);
+            const enumValue = this.model.getEnumValue(enumName, enumOption);
             return new node_1.Node(enumValue, 'const');
         }
         else {
-            const values = this.config.getEnum(value);
+            const values = this.model.getEnum(value);
             const attributes = [];
             for (const name in values) {
                 const _value = values[name];

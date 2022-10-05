@@ -106,13 +106,13 @@ class Obj extends model_1.Operand {
 }
 exports.Obj = Obj;
 class Operator extends model_1.Operand {
-    constructor(name, children = [], metadata) {
+    constructor(name, children = [], model) {
         super(name, children);
-        this.metadata = metadata;
+        this.model = model;
     }
     eval(context) {
-        if (this.metadata) {
-            const operatorMetadata = this.metadata.getOperator(this.name, this.children.length);
+        if (this.model) {
+            const operatorMetadata = this.model.getOperator(this.name, this.children.length);
             if (operatorMetadata.custom) {
                 // eslint-disable-next-line new-cap
                 return new operatorMetadata.custom(this.name, this.children).eval(context);
@@ -132,13 +132,13 @@ class Operator extends model_1.Operand {
 }
 exports.Operator = Operator;
 class FunctionRef extends model_1.Operand {
-    constructor(name, children = [], metadata) {
+    constructor(name, children = [], model) {
         super(name, children);
-        this.metadata = metadata;
+        this.model = model;
     }
     eval(context) {
-        if (this.metadata) {
-            const funcMetadata = this.metadata.getFunction(this.name);
+        if (this.model) {
+            const funcMetadata = this.model.getFunction(this.name);
             if (funcMetadata.custom) {
                 // eslint-disable-next-line new-cap
                 return new funcMetadata.custom(this.name, this.children).eval(context);

@@ -9,7 +9,7 @@ const _1 = require(".");
 class ExpressionsBuilder {
     build() {
         const cache = new _1.MemoryCache();
-        const expressionConfig = new parser_1.ExpressionConfig();
+        const expressionConfig = new parser_1.ExpressionModel();
         const typeManager = new operand_1.OperandTypeManager(expressionConfig);
         const serializer = new operand_1.OperandSerializer(expressionConfig);
         const operandBuilder = new operand_1.OperandBuilder(expressionConfig);
@@ -19,10 +19,10 @@ class ExpressionsBuilder {
 }
 exports.ExpressionsBuilder = ExpressionsBuilder;
 class Expressions {
-    constructor(cache, config, serializer, operandBuilder, typeManager) {
+    constructor(cache, model, serializer, operandBuilder, typeManager) {
         this.observers = [];
         this.cache = cache;
-        this.config = config;
+        this.model = model;
         this.serializer = serializer;
         this.operandBuilder = operandBuilder;
         this.typeManager = typeManager;
@@ -34,58 +34,58 @@ class Expressions {
         return this._instance;
     }
     get operators() {
-        return this.config.operators;
+        return this.model.operators;
     }
     get enums() {
-        return this.config.enums;
+        return this.model.enums;
     }
     get formats() {
-        return this.config.formats;
+        return this.model.formats;
     }
     get constants() {
-        return this.config.constants;
+        return this.model.constants;
     }
     get functions() {
-        return this.config.functions;
+        return this.model.functions;
     }
     addFunction(source, sing, deterministic) {
-        this.config.addFunction(source, sing, deterministic);
+        this.model.addFunction(source, sing, deterministic);
     }
     addEnum(key, source) {
-        this.config.addEnum(key, source);
+        this.model.addEnum(key, source);
     }
     addFormat(key, pattern) {
-        this.config.addFormat(key, pattern);
+        this.model.addFormat(key, pattern);
     }
     addConstant(key, value) {
-        this.config.addConstant(key, value);
+        this.model.addConstant(key, value);
     }
     addAlias(alias, reference) {
-        this.config.addAlias(alias, reference);
+        this.model.addAlias(alias, reference);
     }
     isEnum(name) {
-        return this.config.isEnum(name);
+        return this.model.isEnum(name);
     }
     getEnumValue(name, option) {
-        return this.config.getEnumValue(name, option);
+        return this.model.getEnumValue(name, option);
     }
     getEnum(name) {
-        return this.config.getEnum(name);
+        return this.model.getEnum(name);
     }
     isConstant(name) {
-        return this.config.isConstant(name);
+        return this.model.isConstant(name);
     }
     getConstantValue(name) {
-        return this.config.getConstantValue(name);
+        return this.model.getConstantValue(name);
     }
     getFormat(name) {
-        return this.config.getFormat(name);
+        return this.model.getFormat(name);
     }
     getOperator(operator, operands) {
-        return this.config.getOperator(operator, operands);
+        return this.model.getOperator(operator, operands);
     }
     getFunction(name) {
-        return this.config.getFunction(name);
+        return this.model.getFunction(name);
     }
     clone(operand) {
         return this.serializer.clone(operand);
@@ -182,7 +182,7 @@ class Expressions {
         }
     }
     _parse(buffer) {
-        const parser = new parser_1.Parser(this.config, buffer);
+        const parser = new parser_1.Parser(this.model, buffer);
         const node = parser.parse();
         _1.Helper.exp.clearChildEmpty(node);
         const operand = this.operandBuilder.build(node);

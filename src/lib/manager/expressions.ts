@@ -1,5 +1,5 @@
-import { IExpressions, IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
-import { Parser, ExpressionConfig } from '../parser'
+import { IExpressions, IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionModel, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
+import { Parser, ExpressionModel } from '../parser'
 import { OperandBuilder, OperandTypeManager, OperandSerializer, CoreLibrary } from '../operand'
 import { Helper, MemoryCache } from '.'
 
@@ -7,7 +7,7 @@ import { Helper, MemoryCache } from '.'
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
 		const cache = new MemoryCache()
-		const expressionConfig = new ExpressionConfig()
+		const expressionConfig = new ExpressionModel()
 		const typeManager = new OperandTypeManager(expressionConfig)
 		const serializer = new OperandSerializer(expressionConfig)
 		const operandBuilder = new OperandBuilder(expressionConfig)
@@ -18,15 +18,15 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 
 export class Expressions implements IExpressions {
 	private cache: Cache
-	private config: IExpressionConfig
+	private model: IExpressionModel
 	private observers:ActionObserver[]=[];
 	private operandBuilder: IOperandBuilder
 	private typeManager: IOperandTypeManager
 	private serializer: ISerializer<Operand>
 
-	constructor (cache:Cache, config: IExpressionConfig, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
+	constructor (cache:Cache, model: IExpressionModel, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
 		this.cache = cache
-		this.config = config
+		this.model = model
 		this.serializer = serializer
 		this.operandBuilder = operandBuilder
 		this.typeManager = typeManager
@@ -41,75 +41,75 @@ export class Expressions implements IExpressions {
 	}
 
 	public get operators (): OperatorMetadata[] {
-		return this.config.operators
+		return this.model.operators
 	}
 
 	public get enums (): any {
-		return this.config.enums
+		return this.model.enums
 	}
 
 	public get formats (): any {
-		return this.config.formats
+		return this.model.formats
 	}
 
 	public get constants (): any {
-		return this.config.constants
+		return this.model.constants
 	}
 
 	public get functions (): OperatorMetadata[] {
-		return this.config.functions
+		return this.model.functions
 	}
 
 	public addFunction (source:any, sing:string, deterministic?:boolean):void {
-		this.config.addFunction(source, sing, deterministic)
+		this.model.addFunction(source, sing, deterministic)
 	}
 
 	public addEnum (key:string, source:any):void {
-		this.config.addEnum(key, source)
+		this.model.addEnum(key, source)
 	}
 
 	public addFormat (key:string, pattern:string):void {
-		this.config.addFormat(key, pattern)
+		this.model.addFormat(key, pattern)
 	}
 
 	public addConstant (key:string, value:any):void {
-		this.config.addConstant(key, value)
+		this.model.addConstant(key, value)
 	}
 
 	public addAlias (alias:string, reference:string):void {
-		this.config.addAlias(alias, reference)
+		this.model.addAlias(alias, reference)
 	}
 
 	public isEnum (name:string): boolean {
-		return this.config.isEnum(name)
+		return this.model.isEnum(name)
 	}
 
 	public getEnumValue (name:string, option:string):any {
-		return this.config.getEnumValue(name, option)
+		return this.model.getEnumValue(name, option)
 	}
 
 	public getEnum (name:string):any {
-		return this.config.getEnum(name)
+		return this.model.getEnum(name)
 	}
 
 	public isConstant (name:string): boolean {
-		return this.config.isConstant(name)
+		return this.model.isConstant(name)
 	}
 
 	public getConstantValue (name:string):any {
-		return this.config.getConstantValue(name)
+		return this.model.getConstantValue(name)
 	}
 
 	public getFormat (name:string): Format | undefined {
-		return this.config.getFormat(name)
+		return this.model.getFormat(name)
 	}
 
 	public getOperator (operator:string, operands?:number): OperatorMetadata {
-		return this.config.getOperator(operator, operands)
+		return this.model.getOperator(operator, operands)
 	}
 
 	public getFunction (name: string): OperatorMetadata {
-		return this.config.getFunction(name)
+		return this.model.getFunction(name)
 	}
 
 	public clone (operand: Operand):Operand {
@@ -210,7 +210,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private _parse (buffer: string[]): Operand {
-		const parser = new Parser(this.config, buffer)
+		const parser = new Parser(this.model, buffer)
 		const node = parser.parse()
 		Helper.exp.clearChildEmpty(node)
 		const operand = this.operandBuilder.build(node)

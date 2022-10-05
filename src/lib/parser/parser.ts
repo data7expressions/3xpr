@@ -1,8 +1,8 @@
 import { Node } from './node'
-import { Helper, IExpressionConfig } from './..'
+import { Helper, IExpressionModel } from './..'
 
 export class Parser {
-	private config: IExpressionConfig
+	private model: IExpressionModel
 	private buffer: string[]
 	private length: number
 	private index: number
@@ -10,8 +10,8 @@ export class Parser {
 	private tripleOperators: string[]
 	private assignmentOperators: string[]
 
-	constructor (config: IExpressionConfig, buffer: string[]) {
-		this.config = config
+	constructor (model: IExpressionModel, buffer: string[]) {
+		this.model = model
 		this.buffer = []
 		this.buffer = buffer
 		this.length = this.buffer.length
@@ -23,8 +23,8 @@ export class Parser {
 	}
 
 	private setOperators () {
-		for (const p in this.config.operators) {
-			const metadata = this.config.operators[p]
+		for (const p in this.model.operators) {
+			const metadata = this.model.operators[p]
 			if (metadata.operator.length === 2) {
 				this.doubleOperators.push(metadata.operator)
 			} else if (metadata.operator.length === 3) {
@@ -100,7 +100,7 @@ export class Parser {
 				expression = new Node(operator, 'operator', [operand1 as Node, operand2])
 				isBreak = true
 				break
-			} else if (this.config.priority(operator as string) >= this.config.priority(nextOperator)) {
+			} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
 				operand1 = new Node(operator, 'operator', [operand1 as Node, operand2])
 				operator = nextOperator
 			} else {
@@ -203,10 +203,10 @@ export class Parser {
 			// operand = new Node(false, 'const')
 			// } else if (value === 'null') {
 			// operand = new Node(null, 'const')
-			} else if (this.config.isConstant(value)) {
-				const constantValue = this.config.getConstantValue(value)
+			} else if (this.model.isConstant(value)) {
+				const constantValue = this.model.getConstantValue(value)
 				operand = new Node(constantValue, 'const')
-			} else if (this.config.isEnum(value)) {
+			} else if (this.model.isEnum(value)) {
 				operand = this.getEnum(value)
 			} else {
 				operand = new Node(value, 'var')
@@ -613,14 +613,14 @@ export class Parser {
 	}
 
 	private getEnum (value: string): Node {
-		if (value.includes('.') && this.config.isEnum(value)) {
+		if (value.includes('.') && this.model.isEnum(value)) {
 			const names = value.split('.')
 			const enumName = names[0]
 			const enumOption = names[1]
-			const enumValue = this.config.getEnumValue(enumName, enumOption)
+			const enumValue = this.model.getEnumValue(enumName, enumOption)
 			return new Node(enumValue, 'const')
 		} else {
-			const values = this.config.getEnum(value)
+			const values = this.model.getEnum(value)
 			const attributes = []
 			for (const name in values) {
 				const _value = values[name]

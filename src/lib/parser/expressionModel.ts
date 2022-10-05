@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 // import expConfig from './config.json'
-import { Metadata, OperatorMetadata, OperatorType, IExpressionConfig, Format, Parameter } from '../model'
+import { Metadata, OperatorMetadata, OperatorType, IExpressionModel, Format, Parameter } from '../model'
 
-export class ExpressionConfig implements IExpressionConfig {
+export class ExpressionModel implements IExpressionModel {
 	public enums: any
 	public constants: any
 	public formats: any

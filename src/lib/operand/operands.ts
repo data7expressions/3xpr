@@ -1,5 +1,5 @@
 
-import { Context, Operand, Type, IExpressionConfig } from '../model'
+import { Context, Operand, Type, IExpressionModel } from '../model'
 import { Helper } from '../manager'
 export class Constant extends Operand {
 	constructor (name: string) {
@@ -108,15 +108,15 @@ export class Obj extends Operand {
 	}
 }
 export class Operator extends Operand {
-	private metadata: IExpressionConfig
-	constructor (name: string, children: Operand[] = [], metadata: IExpressionConfig) {
+	private model: IExpressionModel
+	constructor (name: string, children: Operand[] = [], model: IExpressionModel) {
 		super(name, children)
-		this.metadata = metadata
+		this.model = model
 	}
 
 	public eval (context: Context): any {
-		if (this.metadata) {
-			const operatorMetadata = this.metadata.getOperator(this.name, this.children.length)
+		if (this.model) {
+			const operatorMetadata = this.model.getOperator(this.name, this.children.length)
 			if (operatorMetadata.custom) {
 				// eslint-disable-next-line new-cap
 				return new operatorMetadata.custom(this.name, this.children).eval(context)
@@ -133,15 +133,15 @@ export class Operator extends Operand {
 	}
 }
 export class FunctionRef extends Operand {
-	private metadata: IExpressionConfig
-	constructor (name: string, children: Operand[] = [], metadata: IExpressionConfig) {
+	private model: IExpressionModel
+	constructor (name: string, children: Operand[] = [], model: IExpressionModel) {
 		super(name, children)
-		this.metadata = metadata
+		this.model = model
 	}
 
 	public eval (context: Context): any {
-		if (this.metadata) {
-			const funcMetadata = this.metadata.getFunction(this.name)
+		if (this.model) {
+			const funcMetadata = this.model.getFunction(this.name)
 			if (funcMetadata.custom) {
 				// eslint-disable-next-line new-cap
 				return new funcMetadata.custom(this.name, this.children).eval(context)
