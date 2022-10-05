@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
@@ -14,5 +14,5 @@ import { show } from './util'
 		'(a*b)+(2*a+2*b)',
 		'2**b+a'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'arithmetic', context: context, expressions: list })
 })()

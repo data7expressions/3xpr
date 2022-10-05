@@ -1,106 +1,106 @@
-import fs from 'fs'
-import path from 'path'
-import { expressions, Helper } from '../../lib'
+// import fs from 'fs'
+// import path from 'path'
+// import { expressions, Helper } from '../../lib'
 
-async function writeFunctions (category:string, list: any): Promise<void> {
-	const lines: string[] = []
-	// lines.push(`# ${category} functions\n`)
+// async function writeFunctions (category:string, list: any): Promise<void> {
+// const lines: string[] = []
+// // lines.push(`# ${category} functions\n`)
 
-	lines.push('|Function    |Description                                   |')
-	lines.push('|------------|----------------------------------------------|')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`|${item.name}|${item.description}|`)
-	}
-	lines.push('')
+// lines.push('|Function    |Description                                   |')
+// lines.push('|------------|----------------------------------------------|')
+// for (const p in list) {
+// const item = list[p]
+// lines.push(`|${item.name}|${item.description}|`)
+// }
+// lines.push('')
 
-	lines.push('## Definition\n')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`### ${item.name}\n`)
-		lines.push(`- description: ${item.description}`)
-		lines.push(`- deterministic: ${item.deterministic}`)
-		lines.push(`- return: ${item.return}`)
-		lines.push('- params:')
-		for (const q in item.params) {
-			const param = item.params[q]
-			lines.push(`\t- ${param.name}: ${param.type}`)
-		}
-		lines.push('')
-	}
+// lines.push('## Definition\n')
+// for (const p in list) {
+// const item = list[p]
+// lines.push(`### ${item.name}\n`)
+// lines.push(`- description: ${item.description}`)
+// lines.push(`- deterministic: ${item.deterministic}`)
+// lines.push(`- return: ${item.return}`)
+// lines.push('- params:')
+// for (const q in item.params) {
+// const param = item.params[q]
+// lines.push(`\t- ${param.name}: ${param.type}`)
+// }
+// lines.push('')
+// }
 
-	const content = lines.join('\n')
-	const targetFolder = 'doc/build'
-	if (!await Helper.fs.exists(targetFolder)) {
-		fs.mkdirSync(targetFolder, { recursive: true })
-	}
-	fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
-}
+// const content = lines.join('\n')
+// const targetFolder = 'doc/build'
+// if (!await Helper.fs.exists(targetFolder)) {
+// fs.mkdirSync(targetFolder, { recursive: true })
+// }
+// fs.writeFileSync(path.join(targetFolder, 'function_' + category.replace(' ', '_') + '.md'), content)
+// }
 
-async function writeOperators (category:string, list: any): Promise<void> {
-	const lines: string[] = []
-	// lines.push(`# ${category} operators\n`)
+// async function writeOperators (category:string, list: any): Promise<void> {
+// const lines: string[] = []
+// // lines.push(`# ${category} operators\n`)
 
-	lines.push('|Operator    |Description                                   |')
-	lines.push('|------------|----------------------------------------------|')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`|${item.operator}|${item.name}|`)
-	}
-	lines.push('')
+// lines.push('|Operator    |Description                                   |')
+// lines.push('|------------|----------------------------------------------|')
+// for (const p in list) {
+// const item = list[p]
+// lines.push(`|${item.operator}|${item.name}|`)
+// }
+// lines.push('')
 
-	lines.push('## Definition\n')
-	for (const p in list) {
-		const item = list[p]
-		lines.push(`### Operator ${item.operator}\n`)
-		lines.push(`- description: ${item.name}`)
-		lines.push(`- return: ${item.return}`)
-		lines.push('- params:')
-		for (const q in item.params) {
-			const param = item.params[q]
-			lines.push(`\t- ${param.name}: ${param.type}`)
-		}
-		lines.push('')
-	}
+// lines.push('## Definition\n')
+// for (const p in list) {
+// const item = list[p]
+// lines.push(`### Operator ${item.operator}\n`)
+// lines.push(`- description: ${item.name}`)
+// lines.push(`- return: ${item.return}`)
+// lines.push('- params:')
+// for (const q in item.params) {
+// const param = item.params[q]
+// lines.push(`\t- ${param.name}: ${param.type}`)
+// }
+// lines.push('')
+// }
 
-	const content = lines.join('\n')
-	const targetFolder = 'doc/build'
-	if (!await Helper.fs.exists(targetFolder)) {
-		fs.mkdirSync(targetFolder, { recursive: true })
-	}
-	fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)
-}
+// const content = lines.join('\n')
+// const targetFolder = 'doc/build'
+// if (!await Helper.fs.exists(targetFolder)) {
+// fs.mkdirSync(targetFolder, { recursive: true })
+// }
+// fs.writeFileSync(path.join(targetFolder, 'operator_' + category.replace(' ', '_') + '.md'), content)
+// }
 
-export async function apply (callback: any) {
-	const funcCategories:any = {}
-	for (const p in expressions.functions) {
-		const item = expressions.functions[p]
-		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
-		if (funcCategories[category] === undefined) {
-			funcCategories[category] = { list: [] }
-		}
-		funcCategories[category].list.push(item)
-	}
+// export async function apply (callback: any) {
+// const funcCategories:any = {}
+// for (const p in expressions.functions) {
+// const item = expressions.functions[p]
+// const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
+// if (funcCategories[category] === undefined) {
+// funcCategories[category] = { list: [] }
+// }
+// funcCategories[category].list.push(item)
+// }
 
-	for (const p in funcCategories) {
-		const category = funcCategories[p]
-		await writeFunctions(p, category.list)
-	}
+// for (const p in funcCategories) {
+// const category = funcCategories[p]
+// await writeFunctions(p, category.list)
+// }
 
-	const operatorCategories:any = {}
-	for (const p in expressions.operators) {
-		const item = expressions.operators[p]
-		const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
-		if (operatorCategories[category] === undefined) {
-			operatorCategories[category] = { list: [] }
-		}
-		operatorCategories[category].list.push(item)
-	}
+// const operatorCategories:any = {}
+// for (const p in expressions.operators) {
+// const item = expressions.operators[p]
+// const category = item.category !== undefined ? item.category : item.lib !== undefined ? item.lib : 'general'
+// if (operatorCategories[category] === undefined) {
+// operatorCategories[category] = { list: [] }
+// }
+// operatorCategories[category].list.push(item)
+// }
 
-	for (const p in operatorCategories) {
-		const category = operatorCategories[p]
-		await writeOperators(p, category.list)
-	}
-	callback()
-}
-// apply(function () { console.log('end') })
+// for (const p in operatorCategories) {
+// const category = operatorCategories[p]
+// await writeOperators(p, category.list)
+// }
+// callback()
+// }
+// // apply(function () { console.log('end') })

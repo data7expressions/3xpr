@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -45,5 +45,5 @@ import { show } from './util'
 		'{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}',
 		'orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})'
 	]
-	show(groups, context)
+	await HelperTest.buildSuite({ name: 'groups', context: context, expressions: groups })
 })()

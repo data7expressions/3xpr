@@ -16,7 +16,7 @@
 and [bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise) operators
 - [Number](https://github.com/FlavioLionelRita/js-expressions/wiki/Numeric)
 , [string](https://github.com/FlavioLionelRita/js-expressions/wiki/String)
-,	[datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
+,	[datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/DateTime)
 , [array](https://github.com/FlavioLionelRita/js-expressions/wiki/Array)
 and [nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable) functions
 - [Conversion](https://github.com/FlavioLionelRita/js-expressions/wiki/Conversion) functions
@@ -112,7 +112,7 @@ while (p=timezones.pop()) {
 - [Bitwise](https://github.com/FlavioLionelRita/js-expressions/wiki/Bitwise)
 - [Numeric](https://github.com/FlavioLionelRita/js-expressions/wiki/Numeric)
 - [String](https://github.com/FlavioLionelRita/js-expressions/wiki/String)
-- [Datetime](https://github.com/FlavioLionelRita/js-expressions/wiki/Datetime)
+- [DateTime](https://github.com/FlavioLionelRita/js-expressions/wiki/DateTime)
 - [Nullable](https://github.com/FlavioLionelRita/js-expressions/wiki/Nullable)
 - [Conversion](https://github.com/FlavioLionelRita/js-expressions/wiki/Conversion)
 - [Assignment](https://github.com/FlavioLionelRita/js-expressions/wiki/Assignment)

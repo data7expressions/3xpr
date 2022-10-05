@@ -1,16 +1,14 @@
-import { ExpressionConfig } from '../parser/index'
 import { Helper } from '../manager'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property
-	// , IOperandData
 } from './operands'
-import { ISerializer, OperandMetadata, Operand } from './../model'
+import { ISerializer, IExpressionConfig, OperandMetadata, Operand } from './../model'
 
 export class OperandSerializer implements ISerializer<Operand> {
-	private expressionConfig: ExpressionConfig
-	constructor (expressionConfig: ExpressionConfig) {
+	private expressionConfig: IExpressionConfig
+	constructor (expressionConfig: IExpressionConfig) {
 		this.expressionConfig = expressionConfig
 	}
 

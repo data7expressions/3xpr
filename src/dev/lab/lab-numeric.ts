@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
@@ -26,5 +26,5 @@ import { show } from './util'
 		'tanh(7)',
 		'trunc(7.984938,2)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'numeric', context: context, expressions: list })
 })()

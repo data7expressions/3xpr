@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -34,6 +34,5 @@ import { show } from './util'
 		'musicians[musicians.length()-1]'
 	]
 
-	// await test('cities.map(p=>[p.customer.firstName,p.customer.lastName])', file)
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'array', context: context, expressions: list })
 })()

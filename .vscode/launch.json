@@ -20,6 +20,15 @@
 			"program": "${workspaceFolder}/src/dev/lab/lab.ts"
 		},
 		{
+			"name": "lab constants",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-constants.ts"
+		},
+		{
 			"name": "lab parameters",
 			"type": "node",
 			"request": "launch",
@@ -117,16 +126,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-comparison.ts"
-		},
-		{
-			"name": "lab condition",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-condition.ts"
-		},
+		},		
 		{
 			"name": "lab conversion",
 			"type": "node",
@@ -162,16 +162,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-quick.ts"
-		},
-		{
-			"name": "lab group",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-group.ts"
-		},
+		},		
 		{
 			"name": "lab sets",
 			"type": "node",

@@ -1,6 +1,5 @@
 
-import { Context, Operand, Type } from '../model'
-import { ExpressionConfig } from '../parser'
+import { Context, Operand, Type, IExpressionConfig } from '../model'
 import { Helper } from '../manager'
 export class Constant extends Operand {
 	constructor (name: string) {
@@ -109,8 +108,8 @@ export class Obj extends Operand {
 	}
 }
 export class Operator extends Operand {
-	private metadata: ExpressionConfig
-	constructor (name: string, children: Operand[] = [], metadata: ExpressionConfig) {
+	private metadata: IExpressionConfig
+	constructor (name: string, children: Operand[] = [], metadata: IExpressionConfig) {
 		super(name, children)
 		this.metadata = metadata
 	}
@@ -134,8 +133,8 @@ export class Operator extends Operand {
 	}
 }
 export class FunctionRef extends Operand {
-	private metadata: ExpressionConfig
-	constructor (name: string, children: Operand[] = [], metadata: ExpressionConfig) {
+	private metadata: IExpressionConfig
+	constructor (name: string, children: Operand[] = [], metadata: IExpressionConfig) {
 		super(name, children)
 		this.metadata = metadata
 	}

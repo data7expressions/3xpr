@@ -1,0 +1,75 @@
+{
+  "name": "conversion",
+  "method": "eval",
+  "context": {
+    "customer": {
+      "firstName": "Juan",
+      "lastName": "Lopez",
+      "birthday": "1975-03-20T23:45:11"
+    },
+    "data": "{\"b\":1}"
+  },
+  "cases": [
+    {
+      "expression": "toString(month(customer.birthday))",
+      "result": "3"
+    },
+    {
+      "expression": "toNumber(\"3.141516\")",
+      "result": 3.141516
+    },
+    {
+      "expression": "dateToString(datetime(customer.birthday))",
+      "result": "1975-03-20T22:45:11.000Z"
+    },
+    {
+      "expression": "keys(customer)",
+      "result": [
+        "firstName",
+        "lastName",
+        "birthday"
+      ]
+    },
+    {
+      "expression": "values(customer)",
+      "result": [
+        "Juan",
+        "Lopez",
+        "1975-03-20T23:45:11"
+      ]
+    },
+    {
+      "expression": "entries(customer)",
+      "result": [
+        [
+          "firstName",
+          "Juan"
+        ],
+        [
+          "lastName",
+          "Lopez"
+        ],
+        [
+          "birthday",
+          "1975-03-20T23:45:11"
+        ]
+      ]
+    },
+    {
+      "expression": "fromEntries(entries(customer))",
+      "result": {
+        "firstName": "Juan",
+        "lastName": "Lopez",
+        "birthday": "1975-03-20T23:45:11"
+      }
+    },
+    {
+      "expression": "stringify(customer)",
+      "result": "{\"firstName\":\"Juan\",\"lastName\":\"Lopez\",\"birthday\":\"1975-03-20T23:45:11\"}"
+    },
+    {
+      "expression": "parse(data).b",
+      "result": 1
+    }
+  ]
+}

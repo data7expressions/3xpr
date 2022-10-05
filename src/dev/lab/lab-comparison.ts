@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -57,8 +57,8 @@ import { show } from './util'
 		'isString(b)',
 		'isString(d)',
 		'isDate(date)',
-		'isDatetime(datetime)',
-		'isDatetime(time)',
+		'isDateTime(datetime)',
+		'isDateTime(time)',
 		'isTime(time)',
 		'isObject(c)',
 		'isObject(device)',
@@ -72,9 +72,9 @@ import { show } from './util'
 		'isIntegerFormat(pi)',
 		'isIntegerFormat(b)',
 		'isDateFormat(date)',
-		'isDatetimeFormat(datetime)',
-		'isDatetimeFormat(time)',
+		'isDateTimeFormat(datetime)',
+		'isDateTimeFormat(time)',
 		'isTimeFormat(time)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'comparison', context: context, expressions: list })
 })()

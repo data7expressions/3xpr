@@ -1,6 +1,6 @@
 import { expressions } from '../../lib'
 
-describe('Datetime', () => {
+describe('DateTime', () => {
 
 	test('functions', () => {
 		const context = {a:"2021-09-06T14:39:11.444Z" }

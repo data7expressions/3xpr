@@ -1,0 +1,32 @@
+{
+  "name": "logical",
+  "method": "eval",
+  "context": {
+    "a": "1",
+    "b": 2,
+    "c": {
+      "a": 4,
+      "b": 5
+    },
+    "d": "house",
+    "e": "car"
+  },
+  "cases": [
+    {
+      "expression": "a==\"1\" && b==2",
+      "result": true
+    },
+    {
+      "expression": "a==\"1\" && b>2",
+      "result": false
+    },
+    {
+      "expression": "a==\"1\" || b>2",
+      "result": true
+    },
+    {
+      "expression": "!(a==\"1\" || b>2)",
+      "result": false
+    }
+  ]
+}

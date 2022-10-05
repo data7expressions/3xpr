@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 import { expressions as exp } from '../../lib'
 
 const list = (context:any) => {
@@ -38,7 +38,7 @@ const list = (context:any) => {
 		}
 		`
 	]
-	show(list, context)
+	HelperTest.show(list, context)
 }
 
 const lab = (context:any) => {

@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -50,5 +50,5 @@ import { show } from './util'
 		'orders.map(p => {nro:p.number, customer: `${p.customer.firstName} ${p.customer.lastName}`})',
 		'orders.map(p => {nro:p.number, articles: p.details.article }).articles.distinct()'
 	]
-	show(groups, context)
+	await HelperTest.buildSuite({ name: 'groups', context: context, expressions: groups })
 })()

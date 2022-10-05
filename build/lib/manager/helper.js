@@ -2,12 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExpHelper = void 0;
 const h3lp_1 = require("h3lp");
+const operand_1 = require("../operand");
 class TypeHelper {
-    constructor(help) {
-        this.help = help;
+    constructor(validator) {
+        this.validator = validator;
     }
     getType(value) {
-        if (Array.isArray(value)) {
+        if (value === null || value === undefined) {
+            return 'any';
+        }
+        else if (Array.isArray(value)) {
             if (value.length > 0) {
                 return { items: this.getType(value[0]) };
             }
@@ -25,7 +29,7 @@ class TypeHelper {
             return 'string';
         }
         else if (typeof value === 'number') {
-            if (this.help.validator.isInteger(value)) {
+            if (this.validator.isInteger(value)) {
                 return 'integer';
             }
             return 'decimal';
@@ -94,10 +98,342 @@ class TypeHelper {
         return JSON.parse(type);
     }
 }
+class ExpressionHelper {
+    constructor(validator) {
+        this.validator = validator;
+    }
+    toExpression(node) {
+        const list = [];
+        // if (!node || !node.type) {
+        // console.log(node)
+        // }
+        switch (node.type) {
+            case 'const':
+            case 'var':
+                list.push(node.name);
+                break;
+            case 'array':
+                list.push('[');
+                for (let i = 0; i < node.children.length; i++) {
+                    if (i > 0)
+                        list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(']');
+                break;
+            case 'keyVal':
+                list.push(node.name + ':');
+                list.push(this.toExpression(node.children[0]));
+                break;
+            case 'obj':
+                list.push('{');
+                for (let i = 0; i < node.children.length; i++) {
+                    if (i > 0)
+                        list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push('}');
+                break;
+            case 'operator':
+                if (node.children.length === 1) {
+                    list.push(node.name);
+                    list.push(this.toExpression(node.children[0]));
+                }
+                else if (node.children.length === 2) {
+                    list.push('(');
+                    list.push(this.toExpression(node.children[0]));
+                    list.push(node.name);
+                    list.push(this.toExpression(node.children[1]));
+                    list.push(')');
+                }
+                break;
+            case 'funcRef':
+                list.push(node.name);
+                list.push('(');
+                for (let i = 0; i < node.children.length; i++) {
+                    if (i > 0)
+                        list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(')');
+                break;
+            case 'childFunc':
+                list.push(this.toExpression(node.children[0]));
+                list.push('.' + node.name);
+                list.push('(');
+                for (let i = 1; i < node.children.length; i++) {
+                    if (i > 1)
+                        list.push(',');
+                    list.push(this.toExpression(node.children[i]));
+                }
+                list.push(')');
+                break;
+            case 'arrow':
+                list.push(this.toExpression(node.children[0]));
+                list.push('.' + node.name);
+                list.push('(');
+                list.push(node.children[1].name);
+                list.push('=>');
+                list.push(this.toExpression(node.children[2]));
+                list.push(')');
+                break;
+            default:
+                throw new Error('node: ' + node.type + ' not supported');
+        }
+        return list.join('');
+    }
+    clearChildEmpty(node) {
+        try {
+            if (node.children.length > 0) {
+                const toRemove = [];
+                for (let i = 0; i < node.children.length; i++) {
+                    if (node.children[i] === null) {
+                        toRemove.push(i);
+                    }
+                }
+                for (let i = 0; i < toRemove.length; i++) {
+                    delete node.children[toRemove[i]];
+                }
+            }
+        }
+        catch (error) {
+            throw new Error('set parent: ' + node.name + ' error: ' + error.toString());
+        }
+        return node;
+    }
+    minify(expression) {
+        let isString = false;
+        let quotes = '';
+        const buffer = expression.split('');
+        const length = buffer.length;
+        const result = [];
+        let i = 0;
+        while (i < length) {
+            const p = buffer[i];
+            if (isString && p === quotes) {
+                isString = false;
+            }
+            else if (!isString && (p === '\'' || p === '"' || p === '`')) {
+                isString = true;
+                quotes = p;
+            }
+            if (isString) {
+                result.push(p);
+            }
+            else if (p === ' ') {
+                // Only leave spaces when it's between alphanumeric characters.
+                // for example in the case of "} if" there should not be a space
+                if (i + 1 < length && i - 1 >= 0 && this.validator.isAlphanumeric(buffer[i - 1]) && this.validator.isAlphanumeric(buffer[i + 1])) {
+                    result.push(p);
+                }
+                // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
+                // TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
+            }
+            else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+                result.push(';');
+            }
+            else if (p !== '\n' && p !== '\r' && p !== '\t') {
+                result.push(p);
+            }
+            i += 1;
+        }
+        if (result[result.length - 1] === ';') {
+            result.splice(-1);
+            return result;
+        }
+        return result;
+    }
+}
+class OperandHelper {
+    objectKey(obj) {
+        const keys = Object.keys(obj).sort();
+        const list = [];
+        for (const key of keys) {
+            list.push(key);
+            list.push(obj[key].toString());
+        }
+        return list.join('|');
+    }
+    getKeys(variable, fields, list, context) {
+        const keys = [];
+        // loop through the list and group by the grouper fields
+        for (const item of list) {
+            let key = '';
+            const values = [];
+            for (const keyValue of fields) {
+                context.data.set(variable.name, item);
+                // variable.set(item)
+                const value = keyValue.children[0].eval(context);
+                if (typeof value === 'object') {
+                    throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`);
+                }
+                key = key === '' ? value : `${key}-${value}`;
+                values.push({ name: keyValue.name, value: value });
+            }
+            // find if the key already exists in the list of keys
+            const keyItem = keys.find((p) => p.key === key);
+            if (keyItem) {
+                // if the key exists add the item
+                keyItem.items.push(item);
+            }
+            else {
+                // if the key does not exist add the key, the values and the item
+                keys.push({ key: key, values: values, items: [item], summarizers: [] });
+            }
+        }
+        return keys;
+    }
+    haveAggregates(operand) {
+        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            return true;
+        }
+        else if (operand.children && operand.children.length > 0) {
+            for (const child of operand.children) {
+                if (this.haveAggregates(child)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    findAggregates(operand) {
+        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            return [operand];
+        }
+        else if (operand.children && operand.children.length > 0) {
+            let aggregates = [];
+            for (const child of operand.children) {
+                const childAggregates = this.findAggregates(child);
+                if (childAggregates.length > 0) {
+                    aggregates = aggregates.concat(childAggregates);
+                }
+            }
+            return aggregates;
+        }
+        return [];
+    }
+    solveAggregates(list, variable, operand, context) {
+        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+            let value;
+            switch (operand.name) {
+                case 'avg':
+                    value = this.avg(list, variable, operand.children[0], context);
+                    break;
+                case 'count':
+                    value = this.count(list, variable, operand.children[0], context);
+                    break;
+                case 'first':
+                    value = this.first(list, variable, operand.children[0], context);
+                    break;
+                case 'last':
+                    value = this.last(list, variable, operand.children[0], context);
+                    break;
+                case 'max':
+                    value = this.max(list, variable, operand.children[0], context);
+                    break;
+                case 'min':
+                    value = this.min(list, variable, operand.children[0], context);
+                    break;
+                case 'sum':
+                    value = this.sum(list, variable, operand.children[0], context);
+                    break;
+            }
+            return new operand_1.Constant(value);
+        }
+        else if (operand.children && operand.children.length > 0) {
+            for (let i = 0; i < operand.children.length; i++) {
+                operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context);
+            }
+        }
+        return operand;
+    }
+    count(list, variable, aggregate, context) {
+        let count = 0;
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
+                count++;
+            }
+        }
+        return count;
+    }
+    first(list, variable, aggregate, context) {
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
+                return item;
+            }
+        }
+        return null;
+    }
+    last(list, variable, aggregate, context) {
+        for (let i = list.length - 1; i >= 0; i--) {
+            const item = list[i];
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            if (aggregate.eval(context)) {
+                return item;
+            }
+        }
+        return null;
+    }
+    max(list, variable, aggregate, context) {
+        let max;
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
+            if (max === undefined || (value !== null && value > max)) {
+                max = value;
+            }
+        }
+        return max;
+    }
+    min(list, variable, aggregate, context) {
+        let min;
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
+            if (min === undefined || (value !== null && value < min)) {
+                min = value;
+            }
+        }
+        return min;
+    }
+    avg(list, variable, aggregate, context) {
+        let sum = 0;
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
+            if (value !== null) {
+                sum = sum + value;
+            }
+        }
+        return list.length > 0 ? sum / list.length : 0;
+    }
+    sum(list, variable, aggregate, context) {
+        let sum = 0;
+        for (const item of list) {
+            // variable.set(item)
+            context.data.set(variable.name, item);
+            const value = aggregate.eval(context);
+            if (value !== null) {
+                sum = sum + value;
+            }
+        }
+        return sum;
+    }
+}
 class ExpHelper extends h3lp_1.H3lp {
     constructor() {
         super();
-        this.type = new TypeHelper(this);
+        this.type = new TypeHelper(this.validator);
+        this.exp = new ExpressionHelper(this.validator);
+        this.operand = new OperandHelper();
     }
 }
 exports.ExpHelper = ExpHelper;

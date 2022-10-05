@@ -4,3 +4,7 @@ export interface ISerializer<T> {
 	deserialize (value: any): T
 	clone (value: T): T
 }
+
+export interface IBuilder<T> {
+	build (): T
+}

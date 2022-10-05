@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -35,5 +35,5 @@ import { show } from './util'
 		'orders[0].details.difference(orders[1].details)',
 		'orders[0].details.symmetricDifference(orders[1].details)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'sets', context: context, expressions: list })
 })()

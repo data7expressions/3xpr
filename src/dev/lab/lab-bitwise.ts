@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { }
@@ -10,5 +10,5 @@ import { show } from './util'
 		'5 ^ 1',
 		'5 >> 1'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'bitwise', context: context, expressions: list })
 })()
