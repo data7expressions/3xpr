@@ -5,7 +5,6 @@ import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property, EnvironmentVariable
-	// , IOperandData
 } from './operands'
 
 export class OperandBuilder implements IOperandBuilder {
@@ -17,7 +16,6 @@ export class OperandBuilder implements IOperandBuilder {
 	public build (node: Node): Operand {
 		const operand = this.nodeToOperand(node)
 		const reduced = this.reduce(operand)
-		// this.typeManager.solve(reduced)
 		return reduced
 		// return this.setParent(reduced)
 	}

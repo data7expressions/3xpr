@@ -1,7 +1,6 @@
 import { Context } from './context'
 import { Type } from './type'
 import { Node } from './../parser'
-// import { Library } from './../operand'
 
 export interface Parameter {
 	name: string
@@ -43,7 +42,6 @@ export interface OperatorMetadata {
 	deterministic:boolean
 	// category?:string
 	// description?: string
-	// lib?: string
 	operands: number
 	priority?:number
 	return:string
@@ -89,23 +87,16 @@ export interface Metadata {
 }
 
 export interface IExpressionConfig {
-	// get libraries():Library[]
 	get operators(): OperatorMetadata[]
 	get enums(): any
 	get formats(): any
 	get functions(): OperatorMetadata[]
-	doubleOperators: string[]
-	tripleOperators: string[]
-	assignmentOperators: string[]
-	// addLibrary (library:Library):void
-
 	addEnum (key:string, source:any):void
 	addConstant (key:string, value:any):void
 	addFormat (key:string, pattern:string):void
 	addOperator (sing:string, source:any, priority:number):void
 	addFunction (sing:string, source:any, deterministic?:boolean):void
 	addAlias (alias:string, reference:string):void
-	// load (data: any): void
 	isEnum (name:string):boolean
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any
@@ -115,5 +106,4 @@ export interface IExpressionConfig {
 	priority (name: string, cardinality?:number): number
 	isConstant (name:string):boolean
 	getConstantValue (name:string): any | undefined
-	refresh () :void
 }

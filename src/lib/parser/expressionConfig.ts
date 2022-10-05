@@ -3,127 +3,20 @@
 import { Metadata, OperatorMetadata, OperatorType, IExpressionConfig, Format, Parameter } from '../model'
 
 export class ExpressionConfig implements IExpressionConfig {
-	// public libraries:Library[]
 	public enums: any
 	public constants: any
 	public formats: any
 	public aliases: any
 	public operators: OperatorMetadata[]
 	public functions: OperatorMetadata[]
-	public doubleOperators: string[]
-	public tripleOperators: string[]
-	public assignmentOperators: string[]
 	constructor () {
-		// this.libraries = []
 		this.operators = []
 		this.enums = {}
 		this.constants = {}
 		this.formats = {}
 		this.aliases = {}
 		this.functions = []
-		this.tripleOperators = []
-		this.doubleOperators = []
-		this.assignmentOperators = []
-		// this.load(expConfig)
 	}
-
-	public refresh () {
-		for (const p in this.operators) {
-			const metadata = this.operators[p]
-			if (metadata.operator.length === 2) {
-				this.doubleOperators.push(metadata.operator)
-			} else if (metadata.operator.length === 3) {
-				this.tripleOperators.push(metadata.operator)
-			}
-			// if (metadata.category === 'assignment') {
-			if (metadata.priority === 1) {
-				this.assignmentOperators.push(metadata.operator)
-			}
-		}
-	}
-
-	// public addLibrary (library:Library):void {
-	// const index = this.libraries.findIndex(p => p.name === library.name)
-	// if (index === undefined) {
-	// this.libraries.push(library)
-	// } else {
-	// this.libraries[index] = library
-	// }
-	// for (const p in library.operators) {
-	// const metadata = library.operators[p]
-	// this._addOperator(metadata)
-	// }
-	// for (const p in library.functions) {
-	// const metadata = library.functions[p]
-	// this._addFunction(metadata)
-	// }
-	// for (const name in library.enums) {
-	// this.addEnum(name, library.enums[name])
-	// }
-	// for (const name in library.constants) {
-	// this.addConstant(name, library.constants[name])
-	// }
-	// for (const name in library.formats) {
-	// this.addFormat(name, library.formats[name])
-	// }
-	// this.refresh()
-	// }
-
-	// public load (data: any): void {
-	// if (data.enums) {
-	// for (const name in data.enums) {
-	// this.addEnum(name, data.enums[name])
-	// }
-	// }
-	// if (data.constants) {
-	// for (const name in data.constants) {
-	// this.addConstant(name, data.constants[name])
-	// }
-	// }
-	// if (data.formats) {
-	// for (const name in data.formats) {
-	// this.addFormat(name, data.formats[name])
-	// }
-	// }
-	// if (data.operators) {
-	// for (const type in data.operators) {
-	// for (const name in data.operators[type]) {
-	// const operatorData = data.operators[type][name]
-	// const metadata: OperatorMetadata = {
-	// operator: name,
-	// deterministic: true,
-	// name: operatorData.name,
-	// category: operatorData.category,
-	// type: OperatorType.operator,
-	// operands: operatorData.params.length,
-	// priority: operatorData.priority ? operatorData.priority : -1,
-	// description: operatorData.description,
-	// params: operatorData.params,
-	// return: operatorData.return
-	// }
-	// this._addOperator(metadata)
-	// }
-	// }
-	// }
-	// if (data.functions) {
-	// for (const name in data.functions) {
-	// const functionData = data.functions[name]
-	// const metadata: OperatorMetadata = {
-	// operator: name,
-	// name: name,
-	// category: functionData.category,
-	// deterministic: functionData.deterministic ? functionData.deterministic : true,
-	// type: functionData.type ? functionData.type : OperatorType.function,
-	// operands: functionData.params ? functionData.params.length : 0,
-	// description: functionData.description,
-	// params: functionData.params,
-	// return: functionData.return
-	// }
-	// this._addFunction(metadata)
-	// }
-	// }
-	// this.refresh()
-	// }
 
 	public addEnum (key:string, source:any):void {
 		this.enums[key] = source
@@ -139,34 +32,6 @@ export class ExpressionConfig implements IExpressionConfig {
 
 	public addAlias (alias:string, reference:string):void {
 		this.aliases[alias] = reference
-	}
-
-	private _addOperator (metadata: OperatorMetadata): void {
-		const index = this.operators.findIndex(p => p.operator === metadata.operator && p.operands === metadata.operands)
-		if (index === -1) {
-			this.operators.push(metadata)
-		} else {
-			if (metadata.function) {
-				this.operators[index].function = metadata.function
-			}
-			if (metadata.custom) {
-				this.operators[index].custom = metadata.custom
-			}
-		}
-	}
-
-	private _addFunction (metadata: OperatorMetadata): void {
-		const index = this.functions.findIndex(p => p.name === metadata.name && p.type === metadata.type)
-		if (index === -1) {
-			this.functions.push(metadata)
-		} else {
-			if (metadata.function) {
-				this.functions[index].function = metadata.function
-			}
-			if (metadata.custom) {
-				this.functions[index].custom = metadata.custom
-			}
-		}
 	}
 
 	public isEnum (name:string):boolean {
@@ -254,11 +119,6 @@ export class ExpressionConfig implements IExpressionConfig {
 		})
 	}
 
-	// public addFunction (metadata: OperatorMetadata): void {
-	// this._addFunction(metadata)
-	// this.refresh()
-	// }
-
 	public addFunction (sing:string, source:any, deterministic = true):void {
 		const metadata = this.getMetadata(sing)
 		let func, custom
@@ -282,6 +142,34 @@ export class ExpressionConfig implements IExpressionConfig {
 			function: func,
 			custom: custom
 		})
+	}
+
+	private _addOperator (metadata: OperatorMetadata): void {
+		const index = this.operators.findIndex(p => p.operator === metadata.operator && p.operands === metadata.operands)
+		if (index === -1) {
+			this.operators.push(metadata)
+		} else {
+			if (metadata.function) {
+				this.operators[index].function = metadata.function
+			}
+			if (metadata.custom) {
+				this.operators[index].custom = metadata.custom
+			}
+		}
+	}
+
+	private _addFunction (metadata: OperatorMetadata): void {
+		const index = this.functions.findIndex(p => p.name === metadata.name && p.type === metadata.type)
+		if (index === -1) {
+			this.functions.push(metadata)
+		} else {
+			if (metadata.function) {
+				this.functions[index].function = metadata.function
+			}
+			if (metadata.custom) {
+				this.functions[index].custom = metadata.custom
+			}
+		}
 	}
 
 	private getMetadata (sing:string): Metadata {

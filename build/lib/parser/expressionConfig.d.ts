@@ -6,17 +6,11 @@ export declare class ExpressionConfig implements IExpressionConfig {
     aliases: any;
     operators: OperatorMetadata[];
     functions: OperatorMetadata[];
-    doubleOperators: string[];
-    tripleOperators: string[];
-    assignmentOperators: string[];
     constructor();
-    refresh(): void;
     addEnum(key: string, source: any): void;
     addFormat(key: string, pattern: string): void;
     addConstant(key: string, value: any): void;
     addAlias(alias: string, reference: string): void;
-    private _addOperator;
-    private _addFunction;
     isEnum(name: string): boolean;
     isConstant(name: string): boolean;
     getEnumValue(name: string, option: string): any;
@@ -28,6 +22,8 @@ export declare class ExpressionConfig implements IExpressionConfig {
     priority(name: string, cardinality?: number): number;
     addOperator(sing: string, source: any, priority: number): void;
     addFunction(sing: string, source: any, deterministic?: boolean): void;
+    private _addOperator;
+    private _addFunction;
     private getMetadata;
     private getTypeFromValue;
 }

@@ -3,7 +3,6 @@ import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property
-	// , IOperandData
 } from './operands'
 import { ISerializer, IExpressionConfig, OperandMetadata, Operand } from './../model'
 

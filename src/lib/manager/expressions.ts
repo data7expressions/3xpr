@@ -1,16 +1,17 @@
-import { Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
-import { Parser } from '../parser'
-import { OperandBuilder, OperandTypeManager, OperandSerializer } from './../operand'
+import { IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
+import { Parser, ExpressionConfig } from '../parser'
+import { OperandBuilder, OperandTypeManager, OperandSerializer, CoreLibrary } from '../operand'
 import { Helper, MemoryCache } from '.'
-import { ExpressionConfigBuilder } from './expressionConfigBuilder'
 
-export class ExpressionsBuilder {
+// eslint-disable-next-line no-use-before-define
+export class ExpressionsBuilder implements IBuilder<Expressions> {
 	public build ():Expressions {
 		const cache = new MemoryCache()
-		const expressionConfig = new ExpressionConfigBuilder().build()
+		const expressionConfig = new ExpressionConfig()
 		const typeManager = new OperandTypeManager(expressionConfig)
 		const serializer = new OperandSerializer(expressionConfig)
 		const operandBuilder = new OperandBuilder(expressionConfig)
+		new CoreLibrary(expressionConfig).load()
 		return new Expressions(cache, expressionConfig, serializer, operandBuilder, typeManager)
 	}
 }
@@ -69,10 +70,6 @@ export class Expressions {
 
 	public addConstant (key:string, value:any):void {
 		this.config.addConstant(key, value)
-	}
-
-	public refresh ():void {
-		this.config.refresh()
 	}
 
 	public addAlias (alias:string, reference:string):void {

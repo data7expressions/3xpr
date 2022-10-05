@@ -1,5 +1,5 @@
-import { Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder } from '../model';
-export declare class ExpressionsBuilder {
+import { IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder } from '../model';
+export declare class ExpressionsBuilder implements IBuilder<Expressions> {
     build(): Expressions;
 }
 export declare class Expressions {
@@ -20,7 +20,6 @@ export declare class Expressions {
     addEnum(key: string, source: any): void;
     addFormat(key: string, pattern: string): void;
     addConstant(key: string, value: any): void;
-    refresh(): void;
     addAlias(alias: string, reference: string): void;
     isEnum(name: string): boolean;
     getEnumValue(name: string, option: string): any;

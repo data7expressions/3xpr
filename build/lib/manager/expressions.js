@@ -3,16 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Expressions = exports.ExpressionsBuilder = void 0;
 const model_1 = require("../model");
 const parser_1 = require("../parser");
-const operand_1 = require("./../operand");
+const operand_1 = require("../operand");
 const _1 = require(".");
-const expressionConfigBuilder_1 = require("./expressionConfigBuilder");
+// eslint-disable-next-line no-use-before-define
 class ExpressionsBuilder {
     build() {
         const cache = new _1.MemoryCache();
-        const expressionConfig = new expressionConfigBuilder_1.ExpressionConfigBuilder().build();
+        const expressionConfig = new parser_1.ExpressionConfig();
         const typeManager = new operand_1.OperandTypeManager(expressionConfig);
         const serializer = new operand_1.OperandSerializer(expressionConfig);
         const operandBuilder = new operand_1.OperandBuilder(expressionConfig);
+        new operand_1.CoreLibrary(expressionConfig).load();
         return new Expressions(cache, expressionConfig, serializer, operandBuilder, typeManager);
     }
 }
@@ -55,9 +56,6 @@ class Expressions {
     }
     addConstant(key, value) {
         this.config.addConstant(key, value);
-    }
-    refresh() {
-        this.config.refresh();
     }
     addAlias(alias, reference) {
         this.config.addAlias(alias, reference);

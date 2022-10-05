@@ -5,7 +5,11 @@ export declare class Parser {
     private buffer;
     private length;
     private index;
+    private doubleOperators;
+    private tripleOperators;
+    private assignmentOperators;
     constructor(config: IExpressionConfig, buffer: string[]);
+    private setOperators;
     get previous(): string;
     get current(): any;
     get next(): string;

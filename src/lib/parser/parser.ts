@@ -6,6 +6,9 @@ export class Parser {
 	private buffer: string[]
 	private length: number
 	private index: number
+	private doubleOperators: string[]
+	private tripleOperators: string[]
+	private assignmentOperators: string[]
 
 	constructor (config: IExpressionConfig, buffer: string[]) {
 		this.config = config
@@ -13,6 +16,25 @@ export class Parser {
 		this.buffer = buffer
 		this.length = this.buffer.length
 		this.index = 0
+		this.tripleOperators = []
+		this.doubleOperators = []
+		this.assignmentOperators = []
+		this.setOperators()
+	}
+
+	private setOperators () {
+		for (const p in this.config.operators) {
+			const metadata = this.config.operators[p]
+			if (metadata.operator.length === 2) {
+				this.doubleOperators.push(metadata.operator)
+			} else if (metadata.operator.length === 3) {
+				this.tripleOperators.push(metadata.operator)
+			}
+			// if (metadata.category === 'assignment') {
+			if (metadata.priority === 1) {
+				this.assignmentOperators.push(metadata.operator)
+			}
+		}
 	}
 
 	get previous () {
@@ -299,11 +321,11 @@ export class Parser {
 		let op = null
 		if (this.index + 2 < this.length) {
 			const triple = this.current + this.next + this.buffer[this.index + 2]
-			if (this.config.tripleOperators.includes(triple)) op = triple
+			if (this.tripleOperators.includes(triple)) op = triple
 		}
 		if (op == null && this.index + 1 < this.length) {
 			const double = this.current + this.next
-			if (this.config.doubleOperators.includes(double)) op = double
+			if (this.doubleOperators.includes(double)) op = double
 		}
 		if (op == null) op = this.current
 		this.index += op.length
