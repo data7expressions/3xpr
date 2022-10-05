@@ -57,8 +57,8 @@ import { HelperTest } from '../helperTest'
 		'isString(b)',
 		'isString(d)',
 		'isDate(date)',
-		'isDatetime(datetime)',
-		'isDatetime(time)',
+		'isDateTime(datetime)',
+		'isDateTime(time)',
 		'isTime(time)',
 		'isObject(c)',
 		'isObject(device)',
@@ -72,8 +72,8 @@ import { HelperTest } from '../helperTest'
 		'isIntegerFormat(pi)',
 		'isIntegerFormat(b)',
 		'isDateFormat(date)',
-		'isDatetimeFormat(datetime)',
-		'isDatetimeFormat(time)',
+		'isDateTimeFormat(datetime)',
+		'isDateTimeFormat(time)',
 		'isTimeFormat(time)'
 	]
 	await HelperTest.buildSuite({ name: 'comparison', context: context, expressions: list })

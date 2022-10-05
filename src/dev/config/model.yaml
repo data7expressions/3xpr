@@ -527,7 +527,7 @@ functions:
     params:
     - name: value 
       type: any
-  isDatetime:
+  isDateTime:
     description: Evaluate if it is a datetime
     category: comparison
     deterministic: true 
@@ -599,7 +599,7 @@ functions:
     params:
     - name: value 
       type: any
-  isDatetimeFormat:
+  isDateTimeFormat:
     description: Evaluates if it has datetime format
     category: comparison
     deterministic: true 

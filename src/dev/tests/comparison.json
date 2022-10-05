@@ -174,11 +174,11 @@
       "result": true
     },
     {
-      "expression": "isDatetime(datetime)",
+      "expression": "isDateTime(datetime)",
       "result": true
     },
     {
-      "expression": "isDatetime(time)",
+      "expression": "isDateTime(time)",
       "result": false
     },
     {
@@ -234,11 +234,11 @@
       "result": true
     },
     {
-      "expression": "isDatetimeFormat(datetime)",
+      "expression": "isDateTimeFormat(datetime)",
       "result": true
     },
     {
-      "expression": "isDatetimeFormat(time)",
+      "expression": "isDateTimeFormat(time)",
       "result": false
     },
     {

@@ -119,7 +119,7 @@ export class CoreLibrary {
 		this.config.addFunction('isDecimal(value:any):boolean', (value:any):boolean => Helper.validator.isDecimal(value))
 		this.config.addFunction('isString(value:any):boolean', (value:any):boolean => Helper.validator.isString(value))
 		this.config.addFunction('isDate(value:any):boolean', (value:any):boolean => Helper.validator.isDate(value))
-		this.config.addFunction('isDatetime(value:any):boolean', (value:any):boolean => Helper.validator.isDateTime(value))
+		this.config.addFunction('isDateTime(value:any):boolean', (value:any):boolean => Helper.validator.isDateTime(value))
 		this.config.addFunction('isTime(value:any):boolean', (value:any):boolean => Helper.validator.isTime(value))
 		this.config.addFunction('isObject(value:any):boolean', (value:any):boolean => Helper.validator.isObject(value))
 		this.config.addFunction('isArray(value:any):boolean', (value:any):boolean => Helper.validator.isArray(value))
@@ -128,7 +128,7 @@ export class CoreLibrary {
 		this.config.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => Helper.validator.isIntegerFormat(value))
 		this.config.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDecimalFormat(value))
 		this.config.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateFormat(value))
-		this.config.addFunction('isDatetimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateTimeFormat(value))
+		this.config.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateTimeFormat(value))
 		this.config.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isTimeFormat(value))
 	}
 

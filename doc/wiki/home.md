@@ -5,7 +5,7 @@
 - [Bitwise](Bitwise)
 - [Numeric](Numeric)
 - [String](String)
-- [Datetime](Datetime)
+- [DateTime](DateTime)
 - [Nullable](Nullable)
 - [Conversion](Conversion)
 - [Assignment](Assignment)

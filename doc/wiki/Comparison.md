@@ -76,8 +76,8 @@ const context = {
 |isString(b)												|false				|
 |isString(d)												|true					|
 |isDate(date)												|true					|
-|isDatetime(datetime)								|true					|
-|isDatetime(time)										|false				|
+|isDateTime(datetime)								|true					|
+|isDateTime(time)										|false				|
 |isTime(time)												|false				|
 |isObject(c)												|true					|
 |isObject(device)										|false				|
@@ -87,8 +87,8 @@ const context = {
 |isArray(devices)										|true					|
 |isBooleanFormat(requerid)					|false				|
 |isDateFormat(date)									|true					|
-|isDatetimeFormat(datetime)					|true					|
-|isDatetimeFormat(time)							|false				|
+|isDateTimeFormat(datetime)					|true					|
+|isDateTimeFormat(time)							|false				|
 |isTimeFormat(time)									|false				|
 
 ## Definition
