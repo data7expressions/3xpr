@@ -1,11 +1,11 @@
-import { IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
+import { IExpressions, IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
 import { Parser, ExpressionConfig } from '../parser'
 import { OperandBuilder, OperandTypeManager, OperandSerializer, CoreLibrary } from '../operand'
 import { Helper, MemoryCache } from '.'
 
 // eslint-disable-next-line no-use-before-define
-export class ExpressionsBuilder implements IBuilder<Expressions> {
-	public build ():Expressions {
+export class ExpressionsBuilder implements IBuilder<IExpressions> {
+	public build ():IExpressions {
 		const cache = new MemoryCache()
 		const expressionConfig = new ExpressionConfig()
 		const typeManager = new OperandTypeManager(expressionConfig)
@@ -16,7 +16,7 @@ export class ExpressionsBuilder implements IBuilder<Expressions> {
 	}
 }
 
-export class Expressions {
+export class Expressions implements IExpressions {
 	private cache: Cache
 	private config: IExpressionConfig
 	private observers:ActionObserver[]=[];
@@ -32,8 +32,8 @@ export class Expressions {
 		this.typeManager = typeManager
 	}
 
-	private static _instance: Expressions
-	public static get instance (): Expressions {
+	private static _instance: IExpressions
+	public static get instance (): IExpressions {
 		if (!this._instance) {
 			this._instance = new ExpressionsBuilder().build()
 		}
@@ -50,6 +50,10 @@ export class Expressions {
 
 	public get formats (): any {
 		return this.config.formats
+	}
+
+	public get constants (): any {
+		return this.config.constants
 	}
 
 	public get functions (): OperatorMetadata[] {
@@ -134,32 +138,6 @@ export class Expressions {
 		}
 	}
 
-	private typed (expression: string): Operand {
-		const minifyExpression = Helper.exp.minify(expression)
-		const key = `${minifyExpression.join('')}_operand`
-		const value = this.cache.get(key) as Operand
-		if (!value) {
-			const operand = this._parse(minifyExpression)
-			this.typeManager.solve(operand)
-			this.cache.set(key, operand)
-			return operand
-		} else if (value.type === undefined) {
-			this.typeManager.solve(value)
-			this.cache.set(key, value)
-			return value
-		} else {
-			return value
-		}
-	}
-
-	private _parse (buffer: string[]): Operand {
-		const parser = new Parser(this.config, buffer)
-		const node = parser.parse()
-		Helper.exp.clearChildEmpty(node)
-		const operand = this.operandBuilder.build(node)
-		return operand
-	}
-
 	/**
 	 * Get parameters of expression
 	 * @param expression  expression
@@ -180,12 +158,6 @@ export class Expressions {
 		return Helper.type.toString(operand.type)
 	}
 
-	/**
-	 * Evaluate and solve expression
-	 * @param expression  string expression
-	 * @param data Data with variables
-	 * @returns Result of the evaluate expression
-	 */
 	/**
 	 * Evaluate and solve expression
 	 * @param expression  string expression
@@ -217,6 +189,32 @@ export class Expressions {
 			throw new Error('Subject: Nonexistent observer.')
 		}
 		this.observers.splice(index, 1)
+	}
+
+	private typed (expression: string): Operand {
+		const minifyExpression = Helper.exp.minify(expression)
+		const key = `${minifyExpression.join('')}_operand`
+		const value = this.cache.get(key) as Operand
+		if (!value) {
+			const operand = this._parse(minifyExpression)
+			this.typeManager.solve(operand)
+			this.cache.set(key, operand)
+			return operand
+		} else if (value.type === undefined) {
+			this.typeManager.solve(value)
+			this.cache.set(key, value)
+			return value
+		} else {
+			return value
+		}
+	}
+
+	private _parse (buffer: string[]): Operand {
+		const parser = new Parser(this.config, buffer)
+		const node = parser.parse()
+		Helper.exp.clearChildEmpty(node)
+		const operand = this.operandBuilder.build(node)
+		return operand
 	}
 
 	private beforeExecutionNotify (expression:string, data: any) {

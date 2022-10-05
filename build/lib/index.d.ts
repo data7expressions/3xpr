@@ -1,11 +1,10 @@
-import { Expressions } from './manager';
 import { Parameter, ActionObserver, Operand } from './model';
 export * from './model';
 export * from './operand';
 export * from './manager';
 export * from './parser';
 export * from './manager/expressions';
-export declare const expressions: Expressions;
+export declare const expressions: import("./model").IExpressions;
 /**
      * Parser expression
      * @param expression  expression

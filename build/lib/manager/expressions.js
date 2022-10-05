@@ -42,6 +42,9 @@ class Expressions {
     get formats() {
         return this.config.formats;
     }
+    get constants() {
+        return this.config.constants;
+    }
     get functions() {
         return this.config.functions;
     }
@@ -110,32 +113,6 @@ class Expressions {
             throw new Error('expression: ' + expression + ' error: ' + error.toString());
         }
     }
-    typed(expression) {
-        const minifyExpression = _1.Helper.exp.minify(expression);
-        const key = `${minifyExpression.join('')}_operand`;
-        const value = this.cache.get(key);
-        if (!value) {
-            const operand = this._parse(minifyExpression);
-            this.typeManager.solve(operand);
-            this.cache.set(key, operand);
-            return operand;
-        }
-        else if (value.type === undefined) {
-            this.typeManager.solve(value);
-            this.cache.set(key, value);
-            return value;
-        }
-        else {
-            return value;
-        }
-    }
-    _parse(buffer) {
-        const parser = new parser_1.Parser(this.config, buffer);
-        const node = parser.parse();
-        _1.Helper.exp.clearChildEmpty(node);
-        const operand = this.operandBuilder.build(node);
-        return operand;
-    }
     /**
      * Get parameters of expression
      * @param expression  expression
@@ -154,12 +131,6 @@ class Expressions {
         const operand = this.typed(expression);
         return _1.Helper.type.toString(operand.type);
     }
-    /**
-     * Evaluate and solve expression
-     * @param expression  string expression
-     * @param data Data with variables
-     * @returns Result of the evaluate expression
-     */
     /**
      * Evaluate and solve expression
      * @param expression  string expression
@@ -190,6 +161,32 @@ class Expressions {
             throw new Error('Subject: Nonexistent observer.');
         }
         this.observers.splice(index, 1);
+    }
+    typed(expression) {
+        const minifyExpression = _1.Helper.exp.minify(expression);
+        const key = `${minifyExpression.join('')}_operand`;
+        const value = this.cache.get(key);
+        if (!value) {
+            const operand = this._parse(minifyExpression);
+            this.typeManager.solve(operand);
+            this.cache.set(key, operand);
+            return operand;
+        }
+        else if (value.type === undefined) {
+            this.typeManager.solve(value);
+            this.cache.set(key, value);
+            return value;
+        }
+        else {
+            return value;
+        }
+    }
+    _parse(buffer) {
+        const parser = new parser_1.Parser(this.config, buffer);
+        const node = parser.parse();
+        _1.Helper.exp.clearChildEmpty(node);
+        const operand = this.operandBuilder.build(node);
+        return operand;
     }
     beforeExecutionNotify(expression, data) {
         const args = { expression: expression, data: data };

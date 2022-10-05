@@ -1,8 +1,8 @@
-import { IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder } from '../model';
-export declare class ExpressionsBuilder implements IBuilder<Expressions> {
-    build(): Expressions;
+import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionConfig, ActionObserver, ISerializer, IOperandBuilder } from '../model';
+export declare class ExpressionsBuilder implements IBuilder<IExpressions> {
+    build(): IExpressions;
 }
-export declare class Expressions {
+export declare class Expressions implements IExpressions {
     private cache;
     private config;
     private observers;
@@ -11,10 +11,11 @@ export declare class Expressions {
     private serializer;
     constructor(cache: Cache, config: IExpressionConfig, serializer: ISerializer<Operand>, operandBuilder: IOperandBuilder, typeManager: IOperandTypeManager);
     private static _instance;
-    static get instance(): Expressions;
+    static get instance(): IExpressions;
     get operators(): OperatorMetadata[];
     get enums(): any;
     get formats(): any;
+    get constants(): any;
     get functions(): OperatorMetadata[];
     addFunction(source: any, sing: string, deterministic?: boolean): void;
     addEnum(key: string, source: any): void;
@@ -36,8 +37,6 @@ export declare class Expressions {
      * @returns Operand
      */
     parse(expression: string): Operand;
-    private typed;
-    private _parse;
     /**
      * Get parameters of expression
      * @param expression  expression
@@ -56,15 +55,11 @@ export declare class Expressions {
      * @param data Data with variables
      * @returns Result of the evaluate expression
      */
-    /**
-     * Evaluate and solve expression
-     * @param expression  string expression
-     * @param data Data with variables
-     * @returns Result of the evaluate expression
-     */
     eval(expression: string, data?: any): any;
     subscribe(observer: ActionObserver): void;
     unsubscribe(observer: ActionObserver): void;
+    private typed;
+    private _parse;
     private beforeExecutionNotify;
     private afterExecutionNotify;
     private errorExecutionNotify;

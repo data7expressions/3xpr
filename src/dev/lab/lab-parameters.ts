@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import { expressions as exp } from '../../lib'
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const list = [
@@ -21,5 +21,5 @@ import { show } from './util'
 		'cities.push(salta).name',
 		'a = cities.push(salta).name'
 	]
-	show(list, {}, 'parameters', (expression:string) => exp.parameters(expression))
+	await HelperTest.buildSuite({ name: 'parameters', method: 'parameters', func: (expression:string) => exp.parameters(expression), expressions: list })
 })()

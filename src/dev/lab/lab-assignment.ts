@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { a: '1', b: 2, c: { a: 4, b: 5 } }
@@ -9,5 +9,5 @@ import { show } from './util'
 		'd=c.b*2',
 		'd=`value of a is: ${a}`'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'assignment', context: context, expressions: list })
 })()

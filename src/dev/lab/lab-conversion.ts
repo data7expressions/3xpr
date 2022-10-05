@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -16,5 +16,5 @@ import { show } from './util'
 		'stringify(customer)',
 		'parse(data).b'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'conversion', context: context, expressions: list })
 })()

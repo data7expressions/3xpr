@@ -1,0 +1,157 @@
+{
+  "name": "string",
+  "method": "eval",
+  "context": {
+    "firstName": "Juan",
+    "lastName": "Lopez",
+    "email": "jlopez@email.com",
+    "age": 44,
+    "food": "pizza",
+    "film": "Estación central",
+    "a": null,
+    "b": "",
+    "c": " "
+  },
+  "cases": [
+    {
+      "expression": "capitalize(food)",
+      "result": "Pizza"
+    },
+    {
+      "expression": "chr(68)",
+      "result": "D"
+    },
+    {
+      "expression": "concat(lastName,\", \",firstName)",
+      "result": "Lopez, Juan"
+    },
+    {
+      "expression": "concatenate(lastName,\", \",firstName)",
+      "result": "Lopez, Juan"
+    },
+    {
+      "expression": "initcap(film)",
+      "result": "Estación Central"
+    },
+    {
+      "expression": "lower(film)",
+      "result": "estación central"
+    },
+    {
+      "expression": "lpad(firstName,10,\"_\")",
+      "result": "______Juan"
+    },
+    {
+      "expression": "ltrim(\"  a  \")",
+      "result": "a  "
+    },
+    {
+      "expression": "replace(film,\"a\",\"*\")",
+      "result": "Est*ción centr*l"
+    },
+    {
+      "expression": "mask(email)",
+      "result": "jlo*****com"
+    },
+    {
+      "expression": "rpad(firstName,10,\"_\")",
+      "result": "Juan______"
+    },
+    {
+      "expression": "rtrim(\"  a  \")",
+      "result": "  a"
+    },
+    {
+      "expression": "substr(film,1,3)",
+      "result": "st"
+    },
+    {
+      "expression": "substring(film,1,3)",
+      "result": "st"
+    },
+    {
+      "expression": "upper(film)",
+      "result": "ESTACIÓN CENTRAL"
+    },
+    {
+      "expression": "startWith(film,\"E\")",
+      "result": true
+    },
+    {
+      "expression": "strCount(film,\"a\")",
+      "result": 2
+    },
+    {
+      "expression": "`${firstName} is ${age} years old and likes ${food}`",
+      "result": "Juan is 44 years old and likes pizza"
+    },
+    {
+      "expression": "test(\"5\",\"[a-zA-Z0-9_.]+$\")",
+      "result": true
+    },
+    {
+      "expression": "firstName.test(\"[a-zA-Z0-9_.]+$\")",
+      "result": true
+    },
+    {
+      "expression": "isEmpty(a)",
+      "result": true
+    },
+    {
+      "expression": "isEmpty(b)",
+      "result": true
+    },
+    {
+      "expression": "isEmpty(c)",
+      "result": true
+    },
+    {
+      "expression": "isEmpty(food)",
+      "result": false
+    },
+    {
+      "expression": "$HOME",
+      "result": "/home/flavio"
+    },
+    {
+      "expression": "${USER}",
+      "result": "flavio"
+    },
+    {
+      "expression": "concat($HOME,$USER)",
+      "result": "/home/flavioflavio"
+    },
+    {
+      "expression": "concat(${HOME},$USER)",
+      "result": "/home/flavioflavio"
+    },
+    {
+      "expression": "\"Hello\"+\" \"+\"world\"",
+      "result": "Hello world"
+    },
+    {
+      "expression": "`value of home: $HOME`",
+      "result": "value of home: /home/flavio"
+    },
+    {
+      "expression": "length(email) > 10 && length(email) < 100",
+      "result": true
+    },
+    {
+      "expression": "email.length() > 10 && email.length() < 100",
+      "result": true
+    },
+    {
+      "expression": "isEmpty(b)",
+      "result": true
+    },
+    {
+      "expression": "isNotEmpty(c)",
+      "result": false
+    },
+    {
+      "expression": "isNotEmpty(film)",
+      "result": true
+    }
+  ]
+}

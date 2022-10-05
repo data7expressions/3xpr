@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { a: '1', b: 2, c: { a: 4, b: 5 }, d: 'house', e: 'car' }
@@ -8,5 +8,5 @@ import { show } from './util'
 		'a=="1" || b>2',
 		'!(a=="1" || b>2)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'logical', context: context, expressions: list })
 })()

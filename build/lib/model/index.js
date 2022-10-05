@@ -18,6 +18,7 @@ __exportStar(require("./context"), exports);
 __exportStar(require("./operands"), exports);
 __exportStar(require("./cache"), exports);
 __exportStar(require("./observer"), exports);
-__exportStar(require("./managers"), exports);
+__exportStar(require("./base"), exports);
 __exportStar(require("./type"), exports);
+__exportStar(require("./expressions"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {}
@@ -35,5 +35,5 @@ import { show } from './util'
 		'secondToDate(2000)',
 		'millisecondToDate(2000)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'datetime', context: context, expressions: list })
 })()

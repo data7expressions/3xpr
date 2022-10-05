@@ -90,6 +90,7 @@ export interface IExpressionConfig {
 	get operators(): OperatorMetadata[]
 	get enums(): any
 	get formats(): any
+	get constants(): any
 	get functions(): OperatorMetadata[]
 	addEnum (key:string, source:any):void
 	addConstant (key:string, value:any):void

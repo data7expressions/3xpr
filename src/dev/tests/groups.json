@@ -1,0 +1,202 @@
+{
+  "name": "groups",
+  "method": "eval",
+  "context": {
+    "orders": [
+      {
+        "number": "20001",
+        "customer": {
+          "firstName": "John",
+          "lastName": "Murphy"
+        },
+        "orderTime": "2022-07-30T10:15:54",
+        "details": [
+          {
+            "article": "Pear",
+            "unitPrice": 1.78,
+            "qty": 2
+          },
+          {
+            "article": "Banana",
+            "unitPrice": 1.99,
+            "qty": 1
+          },
+          {
+            "article": "White grape",
+            "unitPrice": 2.03,
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "number": "20002",
+        "customer": {
+          "firstName": "Paul",
+          "lastName": "Smith"
+        },
+        "orderTime": "2022-07-30T12:12:43",
+        "details": [
+          {
+            "article": "Apple",
+            "unitPrice": 2.15,
+            "qty": 1
+          },
+          {
+            "article": "Banana",
+            "unitPrice": 1.99,
+            "qty": 2
+          },
+          {
+            "article": "Pear",
+            "unitPrice": 1.78,
+            "qty": 1
+          }
+        ]
+      }
+    ],
+    "p": {
+      "number": "20002",
+      "customer": {
+        "firstName": "Paul",
+        "lastName": "Smith"
+      },
+      "orderTime": "2022-07-30T12:12:43",
+      "details": [
+        {
+          "article": "Apple",
+          "unitPrice": 2.15,
+          "qty": 1
+        },
+        {
+          "article": "Banana",
+          "unitPrice": 1.99,
+          "qty": 2
+        },
+        {
+          "article": "Pear",
+          "unitPrice": 1.78,
+          "qty": 1
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "expression": "orders.number",
+      "result": [
+        "20001",
+        "20002"
+      ]
+    },
+    {
+      "expression": "orders[0].number",
+      "result": "20001"
+    },
+    {
+      "expression": "orders[0][\"number\"]",
+      "result": "20001"
+    },
+    {
+      "expression": "orders[1].customer.firstName",
+      "result": "Paul"
+    },
+    {
+      "expression": "orders.customer[0][\"firstName\"]",
+      "result": "John"
+    },
+    {
+      "expression": "orders.customer[0][\"first\"+\"Name\"]",
+      "result": "John"
+    },
+    {
+      "expression": "orders[1].customer[\"firstName\"]",
+      "result": "Paul"
+    },
+    {
+      "expression": "orders.0.number",
+      "result": []
+    },
+    {
+      "expression": "orders.1.customer.firstName",
+      "result": []
+    },
+    {
+      "expression": "orders.customer.firstName",
+      "result": [
+        "John",
+        "Paul"
+      ]
+    },
+    {
+      "expression": "orders.0.details.article",
+      "result": []
+    },
+    {
+      "expression": "orders[0].details.2.article",
+      "result": []
+    },
+    {
+      "expression": "orders.0.details",
+      "result": []
+    },
+    {
+      "expression": "orders.customer[orders.customer.length()-1][\"firstName\"]",
+      "result": "Paul"
+    },
+    {
+      "expression": "orders.details.article.distinct()",
+      "result": [
+        "Pear",
+        "Banana",
+        "White grape",
+        "Apple"
+      ]
+    },
+    {
+      "expression": "orders.details.article.filter(p => p.includes(\"e\"))",
+      "result": [
+        "Pear",
+        "White grape",
+        "Apple",
+        "Pear"
+      ]
+    },
+    {
+      "expression": "orders.details.article.filter(p => p.includes(\"e\")).distinct()",
+      "result": [
+        "Pear",
+        "White grape",
+        "Apple"
+      ]
+    },
+    {
+      "expression": "orders.filter(p=> p.number == \"20002\").details.article.filter(p => p.includes(\"e\"))",
+      "result": [
+        "Apple",
+        "Pear"
+      ]
+    },
+    {
+      "expression": "orders.map(p => {nro:p.number, customer: `${p.customer.firstName} ${p.customer.lastName}`})",
+      "result": [
+        {
+          "nro": "20001",
+          "customer": "John Murphy"
+        },
+        {
+          "nro": "20002",
+          "customer": "Paul Smith"
+        }
+      ]
+    },
+    {
+      "expression": "orders.map(p => {nro:p.number, articles: p.details.article }).articles.distinct()",
+      "result": [
+        "Pear",
+        "Banana",
+        "White grape",
+        "Apple"
+      ]
+    }
+  ]
+}

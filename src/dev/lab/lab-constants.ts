@@ -1,11 +1,11 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { }
 
 	const list = [
-		// 'a = true',
+		'a = true',
 		'a = nvl(null,false)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'constants', context: context, expressions: list })
 })()

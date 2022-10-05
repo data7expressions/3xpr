@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 /* eslint-disable comma-style */
 /* eslint-disable no-template-curly-in-string */
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = { firstName: 'Juan'
@@ -53,5 +53,5 @@ import { show } from './util'
 		'isNotEmpty(c)',
 		'isNotEmpty(film)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'string', context: context, expressions: list })
 })()

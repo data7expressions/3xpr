@@ -1,4 +1,4 @@
-import { show } from './util'
+import { HelperTest } from '../helperTest'
 
 (async () => {
 	const context = {
@@ -76,5 +76,5 @@ import { show } from './util'
 		'isDatetimeFormat(time)',
 		'isTimeFormat(time)'
 	]
-	show(list, context)
+	await HelperTest.buildSuite({ name: 'comparison', context: context, expressions: list })
 })()
