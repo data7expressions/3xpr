@@ -1,8 +1,8 @@
 import { Node } from './node'
-import { Helper, IExpressionModel } from './..'
+import { Helper, IModelManager } from './..'
 
 export class Parser {
-	private model: IExpressionModel
+	private model: IModelManager
 	private buffer: string[]
 	private length: number
 	private index: number
@@ -10,7 +10,7 @@ export class Parser {
 	private tripleOperators: string[]
 	private assignmentOperators: string[]
 
-	constructor (model: IExpressionModel, buffer: string[]) {
+	constructor (model: IModelManager, buffer: string[]) {
 		this.model = model
 		this.buffer = []
 		this.buffer = buffer

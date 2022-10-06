@@ -1,11 +1,11 @@
 
 import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj, Property } from './operands'
-import { IExpressionModel, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
+import { IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '../manager'
 
 export class OperandTypeManager implements IOperandTypeManager {
-	private model: IExpressionModel
-	constructor (model: IExpressionModel) {
+	private model: IModelManager
+	constructor (model: IModelManager) {
 		this.model = model
 	}
 

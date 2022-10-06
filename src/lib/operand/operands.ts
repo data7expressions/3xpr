@@ -1,5 +1,5 @@
 
-import { Context, Operand, Type, IExpressionModel } from '../model'
+import { Context, Operand, Type, IModelManager } from '../model'
 import { Helper } from '../manager'
 export class Constant extends Operand {
 	constructor (name: string) {
@@ -108,8 +108,8 @@ export class Obj extends Operand {
 	}
 }
 export class Operator extends Operand {
-	private model: IExpressionModel
-	constructor (name: string, children: Operand[] = [], model: IExpressionModel) {
+	private model: IModelManager
+	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children)
 		this.model = model
 	}
@@ -133,8 +133,8 @@ export class Operator extends Operand {
 	}
 }
 export class FunctionRef extends Operand {
-	private model: IExpressionModel
-	constructor (name: string, children: Operand[] = [], model: IExpressionModel) {
+	private model: IModelManager
+	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children)
 		this.model = model
 	}

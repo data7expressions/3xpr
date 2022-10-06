@@ -9,7 +9,7 @@ const _1 = require(".");
 class ExpressionsBuilder {
     build() {
         const cache = new _1.MemoryCache();
-        const expressionConfig = new parser_1.ExpressionModel();
+        const expressionConfig = new parser_1.ModelManager();
         const typeManager = new operand_1.OperandTypeManager(expressionConfig);
         const serializer = new operand_1.OperandSerializer(expressionConfig);
         const operandBuilder = new operand_1.OperandBuilder(expressionConfig);

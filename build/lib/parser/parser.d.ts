@@ -1,5 +1,5 @@
 import { Node } from './node';
-import { IExpressionModel } from './..';
+import { IModelManager } from './..';
 export declare class Parser {
     private model;
     private buffer;
@@ -8,7 +8,7 @@ export declare class Parser {
     private doubleOperators;
     private tripleOperators;
     private assignmentOperators;
-    constructor(model: IExpressionModel, buffer: string[]);
+    constructor(model: IModelManager, buffer: string[]);
     private setOperators;
     get previous(): string;
     get current(): any;

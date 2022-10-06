@@ -4,11 +4,11 @@ import {
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
 	Template, Property
 } from './operands'
-import { ISerializer, IExpressionModel, OperandMetadata, Operand } from './../model'
+import { ISerializer, IModelManager, OperandMetadata, Operand } from './../model'
 
 export class OperandSerializer implements ISerializer<Operand> {
-	private model: IExpressionModel
-	constructor (model: IExpressionModel) {
+	private model: IModelManager
+	constructor (model: IModelManager) {
 		this.model = model
 	}
 

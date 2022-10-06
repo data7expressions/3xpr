@@ -1,6 +1,6 @@
 
 import { Node } from '../parser/index'
-import { Context, Operand, IOperandBuilder, IExpressionModel } from '../model'
+import { Context, Operand, IOperandBuilder, IModelManager } from '../model'
 import {
 	Constant, Variable, KeyValue, List, Obj, Operator, FunctionRef, Block, ArrowFunction, ChildFunction,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Function, Return, Try, Catch, Throw, Case, Default,
@@ -8,8 +8,8 @@ import {
 } from './operands'
 
 export class OperandBuilder implements IOperandBuilder {
-	private model: IExpressionModel
-	constructor (model: IExpressionModel) {
+	private model: IModelManager
+	constructor (model: IModelManager) {
 		this.model = model
 	}
 

@@ -86,7 +86,7 @@ export interface Metadata {
 	multipleParams?:boolean
 }
 
-export interface IExpressionModel {
+export interface IModelManager {
 	get operators(): OperatorMetadata[]
 	get enums(): any
 	get formats(): any

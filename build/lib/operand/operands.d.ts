@@ -1,4 +1,4 @@
-import { Context, Operand, Type, IExpressionModel } from '../model';
+import { Context, Operand, Type, IModelManager } from '../model';
 export declare class Constant extends Operand {
     constructor(name: string);
     eval(): any;
@@ -34,12 +34,12 @@ export declare class Obj extends Operand {
 }
 export declare class Operator extends Operand {
     private model;
-    constructor(name: string, children: Operand[] | undefined, model: IExpressionModel);
+    constructor(name: string, children: Operand[] | undefined, model: IModelManager);
     eval(context: Context): any;
 }
 export declare class FunctionRef extends Operand {
     private model;
-    constructor(name: string, children: Operand[] | undefined, model: IExpressionModel);
+    constructor(name: string, children: Operand[] | undefined, model: IModelManager);
     eval(context: Context): any;
 }
 export declare class ChildFunction extends FunctionRef {

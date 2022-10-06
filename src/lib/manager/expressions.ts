@@ -1,5 +1,5 @@
-import { IExpressions, IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IExpressionModel, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
-import { Parser, ExpressionModel } from '../parser'
+import { IExpressions, IBuilder, Cache, Data, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, ISerializer, IOperandBuilder, Context } from '../model'
+import { Parser, ModelManager } from '../parser'
 import { OperandBuilder, OperandTypeManager, OperandSerializer, CoreLibrary } from '../operand'
 import { Helper, MemoryCache } from '.'
 
@@ -7,7 +7,7 @@ import { Helper, MemoryCache } from '.'
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
 		const cache = new MemoryCache()
-		const expressionConfig = new ExpressionModel()
+		const expressionConfig = new ModelManager()
 		const typeManager = new OperandTypeManager(expressionConfig)
 		const serializer = new OperandSerializer(expressionConfig)
 		const operandBuilder = new OperandBuilder(expressionConfig)
@@ -18,13 +18,13 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 
 export class Expressions implements IExpressions {
 	private cache: Cache
-	private model: IExpressionModel
+	private model: IModelManager
 	private observers:ActionObserver[]=[];
 	private operandBuilder: IOperandBuilder
 	private typeManager: IOperandTypeManager
 	private serializer: ISerializer<Operand>
 
-	constructor (cache:Cache, model: IExpressionModel, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
+	constructor (cache:Cache, model: IModelManager, serializer:ISerializer<Operand>, operandBuilder:IOperandBuilder, typeManager: IOperandTypeManager) {
 		this.cache = cache
 		this.model = model
 		this.serializer = serializer

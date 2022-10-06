@@ -1,10 +1,10 @@
-import { Operand, Context, IExpressionModel } from '../model'
+import { Operand, Context, IModelManager } from '../model'
 import { Operator, ArrowFunction, ChildFunction, Obj, KeyValue, Variable, List } from '.'
 import { expressions as exp, Helper } from '../'
 
 export class CoreLibrary {
-	private model:IExpressionModel
-	constructor (model:IExpressionModel) {
+	private model:IModelManager
+	constructor (model:IModelManager) {
 		this.model = model
 	}
 
@@ -512,7 +512,7 @@ class AssignmentRightShift extends Operator {
 }
 class Map extends ArrowFunction {
 	// private serializer: ISerializer<Operand>
-	constructor (name: string, children: Operand[] = [], model: IExpressionModel) {
+	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children, model)
 		// this.serializer = serializer
 	}
