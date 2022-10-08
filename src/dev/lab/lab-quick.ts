@@ -21,7 +21,7 @@ const list = (context:any) => {
 		total = 0;
 		for (i = 0; i < list.length(); i += 1) {
 		total += list[i];
-		}
+		};
 		`,
 		// TODO: agregar return como corte de control
 		// `
@@ -35,7 +35,7 @@ const list = (context:any) => {
 		`
 		while (p=timezones.pop()) {
 			console(p);
-		}
+		};
 		`
 	]
 	HelperTest.show(list, context)

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExpHelper = void 0;
 const h3lp_1 = require("h3lp");
+const parser_1 = require("../parser");
 const operand_1 = require("../operand");
 class TypeHelper {
     constructor(validator) {
@@ -98,7 +99,7 @@ class TypeHelper {
         return JSON.parse(type);
     }
 }
-class ExpressionHelper {
+class NodeHelper {
     constructor(validator) {
         this.validator = validator;
     }
@@ -108,11 +109,11 @@ class ExpressionHelper {
         // console.log(node)
         // }
         switch (node.type) {
-            case 'const':
-            case 'var':
+            case 'Const':
+            case 'Var':
                 list.push(node.name);
                 break;
-            case 'array':
+            case 'List':
                 list.push('[');
                 for (let i = 0; i < node.children.length; i++) {
                     if (i > 0)
@@ -121,11 +122,11 @@ class ExpressionHelper {
                 }
                 list.push(']');
                 break;
-            case 'keyVal':
+            case 'KeyVal':
                 list.push(node.name + ':');
                 list.push(this.toExpression(node.children[0]));
                 break;
-            case 'obj':
+            case 'Obj':
                 list.push('{');
                 for (let i = 0; i < node.children.length; i++) {
                     if (i > 0)
@@ -134,7 +135,7 @@ class ExpressionHelper {
                 }
                 list.push('}');
                 break;
-            case 'operator':
+            case 'Operator':
                 if (node.children.length === 1) {
                     list.push(node.name);
                     list.push(this.toExpression(node.children[0]));
@@ -147,7 +148,7 @@ class ExpressionHelper {
                     list.push(')');
                 }
                 break;
-            case 'funcRef':
+            case 'FuncRef':
                 list.push(node.name);
                 list.push('(');
                 for (let i = 0; i < node.children.length; i++) {
@@ -157,7 +158,7 @@ class ExpressionHelper {
                 }
                 list.push(')');
                 break;
-            case 'childFunc':
+            case 'ChildFunc':
                 list.push(this.toExpression(node.children[0]));
                 list.push('.' + node.name);
                 list.push('(');
@@ -168,7 +169,7 @@ class ExpressionHelper {
                 }
                 list.push(')');
                 break;
-            case 'arrow':
+            case 'Arrow':
                 list.push(this.toExpression(node.children[0]));
                 list.push('.' + node.name);
                 list.push('(');
@@ -182,7 +183,7 @@ class ExpressionHelper {
         }
         return list.join('');
     }
-    clearChildEmpty(node) {
+    clear(node) {
         try {
             if (node.children.length > 0) {
                 const toRemove = [];
@@ -197,7 +198,7 @@ class ExpressionHelper {
             }
         }
         catch (error) {
-            throw new Error('set parent: ' + node.name + ' error: ' + error.toString());
+            throw new Error('crear: ' + node.name + ' error: ' + error.toString());
         }
         return node;
     }
@@ -228,9 +229,8 @@ class ExpressionHelper {
                 }
                 // when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
                 // TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
-            }
-            else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-                result.push(';');
+                // } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+                // result.push(';')
             }
             else if (p !== '\n' && p !== '\r' && p !== '\t') {
                 result.push(p);
@@ -243,6 +243,28 @@ class ExpressionHelper {
         }
         return result;
     }
+    clone(value) {
+        return this.deserialize(this.serialize(value));
+    }
+    serialize(node) {
+        const children = [];
+        for (const child of node.children) {
+            children.push(this.serialize(child));
+        }
+        if (children.length === 0) {
+            return { n: node.name, t: node.type };
+        }
+        return { n: node.name, t: node.type, c: children };
+    }
+    deserialize(serialized) {
+        const children = [];
+        if (serialized.c) {
+            for (const p of serialized.c) {
+                children.push(this.deserialize(p));
+            }
+        }
+        return new parser_1.Node(serialized.n, serialized.t, children);
+    }
 }
 class OperandHelper {
     objectKey(obj) {
@@ -254,6 +276,39 @@ class OperandHelper {
         }
         return list.join('|');
     }
+    setParent(operand, index = 0, parent) {
+        try {
+            if (parent) {
+                operand.id = parent.id + '.' + index;
+                operand.index = index;
+                operand.level = parent.level ? parent.level + 1 : 0;
+            }
+            else {
+                operand.id = '0';
+                // operand.parent = undefined
+                operand.index = 0;
+                operand.level = 0;
+            }
+            for (let i = 0; i < operand.children.length; i++) {
+                const p = operand.children[i];
+                this.setParent(p, i, operand);
+            }
+            return operand;
+        }
+        catch (error) {
+            throw new Error('set parent: ' + operand.name + ' error: ' + error.toString());
+        }
+    }
+    classTypeToType(classType) {
+        const irregular = [
+            ['Arrow', 'Arrow'],
+            ['ChildFunc', 'ChildFunc'],
+            ['FuncRef', 'FuncRef'],
+            ['List', 'List']
+        ];
+        const found = irregular.find(p => p[0] === classType);
+        return found ? found[1] : classType.toLowerCase();
+    }
     getKeys(variable, fields, list, context) {
         const keys = [];
         // loop through the list and group by the grouper fields
@@ -261,7 +316,7 @@ class OperandHelper {
             let key = '';
             const values = [];
             for (const keyValue of fields) {
-                context.data.set(variable.name, item);
+                context.data.set(operand_1.Var.name, item);
                 // variable.set(item)
                 const value = keyValue.children[0].eval(context);
                 if (typeof value === 'object') {
@@ -284,7 +339,7 @@ class OperandHelper {
         return keys;
     }
     haveAggregates(operand) {
-        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+        if (!(operand instanceof operand_1.Arrow) && operand instanceof operand_1.FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
             return true;
         }
         else if (operand.children && operand.children.length > 0) {
@@ -297,7 +352,7 @@ class OperandHelper {
         return false;
     }
     findAggregates(operand) {
-        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+        if (!(operand instanceof operand_1.Arrow) && operand instanceof operand_1.FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
             return [operand];
         }
         else if (operand.children && operand.children.length > 0) {
@@ -313,7 +368,7 @@ class OperandHelper {
         return [];
     }
     solveAggregates(list, variable, operand, context) {
-        if (!(operand instanceof operand_1.ArrowFunction) && operand instanceof operand_1.FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+        if (!(operand instanceof operand_1.Arrow) && operand instanceof operand_1.FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
             let value;
             switch (operand.name) {
                 case 'avg':
@@ -338,7 +393,7 @@ class OperandHelper {
                     value = this.sum(list, variable, operand.children[0], context);
                     break;
             }
-            return new operand_1.Constant(value);
+            return new operand_1.Const(value);
         }
         else if (operand.children && operand.children.length > 0) {
             for (let i = 0; i < operand.children.length; i++) {
@@ -432,7 +487,7 @@ class ExpHelper extends h3lp_1.H3lp {
     constructor() {
         super();
         this.type = new TypeHelper(this.validator);
-        this.exp = new ExpressionHelper(this.validator);
+        this.node = new NodeHelper(this.validator);
         this.operand = new OperandHelper();
     }
 }

@@ -39,5 +39,5 @@ import { HelperTest } from '../helperTest'
 	]
 
 	// await test('cities.map(p=>[p.customer.firstName,p.customer.lastName])', file)
-	await HelperTest.buildSuite({ name: 'arrow', context: context, expressions: list })
+	await HelperTest.buildSuite({ name: 'Arrow', context: context, expressions: list })
 })()

@@ -20,7 +20,7 @@ export interface IExpressions {
 	getOperator (operator:string, operands?:number): OperatorMetadata
 	getFunction (name: string): OperatorMetadata
 	clone (operand: Operand):Operand
-	parse (expression: string): Operand
+	build (expression: string): Operand
 	parameters (expression: string): Parameter[]
 	getType (expression: string): string
 	eval (expression: string, data?: any): any

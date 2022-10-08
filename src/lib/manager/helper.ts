@@ -1,7 +1,7 @@
 import { H3lp, Validator } from 'h3lp'
 import { Operand, Context, Type, ArrayType, ObjectType, PropertyType } from '../model'
 import { Node } from '../parser'
-import { ArrowFunction, KeyValue, Constant, Variable, FunctionRef } from '../operand'
+import { Const, Var, KeyVal, FuncRef, Arrow } from '../operand'
 
 class TypeHelper {
 	private validator:Validator
@@ -101,7 +101,7 @@ class TypeHelper {
 	}
 }
 
-class ExpressionHelper {
+class NodeHelper {
 	private validator:Validator
 	constructor (validator:Validator) {
 		this.validator = validator
@@ -113,11 +113,11 @@ class ExpressionHelper {
 		// console.log(node)
 		// }
 		switch (node.type) {
-		case 'const':
-		case 'var':
+		case 'Const':
+		case 'Var':
 			list.push(node.name)
 			break
-		case 'array':
+		case 'List':
 			list.push('[')
 			for (let i = 0; i < node.children.length; i++) {
 				if (i > 0) list.push(',')
@@ -125,11 +125,11 @@ class ExpressionHelper {
 			}
 			list.push(']')
 			break
-		case 'keyVal':
+		case 'KeyVal':
 			list.push(node.name + ':')
 			list.push(this.toExpression(node.children[0]))
 			break
-		case 'obj':
+		case 'Obj':
 			list.push('{')
 			for (let i = 0; i < node.children.length; i++) {
 				if (i > 0) list.push(',')
@@ -137,7 +137,7 @@ class ExpressionHelper {
 			}
 			list.push('}')
 			break
-		case 'operator':
+		case 'Operator':
 			if (node.children.length === 1) {
 				list.push(node.name)
 				list.push(this.toExpression(node.children[0]))
@@ -149,7 +149,7 @@ class ExpressionHelper {
 				list.push(')')
 			}
 			break
-		case 'funcRef':
+		case 'FuncRef':
 			list.push(node.name)
 			list.push('(')
 			for (let i = 0; i < node.children.length; i++) {
@@ -158,7 +158,7 @@ class ExpressionHelper {
 			}
 			list.push(')')
 			break
-		case 'childFunc':
+		case 'ChildFunc':
 			list.push(this.toExpression(node.children[0]))
 			list.push('.' + node.name)
 			list.push('(')
@@ -168,7 +168,7 @@ class ExpressionHelper {
 			}
 			list.push(')')
 			break
-		case 'arrow':
+		case 'Arrow':
 			list.push(this.toExpression(node.children[0]))
 			list.push('.' + node.name)
 			list.push('(')
@@ -183,7 +183,7 @@ class ExpressionHelper {
 		return list.join('')
 	}
 
-	public clearChildEmpty (node: Node) {
+	public clear (node: Node) {
 		try {
 			if (node.children.length > 0) {
 				const toRemove: number[] = []
@@ -197,7 +197,7 @@ class ExpressionHelper {
 				}
 			}
 		} catch (error: any) {
-			throw new Error('set parent: ' + node.name + ' error: ' + error.toString())
+			throw new Error('crear: ' + node.name + ' error: ' + error.toString())
 		}
 		return node
 	}
@@ -227,8 +227,8 @@ class ExpressionHelper {
 				}
 			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
 			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
-			} else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-				result.push(';')
+			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+			// result.push(';')
 			} else if (p !== '\n' && p !== '\r' && p !== '\t') {
 				result.push(p)
 			}
@@ -239,6 +239,31 @@ class ExpressionHelper {
 			return result
 		}
 		return result
+	}
+
+	public clone (value: Node): Node {
+		return this.deserialize(this.serialize(value))
+	}
+
+	public serialize (node: Node): any {
+		const children = []
+		for (const child of node.children) {
+			children.push(this.serialize(child))
+		}
+		if (children.length === 0) {
+			return { n: node.name, t: node.type }
+		}
+		return { n: node.name, t: node.type, c: children }
+	}
+
+	public deserialize (serialized: any): Node {
+		const children = []
+		if (serialized.c) {
+			for (const p of serialized.c) {
+				children.push(this.deserialize(p))
+			}
+		}
+		return new Node(serialized.n, serialized.t, children)
 	}
 }
 
@@ -253,14 +278,47 @@ class OperandHelper {
 		return list.join('|')
 	}
 
-	public getKeys (variable:Variable, fields: KeyValue[], list: any[], context: Context): any[] {
+	public setParent (operand: Operand, index = 0, parent?: Operand) {
+		try {
+			if (parent) {
+				operand.id = parent.id + '.' + index
+				operand.index = index
+				operand.level = parent.level ? parent.level + 1 : 0
+			} else {
+				operand.id = '0'
+				// operand.parent = undefined
+				operand.index = 0
+				operand.level = 0
+			}
+			for (let i = 0; i < operand.children.length; i++) {
+				const p = operand.children[i]
+				this.setParent(p, i, operand)
+			}
+			return operand
+		} catch (error: any) {
+			throw new Error('set parent: ' + operand.name + ' error: ' + error.toString())
+		}
+	}
+
+	private classTypeToType (classType:string): string | undefined {
+		const irregular:[string, string][] = [
+			['Arrow', 'Arrow'],
+			['ChildFunc', 'ChildFunc'],
+			['FuncRef', 'FuncRef'],
+			['List', 'List']
+		]
+		const found = irregular.find(p => p[0] === classType)
+		return found ? found[1] : classType.toLowerCase()
+	}
+
+	public getKeys (variable:Var, fields: KeyVal[], list: any[], context: Context): any[] {
 		const keys:any[] = []
 		// loop through the list and group by the grouper fields
 		for (const item of list) {
 			let key = ''
 			const values = []
 			for (const keyValue of fields) {
-				context.data.set(variable.name, item)
+				context.data.set(Var.name, item)
 				// variable.set(item)
 				const value = keyValue.children[0].eval(context)
 				if (typeof value === 'object') {
@@ -283,7 +341,7 @@ class OperandHelper {
 	}
 
 	public haveAggregates (operand: Operand): boolean {
-		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return true
 		} else if (operand.children && operand.children.length > 0) {
 			for (const child of operand.children) {
@@ -295,11 +353,11 @@ class OperandHelper {
 		return false
 	}
 
-	public findAggregates (operand: Operand): FunctionRef[] {
-		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+	public findAggregates (operand: Operand): FuncRef[] {
+		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return [operand]
 		} else if (operand.children && operand.children.length > 0) {
-			let aggregates:FunctionRef[] = []
+			let aggregates:FuncRef[] = []
 			for (const child of operand.children) {
 				const childAggregates = this.findAggregates(child)
 				if (childAggregates.length > 0) {
@@ -311,8 +369,8 @@ class OperandHelper {
 		return []
 	}
 
-	public solveAggregates (list: any[], variable: Variable, operand: Operand, context: Context): Operand {
-		if (!(operand instanceof ArrowFunction) && operand instanceof FunctionRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+	public solveAggregates (list: any[], variable: Var, operand: Operand, context: Context): Operand {
+		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			let value:any
 			switch (operand.name) {
 			case 'avg':
@@ -337,7 +395,7 @@ class OperandHelper {
 				value = this.sum(list, variable, operand.children[0], context)
 				break
 			}
-			return new Constant(value)
+			return new Const(value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
 				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context)
@@ -346,7 +404,7 @@ class OperandHelper {
 		return operand
 	}
 
-	public count (list: any[], variable: Variable, aggregate: Operand, context: Context): number {
+	public count (list: any[], variable: Var, aggregate: Operand, context: Context): number {
 		let count = 0
 		for (const item of list) {
 			// variable.set(item)
@@ -358,7 +416,7 @@ class OperandHelper {
 		return count
 	}
 
-	public first (list: any[], variable: Variable, aggregate: Operand, context: Context): any {
+	public first (list: any[], variable: Var, aggregate: Operand, context: Context): any {
 		for (const item of list) {
 			// variable.set(item)
 			context.data.set(variable.name, item)
@@ -369,7 +427,7 @@ class OperandHelper {
 		return null
 	}
 
-	public last (list: any[], variable: Variable, aggregate: Operand, context: Context): any {
+	public last (list: any[], variable: Var, aggregate: Operand, context: Context): any {
 		for (let i = list.length - 1; i >= 0; i--) {
 			const item = list[i]
 			// variable.set(item)
@@ -381,7 +439,7 @@ class OperandHelper {
 		return null
 	}
 
-	public max (list: any[], variable: Variable, aggregate: Operand, context: Context): any {
+	public max (list: any[], variable: Var, aggregate: Operand, context: Context): any {
 		let max:any
 		for (const item of list) {
 			// variable.set(item)
@@ -394,7 +452,7 @@ class OperandHelper {
 		return max
 	}
 
-	public min (list: any[], variable: Variable, aggregate: Operand, context: Context): any {
+	public min (list: any[], variable: Var, aggregate: Operand, context: Context): any {
 		let min:any
 		for (const item of list) {
 			// variable.set(item)
@@ -407,7 +465,7 @@ class OperandHelper {
 		return min
 	}
 
-	public avg (list: any[], variable: Variable, aggregate: Operand, context: Context): number {
+	public avg (list: any[], variable: Var, aggregate: Operand, context: Context): number {
 		let sum = 0
 		for (const item of list) {
 			// variable.set(item)
@@ -420,7 +478,7 @@ class OperandHelper {
 		return list.length > 0 ? sum / list.length : 0
 	}
 
-	public sum (list: any[], variable: Variable, aggregate: Operand, context: Context): number {
+	public sum (list: any[], variable: Var, aggregate: Operand, context: Context): number {
 		let sum = 0
 		for (const item of list) {
 			// variable.set(item)
@@ -436,12 +494,12 @@ class OperandHelper {
 
 export class ExpHelper extends H3lp {
 	public type:TypeHelper
-	public exp:ExpressionHelper
+	public node:NodeHelper
 	public operand:OperandHelper
 	constructor () {
 		super()
 		this.type = new TypeHelper(this.validator)
-		this.exp = new ExpressionHelper(this.validator)
+		this.node = new NodeHelper(this.validator)
 		this.operand = new OperandHelper()
 	}
 }

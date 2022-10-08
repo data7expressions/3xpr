@@ -14,19 +14,23 @@
           {
             "article": "Pear",
             "unitPrice": 1.78,
-            "qty": 2
+            "qty": 2,
+            "subtotal": 3.56
           },
           {
             "article": "Banana",
             "unitPrice": 1.99,
-            "qty": 1
+            "qty": 1,
+            "subtotal": 1.99
           },
           {
             "article": "White grape",
             "unitPrice": 2.03,
-            "qty": 1
+            "qty": 1,
+            "subtotal": 2.03
           }
-        ]
+        ],
+        "total": 7.58
       },
       {
         "number": "20002",
@@ -39,19 +43,23 @@
           {
             "article": "Apple",
             "unitPrice": 2.15,
-            "qty": 1
+            "qty": 1,
+            "subtotal": 2.15
           },
           {
             "article": "Banana",
             "unitPrice": 1.99,
-            "qty": 2
+            "qty": 2,
+            "subtotal": 3.98
           },
           {
             "article": "Pear",
             "unitPrice": 1.78,
-            "qty": 1
+            "qty": 1,
+            "subtotal": 1.78
           }
-        ]
+        ],
+        "total": 7.91
       }
     ],
     "p": {
@@ -65,137 +73,153 @@
         {
           "article": "Apple",
           "unitPrice": 2.15,
-          "qty": 1
+          "qty": 1,
+          "subtotal": 2.15
         },
         {
           "article": "Banana",
           "unitPrice": 1.99,
-          "qty": 2
+          "qty": 2,
+          "subtotal": 3.98
         },
         {
           "article": "Pear",
           "unitPrice": 1.78,
-          "qty": 1
+          "qty": 1,
+          "subtotal": 1.78
         }
-      ]
+      ],
+      "total": 7.91
+    },
+    "q": {
+      "article": "Pear",
+      "unitPrice": 1.78,
+      "qty": 1,
+      "subtotal": 1.78
+    },
+    "total": 15.49,
+    "Var": {
+      "article": "Pear",
+      "unitPrice": 1.78,
+      "qty": 1,
+      "subtotal": 1.78
     }
   },
   "cases": [
     {
-      "expression": "orders.number",
-      "result": [
-        "20001",
-        "20002"
-      ]
-    },
-    {
-      "expression": "orders[0].number",
+      "expression": "orders.min(p=> p.number)",
       "result": "20001"
     },
     {
-      "expression": "orders[0][\"number\"]",
-      "result": "20001"
+      "expression": "orders.details.min(p=> p.article )",
+      "result": "Apple"
     },
     {
-      "expression": "orders[1].customer.firstName",
-      "result": "Paul"
+      "expression": "orders.details.max(p=> p.unitPrice * p.qty )",
+      "result": 3.98
     },
     {
-      "expression": "orders.customer[0][\"firstName\"]",
-      "result": "John"
+      "expression": "orders.details.avg(p=> p.unitPrice * p.qty )",
+      "result": 2.5816666666666666
     },
     {
-      "expression": "orders.customer[0][\"first\"+\"Name\"]",
-      "result": "John"
+      "expression": "orders[1].details.sum(p=> p.unitPrice * p.qty )",
+      "result": 7.91
     },
     {
-      "expression": "orders[1].customer[\"firstName\"]",
-      "result": "Paul"
+      "expression": "orders.details.count(p=> p.unitPrice * p.qty < 3 )",
+      "result": 4
     },
     {
-      "expression": "orders.0.number",
-      "result": []
+      "expression": "orders.details.first(p=> p.unitPrice * p.qty < 3 ).article",
+      "result": "Banana"
     },
     {
-      "expression": "orders.1.customer.firstName",
-      "result": []
+      "expression": "orders.details.last(p=> p.unitPrice * p.qty < 3 ).article",
+      "result": "Pear"
     },
     {
-      "expression": "orders.customer.firstName",
-      "result": [
-        "John",
-        "Paul"
-      ]
+      "expression": "orders.details.first(p=> p.unitPrice * p.qty < 3 )",
+      "result": {
+        "article": "Banana",
+        "unitPrice": 1.99,
+        "qty": 1,
+        "subtotal": 1.99
+      }
     },
     {
-      "expression": "orders.0.details.article",
-      "result": []
-    },
-    {
-      "expression": "orders[0].details.2.article",
-      "result": []
-    },
-    {
-      "expression": "orders.0.details",
-      "result": []
-    },
-    {
-      "expression": "orders.customer[orders.customer.length()-1][\"firstName\"]",
-      "result": "Paul"
-    },
-    {
-      "expression": "orders.details.article.distinct()",
-      "result": [
-        "Pear",
-        "Banana",
-        "White grape",
-        "Apple"
-      ]
-    },
-    {
-      "expression": "orders.details.article.filter(p => p.includes(\"e\"))",
-      "result": [
-        "Pear",
-        "White grape",
-        "Apple",
-        "Pear"
-      ]
-    },
-    {
-      "expression": "orders.details.article.filter(p => p.includes(\"e\")).distinct()",
-      "result": [
-        "Pear",
-        "White grape",
-        "Apple"
-      ]
-    },
-    {
-      "expression": "orders.filter(p=> p.number == \"20002\").details.article.filter(p => p.includes(\"e\"))",
-      "result": [
-        "Apple",
-        "Pear"
-      ]
-    },
-    {
-      "expression": "orders.map(p => {nro:p.number, customer: `${p.customer.firstName} ${p.customer.lastName}`})",
+      "expression": "orders.each(p=>p.total=p.details.sum(q=>q.qty*q.unitPrice)).map(p=>{nro:p.number,total:p.total})",
       "result": [
         {
           "nro": "20001",
-          "customer": "John Murphy"
+          "total": 7.58
         },
         {
           "nro": "20002",
-          "customer": "Paul Smith"
+          "total": 7.91
         }
       ]
     },
     {
-      "expression": "orders.map(p => {nro:p.number, articles: p.details.article }).articles.distinct()",
+      "expression": "orders.details.foreach(p=>p.subtotal=p.qty*p.unitPrice).subtotal",
+      "result": [
+        3.56,
+        1.99,
+        2.03,
+        2.15,
+        3.98,
+        1.78
+      ]
+    },
+    {
+      "expression": "orders.details.foreach(p=>total=nvl(total,0)+p.qty*p.unitPrice);total",
+      "result": 15.49
+    },
+    {
+      "expression": "orders.details.distinct(p=>p.article)",
       "result": [
         "Pear",
         "Banana",
         "White grape",
         "Apple"
+      ]
+    },
+    {
+      "expression": "orders.details.distinct(p=>{article:p.article,qty:p.qty})",
+      "result": [
+        {
+          "article": "Pear",
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "expression": "orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})",
+      "result": [
+        {
+          "article": "Pear",
+          "count": 6,
+          "total": 15.49
+        }
+      ]
+    },
+    {
+      "expression": "{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}",
+      "result": {
+        "total": 7.58
+      }
+    },
+    {
+      "expression": "orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})",
+      "result": [
+        {
+          "nro": "20001",
+          "total": 7.58
+        },
+        {
+          "nro": "20002",
+          "total": 7.91
+        }
       ]
     }
   ]

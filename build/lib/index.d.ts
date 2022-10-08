@@ -10,7 +10,7 @@ export declare const expressions: import("./model").IExpressions;
      * @param expression  expression
      * @returns Operand
      */
-export declare const parse: (expression: string) => Operand;
+export declare const build: (expression: string) => Operand;
 /**
  * Get parameters of expression
  * @param expression  expression

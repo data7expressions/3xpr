@@ -34,5 +34,5 @@ import { HelperTest } from '../helperTest'
 		'musicians[musicians.length()-1]'
 	]
 
-	await HelperTest.buildSuite({ name: 'array', context: context, expressions: list })
+	await HelperTest.buildSuite({ name: 'List', context: context, expressions: list })
 })()

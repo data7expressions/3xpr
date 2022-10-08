@@ -1,14 +1,14 @@
 import { Context, Operand, Type, IModelManager } from '../model';
-export declare class Constant extends Operand {
+export declare class Const extends Operand {
     constructor(name: string);
     eval(): any;
 }
-export declare class Variable extends Operand {
+export declare class Var extends Operand {
     number?: number;
     constructor(name: string, type?: Type);
     eval(context: Context): any;
 }
-export declare class EnvironmentVariable extends Operand {
+export declare class Env extends Operand {
     constructor(name: string);
     eval(): any;
 }
@@ -19,7 +19,7 @@ export declare class Template extends Operand {
 export declare class Property extends Operand {
     eval(context: Context): any;
 }
-export declare class KeyValue extends Operand {
+export declare class KeyVal extends Operand {
     property?: string;
     constructor(name: string, children: Operand[] | undefined, property: string, type?: Type);
     eval(context: Context): any;
@@ -37,14 +37,14 @@ export declare class Operator extends Operand {
     constructor(name: string, children: Operand[] | undefined, model: IModelManager);
     eval(context: Context): any;
 }
-export declare class FunctionRef extends Operand {
+export declare class FuncRef extends Operand {
     private model;
     constructor(name: string, children: Operand[] | undefined, model: IModelManager);
     eval(context: Context): any;
 }
-export declare class ChildFunction extends FunctionRef {
+export declare class ChildFunc extends FuncRef {
 }
-export declare class ArrowFunction extends FunctionRef {
+export declare class Arrow extends FuncRef {
 }
 export declare class Block extends Operand {
     eval(context: Context): any;
@@ -82,7 +82,7 @@ export declare class Break extends Operand {
 export declare class Continue extends Operand {
     eval(): any;
 }
-export declare class Function extends Operand {
+export declare class Func extends Operand {
     eval(): any;
 }
 export declare class Return extends Operand {

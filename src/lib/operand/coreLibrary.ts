@@ -1,5 +1,5 @@
 import { Operand, Context, IModelManager } from '../model'
-import { Operator, ArrowFunction, ChildFunction, Obj, KeyValue, Variable, List } from '.'
+import { Operator, Arrow, ChildFunc, Obj, KeyVal, Var, List } from '.'
 import { expressions as exp, Helper } from '../'
 
 export class CoreLibrary {
@@ -510,7 +510,7 @@ class AssignmentRightShift extends Operator {
 		return value
 	}
 }
-class Map extends ArrowFunction {
+class Map extends Arrow {
 	// private serializer: ISerializer<Operand>
 	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children, model)
@@ -524,11 +524,11 @@ class Map extends ArrowFunction {
 			throw new Error(`Array ${this.children[0].name} undefined`)
 		}
 		if (this.children[2] instanceof Obj) {
-			const groupers:KeyValue[] = []
-			const aggregates:KeyValue[] = []
+			const groupers:KeyVal[] = []
+			const aggregates:KeyVal[] = []
 			for (const child of this.children[2].children) {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
-				const keyValue = child as KeyValue
+				const keyValue = child as KeyVal
 				if (keyValue) {
 					if (Helper.operand.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
@@ -541,7 +541,7 @@ class Map extends ArrowFunction {
 				// case with aggregate functions
 				const keys = Helper.operand.getKeys(this.children[1], groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
-				const variable = this.children[1] as Variable
+				const variable = this.children[1] as Var
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = exp.clone(keyValue.children[0])
@@ -574,7 +574,7 @@ class Map extends ArrowFunction {
 		return rows
 	}
 }
-class Distinct extends ArrowFunction {
+class Distinct extends Arrow {
 	eval (context: Context): any {
 		const rows = []
 		const list: any[] = this.children[0].eval(context)
@@ -616,7 +616,7 @@ class Distinct extends ArrowFunction {
 		return rows
 	}
 }
-class Foreach extends ArrowFunction {
+class Foreach extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -630,7 +630,7 @@ class Foreach extends ArrowFunction {
 		return list
 	}
 }
-class Filter extends ArrowFunction {
+class Filter extends Arrow {
 	eval (context: Context): any {
 		const rows = []
 		const list: any[] = this.children[0].eval(context)
@@ -647,7 +647,7 @@ class Filter extends ArrowFunction {
 		return rows
 	}
 }
-class Reverse extends ArrowFunction {
+class Reverse extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -668,7 +668,7 @@ class Reverse extends ArrowFunction {
 		return values.map(p => p.p)
 	}
 }
-class Sort extends ArrowFunction {
+class Sort extends Arrow {
 	eval (context: Context): any {
 		const values = []
 		const list: any[] = this.children[0].eval(context)
@@ -688,7 +688,7 @@ class Sort extends ArrowFunction {
 		return values.map(p => p.p)
 	}
 }
-class Remove extends ArrowFunction {
+class Remove extends Arrow {
 	eval (context: Context): any {
 		const rows = []
 		const list: any[] = this.children[0].eval(context)
@@ -705,7 +705,7 @@ class Remove extends ArrowFunction {
 		return rows
 	}
 }
-class First extends ArrowFunction {
+class First extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -717,7 +717,7 @@ class First extends ArrowFunction {
 		return Helper.operand.first(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Last extends ArrowFunction {
+class Last extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -729,7 +729,7 @@ class Last extends ArrowFunction {
 		return Helper.operand.last(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Count extends ArrowFunction {
+class Count extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -741,7 +741,7 @@ class Count extends ArrowFunction {
 		return Helper.operand.count(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Max extends ArrowFunction {
+class Max extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -759,7 +759,7 @@ class Max extends ArrowFunction {
 		return Helper.operand.max(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Min extends ArrowFunction {
+class Min extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -777,7 +777,7 @@ class Min extends ArrowFunction {
 		return Helper.operand.min(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Avg extends ArrowFunction {
+class Avg extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -795,7 +795,7 @@ class Avg extends ArrowFunction {
 		return Helper.operand.avg(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Sum extends ArrowFunction {
+class Sum extends Arrow {
 	eval (context: Context): any {
 		const list: any[] = this.children[0].eval(context)
 		if (!list) {
@@ -813,7 +813,7 @@ class Sum extends ArrowFunction {
 		return Helper.operand.sum(list, this.children[1], this.children[2], context.newContext())
 	}
 }
-class Union extends ChildFunction {
+class Union extends ChildFunc {
 	eval (context: Context): any {
 		const a: any[] = this.children[0].eval(context)
 		const b: any[] = this.children[1].eval(context)
@@ -854,7 +854,7 @@ class Union extends ChildFunction {
 		return result
 	}
 }
-class Intersection extends ChildFunction {
+class Intersection extends ChildFunc {
 	eval (context: Context): any {
 		const a: any[] = this.children[0].eval(context)
 		const b: any[] = this.children[1].eval(context)
@@ -889,7 +889,7 @@ class Intersection extends ChildFunction {
 		}
 	}
 }
-class Difference extends ChildFunction {
+class Difference extends ChildFunc {
 	eval (context: Context): any {
 		const a: any[] = this.children[0].eval(context)
 		const b: any[] = this.children[1].eval(context)
@@ -927,7 +927,7 @@ class Difference extends ChildFunction {
 		}
 	}
 }
-class SymmetricDifference extends ChildFunction {
+class SymmetricDifference extends ChildFunc {
 	eval (context: Context): any {
 		const a: any[] = this.children[0].eval(context)
 		const b: any[] = this.children[1].eval(context)

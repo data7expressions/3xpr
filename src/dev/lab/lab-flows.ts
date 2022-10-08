@@ -1,5 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import { HelperTest } from '../helperTest'
+import { Helper } from '../../lib'
 
 (async () => {
 	const context = {
@@ -15,7 +16,7 @@ import { HelperTest } from '../helperTest'
 	total = 0;
 	for (i = 0; i < list.length(); i += 1) {
 		total += list[i];
-	}
+	};
 	total;`,
 	`
 	list = [1, 2, 3, 4, 5, 6];
@@ -24,7 +25,7 @@ import { HelperTest } from '../helperTest'
 		if (b < 10) {
 			b = a * b;
 		}
-	}
+	};
 	b;`,
 	`
 	device = devices[0];
@@ -39,7 +40,7 @@ import { HelperTest } from '../helperTest'
 			}else{
 				key = device.mac; 
 			} 
-		}
+		};
 		id= concat(device.type,"-",key);
 	`,
 	`devices.map(p=> 
@@ -60,14 +61,14 @@ import { HelperTest } from '../helperTest'
 	`
 	while (p=devices.pop()) {
 		  mac=p.mac;
-	}
+	};
 	mac;`,
 	`
 	list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	total = 0;
 	for (i = 0; i < list.length(); i += 1) {
 		total += list[i];
-	}
+	};
 	total;`,
 	`rectangle = {"x":50,"y":50,"width":80,"height":60}; 
 		sleepSecs = 1;
@@ -79,8 +80,9 @@ import { HelperTest } from '../helperTest'
 		if (b < 10) {
 			b = a * b;
 		}
-	}
+	};
 	b;`
 	]
-	await HelperTest.buildSuite({ name: 'flows', context: context, expressions: list })
+	await HelperTest.buildSuite({ name: 'flows', context: Helper.obj.clone(context), expressions: list })
+	HelperTest.show(list, Helper.obj.clone(context))
 })()

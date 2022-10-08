@@ -1,5 +1,5 @@
 
-import { Constant, Variable, Template, Operator, FunctionRef, ArrowFunction, List, Obj, Property } from './operands'
+import { Const, Var, Template, Operator, FuncRef, Arrow, List, Obj, Property } from './operands'
 import { IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '../manager'
 
@@ -23,7 +23,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
-		if (operand instanceof Variable) {
+		if (operand instanceof Var) {
 			parameters.push({ name: operand.name, type: Helper.type.toString(operand.type) })
 		}
 		for (const child of operand.children) {
@@ -44,16 +44,16 @@ export class OperandTypeManager implements IOperandTypeManager {
 	}
 
 	private solveType (operand: Operand):void {
-		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
+		if (operand instanceof Const || operand instanceof Var || operand instanceof Template) {
 			return
 		}
 		if (operand instanceof List) {
 			this.solveArray(operand)
 		} else if (operand instanceof Obj) {
 			this.solveObject(operand)
-		} else if (operand instanceof ArrowFunction) {
+		} else if (operand instanceof Arrow) {
 			this.solveArrow(operand)
-		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
+		} else if (operand instanceof Operator || operand instanceof FuncRef) {
 			this.solveOperator(operand)
 		} else if (operand instanceof Property) {
 			this.solveProperty(operand)
@@ -63,14 +63,14 @@ export class OperandTypeManager implements IOperandTypeManager {
 	}
 
 	private solveTemplate (operand: Operand):void {
-		if (operand instanceof Constant || operand instanceof Variable || operand instanceof Template) {
+		if (operand instanceof Const || operand instanceof Var || operand instanceof Template) {
 			return
 		}
 		if (operand instanceof List) {
 			this.solveTemplateArray(operand)
 		} else if (operand instanceof Obj) {
 			this.solveTemplateObject(operand)
-		} else if (operand instanceof Operator || operand instanceof FunctionRef) {
+		} else if (operand instanceof Operator || operand instanceof FuncRef) {
 			const metadata = this.metadata(operand)
 			if (this.hadTemplate(metadata) && this.undefinedTypes(operand)) {
 				this.solveTemplateOperator(operand, metadata)
@@ -319,12 +319,12 @@ export class OperandTypeManager implements IOperandTypeManager {
 	}
 
 	private setVariableType (name: string, type: Type, operand: Operand) {
-		if (operand instanceof Variable && operand.name === name) {
+		if (operand instanceof Var && operand.name === name) {
 			operand.type = type
 		}
 		for (const child of operand.children) {
 			// es por si se da el caso  xxx.filter( p=> p.filter( p => p + 1 ) )
-			if (!(child instanceof ArrowFunction && child.children[1].name === name)) {
+			if (!(child instanceof Arrow && child.children[1].name === name)) {
 				this.setVariableType(name, type, child)
 			}
 		}

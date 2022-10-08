@@ -1,4 +1,5 @@
 import { HelperTest } from '../helperTest'
+import { Helper } from '../../lib'
 
 (async () => {
 	const context = {
@@ -26,7 +27,7 @@ import { HelperTest } from '../helperTest'
 		]
 	}
 
-	const groups = [
+	const list = [
 		'orders.min(p=> p.number)',
 		'orders.details.min(p=> p.article )',
 		'orders.details.max(p=> p.unitPrice * p.qty )',
@@ -45,5 +46,6 @@ import { HelperTest } from '../helperTest'
 		'{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}',
 		'orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})'
 	]
-	await HelperTest.buildSuite({ name: 'groups', context: context, expressions: groups })
+	await HelperTest.buildSuite({ name: 'groups', context: Helper.obj.clone(context), expressions: list })
+	HelperTest.show(list, Helper.obj.clone(context))
 })()

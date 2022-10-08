@@ -1,7 +1,7 @@
 
 import { Context, Operand, Type, IModelManager } from '../model'
 import { Helper } from '../manager'
-export class Constant extends Operand {
+export class Const extends Operand {
 	constructor (name: string) {
 		super(name, [], Helper.type.getType(name))
 	}
@@ -21,7 +21,7 @@ export class Constant extends Operand {
 }
 
 // export class Variable extends Operand implements IOperandData
-export class Variable extends Operand {
+export class Var extends Operand {
 	public number?: number
 	constructor (name: string, type?:Type) {
 		super(name, [], type)
@@ -31,7 +31,7 @@ export class Variable extends Operand {
 		return context.data.get(this.name)
 	}
 }
-export class EnvironmentVariable extends Operand {
+export class Env extends Operand {
 	constructor (name: string) {
 		super(name, [], 'string')
 	}
@@ -70,7 +70,7 @@ export class Property extends Operand {
 	}
 }
 
-export class KeyValue extends Operand {
+export class KeyVal extends Operand {
 	public property?: string
 	constructor (name: string, children: Operand[] = [], property: string, type?: Type) {
 		super(name, children, type)
@@ -132,7 +132,7 @@ export class Operator extends Operand {
 		}
 	}
 }
-export class FunctionRef extends Operand {
+export class FuncRef extends Operand {
 	private model: IModelManager
 	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children)
@@ -158,9 +158,9 @@ export class FunctionRef extends Operand {
 	}
 }
 
-export class ChildFunction extends FunctionRef {
+export class ChildFunc extends FuncRef {
 }
-export class ArrowFunction extends FunctionRef {
+export class Arrow extends FuncRef {
 }
 export class Block extends Operand {
 	public eval (context: Context): any {
@@ -281,7 +281,7 @@ export class Continue extends Operand {
 		throw new Error('NotImplemented')
 	}
 }
-export class Function extends Operand {
+export class Func extends Operand {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}

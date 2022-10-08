@@ -5,15 +5,15 @@
   "cases": [
     {
       "expression": "today()",
-      "result": "2022-10-6"
+      "result": "2022-10-8"
     },
     {
       "expression": "now()",
-      "result": "2022-10-05T22:09:06.632Z"
+      "result": "2022-10-08T09:53:01.176Z"
     },
     {
       "expression": "curTime()",
-      "result": "0:10:6"
+      "result": "11:54:1"
     },
     {
       "expression": "time(\"2021-09-06T14:39:11.444Z\")",

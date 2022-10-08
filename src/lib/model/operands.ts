@@ -1,6 +1,7 @@
 import { Context } from './context'
 import { Type } from './type'
 import { Node } from './../parser'
+import { ISerializer } from './base'
 
 export interface Parameter {
 	name: string
@@ -10,12 +11,37 @@ export interface Parameter {
 }
 
 export enum OperatorType
-{ operator = 'operator'
-, function = 'function'
-, child = 'child'
-, arrow = 'arrow'
+{ Const = 'Const'
+, Var = 'Var'
+, Env = 'Env'
+, Property = 'Property'
+, Template = 'Template'
+, KeyVal = 'KeyVal'
+, List = 'List'
+, Obj = 'Obj'
+, Operator = 'Operator'
+, FuncRef = 'FuncRef'
+, Arrow = 'Arrow'
+, ChildFunc = 'ChildFunc'
+, Block = 'Block'
+, If = 'If'
+, ElseIf = 'ElseIf'
+, Else = 'Else'
+, While = 'While'
+, For = 'For'
+, ForIn = 'ForIn'
+, Switch = 'Switch'
+, Case = 'Case'
+, Default = 'Default'
+, Break = 'Break'
+, Continue = 'Continue'
+, Func = 'Func'
+, Return = 'Return'
+, Try = 'Try'
+, Catch = 'Catch'
+, Throw = 'Throw'
+, Args = 'Args'
 }
-
 export abstract class Operand {
 	public name: string
 	public type?: Type
@@ -69,6 +95,11 @@ export interface IOperandTypeManager {
 
 export interface IOperandBuilder {
 	build (node: Node): Operand
+	createOperand (name: string, type:string, children: Operand[]): Operand
+}
+
+export interface IOperandManager extends ISerializer<Operand> {
+	build (expression: string[]): Operand
 }
 
 export interface Format {

@@ -1,0 +1,247 @@
+{
+  "name": "Arrow",
+  "method": "eval",
+  "context": {
+    "cities": [
+      {
+        "name": "Buenos Aires",
+        "province": "BA",
+        "population": 2.89,
+        "coordinates": {
+          "lat": 34.36,
+          "long": 58.26
+        }
+      },
+      {
+        "name": "Córdoba",
+        "province": "CB",
+        "population": 1.32,
+        "coordinates": {
+          "lat": 31.42,
+          "long": 64.18
+        }
+      },
+      {
+        "name": "Rosario",
+        "province": "SF",
+        "population": 0.95,
+        "coordinates": {
+          "lat": 32.58,
+          "long": 60.36
+        }
+      },
+      {
+        "name": "Mar del Plata",
+        "province": "BA",
+        "population": 0.59,
+        "coordinates": {
+          "lat": 38,
+          "long": 57.33
+        }
+      }
+    ],
+    "salta": {
+      "name": "Salta",
+      "province": "SA",
+      "population": 520683,
+      "coordinates": {
+        "lat": 24.33,
+        "long": 64.3
+      }
+    },
+    "posadas": {
+      "name": "Posadas",
+      "province": "MI",
+      "population": 275028,
+      "coordinates": {
+        "lat": 27.22,
+        "long": 55.53
+      }
+    },
+    "musicians": [
+      "Charly Garcia",
+      "Fito Paez",
+      "Luiz Alberto Spinetta"
+    ],
+    "pair": [
+      2,
+      4,
+      6
+    ],
+    "ods": [
+      1,
+      3,
+      5
+    ],
+    "p": {
+      "name": "Mar del Plata",
+      "province": "BA",
+      "population": 0.59,
+      "coordinates": {
+        "lat": 38,
+        "long": 57.33
+      }
+    },
+    "b": 18
+  },
+  "cases": [
+    {
+      "expression": "cities.where(p-> p.province <> \"BA\").len()",
+      "result": 2
+    },
+    {
+      "expression": "cities.where(p-> p.province != \"BA\").length()",
+      "result": 2
+    },
+    {
+      "expression": "cities.each(p=> p.population=round(p.population/1000000,2)).population",
+      "result": [
+        2.89,
+        1.32,
+        0.95,
+        0.59
+      ]
+    },
+    {
+      "expression": "pair.foreach(p=>b=b+p)",
+      "result": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "expression": "pair.filter(p=> p<5).foreach(p => b=b+p)",
+      "result": [
+        2,
+        4
+      ]
+    },
+    {
+      "expression": "cities.sort(p=> p.name).name",
+      "result": [
+        "Buenos Aires",
+        "Córdoba",
+        "Mar del Plata",
+        "Rosario"
+      ]
+    },
+    {
+      "expression": "cities.reverse(p=> p.name).name",
+      "result": [
+        "Rosario",
+        "Mar del Plata",
+        "Córdoba",
+        "Buenos Aires"
+      ]
+    },
+    {
+      "expression": "ods.filter(p=> p>1 && p<5).reverse()",
+      "result": [
+        3
+      ]
+    },
+    {
+      "expression": "ods.filter(p=> p>1 && p<5).map(p=> p*2).reverse()",
+      "result": [
+        6
+      ]
+    },
+    {
+      "expression": "cities.order(p=> p.name).name",
+      "result": [
+        "Buenos Aires",
+        "Córdoba",
+        "Mar del Plata",
+        "Rosario"
+      ]
+    },
+    {
+      "expression": "cities.name",
+      "result": [
+        "Buenos Aires",
+        "Córdoba",
+        "Rosario",
+        "Mar del Plata"
+      ]
+    },
+    {
+      "expression": "cities.select(p=> p.coordinates).select(p=> p.lat)",
+      "result": [
+        34.36,
+        31.42,
+        32.58,
+        38
+      ]
+    },
+    {
+      "expression": "cities.map(p=> p.coordinates).lat",
+      "result": [
+        34.36,
+        31.42,
+        32.58,
+        38
+      ]
+    },
+    {
+      "expression": "cities.map(p=>[p.coordinates.lat,p.coordinates.long])",
+      "result": [
+        [
+          34.36,
+          58.26
+        ],
+        [
+          31.42,
+          64.18
+        ],
+        [
+          32.58,
+          60.36
+        ],
+        [
+          38,
+          57.33
+        ]
+      ]
+    },
+    {
+      "expression": "cities.distinct(p=> p.province)",
+      "result": [
+        "BA",
+        "CB",
+        "SF"
+      ]
+    },
+    {
+      "expression": "cities.coordinates.lat",
+      "result": [
+        34.36,
+        31.42,
+        32.58,
+        38
+      ]
+    },
+    {
+      "expression": "cities.x",
+      "result": []
+    },
+    {
+      "expression": "cities.x.x",
+      "result": []
+    },
+    {
+      "expression": "cities.delete(p-> p.province === \"BA\").name",
+      "result": [
+        "Córdoba",
+        "Rosario"
+      ]
+    },
+    {
+      "expression": "cities.remove(p-> p.province === \"BA\").name",
+      "result": [
+        "Córdoba",
+        "Rosario"
+      ]
+    }
+  ]
+}

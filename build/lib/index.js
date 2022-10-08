@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unsubscribe = exports.subscribe = exports.evaluate = exports.parameters = exports.parse = exports.expressions = void 0;
+exports.unsubscribe = exports.subscribe = exports.evaluate = exports.parameters = exports.build = exports.expressions = void 0;
 const manager_1 = require("./manager");
 __exportStar(require("./model"), exports);
 __exportStar(require("./operand"), exports);
@@ -27,10 +27,10 @@ exports.expressions = manager_1.Expressions.instance;
      * @param expression  expression
      * @returns Operand
      */
-const parse = (expression) => {
-    return exports.expressions.parse(expression);
+const build = (expression) => {
+    return exports.expressions.build(expression);
 };
-exports.parse = parse;
+exports.build = build;
 /**
  * Get parameters of expression
  * @param expression  expression

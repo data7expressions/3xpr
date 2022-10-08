@@ -96,7 +96,7 @@ export class ModelManager implements IModelManager {
 	public addOperator (sing:string, source:any, priority:number): void {
 		const metadata = this.getMetadata(sing)
 		let func, custom
-		if (Object.getPrototypeOf(source).name === 'Operator') {
+		if (Object.getPrototypeOf(source).name === OperatorType.Operator) {
 			custom = source
 		} else if (typeof source === 'function') {
 			func = source
@@ -107,7 +107,7 @@ export class ModelManager implements IModelManager {
 		this._addOperator({
 			name: metadata.name,
 			operator: metadata.name,
-			type: OperatorType.operator,
+			type: OperatorType.Operator,
 			priority: priority,
 			deterministic: false,
 			operands: metadata.params.length,
@@ -122,7 +122,7 @@ export class ModelManager implements IModelManager {
 	public addFunction (sing:string, source:any, deterministic = true):void {
 		const metadata = this.getMetadata(sing)
 		let func, custom
-		if (['ArrowFunction', 'ChildFunction', 'FunctionRef'].includes(Object.getPrototypeOf(source).name)) {
+		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.FuncRef].includes(Object.getPrototypeOf(source).name)) {
 			custom = source
 		} else if (typeof source === 'function') {
 			func = source
@@ -133,7 +133,7 @@ export class ModelManager implements IModelManager {
 		this._addFunction({
 			name: metadata.name,
 			operator: metadata.name,
-			type: OperatorType.function,
+			type: OperatorType.Func,
 			deterministic: deterministic,
 			operands: metadata.params.length,
 			// description: metadata.description,

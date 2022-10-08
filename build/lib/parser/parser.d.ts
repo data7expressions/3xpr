@@ -37,7 +37,7 @@ export declare class Parser {
     private getWhileBlock;
     private getForBlock;
     private getFunctionBlock;
-    private getChildFunction;
+    private getChildFunc;
     private getIndexOperand;
     private getEnum;
 }

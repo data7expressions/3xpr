@@ -14,8 +14,8 @@ export const expressions = Expressions.instance
 	 * @param expression  expression
 	 * @returns Operand
 	 */
-export const parse = (expression: string): Operand => {
-	return expressions.parse(expression)
+export const build = (expression: string): Operand => {
+	return expressions.build(expression)
 }
 
 /**

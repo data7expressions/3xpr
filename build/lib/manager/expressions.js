@@ -9,23 +9,21 @@ const _1 = require(".");
 class ExpressionsBuilder {
     build() {
         const cache = new _1.MemoryCache();
-        const expressionConfig = new parser_1.ModelManager();
-        const typeManager = new operand_1.OperandTypeManager(expressionConfig);
-        const serializer = new operand_1.OperandSerializer(expressionConfig);
-        const operandBuilder = new operand_1.OperandBuilder(expressionConfig);
-        new operand_1.CoreLibrary(expressionConfig).load();
-        return new Expressions(cache, expressionConfig, serializer, operandBuilder, typeManager);
+        const model = new parser_1.ModelManager();
+        const typeManager = new operand_1.OperandTypeManager(model);
+        const operandManager = new operand_1.OperandManager(model);
+        new operand_1.CoreLibrary(model).load();
+        return new Expressions(cache, model, operandManager, typeManager);
     }
 }
 exports.ExpressionsBuilder = ExpressionsBuilder;
 class Expressions {
-    constructor(cache, model, serializer, operandBuilder, typeManager) {
+    constructor(cache, model, operand, type) {
         this.observers = [];
         this.cache = cache;
         this.model = model;
-        this.serializer = serializer;
-        this.operandBuilder = operandBuilder;
-        this.typeManager = typeManager;
+        this.operand = operand;
+        this.type = type;
     }
     static get instance() {
         if (!this._instance) {
@@ -88,20 +86,20 @@ class Expressions {
         return this.model.getFunction(name);
     }
     clone(operand) {
-        return this.serializer.clone(operand);
+        return this.operand.clone(operand);
     }
     /**
      * Parser expression
      * @param expression  expression
      * @returns Operand
      */
-    parse(expression) {
+    build(expression) {
         try {
-            const minifyExpression = _1.Helper.exp.minify(expression);
+            const minifyExpression = _1.Helper.node.minify(expression);
             const key = `${minifyExpression.join('')}_operand`;
             const value = this.cache.get(key);
             if (!value) {
-                const operand = this._parse(minifyExpression);
+                const operand = this.operand.build(minifyExpression);
                 this.cache.set(key, operand);
                 return operand;
             }
@@ -120,7 +118,7 @@ class Expressions {
      */
     parameters(expression) {
         const operand = this.typed(expression);
-        return this.typeManager.parameters(operand);
+        return this.type.parameters(operand);
     }
     /**
      * Get type of expression
@@ -140,7 +138,7 @@ class Expressions {
     eval(expression, data) {
         try {
             this.beforeExecutionNotify(expression, data);
-            const operand = this.parse(expression);
+            const operand = this.build(expression);
             const context = new model_1.Context(new model_1.Data(data));
             const result = operand.eval(context);
             this.afterExecutionNotify(expression, data, result);
@@ -163,30 +161,23 @@ class Expressions {
         this.observers.splice(index, 1);
     }
     typed(expression) {
-        const minifyExpression = _1.Helper.exp.minify(expression);
+        const minifyExpression = _1.Helper.node.minify(expression);
         const key = `${minifyExpression.join('')}_operand`;
         const value = this.cache.get(key);
         if (!value) {
-            const operand = this._parse(minifyExpression);
-            this.typeManager.solve(operand);
+            const operand = this.operand.build(minifyExpression);
+            this.type.solve(operand);
             this.cache.set(key, operand);
             return operand;
         }
         else if (value.type === undefined) {
-            this.typeManager.solve(value);
+            this.type.solve(value);
             this.cache.set(key, value);
             return value;
         }
         else {
             return value;
         }
-    }
-    _parse(buffer) {
-        const parser = new parser_1.Parser(this.model, buffer);
-        const node = parser.parse();
-        _1.Helper.exp.clearChildEmpty(node);
-        const operand = this.operandBuilder.build(node);
-        return operand;
     }
     beforeExecutionNotify(expression, data) {
         const args = { expression: expression, data: data };

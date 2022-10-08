@@ -1,4 +1,4 @@
-import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, ISerializer, IOperandBuilder } from '../model';
+import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, IOperandManager } from '../model';
 export declare class ExpressionsBuilder implements IBuilder<IExpressions> {
     build(): IExpressions;
 }
@@ -6,10 +6,9 @@ export declare class Expressions implements IExpressions {
     private cache;
     private model;
     private observers;
-    private operandBuilder;
-    private typeManager;
-    private serializer;
-    constructor(cache: Cache, model: IModelManager, serializer: ISerializer<Operand>, operandBuilder: IOperandBuilder, typeManager: IOperandTypeManager);
+    private operand;
+    private type;
+    constructor(cache: Cache, model: IModelManager, operand: IOperandManager, type: IOperandTypeManager);
     private static _instance;
     static get instance(): IExpressions;
     get operators(): OperatorMetadata[];
@@ -36,7 +35,7 @@ export declare class Expressions implements IExpressions {
      * @param expression  expression
      * @returns Operand
      */
-    parse(expression: string): Operand;
+    build(expression: string): Operand;
     /**
      * Get parameters of expression
      * @param expression  expression
@@ -59,7 +58,6 @@ export declare class Expressions implements IExpressions {
     subscribe(observer: ActionObserver): void;
     unsubscribe(observer: ActionObserver): void;
     private typed;
-    private _parse;
     private beforeExecutionNotify;
     private afterExecutionNotify;
     private errorExecutionNotify;

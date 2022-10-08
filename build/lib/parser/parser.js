@@ -62,7 +62,7 @@ class Parser {
         if (nodes.length === 1) {
             return nodes[0];
         }
-        return new node_1.Node('block', 'block', nodes);
+        return new node_1.Node('block', __1.OperatorType.Block, nodes);
     }
     char(index) {
         return this.buffer[index];
@@ -87,23 +87,23 @@ class Parser {
             operand2 = this.getOperand();
             const nextOperator = this.getOperator();
             if (!nextOperator || _break.includes(nextOperator)) {
-                expression = new node_1.Node(operator, 'operator', [operand1, operand2]);
+                expression = new node_1.Node(operator, __1.OperatorType.Operator, [operand1, operand2]);
                 isBreak = true;
                 break;
             }
             else if (this.model.priority(operator) >= this.model.priority(nextOperator)) {
-                operand1 = new node_1.Node(operator, 'operator', [operand1, operand2]);
+                operand1 = new node_1.Node(operator, __1.OperatorType.Operator, [operand1, operand2]);
                 operator = nextOperator;
             }
             else {
                 operand2 = this.getExpression(operand2, nextOperator, _break);
-                expression = new node_1.Node(operator, 'operator', [operand1, operand2]);
+                expression = new node_1.Node(operator, __1.OperatorType.Operator, [operand1, operand2]);
                 isBreak = true;
                 break;
             }
         }
         if (!isBreak)
-            expression = new node_1.Node(operator, 'operator', [operand1, operand2]);
+            expression = new node_1.Node(operator, __1.OperatorType.Operator, [operand1, operand2]);
         return expression;
     }
     getOperand() {
@@ -155,12 +155,12 @@ class Parser {
                     const names = __1.Helper.obj.names(value);
                     const functionName = names.pop();
                     const variableName = names.join('.');
-                    const variable = new node_1.Node(variableName, 'var');
-                    operand = this.getChildFunction(functionName, variable);
+                    const variable = new node_1.Node(variableName, 'Var');
+                    operand = this.getChildFunc(functionName, variable);
                 }
                 else {
                     const args = this.getArgs(')');
-                    operand = new node_1.Node(value, 'funcRef', args);
+                    operand = new node_1.Node(value, __1.OperatorType.FuncRef, args);
                 }
             }
             else if (value === 'try' && this.current === '{') {
@@ -173,10 +173,10 @@ class Parser {
                 operand = this.getReturn();
             }
             else if (value === 'break') {
-                operand = new node_1.Node('break', 'break');
+                operand = new node_1.Node('break', __1.OperatorType.Break);
             }
             else if (value === 'continue') {
-                operand = new node_1.Node('continue', 'continue');
+                operand = new node_1.Node('continue', __1.OperatorType.Continue);
             }
             else if (!this.end && this.current === '[') {
                 this.index += 1;
@@ -194,7 +194,7 @@ class Parser {
                 else {
                     value = parseInt(value);
                 }
-                operand = new node_1.Node(value, 'const');
+                operand = new node_1.Node(value, __1.OperatorType.Const);
             }
             else if (__1.Helper.validator.isDecimalFormat(value)) {
                 if (isNegative) {
@@ -208,34 +208,28 @@ class Parser {
                 else {
                     value = parseFloat(value);
                 }
-                operand = new node_1.Node(value, 'const');
-                // } else if (value === 'true') {
-                // operand = new Node(true, 'const')
-                // } else if (value === 'false') {
-                // operand = new Node(false, 'const')
-                // } else if (value === 'null') {
-                // operand = new Node(null, 'const')
+                operand = new node_1.Node(value, __1.OperatorType.Const);
             }
             else if (this.model.isConstant(value)) {
                 const constantValue = this.model.getConstantValue(value);
-                operand = new node_1.Node(constantValue, 'const');
+                operand = new node_1.Node(constantValue, __1.OperatorType.Const);
             }
             else if (this.model.isEnum(value)) {
                 operand = this.getEnum(value);
             }
             else {
-                operand = new node_1.Node(value, 'var');
+                operand = new node_1.Node(value, __1.OperatorType.Var);
             }
         }
         else if (char === '\'' || char === '"') {
             this.index += 1;
             const result = this.getString(char);
-            operand = new node_1.Node(result, 'const');
+            operand = new node_1.Node(result, __1.OperatorType.Const);
         }
         else if (char === '`') {
             this.index += 1;
             const result = this.getTemplate();
-            operand = new node_1.Node(result, 'template');
+            operand = new node_1.Node(result, __1.OperatorType.Template);
         }
         else if (char === '(') {
             this.index += 1;
@@ -248,7 +242,7 @@ class Parser {
         else if (char === '[') {
             this.index += 1;
             const elements = this.getArgs(']');
-            operand = new node_1.Node('array', 'array', elements);
+            operand = new node_1.Node('array', __1.OperatorType.List, elements);
         }
         else if (char === '$') {
             let variableName;
@@ -266,15 +260,15 @@ class Parser {
                 this.index += 1;
                 variableName = this.getValue();
             }
-            operand = new node_1.Node(variableName, 'env');
+            operand = new node_1.Node(variableName, __1.OperatorType.Env);
         }
         operand = this.solveChain(operand);
         if (isNegative)
-            operand = new node_1.Node('-', 'operator', [operand]);
+            operand = new node_1.Node('-', __1.OperatorType.Operator, [operand]);
         if (isNot)
-            operand = new node_1.Node('!', 'operator', [operand]);
+            operand = new node_1.Node('!', __1.OperatorType.Operator, [operand]);
         if (isBitNot)
-            operand = new node_1.Node('~', 'operator', [operand]);
+            operand = new node_1.Node('~', __1.OperatorType.Operator, [operand]);
         return operand;
     }
     solveChain(operand) {
@@ -291,39 +285,39 @@ class Parser {
                     const names = __1.Helper.obj.names(name);
                     const propertyName = names.slice(0, -1).join('.');
                     const functionName = names.slice(-1)[0];
-                    const property = new node_1.Node(propertyName, 'property', [operand]);
-                    return this.solveChain(this.getChildFunction(functionName, property));
+                    const property = new node_1.Node(propertyName, __1.OperatorType.Property, [operand]);
+                    return this.solveChain(this.getChildFunc(functionName, property));
                 }
                 else {
                     // .xxx(p=> p.xxx)
-                    return this.solveChain(this.getChildFunction(name, operand));
+                    return this.solveChain(this.getChildFunc(name, operand));
                 }
             }
             else if (this.current === '[') {
                 this.index += 1;
                 if (name.includes('.')) {
                     // .xxx.xxx[x]
-                    const property = new node_1.Node(name, 'property', [operand]);
+                    const property = new node_1.Node(name, __1.OperatorType.Property, [operand]);
                     const idx = this.getExpression(undefined, undefined, ']');
-                    return new node_1.Node('[]', 'operator', [property, idx]);
+                    return new node_1.Node('[]', __1.OperatorType.Operator, [property, idx]);
                 }
                 else {
                     // .xxx[x]
-                    const property = new node_1.Node(name, 'property', [operand]);
+                    const property = new node_1.Node(name, __1.OperatorType.Property, [operand]);
                     const idx = this.getExpression(undefined, undefined, ']');
-                    return new node_1.Node('[]', 'operator', [property, idx]);
+                    return new node_1.Node('[]', __1.OperatorType.Operator, [property, idx]);
                 }
             }
             else {
                 // .xxx
-                return new node_1.Node(name, 'property', [operand]);
+                return new node_1.Node(name, __1.OperatorType.Property, [operand]);
             }
         }
         else if (this.current === '[') {
             // xxx[x][x] or xxx[x].xxx[x]
             this.index += 1;
             const idx = this.getExpression(undefined, undefined, ']');
-            return new node_1.Node('[]', 'operator', [operand, idx]);
+            return new node_1.Node('[]', __1.OperatorType.Operator, [operand, idx]);
         }
         else {
             return operand;
@@ -419,12 +413,12 @@ class Parser {
             else
                 throw new Error('attribute ' + name + ' without value');
             const value = this.getExpression(undefined, undefined, ',}');
-            const attribute = new node_1.Node(name, 'keyVal', [value]);
+            const attribute = new node_1.Node(name, __1.OperatorType.KeyVal, [value]);
             attributes.push(attribute);
             if (this.previous === '}')
                 break;
         }
-        return new node_1.Node('obj', 'obj', attributes);
+        return new node_1.Node('obj', __1.OperatorType.Obj, attributes);
     }
     getBlock() {
         const lines = [];
@@ -435,7 +429,7 @@ class Parser {
             if (this.previous === '}')
                 break;
         }
-        return new node_1.Node('block', 'block', lines);
+        return new node_1.Node('block', __1.OperatorType.Block, lines);
     }
     getControlBlock() {
         if (this.current === '{') {
@@ -448,7 +442,7 @@ class Parser {
     }
     getReturn() {
         const value = this.getExpression(undefined, undefined, ';');
-        return new node_1.Node('return', 'return', [value]);
+        return new node_1.Node('return', __1.OperatorType.Return, [value]);
     }
     getTryCatchBlock() {
         const children = [];
@@ -464,16 +458,16 @@ class Parser {
             }
             const catchBlock = this.getControlBlock();
             catchChildren.push(catchBlock);
-            const catchNode = new node_1.Node('catch', 'catch', catchChildren);
+            const catchNode = new node_1.Node('catch', __1.OperatorType.Catch, catchChildren);
             children.push(catchNode);
         }
         if (this.current === ';')
             this.index += 1;
-        return new node_1.Node('try', 'try', children);
+        return new node_1.Node('try', __1.OperatorType.Try, children);
     }
     getThrow() {
         const exception = this.getExpression(undefined, undefined, ';');
-        return new node_1.Node('throw', 'throw', [exception]);
+        return new node_1.Node('throw', __1.OperatorType.Throw, [exception]);
     }
     getIfBlock() {
         const children = [];
@@ -481,11 +475,11 @@ class Parser {
         children.push(condition);
         const block = this.getControlBlock();
         children.push(block);
-        while (this.nextIs('else if(')) {
-            this.index += 'else if('.length;
+        while (this.nextIs('elseif(')) {
+            this.index += 'elseif('.length;
             const condition = this.getExpression(undefined, undefined, ')');
             const elseIfBlock = this.getControlBlock();
-            const elseIfNode = new node_1.Node('elseIf', 'elseIf', [condition, elseIfBlock]);
+            const elseIfNode = new node_1.Node('elseif', __1.OperatorType.ElseIf, [condition, elseIfBlock]);
             children.push(elseIfNode);
         }
         if (this.nextIs('else')) {
@@ -493,7 +487,7 @@ class Parser {
             const elseBlock = this.getControlBlock();
             children.push(elseBlock);
         }
-        return new node_1.Node('if', 'if', children);
+        return new node_1.Node('if', __1.OperatorType.If, children);
     }
     getSwitchBlock() {
         const children = [];
@@ -533,8 +527,8 @@ class Parser {
                     break;
                 }
             }
-            const block = new node_1.Node('block', 'block', lines);
-            const caseNode = new node_1.Node(compare, 'case', [block]);
+            const block = new node_1.Node('block', __1.OperatorType.Block, lines);
+            const caseNode = new node_1.Node(compare, __1.OperatorType.Case, [block]);
             children.push(caseNode);
         }
         if (next === 'default:') {
@@ -547,20 +541,18 @@ class Parser {
                 if (this.current === '}' || this.previous === '}')
                     break;
             }
-            const block = new node_1.Node('block', 'block', lines);
-            const defaultNode = new node_1.Node('default', 'default', [block]);
+            const block = new node_1.Node('block', __1.OperatorType.Block, lines);
+            const defaultNode = new node_1.Node('default', __1.OperatorType.Default, [block]);
             children.push(defaultNode);
         }
         if (this.current === '}')
             this.index += 1;
-        return new node_1.Node('switch', 'switch', children);
-        // const options = new Node('options', 'options', children)
-        // return new Node('switch', 'switch', [value, options])
+        return new node_1.Node('switch', __1.OperatorType.Switch, children);
     }
     getWhileBlock() {
         const condition = this.getExpression(undefined, undefined, ')');
         const block = this.getControlBlock();
-        return new node_1.Node('while', 'while', [condition, block]);
+        return new node_1.Node('while', __1.OperatorType.While, [condition, block]);
     }
     getForBlock() {
         const first = this.getExpression(undefined, undefined, '; ');
@@ -568,7 +560,7 @@ class Parser {
             const condition = this.getExpression(undefined, undefined, ';');
             const increment = this.getExpression(undefined, undefined, ')');
             const block = this.getControlBlock();
-            return new node_1.Node('for', 'for', [first, condition, increment, block]);
+            return new node_1.Node('for', __1.OperatorType.For, [first, condition, increment, block]);
         }
         else if (this.nextIs('in')) {
             this.index += 2;
@@ -578,7 +570,7 @@ class Parser {
             }
             const list = this.getExpression(undefined, undefined, ')');
             const block = this.getControlBlock();
-            return new node_1.Node('forIn', 'forIn', [first, list, block]);
+            return new node_1.Node('forIn', __1.OperatorType.ForIn, [first, list, block]);
         }
         throw new Error('expression for error');
     }
@@ -588,10 +580,10 @@ class Parser {
             this.index += 1;
         const args = this.getArgs();
         const block = this.getBlock();
-        const argsNode = new node_1.Node('args', 'args', args);
-        return new node_1.Node(name, 'function', [argsNode, block]);
+        const argsNode = new node_1.Node('args', __1.OperatorType.Args, args);
+        return new node_1.Node(name, __1.OperatorType.Func, [argsNode, block]);
     }
-    getChildFunction(name, parent) {
+    getChildFunc(name, parent) {
         let isArrow = false;
         const variableName = this.getValue(false);
         if (variableName !== '') {
@@ -618,38 +610,20 @@ class Parser {
             this.index += 2; // [=>]
         }
         if (isArrow) {
-            const variable = new node_1.Node(variableName, 'var');
+            const variable = new node_1.Node(variableName, 'Var');
             const body = this.getExpression(undefined, undefined, ')');
-            return new node_1.Node(name, 'arrow', [parent, variable, body]);
+            return new node_1.Node(name, __1.OperatorType.Arrow, [parent, variable, body]);
         }
         else {
             const args = this.getArgs(')');
             args.splice(0, 0, parent);
-            return new node_1.Node(name, 'childFunc', args);
+            return new node_1.Node(name, __1.OperatorType.ChildFunc, args);
         }
-        // if( this.mgr.arrowFunction.includes(name)){
-        //      let variableName= this.getValue()
-        //      if(variableName=='' && this.current==')'){
-        //          this.index+=1
-        //          return new Node(name,'arrow',[parent])
-        //      }
-        //      else{
-        //          if(this.current=='=' && this.next == '>')this.index+=2
-        //          else throw 'map without body'
-        //          let variable= new Node(variableName,'var')
-        //          let body= this.getExpression(null,null,')')
-        //          return new Node(name,'arrow',[parent,variable,body])
-        //      }
-        //  }else{
-        //      let args=  this.getArgs(')')
-        //      args.splice(0,0,parent)
-        //      return  new Node(name,'childFunc',args)
-        //  }
     }
     getIndexOperand(name) {
         const idx = this.getExpression(undefined, undefined, ']');
-        const operand = new node_1.Node(name, 'var');
-        return new node_1.Node('[]', 'operator', [operand, idx]);
+        const operand = new node_1.Node(name, __1.OperatorType.Var);
+        return new node_1.Node('[]', __1.OperatorType.Operator, [operand, idx]);
     }
     getEnum(value) {
         if (value.includes('.') && this.model.isEnum(value)) {
@@ -657,17 +631,17 @@ class Parser {
             const enumName = names[0];
             const enumOption = names[1];
             const enumValue = this.model.getEnumValue(enumName, enumOption);
-            return new node_1.Node(enumValue, 'const');
+            return new node_1.Node(enumValue, __1.OperatorType.Const);
         }
         else {
             const values = this.model.getEnum(value);
             const attributes = [];
             for (const name in values) {
                 const _value = values[name];
-                const attribute = new node_1.Node(name, 'keyVal', [new node_1.Node(_value, 'const')]);
+                const attribute = new node_1.Node(name, 'KeyVal', [new node_1.Node(_value, __1.OperatorType.Const)]);
                 attributes.push(attribute);
             }
-            return new node_1.Node('obj', 'obj', attributes);
+            return new node_1.Node('obj', __1.OperatorType.Obj, attributes);
         }
     }
 }

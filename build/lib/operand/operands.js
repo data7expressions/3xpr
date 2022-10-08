@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Function = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.ArrowFunction = exports.ChildFunction = exports.FunctionRef = exports.Operator = exports.Obj = exports.List = exports.KeyValue = exports.Property = exports.Template = exports.EnvironmentVariable = exports.Variable = exports.Constant = void 0;
+exports.Throw = exports.Catch = exports.Try = exports.Return = exports.Func = exports.Continue = exports.Break = exports.Default = exports.Case = exports.Switch = exports.ForIn = exports.For = exports.While = exports.Else = exports.ElseIf = exports.If = exports.Block = exports.Arrow = exports.ChildFunc = exports.FuncRef = exports.Operator = exports.Obj = exports.List = exports.KeyVal = exports.Property = exports.Template = exports.Env = exports.Var = exports.Const = void 0;
 const model_1 = require("../model");
 const manager_1 = require("../manager");
-class Constant extends model_1.Operand {
+class Const extends model_1.Operand {
     constructor(name) {
         super(name, [], manager_1.Helper.type.getType(name));
     }
@@ -20,9 +20,9 @@ class Constant extends model_1.Operand {
         }
     }
 }
-exports.Constant = Constant;
+exports.Const = Const;
 // export class Variable extends Operand implements IOperandData
-class Variable extends model_1.Operand {
+class Var extends model_1.Operand {
     constructor(name, type) {
         super(name, [], type);
     }
@@ -30,8 +30,8 @@ class Variable extends model_1.Operand {
         return context.data.get(this.name);
     }
 }
-exports.Variable = Variable;
-class EnvironmentVariable extends model_1.Operand {
+exports.Var = Var;
+class Env extends model_1.Operand {
     constructor(name) {
         super(name, [], 'string');
     }
@@ -39,7 +39,7 @@ class EnvironmentVariable extends model_1.Operand {
         return process.env[this.name];
     }
 }
-exports.EnvironmentVariable = EnvironmentVariable;
+exports.Env = Env;
 class Template extends model_1.Operand {
     constructor(name) {
         super(name, [], 'string');
@@ -69,7 +69,7 @@ class Property extends model_1.Operand {
     }
 }
 exports.Property = Property;
-class KeyValue extends model_1.Operand {
+class KeyVal extends model_1.Operand {
     constructor(name, children = [], property, type) {
         super(name, children, type);
         this.property = property;
@@ -78,7 +78,7 @@ class KeyValue extends model_1.Operand {
         return this.children[0].eval(context);
     }
 }
-exports.KeyValue = KeyValue;
+exports.KeyVal = KeyVal;
 class List extends model_1.Operand {
     constructor(name, children = []) {
         super(name, children);
@@ -131,7 +131,7 @@ class Operator extends model_1.Operand {
     }
 }
 exports.Operator = Operator;
-class FunctionRef extends model_1.Operand {
+class FuncRef extends model_1.Operand {
     constructor(name, children = [], model) {
         super(name, children);
         this.model = model;
@@ -156,13 +156,13 @@ class FunctionRef extends model_1.Operand {
         }
     }
 }
-exports.FunctionRef = FunctionRef;
-class ChildFunction extends FunctionRef {
+exports.FuncRef = FuncRef;
+class ChildFunc extends FuncRef {
 }
-exports.ChildFunction = ChildFunction;
-class ArrowFunction extends FunctionRef {
+exports.ChildFunc = ChildFunc;
+class Arrow extends FuncRef {
 }
-exports.ArrowFunction = ArrowFunction;
+exports.Arrow = Arrow;
 class Block extends model_1.Operand {
     eval(context) {
         let lastValue = null;
@@ -297,12 +297,12 @@ class Continue extends model_1.Operand {
     }
 }
 exports.Continue = Continue;
-class Function extends model_1.Operand {
+class Func extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
     }
 }
-exports.Function = Function;
+exports.Func = Func;
 class Return extends model_1.Operand {
     eval() {
         throw new Error('NotImplemented');
