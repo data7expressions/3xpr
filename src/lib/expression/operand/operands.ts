@@ -133,7 +133,7 @@ export class Operator extends Operand {
 		}
 	}
 }
-export class FuncRef extends Operand {
+export class CallFunc extends Operand {
 	private model: IModelManager
 	constructor (name: string, children: Operand[] = [], model: IModelManager) {
 		super(name, children)
@@ -159,9 +159,9 @@ export class FuncRef extends Operand {
 	}
 }
 
-export class ChildFunc extends FuncRef {
+export class ChildFunc extends CallFunc {
 }
-export class Arrow extends FuncRef {
+export class Arrow extends CallFunc {
 }
 export class Block extends Operand {
 	public eval (context: Context): any {

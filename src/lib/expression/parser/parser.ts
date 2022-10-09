@@ -161,7 +161,7 @@ export class Parser {
 					operand = this.getChildFunc(functionName, variable)
 				} else {
 					const args = this.getArgs(')')
-					operand = new Node(value, OperatorType.FuncRef, args)
+					operand = new Node(value, OperatorType.CallFunc, args)
 				}
 			} else if (value === 'try' && this.current === '{') {
 				operand = this.getTryCatchBlock()

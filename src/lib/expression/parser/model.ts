@@ -122,7 +122,7 @@ export class ModelManager implements IModelManager {
 	public addFunction (sing:string, source:any, deterministic = true):void {
 		const metadata = this.getMetadata(sing)
 		let func, custom
-		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.FuncRef].includes(Object.getPrototypeOf(source).name)) {
+		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.CallFunc].includes(Object.getPrototypeOf(source).name)) {
 			custom = source
 		} else if (typeof source === 'function') {
 			func = source

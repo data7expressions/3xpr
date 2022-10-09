@@ -3,7 +3,7 @@ import { Node } from '../parser/index'
 import { Context } from '../core'
 import { OperatorType, Operand, IOperandBuilder, IModelManager } from '../model'
 import {
-	Const, Var, KeyVal, List, Obj, Operator, FuncRef, Block, Arrow, ChildFunc,
+	Const, Var, KeyVal, List, Obj, Operator, CallFunc, Block, Arrow, ChildFunc,
 	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Func, Return, Try, Catch, Throw, Case, Default,
 	Template, Property, Env
 } from './operands'
@@ -24,7 +24,7 @@ export class OperandBuilder implements IOperandBuilder {
 	private reduce (operand: Operand): Operand {
 		if (operand instanceof Operator) {
 			return this.reduceOperand(operand)
-		} else if (operand instanceof FuncRef) {
+		} else if (operand instanceof CallFunc) {
 			// Example: .[0].states.filter() where function name is states.filter
 			const names = operand.name.split('.')
 			const funcName = names[names.length - 1]
@@ -96,8 +96,8 @@ export class OperandBuilder implements IOperandBuilder {
 			return new Obj(name, children)
 		case OperatorType.Operator:
 			return new Operator(name, children, this.model)
-		case OperatorType.FuncRef:
-			return new FuncRef(name, children, this.model)
+		case OperatorType.CallFunc:
+			return new CallFunc(name, children, this.model)
 		case OperatorType.Arrow:
 			return new Arrow(name, children, this.model)
 		case OperatorType.ChildFunc:

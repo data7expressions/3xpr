@@ -2,7 +2,7 @@ import { H3lp, Validator } from 'h3lp'
 import { Operand, Type, ArrayType, ObjectType, PropertyType } from '../model'
 import { Context } from '../core'
 import { Node } from '../parser'
-import { Const, Var, KeyVal, FuncRef, Arrow } from '../operand'
+import { Const, Var, KeyVal, CallFunc, Arrow } from '../operand'
 
 class TypeHelper {
 	private validator:Validator
@@ -150,7 +150,7 @@ class NodeHelper {
 				list.push(')')
 			}
 			break
-		case 'FuncRef':
+		case 'CallFunc':
 			list.push(node.name)
 			list.push('(')
 			for (let i = 0; i < node.children.length; i++) {
@@ -305,7 +305,7 @@ class OperandHelper {
 		const irregular:[string, string][] = [
 			['Arrow', 'Arrow'],
 			['ChildFunc', 'ChildFunc'],
-			['FuncRef', 'FuncRef'],
+			['CallFunc', 'CallFunc'],
 			['List', 'List']
 		]
 		const found = irregular.find(p => p[0] === classType)
@@ -342,7 +342,7 @@ class OperandHelper {
 	}
 
 	public haveAggregates (operand: Operand): boolean {
-		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return true
 		} else if (operand.children && operand.children.length > 0) {
 			for (const child of operand.children) {
@@ -354,11 +354,11 @@ class OperandHelper {
 		return false
 	}
 
-	public findAggregates (operand: Operand): FuncRef[] {
-		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+	public findAggregates (operand: Operand): CallFunc[] {
+		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return [operand]
 		} else if (operand.children && operand.children.length > 0) {
-			let aggregates:FuncRef[] = []
+			let aggregates:CallFunc[] = []
 			for (const child of operand.children) {
 				const childAggregates = this.findAggregates(child)
 				if (childAggregates.length > 0) {
@@ -371,7 +371,7 @@ class OperandHelper {
 	}
 
 	public solveAggregates (list: any[], variable: Var, operand: Operand, context: Context): Operand {
-		if (!(operand instanceof Arrow) && operand instanceof FuncRef && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			let value:any
 			switch (operand.name) {
 			case 'avg':

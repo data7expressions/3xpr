@@ -1,5 +1,5 @@
 
-import { Const, Var, Template, Operator, FuncRef, Arrow, List, Obj, Property } from './operands'
+import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
 import { IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, IOperandTypeManager, OperatorMetadata } from '../model'
 import { Helper } from '..'
 
@@ -53,7 +53,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 			this.solveObject(operand)
 		} else if (operand instanceof Arrow) {
 			this.solveArrow(operand)
-		} else if (operand instanceof Operator || operand instanceof FuncRef) {
+		} else if (operand instanceof Operator || operand instanceof CallFunc) {
 			this.solveOperator(operand)
 		} else if (operand instanceof Property) {
 			this.solveProperty(operand)
@@ -70,7 +70,7 @@ export class OperandTypeManager implements IOperandTypeManager {
 			this.solveTemplateArray(operand)
 		} else if (operand instanceof Obj) {
 			this.solveTemplateObject(operand)
-		} else if (operand instanceof Operator || operand instanceof FuncRef) {
+		} else if (operand instanceof Operator || operand instanceof CallFunc) {
 			const metadata = this.metadata(operand)
 			if (this.hadTemplate(metadata) && this.undefinedTypes(operand)) {
 				this.solveTemplateOperator(operand, metadata)

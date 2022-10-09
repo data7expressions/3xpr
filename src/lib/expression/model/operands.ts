@@ -20,7 +20,7 @@ export enum OperatorType
 , List = 'List'
 , Obj = 'Obj'
 , Operator = 'Operator'
-, FuncRef = 'FuncRef'
+, CallFunc = 'CallFunc'
 , Arrow = 'Arrow'
 , ChildFunc = 'ChildFunc'
 , Block = 'Block'
