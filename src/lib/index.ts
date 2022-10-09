@@ -1,11 +1,5 @@
-import { Expressions } from './manager'
-import { Parameter, ActionObserver, Operand } from './model'
-
-export * from './model'
-export * from './operand'
-export * from './manager'
-export * from './parser'
-export * from './manager/expressions'
+import { Expressions, Parameter, ActionObserver, Operand } from './expression'
+export * from './expression'
 
 export const expressions = Expressions.instance
 

@@ -15,13 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.unsubscribe = exports.subscribe = exports.evaluate = exports.parameters = exports.build = exports.expressions = void 0;
-const manager_1 = require("./manager");
-__exportStar(require("./model"), exports);
-__exportStar(require("./operand"), exports);
-__exportStar(require("./manager"), exports);
-__exportStar(require("./parser"), exports);
-__exportStar(require("./manager/expressions"), exports);
-exports.expressions = manager_1.Expressions.instance;
+const expression_1 = require("./expression");
+__exportStar(require("./expression"), exports);
+exports.expressions = expression_1.Expressions.instance;
 /**
      * Parser expression
      * @param expression  expression
