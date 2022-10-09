@@ -1,4 +1,4 @@
-import { Operand, Parameter, Format, OperatorMetadata, ActionObserver } from '../model'
+import { Operand, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata, ActionObserver } from '../model'
 
 export interface IExpressions {
 	get enums (): any
@@ -6,7 +6,8 @@ export interface IExpressions {
 	get constants (): any
 	get functions (): OperatorMetadata[]
 	get operators (): OperatorMetadata[]
-	addFunction (source:any, sing:string, deterministic?:boolean):void
+	addOperator (source:any, sing:string, additionalInfo: OperatorAdditionalInfo):void
+	addFunction (source:any, sing:string, additionalInfo?: FunctionAdditionalInfo):void
 	addEnum (key:string, source:any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void

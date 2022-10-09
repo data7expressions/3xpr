@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 // import expConfig from './config.json'
-import { Metadata, OperatorMetadata, OperatorType, IModelManager, Format, Parameter } from '../model'
+import { Sing, OperatorMetadata, OperatorType, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../model'
 
 export class ModelManager implements IModelManager {
 	public enums: any
@@ -93,52 +93,52 @@ export class ModelManager implements IModelManager {
 		return metadata && metadata.priority ? metadata.priority : -1
 	}
 
-	public addOperator (sing:string, source:any, priority:number): void {
-		const metadata = this.getMetadata(sing)
+	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {
+		const singInfo = this.getSing(sing)
 		let func, custom
 		if (Object.getPrototypeOf(source).name === OperatorType.Operator) {
 			custom = source
 		} else if (typeof source === 'function') {
 			func = source
 		} else {
-			throw new Error(`operator ${metadata.name} source not supported`)
+			throw new Error(`operator ${singInfo.name} source not supported`)
 		}
 
 		this._addOperator({
-			name: metadata.name,
-			operator: metadata.name,
+			name: singInfo.name,
+			operator: singInfo.name,
 			type: OperatorType.Operator,
-			priority: priority,
+			priority: additionalInfo.priority,
 			deterministic: false,
-			operands: metadata.params.length,
+			operands: singInfo.params.length,
 			// description: metadata.description,
-			params: metadata.params,
-			return: metadata.return,
+			params: singInfo.params,
+			return: singInfo.return,
 			function: func,
 			custom: custom
 		})
 	}
 
-	public addFunction (sing:string, source:any, deterministic = true):void {
-		const metadata = this.getMetadata(sing)
+	public addFunction (sing:string, source:any, additionalInfo?:FunctionAdditionalInfo):void {
+		const singInfo = this.getSing(sing)
 		let func, custom
 		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.CallFunc].includes(Object.getPrototypeOf(source).name)) {
 			custom = source
 		} else if (typeof source === 'function') {
 			func = source
 		} else {
-			throw new Error(`function ${metadata.name} source not supported`)
+			throw new Error(`function ${singInfo.name} source not supported`)
 		}
 
 		this._addFunction({
-			name: metadata.name,
-			operator: metadata.name,
+			name: singInfo.name,
+			operator: singInfo.name,
 			type: OperatorType.Func,
-			deterministic: deterministic,
-			operands: metadata.params.length,
+			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
+			operands: singInfo.params.length,
 			// description: metadata.description,
-			params: metadata.params,
-			return: metadata.return,
+			params: singInfo.params,
+			return: singInfo.return,
 			function: func,
 			custom: custom
 		})
@@ -172,7 +172,7 @@ export class ModelManager implements IModelManager {
 		}
 	}
 
-	private getMetadata (sing:string): Metadata {
+	private getSing (sing:string): Sing {
 		const buffer = Array.from(sing)
 		const length = buffer.length
 		let index = 0

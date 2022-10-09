@@ -108,11 +108,31 @@ export interface Format {
 	regExp: RegExp
 }
 
-export interface Metadata {
+export interface Sing {
 	name:string
 	params:Parameter[]
 	return:string
 	description?: string
+	deterministic?:boolean
+	multipleParams?:boolean
+}
+
+export interface ParameterDoc {
+	name: string
+	description: string
+}
+export interface OperatorDoc {
+	description: string
+	params:ParameterDoc[]
+}
+
+export interface OperatorAdditionalInfo {
+	doc?: OperatorDoc
+	priority: number
+}
+
+export interface FunctionAdditionalInfo {
+	doc?: OperatorDoc
 	deterministic?:boolean
 	multipleParams?:boolean
 }
@@ -126,8 +146,8 @@ export interface IModelManager {
 	addEnum (key:string, source:any):void
 	addConstant (key:string, value:any):void
 	addFormat (key:string, pattern:string):void
-	addOperator (sing:string, source:any, priority:number):void
-	addFunction (sing:string, source:any, deterministic?:boolean):void
+	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
+	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addAlias (alias:string, reference:string):void
 	isEnum (name:string):boolean
 	getEnumValue (name:string, option:string):any

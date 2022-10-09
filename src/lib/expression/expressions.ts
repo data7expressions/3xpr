@@ -1,4 +1,4 @@
-import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, IOperandManager } from './model'
+import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, IOperandManager, FunctionAdditionalInfo, OperatorAdditionalInfo } from './model'
 import { Data, Context } from './core'
 import { ModelManager } from './parser'
 import { OperandManager, OperandTypeManager, CoreLibrary } from './operand'
@@ -58,8 +58,12 @@ export class Expressions implements IExpressions {
 		return this.model.functions
 	}
 
-	public addFunction (source:any, sing:string, deterministic?:boolean):void {
-		this.model.addFunction(source, sing, deterministic)
+	public addOperator (source:any, sing:string, additionalInfo: OperatorAdditionalInfo):void {
+		this.model.addOperator(source, sing, additionalInfo)
+	}
+
+	public addFunction (source:any, sing:string, additionalInfo?: FunctionAdditionalInfo):void {
+		this.model.addFunction(source, sing, additionalInfo)
 	}
 
 	public addEnum (key:string, source:any):void {
