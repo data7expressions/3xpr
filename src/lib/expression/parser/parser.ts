@@ -26,14 +26,14 @@ export class Parser {
 	private setOperators () {
 		for (const p in this.model.operators) {
 			const metadata = this.model.operators[p]
-			if (metadata.operator.length === 2) {
-				this.doubleOperators.push(metadata.operator)
-			} else if (metadata.operator.length === 3) {
-				this.tripleOperators.push(metadata.operator)
+			if (metadata.name.length === 2) {
+				this.doubleOperators.push(metadata.name)
+			} else if (metadata.name.length === 3) {
+				this.tripleOperators.push(metadata.name)
 			}
 			// if (metadata.category === 'assignment') {
 			if (metadata.priority === 1) {
-				this.assignmentOperators.push(metadata.operator)
+				this.assignmentOperators.push(metadata.name)
 			}
 		}
 	}

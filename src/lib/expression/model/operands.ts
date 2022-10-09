@@ -7,7 +7,8 @@ export interface Parameter {
 	name: string
 	type?: string
 	default?: any
-	value?:any
+	value?:any,
+	multiple?:boolean
 }
 
 export enum OperatorType
@@ -63,11 +64,9 @@ export abstract class Operand {
 
 export interface OperatorMetadata {
 	name: string
-	operator:string
 	type: OperatorType
 	deterministic:boolean
-	// category?:string
-	// description?: string
+	description?: string
 	operands: number
 	priority?:number
 	return:string
@@ -112,9 +111,6 @@ export interface Sing {
 	name:string
 	params:Parameter[]
 	return:string
-	description?: string
-	deterministic?:boolean
-	multipleParams?:boolean
 }
 
 export interface ParameterDoc {

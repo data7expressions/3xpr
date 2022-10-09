@@ -60,7 +60,7 @@ export class ModelManager implements IModelManager {
 	}
 
 	public getOperator (operator:string, operands?:number): OperatorMetadata {
-		const list = operands !== undefined ? this.operators.filter(p => p.operator === operator && p.operands === operands) : this.operators.filter(p => p.operator === operator)
+		const list = operands !== undefined ? this.operators.filter(p => p.name === operator && p.operands === operands) : this.operators.filter(p => p.name === operator)
 		if (list.length === 0) {
 			throw new Error(`operator: ${operator} not found `)
 		} else if (list.length === 1) {
@@ -104,9 +104,8 @@ export class ModelManager implements IModelManager {
 			throw new Error(`operator ${singInfo.name} source not supported`)
 		}
 
-		this._addOperator({
+		const metadata = {
 			name: singInfo.name,
-			operator: singInfo.name,
 			type: OperatorType.Operator,
 			priority: additionalInfo.priority,
 			deterministic: false,
@@ -116,7 +115,13 @@ export class ModelManager implements IModelManager {
 			return: singInfo.return,
 			function: func,
 			custom: custom
-		})
+		}
+		const index = this.operators.findIndex(p => p.name === metadata.name && p.operands === metadata.operands)
+		if (index === -1) {
+			this.operators.push(metadata)
+		} else {
+			this.operators[index] = metadata
+		}
 	}
 
 	public addFunction (sing:string, source:any, additionalInfo?:FunctionAdditionalInfo):void {
@@ -130,9 +135,8 @@ export class ModelManager implements IModelManager {
 			throw new Error(`function ${singInfo.name} source not supported`)
 		}
 
-		this._addFunction({
+		const metadata = {
 			name: singInfo.name,
-			operator: singInfo.name,
 			type: OperatorType.Func,
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
@@ -141,34 +145,12 @@ export class ModelManager implements IModelManager {
 			return: singInfo.return,
 			function: func,
 			custom: custom
-		})
-	}
-
-	private _addOperator (metadata: OperatorMetadata): void {
-		const index = this.operators.findIndex(p => p.operator === metadata.operator && p.operands === metadata.operands)
-		if (index === -1) {
-			this.operators.push(metadata)
-		} else {
-			if (metadata.function) {
-				this.operators[index].function = metadata.function
-			}
-			if (metadata.custom) {
-				this.operators[index].custom = metadata.custom
-			}
 		}
-	}
-
-	private _addFunction (metadata: OperatorMetadata): void {
 		const index = this.functions.findIndex(p => p.name === metadata.name && p.type === metadata.type)
 		if (index === -1) {
 			this.functions.push(metadata)
 		} else {
-			if (metadata.function) {
-				this.functions[index].function = metadata.function
-			}
-			if (metadata.custom) {
-				this.functions[index].custom = metadata.custom
-			}
+			this.functions[index] = metadata
 		}
 	}
 
@@ -177,9 +159,9 @@ export class ModelManager implements IModelManager {
 		const length = buffer.length
 		let index = 0
 		let functionName = ''
-		let functionReturn = ''
-
+		let _return = ''
 		let chars:string[] = []
+
 		for (;buffer[index] !== '('; index++) {
 			if (buffer[index] !== ' ') {
 				chars.push(buffer[index])
@@ -187,13 +169,13 @@ export class ModelManager implements IModelManager {
 		}
 		functionName = chars.join('')
 
-		const params:Parameter[] = []
 		chars = []
+		const params:Parameter[] = []
 		let name = ''
 		let type = ''
 		let _default = ''
 		let hadDefault = false
-		let multipleParams = false
+		let multiple = false
 
 		for (index++; index < length; index++) {
 			if (buffer[index] === ',' || buffer[index] === ')') {
@@ -206,11 +188,11 @@ export class ModelManager implements IModelManager {
 					type = chars.join('')
 				}
 				if (name.startsWith('...')) {
-					multipleParams = true
+					multiple = true
 					name = name.replace('...', '')
 				}
-
-				params.push({ name: name, type: type !== '' ? type : 'any', default: _default !== '' ? _default : undefined })
+				// Add Param
+				params.push({ name: name, type: type !== '' ? type : 'any', default: _default !== '' ? _default : undefined, multiple: multiple })
 				if (buffer[index] === ')') {
 					break
 				}
@@ -218,6 +200,8 @@ export class ModelManager implements IModelManager {
 				name = ''
 				type = ''
 				_default = ''
+				hadDefault = false
+				multiple = false
 			} else if (buffer[index] === ':') {
 				name = chars.join('')
 				chars = []
@@ -245,14 +229,13 @@ export class ModelManager implements IModelManager {
 			}
 		}
 		if (hadReturn) {
-			functionReturn = chars.join('')
+			_return = chars.join('')
 		}
 
 		return {
 			name: functionName,
-			return: functionReturn !== '' ? functionReturn : 'void',
-			params: params,
-			multipleParams: multipleParams
+			return: _return !== '' ? _return : 'void',
+			params: params
 		}
 	}
 
