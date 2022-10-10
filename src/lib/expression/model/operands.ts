@@ -62,11 +62,18 @@ export abstract class Operand {
 	public abstract eval(context: Context): any
 }
 
-export interface OperatorMetadata {
+export interface ParameterDoc {
 	name: string
+	description: string
+}
+export interface OperatorDoc {
+	description: string
+	params:ParameterDoc[]
+}
+export interface OperatorMetadata {
 	type: OperatorType
 	deterministic:boolean
-	description?: string
+	doc?: OperatorDoc
 	operands: number
 	priority?:number
 	return:string
@@ -113,15 +120,6 @@ export interface Sing {
 	return:string
 }
 
-export interface ParameterDoc {
-	name: string
-	description: string
-}
-export interface OperatorDoc {
-	description: string
-	params:ParameterDoc[]
-}
-
 export interface OperatorAdditionalInfo {
 	doc?: OperatorDoc
 	priority: number
@@ -134,17 +132,18 @@ export interface FunctionAdditionalInfo {
 }
 
 export interface IModelManager {
-	get operators(): OperatorMetadata[]
-	get enums(): any
-	get formats(): any
-	get constants(): any
-	get functions(): OperatorMetadata[]
-	addEnum (key:string, source:any):void
+	get enums(): [string, [string, any][]][]
+	get formats(): [string, Format][]
+	get constants(): [string, any][]
+	get operators(): [string, OperatorMetadata][]
+	get functions(): [string, OperatorMetadata][]
+	addEnum (name:string, values:[string, any][] | any):void
 	addConstant (key:string, value:any):void
 	addFormat (key:string, pattern:string):void
 	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
-	addAlias (alias:string, reference:string):void
+	addOperatorAlias (alias:string, reference:string):void
+	addFunctionAlias (alias:string, reference:string):void
 	isEnum (name:string):boolean
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any

@@ -3,87 +3,133 @@
 import { Sing, OperatorMetadata, OperatorType, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../model'
 
 export class ModelManager implements IModelManager {
-	public enums: any
-	public constants: any
-	public formats: any
-	public aliases: any
-	public operators: OperatorMetadata[]
-	public functions: OperatorMetadata[]
+	private _enums: any
+	private _constants: any
+	private _formats: any
+	private _operators: any
+	private _functions: any
 	constructor () {
-		this.operators = []
-		this.enums = {}
-		this.constants = {}
-		this.formats = {}
-		this.aliases = {}
-		this.functions = []
+		this._enums = {}
+		this._constants = {}
+		this._formats = {}
+		this._operators = {}
+		this._functions = {}
 	}
 
-	public addEnum (key:string, source:any):void {
-		this.enums[key] = source
+	public get operators ():[string, OperatorMetadata][] {
+		const operators:[string, OperatorMetadata][] = []
+		for (const entry of Object.entries(this._operators)) {
+			for (const q of Object.values(entry[1] as any)) {
+				operators.push([entry[0], q as OperatorMetadata])
+			}
+		}
+		return operators
+	}
+
+	public get constants ():[string, any][] {
+		return Object.entries(this._constants)
+	}
+
+	public get formats ():[string, Format][] {
+		return Object.entries(this._formats)
+	}
+
+	public get enums ():[string, [string, any][]][] {
+		return Object.entries(this._enums)
+	}
+
+	public get functions ():[string, OperatorMetadata][] {
+		return Object.entries(this._functions)
+	}
+
+	public addEnum (name:string, values:[string, any][] | any):void {
+		if (Array.isArray(values)) {
+			if (values.length > 0) {
+				this._enums[name] = values
+			}
+		} else if (typeof values === 'object') {
+			const _values:[string, any][] = []
+			for (const entry of Object.entries(values)) {
+				_values.push([entry[0], entry[1]])
+			}
+			this._enums[name] = _values
+		} else {
+			throw new Error(`enum ${name} invalid values`)
+		}
 	}
 
 	public addFormat (key:string, pattern:string):void {
-		this.formats[key] = { name: key, pattern: pattern, regExp: new RegExp(pattern) } as Format
+		this._formats[key] = { name: key, pattern: pattern, regExp: new RegExp(pattern) } as Format
 	}
 
 	public addConstant (key:string, value:any):void {
-		this.constants[key] = value
+		this._constants[key] = value
 	}
 
-	public addAlias (alias:string, reference:string):void {
-		this.aliases[alias] = reference
+	public addOperatorAlias (alias:string, reference:string):void {
+		this._operators[alias] = this._operators[reference]
+	}
+
+	public addFunctionAlias (alias:string, reference:string):void {
+		this._functions[alias] = this._functions[reference]
 	}
 
 	public isEnum (name:string):boolean {
 		const names = name.split('.')
-		return this.enums[names[0]] !== undefined
+		return this._enums[names[0]] !== undefined
 	}
 
 	public isConstant (name:string):boolean {
-		return this.constants[name] !== undefined
+		return this._constants[name] !== undefined
 	}
 
 	public getEnumValue (name:string, option:string):any {
-		return this.enums[name][option]
+		if (this._enums[name] === undefined) {
+			throw new Error(`enum: ${name} not found `)
+		}
+		const values = this._enums[name] as [string, any][]
+		const value = values.find(p => p[0] === option)
+		if (value === undefined) {
+			throw new Error(`option ${option} in enum: ${name} not found `)
+		}
+		return value[1]
 	}
 
-	public getEnum (name:string):any {
-		return this.enums[name]
+	public getEnum (name:string):[string, any][] {
+		return this._enums[name]
 	}
 
 	public getConstantValue (name:string): any | undefined {
-		return this.constants[name]
+		return this._constants[name]
 	}
 
 	public getFormat (name:string): Format | undefined {
-		return this.formats[name]
+		return this._formats[name]
 	}
 
-	public getOperator (operator:string, operands?:number): OperatorMetadata {
-		const list = operands !== undefined ? this.operators.filter(p => p.name === operator && p.operands === operands) : this.operators.filter(p => p.name === operator)
-		if (list.length === 0) {
-			throw new Error(`operator: ${operator} not found `)
-		} else if (list.length === 1) {
-			return list[0]
-		} else {
-			const operatorBinary = list.find(p => p.operands === 2)
-			if (operatorBinary === undefined) {
-				throw new Error(`operator: ${operator} not found `)
-			} else {
-				return operatorBinary
-			}
+	public getOperator (name:string, operands?:number): OperatorMetadata {
+		const operators = this._operators[name]
+		if (operators === undefined) {
+			throw new Error(`operator: ${name} not found `)
 		}
+		if (operands !== undefined) {
+			const operator = operators[operands]
+			if (operator === undefined) {
+				throw new Error(`operator ${name} with ${operands} operands not found `)
+			}
+			return operator
+		} else if (Object.keys(operators).length === 1) {
+			return Object.values(operators)[0] as OperatorMetadata
+		} else if (operators[2] !== undefined) {
+			return operators[2]
+		}
+		throw new Error(`it is necessary to determine the number of operands for the operator ${name}`)
 	}
 
 	public getFunction (name: string): OperatorMetadata {
-		let metadata = this.functions.find(p => p.name === name)
+		const metadata = this._functions[name]
 		if (metadata === undefined) {
-			if (this.aliases[name] !== undefined) {
-				metadata = this.functions.find(p => p.name === this.aliases[name])
-			}
-			if (metadata === undefined) {
-				throw new Error(`function: ${name} not found `)
-			}
+			throw new Error(`function: ${name} not found `)
 		}
 		return metadata
 	}
@@ -95,63 +141,50 @@ export class ModelManager implements IModelManager {
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {
 		const singInfo = this.getSing(sing)
-		let func, custom
-		if (Object.getPrototypeOf(source).name === OperatorType.Operator) {
-			custom = source
-		} else if (typeof source === 'function') {
-			func = source
-		} else {
-			throw new Error(`operator ${singInfo.name} source not supported`)
-		}
-
-		const metadata = {
-			name: singInfo.name,
+		const metadata:OperatorMetadata = {
 			type: OperatorType.Operator,
 			priority: additionalInfo.priority,
 			deterministic: false,
 			operands: singInfo.params.length,
-			// description: metadata.description,
 			params: singInfo.params,
-			return: singInfo.return,
-			function: func,
-			custom: custom
+			return: singInfo.return
 		}
-		const index = this.operators.findIndex(p => p.name === metadata.name && p.operands === metadata.operands)
-		if (index === -1) {
-			this.operators.push(metadata)
+		if (Object.getPrototypeOf(source).name === OperatorType.Operator) {
+			metadata.custom = source
+		} else if (typeof source === 'function') {
+			metadata.function = source
 		} else {
-			this.operators[index] = metadata
+			throw new Error(`operator ${singInfo.name} source not supported`)
 		}
+		if (additionalInfo && additionalInfo.doc) {
+			metadata.doc = additionalInfo.doc
+		}
+		if (this._operators[singInfo.name] === undefined) {
+			this._operators[singInfo.name] = {}
+		}
+		this._operators[singInfo.name][metadata.operands] = metadata
 	}
 
 	public addFunction (sing:string, source:any, additionalInfo?:FunctionAdditionalInfo):void {
 		const singInfo = this.getSing(sing)
-		let func, custom
-		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.CallFunc].includes(Object.getPrototypeOf(source).name)) {
-			custom = source
-		} else if (typeof source === 'function') {
-			func = source
-		} else {
-			throw new Error(`function ${singInfo.name} source not supported`)
-		}
-
-		const metadata = {
-			name: singInfo.name,
+		const metadata:OperatorMetadata = {
 			type: OperatorType.Func,
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
-			// description: metadata.description,
 			params: singInfo.params,
-			return: singInfo.return,
-			function: func,
-			custom: custom
+			return: singInfo.return
 		}
-		const index = this.functions.findIndex(p => p.name === metadata.name && p.type === metadata.type)
-		if (index === -1) {
-			this.functions.push(metadata)
+		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.CallFunc].includes(Object.getPrototypeOf(source).name)) {
+			metadata.custom = source
+		} else if (typeof source === 'function') {
+			metadata.function = source
 		} else {
-			this.functions[index] = metadata
+			throw new Error(`function ${singInfo.name} source not supported`)
 		}
+		if (additionalInfo && additionalInfo.doc) {
+			metadata.doc = additionalInfo.doc
+		}
+		this._functions[singInfo.name] = metadata
 	}
 
 	private getSing (sing:string): Sing {

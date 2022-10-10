@@ -1,17 +1,18 @@
 import { Operand, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata, ActionObserver } from '../model'
 
 export interface IExpressions {
-	get enums (): any
-	get formats (): any
-	get constants (): any
-	get functions (): OperatorMetadata[]
-	get operators (): OperatorMetadata[]
+	get enums(): [string, [string, any][]][]
+	get formats(): [string, Format][]
+	get constants(): [string, any][]
+	get operators(): [string, OperatorMetadata][]
+	get functions(): [string, OperatorMetadata][]
 	addOperator (source:any, sing:string, additionalInfo: OperatorAdditionalInfo):void
 	addFunction (source:any, sing:string, additionalInfo?: FunctionAdditionalInfo):void
-	addEnum (key:string, source:any):void
+	addOperatorAlias (alias:string, reference:string):void
+	addFunctionAlias (alias:string, reference:string):void
+	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
-	addAlias (alias:string, reference:string):void
 	isEnum (name:string): boolean
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any

@@ -24,16 +24,17 @@ export class Parser {
 	}
 
 	private setOperators () {
-		for (const p in this.model.operators) {
-			const metadata = this.model.operators[p]
-			if (metadata.name.length === 2) {
-				this.doubleOperators.push(metadata.name)
-			} else if (metadata.name.length === 3) {
-				this.tripleOperators.push(metadata.name)
+		for (const entry of this.model.operators) {
+			const name = entry[0]
+			const metadata = entry[1]
+			if (name.length === 2) {
+				this.doubleOperators.push(name)
+			} else if (name.length === 3) {
+				this.tripleOperators.push(name)
 			}
 			// if (metadata.category === 'assignment') {
 			if (metadata.priority === 1) {
-				this.assignmentOperators.push(metadata.name)
+				this.assignmentOperators.push(name)
 			}
 		}
 	}

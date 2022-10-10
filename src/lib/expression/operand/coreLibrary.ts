@@ -33,7 +33,7 @@ export class CoreLibrary {
 	}
 
 	private initEnums (): void {
-		this.model.addEnum('DayOfWeek', { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 })
+		this.model.addEnum('DayOfWeek', [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3], ['Thursday', 4], ['Friday', 5], ['Saturday', 6]])
 	}
 
 	private initFormats (): void {
@@ -65,10 +65,10 @@ export class CoreLibrary {
 		this.model.addOperator('>>(a:number,b:number):number', (a: number, b: number):number => a >> b, { priority: 5 })
 
 		this.model.addOperator('==(a:T,b:T):boolean', (a: any, b: any):boolean => a === b, { priority: 4 })
-		this.model.addOperator('===(a:T,b:T):boolean', (a: any, b: any):boolean => a === b, { priority: 4 })
+		this.model.addOperatorAlias('===', '==')
 		this.model.addOperator('!=(a:T,b:T):boolean', (a: any, b: any):boolean => a !== b, { priority: 4 })
-		this.model.addOperator('!==(a:T,b:T):boolean', (a: any, b: any):boolean => a !== b, { priority: 4 })
-		this.model.addOperator('<>(a:T,b:T):boolean', (a: any, b: any):boolean => a !== b, { priority: 4 })
+		this.model.addOperatorAlias('!==', '!=')
+		this.model.addOperatorAlias('<>', '!=')
 		this.model.addOperator('>(a:T,b:T):boolean', (a: any, b: any):boolean => a > b, { priority: 4 })
 		this.model.addOperator('<(a:T,b:T):boolean', (a: any, b: any):boolean => a < b, { priority: 4 })
 		this.model.addOperator('>=(a:T,b:T):boolean', (a: any, b: any):boolean => a >= b, { priority: 4 })
@@ -108,7 +108,7 @@ export class CoreLibrary {
 			(value:any, from:any, to:any):boolean => Helper.validator.between(value, from, to))
 		this.model.addFunction('includes(source:string|any[],value:any):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
-		this.model.addAlias('in', 'includes')
+		this.model.addFunctionAlias('in', 'includes')
 		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => Helper.validator.isNull(value))
 		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => Helper.validator.isNotNull(value))
 		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => Helper.validator.isEmpty(value))
@@ -192,11 +192,11 @@ export class CoreLibrary {
 		this.model.addFunction('rpad(str: string, len: number, pad: string):string ', (str: string, len: number, pad: string):string => str.padEnd(len, pad))
 		this.model.addFunction('rtrim(str: string):string ', (str: string):string => str.trimRight())
 		this.model.addFunction('substring(str: string, from: number, count: number):string ', (str: string, from: number, count: number):string => str.substring(from, count))
-		this.model.addAlias('substr', 'substring')
+		this.model.addFunctionAlias('substr', 'substring')
 		this.model.addFunction('trim(str: string):string', (str: string):string => str.trim())
 		this.model.addFunction('upper(str: string):string', (str: string):string => str.toUpperCase())
 		this.model.addFunction('concat(...values:any):string', (...values:any):string => Helper.string.concat(values))
-		this.model.addAlias('concatenate', 'concat')
+		this.model.addFunctionAlias('concatenate', 'concat')
 		this.model.addFunction('test(value: any, regexp: string):boolean', (value: any, regexp: string):boolean => {
 			const _regexp = new RegExp(regexp)
 			return _regexp.test(value)
@@ -355,24 +355,24 @@ export class CoreLibrary {
 
 	private initArrayFunctions (): void {
 		this.model.addFunction('map(list: any[], predicate: T):T[]', Map)
-		this.model.addAlias('select', 'map')
+		this.model.addFunctionAlias('select', 'map')
 		this.model.addFunction('foreach(list: any[], predicate: any)', Foreach)
-		this.model.addAlias('each', 'foreach')
+		this.model.addFunctionAlias('each', 'foreach')
 		this.model.addFunction('filter(list: T[], predicate: boolean):T[]', Filter)
-		this.model.addAlias('where', 'filter')
+		this.model.addFunctionAlias('where', 'filter')
 		this.model.addFunction('reverse(list: T[], predicate: any):T[]', Reverse)
 		this.model.addFunction('sort(list: T[], predicate: any):T[]', Sort)
-		this.model.addAlias('order', 'sort')
+		this.model.addFunctionAlias('order', 'sort')
 		this.model.addFunction('remove(list: T[], predicate: boolean):T[]', Remove)
-		this.model.addAlias('delete', 'remove')
+		this.model.addFunctionAlias('delete', 'remove')
 		this.model.addFunction('push(list: T[], value: T):T[]', (list: any[], item: any): any => {
 			list.push(item)
 			return list
 		})
-		this.model.addAlias('insert', 'push')
+		this.model.addFunctionAlias('insert', 'push')
 		this.model.addFunction('pop(list: T[]): T', (list: any[]): any => list.pop())
 		this.model.addFunction('length(source: any[]|string):number ', (source: any[]|string):number => source.length)
-		this.model.addAlias('len', 'length')
+		this.model.addFunctionAlias('len', 'length')
 		this.model.addFunction('slice(list: T[], from:integer, to:integer):T[] ', (list: any[], from:number, to:number):any[] => list.slice(from, to))
 		this.model.addFunction('page(list: T[], page:integer, records:integer):T[]', (list: any[], page:number, records:number):any[] => {
 			let from = (page - 1) * records

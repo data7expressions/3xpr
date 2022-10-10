@@ -38,23 +38,23 @@ export class Expressions implements IExpressions {
 		return this._instance
 	}
 
-	public get operators (): OperatorMetadata[] {
+	public get operators (): [string, OperatorMetadata][] {
 		return this.model.operators
 	}
 
-	public get enums (): any {
+	public get enums (): [string, [string, any][]][] {
 		return this.model.enums
 	}
 
-	public get formats (): any {
+	public get formats (): [string, Format][] {
 		return this.model.formats
 	}
 
-	public get constants (): any {
+	public get constants (): [string, any][] {
 		return this.model.constants
 	}
 
-	public get functions (): OperatorMetadata[] {
+	public get functions (): [string, OperatorMetadata][] {
 		return this.model.functions
 	}
 
@@ -66,8 +66,8 @@ export class Expressions implements IExpressions {
 		this.model.addFunction(source, sing, additionalInfo)
 	}
 
-	public addEnum (key:string, source:any):void {
-		this.model.addEnum(key, source)
+	public addEnum (key:string, values:[string, any][] | any):void {
+		this.model.addEnum(key, values)
 	}
 
 	public addFormat (key:string, pattern:string):void {
@@ -78,8 +78,12 @@ export class Expressions implements IExpressions {
 		this.model.addConstant(key, value)
 	}
 
-	public addAlias (alias:string, reference:string):void {
-		this.model.addAlias(alias, reference)
+	public addOperatorAlias (alias:string, reference:string):void {
+		this.model.addOperatorAlias(alias, reference)
+	}
+
+	public addFunctionAlias (alias:string, reference:string):void {
+		this.model.addFunctionAlias(alias, reference)
 	}
 
 	public isEnum (name:string): boolean {
