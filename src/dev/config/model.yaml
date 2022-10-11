@@ -811,7 +811,7 @@ functions:
       type: string
     - name: value
       type: string       
-  initcap:
+  title:
     description: Capitalize words 
     category: string
     deterministic: true 

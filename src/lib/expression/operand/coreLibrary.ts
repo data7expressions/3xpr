@@ -10,33 +10,33 @@ export class CoreLibrary {
 	}
 
 	public load ():void {
-		this.initConstants()
-		this.initEnums()
-		this.initFormats()
-		this.initOperators()
+		this.constants()
+		this.enums()
+		this.formats()
+		this.operators()
 		this.generalFunctions()
 		this.comparisonFunctions()
 		this.nullFunctions()
 		this.numberFunctions()
 		this.stringFunctions()
-		this.initArrayFunctions()
-		this.initArrayGroupFunctions()
+		this.arrayFunctions()
+		this.groupFunctions()
 		this.dateTimeFunctions()
 		this.conversionFunctions()
-		this.initSetsFunctions()
+		this.setsFunctions()
 	}
 
-	private initConstants (): void {
+	private constants (): void {
 		this.model.addConstant('true', true)
 		this.model.addConstant('false', false)
 		this.model.addConstant('null', null)
 	}
 
-	private initEnums (): void {
+	private enums (): void {
 		this.model.addEnum('DayOfWeek', [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3], ['Thursday', 4], ['Friday', 5], ['Saturday', 6]])
 	}
 
-	private initFormats (): void {
+	private formats (): void {
 		this.model.addFormat('email', '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
 		this.model.addFormat('integer', '^\\d+$')
 		this.model.addFormat('decimal', '^\\d+\\.\\d+$')
@@ -47,7 +47,7 @@ export class CoreLibrary {
 		this.model.addFormat('time', '\\[0-2]\\d:[0-5]\\d:[0-5]\\d')
 	}
 
-	private initOperators (): void {
+	private operators (): void {
 		this.model.addOperator('+(a:T,b:T):T', (a: any, b: any):any => a + b, { priority: 5 })
 		this.model.addOperator('-(a:number,b:number):number', (a: number, b: number):number => a - b, { priority: 5 })
 		this.model.addOperator('-(a:number):number', (a: number):number => a * -1, { priority: 9 })
@@ -103,6 +103,11 @@ export class CoreLibrary {
 		})
 	}
 
+	private nullFunctions (): void {
+		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => Helper.utils.nvl(value, _default))
+		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => Helper.utils.nvl2(value, a, b))
+	}
+
 	private comparisonFunctions (): void {
 		this.model.addFunction('between(value:any,from:any,to:any):boolean',
 			(value:any, from:any, to:any):boolean => Helper.validator.between(value, from, to))
@@ -130,11 +135,6 @@ export class CoreLibrary {
 		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateFormat(value))
 		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateTimeFormat(value))
 		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isTimeFormat(value))
-	}
-
-	private nullFunctions (): void {
-		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => Helper.utils.nvl(value, _default))
-		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => Helper.utils.nvl2(value, a, b))
 	}
 
 	private numberFunctions (): void {
@@ -181,29 +181,25 @@ export class CoreLibrary {
 	}
 
 	private stringFunctions (): void {
-		this.model.addFunction('chr(ascii: number):string ', (ascii: number):string => String.fromCharCode(ascii))
-		this.model.addFunction('capitalize(str:string):string', (str:string):string => Helper.string.capitalize(str))
-		this.model.addFunction('initcap(str:string):string', (str:string):string => Helper.string.initCap(str))
+		this.model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
+		this.model.addFunction('capitalize(value:string):string', (value:string):string => Helper.string.capitalize(value))
+		this.model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
 		this.model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
-		this.model.addFunction('lower(str: string):string', (str: string):string => str.toLowerCase())
-		this.model.addFunction('lpad(str: string, len: number, pad: string):string ', (str: string, len: number, pad: string):string => str.padStart(len, pad))
-		this.model.addFunction('ltrim(str: string):string ', (str: string):string => str.trimLeft())
-		this.model.addFunction('replace(str: string, source: string, target: string):string ', (str: string, source: string, target: string):string => Helper.string.replace(str, source, target))
-		this.model.addFunction('rpad(str: string, len: number, pad: string):string ', (str: string, len: number, pad: string):string => str.padEnd(len, pad))
-		this.model.addFunction('rtrim(str: string):string ', (str: string):string => str.trimRight())
-		this.model.addFunction('substring(str: string, from: number, count: number):string ', (str: string, from: number, count: number):string => str.substring(from, count))
+		this.model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
+		this.model.addFunction('lpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padStart(len, pad))
+		this.model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
+		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => Helper.string.replace(value, source, target))
+		this.model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
+		this.model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
+		this.model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
 		this.model.addFunctionAlias('substr', 'substring')
-		this.model.addFunction('trim(str: string):string', (str: string):string => str.trim())
-		this.model.addFunction('upper(str: string):string', (str: string):string => str.toUpperCase())
+		this.model.addFunction('trim(value: string):string', (value: string):string => value.trim())
+		this.model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
 		this.model.addFunction('concat(...values:any):string', (...values:any):string => Helper.string.concat(values))
 		this.model.addFunctionAlias('concatenate', 'concat')
-		this.model.addFunction('test(value: any, regexp: string):boolean', (value: any, regexp: string):boolean => {
-			const _regexp = new RegExp(regexp)
-			return _regexp.test(value)
-		})
-		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => {
-			return value ? value.match(regexp) : null
-		})
+		this.model.addFunction('test(value: any, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
+		this.model.addFunction('title(value:string):string', (value:string):string => Helper.string.initCap(value))
+		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
 		this.model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value
 			if (value.length > 8) {
@@ -214,7 +210,7 @@ export class CoreLibrary {
 				return '*'
 			}
 		})
-		this.model.addFunction('startWith(value:string, stringSearched:string, position:number):boolean', (value:string, stringSearched:string, position:number):boolean => value.startsWith(stringSearched, position))
+		this.model.addFunction('startWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.startsWith(sub, start))
 	}
 
 	private dateTimeFunctions (): void {
@@ -353,7 +349,7 @@ export class CoreLibrary {
 		})
 	}
 
-	private initArrayFunctions (): void {
+	private arrayFunctions (): void {
 		this.model.addFunction('map(list: any[], predicate: T):T[]', Map)
 		this.model.addFunctionAlias('select', 'map')
 		this.model.addFunction('foreach(list: any[], predicate: any)', Foreach)
@@ -371,9 +367,9 @@ export class CoreLibrary {
 		})
 		this.model.addFunctionAlias('insert', 'push')
 		this.model.addFunction('pop(list: T[]): T', (list: any[]): any => list.pop())
-		this.model.addFunction('length(source: any[]|string):number ', (source: any[]|string):number => source.length)
+		this.model.addFunction('length(source: any[]|string):number', (source: any[]|string):number => source.length)
 		this.model.addFunctionAlias('len', 'length')
-		this.model.addFunction('slice(list: T[], from:integer, to:integer):T[] ', (list: any[], from:number, to:number):any[] => list.slice(from, to))
+		this.model.addFunction('slice(list: T[], from:integer, to:integer):T[]', (list: any[], from:number, to:number):any[] => list.slice(from, to))
 		this.model.addFunction('page(list: T[], page:integer, records:integer):T[]', (list: any[], page:number, records:number):any[] => {
 			let from = (page - 1) * records
 			if (from < 0) {
@@ -385,11 +381,10 @@ export class CoreLibrary {
 			}
 			return list.slice(from, to)
 		})
-		// this.addFunction('insert', ArrayFunctions.insert, OperatorType.arrow, Insert)
 		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 
-	private initArrayGroupFunctions (): void {
+	private groupFunctions (): void {
 		this.model.addFunction('distinct(list: any[], predicate: any): any[]', Distinct)
 		this.model.addFunction('first(list: T[], predicate: boolean): T', First)
 		this.model.addFunction('last(list: T[], predicate: boolean): T', Last)
@@ -400,7 +395,7 @@ export class CoreLibrary {
 		this.model.addFunction('sum(list: T[], value: number): number', Sum)
 	}
 
-	private initSetsFunctions (): void {
+	private setsFunctions (): void {
 		this.model.addFunction('union(a: T[], b: T[]): T[]', Union)
 		this.model.addFunction('intersection(a: T[], b: T[]): T[]', Intersection)
 		this.model.addFunction('difference(a: T[], b: T[]): T[]', Difference)

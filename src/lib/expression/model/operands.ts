@@ -71,7 +71,6 @@ export interface OperatorDoc {
 	params:ParameterDoc[]
 }
 export interface OperatorMetadata {
-	type: OperatorType
 	deterministic:boolean
 	doc?: OperatorDoc
 	operands: number

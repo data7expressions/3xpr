@@ -30,7 +30,7 @@
       "result": "Lopez, Juan"
     },
     {
-      "expression": "initcap(film)",
+      "expression": "title(film)",
       "result": "Estación Central"
     },
     {

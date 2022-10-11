@@ -10,8 +10,8 @@ describe('Strings', () => {
 	})
 
 	test('functions', () => {
-		expect("Aaa").toBe(expressions.eval('initcap(a)',{"a":"aaa","b":2}))  
-		expect("Aaa").toBe(expressions.eval('initcap("aaa")')) 
+		expect("Aaa").toBe(expressions.eval('title(a)',{"a":"aaa","b":2}))  
+		expect("Aaa").toBe(expressions.eval('title("aaa")')) 
 		expect(3).toBe(expressions.eval('strCount(a,"a")',{"a":"aaa"}))
 		expect(0).toBe(expressions.eval('strCount(a,"b")',{"a":"aaa"})) 
 		expect("AAA").toBe(expressions.eval('upper(a)',{"a":"aaa"}))
@@ -32,7 +32,7 @@ describe('Strings', () => {
 		expect('D').toBe(expressions.eval('chr(68)',context))
 		expect('Lopez, Juan').toBe(expressions.eval('concat(lastName,", ",firstName)',context))
 		expect('Lopez, Juan').toBe(expressions.eval('concatenate(lastName,", ",firstName)',context))
-		expect('Estación Central').toBe(expressions.eval('initcap(film)',context))
+		expect('Estación Central').toBe(expressions.eval('title(film)',context))
 		expect('estación central').toBe(expressions.eval('lower(film)',context))
 		expect(true).toBe(expressions.eval('length(email) > 10 && length(email) < 100',context))
 		expect(true).toBe(expressions.eval('email.length() > 10 && email.length() < 100',context))

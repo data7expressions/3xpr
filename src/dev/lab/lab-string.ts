@@ -20,7 +20,7 @@ import { HelperTest } from '../helperTest'
 		'chr(68)',
 		'concat(lastName,", ",firstName)',
 		'concatenate(lastName,", ",firstName)',
-		'initcap(film)',
+		'title(film)',
 		'lower(film)',
 		'lpad(firstName,10,"_")',
 		'ltrim("  a  ")',

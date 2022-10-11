@@ -142,7 +142,6 @@ export class ModelManager implements IModelManager {
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {
 		const singInfo = this.getSing(sing)
 		const metadata:OperatorMetadata = {
-			type: OperatorType.Operator,
 			priority: additionalInfo.priority,
 			deterministic: false,
 			operands: singInfo.params.length,
@@ -168,7 +167,6 @@ export class ModelManager implements IModelManager {
 	public addFunction (sing:string, source:any, additionalInfo?:FunctionAdditionalInfo):void {
 		const singInfo = this.getSing(sing)
 		const metadata:OperatorMetadata = {
-			type: OperatorType.Func,
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
 			params: singInfo.params,

@@ -3,7 +3,7 @@
 |capitalize					|Make the first character have upper case and the rest lower case																					|
 |chr								|Get character from ASCII code																																						|
 |concat concatenate	|String concatenation																																											|
-|initcap						|Capitalize words																																													|
+|title						|Capitalize words																																													|
 |lower							|Lowercase string																																													|
 |lpad								|Pad the left-side of string																																							|
 |ltrim							|Remove leading chars																																											|
@@ -52,7 +52,7 @@ const context =
 |chr(68)																							|'D'																			|
 |concat(lastName,", ",firstName)											|'Lopez, Juan'														|
 |concatenate(lastName,", ",firstName)									|'Lopez, Juan'														|
-|initcap(film)																				|'Estación Central'												|
+|title(film)																				|'Estación Central'												|
 |lower(film)																					|'estación central'												|
 |lpad(firstName,10,"_")																|'______Juan'															|
 |ltrim("  a  ")																				|'a  '																		|
@@ -102,7 +102,7 @@ const context =
 	- source: string
 	- value: string
 
-### initcap
+### title
 
 - description: Capitalize words
 - deterministic: true
