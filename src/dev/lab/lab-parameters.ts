@@ -4,7 +4,7 @@ import { templateParameter } from '../test'
 
 (async () => {
 	const test = {
-		name: 'access',
+		name: 'parameters',
 		context: {},
 		cases: [{
 			name: 'lab',
