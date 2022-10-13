@@ -1,6 +1,5 @@
 {
   "name": "comparison",
-  "method": "eval",
   "context": {
     "a": "1",
     "b": 2,
@@ -26,224 +25,229 @@
   },
   "cases": [
     {
-      "expression": "3>2",
-      "result": true
-    },
-    {
-      "expression": "a+b",
-      "result": "12"
-    },
-    {
-      "expression": "-3>2*2",
-      "result": false
-    },
-    {
-      "expression": "a*3==b+1",
-      "result": true
-    },
-    {
-      "expression": "a*3===b+1",
-      "result": true
-    },
-    {
-      "expression": "-4==-(2*2)",
-      "result": true
-    },
-    {
-      "expression": "4!=2*2",
-      "result": false
-    },
-    {
-      "expression": "4!==2*2",
-      "result": false
-    },
-    {
-      "expression": "4<>2*2",
-      "result": false
-    },
-    {
-      "expression": "c.a>b*2",
-      "result": false
-    },
-    {
-      "expression": "c.a>=b*2",
-      "result": true
-    },
-    {
-      "expression": "c.a<=b*2",
-      "result": true
-    },
-    {
-      "expression": "c.a<b*2",
-      "result": false
-    },
-    {
-      "expression": "d<e",
-      "result": false
-    },
-    {
-      "expression": "d>e",
-      "result": true
-    },
-    {
-      "expression": "d<>e",
-      "result": true
-    },
-    {
-      "expression": "includes(devices,\"phone\")",
-      "result": true
-    },
-    {
-      "expression": "includes(devices,\"other\")",
-      "result": false
-    },
-    {
-      "expression": "in(devices,\"other\")",
-      "result": false
-    },
-    {
-      "expression": "devices.in(\"phone\")",
-      "result": true
-    },
-    {
-      "expression": "devices.in(device)",
-      "result": true
-    },
-    {
-      "expression": "[\"garage\", \"house\",\"office\"].in(d)",
-      "result": true
-    },
-    {
-      "expression": "between(12,10,20)",
-      "result": true
-    },
-    {
-      "expression": "between(2,10,20)",
-      "result": false
-    },
-    {
-      "expression": "between(pi,1,5)",
-      "result": true
-    },
-    {
-      "expression": "isNull(f)",
-      "result": false
-    },
-    {
-      "expression": "isNull(g)",
-      "result": true
-    },
-    {
-      "expression": "isNotNull(f)",
-      "result": true
-    },
-    {
-      "expression": "isNotNull(g)",
-      "result": false
-    },
-    {
-      "expression": "isBoolean(requerid)",
-      "result": true
-    },
-    {
-      "expression": "isNumber(pi)",
-      "result": true
-    },
-    {
-      "expression": "isDecimal(pi)",
-      "result": true
-    },
-    {
-      "expression": "isInteger(pi)",
-      "result": false
-    },
-    {
-      "expression": "isInteger(b)",
-      "result": true
-    },
-    {
-      "expression": "isString(b)",
-      "result": false
-    },
-    {
-      "expression": "isString(d)",
-      "result": true
-    },
-    {
-      "expression": "isDate(date)",
-      "result": true
-    },
-    {
-      "expression": "isDateTime(datetime)",
-      "result": true
-    },
-    {
-      "expression": "isDateTime(time)",
-      "result": false
-    },
-    {
-      "expression": "isTime(time)",
-      "result": false
-    },
-    {
-      "expression": "isObject(c)",
-      "result": true
-    },
-    {
-      "expression": "isObject(device)",
-      "result": false
-    },
-    {
-      "expression": "isObject(devices)",
-      "result": false
-    },
-    {
-      "expression": "isArray(c)",
-      "result": false
-    },
-    {
-      "expression": "isArray(device)",
-      "result": false
-    },
-    {
-      "expression": "isArray(devices)",
-      "result": true
-    },
-    {
-      "expression": "isBooleanFormat(requerid)",
-      "result": true
-    },
-    {
-      "expression": "isNumberFormat(pi)",
-      "result": true
-    },
-    {
-      "expression": "isDecimalFormat(pi)",
-      "result": true
-    },
-    {
-      "expression": "isIntegerFormat(pi)",
-      "result": false
-    },
-    {
-      "expression": "isIntegerFormat(b)",
-      "result": true
-    },
-    {
-      "expression": "isDateFormat(date)",
-      "result": true
-    },
-    {
-      "expression": "isDateTimeFormat(datetime)",
-      "result": true
-    },
-    {
-      "expression": "isDateTimeFormat(time)",
-      "result": false
-    },
-    {
-      "expression": "isTimeFormat(time)",
-      "result": false
+      "name": "lab",
+      "tests": [
+        {
+          "test": "3>2",
+          "result": true
+        },
+        {
+          "test": "a+b",
+          "result": "12"
+        },
+        {
+          "test": "-3>2*2",
+          "result": false
+        },
+        {
+          "test": "a*3==b+1",
+          "result": true
+        },
+        {
+          "test": "a*3===b+1",
+          "result": true
+        },
+        {
+          "test": "-4==-(2*2)",
+          "result": true
+        },
+        {
+          "test": "4!=2*2",
+          "result": false
+        },
+        {
+          "test": "4!==2*2",
+          "result": false
+        },
+        {
+          "test": "4<>2*2",
+          "result": false
+        },
+        {
+          "test": "c.a>b*2",
+          "result": false
+        },
+        {
+          "test": "c.a>=b*2",
+          "result": true
+        },
+        {
+          "test": "c.a<=b*2",
+          "result": true
+        },
+        {
+          "test": "c.a<b*2",
+          "result": false
+        },
+        {
+          "test": "d<e",
+          "result": false
+        },
+        {
+          "test": "d>e",
+          "result": true
+        },
+        {
+          "test": "d<>e",
+          "result": true
+        },
+        {
+          "test": "includes(devices,\"phone\")",
+          "result": true
+        },
+        {
+          "test": "includes(devices,\"other\")",
+          "result": false
+        },
+        {
+          "test": "in(devices,\"other\")",
+          "result": false
+        },
+        {
+          "test": "devices.in(\"phone\")",
+          "result": true
+        },
+        {
+          "test": "devices.in(device)",
+          "result": true
+        },
+        {
+          "test": "[\"garage\", \"house\",\"office\"].in(d)",
+          "result": true
+        },
+        {
+          "test": "between(12,10,20)",
+          "result": true
+        },
+        {
+          "test": "between(2,10,20)",
+          "result": false
+        },
+        {
+          "test": "between(pi,1,5)",
+          "result": true
+        },
+        {
+          "test": "isNull(f)",
+          "result": false
+        },
+        {
+          "test": "isNull(g)",
+          "result": true
+        },
+        {
+          "test": "isNotNull(f)",
+          "result": true
+        },
+        {
+          "test": "isNotNull(g)",
+          "result": false
+        },
+        {
+          "test": "isBoolean(requerid)",
+          "result": true
+        },
+        {
+          "test": "isNumber(pi)",
+          "result": true
+        },
+        {
+          "test": "isDecimal(pi)",
+          "result": true
+        },
+        {
+          "test": "isInteger(pi)",
+          "result": false
+        },
+        {
+          "test": "isInteger(b)",
+          "result": true
+        },
+        {
+          "test": "isString(b)",
+          "result": false
+        },
+        {
+          "test": "isString(d)",
+          "result": true
+        },
+        {
+          "test": "isDate(date)",
+          "result": true
+        },
+        {
+          "test": "isDateTime(datetime)",
+          "result": true
+        },
+        {
+          "test": "isDateTime(time)",
+          "result": false
+        },
+        {
+          "test": "isTime(time)",
+          "result": false
+        },
+        {
+          "test": "isObject(c)",
+          "result": true
+        },
+        {
+          "test": "isObject(device)",
+          "result": false
+        },
+        {
+          "test": "isObject(devices)",
+          "result": false
+        },
+        {
+          "test": "isArray(c)",
+          "result": false
+        },
+        {
+          "test": "isArray(device)",
+          "result": false
+        },
+        {
+          "test": "isArray(devices)",
+          "result": true
+        },
+        {
+          "test": "isBooleanFormat(requerid)",
+          "result": true
+        },
+        {
+          "test": "isNumberFormat(pi)",
+          "result": true
+        },
+        {
+          "test": "isDecimalFormat(pi)",
+          "result": true
+        },
+        {
+          "test": "isIntegerFormat(pi)",
+          "result": false
+        },
+        {
+          "test": "isIntegerFormat(b)",
+          "result": true
+        },
+        {
+          "test": "isDateFormat(date)",
+          "result": true
+        },
+        {
+          "test": "isDateTimeFormat(datetime)",
+          "result": true
+        },
+        {
+          "test": "isDateTimeFormat(time)",
+          "result": false
+        },
+        {
+          "test": "isTimeFormat(time)",
+          "result": false
+        }
+      ]
     }
   ]
 }

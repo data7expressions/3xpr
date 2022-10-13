@@ -1,6 +1,5 @@
 {
   "name": "array",
-  "method": "eval",
   "context": {
     "cities": [
       {
@@ -85,110 +84,115 @@
   },
   "cases": [
     {
-      "expression": "cities.length()",
-      "result": 4
-    },
-    {
-      "expression": "concat(ods,pair)",
-      "result": [
-        1,
-        3,
-        5,
-        2,
-        4,
-        6
+      "name": "lab",
+      "tests": [
+        {
+          "test": "cities.length()",
+          "result": 4
+        },
+        {
+          "test": "concat(ods,pair)",
+          "result": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "test": "concatenate(pair,ods).sort()",
+          "result": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "test": "cities.name",
+          "result": [
+            "Buenos Aires",
+            "Córdoba",
+            "Rosario",
+            "Mar del Plata"
+          ]
+        },
+        {
+          "test": "in(\"San Luis\",cities.name)",
+          "result": false
+        },
+        {
+          "test": "cities.coordinates.lat",
+          "result": [
+            34.36,
+            31.42,
+            32.58,
+            38
+          ]
+        },
+        {
+          "test": "cities.x",
+          "result": []
+        },
+        {
+          "test": "cities.x.x",
+          "result": []
+        },
+        {
+          "test": "concatenate(pair,ods).slice(2,3)",
+          "result": [
+            6
+          ]
+        },
+        {
+          "test": "concatenate(pair,ods).page(2,3)",
+          "result": [
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "test": "cities.push(salta).name",
+          "result": [
+            "Buenos Aires",
+            "Córdoba",
+            "Rosario",
+            "Mar del Plata",
+            "Salta"
+          ]
+        },
+        {
+          "test": "cities.insert(posadas).name",
+          "result": [
+            "Buenos Aires",
+            "Córdoba",
+            "Rosario",
+            "Mar del Plata",
+            "Salta",
+            "Posadas"
+          ]
+        },
+        {
+          "test": "cities.pop().name",
+          "result": "Posadas"
+        },
+        {
+          "test": "musicians[0]",
+          "result": "Charly Garcia"
+        },
+        {
+          "test": "musicians[3]"
+        },
+        {
+          "test": "musicians[musicians.length()-1]",
+          "result": "Luiz Alberto Spinetta"
+        }
       ]
-    },
-    {
-      "expression": "concatenate(pair,ods).sort()",
-      "result": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ]
-    },
-    {
-      "expression": "cities.name",
-      "result": [
-        "Buenos Aires",
-        "Córdoba",
-        "Rosario",
-        "Mar del Plata"
-      ]
-    },
-    {
-      "expression": "in(\"San Luis\",cities.name)",
-      "result": false
-    },
-    {
-      "expression": "cities.coordinates.lat",
-      "result": [
-        34.36,
-        31.42,
-        32.58,
-        38
-      ]
-    },
-    {
-      "expression": "cities.x",
-      "result": []
-    },
-    {
-      "expression": "cities.x.x",
-      "result": []
-    },
-    {
-      "expression": "concatenate(pair,ods).slice(2,3)",
-      "result": [
-        6
-      ]
-    },
-    {
-      "expression": "concatenate(pair,ods).page(2,3)",
-      "result": [
-        1,
-        3,
-        5
-      ]
-    },
-    {
-      "expression": "cities.push(salta).name",
-      "result": [
-        "Buenos Aires",
-        "Córdoba",
-        "Rosario",
-        "Mar del Plata",
-        "Salta"
-      ]
-    },
-    {
-      "expression": "cities.insert(posadas).name",
-      "result": [
-        "Buenos Aires",
-        "Córdoba",
-        "Rosario",
-        "Mar del Plata",
-        "Salta",
-        "Posadas"
-      ]
-    },
-    {
-      "expression": "cities.pop().name",
-      "result": "Posadas"
-    },
-    {
-      "expression": "musicians[0]",
-      "result": "Charly Garcia"
-    },
-    {
-      "expression": "musicians[3]"
-    },
-    {
-      "expression": "musicians[musicians.length()-1]",
-      "result": "Luiz Alberto Spinetta"
     }
   ]
 }

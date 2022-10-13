@@ -1,6 +1,5 @@
 {
   "name": "logical",
-  "method": "eval",
   "context": {
     "a": "1",
     "b": 2,
@@ -13,20 +12,25 @@
   },
   "cases": [
     {
-      "expression": "a==\"1\" && b==2",
-      "result": true
-    },
-    {
-      "expression": "a==\"1\" && b>2",
-      "result": false
-    },
-    {
-      "expression": "a==\"1\" || b>2",
-      "result": true
-    },
-    {
-      "expression": "!(a==\"1\" || b>2)",
-      "result": false
+      "name": "lab",
+      "tests": [
+        {
+          "test": "a==\"1\" && b==2",
+          "result": true
+        },
+        {
+          "test": "a==\"1\" && b>2",
+          "result": false
+        },
+        {
+          "test": "a==\"1\" || b>2",
+          "result": true
+        },
+        {
+          "test": "!(a==\"1\" || b>2)",
+          "result": false
+        }
+      ]
     }
   ]
 }

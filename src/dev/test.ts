@@ -1,4 +1,29 @@
-import { expressions as exp, Helper } from '../lib'
+/* eslint-disable no-template-curly-in-string */
+import { expressions as exp, helper } from '../lib'
+
+export const template = {
+	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
+	cases: [{
+		name: 'lab',
+		template: '\t\texpect(exp.eval(\'${test}\', context)).toStrictEqual(${result})\n'
+	}]
+}
+
+export const templateParameter = {
+	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
+	cases: [{
+		name: 'lab',
+		template: '\t\texpect(exp.parameters(\'${test}\')).toStrictEqual(${result})\n'
+	}]
+}
+
+export const templateType = {
+	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
+	cases: [{
+		name: 'lab',
+		template: '\t\texpect(exp.getType(\'${test}\')).toStrictEqual(${result})\n'
+	}]
+}
 
 interface TestCase {
 	expression:string
@@ -34,7 +59,7 @@ export class HelperTest {
 				console.log(`exp: ${expression} error: ${error}`)
 			}
 		}
-		await Helper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2))
+		await helper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2))
 	}
 
 	public static show (list:string[], context:any, method = 'eval', func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
@@ -87,11 +112,11 @@ export class HelperTest {
 
 	public static async test (expression:string, file:string): Promise<void> {
 		try {
-			const content = await Helper.fs.read(file)
+			const content = await helper.fs.read(file)
 			if (!content) {
 				throw Error(`can not read file ${file}`)
 			}
-			const data = Helper.utils.tryParse(content)
+			const data = helper.utils.tryParse(content)
 			if (data === null || data === undefined) {
 				throw Error(`can not parse content of ${file}`)
 			}

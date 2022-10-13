@@ -1,31 +1,35 @@
 {
   "name": "bitwise",
-  "method": "eval",
   "context": {},
   "cases": [
     {
-      "expression": "5 & 1",
-      "result": 1
-    },
-    {
-      "expression": "5 | 1",
-      "result": 5
-    },
-    {
-      "expression": "~ 5",
-      "result": -6
-    },
-    {
-      "expression": "5 << 1",
-      "result": 10
-    },
-    {
-      "expression": "5 ^ 1",
-      "result": 4
-    },
-    {
-      "expression": "5 >> 1",
-      "result": 2
+      "name": "lab",
+      "tests": [
+        {
+          "test": "5 & 1",
+          "result": 1
+        },
+        {
+          "test": "5 | 1",
+          "result": 5
+        },
+        {
+          "test": "~ 5",
+          "result": -6
+        },
+        {
+          "test": "5 << 1",
+          "result": 10
+        },
+        {
+          "test": "5 ^ 1",
+          "result": 4
+        },
+        {
+          "test": "5 >> 1",
+          "result": 2
+        }
+      ]
     }
   ]
 }

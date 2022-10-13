@@ -1,17 +1,21 @@
 {
   "name": "constants",
-  "method": "eval",
   "context": {
     "a": false
   },
   "cases": [
     {
-      "expression": "a = true",
-      "result": true
-    },
-    {
-      "expression": "a = nvl(null,false)",
-      "result": false
+      "name": "lab",
+      "tests": [
+        {
+          "test": "a = true",
+          "result": true
+        },
+        {
+          "test": "a = nvl(null,false)",
+          "result": false
+        }
+      ]
     }
   ]
 }

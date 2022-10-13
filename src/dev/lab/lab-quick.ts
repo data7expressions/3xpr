@@ -1,44 +1,55 @@
 /* eslint-disable no-template-curly-in-string */
-import { HelperTest } from '../helperTest'
-import { expressions as exp } from '../../lib'
+import { helper, expressions as exp } from '../../lib'
+import { template } from '../test'
 
-const list = (context:any) => {
-	const list = [
-		'5*(7+9)==(5*7+5*9)',
-		'toNumber(phoneCode) <= 30',
-		'`${name} belongs to ${region}`',
-		'timezones.filter(p => substring(p.name,0,1)=="C")',
-		'timezones.filter(p => p.offset == 1).sort(p => p.pos.lat).name',
-		'stringify(timezones.first(p => p.name == "Madrid").pos)',
-		'timezones.filter(p => p.pos.lat > 30 && p.pos.log > -4).pos.lat',
-		'sort(timezones.name)',
-		'timezones[0].name',
-		// 'timezones.pop()',
-		'round(timezones.first(p=> p.name =="Madrid").pos.lat - timezones.first(p=> p.name =="Ceuta").pos.lat,2)',
-		'timezones.each(p => p.pos={lat:round(p.pos.lat,2),log:round(p.pos.log,2)}).map(p=> stringify(p))',
-		`
-		list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-		total = 0;
-		for (i = 0; i < list.length(); i += 1) {
-		total += list[i];
-		};
-		`,
-		// TODO: agregar return como corte de control
-		// `
-		// list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-		// total = 0;
-		// for (i = 0; i < list.length(); i += 1) {
-		// total += list[i];
-		// }
-		// return total;
-		// `,
-		`
-		while (p=timezones.pop()) {
-			console(p);
-		};
-		`
-	]
-	HelperTest.show(list, context)
+const list = async (context:any) => {
+	const test = {
+		name: 'quick',
+		context: context,
+		cases: [{
+			name: 'lab',
+			func: (expression: any, context: any) => exp.eval(expression, context),
+			tests: [
+				'5*(7+9)==(5*7+5*9)',
+				'toNumber(phoneCode) <= 30',
+				'`${name} belongs to ${region}`',
+				'timezones.filter(p => substring(p.name,0,1)=="C")',
+				'timezones.filter(p => p.offset == 1).sort(p => p.pos.lat).name',
+				'stringify(timezones.first(p => p.name == "Madrid").pos)',
+				'timezones.filter(p => p.pos.lat > 30 && p.pos.log > -4).pos.lat',
+				'sort(timezones.name)',
+				'timezones[0].name',
+				// 'timezones.pop()',
+				'round(timezones.first(p=> p.name =="Madrid").pos.lat - timezones.first(p=> p.name =="Ceuta").pos.lat,2)',
+				'timezones.each(p => p.pos={lat:round(p.pos.lat,2),log:round(p.pos.log,2)}).map(p=> stringify(p))'
+				// `
+				// list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+				// total = 0;
+				// for (i = 0; i < list.length(); i += 1) {
+				// total += list[i];
+				// };
+				// `,
+				// TODO: agregar return como corte de control
+				// `
+				// list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+				// total = 0;
+				// for (i = 0; i < list.length(); i += 1) {
+				// total += list[i];
+				// }
+				// return total;
+				// `,
+				// `
+				// while (p=timezones.pop()) {
+				// console(p);
+				// };
+				// `
+			]
+		}]
+	}
+	const suite = helper.test.buildSuite(test)
+	await helper.fs.write(`./src/dev/tests/${suite.name}.json`, JSON.stringify(suite, null, 2))
+	const content = helper.test.build(suite, template)
+	await helper.fs.write(`./src/test/__tests__/auto/${suite.name}.test.ts`, content)
 }
 
 const lab = (context:any) => {
@@ -113,6 +124,6 @@ const lab = (context:any) => {
 			{ name: 'Canary', offset: 0, pos: { lat: 28.1248, log: -15.43 } }
 		]
 	}
-	list(context)
+	await list(context)
 	lab(context)
 })()

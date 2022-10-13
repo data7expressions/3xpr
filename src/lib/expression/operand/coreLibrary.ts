@@ -1,7 +1,7 @@
 import { Operand, IModelManager } from '../model'
 import { Context } from '../core'
 import { Operator, Arrow, ChildFunc, Obj, KeyVal, Var, List } from '.'
-import { expressions as exp, Helper } from '../..'
+import { expressions as exp, helper } from '../..'
 
 export class CoreLibrary {
 	private model:IModelManager
@@ -104,37 +104,37 @@ export class CoreLibrary {
 	}
 
 	private nullFunctions (): void {
-		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => Helper.utils.nvl(value, _default))
-		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => Helper.utils.nvl2(value, a, b))
+		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => helper.utils.nvl(value, _default))
+		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => helper.utils.nvl2(value, a, b))
 	}
 
 	private comparisonFunctions (): void {
 		this.model.addFunction('between(value:any,from:any,to:any):boolean',
-			(value:any, from:any, to:any):boolean => Helper.validator.between(value, from, to))
+			(value:any, from:any, to:any):boolean => helper.validator.between(value, from, to))
 		this.model.addFunction('includes(source:string|any[],value:any):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
 		this.model.addFunctionAlias('in', 'includes')
-		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => Helper.validator.isNull(value))
-		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => Helper.validator.isNotNull(value))
-		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => Helper.validator.isEmpty(value))
-		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => Helper.validator.isNotEmpty(value))
-		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => Helper.validator.isBoolean(value))
-		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => Helper.validator.isNumber(value))
-		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => Helper.validator.isInteger(value))
-		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => Helper.validator.isDecimal(value))
-		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => Helper.validator.isString(value))
-		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => Helper.validator.isDate(value))
-		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => Helper.validator.isDateTime(value))
-		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => Helper.validator.isTime(value))
-		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => Helper.validator.isObject(value))
-		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => Helper.validator.isArray(value))
-		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => Helper.validator.isBooleanFormat(value))
-		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => Helper.validator.isNumberFormat(value))
-		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => Helper.validator.isIntegerFormat(value))
-		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDecimalFormat(value))
-		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateFormat(value))
-		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isDateTimeFormat(value))
-		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => Helper.validator.isTimeFormat(value))
+		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.validator.isNull(value))
+		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.validator.isNotNull(value))
+		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.validator.isEmpty(value))
+		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => helper.validator.isNotEmpty(value))
+		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => helper.validator.isBoolean(value))
+		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => helper.validator.isNumber(value))
+		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => helper.validator.isInteger(value))
+		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => helper.validator.isDecimal(value))
+		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => helper.validator.isString(value))
+		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => helper.validator.isDate(value))
+		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => helper.validator.isDateTime(value))
+		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => helper.validator.isTime(value))
+		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => helper.validator.isObject(value))
+		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => helper.validator.isArray(value))
+		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => helper.validator.isBooleanFormat(value))
+		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => helper.validator.isNumberFormat(value))
+		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => helper.validator.isIntegerFormat(value))
+		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => helper.validator.isDecimalFormat(value))
+		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => helper.validator.isDateFormat(value))
+		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => helper.validator.isDateTimeFormat(value))
+		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => helper.validator.isTimeFormat(value))
 	}
 
 	private numberFunctions (): void {
@@ -164,8 +164,8 @@ export class CoreLibrary {
 	}
 
 	private conversionFunctions (): void {
-		this.model.addFunction('toString(value:any):string', (value:any):string => Helper.string.toString(value))
-		this.model.addFunction('toNumber(value:any):number', (value:any):number => Helper.utils.toNumber(value))
+		this.model.addFunction('toString(value:any):string', (value:any):string => helper.string.toString(value))
+		this.model.addFunction('toNumber(value:any):number', (value:any):number => helper.utils.toNumber(value))
 		this.model.addFunction('dateToString(date:date):string', (date:Date) => {
 			if (typeof date === 'string') {
 				return new Date(date).toISOString()
@@ -177,28 +177,28 @@ export class CoreLibrary {
 		this.model.addFunction('keys(obj: any):string[]', (obj: any): string[] => typeof obj === 'object' ? Object.keys(obj) : [])
 		this.model.addFunction('values(obj: any):any[]', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
 		this.model.addFunction('entries(obj: any):[string,any][]', (obj: any): [string, any][] => typeof obj === 'object' ? Object.entries(obj) : [])
-		this.model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => Helper.obj.fromEntries(entries))
+		this.model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => helper.obj.fromEntries(entries))
 	}
 
 	private stringFunctions (): void {
 		this.model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
-		this.model.addFunction('capitalize(value:string):string', (value:string):string => Helper.string.capitalize(value))
+		this.model.addFunction('capitalize(value:string):string', (value:string):string => helper.string.capitalize(value))
 		this.model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
 		this.model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
 		this.model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
 		this.model.addFunction('lpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padStart(len, pad))
 		this.model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
-		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => Helper.string.replace(value, source, target))
+		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => helper.string.replace(value, source, target))
 		this.model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
 		this.model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
 		this.model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
 		this.model.addFunctionAlias('substr', 'substring')
 		this.model.addFunction('trim(value: string):string', (value: string):string => value.trim())
 		this.model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
-		this.model.addFunction('concat(...values:any):string', (...values:any):string => Helper.string.concat(values))
+		this.model.addFunction('concat(...values:any):string', (...values:any):string => helper.string.concat(values))
 		this.model.addFunctionAlias('concatenate', 'concat')
 		this.model.addFunction('test(value: any, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
-		this.model.addFunction('title(value:string):string', (value:string):string => Helper.string.initCap(value))
+		this.model.addFunction('title(value:string):string', (value:string):string => helper.string.initCap(value))
 		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
 		this.model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value
@@ -526,7 +526,7 @@ class Map extends Arrow {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
 				const keyValue = child as KeyVal
 				if (keyValue) {
-					if (Helper.operand.haveAggregates(keyValue.children[0])) {
+					if (helper.operand.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
 					} else {
 						groupers.push(keyValue)
@@ -535,13 +535,13 @@ class Map extends Arrow {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = Helper.operand.getKeys(this.children[1], groupers, list, context)
+				const keys = helper.operand.getKeys(this.children[1], groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
 				const variable = this.children[1] as Var
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = exp.clone(keyValue.children[0])
-						const operandResolved = Helper.operand.solveAggregates(key.items, variable, operandCloned, context)
+						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value: value })
 					}
@@ -587,7 +587,7 @@ class Distinct extends Arrow {
 			return rows
 		} else if (this.children[2] instanceof Obj) {
 			// case with aggregate functions
-			const keys = Helper.operand.getKeys(this.children[1], this.children[2].children, list, context.newContext())
+			const keys = helper.operand.getKeys(this.children[1], this.children[2].children, list, context.newContext())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -710,7 +710,7 @@ class First extends Arrow {
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		return Helper.operand.first(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.first(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Last extends Arrow {
@@ -722,7 +722,7 @@ class Last extends Arrow {
 		if (this.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		return Helper.operand.last(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.last(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Count extends Arrow {
@@ -734,7 +734,7 @@ class Count extends Arrow {
 		if (this.children.length === 1) {
 			return list.length
 		}
-		return Helper.operand.count(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.count(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Max extends Arrow {
@@ -752,7 +752,7 @@ class Max extends Arrow {
 			}
 			return max
 		}
-		return Helper.operand.max(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.max(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Min extends Arrow {
@@ -770,7 +770,7 @@ class Min extends Arrow {
 			}
 			return min
 		}
-		return Helper.operand.min(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.min(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Avg extends Arrow {
@@ -788,7 +788,7 @@ class Avg extends Arrow {
 			}
 			return list.length > 0 ? sum / list.length : 0
 		}
-		return Helper.operand.avg(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.avg(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Sum extends Arrow {
@@ -806,7 +806,7 @@ class Sum extends Arrow {
 			}
 			return sum
 		}
-		return Helper.operand.sum(list, this.children[1], this.children[2], context.newContext())
+		return helper.operand.sum(list, this.children[1], this.children[2], context.newContext())
 	}
 }
 class Union extends ChildFunc {
@@ -830,11 +830,11 @@ class Union extends ChildFunc {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
 			for (const element of a) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				result.push({ key: key, value: element })
 			}
 			for (const element of b) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				if (!result.find((p:any) => p.key === key)) {
 					result.push({ key: key, value: element })
 				}
@@ -867,9 +867,9 @@ class Intersection extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = a.map((p:any) => Helper.operand.objectKey(p))
+			const keys = a.map((p:any) => helper.operand.objectKey(p))
 			for (const element of b) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				if (keys.includes(key)) {
 					result.push(element)
 				}
@@ -905,9 +905,9 @@ class Difference extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = b.map((p:any) => Helper.operand.objectKey(p))
+			const keys = b.map((p:any) => helper.operand.objectKey(p))
 			for (const element of a) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				if (!keys.includes(key)) {
 					result.push(element)
 				}
@@ -943,16 +943,16 @@ class SymmetricDifference extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const aKeys = a.map((p:any) => Helper.operand.objectKey(p))
-			const bKeys = b.map((p:any) => Helper.operand.objectKey(p))
+			const aKeys = a.map((p:any) => helper.operand.objectKey(p))
+			const bKeys = b.map((p:any) => helper.operand.objectKey(p))
 			for (const element of a) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				if (!bKeys.includes(key)) {
 					result.push(element)
 				}
 			}
 			for (const element of b) {
-				const key = Helper.operand.objectKey(element)
+				const key = helper.operand.objectKey(element)
 				if (!aKeys.includes(key)) {
 					result.push(element)
 				}

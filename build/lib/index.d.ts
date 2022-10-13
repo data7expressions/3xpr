@@ -1,5 +1,6 @@
 import { Parameter, ActionObserver, Operand } from './expression';
 export * from './expression';
+export { helper } from './expression';
 export declare const expressions: import("./expression").IExpressions;
 /**
      * Parser expression

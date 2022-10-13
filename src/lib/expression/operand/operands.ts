@@ -1,10 +1,10 @@
 
 import { Operand, Type, IModelManager } from '../model'
 import { Context } from '../core'
-import { Helper } from '..'
+import { helper } from '..'
 export class Const extends Operand {
 	constructor (name: string) {
-		super(name, [], Helper.type.getType(name))
+		super(name, [], helper.type.getType(name))
 	}
 
 	public eval (): any {
@@ -66,8 +66,8 @@ export class Property extends Operand {
 	public eval (context: Context): any {
 		const value = this.children[0].eval(context)
 		if (value === undefined || value === null) return null
-		const names = Helper.obj.names(this.name)
-		return Helper.obj.getValue(names, value)
+		// const names = Helper.obj.names(this.name)
+		return helper.obj.getValue(this.name, value)
 	}
 }
 

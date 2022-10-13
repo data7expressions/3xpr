@@ -1,6 +1,5 @@
 {
   "name": "groups",
-  "method": "eval",
   "context": {
     "orders": [
       {
@@ -107,118 +106,123 @@
   },
   "cases": [
     {
-      "expression": "orders.min(p=> p.number)",
-      "result": "20001"
-    },
-    {
-      "expression": "orders.details.min(p=> p.article )",
-      "result": "Apple"
-    },
-    {
-      "expression": "orders.details.max(p=> p.unitPrice * p.qty )",
-      "result": 3.98
-    },
-    {
-      "expression": "orders.details.avg(p=> p.unitPrice * p.qty )",
-      "result": 2.5816666666666666
-    },
-    {
-      "expression": "orders[1].details.sum(p=> p.unitPrice * p.qty )",
-      "result": 7.91
-    },
-    {
-      "expression": "orders.details.count(p=> p.unitPrice * p.qty < 3 )",
-      "result": 4
-    },
-    {
-      "expression": "orders.details.first(p=> p.unitPrice * p.qty < 3 ).article",
-      "result": "Banana"
-    },
-    {
-      "expression": "orders.details.last(p=> p.unitPrice * p.qty < 3 ).article",
-      "result": "Pear"
-    },
-    {
-      "expression": "orders.details.first(p=> p.unitPrice * p.qty < 3 )",
-      "result": {
-        "article": "Banana",
-        "unitPrice": 1.99,
-        "qty": 1,
-        "subtotal": 1.99
-      }
-    },
-    {
-      "expression": "orders.each(p=>p.total=p.details.sum(q=>q.qty*q.unitPrice)).map(p=>{nro:p.number,total:p.total})",
-      "result": [
+      "name": "lab",
+      "tests": [
         {
-          "nro": "20001",
-          "total": 7.58
+          "test": "orders.min(p=> p.number)",
+          "result": "20001"
         },
         {
-          "nro": "20002",
-          "total": 7.91
-        }
-      ]
-    },
-    {
-      "expression": "orders.details.foreach(p=>p.subtotal=p.qty*p.unitPrice).subtotal",
-      "result": [
-        3.56,
-        1.99,
-        2.03,
-        2.15,
-        3.98,
-        1.78
-      ]
-    },
-    {
-      "expression": "orders.details.foreach(p=>total=nvl(total,0)+p.qty*p.unitPrice);total",
-      "result": 15.49
-    },
-    {
-      "expression": "orders.details.distinct(p=>p.article)",
-      "result": [
-        "Pear",
-        "Banana",
-        "White grape",
-        "Apple"
-      ]
-    },
-    {
-      "expression": "orders.details.distinct(p=>{article:p.article,qty:p.qty})",
-      "result": [
-        {
-          "article": "Pear",
-          "qty": 1
-        }
-      ]
-    },
-    {
-      "expression": "orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})",
-      "result": [
-        {
-          "article": "Pear",
-          "count": 6,
-          "total": 15.49
-        }
-      ]
-    },
-    {
-      "expression": "{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}",
-      "result": {
-        "total": 7.58
-      }
-    },
-    {
-      "expression": "orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})",
-      "result": [
-        {
-          "nro": "20001",
-          "total": 7.58
+          "test": "orders.details.min(p=> p.article )",
+          "result": "Apple"
         },
         {
-          "nro": "20002",
-          "total": 7.91
+          "test": "orders.details.max(p=> p.unitPrice * p.qty )",
+          "result": 3.98
+        },
+        {
+          "test": "orders.details.avg(p=> p.unitPrice * p.qty )",
+          "result": 2.5816666666666666
+        },
+        {
+          "test": "orders[1].details.sum(p=> p.unitPrice * p.qty )",
+          "result": 7.91
+        },
+        {
+          "test": "orders.details.count(p=> p.unitPrice * p.qty < 3 )",
+          "result": 4
+        },
+        {
+          "test": "orders.details.first(p=> p.unitPrice * p.qty < 3 ).article",
+          "result": "Banana"
+        },
+        {
+          "test": "orders.details.last(p=> p.unitPrice * p.qty < 3 ).article",
+          "result": "Pear"
+        },
+        {
+          "test": "orders.details.first(p=> p.unitPrice * p.qty < 3 )",
+          "result": {
+            "article": "Banana",
+            "unitPrice": 1.99,
+            "qty": 1,
+            "subtotal": 1.99
+          }
+        },
+        {
+          "test": "orders.each(p=>p.total=p.details.sum(q=>q.qty*q.unitPrice)).map(p=>{nro:p.number,total:p.total})",
+          "result": [
+            {
+              "nro": "20001",
+              "total": 7.58
+            },
+            {
+              "nro": "20002",
+              "total": 7.91
+            }
+          ]
+        },
+        {
+          "test": "orders.details.foreach(p=>p.subtotal=p.qty*p.unitPrice).subtotal",
+          "result": [
+            3.56,
+            1.99,
+            2.03,
+            2.15,
+            3.98,
+            1.78
+          ]
+        },
+        {
+          "test": "orders.details.foreach(p=>total=nvl(total,0)+p.qty*p.unitPrice);total",
+          "result": 15.49
+        },
+        {
+          "test": "orders.details.distinct(p=>p.article)",
+          "result": [
+            "Pear",
+            "Banana",
+            "White grape",
+            "Apple"
+          ]
+        },
+        {
+          "test": "orders.details.distinct(p=>{article:p.article,qty:p.qty})",
+          "result": [
+            {
+              "article": "Pear",
+              "qty": 1
+            }
+          ]
+        },
+        {
+          "test": "orders.details.map(p=>{article:p.article,count:count(1),total:sum(p.qty * p.unitPrice)})",
+          "result": [
+            {
+              "article": "Pear",
+              "count": 6,
+              "total": 15.49
+            }
+          ]
+        },
+        {
+          "test": "{total:orders[0].details.sum(p=>p.qty * p.unitPrice)}",
+          "result": {
+            "total": 7.58
+          }
+        },
+        {
+          "test": "orders.map(p=>{nro:p.number,total:p.details.sum(q=>q.qty * q.unitPrice)})",
+          "result": [
+            {
+              "nro": "20001",
+              "total": 7.58
+            },
+            {
+              "nro": "20002",
+              "total": 7.91
+            }
+          ]
         }
       ]
     }

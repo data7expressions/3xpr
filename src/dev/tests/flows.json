@@ -1,6 +1,5 @@
 {
   "name": "flows",
-  "method": "eval",
   "context": {
     "devices": [],
     "list": [
@@ -34,48 +33,53 @@
   },
   "cases": [
     {
-      "expression": "\n\tlist = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\ttotal = 0;\n\tfor (i = 0; i < list.length(); i += 1) {\n\t\ttotal += list[i];\n\t};\n\ttotal;",
-      "result": 45
-    },
-    {
-      "expression": "\n\tlist = [1, 2, 3, 4, 5, 6];\n\tb = 1;\n\tfor (a in list) {\n\t\tif (b < 10) {\n\t\t\tb = a * b;\n\t\t}\n\t};\n\tb;",
-      "result": 24
-    },
-    {
-      "expression": "\n\tdevice = devices[0];\n\tswitch(device.type){ \n\t\tcase \"phone\": \n\t\t\tkey = device.imei; \n\t\tcase \"computer\": \n\t\t\tkey = device.mac; \n\t\tdefault:\n\t\t\tif(isNotNull(device.imei)){\n\t\t\t\tkey = device.imei;\n\t\t\t}else{\n\t\t\t\tkey = device.mac; \n\t\t\t} \n\t\t};\n\t\tid= concat(device.type,\"-\",key);\n\t",
-      "result": "phone-911784599437339"
-    },
-    {
-      "expression": "devices.map(p=> \n\t\t\tconcat(p.type,\"-\",\n\t\t\t\tif(p.type==\"phone\"){\n\t\t\t\t\tp.imei \n\t\t\t\t} else {\n\t\t\t\t\tp.mac\n\t\t\t\t}\n\t\t\t)\n\t\t)",
-      "result": [
-        "phone-911784599437339",
-        "computer-11:3d:1c:9b:7e:db",
-        "robot-12:3d:1c:9b:7e:db"
+      "name": "lab",
+      "tests": [
+        {
+          "test": "\n\t\t\t\tlist = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\t\t\t\ttotal = 0;\n\t\t\t\tfor (i = 0; i < list.length(); i += 1) {\n\t\t\t\t\ttotal += list[i];\n\t\t\t\t};\n\t\t\t\ttotal;",
+          "result": 45
+        },
+        {
+          "test": "\n\t\t\t\tlist = [1, 2, 3, 4, 5, 6];\n\t\t\t\tb = 1;\n\t\t\t\tfor (a in list) {\n\t\t\t\t\tif (b < 10) {\n\t\t\t\t\t\tb = a * b;\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tb;",
+          "result": 24
+        },
+        {
+          "test": "\n\t\t\t\tdevice = devices[0];\n\t\t\t\tswitch(device.type){ \n\t\t\t\t\tcase \"phone\": \n\t\t\t\t\t\tkey = device.imei; \n\t\t\t\t\tcase \"computer\": \n\t\t\t\t\t\tkey = device.mac; \n\t\t\t\t\tdefault:\n\t\t\t\t\t\tif(isNotNull(device.imei)){\n\t\t\t\t\t\t\tkey = device.imei;\n\t\t\t\t\t\t}else{\n\t\t\t\t\t\t\tkey = device.mac; \n\t\t\t\t\t\t} \n\t\t\t\t\t};\n\t\t\t\t\tid= concat(device.type,\"-\",key);\n\t\t\t\t",
+          "result": "phone-911784599437339"
+        },
+        {
+          "test": "devices.map(p=> \n\t\t\t\t\t\tconcat(p.type,\"-\",\n\t\t\t\t\t\t\tif(p.type==\"phone\"){\n\t\t\t\t\t\t\t\tp.imei \n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tp.mac\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t)\n\t\t\t\t\t)",
+          "result": [
+            "phone-911784599437339",
+            "computer-11:3d:1c:9b:7e:db",
+            "robot-12:3d:1c:9b:7e:db"
+          ]
+        },
+        {
+          "test": "devices.map(p=> \n\t\t\t\t\t\tswitch(p.type){ \n\t\t\t\t\t\t\tcase \"phone\": 1; \n\t\t\t\t\t\t\tcase \"robot\": 2 ; \n\t\t\t\t\t\t\tdefault: 3;}\n\t\t\t\t)",
+          "result": [
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "test": "\n\t\t\t\twhile (p=devices.pop()) {\n\t\t\t\t\t\tmac=p.mac;\n\t\t\t\t};\n\t\t\t\tmac;",
+          "result": "10:3d:1c:9b:7e:db"
+        },
+        {
+          "test": "\n\t\t\t\tlist = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\t\t\t\ttotal = 0;\n\t\t\t\tfor (i = 0; i < list.length(); i += 1) {\n\t\t\t\t\ttotal += list[i];\n\t\t\t\t};\n\t\t\t\ttotal;",
+          "result": 45
+        },
+        {
+          "test": "rectangle = {\"x\":50,\"y\":50,\"width\":80,\"height\":60}; \n\t\t\t\t\tsleepSecs = 1;\n\t\t\t\t\tsource=nvl(source,\"data/source.jpg\");",
+          "result": "data/source.jpg"
+        },
+        {
+          "test": "\n\t\t\t\tlist = [1, 2, 3, 4, 5, 6];\n\t\t\t\tb = 1;\n\t\t\t\tfor (a in list) {\n\t\t\t\t\tif (b < 10) {\n\t\t\t\t\t\tb = a * b;\n\t\t\t\t\t}\n\t\t\t\t};\n\t\t\t\tb;",
+          "result": 24
+        }
       ]
-    },
-    {
-      "expression": "devices.map(p=> \n\t\t\tswitch(p.type){ \n\t\t\t\tcase \"phone\": 1; \n\t\t\t\tcase \"robot\": 2 ; \n\t\t\t\tdefault: 3;}\n\t)",
-      "result": [
-        1,
-        3,
-        2
-      ]
-    },
-    {
-      "expression": "\n\twhile (p=devices.pop()) {\n\t\t  mac=p.mac;\n\t};\n\tmac;",
-      "result": "10:3d:1c:9b:7e:db"
-    },
-    {
-      "expression": "\n\tlist = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\ttotal = 0;\n\tfor (i = 0; i < list.length(); i += 1) {\n\t\ttotal += list[i];\n\t};\n\ttotal;",
-      "result": 45
-    },
-    {
-      "expression": "rectangle = {\"x\":50,\"y\":50,\"width\":80,\"height\":60}; \n\t\tsleepSecs = 1;\n\t\tsource=nvl(source,\"data/source.jpg\");",
-      "result": "data/source.jpg"
-    },
-    {
-      "expression": "\n\tlist = [1, 2, 3, 4, 5, 6];\n\tb = 1;\n\tfor (a in list) {\n\t\tif (b < 10) {\n\t\t\tb = a * b;\n\t\t}\n\t};\n\tb;",
-      "result": 24
     }
   ]
 }

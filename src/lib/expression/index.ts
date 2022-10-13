@@ -4,4 +4,4 @@ export * from './memoryCache'
 export * from './model'
 export * from './operand'
 export * from './parser'
-export const Helper = new ExpHelper()
+export const helper = new ExpHelper()

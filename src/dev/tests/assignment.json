@@ -1,6 +1,5 @@
 {
   "name": "assignment",
-  "method": "eval",
   "context": {
     "a": 8,
     "b": 2,
@@ -12,20 +11,25 @@
   },
   "cases": [
     {
-      "expression": "a=8",
-      "result": 8
-    },
-    {
-      "expression": "c.a=1",
-      "result": 1
-    },
-    {
-      "expression": "d=c.b*2",
-      "result": 10
-    },
-    {
-      "expression": "d=`value of a is: ${a}`",
-      "result": "value of a is: 8"
+      "name": "lab",
+      "tests": [
+        {
+          "test": "a=8",
+          "result": 8
+        },
+        {
+          "test": "c.a=1",
+          "result": 1
+        },
+        {
+          "test": "d=c.b*2",
+          "result": 10
+        },
+        {
+          "test": "d=`value of a is: ${a}`",
+          "result": "value of a is: 8"
+        }
+      ]
     }
   ]
 }

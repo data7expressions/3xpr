@@ -1,6 +1,6 @@
-import { Cache } from './model'
+import { ICache } from './model'
 
-export class MemoryCache implements Cache {
+export class MemoryCache implements ICache {
 	private list:any
 	constructor () {
 		this.list = {}

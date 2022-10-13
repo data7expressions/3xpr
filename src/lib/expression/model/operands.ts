@@ -93,7 +93,7 @@ export interface OperandMetadata {
 	number?: number
 }
 
-export interface IOperandTypeManager {
+export interface ITypeManager {
 	solve (operand: Operand):Type
 	parameters (operand: Operand): Parameter[]
 }

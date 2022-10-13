@@ -1,15 +1,15 @@
-import { IExpressions, IBuilder, Cache, Operand, Parameter, Format, OperatorMetadata, IOperandTypeManager, IModelManager, ActionObserver, IOperandManager, FunctionAdditionalInfo, OperatorAdditionalInfo } from './model'
+import { IExpressions, IBuilder, ICache, Operand, Parameter, Format, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, IOperandManager, FunctionAdditionalInfo, OperatorAdditionalInfo } from './model'
 import { Data, Context } from './core'
 import { ModelManager } from './parser'
-import { OperandManager, OperandTypeManager, CoreLibrary } from './operand'
-import { Helper, MemoryCache } from '.'
+import { OperandManager, TypeManager, CoreLibrary } from './operand'
+import { helper, MemoryCache } from '.'
 
 // eslint-disable-next-line no-use-before-define
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
 		const cache = new MemoryCache()
 		const model = new ModelManager()
-		const typeManager = new OperandTypeManager(model)
+		const typeManager = new TypeManager(model)
 		const operandManager = new OperandManager(model)
 		new CoreLibrary(model).load()
 		return new Expressions(cache, model, operandManager, typeManager)
@@ -17,13 +17,13 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 }
 
 export class Expressions implements IExpressions {
-	private cache: Cache
+	private cache: ICache
 	private model: IModelManager
 	private observers:ActionObserver[]=[];
 	private operand: IOperandManager
-	private type: IOperandTypeManager
+	private type: ITypeManager
 
-	constructor (cache:Cache, model: IModelManager, operand:IOperandManager, type: IOperandTypeManager) {
+	constructor (cache:ICache, model: IModelManager, operand:IOperandManager, type: ITypeManager) {
 		this.cache = cache
 		this.model = model
 		this.operand = operand
@@ -129,7 +129,7 @@ export class Expressions implements IExpressions {
 	 */
 	public build (expression: string): Operand {
 		try {
-			const minifyExpression = Helper.node.minify(expression)
+			const minifyExpression = helper.node.minify(expression)
 			const key = `${minifyExpression.join('')}_operand`
 			const value = this.cache.get(key)
 			if (!value) {
@@ -161,7 +161,7 @@ export class Expressions implements IExpressions {
 	 */
 	public getType (expression: string): string {
 		const operand = this.typed(expression)
-		return Helper.type.toString(operand.type)
+		return helper.type.toString(operand.type)
 	}
 
 	/**
@@ -198,7 +198,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private typed (expression: string): Operand {
-		const minifyExpression = Helper.node.minify(expression)
+		const minifyExpression = helper.node.minify(expression)
 		const key = `${minifyExpression.join('')}_operand`
 		const value = this.cache.get(key) as Operand
 		if (!value) {

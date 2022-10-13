@@ -1,4 +1,4 @@
-import { Helper } from '..'
+import { helper } from '..'
 
 export class Data {
 	public data: any
@@ -29,9 +29,9 @@ export class Data {
 	}
 
 	get (name:string):any {
-		const names = Helper.obj.names(name)
+		const names = helper.obj.names(name)
 		const value = this.getData(names[0])
-		return Helper.obj.getValue(names, value)
+		return helper.obj.getValue(name, value)
 	}
 
 	set (name:string, value:any):void {
@@ -41,7 +41,7 @@ export class Data {
 		for (let i = 0; i < names.length; i++) {
 			const name = names[i]
 			// if is an array and name is a positive integer
-			if (Array.isArray(list) && Helper.validator.isPositiveInteger(name)) {
+			if (Array.isArray(list) && helper.validator.isPositiveInteger(name)) {
 				const index = Number(name)
 				// If the index exceeds the length of the array, nothing assigns it.
 				if (index >= list.length) {

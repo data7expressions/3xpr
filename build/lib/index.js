@@ -14,9 +14,11 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unsubscribe = exports.subscribe = exports.evaluate = exports.parameters = exports.build = exports.expressions = void 0;
+exports.unsubscribe = exports.subscribe = exports.evaluate = exports.parameters = exports.build = exports.expressions = exports.helper = void 0;
 const expression_1 = require("./expression");
 __exportStar(require("./expression"), exports);
+var expression_2 = require("./expression");
+Object.defineProperty(exports, "helper", { enumerable: true, get: function () { return expression_2.helper; } });
 exports.expressions = expression_1.Expressions.instance;
 /**
      * Parser expression

@@ -1,6 +1,6 @@
 import { Operand, IOperandBuilder, OperandMetadata, ISerializer } from '../model'
 import { Var, KeyVal } from './operands'
-import { Helper } from '..'
+import { helper } from '..'
 export class OperandSerializer implements ISerializer<Operand> {
 	private builder: IOperandBuilder
 	constructor (builder: IOperandBuilder) {
@@ -21,11 +21,11 @@ export class OperandSerializer implements ISerializer<Operand> {
 			children.push(this._serialize(operand.children[k]))
 		}
 		if (operand instanceof KeyVal) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type), property: operand.property }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type), property: operand.property }
 		} else if (operand instanceof Var) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type), number: operand.number }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type), number: operand.number }
 		} else {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: Helper.type.serialize(operand.type) }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type) }
 		}
 	}
 

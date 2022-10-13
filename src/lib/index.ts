@@ -1,5 +1,6 @@
 import { Expressions, Parameter, ActionObserver, Operand } from './expression'
 export * from './expression'
+export { helper } from './expression'
 
 export const expressions = Expressions.instance
 

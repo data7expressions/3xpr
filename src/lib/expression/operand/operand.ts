@@ -2,7 +2,7 @@
 import { Parser } from '../parser/index'
 import { Operand, IOperandManager, IOperandBuilder, IModelManager, ISerializer } from '../model'
 import { OperandBuilder, OperandSerializer } from '.'
-import { Helper } from '..'
+import { helper } from '..'
 
 export class OperandManager implements IOperandManager {
 	private model: IModelManager
@@ -17,7 +17,7 @@ export class OperandManager implements IOperandManager {
 	public build (expression: string[]): Operand {
 		const parser = new Parser(this.model, expression)
 		const node = parser.parse()
-		Helper.node.clear(node)
+		helper.node.clear(node)
 		const operand = this.builder.build(node)
 		return operand
 	}

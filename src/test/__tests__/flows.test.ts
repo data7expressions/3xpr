@@ -1,4 +1,4 @@
-import { expressions, Helper } from '../../lib'
+import { expressions, helper } from '../../lib'
 
 const testPath = 'src/test/__tests__/test'
 
@@ -55,14 +55,14 @@ describe('Block', () => {
 		expect(12).toBe(data['output']) 
 		
 		data = {}
-		let expression = await Helper.fs.read(testPath+'/for-01.js') as string
+		let expression = await helper.fs.read(testPath+'/for-01.js') as string
 		expressions.eval(expression, data)
 		expect(45).toBe(data.total) 
 	})
 
 	// test('ForIn', async ()  =>  {	
 	// 	let data:any = {}
-	// 	const expression = await Helper.fs.read(testPath + '/forIn-01.js') as string
+	// 	const expression = await helper.fs.read(testPath + '/forIn-01.js') as string
 	// 	expressions.eval(expression, data)
 	// 	expect(2).toBe(data.y) 
 	// })
@@ -155,28 +155,28 @@ describe('Block', () => {
 
 	// test('parseBlockControl', async () => {	
 		
-	// 	let expression = await Helper.readFile('test/blockControl-01.js') as string
+	// 	let expression = await helper.readFile('test/blockControl-01.js') as string
 		
 	// 	let node = expressions.parse(expression)
 	// 	let serialized =expressions.parser.serialize(node)
 	// 	let serialized2 = {'id': '0', 'n': 'ForIn', 't': 'ForIn', 'c': [{'id': '0.0', 'n': 'x', 't': 'variable', 'c': []}, {'id': '0.1', 'n': 'List', 't': 'List', 'c': [{'id': '0.1.0', 'n': 1, 't': 'constant', 'c': []}, {'id': '0.1.1', 'n': 2, 't': 'constant', 'c': []}]}, {'id': '0.2', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.0', 'n': 'If', 't': 'If', 'c': [{'id': '0.2.0.0', 'n': '>', 't': 'Operator', 'c': [{'id': '0.2.0.0.0', 'n': 'x', 't': 'variable', 'c': []}, {'id': '0.2.0.0.1', 'n': 2, 't': 'constant', 'c': []}]}, {'id': '0.2.0.1', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.0.1.0', 'n': 'print', 't': 'functionRef', 'c': [{'id': '0.2.0.1.0.0', 'n': 3, 't': 'constant', 'c': []}]}]}, {'id': '0.2.0.2', 'n': 'elif', 't': 'elif', 'c': [{'id': '0.2.0.2.0', 'n': '>', 't': 'Operator', 'c': [{'id': '0.2.0.2.0.0','n': 'x', 't': 'variable', 'c': []}, {'id': '0.2.0.2.0.1', 'n': 1, 't': 'constant', 'c': []}]}, {'id': '0.2.0.2.1', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.0.2.1.0', 'n': 'print', 't': 'functionRef', 'c': [{'id': '0.2.0.2.1.0.0', 'n': 2, 't': 'constant', 'c': []}]}]}]}, {'id': '0.2.0.3', 'n': 'Else', 't': 'Else', 'c': [{'id': '0.2.0.3.0', 'n': 'If', 't': 'If', 'c': [{'id': '0.2.0.3.0.0', 'n':'>', 't': 'Operator', 'c': [{'id': '0.2.0.3.0.0.0', 'n': 'x', 't': 'variable', 'c': []}, {'id': '0.2.0.3.0.0.1', 'n': 0, 't': 'constant', 'c': []}]}, {'id': '0.2.0.3.0.1', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.0.3.0.1.0', 'n': 'print', 't': 'functionRef', 'c': [{'id': '0.2.0.3.0.1.0.0', 'n': 1, 't': 'constant', 'c': []}]}]}, {'id': '0.2.0.3.0.2', 'n': 'Else', 't': 'Else', 'c': [{'id': '0.2.0.3.0.2.0', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.0.3.0.2.0.0', 'n': 'print', 't': 'functionRef', 'c': [{'id': '0.2.0.3.0.2.0.0.0', 'n': 0, 't': 'constant', 'c': []}]}]}]}]}]}]}]}]}
 	// 	expect(serialized2).toBe(serialized)
 
-	// 	expression = await Helper.readFile('test/blockControl-02.js')as string
+	// 	expression = await helper.readFile('test/blockControl-02.js')as string
 		
 	// 	node = expressions.parser.serialize(node)
 	// 	serialized=expressions.parser.serialize(node)
 	// 	const serialized3 = {'id': '0', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.0', 'n': '=', 't': 'Operator', 'c': [{'id': '0.0.0', 'n': 'List', 't': 'variable', 'c': []}, {'id': '0.0.1', 'n': 'List', 't': 'List', 'c': [{'id': '0.0.1.0', 'n': 1, 't': 'constant', 'c': []}, {'id': '0.0.1.1', 'n': 2, 't': 'constant', 'c': []}, {'id': '0.0.1.2', 'n': 3, 't': 'constant', 'c': []}, {'id': '0.0.1.3', 'n': 4, 't': 'constant', 'c': []}, {'id': '0.0.1.4', 'n': 5, 't': 'constant', 'c': []}, {'id': '0.0.1.5', 'n': 6, 't': 'constant', 'c': []}]}]}, {'id': '0.1', 'n': '=', 't': 'Operator', 'c': [{'id': '0.1.0', 'n': 'b', 't': 'variable', 'c': []}, {'id': '0.1.1', 'n': 1, 't': 'constant', 'c': []}]}, {'id': '0.2', 'n': 'ForIn', 't': 'ForIn', 'c': [{'id': '0.2.0', 'n': 'a', 't': 'variable', 'c': []}, {'id': '0.2.1', 'n': 'List','t': 'variable', 'c': []}, {'id': '0.2.2', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.2.0', 'n': '=', 't': 'Operator', 'c': [{'id': '0.2.2.0.0', 'n': 'b', 't': 'variable', 'c': []}, {'id': '0.2.2.0.1', 'n': '*', 't': 'Operator', 'c': [{'id': '0.2.2.0.1.0', 'n': 'a', 't': 'variable', 'c': []}, {'id': '0.2.2.0.1.1', 'n': 'b', 't': 'variable', 'c': []}]}]}, {'id': '0.2.2.1', 'n': 'If', 't': 'If', 'c': [{'id': '0.2.2.1.0', 'n': '>', 't': 'Operator', 'c': [{'id': '0.2.2.1.0.0', 'n': 'b', 't': 'variable', 'c': []}, {'id': '0.2.2.1.0.1', 'n': 10, 't': 'constant', 'c': []}]}, {'id': '0.2.2.1.1', 'n':'Block', 't': 'Block', 'c': [{'id': '0.2.2.1.1.0', 'n': 'Break', 't': 'Break', 'c': []}]}]}]}]}]}
 	// 	expect(serialized2).toBe(serialized3)
 
-	// 	expression = await Helper.readFile('test/blockControl-03.js')as string
+	// 	expression = await helper.readFile('test/blockControl-03.js')as string
 		
 	// 	node = expressions.parser.serialize(node)
 	// 	serialized=expressions.parser.serialize(node)
 	// 	const serialized4 = {'id': '0', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.0', 'n': '=', 't': 'Operator', 'c': [{'id': '0.0.0', 'n': 'List', 't': 'variable', 'c': []}, {'id': '0.0.1', 'n': 'List', 't': 'List', 'c': [{'id': '0.0.1.0', 'n': 1, 't': 'constant', 'c': []}, {'id': '0.0.1.1', 'n': 2, 't': 'constant', 'c': []}, {'id': '0.0.1.2', 'n': 3, 't': 'constant', 'c': []}, {'id': '0.0.1.3', 'n': 4, 't': 'constant', 'c': []}, {'id': '0.0.1.4', 'n': 5, 't': 'constant', 'c': []}, {'id': '0.0.1.5', 'n': 6, 't': 'constant', 'c': []}, {'id': '0.0.1.6', 'n': 7, 't': 'constant', 'c': []}, {'id': '0.0.1.7', 'n': 8, 't': 'constant', 'c': []}, {'id': '0.0.1.8', 'n': 9, 't': 'constant', 'c': []}]}]}, {'id': '0.1', 'n': '=', 't': 'Operator', 'c': [{'id': '0.1.0', 'n': 'total', 't': 'variable', 'c': []}, {'id': '0.1.1', 'n': 0, 't': 'constant', 'c': []}]}, {'id': '0.2', 'n': 'For', 't': 'For', 'c': [{'id': '0.2.0', 'n': '=', 't': 'Operator', 'c': [{'id': '0.2.0.0', 'n': 'i', 't': 'variable', 'c': []}, {'id': '0.2.0.1', 'n': 0, 't': 'constant', 'c': []}]}, {'id': '0.2.1', 'n': '<', 't': 'Operator', 'c': [{'id': '0.2.1.0', 'n': 'i', 't': 'variable', 'c': []}, {'id': '0.2.1.1', 'n': 'length', 't': 'childFunction', 'c': [{'id': '0.2.1.1.0', 'n': 'List', 't': 'variable', 'c': []}]}]}, {'id': '0.2.2', 'n': '+=', 't': 'Operator', 'c': [{'id': '0.2.2.0', 'n': 'i', 't': 'variable', 'c': []}, {'id': '0.2.2.1', 'n': 1, 't': 'constant', 'c': []}]}, {'id': '0.2.3', 'n': 'Block', 't': 'Block', 'c': [{'id': '0.2.3.0', 'n': '+=', 't': 'Operator', 'c': [{'id': '0.2.3.0.0', 'n': 'total', 't': 'variable', 'c': []}, {'id': '0.2.3.0.1', 'n': '[]', 't': 'Operator', 'c': [{'id': '0.2.3.0.1.0', 'n': 'List', 't': 'variable', 'c': []}, {'id': '0.2.3.0.1.1', 'n': 'i', 't': 'variable', 'c': []}]}]}]}]}]}
 	// 	expect(serialized2).toBe(serialized4)
 
-	// 	expression = await Helper.readFile('test/blockControl-04.js')as string
+	// 	expression = await helper.readFile('test/blockControl-04.js')as string
 		
 	// 	node = expressions.parser.serialize(node)
 	// 	serialized=expressions.parser.serialize(node)

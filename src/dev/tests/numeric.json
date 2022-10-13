@@ -1,6 +1,5 @@
 {
   "name": "numeric",
-  "method": "eval",
   "context": {
     "a": "1",
     "b": 2,
@@ -11,92 +10,97 @@
   },
   "cases": [
     {
-      "expression": "c.b",
-      "result": 5
-    },
-    {
-      "expression": "abs(-9)",
-      "result": 9
-    },
-    {
-      "expression": "acos(0.434)",
-      "result": 1.1218683324277348
-    },
-    {
-      "expression": "asin(0.434)",
-      "result": 0.44892799436716174
-    },
-    {
-      "expression": "atan(2)",
-      "result": 1.1071487177940904
-    },
-    {
-      "expression": "atan2(90, 15)",
-      "result": 1.4056476493802699
-    },
-    {
-      "expression": "ceil(2)",
-      "result": 2
-    },
-    {
-      "expression": "cos(2)",
-      "result": -0.4161468365471424
-    },
-    {
-      "expression": "cosh(2)",
-      "result": 3.7621956910836314
-    },
-    {
-      "expression": "exp(7)",
-      "result": 1096.6331584284585
-    },
-    {
-      "expression": "floor(7)",
-      "result": 7
-    },
-    {
-      "expression": "ln(7)",
-      "result": 1.9459101490553132
-    },
-    {
-      "expression": "log(7,10)",
-      "result": 1.9459101490553132
-    },
-    {
-      "expression": "log10(7)",
-      "result": 0.8450980400142568
-    },
-    {
-      "expression": "remainder(7,2)",
-      "result": 1
-    },
-    {
-      "expression": "round(7.984938,2)",
-      "result": 7.98
-    },
-    {
-      "expression": "sign(-7)",
-      "result": -1
-    },
-    {
-      "expression": "sin(7)",
-      "result": 0.6569865987187891
-    },
-    {
-      "expression": "sinh(7)",
-      "result": 548.3161232732465
-    },
-    {
-      "expression": "tan(7)",
-      "result": 0.8714479827243187
-    },
-    {
-      "expression": "tanh(7)",
-      "result": 0.9999983369439447
-    },
-    {
-      "expression": "trunc(7.984938,2)",
-      "result": 7
+      "name": "lab",
+      "tests": [
+        {
+          "test": "c.b",
+          "result": 5
+        },
+        {
+          "test": "abs(-9)",
+          "result": 9
+        },
+        {
+          "test": "acos(0.434)",
+          "result": 1.1218683324277348
+        },
+        {
+          "test": "asin(0.434)",
+          "result": 0.44892799436716174
+        },
+        {
+          "test": "atan(2)",
+          "result": 1.1071487177940904
+        },
+        {
+          "test": "atan2(90, 15)",
+          "result": 1.4056476493802699
+        },
+        {
+          "test": "ceil(2)",
+          "result": 2
+        },
+        {
+          "test": "cos(2)",
+          "result": -0.4161468365471424
+        },
+        {
+          "test": "cosh(2)",
+          "result": 3.7621956910836314
+        },
+        {
+          "test": "exp(7)",
+          "result": 1096.6331584284585
+        },
+        {
+          "test": "floor(7)",
+          "result": 7
+        },
+        {
+          "test": "ln(7)",
+          "result": 1.9459101490553132
+        },
+        {
+          "test": "log(7,10)",
+          "result": 1.9459101490553132
+        },
+        {
+          "test": "log10(7)",
+          "result": 0.8450980400142568
+        },
+        {
+          "test": "remainder(7,2)",
+          "result": 1
+        },
+        {
+          "test": "round(7.984938,2)",
+          "result": 7.98
+        },
+        {
+          "test": "sign(-7)",
+          "result": -1
+        },
+        {
+          "test": "sin(7)",
+          "result": 0.6569865987187891
+        },
+        {
+          "test": "sinh(7)",
+          "result": 548.3161232732465
+        },
+        {
+          "test": "tan(7)",
+          "result": 0.8714479827243187
+        },
+        {
+          "test": "tanh(7)",
+          "result": 0.9999983369439447
+        },
+        {
+          "test": "trunc(7.984938,2)",
+          "result": 7
+        }
+      ]
     }
   ]
 }

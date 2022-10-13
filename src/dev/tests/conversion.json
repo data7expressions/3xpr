@@ -1,6 +1,5 @@
 {
   "name": "conversion",
-  "method": "eval",
   "context": {
     "customer": {
       "firstName": "Juan",
@@ -11,65 +10,70 @@
   },
   "cases": [
     {
-      "expression": "toString(month(customer.birthday))",
-      "result": "3"
-    },
-    {
-      "expression": "toNumber(\"3.141516\")",
-      "result": 3.141516
-    },
-    {
-      "expression": "dateToString(datetime(customer.birthday))",
-      "result": "1975-03-20T22:45:11.000Z"
-    },
-    {
-      "expression": "keys(customer)",
-      "result": [
-        "firstName",
-        "lastName",
-        "birthday"
+      "name": "lab",
+      "tests": [
+        {
+          "test": "toString(month(customer.birthday))",
+          "result": "3"
+        },
+        {
+          "test": "toNumber(\"3.141516\")",
+          "result": 3.141516
+        },
+        {
+          "test": "dateToString(datetime(customer.birthday))",
+          "result": "1975-03-20T22:45:11.000Z"
+        },
+        {
+          "test": "keys(customer)",
+          "result": [
+            "firstName",
+            "lastName",
+            "birthday"
+          ]
+        },
+        {
+          "test": "values(customer)",
+          "result": [
+            "Juan",
+            "Lopez",
+            "1975-03-20T23:45:11"
+          ]
+        },
+        {
+          "test": "entries(customer)",
+          "result": [
+            [
+              "firstName",
+              "Juan"
+            ],
+            [
+              "lastName",
+              "Lopez"
+            ],
+            [
+              "birthday",
+              "1975-03-20T23:45:11"
+            ]
+          ]
+        },
+        {
+          "test": "fromEntries(entries(customer))",
+          "result": {
+            "firstName": "Juan",
+            "lastName": "Lopez",
+            "birthday": "1975-03-20T23:45:11"
+          }
+        },
+        {
+          "test": "stringify(customer)",
+          "result": "{\"firstName\":\"Juan\",\"lastName\":\"Lopez\",\"birthday\":\"1975-03-20T23:45:11\"}"
+        },
+        {
+          "test": "parse(data).b",
+          "result": 1
+        }
       ]
-    },
-    {
-      "expression": "values(customer)",
-      "result": [
-        "Juan",
-        "Lopez",
-        "1975-03-20T23:45:11"
-      ]
-    },
-    {
-      "expression": "entries(customer)",
-      "result": [
-        [
-          "firstName",
-          "Juan"
-        ],
-        [
-          "lastName",
-          "Lopez"
-        ],
-        [
-          "birthday",
-          "1975-03-20T23:45:11"
-        ]
-      ]
-    },
-    {
-      "expression": "fromEntries(entries(customer))",
-      "result": {
-        "firstName": "Juan",
-        "lastName": "Lopez",
-        "birthday": "1975-03-20T23:45:11"
-      }
-    },
-    {
-      "expression": "stringify(customer)",
-      "result": "{\"firstName\":\"Juan\",\"lastName\":\"Lopez\",\"birthday\":\"1975-03-20T23:45:11\"}"
-    },
-    {
-      "expression": "parse(data).b",
-      "result": 1
     }
   ]
 }

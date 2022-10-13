@@ -99,6 +99,15 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-numeric.ts"
+		},
+		{
+			"name": "lab access",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-access.ts"
 		},		
 		{
 			"name": "lab assignment",
@@ -171,16 +180,7 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-sets.ts"
-		},
-		{
-			"name": "lab access",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-access.ts"
-		},
+		},		
 		{
 			"name": "lab flows",
 			"type": "node",
