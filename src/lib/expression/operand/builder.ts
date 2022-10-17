@@ -1,24 +1,40 @@
-
-import { Node } from '../parser/index'
-import { Context } from '../core'
-import { OperatorType, Operand, IOperandBuilder, IModelManager } from '../model'
-import {
-	Const, Var, KeyVal, List, Obj, Operator, CallFunc, Block, Arrow, ChildFunc,
-	If, ElseIf, Else, While, For, ForIn, Switch, Break, Continue, Func, Return, Try, Catch, Throw, Case, Default,
-	Template, Property, Env
-} from './operands'
+/* eslint-disable no-case-declarations */
+import { Parser, nodeHelper } from '../parser'
+import { Context, Operand, Node, OperatorType, IOperandBuilder, IModelManager, OperandFactory, ISerializer } from '../contract'
+import { Const, Operator, CallFunc } from './operands'
+import { OperandSerializer } from '.'
+// import { operandHelper } from './helper'
 
 export class OperandBuilder implements IOperandBuilder {
 	private model: IModelManager
-	constructor (model: IModelManager) {
+	private factory: OperandFactory
+	private serializer: ISerializer<Operand>
+	constructor (model: IModelManager, factory: OperandFactory) {
 		this.model = model
+		this.factory = factory
+		this.serializer = new OperandSerializer(this.factory)
 	}
 
-	public build (node: Node): Operand {
-		const operand = this.nodeToOperand(node)
+	public build (expression: string[]): Operand {
+		const parser = new Parser(this.model, expression)
+		const node = parser.parse()
+		nodeHelper.clear(node)
+		const operand = this.nodeToOperand(node, 1)
 		const reduced = this.reduce(operand)
+		// operandHelper.setStackAble(reduced)
 		return reduced
-		// return this.setParent(reduced)
+	}
+
+	public clone (operand: Operand): Operand {
+		return this.serializer.clone(operand)
+	}
+
+	public serialize (operand: Operand): string {
+		return this.serializer.serialize(operand)
+	}
+
+	public deserialize (value: string): Operand {
+		return this.serializer.deserialize(value)
 	}
 
 	private reduce (operand: Operand): Operand {
@@ -47,8 +63,7 @@ export class OperandBuilder implements IOperandBuilder {
 		}
 		if (allConstants) {
 			const value = operand.eval(new Context())
-			const constant = new Const(value)
-			constant.index = operand.index
+			const constant = this.factory.create(operand.id, value, OperatorType.Const)
 			return constant
 		} else {
 			for (let i = 0; i < operand.children.length; i++) {
@@ -59,85 +74,17 @@ export class OperandBuilder implements IOperandBuilder {
 		return operand
 	}
 
-	private nodeToOperand (node: Node): Operand {
+	private nodeToOperand (node: Node, index:number, parentId?:string): Operand {
+		const id = parentId ? parentId + '.' + index : index.toString()
 		const children: Operand[] = []
 		if (node.children) {
-			for (const p of node.children) {
-				const child = this.nodeToOperand(p)
+			for (let i = 0; i < node.children.length; i++) {
+				const childNode = node.children[i]
+				const child = this.nodeToOperand(childNode, i + 1, id)
 				children.push(child)
 			}
 		}
-		const operand = this.createOperand(node.name, node.type, children)
-		for (let i = 0; i < children.length; i++) {
-			const child = children[i]
-			// child.parent = operand
-			child.index = i
-		}
+		const operand = this.factory.create(id, node.name, node.type, children)
 		return operand
-	}
-
-	public createOperand (name: string, type:string, children: Operand[]): Operand {
-		switch (type) {
-		case OperatorType.Const:
-			return new Const(name)
-		case OperatorType.Var:
-			return new Var(name)
-		case OperatorType.Env:
-			return new Env(name)
-		case OperatorType.Property:
-			return new Property(name, children)
-		case OperatorType.Template:
-			return new Template(name)
-		case OperatorType.KeyVal:
-			return new KeyVal(name, children, name)
-		case OperatorType.List:
-			return new List(name, children)
-		case OperatorType.Obj:
-			return new Obj(name, children)
-		case OperatorType.Operator:
-			return new Operator(name, children, this.model)
-		case OperatorType.CallFunc:
-			return new CallFunc(name, children, this.model)
-		case OperatorType.Arrow:
-			return new Arrow(name, children, this.model)
-		case OperatorType.ChildFunc:
-			return new ChildFunc(name, children, this.model)
-		case OperatorType.Block:
-			return new Block(name, children)
-		case OperatorType.If:
-			return new If(name, children)
-		case OperatorType.ElseIf:
-			return new ElseIf(name, children)
-		case OperatorType.Else:
-			return new Else(name, children)
-		case OperatorType.While:
-			return new While(name, children)
-		case OperatorType.For:
-			return new For(name, children)
-		case OperatorType.ForIn:
-			return new ForIn(name, children)
-		case OperatorType.Switch:
-			return new Switch(name, children)
-		case OperatorType.Case:
-			return new Case(name, children)
-		case OperatorType.Default:
-			return new Default(name, children)
-		case OperatorType.Break:
-			return new Break(name, children)
-		case OperatorType.Continue:
-			return new Continue(name, children)
-		case OperatorType.Func:
-			return new Func(name, children)
-		case OperatorType.Return:
-			return new Return(name, children)
-		case OperatorType.Try:
-			return new Try(name, children)
-		case OperatorType.Catch:
-			return new Catch(name, children)
-		case OperatorType.Throw:
-			return new Throw(name, children)
-		default:
-			throw new Error('node name: ' + name + ' type: ' + type + ' not supported')
-		}
 	}
 }

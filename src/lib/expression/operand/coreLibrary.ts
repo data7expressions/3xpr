@@ -1,7 +1,8 @@
-import { Operand, IModelManager } from '../model'
-import { Context } from '../core'
+import { h3lp } from 'h3lp'
+import { Context, Operand, Evaluator, IModelManager } from '../contract'
 import { Operator, Arrow, ChildFunc, Obj, KeyVal, Var, List } from '.'
-import { expressions as exp, helper } from '../..'
+import { expressions as exp } from '../..'
+import { operandHelper } from './helper'
 
 export class CoreLibrary {
 	private model:IModelManager
@@ -104,37 +105,37 @@ export class CoreLibrary {
 	}
 
 	private nullFunctions (): void {
-		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => helper.utils.nvl(value, _default))
-		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => helper.utils.nvl2(value, a, b))
+		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => h3lp.utils.nvl(value, _default))
+		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => h3lp.utils.nvl2(value, a, b))
 	}
 
 	private comparisonFunctions (): void {
 		this.model.addFunction('between(value:any,from:any,to:any):boolean',
-			(value:any, from:any, to:any):boolean => helper.validator.between(value, from, to))
+			(value:any, from:any, to:any):boolean => h3lp.validator.between(value, from, to))
 		this.model.addFunction('includes(source:string|any[],value:any):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
 		this.model.addFunctionAlias('in', 'includes')
-		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.validator.isNull(value))
-		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.validator.isNotNull(value))
-		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.validator.isEmpty(value))
-		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => helper.validator.isNotEmpty(value))
-		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => helper.validator.isBoolean(value))
-		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => helper.validator.isNumber(value))
-		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => helper.validator.isInteger(value))
-		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => helper.validator.isDecimal(value))
-		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => helper.validator.isString(value))
-		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => helper.validator.isDate(value))
-		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => helper.validator.isDateTime(value))
-		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => helper.validator.isTime(value))
-		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => helper.validator.isObject(value))
-		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => helper.validator.isArray(value))
-		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => helper.validator.isBooleanFormat(value))
-		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => helper.validator.isNumberFormat(value))
-		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => helper.validator.isIntegerFormat(value))
-		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => helper.validator.isDecimalFormat(value))
-		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => helper.validator.isDateFormat(value))
-		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => helper.validator.isDateTimeFormat(value))
-		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => helper.validator.isTimeFormat(value))
+		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => h3lp.validator.isNull(value))
+		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => h3lp.validator.isNotNull(value))
+		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => h3lp.validator.isEmpty(value))
+		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => h3lp.validator.isNotEmpty(value))
+		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => h3lp.validator.isBoolean(value))
+		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => h3lp.validator.isNumber(value))
+		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => h3lp.validator.isInteger(value))
+		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => h3lp.validator.isDecimal(value))
+		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => h3lp.validator.isString(value))
+		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => h3lp.validator.isDate(value))
+		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => h3lp.validator.isDateTime(value))
+		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => h3lp.validator.isTime(value))
+		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => h3lp.validator.isObject(value))
+		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => h3lp.validator.isArray(value))
+		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isBooleanFormat(value))
+		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isNumberFormat(value))
+		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isIntegerFormat(value))
+		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDecimalFormat(value))
+		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDateFormat(value))
+		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDateTimeFormat(value))
+		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isTimeFormat(value))
 	}
 
 	private numberFunctions (): void {
@@ -164,8 +165,8 @@ export class CoreLibrary {
 	}
 
 	private conversionFunctions (): void {
-		this.model.addFunction('toString(value:any):string', (value:any):string => helper.string.toString(value))
-		this.model.addFunction('toNumber(value:any):number', (value:any):number => helper.utils.toNumber(value))
+		this.model.addFunction('toString(value:any):string', (value:any):string => h3lp.string.toString(value))
+		this.model.addFunction('toNumber(value:any):number', (value:any):number => h3lp.utils.toNumber(value))
 		this.model.addFunction('dateToString(date:date):string', (date:Date) => {
 			if (typeof date === 'string') {
 				return new Date(date).toISOString()
@@ -177,28 +178,30 @@ export class CoreLibrary {
 		this.model.addFunction('keys(obj: any):string[]', (obj: any): string[] => typeof obj === 'object' ? Object.keys(obj) : [])
 		this.model.addFunction('values(obj: any):any[]', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
 		this.model.addFunction('entries(obj: any):[string,any][]', (obj: any): [string, any][] => typeof obj === 'object' ? Object.entries(obj) : [])
-		this.model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => helper.obj.fromEntries(entries))
+		this.model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => h3lp.obj.fromEntries(entries))
 	}
 
 	private stringFunctions (): void {
 		this.model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
-		this.model.addFunction('capitalize(value:string):string', (value:string):string => helper.string.capitalize(value))
+		this.model.addFunction('capitalize(value:string):string', (value:string):string => h3lp.string.capitalize(value))
 		this.model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
 		this.model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
 		this.model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
 		this.model.addFunction('lpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padStart(len, pad))
 		this.model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
-		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => helper.string.replace(value, source, target))
+		this.model.addFunction('indexOf(value:string, sub:string, start:number):number', (value:string, sub:string, start:number):number => value.indexOf(sub, start))
+		this.model.addFunction('join(values:string[],separator:string=","):string', (values:string[], separator = ','):string => values.join(separator))
+		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => h3lp.string.replace(value, source, target))
 		this.model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
 		this.model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
 		this.model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
 		this.model.addFunctionAlias('substr', 'substring')
 		this.model.addFunction('trim(value: string):string', (value: string):string => value.trim())
 		this.model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
-		this.model.addFunction('concat(...values:any):string', (...values:any):string => helper.string.concat(values))
+		this.model.addFunction('concat(...values:any):string', (...values:any):string => h3lp.string.concat(values))
 		this.model.addFunctionAlias('concatenate', 'concat')
-		this.model.addFunction('test(value: any, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
-		this.model.addFunction('title(value:string):string', (value:string):string => helper.string.initCap(value))
+		this.model.addFunction('test(value: string, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
+		this.model.addFunction('title(value:string):string', (value:string):string => h3lp.string.initCap(value))
 		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
 		this.model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value
@@ -210,6 +213,7 @@ export class CoreLibrary {
 				return '*'
 			}
 		})
+		this.model.addFunction('split(value:string,separator:string=","):string[]', (value:string, separator = ','):string[] => value.split(separator))
 		this.model.addFunction('startWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.startsWith(sub, start))
 	}
 
@@ -403,130 +407,124 @@ export class CoreLibrary {
 	}
 }
 
-class And extends Operator {
-	eval (context: Context): boolean {
-		if (!this.children[0].eval(context) as boolean) return false
-		return this.children[1].eval(context) as boolean
+class And extends Evaluator {
+	public eval (context: Context): boolean {
+		if (!this.operand.children[0].eval(context) as boolean) return false
+		return this.operand.children[1].eval(context) as boolean
 	}
 }
-class Or extends Operator {
-	eval (context: Context): any {
-		if (this.children[0].eval(context)) return true
-		return this.children[1].eval(context)
+class Or extends Evaluator {
+	public eval (context: Context): any {
+		if (this.operand.children[0].eval(context)) return true
+		return this.operand.children[1].eval(context)
 	}
 }
-class Assignment extends Operator {
-	eval (context: Context): any {
-		const value = this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class Assignment extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentAddition extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) + this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentAddition extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) + this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentSubtraction extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) - this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentSubtraction extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) - this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentMultiplication extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) * this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentMultiplication extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) * this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentDivision extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) / this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentDivision extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) / this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentExponentiation extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) ** this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentExponentiation extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) ** this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentFloorDivision extends Operator {
-	eval (context: Context): any {
-		const value = Math.floor(this.children[0].eval(context) / this.children[1].eval(context))
-		context.data.set(this.children[0].name, value)
+class AssignmentFloorDivision extends Evaluator {
+	public eval (context: Context): any {
+		const value = Math.floor(this.operand.children[0].eval(context) / this.operand.children[1].eval(context))
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentMod extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) % this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentMod extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) % this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitAnd extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) & this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentBitAnd extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) & this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitOr extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) | this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentBitOr extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) | this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitXor extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) ^ this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentBitXor extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) ^ this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentLeftShift extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) << this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentLeftShift extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) << this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentRightShift extends Operator {
-	eval (context: Context): any {
-		const value = this.children[0].eval(context) >> this.children[1].eval(context)
-		context.data.set(this.children[0].name, value)
+class AssignmentRightShift extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context) >> this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class Map extends Arrow {
-	// private serializer: ISerializer<Operand>
-	constructor (name: string, children: Operand[] = [], model: IModelManager) {
-		super(name, children, model)
-		// this.serializer = serializer
-	}
-
-	eval (context: Context): any {
+class Map extends Evaluator {
+	public eval (context: Context): any {
 		const rows = []
-		const list: any[] = this.children[0].eval(context)
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children[2] instanceof Obj) {
+		if (this.operand.children[2] instanceof Obj) {
 			const groupers:KeyVal[] = []
 			const aggregates:KeyVal[] = []
-			for (const child of this.children[2].children) {
+			for (const child of this.operand.children[2].children) {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
 				const keyValue = child as KeyVal
 				if (keyValue) {
-					if (helper.operand.haveAggregates(keyValue.children[0])) {
+					if (operandHelper.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
 					} else {
 						groupers.push(keyValue)
@@ -535,13 +533,13 @@ class Map extends Arrow {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = helper.operand.getKeys(this.children[1], groupers, list, context)
+				const keys = operandHelper.getKeys(this.operand.children[1] as Var, groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
-				const variable = this.children[1] as Var
+				const variable = this.operand.children[1] as Var
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = exp.clone(keyValue.children[0])
-						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
+						const operandResolved = operandHelper.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value: value })
 					}
@@ -563,21 +561,21 @@ class Map extends Arrow {
 		// simple case without aggregate functions
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			const row = this.children[2].eval(childContext)
+			childContext.data.set(this.operand.children[1].name, item)
+			const row = this.operand.children[2].eval(childContext)
 			rows.push(row)
 		}
 		return rows
 	}
 }
-class Distinct extends Arrow {
-	eval (context: Context): any {
+class Distinct extends Evaluator {
+	public eval (context: Context): any {
 		const rows = []
-		const list: any[] = this.children[0].eval(context)
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			// simple case
 			for (const item of list) {
 				if (rows.find((p:any) => p === item) === undefined) {
@@ -585,9 +583,9 @@ class Distinct extends Arrow {
 				}
 			}
 			return rows
-		} else if (this.children[2] instanceof Obj) {
+		} else if (this.operand.children[2] instanceof Obj) {
 			// case with aggregate functions
-			const keys = helper.operand.getKeys(this.children[1], this.children[2].children, list, context.newContext())
+			const keys = operandHelper.getKeys(this.operand.children[1] as Var, this.operand.children[2].children as KeyVal[], list, context.newContext())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -597,14 +595,14 @@ class Distinct extends Arrow {
 				rows.push(row)
 			}
 			return rows
-		} else if (this.children[2] instanceof List) {
+		} else if (this.operand.children[2] instanceof List) {
 			throw new Error('Distinct not support Array result')
 		}
 		// simple case without aggregate functions
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			const value = this.children[2].eval(childContext)
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = this.operand.children[2].eval(childContext)
 			if (rows.find((p:any) => p === value) === undefined) {
 				rows.push(value)
 			}
@@ -612,51 +610,51 @@ class Distinct extends Arrow {
 		return rows
 	}
 }
-class Foreach extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Foreach extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			this.children[2].eval(childContext)
+			childContext.data.set(this.operand.children[1].name, item)
+			this.operand.children[2].eval(childContext)
 		}
 		return list
 	}
 }
-class Filter extends Arrow {
-	eval (context: Context): any {
+class Filter extends Evaluator {
+	public eval (context: Context): any {
 		const rows = []
-		const list: any[] = this.children[0].eval(context)
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			if (this.children[2].eval(childContext)) {
+			childContext.data.set(this.operand.children[1].name, item)
+			if (this.operand.children[2].eval(childContext)) {
 				rows.push(item)
 			}
 		}
 		return rows
 	}
 }
-class Reverse extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Reverse extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			return list.reverse()
 		}
 		const values = []
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			const value = this.children[2].eval(childContext)
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = this.operand.children[2].eval(childContext)
 			values.push({ value: value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
@@ -664,86 +662,86 @@ class Reverse extends Arrow {
 		return values.map(p => p.p)
 	}
 }
-class Sort extends Arrow {
-	eval (context: Context): any {
+class Sort extends Evaluator {
+	public eval (context: Context): any {
 		const values = []
-		const list: any[] = this.children[0].eval(context)
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			return list.sort()
 		}
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			const value = this.children[2].eval(childContext)
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = this.operand.children[2].eval(childContext)
 			values.push({ value: value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		return values.map(p => p.p)
 	}
 }
-class Remove extends Arrow {
-	eval (context: Context): any {
+class Remove extends Evaluator {
+	public eval (context: Context): any {
 		const rows = []
-		const list: any[] = this.children[0].eval(context)
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		const childContext = context.newContext()
 		for (const item of list) {
-			childContext.data.set(this.children[1].name, item)
-			if (!this.children[2].eval(childContext)) {
+			childContext.data.set(this.operand.children[1].name, item)
+			if (!this.operand.children[2].eval(childContext)) {
 				rows.push(item)
 			}
 		}
 		return rows
 	}
 }
-class First extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class First extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		return helper.operand.first(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.first(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Last extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Last extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		return helper.operand.last(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.last(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Count extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Count extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			return list.length
 		}
-		return helper.operand.count(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.count(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Max extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Max extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			let max:any
 			for (const item of list) {
 				if (max === undefined || (item !== null && item > max)) {
@@ -752,16 +750,16 @@ class Max extends Arrow {
 			}
 			return max
 		}
-		return helper.operand.max(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.max(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Min extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Min extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			let min:any
 			for (const item of list) {
 				if (min === undefined || (item !== null && item < min)) {
@@ -770,16 +768,16 @@ class Min extends Arrow {
 			}
 			return min
 		}
-		return helper.operand.min(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.min(list, this.operand.children[1]as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Avg extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Avg extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			let sum = 0
 			for (const item of list) {
 				if (item !== null) {
@@ -788,16 +786,16 @@ class Avg extends Arrow {
 			}
 			return list.length > 0 ? sum / list.length : 0
 		}
-		return helper.operand.avg(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.avg(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Sum extends Arrow {
-	eval (context: Context): any {
-		const list: any[] = this.children[0].eval(context)
+class Sum extends Evaluator {
+	public eval (context: Context): any {
+		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.children.length === 1) {
+		if (this.operand.children.length === 1) {
 			let sum = 0
 			for (const item of list) {
 				if (item !== null) {
@@ -806,18 +804,18 @@ class Sum extends Arrow {
 			}
 			return sum
 		}
-		return helper.operand.sum(list, this.children[1], this.children[2], context.newContext())
+		return operandHelper.sum(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
 	}
 }
-class Union extends ChildFunc {
-	eval (context: Context): any {
-		const a: any[] = this.children[0].eval(context)
-		const b: any[] = this.children[1].eval(context)
+class Union extends Evaluator {
+	public eval (context: Context): any {
+		const a: any[] = this.operand.children[0].eval(context)
+		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		if (!b) {
-			throw new Error(`Array ${this.children[1].name} undefined`)
+			throw new Error(`Array ${this.operand.children[1].name} undefined`)
 		}
 		if (a.length === 0) {
 			return b
@@ -830,11 +828,11 @@ class Union extends ChildFunc {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				result.push({ key: key, value: element })
 			}
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				if (!result.find((p:any) => p.key === key)) {
 					result.push({ key: key, value: element })
 				}
@@ -850,15 +848,15 @@ class Union extends ChildFunc {
 		return result
 	}
 }
-class Intersection extends ChildFunc {
-	eval (context: Context): any {
-		const a: any[] = this.children[0].eval(context)
-		const b: any[] = this.children[1].eval(context)
+class Intersection extends Evaluator {
+	public eval (context: Context): any {
+		const a: any[] = this.operand.children[0].eval(context)
+		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		if (!b) {
-			throw new Error(`Array ${this.children[1].name} undefined`)
+			throw new Error(`Array ${this.operand.children[1].name} undefined`)
 		}
 		if (a.length === 0 || b.length === 0) {
 			return []
@@ -867,9 +865,9 @@ class Intersection extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = a.map((p:any) => helper.operand.objectKey(p))
+			const keys = a.map((p:any) => operandHelper.objectKey(p))
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				if (keys.includes(key)) {
 					result.push(element)
 				}
@@ -885,15 +883,15 @@ class Intersection extends ChildFunc {
 		}
 	}
 }
-class Difference extends ChildFunc {
-	eval (context: Context): any {
-		const a: any[] = this.children[0].eval(context)
-		const b: any[] = this.children[1].eval(context)
+class Difference extends Evaluator {
+	public eval (context: Context): any {
+		const a: any[] = this.operand.children[0].eval(context)
+		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		if (!b) {
-			throw new Error(`Array ${this.children[1].name} undefined`)
+			throw new Error(`Array ${this.operand.children[1].name} undefined`)
 		}
 		if (a.length === 0) {
 			return []
@@ -905,9 +903,9 @@ class Difference extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = b.map((p:any) => helper.operand.objectKey(p))
+			const keys = b.map((p:any) => operandHelper.objectKey(p))
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				if (!keys.includes(key)) {
 					result.push(element)
 				}
@@ -923,15 +921,15 @@ class Difference extends ChildFunc {
 		}
 	}
 }
-class SymmetricDifference extends ChildFunc {
-	eval (context: Context): any {
-		const a: any[] = this.children[0].eval(context)
-		const b: any[] = this.children[1].eval(context)
+class SymmetricDifference extends Evaluator {
+	public eval (context: Context): any {
+		const a: any[] = this.operand.children[0].eval(context)
+		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
-			throw new Error(`Array ${this.children[0].name} undefined`)
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
 		if (!b) {
-			throw new Error(`Array ${this.children[1].name} undefined`)
+			throw new Error(`Array ${this.operand.children[1].name} undefined`)
 		}
 		if (a.length === 0) {
 			return b
@@ -943,16 +941,16 @@ class SymmetricDifference extends ChildFunc {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const aKeys = a.map((p:any) => helper.operand.objectKey(p))
-			const bKeys = b.map((p:any) => helper.operand.objectKey(p))
+			const aKeys = a.map((p:any) => operandHelper.objectKey(p))
+			const bKeys = b.map((p:any) => operandHelper.objectKey(p))
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				if (!bKeys.includes(key)) {
 					result.push(element)
 				}
 			}
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = operandHelper.objectKey(element)
 				if (!aKeys.includes(key)) {
 					result.push(element)
 				}

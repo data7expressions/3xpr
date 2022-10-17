@@ -1,7 +1,6 @@
-
 import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, Operand, ITypeManager, OperatorMetadata } from '../model'
-import { helper } from '..'
+import { Operand, IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, ITypeManager, OperatorMetadata } from '../contract'
+import { typeHelper } from './helper'
 
 export class TypeManager implements ITypeManager {
 	private model: IModelManager
@@ -24,7 +23,7 @@ export class TypeManager implements ITypeManager {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand instanceof Var) {
-			parameters.push({ name: operand.name, type: helper.type.toString(operand.type) })
+			parameters.push({ name: operand.name, type: typeHelper.toString(operand.type) })
 		}
 		for (const child of operand.children) {
 			const childParameters = this.parameters(child)
@@ -107,9 +106,9 @@ export class TypeManager implements ITypeManager {
 		this.solveType(property.children[0])
 		if (property.children[0].type === undefined) {
 			property.children[0].type = { items: { properties: [{ name: property.name }] } }
-		} else if (helper.type.isArrayType(property.children[0].type)) {
+		} else if (typeHelper.isArrayType(property.children[0].type)) {
 			const arrayType = property.children[0].type as ArrayType
-			if (helper.type.isObjectType(arrayType.items)) {
+			if (typeHelper.isObjectType(arrayType.items)) {
 				const objectType = arrayType.items as ObjectType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType) {
@@ -133,7 +132,7 @@ export class TypeManager implements ITypeManager {
 		const variable = arrow.children.length > 1 ? arrow.children[1] : undefined
 		const predicate = arrow.children.length > 2 ? arrow.children[2] : undefined
 		this.solveArray(array)
-		const elementType = this.getElementType(array)
+		const elementType = this.getElementType(array as List)
 		if (elementType && array.type && variable) {
 			variable.type = elementType
 			if (predicate) {
@@ -198,13 +197,13 @@ export class TypeManager implements ITypeManager {
 		if (type === undefined) {
 			return undefined
 		}
-		if (helper.type.isPrimitive(type)) {
+		if (typeHelper.isPrimitive(type)) {
 			return type as Type
 		}
 		// si de acuerdo a la metadata el tipo es un array de primitivo, asigna el tipo, example: string[]
 		if (type.endsWith('[]')) {
 			const elementType = type.substring(0, type.length - 2)
-			if (helper.type.isPrimitive(elementType)) {
+			if (typeHelper.isPrimitive(elementType)) {
 				return { items: elementType as Type }
 			}
 		}
@@ -222,9 +221,9 @@ export class TypeManager implements ITypeManager {
 	private solveTemplateProperty (property: Operand): void {
 		const beforeType = property.children[0].type
 		this.solveTemplate(property.children[0])
-		if (property.children[0].type !== undefined && property.children[0].type !== beforeType && helper.type.isArrayType(property.children[0].type)) {
+		if (property.children[0].type !== undefined && property.children[0].type !== beforeType && typeHelper.isArrayType(property.children[0].type)) {
 			const arrayType = property.children[0].type as ArrayType
-			if (helper.type.isObjectType(arrayType.items)) {
+			if (typeHelper.isObjectType(arrayType.items)) {
 				const objectType = arrayType.items as ObjectType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType) {
@@ -259,7 +258,7 @@ export class TypeManager implements ITypeManager {
 		if (operator.type) {
 			if (metadata.return === 'T') {
 				templateType = operator.type
-			} else if (metadata.return === 'T[]' && helper.type.isArrayType(operator.type)) {
+			} else if (metadata.return === 'T[]' && typeHelper.isArrayType(operator.type)) {
 				templateType = (operator.type as ArrayType).items
 			}
 		}
@@ -278,7 +277,7 @@ export class TypeManager implements ITypeManager {
 					if (paramMetadata.type === 'T') {
 						templateType = child.type
 						break
-					} else if (paramMetadata.type === 'T[]' && helper.type.isArrayType(child.type)) {
+					} else if (paramMetadata.type === 'T[]' && typeHelper.isArrayType(child.type)) {
 						templateType = (child.type as ArrayType).items
 						break
 					}

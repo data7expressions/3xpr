@@ -1,8 +1,8 @@
-import { IExpressions, IBuilder, ICache, Operand, Parameter, Format, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, IOperandManager, FunctionAdditionalInfo, OperatorAdditionalInfo } from './model'
-import { Data, Context } from './core'
-import { ModelManager } from './parser'
-import { OperandManager, TypeManager, CoreLibrary } from './operand'
-import { helper, MemoryCache } from '.'
+import { Data, Operand, Context, IExpressions, IBuilder, ICache, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
+import { ModelManager, nodeHelper } from './parser'
+import { TypeManager, CoreLibrary, typeHelper, BasicOperandFactory, ProcessOperandFactory } from './operand'
+import { MemoryCache } from './core'
+import { OperandBuilder } from '.'
 
 // eslint-disable-next-line no-use-before-define
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
@@ -10,9 +10,11 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 		const cache = new MemoryCache()
 		const model = new ModelManager()
 		const typeManager = new TypeManager(model)
-		const operandManager = new OperandManager(model)
+		const basic = new OperandBuilder(model, new BasicOperandFactory(model))
+		const process = new OperandBuilder(model, new ProcessOperandFactory(model))
+		// const operandManager = new OperandManager(model)
 		new CoreLibrary(model).load()
-		return new Expressions(cache, model, operandManager, typeManager)
+		return new Expressions(cache, model, basic, process, typeManager)
 	}
 }
 
@@ -20,13 +22,15 @@ export class Expressions implements IExpressions {
 	private cache: ICache
 	private model: IModelManager
 	private observers:ActionObserver[]=[];
-	private operand: IOperandManager
+	private basicBuilder: IOperandBuilder
+	private processBuilder: IOperandBuilder
 	private type: ITypeManager
 
-	constructor (cache:ICache, model: IModelManager, operand:IOperandManager, type: ITypeManager) {
+	constructor (cache:ICache, model: IModelManager, basic:IOperandBuilder, process:IOperandBuilder, type: ITypeManager) {
 		this.cache = cache
 		this.model = model
-		this.operand = operand
+		this.basicBuilder = basic
+		this.processBuilder = process
 		this.type = type
 	}
 
@@ -119,29 +123,8 @@ export class Expressions implements IExpressions {
 	}
 
 	public clone (operand: Operand):Operand {
-		return this.operand.clone(operand)
-	}
-
-	/**
-	 * Parser expression
-	 * @param expression  expression
-	 * @returns Operand
-	 */
-	public build (expression: string): Operand {
-		try {
-			const minifyExpression = helper.node.minify(expression)
-			const key = `${minifyExpression.join('')}_operand`
-			const value = this.cache.get(key)
-			if (!value) {
-				const operand = this.operand.build(minifyExpression)
-				this.cache.set(key, operand)
-				return operand
-			} else {
-				return value
-			}
-		} catch (error: any) {
-			throw new Error('expression: ' + expression + ' error: ' + error.toString())
-		}
+		// TODO: resolver si el operand es process y no basic
+		return this.basicBuilder.clone(operand)
 	}
 
 	/**
@@ -161,7 +144,7 @@ export class Expressions implements IExpressions {
 	 */
 	public getType (expression: string): string {
 		const operand = this.typed(expression)
-		return helper.type.toString(operand.type)
+		return typeHelper.toString(operand.type)
 	}
 
 	/**
@@ -173,7 +156,21 @@ export class Expressions implements IExpressions {
 	public eval (expression: string, data?: any): any {
 		try {
 			this.beforeExecutionNotify(expression, data)
-			const operand = this.build(expression)
+			const operand = this.basicBuild(expression)
+			const context = new Context(new Data(data))
+			const result = operand.eval(context)
+			this.afterExecutionNotify(expression, data, result)
+			return result
+		} catch (error) {
+			this.errorExecutionNotify(expression, data, error)
+			throw error
+		}
+	}
+
+	public run (expression: string, data?: any): any {
+		try {
+			this.beforeExecutionNotify(expression, data)
+			const operand = this.processBuild(expression)
 			const context = new Context(new Data(data))
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, data, result)
@@ -197,12 +194,46 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
+	private basicBuild (expression: string): Operand {
+		try {
+			const minifyExpression = nodeHelper.minify(expression)
+			const key = `${minifyExpression.join('')}_operand`
+			const value = this.cache.get(key)
+			if (!value) {
+				const operand = this.basicBuilder.build(minifyExpression)
+				this.cache.set(key, operand)
+				return operand
+			} else {
+				return value
+			}
+		} catch (error: any) {
+			throw new Error('expression: ' + expression + ' error: ' + error.toString())
+		}
+	}
+
+	private processBuild (expression: string): Operand {
+		try {
+			const minifyExpression = nodeHelper.minify(expression)
+			const key = `${minifyExpression.join('')}_process`
+			const value = this.cache.get(key)
+			if (!value) {
+				const operand = this.processBuilder.build(minifyExpression)
+				this.cache.set(key, operand)
+				return operand
+			} else {
+				return value
+			}
+		} catch (error: any) {
+			throw new Error('expression: ' + expression + ' error: ' + error.toString())
+		}
+	}
+
 	private typed (expression: string): Operand {
-		const minifyExpression = helper.node.minify(expression)
+		const minifyExpression = nodeHelper.minify(expression)
 		const key = `${minifyExpression.join('')}_operand`
 		const value = this.cache.get(key) as Operand
 		if (!value) {
-			const operand = this.operand.build(minifyExpression)
+			const operand = this.basicBuilder.build(minifyExpression)
 			this.type.solve(operand)
 			this.cache.set(key, operand)
 			return operand

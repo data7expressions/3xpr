@@ -1,8 +1,12 @@
-import { Type, IModelManager, Context, Operand, Evaluator } from '../contract'
-import { typeHelper } from '.'
 import { h3lp } from 'h3lp'
+import { Evaluator, Context, Operand, OperatorType, IModelManager, OperandFactory } from '../contract'
+import {
+	Const, Var, KeyVal, List, Obj, Operator, CallFunc, Block, Arrow, ChildFunc,
+	If, ElseIf, Else, While, For, ForIn, Switch, Case, Default,
+	Template, Property, Env, Break, Continue, Func, Return, Try, Catch, Throw
+} from './operands'
 
-export class ConstEvaluator extends Evaluator {
+class ConstEvaluator extends Evaluator {
 	public eval (): any {
 		switch (this.operand.type) {
 		case 'string':
@@ -16,43 +20,17 @@ export class ConstEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class Const extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], typeHelper.getType(name))
-		this.evaluator = new ConstEvaluator(this)
-	}
-}
-
-// export class Variable extends Operand implements IOperandData
-export class VarEvaluator extends Evaluator {
+class VarEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return context.data.get(this.operand.name)
 	}
 }
-
-export class Var extends Operand {
-	public number?: number
-	constructor (id: string, name: string, type?:Type) {
-		super(id, name, [], type)
-		this.evaluator = new VarEvaluator(this)
-	}
-}
-
-export class EnvEvaluator extends Evaluator {
+class EnvEvaluator extends Evaluator {
 	public eval (): any {
 		return process.env[this.operand.name]
 	}
 }
-
-export class Env extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], 'string')
-		this.evaluator = new EnvEvaluator(this)
-	}
-}
-
-export class TemplateEvaluator extends Evaluator {
+class TemplateEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		// info https://www.tutorialstonight.com/javascript-string-format.php
 		const result = this.operand.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
@@ -67,45 +45,19 @@ export class TemplateEvaluator extends Evaluator {
 		})
 	}
 }
-
-export class Template extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], 'string')
-		this.evaluator = new TemplateEvaluator(this)
-	}
-}
-
-export class PropertyEvaluator extends Evaluator {
+class PropertyEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
 		if (value === undefined || value === null) return null
 		return h3lp.obj.getValue(value, this.operand.name)
 	}
 }
-
-export class Property extends Operand {
-	constructor (id: string, name: string, children: Operand[] = [], type?:Type) {
-		super(id, name, children, type)
-		this.evaluator = new PropertyEvaluator(this)
-	}
-}
-
-export class KeyValEvaluator extends Evaluator {
+class KeyValEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return this.operand.children[0].eval(context)
 	}
 }
-
-export class KeyVal extends Operand {
-	public property?: string
-	constructor (id: string, name: string, children: Operand[] = [], property: string, type?: Type) {
-		super(id, name, children, type)
-		this.property = property
-		this.evaluator = new KeyValEvaluator(this)
-	}
-}
-
-export class ListEvaluator extends Evaluator {
+class ListEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const values = []
 		for (let i = 0; i < this.operand.children.length; i++) {
@@ -114,15 +66,7 @@ export class ListEvaluator extends Evaluator {
 		return values
 	}
 }
-
-export class List extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ListEvaluator(this)
-	}
-}
-
-export class ObjEvaluator extends Evaluator {
+class ObjEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const obj: { [k: string]: any } = {}
 		for (const child of this.operand.children) {
@@ -131,15 +75,7 @@ export class ObjEvaluator extends Evaluator {
 		return obj
 	}
 }
-
-export class Obj extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ObjEvaluator(this)
-	}
-}
-
-export class OperatorEvaluator extends Evaluator {
+class OperatorEvaluator extends Evaluator {
 	private model: IModelManager
 	constructor (operand: Operand, model: IModelManager) {
 		super(operand)
@@ -151,7 +87,7 @@ export class OperatorEvaluator extends Evaluator {
 			const operatorMetadata = this.model.getOperator(this.operand.name, this.operand.children.length)
 			if (operatorMetadata.custom) {
 				// eslint-disable-next-line new-cap
-				return new operatorMetadata.custom(this.operand.name, this.operand.children).eval(context)
+				return new operatorMetadata.custom(this.operand).eval(context)
 			} else {
 				const args = []
 				for (const child of this.operand.children) {
@@ -164,10 +100,7 @@ export class OperatorEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class Operator extends Operand { }
-
-export class CallFuncEvaluator extends Evaluator {
+class CallFuncEvaluator extends Evaluator {
 	private model: IModelManager
 	constructor (operand: Operand, model: IModelManager) {
 		super(operand)
@@ -179,7 +112,7 @@ export class CallFuncEvaluator extends Evaluator {
 			const funcMetadata = this.model.getFunction(this.operand.name)
 			if (funcMetadata.custom) {
 				// eslint-disable-next-line new-cap
-				return new funcMetadata.custom(this.operand.name, this.operand.children).eval(context)
+				return new funcMetadata.custom(this.operand).eval(context)
 			} else if (funcMetadata.function) {
 				const args = []
 				for (let i = 0; i < this.operand.children.length; i++) {
@@ -192,15 +125,7 @@ export class CallFuncEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class CallFunc extends Operand { }
-
-export class ChildFunc extends CallFunc {
-}
-export class Arrow extends CallFunc {
-}
-
-export class BlockEvaluator extends Evaluator {
+class BlockEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		for (let i = 0; i < this.operand.children.length; i++) {
@@ -209,10 +134,7 @@ export class BlockEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-
-export class Block extends Operand { }
-
-export class IfEvaluator extends Evaluator {
+class IfEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const condition = this.operand.children[0].eval(context)
 		if (condition) {
@@ -234,12 +156,7 @@ export class IfEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class If extends Operand { }
-export class ElseIf extends Operand { }
-export class Else extends Operand { }
-
-export class WhileEvaluator extends Evaluator {
+class WhileEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const condition = this.operand.children[0]
@@ -250,14 +167,7 @@ export class WhileEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class While extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new WhileEvaluator(this)
-	}
-}
-
-export class ForEvaluator extends Evaluator {
+class ForEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const initialize = this.operand.children[0]
@@ -270,14 +180,7 @@ export class ForEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class For extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ForEvaluator(this)
-	}
-}
-
-export class ForInEvaluator extends Evaluator {
+class ForInEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const item = this.operand.children[0]
@@ -294,15 +197,7 @@ export class ForInEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-
-export class ForIn extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ForInEvaluator(this)
-	}
-}
-
-export class SwitchEvaluator extends Evaluator {
+class SwitchEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
 		for (let i = 1; i < this.operand.children.length; i++) {
@@ -319,60 +214,160 @@ export class SwitchEvaluator extends Evaluator {
 		}
 	}
 }
-export class Switch extends Operand { }
-export class Case extends Operand { }
-export class Default extends Operand { }
-
-export class BreakEvaluator extends Evaluator {
+class BreakEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Break extends Operand { }
-
-export class ContinueEvaluator extends Evaluator {
+class ContinueEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Continue extends Operand { }
-
-export class FuncEvaluator extends Evaluator {
+class FuncEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Func extends Operand { }
-
-export class ReturnEvaluator extends Evaluator {
+class ReturnEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-export class Return extends Operand { }
-
-export class TryEvaluator extends Evaluator {
+class TryEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Try extends Operand { }
-
-export class CatchEvaluator extends Evaluator {
+class CatchEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-export class Catch extends Operand { }
-
-export class ThrowEvaluator extends Evaluator {
+class ThrowEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Throw extends Operand { }
+export class BasicOperandFactory extends OperandFactory {
+	public create (id:string, name: string, type:string, children: Operand[] = []): Operand {
+		let operand:Operand | undefined
+		switch (type) {
+		case OperatorType.Const:
+			operand = new Const(id, name)
+			operand.evaluator = new ConstEvaluator(operand)
+			break
+		case OperatorType.Var:
+			operand = new Var(id, name)
+			operand.evaluator = new VarEvaluator(operand)
+			break
+		case OperatorType.Env:
+			operand = new Env(id, name)
+			operand.evaluator = new EnvEvaluator(operand)
+			break
+		case OperatorType.Property:
+			operand = new Property(id, name, children)
+			operand.evaluator = new PropertyEvaluator(operand)
+			break
+		case OperatorType.Template:
+			operand = new Template(id, name)
+			operand.evaluator = new TemplateEvaluator(operand)
+			break
+		case OperatorType.KeyVal:
+			operand = new KeyVal(id, name, children, name)
+			operand.evaluator = new KeyValEvaluator(operand)
+			break
+		case OperatorType.List:
+			operand = new List(id, name, children)
+			operand.evaluator = new ListEvaluator(operand)
+			break
+		case OperatorType.Obj:
+			operand = new Obj(id, name, children)
+			operand.evaluator = new ObjEvaluator(operand)
+			break
+		case OperatorType.Operator:
+			operand = new Operator(id, name, children)
+			operand.evaluator = new OperatorEvaluator(operand, this.model)
+			break
+		case OperatorType.CallFunc:
+			operand = new CallFunc(id, name, children)
+			operand.evaluator = new CallFuncEvaluator(operand, this.model)
+			break
+		case OperatorType.Arrow:
+			operand = new Arrow(id, name, children)
+			operand.evaluator = new CallFuncEvaluator(operand, this.model)
+			break
+		case OperatorType.ChildFunc:
+			operand = new ChildFunc(id, name, children)
+			operand.evaluator = new CallFuncEvaluator(operand, this.model)
+			break
+		case OperatorType.Block:
+			operand = new Block(id, name, children)
+			operand.evaluator = new BlockEvaluator(operand)
+			break
+		case OperatorType.If:
+			operand = new If(id, name, children)
+			operand.evaluator = new IfEvaluator(operand)
+			break
+		case OperatorType.ElseIf:
+			operand = new ElseIf(id, name, children)
+			break
+		case OperatorType.Else:
+			operand = new Else(id, name, children)
+			break
+		case OperatorType.While:
+			operand = new While(id, name, children)
+			operand.evaluator = new WhileEvaluator(operand)
+			break
+		case OperatorType.For:
+			operand = new For(id, name, children)
+			operand.evaluator = new ForEvaluator(operand)
+			break
+		case OperatorType.ForIn:
+			operand = new ForIn(id, name, children)
+			operand.evaluator = new ForInEvaluator(operand)
+			break
+		case OperatorType.Switch:
+			operand = new Switch(id, name, children)
+			operand.evaluator = new SwitchEvaluator(operand)
+			break
+		case OperatorType.Case:
+			operand = new Case(id, name, children)
+			break
+		case OperatorType.Default:
+			operand = new Default(id, name, children)
+			break
+		case OperatorType.Break:
+			operand = new Break(id, name, children)
+			operand.evaluator = new BreakEvaluator(operand)
+			break
+		case OperatorType.Continue:
+			operand = new Continue(id, name, children)
+			operand.evaluator = new ContinueEvaluator(operand)
+			break
+		case OperatorType.Func:
+			operand = new Func(id, name, children)
+			operand.evaluator = new FuncEvaluator(operand)
+			break
+		case OperatorType.Return:
+			operand = new Return(id, name, children)
+			operand.evaluator = new ReturnEvaluator(operand)
+			break
+		case OperatorType.Try:
+			operand = new Try(id, name, children)
+			operand.evaluator = new TryEvaluator(operand)
+			break
+		case OperatorType.Catch:
+			operand = new Catch(id, name, children)
+			operand.evaluator = new CatchEvaluator(operand)
+			break
+		case OperatorType.Throw:
+			operand = new Throw(id, name, children)
+			operand.evaluator = new ThrowEvaluator(operand)
+			break
+		default:
+			throw new Error('node name: ' + name + ' type: ' + type + ' not supported')
+		}
+		return operand
+	}
+}

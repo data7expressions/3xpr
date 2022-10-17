@@ -1,6 +1,5 @@
-import { Node } from './node'
-import { helper } from '../'
-import { IModelManager, OperatorType } from '../model'
+import { h3lp } from 'h3lp'
+import { Node, IModelManager, OperatorType } from '../contract'
 
 export class Parser {
 	private model: IModelManager
@@ -135,7 +134,7 @@ export class Parser {
 			this.index += 1
 			char = this.current
 		}
-		if (helper.validator.isAlphanumeric(char)) {
+		if (h3lp.validator.isAlphanumeric(char)) {
 			let value: any = this.getValue()
 			if (value === 'function' && this.current === '(') {
 				this.index += 1
@@ -155,7 +154,7 @@ export class Parser {
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
-					const names = helper.obj.names(value)
+					const names = h3lp.obj.names(value)
 					const functionName = names.pop() as string
 					const variableName = names.join('.')
 					const variable = new Node(variableName, 'Var')
@@ -177,7 +176,7 @@ export class Parser {
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
 				operand = this.getIndexOperand(value)
-			} else if (helper.validator.isIntegerFormat(value)) {
+			} else if (h3lp.validator.isIntegerFormat(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
 					isNegative = false
@@ -188,7 +187,7 @@ export class Parser {
 					value = parseInt(value)
 				}
 				operand = new Node(value, OperatorType.Const)
-			} else if (helper.validator.isDecimalFormat(value)) {
+			} else if (h3lp.validator.isDecimalFormat(value)) {
 				if (isNegative) {
 					value = parseFloat(value) * -1
 					isNegative = false
@@ -259,7 +258,7 @@ export class Parser {
 				this.index += 1
 				if (name.includes('.')) {
 					// .xxx.xxx(p=> p.xxx)
-					const names = helper.obj.names(name)
+					const names = h3lp.obj.names(name)
 					const propertyName = names.slice(0, -1).join('.')
 					const functionName = names.slice(-1)[0]
 					const property = new Node(propertyName, OperatorType.Property, [operand])
@@ -298,13 +297,13 @@ export class Parser {
 	private getValue (increment = true): string {
 		const buff = []
 		if (increment) {
-			while (!this.end && helper.validator.isAlphanumeric(this.current)) {
+			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
 				buff.push(this.current)
 				this.index += 1
 			}
 		} else {
 			let index = this.index
-			while (!this.end && helper.validator.isAlphanumeric(this.buffer[index])) {
+			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
 				buff.push(this.buffer[index])
 				index += 1
 			}

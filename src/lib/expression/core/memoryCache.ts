@@ -1,4 +1,4 @@
-import { ICache } from './model'
+import { ICache } from '../contract'
 
 export class MemoryCache implements ICache {
 	private list:any

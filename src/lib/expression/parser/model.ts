@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 // import expConfig from './config.json'
-import { Sing, OperatorMetadata, OperatorType, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../model'
+import { Sing, OperatorMetadata, OperatorType, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../contract'
 
 export class ModelManager implements IModelManager {
 	private _enums: any
@@ -148,7 +148,7 @@ export class ModelManager implements IModelManager {
 			params: singInfo.params,
 			return: singInfo.return
 		}
-		if (Object.getPrototypeOf(source).name === OperatorType.Operator) {
+		if (Object.getPrototypeOf(source).name === 'Evaluator') {
 			metadata.custom = source
 		} else if (typeof source === 'function') {
 			metadata.function = source
@@ -172,7 +172,7 @@ export class ModelManager implements IModelManager {
 			params: singInfo.params,
 			return: singInfo.return
 		}
-		if ([OperatorType.Arrow, OperatorType.ChildFunc, OperatorType.CallFunc].includes(Object.getPrototypeOf(source).name)) {
+		if (Object.getPrototypeOf(source).name === 'Evaluator') {
 			metadata.custom = source
 		} else if (typeof source === 'function') {
 			metadata.function = source
@@ -190,11 +190,19 @@ export class ModelManager implements IModelManager {
 		const length = buffer.length
 		let index = 0
 		let functionName = ''
+		let prefix = ''
 		let _return = ''
 		let chars:string[] = []
 
+		// Clear begin spaces
+		while (buffer[index] === ' ') {
+			index++
+		}
 		for (;buffer[index] !== '('; index++) {
-			if (buffer[index] !== ' ') {
+			if (buffer[index] === ' ' && buffer[index + 1] !== ' ' && buffer[index + 1] !== '(') {
+				prefix = chars.join('')
+				chars = []
+			} else if (buffer[index] !== ' ') {
 				chars.push(buffer[index])
 			}
 		}
@@ -266,7 +274,9 @@ export class ModelManager implements IModelManager {
 		return {
 			name: functionName,
 			return: _return !== '' ? _return : 'void',
-			params: params
+			params: params,
+			async: prefix === 'async'
+
 		}
 	}
 

@@ -1,10 +1,10 @@
-import { Operand, IOperandBuilder, OperandMetadata, ISerializer } from '../model'
+import { Operand, OperandMetadata, ISerializer, OperandFactory } from '../contract'
 import { Var, KeyVal } from './operands'
-import { helper } from '..'
+import { typeHelper } from '..'
 export class OperandSerializer implements ISerializer<Operand> {
-	private builder: IOperandBuilder
-	constructor (builder: IOperandBuilder) {
-		this.builder = builder
+	private factory: OperandFactory
+	constructor (factory: OperandFactory) {
+		this.factory = factory
 	}
 
 	public clone (operand: Operand): Operand {
@@ -21,25 +21,26 @@ export class OperandSerializer implements ISerializer<Operand> {
 			children.push(this._serialize(operand.children[k]))
 		}
 		if (operand instanceof KeyVal) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type), property: operand.property }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: typeHelper.serialize(operand.type), property: operand.property }
 		} else if (operand instanceof Var) {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type), number: operand.number }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: typeHelper.serialize(operand.type), number: operand.number }
 		} else {
-			return { name: operand.name, classType: operand.constructor.name, children: children, type: helper.type.serialize(operand.type) }
+			return { name: operand.name, classType: operand.constructor.name, children: children, type: typeHelper.serialize(operand.type) }
 		}
 	}
 
 	public deserialize (value: string): Operand {
-		return (this._deserialize(JSON.parse(value))) as Operand
+		return (this._deserialize(JSON.parse(value), 1)) as Operand
 	}
 
-	private _deserialize (value: OperandMetadata): Operand {
+	private _deserialize (value: OperandMetadata, index:number, parentId?:string): Operand {
+		const id = parentId ? parentId + '.' + index : index.toString()
 		const children = []
 		if (value.children) {
-			for (const k in value.children) {
-				children.push(this._deserialize(value.children[k]))
+			for (let i = 0; i < value.children.length; i++) {
+				children.push(this._deserialize(value.children[i], i + 1, id))
 			}
 		}
-		return this.builder.createOperand(value.name, value.classType, children)
+		return this.factory.create(id, value.name, value.classType, children)
 	}
 }

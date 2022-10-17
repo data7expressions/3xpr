@@ -1,13 +1,6 @@
-import { Parameter, ActionObserver, Operand } from './expression';
+import { Parameter, ActionObserver } from './expression';
 export * from './expression';
-export { helper } from './expression';
 export declare const expressions: import("./expression").IExpressions;
-/**
-     * Parser expression
-     * @param expression  expression
-     * @returns Operand
-     */
-export declare const build: (expression: string) => Operand;
 /**
  * Get parameters of expression
  * @param expression  expression
@@ -21,5 +14,6 @@ export declare const parameters: (expression: string) => Parameter[];
  * @returns Result of the evaluate expression
  */
 export declare const evaluate: (expression: string, data?: any) => any;
+export declare const run: (expression: string, data?: any) => any;
 export declare const subscribe: (observer: ActionObserver) => void;
 export declare const unsubscribe: (observer: ActionObserver) => void;
