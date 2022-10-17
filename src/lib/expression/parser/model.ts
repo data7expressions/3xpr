@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 // import expConfig from './config.json'
-import { Sing, OperatorMetadata, OperatorType, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../contract'
+import { Sing, OperatorMetadata, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../contract'
 
 export class ModelManager implements IModelManager {
 	private _enums: any

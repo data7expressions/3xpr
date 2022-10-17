@@ -1,5 +1,5 @@
 import { h3lp, Validator } from 'h3lp'
-import { Context, Operand, StackEvaluator, Type, ArrayType, ObjectType, PropertyType, IEvaluator } from '../contract'
+import { Context, Operand, Type, ArrayType, ObjectType, PropertyType } from '../contract'
 import { Const, Var, KeyVal, CallFunc, Arrow } from '../operand'
 
 export class TypeHelper {
@@ -109,21 +109,6 @@ export class OperandHelper {
 			list.push(obj[key].toString())
 		}
 		return list.join('|')
-	}
-
-	public setStackAble (operand: Operand, index = 0, parent?: StackEvaluator): void {
-		try {
-			const id = parent ? parent.id + '.' + index : '0'
-			const _index = parent ? index : 0
-			const level = parent && parent.level ? parent.level + 1 : 0
-			const stackEvaluator = new StackEvaluator(id, _index, level, operand.evaluator as IEvaluator, operand)
-			operand.evaluator = stackEvaluator
-			for (let i = 0; i < operand.children.length; i++) {
-				this.setStackAble(operand.children[i], i, stackEvaluator)
-			}
-		} catch (error: any) {
-			throw new Error('set stackAble: ' + operand.name + ' error: ' + error.toString())
-		}
 	}
 
 	public getKeys (variable:Var, fields: KeyVal[], list: any[], context: Context): any[] {

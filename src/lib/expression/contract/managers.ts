@@ -47,10 +47,6 @@ export abstract class OperandFactory {
 	public abstract create(id:string, name: string, type:string, children?: Operand[]): Operand
 }
 
-// export interface IOperandManager extends ISerializer<Operand> {
-// build (expression: string[]): Operand
-// }
-
 export interface IExpressions {
 	get enums(): [string, [string, any][]][]
 	get formats(): [string, Format][]

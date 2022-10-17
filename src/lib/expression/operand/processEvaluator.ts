@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Evaluator, Context, Operand, OperatorType, IModelManager, OperandFactory } from '../contract'
+import { IEvaluator, Evaluator, Context, Step, Operand, OperatorType, IModelManager, OperandFactory } from '../contract'
 import {
 	Const, Var, KeyVal, List, Obj, Operator, CallFunc, Block, Arrow, ChildFunc,
 	If, ElseIf, Else, While, For, ForIn, Switch, Case, Default,
@@ -268,6 +268,26 @@ class ThrowProcessEvaluator extends Evaluator {
 	}
 }
 
+export class StackEvaluator extends Evaluator {
+	private child:IEvaluator
+	constructor (operand: Operand, child:IEvaluator) {
+		super(operand)
+		this.child = child
+	}
+
+	public eval (context: Context) {
+		if (context.token.stack[this.operand.id] === undefined) {
+			context.token.stack[this.operand.id] = new Step(this.operand.name, this.operand.id)
+		}
+		const result = this.child.eval(context)
+		if (!context.token.isBreak) {
+			// remove stack
+			delete context.token.stack[this.operand.id]
+		}
+		return result
+	}
+}
+
 export class ProcessOperandFactory extends OperandFactory {
 	public create (id:string, name: string, type:string, children: Operand[] = []): Operand {
 		let operand:Operand | undefined
@@ -386,6 +406,9 @@ export class ProcessOperandFactory extends OperandFactory {
 			break
 		default:
 			throw new Error('node name: ' + name + ' type: ' + type + ' not supported')
+		}
+		if (operand.evaluator !== undefined) {
+			operand.evaluator = new StackEvaluator(operand, operand.evaluator)
 		}
 		return operand
 	}

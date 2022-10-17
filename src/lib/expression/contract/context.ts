@@ -48,14 +48,12 @@ export class Data {
 
 export class Step {
 	public name:string
-	public index:number
-	public level:number
+	public id:string
 	public values:any[]
 
-	constructor (name:string, index:number, level:number) {
+	constructor (name:string, id:string) {
 		this.name = name
-		this.index = index
-		this.level = level
+		this.id = id
 		this.values = []
 	}
 }

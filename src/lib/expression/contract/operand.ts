@@ -1,4 +1,4 @@
-import { Type, Context, Step, Parameter, OperatorDoc } from '.'
+import { Type, Context, Parameter, OperatorDoc } from '.'
 
 export interface IEvaluator {
 	eval(context: Context): any
@@ -43,31 +43,4 @@ export interface OperatorMetadata {
 	params: Parameter[]
 	function?: any
 	custom?: any // Evaluator
-}
-
-export class StackEvaluator implements IEvaluator {
-	public id: string
-	public index: number
-	public level: number
-	public child: IEvaluator
-	public operand: Operand
-	constructor (id:string, index:number, level:number, child:IEvaluator, operand: Operand) {
-		this.id = id
-		this.index = index
-		this.level = level
-		this.child = child
-		this.operand = operand
-	}
-
-	public eval (context: Context) {
-		if (context.token.stack[this.id] === undefined) {
-			context.token.stack[this.id] = new Step(this.operand.name, this.index, this.level)
-		}
-		const result = this.child.eval(context)
-		if (!context.token.isBreak) {
-			// remove stack
-			delete context.token.stack[this.id]
-		}
-		return result
-	}
 }
