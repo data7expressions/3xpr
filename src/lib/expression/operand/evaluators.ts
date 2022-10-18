@@ -1,10 +1,9 @@
-import { Type, IModelManager, Context, Operand, Evaluator } from '../contract'
-import { typeHelper } from '.'
 import { h3lp } from 'h3lp'
+import { Evaluator, Context, Operand, OperandType, IModelManager } from '../contract'
 
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
-		switch (this.operand.type) {
+		switch (this.operand.returnType) {
 		case 'string':
 			return this.operand.name
 		case 'boolean':
@@ -16,42 +15,16 @@ export class ConstEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class Const extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], typeHelper.getType(name))
-		this.evaluator = new ConstEvaluator(this)
-	}
-}
-
-// export class Variable extends Operand implements IOperandData
 export class VarEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return context.data.get(this.operand.name)
 	}
 }
-
-export class Var extends Operand {
-	public number?: number
-	constructor (id: string, name: string, type?:Type) {
-		super(id, name, [], type)
-		this.evaluator = new VarEvaluator(this)
-	}
-}
-
 export class EnvEvaluator extends Evaluator {
 	public eval (): any {
 		return process.env[this.operand.name]
 	}
 }
-
-export class Env extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], 'string')
-		this.evaluator = new EnvEvaluator(this)
-	}
-}
-
 export class TemplateEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		// info https://www.tutorialstonight.com/javascript-string-format.php
@@ -67,14 +40,6 @@ export class TemplateEvaluator extends Evaluator {
 		})
 	}
 }
-
-export class Template extends Operand {
-	constructor (id: string, name: string) {
-		super(id, name, [], 'string')
-		this.evaluator = new TemplateEvaluator(this)
-	}
-}
-
 export class PropertyEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
@@ -82,29 +47,6 @@ export class PropertyEvaluator extends Evaluator {
 		return h3lp.obj.getValue(value, this.operand.name)
 	}
 }
-
-export class Property extends Operand {
-	constructor (id: string, name: string, children: Operand[] = [], type?:Type) {
-		super(id, name, children, type)
-		this.evaluator = new PropertyEvaluator(this)
-	}
-}
-
-export class KeyValEvaluator extends Evaluator {
-	public eval (context: Context): any {
-		return this.operand.children[0].eval(context)
-	}
-}
-
-export class KeyVal extends Operand {
-	public property?: string
-	constructor (id: string, name: string, children: Operand[] = [], property: string, type?: Type) {
-		super(id, name, children, type)
-		this.property = property
-		this.evaluator = new KeyValEvaluator(this)
-	}
-}
-
 export class ListEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const values = []
@@ -114,36 +56,19 @@ export class ListEvaluator extends Evaluator {
 		return values
 	}
 }
-
-export class List extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ListEvaluator(this)
-	}
-}
-
 export class ObjEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const obj: { [k: string]: any } = {}
 		for (const child of this.operand.children) {
-			obj[child.name] = child.eval(context)
+			obj[child.name] = child.children[0].eval(context)
 		}
 		return obj
 	}
 }
-
-export class Obj extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ObjEvaluator(this)
-	}
-}
-
 export class OperatorEvaluator extends Evaluator {
-	private model: IModelManager
-	constructor (operand: Operand, model: IModelManager) {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
 		super(operand)
-		this.model = model
 	}
 
 	public eval (context: Context): any {
@@ -151,7 +76,7 @@ export class OperatorEvaluator extends Evaluator {
 			const operatorMetadata = this.model.getOperator(this.operand.name, this.operand.children.length)
 			if (operatorMetadata.custom) {
 				// eslint-disable-next-line new-cap
-				return new operatorMetadata.custom(this.operand.name, this.operand.children).eval(context)
+				return new operatorMetadata.custom(this.operand).eval(context)
 			} else {
 				const args = []
 				for (const child of this.operand.children) {
@@ -164,14 +89,10 @@ export class OperatorEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class Operator extends Operand { }
-
 export class CallFuncEvaluator extends Evaluator {
-	private model: IModelManager
-	constructor (operand: Operand, model: IModelManager) {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
 		super(operand)
-		this.model = model
 	}
 
 	public eval (context: Context): any {
@@ -179,7 +100,7 @@ export class CallFuncEvaluator extends Evaluator {
 			const funcMetadata = this.model.getFunction(this.operand.name)
 			if (funcMetadata.custom) {
 				// eslint-disable-next-line new-cap
-				return new funcMetadata.custom(this.operand.name, this.operand.children).eval(context)
+				return new funcMetadata.custom(this.operand).eval(context)
 			} else if (funcMetadata.function) {
 				const args = []
 				for (let i = 0; i < this.operand.children.length; i++) {
@@ -192,14 +113,6 @@ export class CallFuncEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class CallFunc extends Operand { }
-
-export class ChildFunc extends CallFunc {
-}
-export class Arrow extends CallFunc {
-}
-
 export class BlockEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
@@ -209,9 +122,6 @@ export class BlockEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-
-export class Block extends Operand { }
-
 export class IfEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const condition = this.operand.children[0].eval(context)
@@ -220,7 +130,7 @@ export class IfEvaluator extends Evaluator {
 			return ifBlock.eval(context)
 		} else if (this.operand.children.length > 2) {
 			for (let i = 2; i < this.operand.children.length; i++) {
-				if (this.operand.children[i] instanceof ElseIf) {
+				if (this.operand.children[i].type === OperandType.ElseIf) {
 					const elseIfCondition = this.operand.children[i].children[0].eval(context)
 					if (elseIfCondition) {
 						const elseIfBlock = this.operand.children[i].children[1]
@@ -234,11 +144,6 @@ export class IfEvaluator extends Evaluator {
 		}
 	}
 }
-
-export class If extends Operand { }
-export class ElseIf extends Operand { }
-export class Else extends Operand { }
-
 export class WhileEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
@@ -250,13 +155,6 @@ export class WhileEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class While extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new WhileEvaluator(this)
-	}
-}
-
 export class ForEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
@@ -270,13 +168,6 @@ export class ForEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class For extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ForEvaluator(this)
-	}
-}
-
 export class ForInEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
@@ -294,85 +185,55 @@ export class ForInEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-
-export class ForIn extends Operand {
-	constructor (id: string, name: string, children: Operand[] = []) {
-		super(id, name, children)
-		this.evaluator = new ForInEvaluator(this)
-	}
-}
-
 export class SwitchEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
 		for (let i = 1; i < this.operand.children.length; i++) {
 			const option = this.operand.children[i]
-			if (option instanceof Case) {
+			if (option.type === OperandType.Case) {
 				if (option.name === value) {
 					const caseBlock = option.children[0]
 					return caseBlock.eval(context)
 				}
-			} else if (option instanceof Default) {
+			} else if (option.type === OperandType.Default) {
 				const defaultBlock = option.children[0]
 				return defaultBlock.eval(context)
 			}
 		}
 	}
 }
-export class Switch extends Operand { }
-export class Case extends Operand { }
-export class Default extends Operand { }
-
 export class BreakEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Break extends Operand { }
-
 export class ContinueEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Continue extends Operand { }
-
 export class FuncEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Func extends Operand { }
-
 export class ReturnEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-export class Return extends Operand { }
-
 export class TryEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Try extends Operand { }
-
 export class CatchEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-export class Catch extends Operand { }
-
 export class ThrowEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
-export class Throw extends Operand { }

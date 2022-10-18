@@ -1,6 +1,6 @@
 import { Type } from './type'
 // import { Node } from './node'
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo } from './base'
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType } from './base'
 import { Operand, OperatorMetadata } from './operand'
 import { ActionObserver } from './observer'
 export interface ITypeManager {
@@ -38,13 +38,8 @@ export interface IOperandBuilder {
 }
 
 // Abstract Factory
-export abstract class OperandFactory {
-	protected model: IModelManager
-	constructor (model: IModelManager) {
-		this.model = model
-	}
-
-	public abstract create(id:string, name: string, type:string, children?: Operand[]): Operand
+export interface IOperandFactory {
+	create(type:OperandType, id:string, name: string, children?: Operand[]): Operand
 }
 
 export interface IExpressions {

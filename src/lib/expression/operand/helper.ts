@@ -1,13 +1,10 @@
 import { h3lp, Validator } from 'h3lp'
-import { Context, Operand, Type, ArrayType, ObjectType, PropertyType } from '../contract'
-import { Const, Var, KeyVal, CallFunc, Arrow } from '../operand'
+import { Context, Operand, OperandType, Type, ArrayType, ObjectType, PropertyType } from '../contract'
+import { ConstBuilder } from './factory'
 
 export class TypeHelper {
-	private validator:Validator
-	constructor (validator:Validator) {
-		this.validator = validator
-	}
-
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (private readonly validator:Validator) { }
 	public getType (value: any): Type {
 		if (value === null || value === undefined) {
 			return 'any'
@@ -111,14 +108,14 @@ export class OperandHelper {
 		return list.join('|')
 	}
 
-	public getKeys (variable:Var, fields: KeyVal[], list: any[], context: Context): any[] {
+	public getKeys (variable:Operand, fields: Operand[], list: any[], context: Context): any[] {
 		const keys:any[] = []
 		// loop through the list and group by the grouper fields
 		for (const item of list) {
 			let key = ''
 			const values = []
 			for (const keyValue of fields) {
-				context.data.set(Var.name, item)
+				context.data.set(variable.name, item)
 				// variable.set(item)
 				const value = keyValue.children[0].eval(context)
 				if (typeof value === 'object') {
@@ -141,7 +138,7 @@ export class OperandHelper {
 	}
 
 	public haveAggregates (operand: Operand): boolean {
-		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+		if (!(operand.type === OperandType.Arrow) && operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return true
 		} else if (operand.children && operand.children.length > 0) {
 			for (const child of operand.children) {
@@ -153,11 +150,11 @@ export class OperandHelper {
 		return false
 	}
 
-	public findAggregates (operand: Operand): CallFunc[] {
-		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+	public findAggregates (operand: Operand): Operand[] {
+		if (!(operand.type === OperandType.Arrow) && operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			return [operand]
 		} else if (operand.children && operand.children.length > 0) {
-			let aggregates:CallFunc[] = []
+			let aggregates:Operand[] = []
 			for (const child of operand.children) {
 				const childAggregates = this.findAggregates(child)
 				if (childAggregates.length > 0) {
@@ -169,8 +166,8 @@ export class OperandHelper {
 		return []
 	}
 
-	public solveAggregates (list: any[], variable: Var, operand: Operand, context: Context): Operand {
-		if (!(operand instanceof Arrow) && operand instanceof CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
+	public solveAggregates (list: any[], variable: Operand, operand: Operand, context: Context): Operand {
+		if (!(operand.type === OperandType.Arrow) && operand.type === OperandType.CallFunc && ['avg', 'count', 'first', 'last', 'max', 'min', 'sum'].indexOf(operand.name) > -1) {
 			let value:any
 			switch (operand.name) {
 			case 'avg':
@@ -195,7 +192,7 @@ export class OperandHelper {
 				value = this.sum(list, variable, operand.children[0], context)
 				break
 			}
-			return new Const('0', value)
+			return new ConstBuilder().build('0', value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
 				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context)
@@ -204,7 +201,7 @@ export class OperandHelper {
 		return operand
 	}
 
-	public count (list: any[], variable: Var, aggregate: Operand, context: Context): number {
+	public count (list: any[], variable: Operand, aggregate: Operand, context: Context): number {
 		let count = 0
 		for (const item of list) {
 			// variable.set(item)
@@ -216,7 +213,7 @@ export class OperandHelper {
 		return count
 	}
 
-	public first (list: any[], variable: Var, aggregate: Operand, context: Context): any {
+	public first (list: any[], variable: Operand, aggregate: Operand, context: Context): any {
 		for (const item of list) {
 			// variable.set(item)
 			context.data.set(variable.name, item)
@@ -227,7 +224,7 @@ export class OperandHelper {
 		return null
 	}
 
-	public last (list: any[], variable: Var, aggregate: Operand, context: Context): any {
+	public last (list: any[], variable: Operand, aggregate: Operand, context: Context): any {
 		for (let i = list.length - 1; i >= 0; i--) {
 			const item = list[i]
 			// variable.set(item)
@@ -239,7 +236,7 @@ export class OperandHelper {
 		return null
 	}
 
-	public max (list: any[], variable: Var, aggregate: Operand, context: Context): any {
+	public max (list: any[], variable: Operand, aggregate: Operand, context: Context): any {
 		let max:any
 		for (const item of list) {
 			// variable.set(item)
@@ -252,7 +249,7 @@ export class OperandHelper {
 		return max
 	}
 
-	public min (list: any[], variable: Var, aggregate: Operand, context: Context): any {
+	public min (list: any[], variable: Operand, aggregate: Operand, context: Context): any {
 		let min:any
 		for (const item of list) {
 			// variable.set(item)
@@ -265,7 +262,7 @@ export class OperandHelper {
 		return min
 	}
 
-	public avg (list: any[], variable: Var, aggregate: Operand, context: Context): number {
+	public avg (list: any[], variable: Operand, aggregate: Operand, context: Context): number {
 		let sum = 0
 		for (const item of list) {
 			// variable.set(item)
@@ -278,7 +275,7 @@ export class OperandHelper {
 		return list.length > 0 ? sum / list.length : 0
 	}
 
-	public sum (list: any[], variable: Var, aggregate: Operand, context: Context): number {
+	public sum (list: any[], variable: Operand, aggregate: Operand, context: Context): number {
 		let sum = 0
 		for (const item of list) {
 			// variable.set(item)

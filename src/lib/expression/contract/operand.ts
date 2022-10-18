@@ -1,22 +1,15 @@
-import { Type, Context, Parameter, OperatorDoc } from '.'
+import { Type, Context, Parameter, OperatorDoc, OperandType } from '.'
 
 export interface IEvaluator {
 	eval(context: Context): any
 }
 
-export abstract class Operand {
-	public id: string
-	public name: string
-	public type?: Type
-	public children: Operand[]
+export class Operand {
 	public evaluator?: IEvaluator
-	constructor (id: string, name: string, children: Operand[] = [], type?:Type) {
-		this.id = id
-		this.name = name
-		this.children = children
-		this.type = type
-	}
-
+	public number?: number
+	// public property?: string
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly type:OperandType, public id: string, public readonly name: string, public readonly children: Operand[] = [], public returnType?:Type) { }
 	public eval (context: Context): any {
 		if (this.evaluator) {
 			return this.evaluator.eval(context)
@@ -26,11 +19,8 @@ export abstract class Operand {
 }
 
 export abstract class Evaluator implements IEvaluator {
-	public operand: Operand
-	constructor (operand: Operand) {
-		this.operand = operand
-	}
-
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (protected readonly operand: Operand) {}
 	public abstract eval(context: Context): any
 }
 

@@ -17,7 +17,6 @@ describe('array', () => {
 		expect(exp.eval('cities.insert(posadas).name', context)).toStrictEqual(['Buenos Aires','Córdoba','Rosario','Mar del Plata','Salta','Posadas'])
 		expect(exp.eval('cities.pop().name', context)).toStrictEqual('Posadas')
 		expect(exp.eval('musicians[0]', context)).toStrictEqual('Charly Garcia')
-		// expect(exp.eval('musicians[3]', context)).toStrictEqual(${result})
 		expect(exp.eval('musicians[musicians.length()-1]', context)).toStrictEqual('Luiz Alberto Spinetta')
 	})
 })

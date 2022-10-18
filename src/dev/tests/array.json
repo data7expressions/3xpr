@@ -186,9 +186,6 @@
           "result": "Charly Garcia"
         },
         {
-          "test": "musicians[3]"
-        },
-        {
           "test": "musicians[musicians.length()-1]",
           "result": "Luiz Alberto Spinetta"
         }

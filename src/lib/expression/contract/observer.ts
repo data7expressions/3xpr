@@ -7,11 +7,8 @@ export interface ActionObserverArgs{
 }
 
 export abstract class ActionObserver {
-	public condition?:string
-	constructor (condition?:string) {
-		this.condition = condition
-	}
-
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly condition?:string) {}
 	public abstract before (args:ActionObserverArgs):void;
 	public abstract after (args:ActionObserverArgs):void;
 	public abstract error (args:ActionObserverArgs):void;

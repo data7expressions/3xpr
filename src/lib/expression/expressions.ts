@@ -1,6 +1,6 @@
 import { Data, Operand, Context, IExpressions, IBuilder, ICache, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
 import { ModelManager, nodeHelper } from './parser'
-import { TypeManager, CoreLibrary, typeHelper, BasicOperandFactory, ProcessOperandFactory } from './operand'
+import { TypeManager, CoreLibrary, typeHelper, OperandFactory, ProcessOperandFactory } from './operand'
 import { MemoryCache } from './core'
 import { OperandBuilder } from '.'
 
@@ -10,7 +10,7 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 		const cache = new MemoryCache()
 		const model = new ModelManager()
 		const typeManager = new TypeManager(model)
-		const basic = new OperandBuilder(model, new BasicOperandFactory(model))
+		const basic = new OperandBuilder(model, new OperandFactory(model))
 		const process = new OperandBuilder(model, new ProcessOperandFactory(model))
 		// const operandManager = new OperandManager(model)
 		new CoreLibrary(model).load()
@@ -144,7 +144,7 @@ export class Expressions implements IExpressions {
 	 */
 	public getType (expression: string): string {
 		const operand = this.typed(expression)
-		return typeHelper.toString(operand.type)
+		return typeHelper.toString(operand.returnType)
 	}
 
 	/**
@@ -237,7 +237,7 @@ export class Expressions implements IExpressions {
 			this.type.solve(operand)
 			this.cache.set(key, operand)
 			return operand
-		} else if (value.type === undefined) {
+		} else if (value.returnType === undefined) {
 			this.type.solve(value)
 			this.cache.set(key, value)
 			return value

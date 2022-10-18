@@ -1,17 +1,5 @@
+import { OperandType } from '.'
 export class Node {
-	public name: any
-	public type: string
-	public children: Node[]
-	public id?:string
-	// public parent?: Node
-	public index?: number
-	public level?:number
-
-	constructor (name:any, type:string, children:Node[] = []) {
-		this.name = name
-		this.type = type
-		this.children = children
-		// this.parent = undefined
-		this.index = undefined
-	}
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly name:any, public readonly type:OperandType, public readonly children:Node[] = []) { }
 }

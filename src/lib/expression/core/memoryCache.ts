@@ -1,10 +1,8 @@
 import { ICache } from '../contract'
 
 export class MemoryCache implements ICache {
-	private list:any
-	constructor () {
-		this.list = {}
-	}
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (private readonly list:any = {}) { }
 
 	public get (key:string) {
 		return this.list[key]

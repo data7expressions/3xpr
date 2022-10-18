@@ -17,7 +17,7 @@ export interface Parameter {
 	multiple?:boolean
 }
 
-export enum OperatorType
+export enum OperandType
 { Const = 'Const'
 , Var = 'Var'
 , Env = 'Env'
@@ -60,10 +60,10 @@ export interface OperatorDoc {
 }
 
 export interface OperandMetadata {
-	classType: string,
+	type: OperandType,
 	name: string,
 	children?: OperandMetadata[],
-	type?: string,
+	returnType?: string,
 	property?: string
 	parameters?: Parameter[],
 	clause?: string,

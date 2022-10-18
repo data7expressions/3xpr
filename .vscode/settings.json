@@ -11,15 +11,17 @@
 		"datetime",
 		"Flavio",
 		"imei",
-		"title",
+		"jexl",
 		"Lanús",
 		"lpad",
 		"ltrim",
 		"nlohmann",
+		"NPMN",
 		"nullable",
 		"rpad",
 		"rtrim",
 		"substr",
+		"title",
 		"trunc"
 	]
 }

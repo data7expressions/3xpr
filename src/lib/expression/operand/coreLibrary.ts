@@ -1,14 +1,12 @@
 import { h3lp } from 'h3lp'
-import { Context, Operand, Evaluator, IModelManager } from '../contract'
-import { Operator, Arrow, ChildFunc, Obj, KeyVal, Var, List } from '.'
+import { Context, Evaluator, IModelManager, Operand, OperandType } from '../contract'
+// import { Obj, KeyVal, Var, List } from '.'
 import { expressions as exp } from '../..'
 import { operandHelper } from './helper'
 
 export class CoreLibrary {
-	private model:IModelManager
-	constructor (model:IModelManager) {
-		this.model = model
-	}
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (private readonly model:IModelManager) {}
 
 	public load ():void {
 		this.constants()
@@ -517,12 +515,12 @@ class Map extends Evaluator {
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
-		if (this.operand.children[2] instanceof Obj) {
-			const groupers:KeyVal[] = []
-			const aggregates:KeyVal[] = []
+		if (this.operand.children[2].type === OperandType.Obj) {
+			const groupers:Operand[] = []
+			const aggregates:Operand[] = []
 			for (const child of this.operand.children[2].children) {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
-				const keyValue = child as KeyVal
+				const keyValue = child
 				if (keyValue) {
 					if (operandHelper.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
@@ -533,9 +531,9 @@ class Map extends Evaluator {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = operandHelper.getKeys(this.operand.children[1] as Var, groupers, list, context)
+				const keys = operandHelper.getKeys(this.operand.children[1], groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
-				const variable = this.operand.children[1] as Var
+				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = exp.clone(keyValue.children[0])
@@ -583,9 +581,9 @@ class Distinct extends Evaluator {
 				}
 			}
 			return rows
-		} else if (this.operand.children[2] instanceof Obj) {
+		} else if (this.operand.children[2].type === OperandType.Obj) {
 			// case with aggregate functions
-			const keys = operandHelper.getKeys(this.operand.children[1] as Var, this.operand.children[2].children as KeyVal[], list, context.newContext())
+			const keys = operandHelper.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -595,7 +593,7 @@ class Distinct extends Evaluator {
 				rows.push(row)
 			}
 			return rows
-		} else if (this.operand.children[2] instanceof List) {
+		} else if (this.operand.children[2].type === OperandType.List) {
 			throw new Error('Distinct not support Array result')
 		}
 		// simple case without aggregate functions
@@ -708,7 +706,7 @@ class First extends Evaluator {
 		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		return operandHelper.first(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.first(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Last extends Evaluator {
@@ -720,7 +718,7 @@ class Last extends Evaluator {
 		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		return operandHelper.last(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.last(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Count extends Evaluator {
@@ -732,7 +730,7 @@ class Count extends Evaluator {
 		if (this.operand.children.length === 1) {
 			return list.length
 		}
-		return operandHelper.count(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.count(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Max extends Evaluator {
@@ -750,7 +748,7 @@ class Max extends Evaluator {
 			}
 			return max
 		}
-		return operandHelper.max(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.max(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Min extends Evaluator {
@@ -768,7 +766,7 @@ class Min extends Evaluator {
 			}
 			return min
 		}
-		return operandHelper.min(list, this.operand.children[1]as Var, this.operand.children[2], context.newContext())
+		return operandHelper.min(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Avg extends Evaluator {
@@ -786,7 +784,7 @@ class Avg extends Evaluator {
 			}
 			return list.length > 0 ? sum / list.length : 0
 		}
-		return operandHelper.avg(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.avg(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Sum extends Evaluator {
@@ -804,7 +802,7 @@ class Sum extends Evaluator {
 			}
 			return sum
 		}
-		return operandHelper.sum(list, this.operand.children[1] as Var, this.operand.children[2], context.newContext())
+		return operandHelper.sum(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Union extends Evaluator {

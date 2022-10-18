@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Node, IModelManager, OperatorType } from '../contract'
+import { Node, IModelManager, OperandType } from '../contract'
 
 export class Parser {
 	private model: IModelManager
@@ -70,7 +70,7 @@ export class Parser {
 			nodes.push(node)
 		}
 		if (nodes.length === 1) { return nodes[0] }
-		return new Node('block', OperatorType.Block, nodes)
+		return new Node('block', OperandType.Block, nodes)
 	}
 
 	private char (index: number) {
@@ -98,20 +98,20 @@ export class Parser {
 			operand2 = this.getOperand()
 			const nextOperator = this.getOperator() as string
 			if (!nextOperator || _break.includes(nextOperator)) {
-				expression = new Node(operator, OperatorType.Operator, [operand1 as Node, operand2])
+				expression = new Node(operator, OperandType.Operator, [operand1 as Node, operand2])
 				isBreak = true
 				break
 			} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
-				operand1 = new Node(operator, OperatorType.Operator, [operand1 as Node, operand2])
+				operand1 = new Node(operator, OperandType.Operator, [operand1 as Node, operand2])
 				operator = nextOperator
 			} else {
 				operand2 = this.getExpression(operand2, nextOperator, _break)
-				expression = new Node(operator, OperatorType.Operator, [operand1 as Node, operand2])
+				expression = new Node(operator, OperandType.Operator, [operand1 as Node, operand2])
 				isBreak = true
 				break
 			}
 		}
-		if (!isBreak) expression = new Node(operator, OperatorType.Operator, [operand1 as Node, operand2 as Node])
+		if (!isBreak) expression = new Node(operator, OperandType.Operator, [operand1 as Node, operand2 as Node])
 		return expression as Node
 	}
 
@@ -157,11 +157,11 @@ export class Parser {
 					const names = h3lp.obj.names(value)
 					const functionName = names.pop() as string
 					const variableName = names.join('.')
-					const variable = new Node(variableName, 'Var')
+					const variable = new Node(variableName, OperandType.Var)
 					operand = this.getChildFunc(functionName, variable)
 				} else {
 					const args = this.getArgs(')')
-					operand = new Node(value, OperatorType.CallFunc, args)
+					operand = new Node(value, OperandType.CallFunc, args)
 				}
 			} else if (value === 'try' && this.current === '{') {
 				operand = this.getTryCatchBlock()
@@ -170,9 +170,9 @@ export class Parser {
 			} else if (value === 'return') {
 				operand = this.getReturn()
 			} else if (value === 'break') {
-				operand = new Node('break', OperatorType.Break)
+				operand = new Node('break', OperandType.Break)
 			} else if (value === 'continue') {
-				operand = new Node('continue', OperatorType.Continue)
+				operand = new Node('continue', OperandType.Continue)
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
 				operand = this.getIndexOperand(value)
@@ -186,7 +186,7 @@ export class Parser {
 				} else {
 					value = parseInt(value)
 				}
-				operand = new Node(value, OperatorType.Const)
+				operand = new Node(value, OperandType.Const)
 			} else if (h3lp.validator.isDecimalFormat(value)) {
 				if (isNegative) {
 					value = parseFloat(value) * -1
@@ -197,23 +197,23 @@ export class Parser {
 				} else {
 					value = parseFloat(value)
 				}
-				operand = new Node(value, OperatorType.Const)
+				operand = new Node(value, OperandType.Const)
 			} else if (this.model.isConstant(value)) {
 				const constantValue = this.model.getConstantValue(value)
-				operand = new Node(constantValue, OperatorType.Const)
+				operand = new Node(constantValue, OperandType.Const)
 			} else if (this.model.isEnum(value)) {
 				operand = this.getEnum(value)
 			} else {
-				operand = new Node(value, OperatorType.Var)
+				operand = new Node(value, OperandType.Var)
 			}
 		} else if (char === '\'' || char === '"') {
 			this.index += 1
 			const result = this.getString(char)
-			operand = new Node(result, OperatorType.Const)
+			operand = new Node(result, OperandType.Const)
 		} else if (char === '`') {
 			this.index += 1
 			const result = this.getTemplate()
-			operand = new Node(result, OperatorType.Template)
+			operand = new Node(result, OperandType.Template)
 		} else if (char === '(') {
 			this.index += 1
 			operand = this.getExpression(undefined, undefined, ')')
@@ -223,7 +223,7 @@ export class Parser {
 		} else if (char === '[') {
 			this.index += 1
 			const elements = this.getArgs(']')
-			operand = new Node('array', OperatorType.List, elements)
+			operand = new Node('array', OperandType.List, elements)
 		} else if (char === '$') {
 			let variableName: string
 			if (this.next === '{') {
@@ -238,12 +238,12 @@ export class Parser {
 				this.index += 1
 				variableName = this.getValue()
 			}
-			operand = new Node(variableName, OperatorType.Env)
+			operand = new Node(variableName, OperandType.Env)
 		}
 		operand = this.solveChain(operand as Node)
-		if (isNegative) operand = new Node('-', OperatorType.Operator, [operand])
-		if (isNot) operand = new Node('!', OperatorType.Operator, [operand])
-		if (isBitNot) operand = new Node('~', OperatorType.Operator, [operand])
+		if (isNegative) operand = new Node('-', OperandType.Operator, [operand])
+		if (isNot) operand = new Node('!', OperandType.Operator, [operand])
+		if (isBitNot) operand = new Node('~', OperandType.Operator, [operand])
 		return operand
 	}
 
@@ -261,7 +261,7 @@ export class Parser {
 					const names = h3lp.obj.names(name)
 					const propertyName = names.slice(0, -1).join('.')
 					const functionName = names.slice(-1)[0]
-					const property = new Node(propertyName, OperatorType.Property, [operand])
+					const property = new Node(propertyName, OperandType.Property, [operand])
 					return this.solveChain(this.getChildFunc(functionName, property))
 				} else {
 					// .xxx(p=> p.xxx)
@@ -271,24 +271,24 @@ export class Parser {
 				this.index += 1
 				if (name.includes('.')) {
 					// .xxx.xxx[x]
-					const property = new Node(name, OperatorType.Property, [operand])
+					const property = new Node(name, OperandType.Property, [operand])
 					const idx = this.getExpression(undefined, undefined, ']')
-					return new Node('[]', OperatorType.Operator, [property, idx])
+					return new Node('[]', OperandType.Operator, [property, idx])
 				} else {
 					// .xxx[x]
-					const property = new Node(name, OperatorType.Property, [operand])
+					const property = new Node(name, OperandType.Property, [operand])
 					const idx = this.getExpression(undefined, undefined, ']')
-					return new Node('[]', OperatorType.Operator, [property, idx])
+					return new Node('[]', OperandType.Operator, [property, idx])
 				}
 			} else {
 				// .xxx
-				return new Node(name, OperatorType.Property, [operand])
+				return new Node(name, OperandType.Property, [operand])
 			}
 		} else if (this.current === '[') {
 			// xxx[x][x] or xxx[x].xxx[x]
 			this.index += 1
 			const idx = this.getExpression(undefined, undefined, ']')
-			return new Node('[]', OperatorType.Operator, [operand, idx])
+			return new Node('[]', OperandType.Operator, [operand, idx])
 		} else {
 			return operand
 		}
@@ -378,11 +378,11 @@ export class Parser {
 			else throw new Error('attribute ' + name + ' without value')
 
 			const value = this.getExpression(undefined, undefined, ',}')
-			const attribute = new Node(name, OperatorType.KeyVal, [value])
+			const attribute = new Node(name, OperandType.KeyVal, [value])
 			attributes.push(attribute)
 			if (this.previous === '}') break
 		}
-		return new Node('obj', OperatorType.Obj, attributes)
+		return new Node('obj', OperandType.Obj, attributes)
 	}
 
 	private getBlock (): Node {
@@ -392,7 +392,7 @@ export class Parser {
 			if (line != null) lines.push(line)
 			if (this.previous === '}') break
 		}
-		return new Node('block', OperatorType.Block, lines)
+		return new Node('block', OperandType.Block, lines)
 	}
 
 	private getControlBlock (): Node {
@@ -406,7 +406,7 @@ export class Parser {
 
 	private getReturn (): Node {
 		const value = this.getExpression(undefined, undefined, ';')
-		return new Node('return', OperatorType.Return, [value])
+		return new Node('return', OperandType.Return, [value])
 	}
 
 	private getTryCatchBlock (): Node {
@@ -423,16 +423,16 @@ export class Parser {
 			}
 			const catchBlock = this.getControlBlock()
 			catchChildren.push(catchBlock)
-			const catchNode = new Node('catch', OperatorType.Catch, catchChildren)
+			const catchNode = new Node('catch', OperandType.Catch, catchChildren)
 			children.push(catchNode)
 		}
 		if (this.current === ';') this.index += 1
-		return new Node('try', OperatorType.Try, children)
+		return new Node('try', OperandType.Try, children)
 	}
 
 	private getThrow (): Node {
 		const exception = this.getExpression(undefined, undefined, ';')
-		return new Node('throw', OperatorType.Throw, [exception])
+		return new Node('throw', OperandType.Throw, [exception])
 	}
 
 	private getIfBlock (): Node {
@@ -446,7 +446,7 @@ export class Parser {
 			this.index += 'elseif('.length
 			const condition = this.getExpression(undefined, undefined, ')')
 			const elseIfBlock = this.getControlBlock()
-			const elseIfNode = new Node('elseif', OperatorType.ElseIf, [condition, elseIfBlock])
+			const elseIfNode = new Node('elseif', OperandType.ElseIf, [condition, elseIfBlock])
 			children.push(elseIfNode)
 		}
 
@@ -455,7 +455,7 @@ export class Parser {
 			const elseBlock = this.getControlBlock()
 			children.push(elseBlock)
 		}
-		return new Node('if', OperatorType.If, children)
+		return new Node('if', OperandType.If, children)
 	}
 
 	private getSwitchBlock (): Node {
@@ -490,8 +490,8 @@ export class Parser {
 					break
 				}
 			}
-			const block = new Node('block', OperatorType.Block, lines)
-			const caseNode = new Node(compare, OperatorType.Case, [block])
+			const block = new Node('block', OperandType.Block, lines)
+			const caseNode = new Node(compare, OperandType.Case, [block])
 			children.push(caseNode)
 		}
 
@@ -503,18 +503,18 @@ export class Parser {
 				if (line !== undefined) lines.push(line)
 				if (this.current === '}' || this.previous === '}') break
 			}
-			const block = new Node('block', OperatorType.Block, lines)
-			const defaultNode = new Node('default', OperatorType.Default, [block])
+			const block = new Node('block', OperandType.Block, lines)
+			const defaultNode = new Node('default', OperandType.Default, [block])
 			children.push(defaultNode)
 		}
 		if (this.current === '}') this.index += 1
-		return new Node('switch', OperatorType.Switch, children)
+		return new Node('switch', OperandType.Switch, children)
 	}
 
 	private getWhileBlock (): Node {
 		const condition = this.getExpression(undefined, undefined, ')')
 		const block = this.getControlBlock()
-		return new Node('while', OperatorType.While, [condition, block])
+		return new Node('while', OperandType.While, [condition, block])
 	}
 
 	private getForBlock (): Node {
@@ -523,7 +523,7 @@ export class Parser {
 			const condition = this.getExpression(undefined, undefined, ';')
 			const increment = this.getExpression(undefined, undefined, ')')
 			const block = this.getControlBlock()
-			return new Node('for', OperatorType.For, [first, condition, increment, block])
+			return new Node('for', OperandType.For, [first, condition, increment, block])
 		} else if (this.nextIs('in')) {
 			this.index += 2
 			// si hay espacios luego del in debe eliminarlos
@@ -532,7 +532,7 @@ export class Parser {
 			}
 			const list = this.getExpression(undefined, undefined, ')')
 			const block = this.getControlBlock()
-			return new Node('forIn', OperatorType.ForIn, [first, list, block])
+			return new Node('forIn', OperandType.ForIn, [first, list, block])
 		}
 		throw new Error('expression for error')
 	}
@@ -542,8 +542,8 @@ export class Parser {
 		if (this.current === '(') this.index += 1
 		const args = this.getArgs()
 		const block = this.getBlock()
-		const argsNode = new Node('args', OperatorType.Args, args)
-		return new Node(name, OperatorType.Func, [argsNode, block])
+		const argsNode = new Node('args', OperandType.Args, args)
+		return new Node(name, OperandType.Func, [argsNode, block])
 	}
 
 	private getChildFunc (name: string, parent: Node): Node {
@@ -571,20 +571,20 @@ export class Parser {
 			this.index += 2 // [=>]
 		}
 		if (isArrow) {
-			const variable = new Node(variableName, 'Var')
+			const variable = new Node(variableName, OperandType.Var)
 			const body = this.getExpression(undefined, undefined, ')')
-			return new Node(name, OperatorType.Arrow, [parent, variable, body])
+			return new Node(name, OperandType.Arrow, [parent, variable, body])
 		} else {
 			const args = this.getArgs(')')
 			args.splice(0, 0, parent)
-			return new Node(name, OperatorType.ChildFunc, args)
+			return new Node(name, OperandType.ChildFunc, args)
 		}
 	}
 
 	private getIndexOperand (name: string): Node {
 		const idx = this.getExpression(undefined, undefined, ']')
-		const operand = new Node(name, OperatorType.Var)
-		return new Node('[]', OperatorType.Operator, [operand, idx])
+		const operand = new Node(name, OperandType.Var)
+		return new Node('[]', OperandType.Operator, [operand, idx])
 	}
 
 	private getEnum (value: string): Node {
@@ -593,16 +593,16 @@ export class Parser {
 			const enumName = names[0]
 			const enumOption = names[1]
 			const enumValue = this.model.getEnumValue(enumName, enumOption)
-			return new Node(enumValue, OperatorType.Const)
+			return new Node(enumValue, OperandType.Const)
 		} else {
 			const values = this.model.getEnum(value)
 			const attributes = []
 			for (const name in values) {
 				const _value = values[name]
-				const attribute = new Node(name, 'KeyVal', [new Node(_value, OperatorType.Const)])
+				const attribute = new Node(name, OperandType.KeyVal, [new Node(_value, OperandType.Const)])
 				attributes.push(attribute)
 			}
-			return new Node('obj', OperatorType.Obj, attributes)
+			return new Node('obj', OperandType.Obj, attributes)
 		}
 	}
 }

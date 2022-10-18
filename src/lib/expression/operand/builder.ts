@@ -1,17 +1,13 @@
 /* eslint-disable no-case-declarations */
 import { Parser, nodeHelper } from '../parser'
-import { Context, Operand, Node, OperatorType, IOperandBuilder, IModelManager, OperandFactory, ISerializer } from '../contract'
-import { Const, Operator, CallFunc } from './operands'
+import { Context, Operand, Node, OperandType, IOperandBuilder, IModelManager, IOperandFactory, ISerializer } from '../contract'
+import { ConstBuilder } from './factory'
 import { OperandSerializer } from '.'
-// import { operandHelper } from './helper'
 
 export class OperandBuilder implements IOperandBuilder {
-	private model: IModelManager
-	private factory: OperandFactory
 	private serializer: ISerializer<Operand>
-	constructor (model: IModelManager, factory: OperandFactory) {
-		this.model = model
-		this.factory = factory
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (private readonly model: IModelManager, private readonly factory: IOperandFactory) {
 		this.serializer = new OperandSerializer(this.factory)
 	}
 
@@ -38,9 +34,9 @@ export class OperandBuilder implements IOperandBuilder {
 	}
 
 	private reduce (operand: Operand): Operand {
-		if (operand instanceof Operator) {
+		if (operand.type === OperandType.Operator) {
 			return this.reduceOperand(operand)
-		} else if (operand instanceof CallFunc) {
+		} else if (operand.type === OperandType.CallFunc) {
 			// Example: .[0].states.filter() where function name is states.filter
 			const names = operand.name.split('.')
 			const funcName = names[names.length - 1]
@@ -56,14 +52,14 @@ export class OperandBuilder implements IOperandBuilder {
 		let allConstants = true
 		for (const k in operand.children) {
 			const p = operand.children[k]
-			if (!(p instanceof Const)) {
+			if (!(p.type === OperandType.Const)) {
 				allConstants = false
 				break
 			}
 		}
 		if (allConstants) {
 			const value = operand.eval(new Context())
-			const constant = this.factory.create(operand.id, value, OperatorType.Const)
+			const constant = new ConstBuilder().build(operand.id, value)
 			return constant
 		} else {
 			for (let i = 0; i < operand.children.length; i++) {
@@ -84,7 +80,7 @@ export class OperandBuilder implements IOperandBuilder {
 				children.push(child)
 			}
 		}
-		const operand = this.factory.create(id, node.name, node.type, children)
+		const operand = this.factory.create(node.type, id, node.name, children)
 		return operand
 	}
 }

@@ -3,9 +3,9 @@ import { expressions as exp } from '../../../lib'
 describe('datetime', () => {
 	const context = JSON.parse('{}')
 	test('lab', () => {
-		expect(exp.eval('today()', context)).toStrictEqual('2022-10-13')
-		expect(exp.eval('now()', context)).toStrictEqual('2022-10-13T21:16:37.291Z')
-		expect(exp.eval('curTime()', context)).toStrictEqual('23:17:37')
+		expect(exp.eval('today()', context)).toStrictEqual('2022-10-17')
+		expect(exp.eval('now()', context)).toStrictEqual('2022-10-17T16:04:46.397Z')
+		expect(exp.eval('curTime()', context)).toStrictEqual('18:5:46')
 		expect(exp.eval('time("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('16:40:11')
 		expect(exp.eval('date("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('2021-9-6')
 		expect(exp.eval('datetime("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('2021-09-06T14:39:11.444Z')
