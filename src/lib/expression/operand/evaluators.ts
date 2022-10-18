@@ -192,12 +192,10 @@ export class SwitchEvaluator extends Evaluator {
 			const option = this.operand.children[i]
 			if (option.type === OperandType.Case) {
 				if (option.name === value) {
-					const caseBlock = option.children[0]
-					return caseBlock.eval(context)
+					return option.children[0].eval(context)
 				}
 			} else if (option.type === OperandType.Default) {
-				const defaultBlock = option.children[0]
-				return defaultBlock.eval(context)
+				return option.children[0].eval(context)
 			}
 		}
 	}

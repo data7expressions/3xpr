@@ -14,14 +14,12 @@ export abstract class ProcessEvaluator {
 	public constructor (protected readonly operand: Operand) {}
 	public abstract eval(context: Context, step:Step): any
 	protected solveChildren (context: Context, step:Step): any {
-		for (let i = 0; i < this.operand.children.length; i++) {
-			if (i >= step.values.length) {
-				const value = this.operand.children[i].eval(context)
-				if (context.token.isBreak) {
-					return value
-				}
-				step.values.push(value)
+		for (let i = step.values.length - 1; i < this.operand.children.length; i++) {
+			const value = this.operand.children[i].eval(context)
+			if (context.token.isBreak) {
+				return value
 			}
+			step.values.push(value)
 		}
 		return step.values
 	}
@@ -152,22 +150,20 @@ export class IfProcessEvaluator extends ProcessEvaluator {
 		} else if (this.operand.children.length > 2) {
 			// if had else if or else , evaluate them
 			let value
-			for (let i = 2; i < this.operand.children.length; i++) {
-				if (i >= step.values.length) {
-					if (this.operand.children[i].type === OperandType.ElseIf) {
-						const elseIfCondition = this.operand.children[i].children[0].eval(context)
-						if (elseIfCondition) {
-							value = this.operand.children[i].children[1].eval(context)
-						}
-					} else {
-						// else block
-						value = this.operand.children[i].eval(context)
+			for (let i = step.values.length - 1; i < this.operand.children.length; i++) {
+				if (this.operand.children[i].type === OperandType.ElseIf) {
+					const elseIfCondition = this.operand.children[i].children[0].eval(context)
+					if (elseIfCondition) {
+						value = this.operand.children[i].children[1].eval(context)
 					}
-					if (context.token.isBreak) {
-						return value
-					}
-					step.values.push(value)
+				} else {
+					// else block
+					value = this.operand.children[i].eval(context)
 				}
+				if (context.token.isBreak) {
+					return value
+				}
+				step.values.push(value)
 			}
 			return value
 		}
@@ -211,7 +207,7 @@ export class WhileProcessEvaluator extends ProcessEvaluator {
 
 export class ForProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
-		let blockResult:any = null
+		let lastValue:any = null
 		const initialize = this.operand.children[0]
 		const condition = this.operand.children[1]
 		const increment = this.operand.children[2]
@@ -237,11 +233,11 @@ export class ForProcessEvaluator extends ProcessEvaluator {
 		while (step.values[1]) {
 			// evaluate block
 			if (step.values.length === 2) {
-				blockResult = block.eval(context)
+				lastValue = block.eval(context)
 				if (context.token.isBreak) {
-					return blockResult
+					return lastValue
 				}
-				step.values.push(blockResult)
+				step.values.push(lastValue)
 			}
 			// evaluate increment
 			if (step.values.length === 3) {
@@ -260,7 +256,7 @@ export class ForProcessEvaluator extends ProcessEvaluator {
 			}
 			step.values.push(conditionResult)
 		}
-		return blockResult
+		return lastValue
 	}
 }
 
@@ -268,15 +264,27 @@ export class ForInProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		let lastValue:any = null
 		const item = this.operand.children[0]
-		const list = this.operand.children[1].eval(context)
+		const list = this.operand.children[1]
 		const block = this.operand.children[2]
-		for (let i = 0; i < list.length; i++) {
-			const value = list[i]
+		let listResult:any[] = []
+		// evaluate list
+		if (step.values.length === 0) {
+			listResult = list.eval(context)
+			if (context.token.isBreak) {
+				return listResult
+			}
+			step.values.push(listResult)
+		}
+		for (let i = step.values.length - 1; i < listResult.length; i++) {
+			const value = listResult[i]
 			if (context) {
 				context.data.set(item.name, value)
 			}
-			// item.set(value)
 			lastValue = block.eval(context)
+			if (context.token.isBreak) {
+				return lastValue
+			}
+			step.values.push(lastValue)
 		}
 		return lastValue
 	}
@@ -284,17 +292,25 @@ export class ForInProcessEvaluator extends ProcessEvaluator {
 
 export class SwitchProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
-		const value = this.operand.children[0].eval(context)
+		// evaluate
+		let value
+		if (step.values.length === 0) {
+			value = this.operand.children[0].eval(context)
+			if (context.token.isBreak) {
+				return value
+			}
+			step.values.push(value)
+		} else {
+			value = step.values[0]
+		}
 		for (let i = 1; i < this.operand.children.length; i++) {
 			const option = this.operand.children[i]
 			if (option.type === OperandType.Case) {
 				if (option.name === value) {
-					const caseBlock = option.children[0]
-					return caseBlock.eval(context)
+					return option.children[0].eval(context)
 				}
 			} else if (option.type === OperandType.Default) {
-				const defaultBlock = option.children[0]
-				return defaultBlock.eval(context)
+				return option.children[0].eval(context)
 			}
 		}
 	}

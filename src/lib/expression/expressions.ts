@@ -7,31 +7,21 @@ import { OperandBuilder } from '.'
 // eslint-disable-next-line no-use-before-define
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
-		const cache = new MemoryCache()
 		const model = new ModelManager()
 		const typeManager = new TypeManager(model)
 		const basic = new OperandBuilder(model, new OperandFactory(model))
 		const process = new OperandBuilder(model, new ProcessOperandFactory(model))
 		// const operandManager = new OperandManager(model)
 		new CoreLibrary(model).load()
-		return new Expressions(cache, model, basic, process, typeManager)
+		return new Expressions(model, basic, process, typeManager)
 	}
 }
 
 export class Expressions implements IExpressions {
 	private cache: ICache
-	private model: IModelManager
 	private observers:ActionObserver[]=[];
-	private basicBuilder: IOperandBuilder
-	private processBuilder: IOperandBuilder
-	private type: ITypeManager
-
-	constructor (cache:ICache, model: IModelManager, basic:IOperandBuilder, process:IOperandBuilder, type: ITypeManager) {
-		this.cache = cache
-		this.model = model
-		this.basicBuilder = basic
-		this.processBuilder = process
-		this.type = type
+	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly type: ITypeManager) {
+		this.cache = new MemoryCache()
 	}
 
 	private static _instance: IExpressions
@@ -90,41 +80,9 @@ export class Expressions implements IExpressions {
 		this.model.addFunctionAlias(alias, reference)
 	}
 
-	public isEnum (name:string): boolean {
-		return this.model.isEnum(name)
-	}
-
-	public getEnumValue (name:string, option:string):any {
-		return this.model.getEnumValue(name, option)
-	}
-
-	public getEnum (name:string):any {
-		return this.model.getEnum(name)
-	}
-
-	public isConstant (name:string): boolean {
-		return this.model.isConstant(name)
-	}
-
-	public getConstantValue (name:string):any {
-		return this.model.getConstantValue(name)
-	}
-
-	public getFormat (name:string): Format | undefined {
-		return this.model.getFormat(name)
-	}
-
-	public getOperator (operator:string, operands?:number): OperatorMetadata {
-		return this.model.getOperator(operator, operands)
-	}
-
-	public getFunction (name: string): OperatorMetadata {
-		return this.model.getFunction(name)
-	}
-
 	public clone (operand: Operand):Operand {
 		// TODO: resolver si el operand es process y no basic
-		return this.basicBuilder.clone(operand)
+		return this.basic.clone(operand)
 	}
 
 	/**
@@ -200,7 +158,7 @@ export class Expressions implements IExpressions {
 			const key = `${minifyExpression.join('')}_operand`
 			const value = this.cache.get(key)
 			if (!value) {
-				const operand = this.basicBuilder.build(minifyExpression)
+				const operand = this.basic.build(minifyExpression)
 				this.cache.set(key, operand)
 				return operand
 			} else {
@@ -217,7 +175,7 @@ export class Expressions implements IExpressions {
 			const key = `${minifyExpression.join('')}_process`
 			const value = this.cache.get(key)
 			if (!value) {
-				const operand = this.processBuilder.build(minifyExpression)
+				const operand = this.process.build(minifyExpression)
 				this.cache.set(key, operand)
 				return operand
 			} else {
@@ -233,7 +191,7 @@ export class Expressions implements IExpressions {
 		const key = `${minifyExpression.join('')}_operand`
 		const value = this.cache.get(key) as Operand
 		if (!value) {
-			const operand = this.basicBuilder.build(minifyExpression)
+			const operand = this.basic.build(minifyExpression)
 			this.type.solve(operand)
 			this.cache.set(key, operand)
 			return operand
