@@ -5,7 +5,7 @@ import { templateType } from '../test'
 (async () => {
 	const test = {
 		name: 'type',
-		context: {},
+		context: { },
 		cases: [{
 			name: 'lab',
 			func: (expression: string) => exp.getType(expression),

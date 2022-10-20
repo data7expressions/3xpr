@@ -1,6 +1,5 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { Operand, IModelManager, Type, PropertyType, ObjectType, Parameter, ArrayType, ITypeManager, OperatorMetadata, OperandType } from '../contract'
-import { typeHelper } from './helper'
+import { Operand, IModelManager, Type, PropertyType, ObjType, Parameter, ListType, ITypeManager, OperatorMetadata, OperandType } from '../contract'
 
 export class TypeManager implements ITypeManager {
 	// eslint-disable-next-line no-useless-constructor
@@ -21,7 +20,7 @@ export class TypeManager implements ITypeManager {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand.type === OperandType.Var) {
-			parameters.push({ name: operand.name, type: typeHelper.toString(operand.returnType) })
+			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
 		}
 		for (const child of operand.children) {
 			const childParameters = this.parameters(child)
@@ -37,7 +36,7 @@ export class TypeManager implements ITypeManager {
 		this.solveType(operand)
 		this.solveTemplate(operand)
 		this.setUndefinedAsAny(operand)
-		return operand.returnType || 'any'
+		return operand.returnType || Type.any
 	}
 
 	private solveType (operand: Operand):void {
@@ -84,7 +83,7 @@ export class TypeManager implements ITypeManager {
 
 	private setUndefinedAsAny (operand: Operand): void {
 		if (operand.returnType === undefined) {
-			operand.returnType = 'any'
+			operand.returnType = Type.any
 		}
 		for (const child of operand.children) {
 			this.setUndefinedAsAny(child)
@@ -97,19 +96,19 @@ export class TypeManager implements ITypeManager {
 			this.solveType(child.children[0])
 			properties.push({ name: child.name, type: child.children[0].returnType })
 		}
-		obj.returnType = { properties: properties }
+		obj.returnType = Type.obj(properties)
 	}
 
 	private solveProperty (property: Operand): void {
 		this.solveType(property.children[0])
 		if (property.children[0].returnType === undefined) {
-			property.children[0].returnType = { items: { properties: [{ name: property.name }] } }
-		} else if (typeHelper.isArrayType(property.children[0].returnType)) {
-			const arrayType = property.children[0].returnType as ArrayType
-			if (typeHelper.isObjectType(arrayType.items)) {
-				const objectType = arrayType.items as ObjectType
+			property.children[0].returnType = Type.list(Type.obj([{ name: property.name }]))
+		} else if (Type.isListType(property.children[0].returnType)) {
+			const listType = property.children[0].returnType.spec as ListType
+			if (listType.items && Type.isObjType(listType.items)) {
+				const objectType = listType.items.spec as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
-				if (propertyType) {
+				if (propertyType && propertyType.type) {
 					property.returnType = propertyType.type
 				}
 			}
@@ -120,7 +119,7 @@ export class TypeManager implements ITypeManager {
 		this.solveType(array.children[0])
 		// si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
 		if (array.children[0].returnType !== undefined) {
-			array.returnType = { items: array.children[0].returnType }
+			array.returnType = Type.list(array.children[0].returnType)
 		}
 	}
 
@@ -137,17 +136,17 @@ export class TypeManager implements ITypeManager {
 				this.setVariableType(variable.name, elementType, predicate)
 			}
 		}
-		if (!this.isIndeterminateType(metadata.return)) {
+		if (!this.isIndeterminateType(metadata.returnType)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			arrow.returnType = metadata.return as Type
+			arrow.returnType = Type.toType(metadata.returnType)
 		}
-		if (array.returnType === undefined && !this.isIndeterminateType(metadata.params[0].type)) {
+		if (array.returnType === undefined && metadata.params[0].type && !this.isIndeterminateType(metadata.params[0].type)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			array.returnType = metadata.params[0].type as Type
+			array.returnType = Type.toType(metadata.params[0].type)
 		}
-		if (predicate && !this.isIndeterminateType(metadata.params[1].type)) {
+		if (predicate && metadata.params[1].type && !this.isIndeterminateType(metadata.params[1].type)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			predicate.returnType = metadata.params[1].type as Type
+			predicate.returnType = Type.toType(metadata.params[1].type)
 		}
 		if (predicate) {
 			this.solveType(predicate)
@@ -160,8 +159,8 @@ export class TypeManager implements ITypeManager {
 	private solveOperator (operator: Operand): void {
 		const metadata = this.metadata(operator)
 		// intenta resolver el return type por metadata
-		if (!this.isIndeterminateType(metadata.return)) {
-			const returnType = this.trySolveFromMetadata(metadata.return)
+		if (!this.isIndeterminateType(metadata.returnType)) {
+			const returnType = this.trySolveFromMetadata(metadata.returnType)
 			if (returnType) {
 				operator.returnType = returnType
 			}
@@ -195,14 +194,14 @@ export class TypeManager implements ITypeManager {
 		if (type === undefined) {
 			return undefined
 		}
-		if (typeHelper.isPrimitive(type)) {
-			return type as Type
+		if (Type.isPrimitive(type)) {
+			return Type.toType(type)
 		}
 		// si de acuerdo a la metadata el tipo es un array de primitivo, asigna el tipo, example: string[]
 		if (type.endsWith('[]')) {
 			const elementType = type.substring(0, type.length - 2)
-			if (typeHelper.isPrimitive(elementType)) {
-				return { items: elementType as Type }
+			if (Type.isPrimitive(elementType)) {
+				return Type.list(Type.getType(elementType))
 			}
 		}
 		return undefined
@@ -212,19 +211,19 @@ export class TypeManager implements ITypeManager {
 		const beforeType = array.children[0].returnType
 		this.solveTemplate(array.children[0])
 		if (array.children[0].returnType && array.children[0].returnType !== beforeType) {
-			array.returnType = { items: array.children[0].returnType }
+			array.returnType = Type.list(array.children[0].returnType)
 		}
 	}
 
 	private solveTemplateProperty (property: Operand): void {
 		const beforeType = property.children[0].returnType
 		this.solveTemplate(property.children[0])
-		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && typeHelper.isArrayType(property.children[0].returnType)) {
-			const arrayType = property.children[0].returnType as ArrayType
-			if (typeHelper.isObjectType(arrayType.items)) {
-				const objectType = arrayType.items as ObjectType
+		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && Type.isListType(property.children[0].returnType)) {
+			const arrayType = property.children[0].returnType.spec as ListType
+			if (Type.isObjType(arrayType.items)) {
+				const objectType = arrayType.items.spec as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
-				if (propertyType) {
+				if (propertyType && propertyType.type) {
 					property.returnType = propertyType.type
 				}
 			}
@@ -246,7 +245,7 @@ export class TypeManager implements ITypeManager {
 			for (const child of obj.children) {
 				properties.push({ name: child.name, type: child.children[0].returnType })
 			}
-			obj.returnType = { properties: properties }
+			obj.returnType = Type.obj(properties)
 		}
 	}
 
@@ -254,10 +253,10 @@ export class TypeManager implements ITypeManager {
 		let templateType:Type|undefined
 		// intenta resolver T por return
 		if (operator.returnType) {
-			if (metadata.return === 'T') {
+			if (metadata.returnType === 'T') {
 				templateType = operator.returnType
-			} else if (metadata.return === 'T[]' && typeHelper.isArrayType(operator.returnType)) {
-				templateType = (operator.returnType as ArrayType).items
+			} else if (metadata.returnType === 'T[]' && Type.isListType(operator.returnType)) {
+				templateType = (operator.returnType.spec as ListType).items
 			}
 		}
 		// intenta resolver T por alguno de los parámetros
@@ -275,8 +274,8 @@ export class TypeManager implements ITypeManager {
 					if (paramMetadata.type === 'T') {
 						templateType = child.returnType
 						break
-					} else if (paramMetadata.type === 'T[]' && typeHelper.isArrayType(child.returnType)) {
-						templateType = (child.returnType as ArrayType).items
+					} else if (paramMetadata.type === 'T[]' && Type.isListType(child.returnType)) {
+						templateType = (child.returnType.spec as ListType).items
 						break
 					}
 				}
@@ -285,10 +284,10 @@ export class TypeManager implements ITypeManager {
 		// si pudo resolver el T, resuelve donde se utiliza
 		if (templateType !== undefined) {
 			if (operator.returnType === undefined) {
-				if (metadata.return === 'T') {
+				if (metadata.returnType === 'T') {
 					operator.returnType = templateType
-				} else if (metadata.return === 'T[]') {
-					operator.returnType = { items: templateType }
+				} else if (metadata.returnType === 'T[]') {
+					operator.returnType = Type.list(templateType)
 				}
 			}
 			for (let i = 0; i < metadata.params.length; i++) {
@@ -304,7 +303,7 @@ export class TypeManager implements ITypeManager {
 					if (paramMetadata.type === 'T') {
 						child.returnType = templateType
 					} else if (paramMetadata.type === 'T[]') {
-						child.returnType = { items: templateType }
+						child.returnType = Type.list(templateType)
 					}
 				}
 			}
@@ -312,7 +311,7 @@ export class TypeManager implements ITypeManager {
 	}
 
 	private getElementType (array: Operand): Type | undefined {
-		return array.returnType ? (array.returnType as ArrayType).items : undefined
+		return array.returnType ? (array.returnType.spec as ListType).items : undefined
 	}
 
 	private setVariableType (name: string, type: Type, operand: Operand) {
@@ -335,7 +334,7 @@ export class TypeManager implements ITypeManager {
 	}
 
 	private hadTemplate (metadata: OperatorMetadata): boolean {
-		return metadata.return === 'T' || metadata.return === 'T[]' || metadata.params.find(p => p.type === 'T' || p.type === 'T[]') !== undefined
+		return metadata.returnType === 'T' || metadata.returnType === 'T[]' || metadata.params.find(p => p.type === 'T' || p.type === 'T[]') !== undefined
 	}
 
 	private undefinedTypes (operator: Operand): boolean {

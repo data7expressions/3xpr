@@ -4,11 +4,27 @@ export interface ISerializer<T> {
 	deserialize (value: any): T
 	clone (value: T): T
 }
-
 export interface IBuilder<T> {
 	build (): T
 }
-
+export interface ICache<T> {
+	get(key:string): T
+	set(key:string, value:T):void
+	delete(key:string):void
+}
+export interface ActionObserverArgs{
+	expression:string
+	data: any
+	result?:any
+	error?:any
+}
+export abstract class ActionObserver {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly condition?:string) {}
+	public abstract before (args:ActionObserverArgs):void;
+	public abstract after (args:ActionObserverArgs):void;
+	public abstract error (args:ActionObserverArgs):void;
+}
 export interface Parameter {
 	name: string
 	type?: string
@@ -16,81 +32,14 @@ export interface Parameter {
 	value?:any,
 	multiple?:boolean
 }
-
-export enum OperandType
-{ Const = 'Const'
-, Var = 'Var'
-, Env = 'Env'
-, Property = 'Property'
-, Template = 'Template'
-, KeyVal = 'KeyVal'
-, List = 'List'
-, Obj = 'Obj'
-, Operator = 'Operator'
-, CallFunc = 'CallFunc'
-, Arrow = 'Arrow'
-, ChildFunc = 'ChildFunc'
-, Block = 'Block'
-, If = 'If'
-, ElseIf = 'ElseIf'
-, Else = 'Else'
-, While = 'While'
-, For = 'For'
-, ForIn = 'ForIn'
-, Switch = 'Switch'
-, Case = 'Case'
-, Default = 'Default'
-, Break = 'Break'
-, Continue = 'Continue'
-, Func = 'Func'
-, Return = 'Return'
-, Try = 'Try'
-, Catch = 'Catch'
-, Throw = 'Throw'
-, Args = 'Args'
+export interface Sing {
+	name:string
+	params:Parameter[]
+	returnType:string
+	async: boolean
 }
-
-export interface ParameterDoc {
-	name: string
-	description: string
-}
-export interface OperatorDoc {
-	description: string
-	params:ParameterDoc[]
-}
-
-export interface OperandMetadata {
-	type: OperandType,
-	name: string,
-	children?: OperandMetadata[],
-	returnType?: string,
-	property?: string
-	parameters?: Parameter[],
-	clause?: string,
-	alias?: string,
-	number?: number
-}
-
 export interface Format {
 	name: string
 	pattern: string
 	regExp: RegExp
-}
-
-export interface Sing {
-	name:string
-	params:Parameter[]
-	return:string
-	async: boolean
-}
-
-export interface OperatorAdditionalInfo {
-	doc?: OperatorDoc
-	priority: number
-}
-
-export interface FunctionAdditionalInfo {
-	doc?: OperatorDoc
-	deterministic?:boolean
-	multipleParams?:boolean
 }

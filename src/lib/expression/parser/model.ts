@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 // import expConfig from './config.json'
-import { Sing, OperatorMetadata, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../contract'
+import { Sing, OperatorMetadata, IModelManager, Format, Parameter, OperatorAdditionalInfo, FunctionAdditionalInfo, PrototypeEvaluator } from '../contract'
 
 export class ModelManager implements IModelManager {
 	private _enums: any
@@ -146,10 +146,10 @@ export class ModelManager implements IModelManager {
 			deterministic: false,
 			operands: singInfo.params.length,
 			params: singInfo.params,
-			return: singInfo.return
+			returnType: singInfo.returnType
 		}
-		if (Object.getPrototypeOf(source).name === 'Evaluator') {
-			metadata.custom = source
+		if (source instanceof PrototypeEvaluator) {
+			metadata.custom = source as PrototypeEvaluator
 		} else if (typeof source === 'function') {
 			metadata.function = source
 		} else {
@@ -170,10 +170,10 @@ export class ModelManager implements IModelManager {
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
 			params: singInfo.params,
-			return: singInfo.return
+			returnType: singInfo.returnType
 		}
-		if (Object.getPrototypeOf(source).name === 'Evaluator') {
-			metadata.custom = source
+		if (source instanceof PrototypeEvaluator) {
+			metadata.custom = source as PrototypeEvaluator
 		} else if (typeof source === 'function') {
 			metadata.function = source
 		} else {
@@ -273,7 +273,7 @@ export class ModelManager implements IModelManager {
 
 		return {
 			name: functionName,
-			return: _return !== '' ? _return : 'void',
+			returnType: _return !== '' ? _return : 'void',
 			params: params,
 			async: prefix === 'async'
 

@@ -2,12 +2,8 @@ import { h3lp } from 'h3lp'
 import crypto from 'crypto'
 
 export class Data {
-	public data: any
-	public parent: any
-	constructor (data?:any, parent?:Data) {
-		this.data = data || {}
-		this.parent = parent
-	}
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public data:any = {}, public parent?:Data) { }
 
 	newData ():Data {
 		return new Data({}, this)
@@ -47,15 +43,9 @@ export class Data {
 }
 
 export class Step {
-	public name:string
-	public id:string
-	public values:any[]
-
-	constructor (name:string, id:string) {
-		this.name = name
-		this.id = id
-		this.values = []
-	}
+	public values:any[] = []
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly name:string, public readonly id:string) { }
 }
 
 export class Token {
@@ -65,7 +55,7 @@ export class Token {
 	public listeners:string[]
 	public signals:string[]
 
-	constructor () {
+	public constructor () {
 		this.id = crypto.randomUUID()
 		this.stack = {}
 		this.isBreak = false

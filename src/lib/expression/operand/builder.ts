@@ -17,7 +17,6 @@ export class OperandBuilder implements IOperandBuilder {
 		nodeHelper.clear(node)
 		const operand = this.nodeToOperand(node, 1)
 		const reduced = this.reduce(operand)
-		// operandHelper.setStackAble(reduced)
 		return reduced
 	}
 

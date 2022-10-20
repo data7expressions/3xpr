@@ -1,14 +1,18 @@
 import { h3lp } from 'h3lp'
-import { Evaluator, Context, Operand, OperandType, IModelManager } from '../contract'
+import { Kind, Evaluator, Context, Operand, OperandType } from '../contract'
 
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
-		switch (this.operand.returnType) {
-		case 'string':
+		if (this.operand.returnType === undefined) {
 			return this.operand.name
-		case 'boolean':
+		}
+		switch (this.operand.returnType.kind) {
+		case Kind.string:
+			return this.operand.name
+		case Kind.boolean:
 			return Boolean(this.operand.name)
-		case 'number':
+		case Kind.integer:
+		case Kind.decimal:
 			return parseFloat(this.operand.name)
 		default:
 			return this.operand.name
@@ -65,52 +69,18 @@ export class ObjEvaluator extends Evaluator {
 		return obj
 	}
 }
-export class OperatorEvaluator extends Evaluator {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
-		super(operand)
-	}
-
-	public eval (context: Context): any {
-		if (this.model) {
-			const operatorMetadata = this.model.getOperator(this.operand.name, this.operand.children.length)
-			if (operatorMetadata.custom) {
-				// eslint-disable-next-line new-cap
-				return new operatorMetadata.custom(this.operand).eval(context)
-			} else {
-				const args = []
-				for (const child of this.operand.children) {
-					args.push(child.eval(context))
-				}
-				return operatorMetadata.function(...args)
-			}
-		} else {
-			throw new Error(`Function ${this.operand.name} not implemented`)
-		}
-	}
-}
 export class CallFuncEvaluator extends Evaluator {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
+	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
+	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
 		super(operand)
 	}
 
 	public eval (context: Context): any {
-		if (this.model) {
-			const funcMetadata = this.model.getFunction(this.operand.name)
-			if (funcMetadata.custom) {
-				// eslint-disable-next-line new-cap
-				return new funcMetadata.custom(this.operand).eval(context)
-			} else if (funcMetadata.function) {
-				const args = []
-				for (let i = 0; i < this.operand.children.length; i++) {
-					args.push(this.operand.children[i].eval(context))
-				}
-				return funcMetadata.function(...args)
-			}
-		} else {
-			throw new Error(`Function ${this.operand.name} not implemented`)
+		const args = []
+		for (const child of this.operand.children) {
+			args.push(child.eval(context))
 		}
+		return this._function(...args)
 	}
 }
 export class BlockEvaluator extends Evaluator {

@@ -1,8 +1,7 @@
 import { Type } from './type'
 // import { Node } from './node'
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType } from './base'
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType, ActionObserver } from '.'
 import { Operand, OperatorMetadata } from './operand'
-import { ActionObserver } from './observer'
 export interface ITypeManager {
 	solve (operand: Operand):Type
 	parameters (operand: Operand): Parameter[]

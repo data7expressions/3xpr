@@ -37,6 +37,12 @@
 - [jexl](https://commons.apache.org/proper/commons-jexl/reference/syntax.html)
 - [pnpm](https://www.roboleary.net/tools/2022/07/31/how-to-migrate-a-javascript-project-to-pnpm.html)
 
+## Decorators / Annotations
+
+- [typescript](https://www.typescriptlang.org/docs/handbook/decorators.html)
+- [python](https://www.geeksforgeeks.org/decorators-in-python/)
+- [kotlin](https://kotlinlang.org/docs/annotations.html#repeatable-annotations)
+
 ## Debuggers
 
 ### Debug Adapter Protocol

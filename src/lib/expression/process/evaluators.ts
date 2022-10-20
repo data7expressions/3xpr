@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Evaluator, Context, Step, Operand, OperandType, IModelManager } from '../contract'
+import { Evaluator, Context, Step, Operand, OperandType } from '../contract'
 
 export class PropertyProcessEvaluator extends Evaluator {
 	public eval (context: Context): any {
@@ -66,55 +66,18 @@ export class ObjProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-export class OperatorProcessEvaluator extends ProcessEvaluator {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
-		super(operand)
-	}
-
-	public eval (context: Context, step:Step): any {
-		if (this.model) {
-			const operatorMetadata = this.model.getOperator(this.operand.name, this.operand.children.length)
-			if (operatorMetadata.custom) {
-				// En el caso de una función custom no se podrá obtener el stack
-				// eslint-disable-next-line new-cap
-				return new operatorMetadata.custom(this.operand.name, this.operand.children).eval(context)
-			} else {
-				const result = this.solveChildren(context, step)
-				if (context.token.isBreak) {
-					return result
-				}
-				return operatorMetadata.function(...result)
-			}
-		} else {
-			throw new Error(`Function ${this.operand.name} not implemented`)
-		}
-	}
-}
-
 export class CallFuncProcessEvaluator extends ProcessEvaluator {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly operand: Operand, private readonly model: IModelManager) {
+	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
+	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
 		super(operand)
 	}
 
 	public eval (context: Context, step:Step): any {
-		if (this.model) {
-			const funcMetadata = this.model.getFunction(this.operand.name)
-			if (funcMetadata.custom) {
-				// En el caso de una función custom no se podrá obtener el stack
-				// eslint-disable-next-line new-cap
-				return new funcMetadata.custom(this.operand.name, this.operand.children).eval(context)
-			} else if (funcMetadata.function) {
-				const result = this.solveChildren(context, step)
-				if (context.token.isBreak) {
-					return result
-				}
-				return funcMetadata.function(...result)
-			}
-		} else {
-			throw new Error(`Function ${this.operand.name} not implemented`)
+		const result = this.solveChildren(context, step)
+		if (context.token.isBreak) {
+			return result
 		}
+		return this._function(...result)
 	}
 }
 

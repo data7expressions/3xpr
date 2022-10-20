@@ -1,6 +1,7 @@
-import { Data, Operand, Context, IExpressions, IBuilder, ICache, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
+import { Type, Data, Operand, Context, IExpressions, IBuilder, ICache, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
 import { ModelManager, nodeHelper } from './parser'
-import { TypeManager, CoreLibrary, typeHelper, OperandFactory, ProcessOperandFactory } from './operand'
+import { TypeManager, CoreLibrary, OperandFactory } from './operand'
+import { ProcessOperandFactory } from './process'
 import { MemoryCache } from './core'
 import { OperandBuilder } from '.'
 
@@ -18,10 +19,10 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 }
 
 export class Expressions implements IExpressions {
-	private cache: ICache
+	private cache: ICache<Operand>
 	private observers:ActionObserver[]=[];
 	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly type: ITypeManager) {
-		this.cache = new MemoryCache()
+		this.cache = new MemoryCache<Operand>()
 	}
 
 	private static _instance: IExpressions
@@ -102,7 +103,7 @@ export class Expressions implements IExpressions {
 	 */
 	public getType (expression: string): string {
 		const operand = this.typed(expression)
-		return typeHelper.toString(operand.returnType)
+		return Type.toString(operand.returnType)
 	}
 
 	/**

@@ -1,6 +1,4 @@
-import { Operand, OperandMetadata, ISerializer, IOperandFactory } from '../contract'
-// import { Var, KeyVal } from './operands'
-import { typeHelper } from '..'
+import { Operand, Type, OperandMetadata, ISerializer, IOperandFactory } from '../contract'
 export class OperandSerializer implements ISerializer<Operand> {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly factory: IOperandFactory) { }
@@ -18,7 +16,7 @@ export class OperandSerializer implements ISerializer<Operand> {
 		for (const k in operand.children) {
 			children.push(this._serialize(operand.children[k]))
 		}
-		return { name: operand.name, type: operand.type, children: children, returnType: typeHelper.serialize(operand.returnType), number: operand.number }
+		return { name: operand.name, type: operand.type, children: children, returnType: Type.serialize(operand.returnType), number: operand.number }
 	}
 
 	public deserialize (value: string): Operand {

@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Context, Evaluator, IModelManager, Operand, OperandType } from '../contract'
+import { Context, PrototypeEvaluator, IModelManager, Operand, OperandType, IEvaluator } from '../contract'
 // import { Obj, KeyVal, Var, List } from '.'
 import { expressions as exp } from '../..'
 import { operandHelper } from './helper'
@@ -73,26 +73,26 @@ export class CoreLibrary {
 		this.model.addOperator('>=(a:T,b:T):boolean', (a: any, b: any):boolean => a >= b, { priority: 4 })
 		this.model.addOperator('<=(a:T,b:T):boolean', (a: any, b: any):boolean => a <= b, { priority: 3 })
 
-		this.model.addOperator('&&(a:T,b:T):boolean', And, { priority: 3 })
-		this.model.addOperator('||(a:T,b:T):boolean', Or, { priority: 3 })
+		this.model.addOperator('&&(a:T,b:T):boolean', new And(), { priority: 3 })
+		this.model.addOperator('||(a:T,b:T):boolean', new Or(), { priority: 3 })
 		this.model.addOperator('!(a:boolean):boolean', (a: boolean):boolean => !a, { priority: 5 })
 
 		this.model.addOperator('[](list:T[],index:integer):T', (list: any[], index: any): any => list[index], { priority: 2 })
 		this.model.addOperator('$(name:string):string', (name:string):any => process.env[name], { priority: 9 })
 
-		this.model.addOperator('=(a:T,b:T):T', Assignment, { priority: 1 })
-		this.model.addOperator('+=(a:number,b:number):number', AssignmentAddition, { priority: 1 })
-		this.model.addOperator('-=(a:number,b:number):number', AssignmentSubtraction, { priority: 1 })
-		this.model.addOperator('*=(a:number,b:number):number', AssignmentMultiplication, { priority: 1 })
-		this.model.addOperator('/=(a:number,b:number):number', AssignmentDivision, { priority: 1 })
-		this.model.addOperator('**=(a:number,b:number):number', AssignmentExponentiation, { priority: 1 })
-		this.model.addOperator('//=(a:number,b:number):number', AssignmentFloorDivision, { priority: 1 })
-		this.model.addOperator('%=(a:number,b:number):number', AssignmentMod, { priority: 1 })
-		this.model.addOperator('&=(a:number,b:number):number', AssignmentBitAnd, { priority: 1 })
-		this.model.addOperator('|=(a:number,b:number):number', AssignmentBitOr, { priority: 1 })
-		this.model.addOperator('^=(a:number,b:number):number', AssignmentBitXor, { priority: 1 })
-		this.model.addOperator('<<=(a:number,b:number):number', AssignmentLeftShift, { priority: 1 })
-		this.model.addOperator('>>=(a:number,b:number):number', AssignmentRightShift, { priority: 1 })
+		this.model.addOperator('=(a:T,b:T):T', new Assignment(), { priority: 1 })
+		this.model.addOperator('+=(a:number,b:number):number', new AssignmentAddition(), { priority: 1 })
+		this.model.addOperator('-=(a:number,b:number):number', new AssignmentSubtraction(), { priority: 1 })
+		this.model.addOperator('*=(a:number,b:number):number', new AssignmentMultiplication(), { priority: 1 })
+		this.model.addOperator('/=(a:number,b:number):number', new AssignmentDivision(), { priority: 1 })
+		this.model.addOperator('**=(a:number,b:number):number', new AssignmentExponentiation(), { priority: 1 })
+		this.model.addOperator('//=(a:number,b:number):number', new AssignmentFloorDivision(), { priority: 1 })
+		this.model.addOperator('%=(a:number,b:number):number', new AssignmentMod(), { priority: 1 })
+		this.model.addOperator('&=(a:number,b:number):number', new AssignmentBitAnd(), { priority: 1 })
+		this.model.addOperator('|=(a:number,b:number):number', new AssignmentBitOr(), { priority: 1 })
+		this.model.addOperator('^=(a:number,b:number):number', new AssignmentBitXor(), { priority: 1 })
+		this.model.addOperator('<<=(a:number,b:number):number', new AssignmentLeftShift(), { priority: 1 })
+		this.model.addOperator('>>=(a:number,b:number):number', new AssignmentRightShift(), { priority: 1 })
 	}
 
 	private generalFunctions (): void {
@@ -352,16 +352,16 @@ export class CoreLibrary {
 	}
 
 	private arrayFunctions (): void {
-		this.model.addFunction('map(list: any[], predicate: T):T[]', Map)
+		this.model.addFunction('map(list: any[], predicate: T):T[]', new Map())
 		this.model.addFunctionAlias('select', 'map')
-		this.model.addFunction('foreach(list: any[], predicate: any)', Foreach)
+		this.model.addFunction('foreach(list: any[], predicate: any)', new Foreach())
 		this.model.addFunctionAlias('each', 'foreach')
-		this.model.addFunction('filter(list: T[], predicate: boolean):T[]', Filter)
+		this.model.addFunction('filter(list: T[], predicate: boolean):T[]', new Filter())
 		this.model.addFunctionAlias('where', 'filter')
-		this.model.addFunction('reverse(list: T[], predicate: any):T[]', Reverse)
-		this.model.addFunction('sort(list: T[], predicate: any):T[]', Sort)
+		this.model.addFunction('reverse(list: T[], predicate: any):T[]', new Reverse())
+		this.model.addFunction('sort(list: T[], predicate: any):T[]', new Sort())
 		this.model.addFunctionAlias('order', 'sort')
-		this.model.addFunction('remove(list: T[], predicate: boolean):T[]', Remove)
+		this.model.addFunction('remove(list: T[], predicate: boolean):T[]', new Remove())
 		this.model.addFunctionAlias('delete', 'remove')
 		this.model.addFunction('push(list: T[], value: T):T[]', (list: any[], item: any): any => {
 			list.push(item)
@@ -387,129 +387,242 @@ export class CoreLibrary {
 	}
 
 	private groupFunctions (): void {
-		this.model.addFunction('distinct(list: any[], predicate: any): any[]', Distinct)
-		this.model.addFunction('first(list: T[], predicate: boolean): T', First)
-		this.model.addFunction('last(list: T[], predicate: boolean): T', Last)
-		this.model.addFunction('count(list: T[], predicate: boolean): integer', Count)
-		this.model.addFunction('max(list: T[], predicate: boolean): T', Max)
-		this.model.addFunction('min(list: T[], predicate: boolean): T', Min)
-		this.model.addFunction('avg(list: T[], value: number): number', Avg)
-		this.model.addFunction('sum(list: T[], value: number): number', Sum)
+		this.model.addFunction('distinct(list: any[], predicate: any): any[]', new Distinct())
+		this.model.addFunction('first(list: T[], predicate: boolean): T', new First())
+		this.model.addFunction('last(list: T[], predicate: boolean): T', new Last())
+		this.model.addFunction('count(list: T[], predicate: boolean): integer', new Count())
+		this.model.addFunction('max(list: T[], predicate: boolean): T', new Max())
+		this.model.addFunction('min(list: T[], predicate: boolean): T', new Min())
+		this.model.addFunction('avg(list: T[], value: number): number', new Avg())
+		this.model.addFunction('sum(list: T[], value: number): number', new Sum())
 	}
 
 	private setsFunctions (): void {
-		this.model.addFunction('union(a: T[], b: T[]): T[]', Union)
-		this.model.addFunction('intersection(a: T[], b: T[]): T[]', Intersection)
-		this.model.addFunction('difference(a: T[], b: T[]): T[]', Difference)
-		this.model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', SymmetricDifference)
+		this.model.addFunction('union(a: T[], b: T[]): T[]', new Union())
+		this.model.addFunction('intersection(a: T[], b: T[]): T[]', new Intersection())
+		this.model.addFunction('difference(a: T[], b: T[]): T[]', new Difference())
+		this.model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', new SymmetricDifference())
 	}
 }
 
-class And extends Evaluator {
+class And extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new And(operand)
+	}
+
 	public eval (context: Context): boolean {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!this.operand.children[0].eval(context) as boolean) return false
 		return this.operand.children[1].eval(context) as boolean
 	}
 }
-class Or extends Evaluator {
+class Or extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Or(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (this.operand.children[0].eval(context)) return true
 		return this.operand.children[1].eval(context)
 	}
 }
-class Assignment extends Evaluator {
+class Assignment extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Assignment(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentAddition extends Evaluator {
+
+class AssignmentAddition extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentAddition(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) + this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentSubtraction extends Evaluator {
+class AssignmentSubtraction extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentSubtraction(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) - this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentMultiplication extends Evaluator {
+class AssignmentMultiplication extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentMultiplication(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) * this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentDivision extends Evaluator {
+class AssignmentDivision extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentDivision(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) / this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentExponentiation extends Evaluator {
+class AssignmentExponentiation extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentExponentiation(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) ** this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentFloorDivision extends Evaluator {
+class AssignmentFloorDivision extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentFloorDivision(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = Math.floor(this.operand.children[0].eval(context) / this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentMod extends Evaluator {
+class AssignmentMod extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentMod(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) % this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitAnd extends Evaluator {
+class AssignmentBitAnd extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentBitAnd(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) & this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitOr extends Evaluator {
+class AssignmentBitOr extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentBitOr(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) | this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentBitXor extends Evaluator {
+class AssignmentBitXor extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentBitXor(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) ^ this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentLeftShift extends Evaluator {
+class AssignmentLeftShift extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentLeftShift(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) << this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class AssignmentRightShift extends Evaluator {
+class AssignmentRightShift extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new AssignmentRightShift(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const value = this.operand.children[0].eval(context) >> this.operand.children[1].eval(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
 }
-class Map extends Evaluator {
+class Map extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Map(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const rows = []
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
@@ -566,8 +679,15 @@ class Map extends Evaluator {
 		return rows
 	}
 }
-class Distinct extends Evaluator {
+class Distinct extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Distinct(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const rows = []
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
@@ -608,8 +728,15 @@ class Distinct extends Evaluator {
 		return rows
 	}
 }
-class Foreach extends Evaluator {
+class Foreach extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Foreach(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -622,8 +749,15 @@ class Foreach extends Evaluator {
 		return list
 	}
 }
-class Filter extends Evaluator {
+class Filter extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Filter(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const rows = []
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
@@ -639,8 +773,15 @@ class Filter extends Evaluator {
 		return rows
 	}
 }
-class Reverse extends Evaluator {
+class Reverse extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Reverse(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -660,8 +801,15 @@ class Reverse extends Evaluator {
 		return values.map(p => p.p)
 	}
 }
-class Sort extends Evaluator {
+class Sort extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Sort(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const values = []
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
@@ -680,8 +828,15 @@ class Sort extends Evaluator {
 		return values.map(p => p.p)
 	}
 }
-class Remove extends Evaluator {
+class Remove extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Remove(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const rows = []
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
@@ -697,8 +852,15 @@ class Remove extends Evaluator {
 		return rows
 	}
 }
-class First extends Evaluator {
+class First extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new First(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -709,8 +871,15 @@ class First extends Evaluator {
 		return operandHelper.first(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Last extends Evaluator {
+class Last extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Last(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -721,8 +890,15 @@ class Last extends Evaluator {
 		return operandHelper.last(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Count extends Evaluator {
+class Count extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Count(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -733,8 +909,15 @@ class Count extends Evaluator {
 		return operandHelper.count(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Max extends Evaluator {
+class Max extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Max(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -751,8 +934,15 @@ class Max extends Evaluator {
 		return operandHelper.max(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Min extends Evaluator {
+class Min extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Min(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -769,8 +959,15 @@ class Min extends Evaluator {
 		return operandHelper.min(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Avg extends Evaluator {
+class Avg extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Avg(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -787,8 +984,15 @@ class Avg extends Evaluator {
 		return operandHelper.avg(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Sum extends Evaluator {
+class Sum extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Sum(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const list: any[] = this.operand.children[0].eval(context)
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
@@ -805,8 +1009,15 @@ class Sum extends Evaluator {
 		return operandHelper.sum(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
-class Union extends Evaluator {
+class Union extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Union(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
@@ -846,8 +1057,15 @@ class Union extends Evaluator {
 		return result
 	}
 }
-class Intersection extends Evaluator {
+class Intersection extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Intersection(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
@@ -881,8 +1099,15 @@ class Intersection extends Evaluator {
 		}
 	}
 }
-class Difference extends Evaluator {
+class Difference extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new Difference(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
@@ -919,8 +1144,15 @@ class Difference extends Evaluator {
 		}
 	}
 }
-class SymmetricDifference extends Evaluator {
+class SymmetricDifference extends PrototypeEvaluator {
+	public clone (operand:Operand): IEvaluator {
+		return new SymmetricDifference(operand)
+	}
+
 	public eval (context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
 		if (!a) {
