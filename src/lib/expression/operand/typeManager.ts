@@ -103,9 +103,9 @@ export class TypeManager implements ITypeManager {
 		this.solveType(property.children[0])
 		if (property.children[0].returnType === undefined) {
 			property.children[0].returnType = Type.list(Type.obj([{ name: property.name }]))
-		} else if (Type.isListType(property.children[0].returnType)) {
+		} else if (Type.isList(property.children[0].returnType)) {
 			const listType = property.children[0].returnType.spec as ListType
-			if (listType.items && Type.isObjType(listType.items)) {
+			if (listType.items && Type.isObj(listType.items)) {
 				const objectType = listType.items.spec as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType && propertyType.type) {
@@ -138,15 +138,15 @@ export class TypeManager implements ITypeManager {
 		}
 		if (!this.isIndeterminateType(metadata.returnType)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			arrow.returnType = Type.toType(metadata.returnType)
+			arrow.returnType = Type.to(metadata.returnType)
 		}
 		if (array.returnType === undefined && metadata.params[0].type && !this.isIndeterminateType(metadata.params[0].type)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			array.returnType = Type.toType(metadata.params[0].type)
+			array.returnType = Type.to(metadata.params[0].type)
 		}
 		if (predicate && metadata.params[1].type && !this.isIndeterminateType(metadata.params[1].type)) {
 			// TODO: hay que hacer que se pueda convertir de metadata type a Type y viceversa
-			predicate.returnType = Type.toType(metadata.params[1].type)
+			predicate.returnType = Type.to(metadata.params[1].type)
 		}
 		if (predicate) {
 			this.solveType(predicate)
@@ -195,13 +195,13 @@ export class TypeManager implements ITypeManager {
 			return undefined
 		}
 		if (Type.isPrimitive(type)) {
-			return Type.toType(type)
+			return Type.to(type)
 		}
 		// si de acuerdo a la metadata el tipo es un array de primitivo, asigna el tipo, example: string[]
 		if (type.endsWith('[]')) {
 			const elementType = type.substring(0, type.length - 2)
 			if (Type.isPrimitive(elementType)) {
-				return Type.list(Type.getType(elementType))
+				return Type.list(Type.get(elementType))
 			}
 		}
 		return undefined
@@ -218,9 +218,9 @@ export class TypeManager implements ITypeManager {
 	private solveTemplateProperty (property: Operand): void {
 		const beforeType = property.children[0].returnType
 		this.solveTemplate(property.children[0])
-		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && Type.isListType(property.children[0].returnType)) {
+		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && Type.isList(property.children[0].returnType)) {
 			const arrayType = property.children[0].returnType.spec as ListType
-			if (Type.isObjType(arrayType.items)) {
+			if (Type.isObj(arrayType.items)) {
 				const objectType = arrayType.items.spec as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType && propertyType.type) {
@@ -255,7 +255,7 @@ export class TypeManager implements ITypeManager {
 		if (operator.returnType) {
 			if (metadata.returnType === 'T') {
 				templateType = operator.returnType
-			} else if (metadata.returnType === 'T[]' && Type.isListType(operator.returnType)) {
+			} else if (metadata.returnType === 'T[]' && Type.isList(operator.returnType)) {
 				templateType = (operator.returnType.spec as ListType).items
 			}
 		}
@@ -274,7 +274,7 @@ export class TypeManager implements ITypeManager {
 					if (paramMetadata.type === 'T') {
 						templateType = child.returnType
 						break
-					} else if (paramMetadata.type === 'T[]' && Type.isListType(child.returnType)) {
+					} else if (paramMetadata.type === 'T[]' && Type.isList(child.returnType)) {
 						templateType = (child.returnType.spec as ListType).items
 						break
 					}

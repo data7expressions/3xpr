@@ -107,7 +107,7 @@ export class Type {
 		return ['string', 'integer', 'decimal', 'number', 'boolean', 'date', 'datetime', 'time'].includes(value)
 	}
 
-	public static toType (kind:Kind | string): Type {
+	public static to (kind:Kind | string): Type {
 		if (typeof kind === 'string') {
 			const kindKey = kind as keyof typeof Kind
 			return new Type(Kind[kindKey])
@@ -115,18 +115,18 @@ export class Type {
 		return new Type(kind)
 	}
 
-	public static getType (value: any): Type {
+	public static get (value: any): Type {
 		if (value === null || value === undefined) {
 			return Type.any
 		} else if (Array.isArray(value)) {
 			if (value.length > 0) {
-				return Type.list(this.getType(value[0]))
+				return Type.list(this.get(value[0]))
 			}
 			return Type.any
 		} else if (typeof value === 'object') {
 			const properties: PropertyType[] = []
 			for (const entry of Object.entries(value)) {
-				properties.push({ name: entry[0], type: this.getType(entry[1]) })
+				properties.push({ name: entry[0], type: this.get(entry[1]) })
 			}
 			return Type.obj(properties)
 		} else if (typeof value === 'string') {
@@ -143,14 +143,14 @@ export class Type {
 		return Type.any
 	}
 
-	public static isListType (type:Type| string) : boolean {
+	public static isList (type:Type| string) : boolean {
 		if (typeof type === 'string') {
 			return type.startsWith('[') && type.endsWith(']')
 		}
 		return type.kind === Kind.list
 	}
 
-	public static isObjType (type:Type|string) : boolean {
+	public static isObj (type:Type|string) : boolean {
 		if (typeof type === 'string') {
 			return type.startsWith('{') && type.endsWith('}')
 		}
@@ -164,7 +164,7 @@ export class Type {
 		if (this.isPrimitive(type)) {
 			return type.kind.toString()
 		}
-		if (this.isObjType(type)) {
+		if (this.isObj(type)) {
 			const properties:string[] = []
 			const objectType = type.spec as ObjType
 			for (const propertyType of objectType.properties) {
@@ -172,7 +172,7 @@ export class Type {
 			}
 			return `{${properties.join(',')}}`
 		}
-		if (this.isListType(type)) {
+		if (this.isList(type)) {
 			const arrayType = type.spec as ListType
 			return `[${this.toString(arrayType.items)}]`
 		}
