@@ -21,7 +21,7 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 export class Expressions implements IExpressions {
 	private cache: ICache<Operand>
 	private observers:ActionObserver[]=[];
-	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly type: ITypeManager) {
+	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager) {
 		this.cache = new MemoryCache<Operand>()
 	}
 
@@ -93,7 +93,7 @@ export class Expressions implements IExpressions {
 	 */
 	public parameters (expression: string): Parameter[] {
 		const operand = this.typed(expression)
-		return this.type.parameters(operand)
+		return this.typeManager.parameters(operand)
 	}
 
 	/**
@@ -101,7 +101,7 @@ export class Expressions implements IExpressions {
 	 * @param expression  expression
 	 * @returns Type of expression
 	 */
-	public getType (expression: string): string {
+	public type (expression: string): string {
 		const operand = this.typed(expression)
 		return Type.toString(operand.returnType)
 	}
@@ -193,11 +193,11 @@ export class Expressions implements IExpressions {
 		const value = this.cache.get(key) as Operand
 		if (!value) {
 			const operand = this.basic.build(minifyExpression)
-			this.type.solve(operand)
+			this.typeManager.type(operand)
 			this.cache.set(key, operand)
 			return operand
 		} else if (value.returnType === undefined) {
-			this.type.solve(value)
+			this.typeManager.type(value)
 			this.cache.set(key, value)
 			return value
 		} else {

@@ -8,7 +8,7 @@ import { templateType } from '../test'
 		context: { },
 		cases: [{
 			name: 'lab',
-			func: (expression: string) => exp.getType(expression),
+			func: (expression: string) => exp.type(expression),
 			tests: [
 				'1 + a',
 				'b + a',

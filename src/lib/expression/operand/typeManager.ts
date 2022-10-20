@@ -32,7 +32,7 @@ export class TypeManager implements ITypeManager {
 		return parameters
 	}
 
-	public solve (operand: Operand): Type {
+	public type (operand: Operand): Type {
 		this.solveType(operand)
 		this.solveTemplate(operand)
 		this.setUndefinedAsAny(operand)

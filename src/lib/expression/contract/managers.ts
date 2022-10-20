@@ -3,7 +3,7 @@ import { Type } from './type'
 import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType, ActionObserver } from '.'
 import { Operand, OperatorMetadata } from './operand'
 export interface ITypeManager {
-	solve (operand: Operand):Type
+	type (operand: Operand):Type
 	parameters (operand: Operand): Parameter[]
 }
 
@@ -56,7 +56,7 @@ export interface IExpressions {
 	addConstant (key:string, value:any):void
 	clone (operand: Operand):Operand
 	parameters (expression: string): Parameter[]
-	getType (expression: string): string
+	type (expression: string): string
 	eval (expression: string, data?: any): any
 	run (expression: string, data?: any): any
 	subscribe (observer:ActionObserver):void
