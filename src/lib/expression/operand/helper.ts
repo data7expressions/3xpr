@@ -100,7 +100,7 @@ export class OperandHelper {
 				value = this.sum(list, variable, operand.children[0], context)
 				break
 			}
-			return new ConstBuilder().build('0', value)
+			return new ConstBuilder().build(value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
 				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context)

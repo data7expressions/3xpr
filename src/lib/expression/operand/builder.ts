@@ -1,34 +1,19 @@
 /* eslint-disable no-case-declarations */
 import { Parser } from '../parser'
-import { Context, Operand, Node, OperandType, IOperandBuilder, IModelManager, IOperandFactory } from '../contract'
+import { Context, Operand, OperandType, IOperandBuilder, IModelManager, IEvaluatorFactory } from '../contract'
 import { ConstBuilder } from './factory'
 // import { OperandSerializer } from '.'
 
 export class OperandBuilder implements IOperandBuilder {
-	// private serializer: ISerializer<Operand>
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model: IModelManager, private readonly factory: IOperandFactory) {
-		// this.serializer = new OperandSerializer(this.factory)
-	}
+	public constructor (private readonly model: IModelManager, private readonly factory: IEvaluatorFactory) {}
 
 	public build (expression: string): Operand {
-		const node = new Parser(this.model, expression).parse()
-		const operand = this.nodeToOperand(node, 1)
+		const operand = new Parser(this.model, expression).parse()
+		this.complete(operand, 1)
 		const reduced = this.reduce(operand)
 		return reduced
 	}
-
-	// public clone (operand: Operand): Operand {
-	// return this.serializer.clone(operand)
-	// }
-
-	// public serialize (operand: Operand): string {
-	// return this.serializer.serialize(operand)
-	// }
-
-	// public deserialize (value: string): Operand {
-	// return this.serializer.deserialize(value)
-	// }
 
 	private reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {
@@ -56,7 +41,8 @@ export class OperandBuilder implements IOperandBuilder {
 		}
 		if (allConstants) {
 			const value = operand.eval(new Context())
-			const constant = new ConstBuilder().build(operand.id, value)
+			const constant = new ConstBuilder().build(value)
+			constant.id = operand.id
 			return constant
 		} else {
 			for (let i = 0; i < operand.children.length; i++) {
@@ -67,17 +53,15 @@ export class OperandBuilder implements IOperandBuilder {
 		return operand
 	}
 
-	private nodeToOperand (node: Node, index:number, parentId?:string): Operand {
+	private complete (operand: Operand, index:number, parentId?:string): void {
 		const id = parentId ? parentId + '.' + index : index.toString()
-		const children: Operand[] = []
-		if (node.children) {
-			for (let i = 0; i < node.children.length; i++) {
-				const childNode = node.children[i]
-				const child = this.nodeToOperand(childNode, i + 1, id)
-				children.push(child)
+		if (operand.children) {
+			for (let i = 0; i < operand.children.length; i++) {
+				const childNode = operand.children[i]
+				this.complete(childNode, i + 1, id)
 			}
 		}
-		const operand = this.factory.create(node.type, id, node.name, children)
-		return operand
+		operand.id = id
+		operand.evaluator = this.factory.create(operand)
 	}
 }

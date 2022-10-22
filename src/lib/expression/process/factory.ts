@@ -1,6 +1,6 @@
 
-import { Operand, Type, OperandType, IOperandFactory, IModelManager } from '../contract'
-import { VarEvaluator, EnvEvaluator, TemplateEvaluator, BreakEvaluator, ContinueEvaluator, ReturnEvaluator, ConstBuilder } from '../operand'
+import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelManager } from '../contract'
+import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, BreakEvaluator, ContinueEvaluator, ReturnEvaluator } from '../operand'
 import {
 	PropertyProcessEvaluator, ListProcessEvaluator, ObjProcessEvaluator,
 	CallFuncProcessEvaluator, BlockProcessEvaluator, IfProcessEvaluator, WhileProcessEvaluator, ForProcessEvaluator,
@@ -8,149 +8,114 @@ import {
 	TryProcessEvaluator, CatchProcessEvaluator, ThrowProcessEvaluator, StackEvaluator
 } from './evaluators'
 
-export class ProcessOperandFactory implements IOperandFactory {
+export class ProcessOperandFactory implements IEvaluatorFactory {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly model: IModelManager) { }
 
-	protected createOperator (type:OperandType, id:string, name: string, children: Operand[] = []): Operand {
-		const operand = new Operand(type, id, name, children)
-		const operatorMetadata = this.model.getOperator(name, children.length)
+	protected createOperator (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)
 		if (operatorMetadata.custom) {
 			// En el caso custom no sera posible acceder a la pila
-			operand.evaluator = operatorMetadata.custom.clone(operand)
+			return operatorMetadata.custom.clone(operand)
 		} else if (operatorMetadata.function !== undefined) {
-			operand.evaluator = new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
+			return new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
 		} else {
 			throw new Error(`Function ${name} not implemented`)
 		}
-		return operand
 	}
 
-	protected createFunction (type:OperandType, id:string, name: string, children: Operand[] = []): Operand {
-		const operand = new Operand(type, id, name, children)
-		const operatorMetadata = this.model.getFunction(name)
+	protected createFunction (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getFunction(operand.name)
 		if (operatorMetadata.custom) {
 			// En el caso custom no sera posible acceder a la pila
-			operand.evaluator = operatorMetadata.custom.clone(operand)
+			return operatorMetadata.custom.clone(operand)
 		} else if (operatorMetadata.function !== undefined) {
-			operand.evaluator = new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
+			return new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
 		} else {
 			throw new Error(`Function ${name} not implemented`)
 		}
-		return operand
 	}
 
-	public create (type:OperandType, id:string, name: string, children: Operand[] = []): Operand {
-		let operand:Operand | undefined
-		switch (type) {
+	public create (operand:Operand): IEvaluator|undefined {
+		let evaluator:IEvaluator | undefined
+		switch (operand.type) {
 		case OperandType.Const:
-			operand = new ConstBuilder().build(id, name)
+			evaluator = new ConstEvaluator(operand)
 			break
 		case OperandType.Var:
-			operand = new Operand(type, id, name)
-			operand.evaluator = new VarEvaluator(operand)
+			evaluator = new VarEvaluator(operand)
 			break
 		case OperandType.Env:
-			operand = new Operand(type, id, name, [], Type.string)
-			operand.evaluator = new EnvEvaluator(operand)
+			evaluator = new EnvEvaluator(operand)
 			break
 		case OperandType.Template:
-			operand = new Operand(type, id, name, [], Type.string)
-			operand.evaluator = new TemplateEvaluator(operand)
-			break
-		case OperandType.KeyVal:
-			operand = new Operand(type, id, name, children)
-			// // TODO: Evaluar si es necesario
-			// operand.property = name
-			// operand.evaluator = new KeyValEvaluator(operand)
+			evaluator = new TemplateEvaluator(operand)
 			break
 		case OperandType.Property:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new PropertyProcessEvaluator(operand)
+			evaluator = new PropertyProcessEvaluator(operand)
 			break
 		case OperandType.List:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new ListProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new ListProcessEvaluator(operand))
 			break
 		case OperandType.Obj:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new ObjProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new ObjProcessEvaluator(operand))
 			break
 		case OperandType.Operator:
-			operand = this.createOperator(type, id, name, children)
+			evaluator = this.createOperator(operand)
 			break
 		case OperandType.CallFunc:
 		case OperandType.Arrow:
 		case OperandType.ChildFunc:
-			operand = this.createFunction(type, id, name, children)
+			evaluator = this.createFunction(operand)
 			break
 		case OperandType.Block:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new BlockProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new BlockProcessEvaluator(operand))
 			break
 		case OperandType.If:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new IfProcessEvaluator(operand))
-			break
-		case OperandType.ElseIf:
-			operand = new Operand(type, id, name, children)
-			break
-		case OperandType.Else:
-			operand = new Operand(type, id, name, children)
+			evaluator = new StackEvaluator(operand, new IfProcessEvaluator(operand))
 			break
 		case OperandType.While:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new WhileProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new WhileProcessEvaluator(operand))
 			break
 		case OperandType.For:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new ForProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new ForProcessEvaluator(operand))
 			break
 		case OperandType.ForIn:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new ForInProcessEvaluator(operand))
+			evaluator = new StackEvaluator(operand, new ForInProcessEvaluator(operand))
 			break
 		case OperandType.Switch:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new StackEvaluator(operand, new SwitchProcessEvaluator(operand))
-			break
-		case OperandType.Case:
-			operand = new Operand(type, id, name, children)
-			break
-		case OperandType.Default:
-			operand = new Operand(type, id, name, children)
+			evaluator = new StackEvaluator(operand, new SwitchProcessEvaluator(operand))
 			break
 		case OperandType.Break:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new BreakEvaluator(operand)
+			evaluator = new BreakEvaluator(operand)
 			break
 		case OperandType.Continue:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new ContinueEvaluator(operand)
+			evaluator = new ContinueEvaluator(operand)
 			break
 		case OperandType.Func:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new FuncProcessEvaluator(operand)
+			evaluator = new FuncProcessEvaluator(operand)
 			break
 		case OperandType.Return:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new ReturnEvaluator(operand)
+			evaluator = new ReturnEvaluator(operand)
 			break
 		case OperandType.Try:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new TryProcessEvaluator(operand)
+			evaluator = new TryProcessEvaluator(operand)
 			break
 		case OperandType.Catch:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new CatchProcessEvaluator(operand)
+			evaluator = new CatchProcessEvaluator(operand)
 			break
 		case OperandType.Throw:
-			operand = new Operand(type, id, name, children)
-			operand.evaluator = new ThrowProcessEvaluator(operand)
+			evaluator = new ThrowProcessEvaluator(operand)
+			break
+		case OperandType.Default:
+		case OperandType.Case:
+		case OperandType.KeyVal:
+		case OperandType.ElseIf:
+		case OperandType.Else:
 			break
 		default:
-			throw new Error('node name: ' + name + ' type: ' + type + ' not supported')
+			throw new Error(`Process evaluator for ${operand.type} ${operand.name} not found`)
 		}
-		return operand
+		return evaluator
 	}
 }

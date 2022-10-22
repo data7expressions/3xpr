@@ -32,6 +32,9 @@ export class StackEvaluator extends Evaluator {
 	}
 
 	public eval (context: Context) {
+		if (this.operand.id === undefined) {
+			throw new Error(`Operand ${this.operand.name} id undefined`)
+		}
 		let step:Step = context.token.stack[this.operand.id] as Step
 		if (step === undefined) {
 			step = new Step(this.operand.name, this.operand.id)

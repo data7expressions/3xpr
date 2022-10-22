@@ -1,6 +1,6 @@
 import { Type } from './type'
 // import { Node } from './node'
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType, Context } from '.'
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, IEvaluator, Context } from '.'
 import { Operand, OperatorMetadata } from './operand'
 
 export interface ActionObserverArgs{
@@ -51,8 +51,8 @@ export interface IOperandBuilder {
 }
 
 // Abstract Factory
-export interface IOperandFactory {
-	create(type:OperandType, id:string, name: string, children?: Operand[]): Operand
+export interface IEvaluatorFactory {
+	create(operand:Operand): IEvaluator|undefined
 }
 
 export interface IExpressions {

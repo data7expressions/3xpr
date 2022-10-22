@@ -1,5 +1,5 @@
 import { h3lp, Validator } from 'h3lp'
-import { Node } from '../contract'
+import { Operand } from '../contract'
 
 export class NodeHelper {
 	private validator:Validator
@@ -7,7 +7,7 @@ export class NodeHelper {
 		this.validator = validator
 	}
 
-	public toExpression (node: Node): string {
+	public toExpression (node: Operand): string {
 		const list: string[] = []
 		// if (!node || !node.type) {
 		// console.log(node)
@@ -122,30 +122,30 @@ export class NodeHelper {
 		return result
 	}
 
-	public clone (value: Node): Node {
-		return this.deserialize(this.serialize(value))
-	}
+	// public clone (value: Operand): Operand {
+	// return this.deserialize(this.serialize(value))
+	// }
 
-	public serialize (node: Node): any {
-		const children = []
-		for (const child of node.children) {
-			children.push(this.serialize(child))
-		}
-		if (children.length === 0) {
-			return { n: node.name, t: node.type }
-		}
-		return { n: node.name, t: node.type, c: children }
-	}
+	// public serialize (node: Operand): any {
+	// const children = []
+	// for (const child of node.children) {
+	// children.push(this.serialize(child))
+	// }
+	// if (children.length === 0) {
+	// return { n: node.name, t: node.type }
+	// }
+	// return { n: node.name, t: node.type, c: children }
+	// }
 
-	public deserialize (serialized: any): Node {
-		const children = []
-		if (serialized.c) {
-			for (const p of serialized.c) {
-				children.push(this.deserialize(p))
-			}
-		}
-		return new Node(serialized.n, serialized.t, children)
-	}
+	// public deserialize (serialized: any): Operand {
+	// const children = []
+	// if (serialized.c) {
+	// for (const p of serialized.c) {
+	// children.push(this.deserialize(p))
+	// }
+	// }
+	// return new Operand(serialized.n, serialized.t, children)
+	// }
 }
 
 export const nodeHelper = new NodeHelper(h3lp.validator)
