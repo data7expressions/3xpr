@@ -5,7 +5,7 @@
       {
         "name": "Buenos Aires",
         "province": "BA",
-        "population": 2.89,
+        "population": 2890151,
         "coordinates": {
           "lat": 34.36,
           "long": 58.26
@@ -14,7 +14,7 @@
       {
         "name": "Córdoba",
         "province": "CB",
-        "population": 1.32,
+        "population": 1317298,
         "coordinates": {
           "lat": 31.42,
           "long": 64.18
@@ -23,7 +23,7 @@
       {
         "name": "Rosario",
         "province": "SF",
-        "population": 0.95,
+        "population": 948312,
         "coordinates": {
           "lat": 32.58,
           "long": 60.36
@@ -32,7 +32,7 @@
       {
         "name": "Mar del Plata",
         "province": "BA",
-        "population": 0.59,
+        "population": 593337,
         "coordinates": {
           "lat": 38,
           "long": 57.33
@@ -75,7 +75,7 @@
     "p": {
       "name": "Mar del Plata",
       "province": "BA",
-      "population": 0.59,
+      "population": 593337,
       "coordinates": {
         "lat": 38,
         "long": 57.33
@@ -94,15 +94,6 @@
         {
           "test": "cities.where(p-> p.province != \"BA\").length()",
           "result": 2
-        },
-        {
-          "test": "cities.each(p=> p.population=round(p.population/1000000,2)).population",
-          "result": [
-            2.89,
-            1.32,
-            0.95,
-            0.59
-          ]
         },
         {
           "test": "pair.foreach(p=>b=b+p)",

@@ -10,6 +10,9 @@ import { template } from '../test'
 			func: (expression: any, context: any) => exp.eval(expression, context),
 			tests: [
 				'a = true',
+				'a = 1',
+				'pi = 3.14159',
+				'musician = "Charly Garcia" ',
 				'a = nvl(null,false)'
 			]
 		}]

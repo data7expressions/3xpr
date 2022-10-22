@@ -1,7 +1,9 @@
 {
   "name": "constants",
   "context": {
-    "a": false
+    "a": false,
+    "pi": 3.14159,
+    "name": "Bpb"
   },
   "cases": [
     {
@@ -10,6 +12,18 @@
         {
           "test": "a = true",
           "result": true
+        },
+        {
+          "test": "a = 1",
+          "result": 1
+        },
+        {
+          "test": "pi = 3.14159",
+          "result": 3.14159
+        },
+        {
+          "test": "name = \"Bpb\" ",
+          "result": "Bpb"
         },
         {
           "test": "a = nvl(null,false)",

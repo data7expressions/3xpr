@@ -9,7 +9,7 @@ import {
 
 export class ConstBuilder {
 	public build (value:any): Operand {
-		const operand = new Operand(OperandType.Const, value, [], Type.get(value))
+		const operand = new Operand(value, OperandType.Const, [], Type.get(value))
 		operand.evaluator = new ConstEvaluator(operand)
 		return operand
 	}
