@@ -69,9 +69,6 @@ export class OperandFactory implements IOperandFactory {
 			break
 		case OperandType.KeyVal:
 			operand = new Operand(type, id, name, children)
-			// // TODO: Evaluar si es necesario
-			// operand.property = name
-			// operand.evaluator = new KeyValEvaluator(operand)
 			break
 		case OperandType.List:
 			operand = new Operand(type, id, name, children)

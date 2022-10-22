@@ -1,15 +1,34 @@
-// /* eslint-disable no-template-curly-in-string */
-// import { HelperTest } from '../helperTest'
-// import { Helper } from '../../lib'
+import { helper, expressions as exp } from '../../lib'
+import { template } from '../test'
 
-// (async () => {
-// const context = {
-// devices: [
-// { type: 'phone', imei: '911784599437339', mac: '10:3d:1c:9b:7e:db' },
-// { type: 'computer', mac: '11:3d:1c:9b:7e:db' },
-// { type: 'robot', mac: '12:3d:1c:9b:7e:db' }
-// ]
-// }
+(async () => {
+	const test = {
+		name: 'flows',
+		context: {
+			devices: [
+				{ type: 'phone', imei: '911784599437339', mac: '10:3d:1c:9b:7e:db' },
+				{ type: 'computer', mac: '11:3d:1c:9b:7e:db' },
+				{ type: 'robot', mac: '12:3d:1c:9b:7e:db' }
+			]
+		},
+		cases: [{
+			name: 'lab',
+			func: (expression: any, context: any) => exp.eval(expression, context),
+			tests: [
+				`list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+				total = 0;
+				for (i = 0; i < list.length(); i += 1) {
+				  total += list[i]
+				}
+				`
+			]
+		}]
+	}
+	const suite = helper.test.buildSuite(test)
+	await helper.fs.write(`./src/dev/tests/${suite.name}.json`, JSON.stringify(suite, null, 2))
+	const content = helper.test.build(suite, template)
+	await helper.fs.write(`./src/test/__tests__/auto/${suite.name}.test.ts`, content)
+})()
 
 // const list = [`
 // list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -82,7 +101,3 @@
 // }
 // };
 // b;`
-// ]
-// await HelperTest.buildSuite({ name: 'flows', context: Helper.obj.clone(context), expressions: list })
-// HelperTest.show(list, Helper.obj.clone(context))
-// })()

@@ -32,15 +32,19 @@ export class EnvEvaluator extends Evaluator {
 export class TemplateEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		// info https://www.tutorialstonight.com/javascript-string-format.php
-		const result = this.operand.name.replace(/\$([a-zA-Z0-9_]+)/g, (match, field) => {
-			const value = process.env[field]
-			return typeof value === 'undefined' ? match : value
-		})
-		return result.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
-			if (context.data) {
-				const value = context.data.get(field)
-				return typeof value === 'undefined' ? match : value
+		const result = this.operand.name.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
+			let value = process.env[field]
+			if (value === undefined && context.data) {
+				value = context.data.get(field)
 			}
+			return value === undefined ? match : value
+		})
+		return result.replace(/\$([a-zA-Z0-9_.]+)/g, (match, field) => {
+			let value = process.env[field]
+			if (value === undefined && context.data) {
+				value = context.data.get(field)
+			}
+			return value === undefined ? match : value
 		})
 	}
 }

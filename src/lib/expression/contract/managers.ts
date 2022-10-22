@@ -1,7 +1,22 @@
 import { Type } from './type'
 // import { Node } from './node'
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType, ActionObserver } from '.'
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperandType, Context } from '.'
 import { Operand, OperatorMetadata } from './operand'
+
+export interface ActionObserverArgs{
+	expression:string
+	context: Context
+	result?:any
+	error?:any
+}
+export abstract class ActionObserver {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (public readonly condition?:string) {}
+	public abstract before (args:ActionObserverArgs):void
+	public abstract after (args:ActionObserverArgs):void
+	public abstract error (args:ActionObserverArgs):void
+}
+
 export interface ITypeManager {
 	type (operand: Operand):Type
 	parameters (operand: Operand): Parameter[]
@@ -32,8 +47,7 @@ export interface IModelManager {
 }
 
 export interface IOperandBuilder {
-	build (expression: string[]): Operand
-	clone (operand: Operand):Operand
+	build (expression: string): Operand
 }
 
 // Abstract Factory
@@ -47,14 +61,14 @@ export interface IExpressions {
 	get constants(): [string, any][]
 	get operators(): [string, OperatorMetadata][]
 	get functions(): [string, OperatorMetadata][]
-	addOperator (source:any, sing:string, additionalInfo: OperatorAdditionalInfo):void
-	addFunction (source:any, sing:string, additionalInfo?: FunctionAdditionalInfo):void
+	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
+	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
 	addFunctionAlias (alias:string, reference:string):void
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
-	clone (operand: Operand):Operand
+	// clone (operand: Operand):Operand
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	eval (expression: string, data?: any): any

@@ -2,6 +2,10 @@ import { Context, Operand, OperandType } from '../contract'
 import { ConstBuilder } from './factory'
 
 export class OperandHelper {
+	public clone (operand: Operand): Operand {
+		return JSON.parse(JSON.stringify(operand))
+	}
+
 	public objectKey (obj:any) : any {
 		const keys = Object.keys(obj).sort()
 		const list:string[] = []

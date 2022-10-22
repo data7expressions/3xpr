@@ -83,26 +83,7 @@ export class NodeHelper {
 		return list.join('')
 	}
 
-	public clear (node: Node) {
-		try {
-			if (node.children.length > 0) {
-				const toRemove: number[] = []
-				for (let i = 0; i < node.children.length; i++) {
-					if (node.children[i] === null) {
-						toRemove.push(i)
-					}
-				}
-				for (let i = 0; i < toRemove.length; i++) {
-					delete node.children[toRemove[i]]
-				}
-			}
-		} catch (error: any) {
-			throw new Error('crear: ' + node.name + ' error: ' + error.toString())
-		}
-		return node
-	}
-
-	public minify (expression: string): string[] {
+	public normalize (expression: string): string[] {
 		let isString = false
 		let quotes = ''
 		const buffer = expression.split('')

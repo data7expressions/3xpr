@@ -1,36 +1,34 @@
 /* eslint-disable no-case-declarations */
-import { Parser, nodeHelper } from '../parser'
-import { Context, Operand, Node, OperandType, IOperandBuilder, IModelManager, IOperandFactory, ISerializer } from '../contract'
+import { Parser } from '../parser'
+import { Context, Operand, Node, OperandType, IOperandBuilder, IModelManager, IOperandFactory } from '../contract'
 import { ConstBuilder } from './factory'
-import { OperandSerializer } from '.'
+// import { OperandSerializer } from '.'
 
 export class OperandBuilder implements IOperandBuilder {
-	private serializer: ISerializer<Operand>
+	// private serializer: ISerializer<Operand>
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly model: IModelManager, private readonly factory: IOperandFactory) {
-		this.serializer = new OperandSerializer(this.factory)
+		// this.serializer = new OperandSerializer(this.factory)
 	}
 
-	public build (expression: string[]): Operand {
-		const parser = new Parser(this.model, expression)
-		const node = parser.parse()
-		nodeHelper.clear(node)
+	public build (expression: string): Operand {
+		const node = new Parser(this.model, expression).parse()
 		const operand = this.nodeToOperand(node, 1)
 		const reduced = this.reduce(operand)
 		return reduced
 	}
 
-	public clone (operand: Operand): Operand {
-		return this.serializer.clone(operand)
-	}
+	// public clone (operand: Operand): Operand {
+	// return this.serializer.clone(operand)
+	// }
 
-	public serialize (operand: Operand): string {
-		return this.serializer.serialize(operand)
-	}
+	// public serialize (operand: Operand): string {
+	// return this.serializer.serialize(operand)
+	// }
 
-	public deserialize (value: string): Operand {
-		return this.serializer.deserialize(value)
-	}
+	// public deserialize (value: string): Operand {
+	// return this.serializer.deserialize(value)
+	// }
 
 	private reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {

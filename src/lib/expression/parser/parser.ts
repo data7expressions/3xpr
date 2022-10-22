@@ -1,5 +1,6 @@
 import { h3lp } from 'h3lp'
 import { Node, IModelManager, OperandType } from '../contract'
+import { nodeHelper } from './helper'
 
 export class Parser {
 	private model: IModelManager
@@ -10,19 +11,15 @@ export class Parser {
 	private tripleOperators: string[]
 	private assignmentOperators: string[]
 
-	constructor (model: IModelManager, buffer: string[]) {
+	constructor (model: IModelManager, expression: string) {
 		this.model = model
-		this.buffer = []
-		this.buffer = buffer
+		const normalized = nodeHelper.normalize(expression)
+		this.buffer = Array.from(normalized)
 		this.length = this.buffer.length
 		this.index = 0
 		this.tripleOperators = []
 		this.doubleOperators = []
 		this.assignmentOperators = []
-		this.setOperators()
-	}
-
-	private setOperators () {
 		for (const entry of this.model.operators) {
 			const name = entry[0]
 			const metadata = entry[1]
@@ -31,27 +28,34 @@ export class Parser {
 			} else if (name.length === 3) {
 				this.tripleOperators.push(name)
 			}
-			// if (metadata.category === 'assignment') {
 			if (metadata.priority === 1) {
 				this.assignmentOperators.push(name)
 			}
 		}
 	}
 
-	get previous () {
-		return this.buffer[this.index - 1]
+	get end () {
+		return this.index >= this.length
 	}
+
+	// get previous () {
+	// return this.buffer[this.index - 1]
+	// }
 
 	get current (): any {
 		return this.buffer[this.index]
 	}
 
-	get next () {
-		return this.buffer[this.index + 1]
-	}
+	// get next () {
+	// return this.buffer[this.index + 1]
+	// }
 
-	get end () {
-		return this.index >= this.length
+	// private char (index: number) {
+	// return
+	// }
+
+	private offset (value = 0) {
+		return this.buffer[this.index + value]
 	}
 
 	private nextIs (key: string): boolean {
@@ -62,6 +66,49 @@ export class Parser {
 		return true
 	}
 
+	private getValue (increment = true): string {
+		const buff = []
+		if (increment) {
+			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
+				buff.push(this.current)
+				this.index += 1
+			}
+		} else {
+			let index = this.index
+			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
+				buff.push(this.buffer[index])
+				index += 1
+			}
+		}
+		return buff.join('')
+	}
+
+	private getString (char: string): string {
+		const buff = []
+		while (!this.end) {
+			if (this.current === char) {
+				if (!((this.index + 1 < this.length && this.offset(1) === char) || (this.offset(-1) === char))) { break }
+			}
+			buff.push(this.current)
+			this.index += 1
+		}
+		this.index += 1
+		return buff.join('')
+	}
+
+	private getTemplate (): string {
+		const buff = []
+		while (!this.end) {
+			if (this.current === '`') {
+				break
+			}
+			buff.push(this.current)
+			this.index += 1
+		}
+		this.index += 1
+		return buff.join('')
+	}
+
 	public parse () {
 		const nodes: Node[] = []
 		while (!this.end) {
@@ -69,16 +116,9 @@ export class Parser {
 			if (!node) break
 			nodes.push(node)
 		}
-		if (nodes.length === 1) { return nodes[0] }
-		return new Node('block', OperandType.Block, nodes)
-	}
-
-	private char (index: number) {
-		return this.buffer[index]
-	}
-
-	private offset (value = 0) {
-		return this.buffer[this.index + value]
+		const result = nodes.length === 1 ? nodes[0] : new Node('block', OperandType.Block, nodes)
+		// nodeHelper.clear(result)
+		return result
 	}
 
 	private getExpression (operand1?: Node, operator?: string, _break = ''): Node {
@@ -226,7 +266,7 @@ export class Parser {
 			operand = new Node('array', OperandType.List, elements)
 		} else if (char === '$') {
 			let variableName: string
-			if (this.next === '{') {
+			if (this.offset(1) === '{') {
 				this.index += 2
 				variableName = this.getValue()
 				if (!this.end && this.nextIs('}')) {
@@ -294,32 +334,15 @@ export class Parser {
 		}
 	}
 
-	private getValue (increment = true): string {
-		const buff = []
-		if (increment) {
-			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
-				buff.push(this.current)
-				this.index += 1
-			}
-		} else {
-			let index = this.index
-			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
-				buff.push(this.buffer[index])
-				index += 1
-			}
-		}
-		return buff.join('')
-	}
-
 	private getOperator (): any {
 		if (this.end) return null
 		let op = null
 		if (this.index + 2 < this.length) {
-			const triple = this.current + this.next + this.buffer[this.index + 2]
+			const triple = this.current + this.offset(1) + this.offset(2)
 			if (this.tripleOperators.includes(triple)) op = triple
 		}
 		if (op == null && this.index + 1 < this.length) {
-			const double = this.current + this.next
+			const double = this.current + this.offset(1)
 			if (this.doubleOperators.includes(double)) op = double
 		}
 		if (op == null) op = this.current
@@ -327,38 +350,12 @@ export class Parser {
 		return op
 	}
 
-	private getString (char: string): string {
-		const buff = []
-		while (!this.end) {
-			if (this.current === char) {
-				if (!((this.index + 1 < this.length && this.next === char) || (this.previous === char))) { break }
-			}
-			buff.push(this.current)
-			this.index += 1
-		}
-		this.index += 1
-		return buff.join('')
-	}
-
-	private getTemplate (): string {
-		const buff = []
-		while (!this.end) {
-			if (this.current === '`') {
-				break
-			}
-			buff.push(this.current)
-			this.index += 1
-		}
-		this.index += 1
-		return buff.join('')
-	}
-
 	private getArgs (end = ')'): Node[] {
 		const args = []
 		while (true) {
 			const arg = this.getExpression(undefined, undefined, ',' + end)
 			if (arg != null) args.push(arg)
-			if (this.previous === end) break
+			if (this.offset(-1) === end) break
 		}
 		return args
 	}
@@ -380,7 +377,7 @@ export class Parser {
 			const value = this.getExpression(undefined, undefined, ',}')
 			const attribute = new Node(name, OperandType.KeyVal, [value])
 			attributes.push(attribute)
-			if (this.previous === '}') break
+			if (this.offset(-1) === '}') break
 		}
 		return new Node('obj', OperandType.Obj, attributes)
 	}
@@ -390,7 +387,7 @@ export class Parser {
 		while (true) {
 			const line = this.getExpression(undefined, undefined, ';}')
 			if (line != null) lines.push(line)
-			if (this.previous === '}') break
+			if (this.offset(-1) === '}') break
 		}
 		return new Node('block', OperandType.Block, lines)
 	}
@@ -485,7 +482,7 @@ export class Parser {
 				} else if (this.nextIs('default:')) {
 					next = 'default:'
 					break
-				} else if (this.current === '}' || this.previous === '}') {
+				} else if (this.current === '}' || this.offset(-1) === '}') {
 					next = 'end'
 					break
 				}
@@ -501,7 +498,7 @@ export class Parser {
 			while (true) {
 				const line = this.getExpression(undefined, undefined, ';}')
 				if (line !== undefined) lines.push(line)
-				if (this.current === '}' || this.previous === '}') break
+				if (this.current === '}' || this.offset(-1) === '}') break
 			}
 			const block = new Node('block', OperandType.Block, lines)
 			const defaultNode = new Node('default', OperandType.Default, [block])
@@ -519,7 +516,7 @@ export class Parser {
 
 	private getForBlock (): Node {
 		const first = this.getExpression(undefined, undefined, '; ')
-		if (this.previous === ';') {
+		if (this.offset(-1) === ';') {
 			const condition = this.getExpression(undefined, undefined, ';')
 			const increment = this.getExpression(undefined, undefined, ')')
 			const block = this.getControlBlock()
@@ -552,19 +549,19 @@ export class Parser {
 		if (variableName !== '') {
 			// example: p => {name:p.name}
 			// example: p -> {name:p.name}
-			const i = this.index + variableName.length
-			if ((this.char(i) === '=' || this.char(i) === '-') && this.char(i + 1) === '>') {
+			const i = variableName.length
+			if ((this.offset(i) === '=' || this.offset(i) === '-') && this.offset(i + 1) === '>') {
 				isArrow = true
 				this.index += (variableName.length + 2) // [VARIABLE+NAME] + [=>]
 			}
-		} else if (this.current + this.next === '()') {
+		} else if (this.current + this.offset(1) === '()') {
 			// example: ()=> {name:name}
 			// example: ()-> {name:name}
 			if ((this.offset(2) === '=' || this.offset(2) === '-') && this.offset(3) === '>') {
 				isArrow = true
 				this.index += 4 // [()=>]
 			}
-		} else if (this.current + this.next === '=>' || this.current + this.next === '->') {
+		} else if (this.current + this.offset(1) === '=>' || this.current + this.offset(1) === '->') {
 			// example: => {name:name}
 			// example: -> {name:name}
 			isArrow = true

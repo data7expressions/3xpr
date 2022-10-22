@@ -23,7 +23,7 @@ import { template } from '../test'
 			tests: [
 				'cities.where(p-> p.province <> "BA").len()',
 				'cities.where(p-> p.province != "BA").length()',
-				'cities.each(p=> p.population=round(p.population/1000000,2)).population',
+				// 'cities.each(p=> p.population=round(p.population/1000000,2)).population',
 				'pair.foreach(p=>b=b+p)',
 				'pair.filter(p=> p<5).foreach(p => b=b+p)',
 				'cities.sort(p=> p.name).name',

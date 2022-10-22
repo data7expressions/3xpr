@@ -1,8 +1,8 @@
-import { Type, Data, Operand, Context, IExpressions, IBuilder, ICache, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
-import { ModelManager, nodeHelper } from './parser'
+import { Type, Data, Operand, Context, IExpressions, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
+import { ModelManager } from './parser'
 import { TypeManager, CoreLibrary, OperandFactory } from './operand'
 import { ProcessOperandFactory } from './process'
-import { MemoryCache } from './core'
+import { h3lp, MemoryCache, ICache } from 'h3lp'
 import { OperandBuilder } from '.'
 
 // eslint-disable-next-line no-use-before-define
@@ -19,10 +19,12 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 }
 
 export class Expressions implements IExpressions {
-	private cache: ICache<Operand>
+	private cache: ICache<number, Operand>
+	private processCache: ICache<number, Operand>
 	private observers:ActionObserver[]=[];
 	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager) {
-		this.cache = new MemoryCache<Operand>()
+		this.cache = new MemoryCache<number, Operand>()
+		this.processCache = new MemoryCache<number, Operand>()
 	}
 
 	private static _instance: IExpressions
@@ -53,12 +55,12 @@ export class Expressions implements IExpressions {
 		return this.model.functions
 	}
 
-	public addOperator (source:any, sing:string, additionalInfo: OperatorAdditionalInfo):void {
+	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void {
 		this.model.addOperator(source, sing, additionalInfo)
 	}
 
-	public addFunction (source:any, sing:string, additionalInfo?: FunctionAdditionalInfo):void {
-		this.model.addFunction(source, sing, additionalInfo)
+	public addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void {
+		this.model.addFunction(sing, source, additionalInfo)
 	}
 
 	public addEnum (key:string, values:[string, any][] | any):void {
@@ -79,11 +81,6 @@ export class Expressions implements IExpressions {
 
 	public addFunctionAlias (alias:string, reference:string):void {
 		this.model.addFunctionAlias(alias, reference)
-	}
-
-	public clone (operand: Operand):Operand {
-		// TODO: resolver si el operand es process y no basic
-		return this.basic.clone(operand)
 	}
 
 	/**
@@ -113,29 +110,29 @@ export class Expressions implements IExpressions {
 	 * @returns Result of the evaluate expression
 	 */
 	public eval (expression: string, data?: any): any {
+		const context = new Context(new Data(data))
 		try {
-			this.beforeExecutionNotify(expression, data)
+			this.beforeExecutionNotify(expression, context)
 			const operand = this.basicBuild(expression)
-			const context = new Context(new Data(data))
 			const result = operand.eval(context)
-			this.afterExecutionNotify(expression, data, result)
+			this.afterExecutionNotify(expression, context, result)
 			return result
 		} catch (error) {
-			this.errorExecutionNotify(expression, data, error)
+			this.errorExecutionNotify(expression, context, error)
 			throw error
 		}
 	}
 
-	public run (expression: string, data?: any): any {
+	public run (expression: string, data: any = {}): any {
+		const context = new Context(new Data(data))
 		try {
-			this.beforeExecutionNotify(expression, data)
+			this.beforeExecutionNotify(expression, context)
 			const operand = this.processBuild(expression)
-			const context = new Context(new Data(data))
 			const result = operand.eval(context)
-			this.afterExecutionNotify(expression, data, result)
+			this.afterExecutionNotify(expression, context, result)
 			return result
 		} catch (error) {
-			this.errorExecutionNotify(expression, data, error)
+			this.errorExecutionNotify(expression, context, error)
 			throw error
 		}
 	}
@@ -155,11 +152,10 @@ export class Expressions implements IExpressions {
 
 	private basicBuild (expression: string): Operand {
 		try {
-			const minifyExpression = nodeHelper.minify(expression)
-			const key = `${minifyExpression.join('')}_operand`
+			const key = h3lp.utils.hashCode(expression)
 			const value = this.cache.get(key)
 			if (!value) {
-				const operand = this.basic.build(minifyExpression)
+				const operand = this.basic.build(expression)
 				this.cache.set(key, operand)
 				return operand
 			} else {
@@ -172,12 +168,11 @@ export class Expressions implements IExpressions {
 
 	private processBuild (expression: string): Operand {
 		try {
-			const minifyExpression = nodeHelper.minify(expression)
-			const key = `${minifyExpression.join('')}_process`
-			const value = this.cache.get(key)
+			const key = h3lp.utils.hashCode(expression)
+			const value = this.processCache.get(key)
 			if (!value) {
-				const operand = this.process.build(minifyExpression)
-				this.cache.set(key, operand)
+				const operand = this.process.build(expression)
+				this.processCache.set(key, operand)
 				return operand
 			} else {
 				return value
@@ -188,11 +183,10 @@ export class Expressions implements IExpressions {
 	}
 
 	private typed (expression: string): Operand {
-		const minifyExpression = nodeHelper.minify(expression)
-		const key = `${minifyExpression.join('')}_operand`
+		const key = h3lp.utils.hashCode(expression)
 		const value = this.cache.get(key) as Operand
 		if (!value) {
-			const operand = this.basic.build(minifyExpression)
+			const operand = this.basic.build(expression)
 			this.typeManager.type(operand)
 			this.cache.set(key, operand)
 			return operand
@@ -205,39 +199,39 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	private beforeExecutionNotify (expression:string, data: any) {
-		const args = { expression: expression, data: data }
+	private beforeExecutionNotify (expression:string, context: Context) {
+		const args = { expression: expression, context: context }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
 			} else {
-				if (this.eval(observer.condition, data)) {
+				if (this.eval(observer.condition, context)) {
 					observer.before(args)
 				}
 			}
 		})
 	}
 
-	private afterExecutionNotify (expression:string, data: any, result:any) {
-		const args = { expression: expression, data: data, result: result }
+	private afterExecutionNotify (expression:string, context: Context, result:any) {
+		const args = { expression: expression, context: context, result: result }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
 			} else {
-				if (this.eval(observer.condition, data)) {
+				if (this.eval(observer.condition, context)) {
 					observer.after(args)
 				}
 			}
 		})
 	}
 
-	private errorExecutionNotify (expression:string, data: any, error:any) {
-		const args = { expression: expression, data: data, error: error }
+	private errorExecutionNotify (expression:string, context: Context, error:any) {
+		const args = { expression: expression, context: context, error: error }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)
 			} else {
-				if (this.eval(observer.condition, data)) {
+				if (this.eval(observer.condition, context)) {
 					observer.error(args)
 				}
 			}

@@ -1,8 +1,6 @@
 import { h3lp } from 'h3lp'
 import { Context, PrototypeEvaluator, IModelManager, Operand, OperandType, IEvaluator } from '../contract'
-// import { Obj, KeyVal, Var, List } from '.'
-import { expressions as exp } from '../..'
-import { operandHelper } from './helper'
+import { operandHelper } from '../..'
 
 export class CoreLibrary {
 	// eslint-disable-next-line no-useless-constructor
@@ -649,7 +647,7 @@ class Map extends PrototypeEvaluator {
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
-						const operandCloned = exp.clone(keyValue.children[0])
+						const operandCloned = operandHelper.clone(keyValue.children[0])
 						const operandResolved = operandHelper.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value: value })
