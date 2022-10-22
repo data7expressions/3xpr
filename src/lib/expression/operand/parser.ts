@@ -1,6 +1,6 @@
 import { h3lp } from 'h3lp'
 import { Operand, IModelManager, OperandType, Type } from '../contract'
-import { nodeHelper } from './helper'
+import { operandHelper } from './helper'
 
 export class Parser {
 	private model: IModelManager
@@ -13,7 +13,7 @@ export class Parser {
 
 	constructor (model: IModelManager, expression: string) {
 		this.model = model
-		const normalized = nodeHelper.normalize(expression)
+		const normalized = operandHelper.normalize(expression)
 		this.buffer = Array.from(normalized)
 		this.length = this.buffer.length
 		this.index = 0

@@ -1,6 +1,5 @@
 import { Type, Data, Operand, Context, IExpressions, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
-import { ModelManager } from './parser'
-import { TypeManager, CoreLibrary, EvaluatorFactory } from './operand'
+import { ModelManager, TypeManager, CoreLibrary, EvaluatorFactory } from './operand'
 import { ProcessOperandFactory } from './process'
 import { h3lp, MemoryCache, ICache } from 'h3lp'
 import { OperandBuilder } from '.'

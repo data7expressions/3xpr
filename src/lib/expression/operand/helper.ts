@@ -1,9 +1,128 @@
 import { Context, Operand, OperandType } from '../contract'
 import { ConstBuilder } from './factory'
+import { h3lp, Validator } from 'h3lp'
 
 export class OperandHelper {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly validator:Validator) {}
+
 	public clone (operand: Operand): Operand {
 		return JSON.parse(JSON.stringify(operand))
+	}
+
+	public toExpression (operand: Operand): string {
+		const list: string[] = []
+		// if (!node || !node.type) {
+		// console.log(node)
+		// }
+		switch (operand.type) {
+		case OperandType.Const:
+		case OperandType.Var:
+			list.push(operand.name)
+			break
+		case OperandType.List:
+			list.push('[')
+			for (let i = 0; i < operand.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(operand.children[i]))
+			}
+			list.push(']')
+			break
+		case OperandType.KeyVal:
+			list.push(operand.name + ':')
+			list.push(this.toExpression(operand.children[0]))
+			break
+		case OperandType.Obj:
+			list.push('{')
+			for (let i = 0; i < operand.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(operand.children[i]))
+			}
+			list.push('}')
+			break
+		case OperandType.Operator:
+			if (operand.children.length === 1) {
+				list.push(operand.name)
+				list.push(this.toExpression(operand.children[0]))
+			} else if (operand.children.length === 2) {
+				list.push('(')
+				list.push(this.toExpression(operand.children[0]))
+				list.push(operand.name)
+				list.push(this.toExpression(operand.children[1]))
+				list.push(')')
+			}
+			break
+		case OperandType.CallFunc:
+			list.push(operand.name)
+			list.push('(')
+			for (let i = 0; i < operand.children.length; i++) {
+				if (i > 0) list.push(',')
+				list.push(this.toExpression(operand.children[i]))
+			}
+			list.push(')')
+			break
+		case OperandType.ChildFunc:
+			list.push(this.toExpression(operand.children[0]))
+			list.push('.' + operand.name)
+			list.push('(')
+			for (let i = 1; i < operand.children.length; i++) {
+				if (i > 1) list.push(',')
+				list.push(this.toExpression(operand.children[i]))
+			}
+			list.push(')')
+			break
+		case OperandType.Arrow:
+			list.push(this.toExpression(operand.children[0]))
+			list.push('.' + operand.name)
+			list.push('(')
+			list.push(operand.children[1].name)
+			list.push('=>')
+			list.push(this.toExpression(operand.children[2]))
+			list.push(')')
+			break
+		default:
+			throw new Error('node: ' + operand.type + ' not supported')
+		}
+		return list.join('')
+	}
+
+	public normalize (expression: string): string[] {
+		let isString = false
+		let quotes = ''
+		const buffer = expression.split('')
+		const length = buffer.length
+		const result = []
+		let i = 0
+		while (i < length) {
+			const p = buffer[i]
+			if (isString && p === quotes) {
+				isString = false
+			} else if (!isString && (p === '\'' || p === '"' || p === '`')) {
+				isString = true
+				quotes = p
+			}
+			if (isString) {
+				result.push(p)
+			} else if (p === ' ') {
+				// Only leave spaces when it's between alphanumeric characters.
+				// for example in the case of "} if" there should not be a space
+				if (i + 1 < length && i - 1 >= 0 && this.validator.isAlphanumeric(buffer[i - 1]) && this.validator.isAlphanumeric(buffer[i + 1])) {
+					result.push(p)
+				}
+			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
+			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
+			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+			// result.push(';')
+			} else if (p !== '\n' && p !== '\r' && p !== '\t') {
+				result.push(p)
+			}
+			i += 1
+		}
+		if (result[result.length - 1] === ';') {
+			result.splice(-1)
+			return result
+		}
+		return result
 	}
 
 	public objectKey (obj:any) : any {
@@ -196,7 +315,7 @@ export class OperandHelper {
 		return sum
 	}
 }
-export const operandHelper = new OperandHelper()
+export const operandHelper = new OperandHelper(h3lp.validator)
 
 // export class TypeHelper {
 // // eslint-disable-next-line no-useless-constructor

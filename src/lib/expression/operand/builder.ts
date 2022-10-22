@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
-import { Parser } from '../parser'
 import { Context, Operand, OperandType, IOperandBuilder, IModelManager, IEvaluatorFactory } from '../contract'
+import { Parser } from './parser'
 import { ConstBuilder } from './factory'
 // import { OperandSerializer } from '.'
 
