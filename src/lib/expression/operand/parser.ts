@@ -38,118 +38,6 @@ export class Parser {
 		}
 	}
 
-	private normalize (expression: string): [string, number, number][] {
-		let isString = false
-		let quotes = ''
-		const buffer = expression.split('')
-		const length = buffer.length
-		const result:[string, number, number][] = []
-		let line = 0
-		let col = 0
-		let i = 0
-		while (i < length) {
-			const p = buffer[i]
-			if (isString && p === quotes) {
-				isString = false
-			} else if (!isString && (p === '\'' || p === '"' || p === '`')) {
-				isString = true
-				quotes = p
-			}
-			if (isString) {
-				result.push([p, line, col])
-			} else if (p === ' ') {
-				// Only leave spaces when it's between alphanumeric characters.
-				// for example in the case of "} if" there should not be a space
-				if (i + 1 < length && i - 1 >= 0 && h3lp.validator.isAlphanumeric(buffer[i - 1]) && h3lp.validator.isAlphanumeric(buffer[i + 1])) {
-					result.push([p, line, col])
-				}
-			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
-			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
-			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-			// result.push(';')
-			} else if (p === '\n') {
-				line++
-				col = 0
-			} else if (p !== '\r' && p !== '\t') {
-				result.push([p, line, col])
-			}
-			i += 1
-			col++
-		}
-		if (result[result.length - 1][0] === ';') {
-			result.splice(-1)
-		}
-		return result
-	}
-
-	get end () {
-		return this.index >= this.length
-	}
-
-	get current (): any {
-		return this.buffer[this.index]
-	}
-
-	private offset (offset = 0) {
-		return this.buffer[this.index + offset]
-	}
-
-	private pos (offset = 0): [number, number] {
-		const position = this.positions[this.index - offset]
-		return [position[1], position[2]]
-	}
-
-	private nextIs (key: string): boolean {
-		const array = key.split('')
-		for (let i = 0; i < array.length; i++) {
-			if (this.buffer[this.index + i] !== array[i]) { return false }
-		}
-		return true
-	}
-
-	private getValue (increment = true): string {
-		const buff = []
-		if (increment) {
-			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
-				buff.push(this.current)
-				this.index += 1
-			}
-		} else {
-			let index = this.index
-			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
-				buff.push(this.buffer[index])
-				index += 1
-			}
-		}
-		return buff.join('')
-	}
-
-	private getString (char: string): string {
-		const buff = []
-		while (!this.end) {
-			if (this.current === char) {
-				if (!((this.index + 1 < this.length && this.offset(1) === char) || (this.offset(-1) === char))) { break }
-			}
-			buff.push(this.current)
-			this.index += 1
-		}
-		this.index += 1
-		return buff.join('')
-	}
-
-	private getTemplate (): string {
-		const buff = []
-		while (!this.end) {
-			if (this.current === '`') {
-				break
-			}
-			buff.push(this.current)
-			this.index += 1
-		}
-		this.index += 1
-		return buff.join('')
-	}
-
 	public parse () {
 		const nodes: Operand[] = []
 		while (!this.end) {
@@ -169,7 +57,7 @@ export class Parser {
 		while (!this.end) {
 			if (!operand1 && !operator) {
 				operand1 = this.getOperand()
-				operator = this.getOperator() as string
+				operator = this.getOperator()
 				if (!operator || _break.includes(this.current)) {
 					if (_break.includes(this.current)) {
 						this.index += 1
@@ -181,27 +69,27 @@ export class Parser {
 			}
 			operand2 = this.getOperand()
 			const nextOperator = this.getOperator()
-			if (operator) {
+			if (operator && operand1) {
 				if (!nextOperator || _break.includes(this.current)) {
 					if (_break.includes(this.current)) {
 						this.index += 1
 					}
-					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1, operand2])
 					isBreak = true
 					break
 				} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
-					operand1 = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					operand1 = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1, operand2])
 					operator = nextOperator
 				} else {
 					operand2 = this.getExpression(operand2, nextOperator, _break)
-					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1, operand2])
 					isBreak = true
 					break
 				}
 			}
 		}
-		if (!isBreak) {
-			expression = new Operand(pos, operator, OperandType.Operator, [operand1 as Operand, operand2 as Operand])
+		if (!isBreak && operand1 && operand2) {
+			expression = new Operand(pos, operator, OperandType.Operator, [operand1, operand2])
 		}
 		return expression as Operand
 	}
@@ -408,6 +296,118 @@ export class Parser {
 		if (op == null) op = this.current
 		this.index += op.length
 		return op
+	}
+
+	private normalize (expression: string): [string, number, number][] {
+		let isString = false
+		let quotes = ''
+		const buffer = expression.split('')
+		const length = buffer.length
+		const result:[string, number, number][] = []
+		let line = 0
+		let col = 0
+		let i = 0
+		while (i < length) {
+			const p = buffer[i]
+			if (isString && p === quotes) {
+				isString = false
+			} else if (!isString && (p === '\'' || p === '"' || p === '`')) {
+				isString = true
+				quotes = p
+			}
+			if (isString) {
+				result.push([p, line, col])
+			} else if (p === ' ') {
+				// Only leave spaces when it's between alphanumeric characters.
+				// for example in the case of "} if" there should not be a space
+				if (i + 1 < length && i - 1 >= 0 && h3lp.validator.isAlphanumeric(buffer[i - 1]) && h3lp.validator.isAlphanumeric(buffer[i + 1])) {
+					result.push([p, line, col])
+				}
+			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
+			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
+			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+			// result.push(';')
+			} else if (p === '\n') {
+				line++
+				col = 0
+			} else if (p !== '\r' && p !== '\t') {
+				result.push([p, line, col])
+			}
+			i += 1
+			col++
+		}
+		if (result[result.length - 1][0] === ';') {
+			result.splice(-1)
+		}
+		return result
+	}
+
+	private get end () {
+		return this.index >= this.length
+	}
+
+	private get current (): any {
+		return this.buffer[this.index]
+	}
+
+	private offset (offset = 0) {
+		return this.buffer[this.index + offset]
+	}
+
+	private pos (offset = 0): [number, number] {
+		const position = this.positions[this.index - offset]
+		return [position[1], position[2]]
+	}
+
+	private nextIs (key: string): boolean {
+		const array = key.split('')
+		for (let i = 0; i < array.length; i++) {
+			if (this.buffer[this.index + i] !== array[i]) { return false }
+		}
+		return true
+	}
+
+	private getValue (increment = true): string {
+		const buff = []
+		if (increment) {
+			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
+				buff.push(this.current)
+				this.index += 1
+			}
+		} else {
+			let index = this.index
+			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
+				buff.push(this.buffer[index])
+				index += 1
+			}
+		}
+		return buff.join('')
+	}
+
+	private getString (char: string): string {
+		const buff = []
+		while (!this.end) {
+			if (this.current === char) {
+				if (!((this.index + 1 < this.length && this.offset(1) === char) || (this.offset(-1) === char))) { break }
+			}
+			buff.push(this.current)
+			this.index += 1
+		}
+		this.index += 1
+		return buff.join('')
+	}
+
+	private getTemplate (): string {
+		const buff = []
+		while (!this.end) {
+			if (this.current === '`') {
+				break
+			}
+			buff.push(this.current)
+			this.index += 1
+		}
+		this.index += 1
+		return buff.join('')
 	}
 
 	private getArgs (end = ')'):Operand[] {
