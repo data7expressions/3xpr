@@ -196,17 +196,3 @@ export class Type {
 
 // TODO: ver tuples
 // https://www.tutorialsteacher.com/typescript/typescript-tuple
-
-// export interface ObjectType {
-// properties: PropertyType[]
-// }
-
-// export interface ArrayType {
-// item?:Type
-// }
-
-// export interface Type {
-// primitive?: 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'datetime'| 'time'| 'any'
-// array?: ArrayType
-// object?: ObjectType
-// }

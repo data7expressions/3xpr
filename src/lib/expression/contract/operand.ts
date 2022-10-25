@@ -32,10 +32,6 @@ export enum OperandType
 , Throw = 'Throw'
 , Args = 'Args'
 }
-// export class Node {
-// // eslint-disable-next-line no-useless-constructor
-// public constructor (public readonly name:any, public readonly type:OperandType, public children:Node[] = []) { }
-// }
 export interface ParameterDoc {
 	name: string
 	description: string
@@ -64,8 +60,6 @@ export class Operand {
 	public evaluator?: IEvaluator
 	public number?: number
 	public id?: string
-	// public returnType?:Type
-	// public property?: string
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (public readonly pos:[number, number], public readonly name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
 	public eval (context: Context): any {

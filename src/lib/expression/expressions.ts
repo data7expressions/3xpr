@@ -11,7 +11,6 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 		const typeManager = new TypeManager(model)
 		const basic = new OperandBuilder(model, new EvaluatorFactory(model))
 		const process = new OperandBuilder(model, new ProcessOperandFactory(model))
-		// const operandManager = new OperandManager(model)
 		new CoreLibrary(model).load()
 		return new Expressions(model, basic, process, typeManager)
 	}
