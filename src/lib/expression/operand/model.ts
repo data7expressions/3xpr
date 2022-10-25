@@ -107,6 +107,18 @@ export class ModelManager implements IModelManager {
 		return this._formats[name]
 	}
 
+	public isOperator (name:string, operands?:number):boolean {
+		const operators = this._operators[name]
+		if (operands !== undefined) {
+			return operators && operators[operands] !== undefined
+		}
+		return operators !== undefined
+	}
+
+	public isFunction (name:string):boolean {
+		return this._functions[name] !== undefined
+	}
+
 	public getOperator (name:string, operands?:number): OperatorMetadata {
 		const operators = this._operators[name]
 		if (operators === undefined) {

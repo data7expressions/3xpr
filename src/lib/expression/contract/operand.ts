@@ -59,6 +59,7 @@ export interface FunctionAdditionalInfo {
 export interface IEvaluator {
 	eval(context: Context): any
 }
+
 export class Operand {
 	public evaluator?: IEvaluator
 	public number?: number
@@ -66,7 +67,7 @@ export class Operand {
 	// public returnType?:Type
 	// public property?: string
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (public readonly name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
+	public constructor (public readonly pos:[number, number], public readonly name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
 	public eval (context: Context): any {
 		if (!this.evaluator) {
 			throw new Error('Evaluator not implemented')

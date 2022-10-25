@@ -1,29 +1,33 @@
 import { h3lp } from 'h3lp'
 import { Operand, IModelManager, OperandType, Type } from '../contract'
-import { operandHelper } from './helper'
 
 export class Parser {
 	private model: IModelManager
+	private positions: [string, number, number][]
 	private buffer: string[]
 	private length: number
 	private index: number
+	private singleOperators: string[]
 	private doubleOperators: string[]
 	private tripleOperators: string[]
 	private assignmentOperators: string[]
 
 	constructor (model: IModelManager, expression: string) {
 		this.model = model
-		const normalized = operandHelper.normalize(expression)
-		this.buffer = Array.from(normalized)
+		this.positions = this.normalize(expression)
+		this.buffer = this.positions.map(p => p[0])
 		this.length = this.buffer.length
 		this.index = 0
-		this.tripleOperators = []
+		this.singleOperators = []
 		this.doubleOperators = []
+		this.tripleOperators = []
 		this.assignmentOperators = []
 		for (const entry of this.model.operators) {
 			const name = entry[0]
 			const metadata = entry[1]
-			if (name.length === 2) {
+			if (name.length === 1) {
+				this.singleOperators.push(name)
+			} else if (name.length === 2) {
 				this.doubleOperators.push(name)
 			} else if (name.length === 3) {
 				this.tripleOperators.push(name)
@@ -34,6 +38,50 @@ export class Parser {
 		}
 	}
 
+	private normalize (expression: string): [string, number, number][] {
+		let isString = false
+		let quotes = ''
+		const buffer = expression.split('')
+		const length = buffer.length
+		const result:[string, number, number][] = []
+		let line = 0
+		let col = 0
+		let i = 0
+		while (i < length) {
+			const p = buffer[i]
+			if (isString && p === quotes) {
+				isString = false
+			} else if (!isString && (p === '\'' || p === '"' || p === '`')) {
+				isString = true
+				quotes = p
+			}
+			if (isString) {
+				result.push([p, line, col])
+			} else if (p === ' ') {
+				// Only leave spaces when it's between alphanumeric characters.
+				// for example in the case of "} if" there should not be a space
+				if (i + 1 < length && i - 1 >= 0 && h3lp.validator.isAlphanumeric(buffer[i - 1]) && h3lp.validator.isAlphanumeric(buffer[i + 1])) {
+					result.push([p, line, col])
+				}
+			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
+			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
+			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
+			// result.push(';')
+			} else if (p === '\n') {
+				line++
+				col = 0
+			} else if (p !== '\r' && p !== '\t') {
+				result.push([p, line, col])
+			}
+			i += 1
+			col++
+		}
+		if (result[result.length - 1][0] === ';') {
+			result.splice(-1)
+		}
+		return result
+	}
+
 	get end () {
 		return this.index >= this.length
 	}
@@ -42,8 +90,13 @@ export class Parser {
 		return this.buffer[this.index]
 	}
 
-	private offset (value = 0) {
-		return this.buffer[this.index + value]
+	private offset (offset = 0) {
+		return this.buffer[this.index + offset]
+	}
+
+	private pos (offset = 0): [number, number] {
+		const position = this.positions[this.index - offset]
+		return [position[1], position[2]]
 	}
 
 	private nextIs (key: string): boolean {
@@ -104,7 +157,7 @@ export class Parser {
 			if (!node) break
 			nodes.push(node)
 		}
-		const result = nodes.length === 1 ? nodes[0] : new Operand('block', OperandType.Block, nodes)
+		const result = nodes.length === 1 ? nodes[0] : new Operand([0, 0], 'block', OperandType.Block, nodes)
 		return result
 	}
 
@@ -112,34 +165,43 @@ export class Parser {
 		let expression
 		let operand2
 		let isBreak = false
+		const pos = this.pos()
 		while (!this.end) {
 			if (!operand1 && !operator) {
 				operand1 = this.getOperand()
 				operator = this.getOperator() as string
-				if (!operator || _break.includes(operator)) {
+				if (!operator || _break.includes(this.current)) {
+					if (_break.includes(this.current)) {
+						this.index += 1
+					}
 					expression = operand1
 					isBreak = true
 					break
 				}
 			}
 			operand2 = this.getOperand()
-			const nextOperator = this.getOperator() as string
-			if (!nextOperator || _break.includes(nextOperator)) {
-				expression = new Operand(operator, OperandType.Operator, [operand1 as Operand, operand2])
-				isBreak = true
-				break
-			} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
-				operand1 = new Operand(operator, OperandType.Operator, [operand1 as Operand, operand2])
-				operator = nextOperator
-			} else {
-				operand2 = this.getExpression(operand2, nextOperator, _break)
-				expression = new Operand(operator, OperandType.Operator, [operand1 as Operand, operand2])
-				isBreak = true
-				break
+			const nextOperator = this.getOperator()
+			if (operator) {
+				if (!nextOperator || _break.includes(this.current)) {
+					if (_break.includes(this.current)) {
+						this.index += 1
+					}
+					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					isBreak = true
+					break
+				} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
+					operand1 = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					operator = nextOperator
+				} else {
+					operand2 = this.getExpression(operand2, nextOperator, _break)
+					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1 as Operand, operand2])
+					isBreak = true
+					break
+				}
 			}
 		}
 		if (!isBreak) {
-			expression = new Operand(operator, OperandType.Operator, [operand1 as Operand, operand2 as Operand])
+			expression = new Operand(pos, operator, OperandType.Operator, [operand1 as Operand, operand2 as Operand])
 		}
 		return expression as Operand
 	}
@@ -150,6 +212,7 @@ export class Parser {
 		let isBitNot = false
 		let operand = null
 		let char = this.current
+		const pos = this.pos()
 		if (char === '-') {
 			isNegative = true
 			this.index += 1
@@ -167,44 +230,44 @@ export class Parser {
 			let value: any = this.getValue()
 			if (value === 'function' && this.current === '(') {
 				this.index += 1
-				operand = this.getFunctionBlock()
+				operand = this.getFunctionBlock(pos)
 			} else if (value === 'if' && this.current === '(') {
 				this.index += 1
-				operand = this.getIfBlock()
+				operand = this.getIfBlock(pos)
 			} else if (value === 'for' && this.current === '(') {
 				this.index += 1
-				operand = this.getForBlock()
+				operand = this.getForBlock(pos)
 			} else if (value === 'while' && this.current === '(') {
 				this.index += 1
-				operand = this.getWhileBlock()
+				operand = this.getWhileBlock(pos)
 			} else if (value === 'switch' && this.current === '(') {
 				this.index += 1
-				operand = this.getSwitchBlock()
+				operand = this.getSwitchBlock(pos)
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
 				if (value.includes('.')) {
 					const names = h3lp.obj.names(value)
 					const functionName = names.pop() as string
 					const variableName = names.join('.')
-					const variable = new Operand(variableName, OperandType.Var)
+					const variable = new Operand(pos, variableName, OperandType.Var)
 					operand = this.getChildFunc(functionName, variable)
 				} else {
 					const args = this.getArgs(')')
-					operand = new Operand(value, OperandType.CallFunc, args)
+					operand = new Operand(pos, value, OperandType.CallFunc, args)
 				}
 			} else if (value === 'try' && this.current === '{') {
-				operand = this.getTryCatchBlock()
+				operand = this.getTryCatchBlock(pos)
 			} else if (value === 'throw') {
-				operand = this.getThrow()
+				operand = this.getThrow(pos)
 			} else if (value === 'return') {
-				operand = this.getReturn()
+				operand = this.getReturn(pos)
 			} else if (value === 'break') {
-				operand = new Operand('break', OperandType.Break)
+				operand = new Operand(pos, 'break', OperandType.Break)
 			} else if (value === 'continue') {
-				operand = new Operand('continue', OperandType.Continue)
+				operand = new Operand(pos, 'continue', OperandType.Continue)
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
-				operand = this.getIndexOperand(value)
+				operand = this.getIndexOperand(value, pos)
 			} else if (h3lp.validator.isIntegerFormat(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
@@ -215,7 +278,7 @@ export class Parser {
 				} else {
 					value = parseInt(value)
 				}
-				operand = new Operand(value, OperandType.Const, [], Type.integer)
+				operand = new Operand(pos, value, OperandType.Const, [], Type.integer)
 			} else if (h3lp.validator.isDecimalFormat(value)) {
 				if (isNegative) {
 					value = parseFloat(value) * -1
@@ -226,33 +289,33 @@ export class Parser {
 				} else {
 					value = parseFloat(value)
 				}
-				operand = new Operand(value, OperandType.Const, [], Type.decimal)
+				operand = new Operand(pos, value, OperandType.Const, [], Type.decimal)
 			} else if (this.model.isConstant(value)) {
 				const constantValue = this.model.getConstantValue(value)
-				operand = new Operand(constantValue, OperandType.Const, [], Type.get(constantValue))
+				operand = new Operand(pos, constantValue, OperandType.Const, [], Type.get(constantValue))
 			} else if (this.model.isEnum(value)) {
-				operand = this.getEnum(value)
+				operand = this.getEnum(value, pos)
 			} else {
-				operand = new Operand(value, OperandType.Var)
+				operand = new Operand(pos, value, OperandType.Var)
 			}
 		} else if (char === '\'' || char === '"') {
 			this.index += 1
 			const result = this.getString(char)
-			operand = new Operand(result, OperandType.Const, [], Type.string)
+			operand = new Operand(pos, result, OperandType.Const, [], Type.string)
 		} else if (char === '`') {
 			this.index += 1
 			const result = this.getTemplate()
-			operand = new Operand(result, OperandType.Template, [], Type.string)
+			operand = new Operand(pos, result, OperandType.Template, [], Type.string)
 		} else if (char === '(') {
 			this.index += 1
 			operand = this.getExpression(undefined, undefined, ')')
 		} else if (char === '{') {
 			this.index += 1
-			operand = this.getObject()
+			operand = this.getObject(pos)
 		} else if (char === '[') {
 			this.index += 1
 			const elements = this.getArgs(']')
-			operand = new Operand('array', OperandType.List, elements)
+			operand = new Operand(pos, 'array', OperandType.List, elements)
 		} else if (char === '$') {
 			let variableName: string
 			if (this.offset(1) === '{') {
@@ -267,16 +330,19 @@ export class Parser {
 				this.index += 1
 				variableName = this.getValue()
 			}
-			operand = new Operand(variableName, OperandType.Env)
+			operand = new Operand(pos, variableName, OperandType.Env)
 		}
-		operand = this.solveChain(operand as Operand)
-		if (isNegative) operand = new Operand('-', OperandType.Operator, [operand])
-		if (isNot) operand = new Operand('!', OperandType.Operator, [operand])
-		if (isBitNot) operand = new Operand('~', OperandType.Operator, [operand])
+		if (operand === null) {
+			throw new Error('Operand undefined')
+		}
+		operand = this.solveChain(operand, pos)
+		if (isNegative) operand = new Operand(pos, '-', OperandType.Operator, [operand])
+		if (isNot) operand = new Operand(pos, '!', OperandType.Operator, [operand])
+		if (isBitNot) operand = new Operand(pos, '~', OperandType.Operator, [operand])
 		return operand
 	}
 
-	private solveChain (operand: Operand): Operand {
+	private solveChain (operand: Operand, pos:[number, number]): Operand {
 		if (this.end) {
 			return operand
 		}
@@ -290,41 +356,43 @@ export class Parser {
 					const names = h3lp.obj.names(name)
 					const propertyName = names.slice(0, -1).join('.')
 					const functionName = names.slice(-1)[0]
-					const property = new Operand(propertyName, OperandType.Property, [operand])
-					return this.solveChain(this.getChildFunc(functionName, property))
+					const property = new Operand(pos, propertyName, OperandType.Property, [operand])
+					return this.solveChain(this.getChildFunc(functionName, property), pos)
 				} else {
 					// .xxx(p=> p.xxx)
-					return this.solveChain(this.getChildFunc(name, operand))
+					return this.solveChain(this.getChildFunc(name, operand), pos)
 				}
 			} else if (this.current === '[') {
 				this.index += 1
 				if (name.includes('.')) {
 					// .xxx.xxx[x]
-					const property = new Operand(name, OperandType.Property, [operand])
+					const property = new Operand(pos, name, OperandType.Property, [operand])
 					const idx = this.getExpression(undefined, undefined, ']')
-					return new Operand('[]', OperandType.Operator, [property, idx])
+					return new Operand(pos, '[]', OperandType.Operator, [property, idx])
 				} else {
 					// .xxx[x]
-					const property = new Operand(name, OperandType.Property, [operand])
+					const property = new Operand(pos, name, OperandType.Property, [operand])
 					const idx = this.getExpression(undefined, undefined, ']')
-					return new Operand('[]', OperandType.Operator, [property, idx])
+					return new Operand(pos, '[]', OperandType.Operator, [property, idx])
 				}
 			} else {
 				// .xxx
-				return new Operand(name, OperandType.Property, [operand])
+				return new Operand(pos, name, OperandType.Property, [operand])
 			}
 		} else if (this.current === '[') {
 			// xxx[x][x] or xxx[x].xxx[x]
 			this.index += 1
 			const idx = this.getExpression(undefined, undefined, ']')
-			return new Operand('[]', OperandType.Operator, [operand, idx])
+			return new Operand(pos, '[]', OperandType.Operator, [operand, idx])
 		} else {
 			return operand
 		}
 	}
 
-	private getOperator (): any {
-		if (this.end) return null
+	private getOperator (): string|undefined {
+		if (this.end) {
+			return undefined
+		}
 		let op = null
 		if (this.index + 2 < this.length) {
 			const triple = this.current + this.offset(1) + this.offset(2)
@@ -333,6 +401,9 @@ export class Parser {
 		if (op == null && this.index + 1 < this.length) {
 			const double = this.current + this.offset(1)
 			if (this.doubleOperators.includes(double)) op = double
+		}
+		if (!this.model.isOperator(this.current)) {
+			return undefined
 		}
 		if (op == null) op = this.current
 		this.index += op.length
@@ -349,7 +420,7 @@ export class Parser {
 		return args
 	}
 
-	private getObject (): Operand {
+	private getObject (pos:[number, number]): Operand {
 		const attributes = []
 		while (true) {
 			let name = null
@@ -362,23 +433,32 @@ export class Parser {
 			}
 			if (this.current === ':') this.index += 1
 			else throw new Error('attribute ' + name + ' without value')
-
+			const keyValPos = this.pos()
 			const value = this.getExpression(undefined, undefined, ',}')
-			const attribute = new Operand(name, OperandType.KeyVal, [value])
+			const attribute = new Operand(keyValPos, name, OperandType.KeyVal, [value])
 			attributes.push(attribute)
 			if (this.offset(-1) === '}') break
 		}
-		return new Operand('obj', OperandType.Obj, attributes)
+		return new Operand(pos, 'obj', OperandType.Obj, attributes)
 	}
 
 	private getBlock (): Operand {
+		const blockPos = this.pos()
 		const lines = []
 		while (true) {
 			const line = this.getExpression(undefined, undefined, ';}')
-			if (line != null) lines.push(line)
-			if (this.offset(-1) === '}') break
+			if (line != null) {
+				lines.push(line)
+			}
+			if (this.offset(-1) === ';' && this.current === '}') {
+				this.index += 1
+				break
+			}
+			if (this.offset(-1) === '}') {
+				break
+			}
 		}
-		return new Operand('block', OperandType.Block, lines)
+		return new Operand(blockPos, 'block', OperandType.Block, lines)
 	}
 
 	private getControlBlock (): Operand {
@@ -390,17 +470,18 @@ export class Parser {
 		}
 	}
 
-	private getReturn (): Operand {
+	private getReturn (pos:[number, number]): Operand {
 		const value = this.getExpression(undefined, undefined, ';')
-		return new Operand('return', OperandType.Return, [value])
+		return new Operand(pos, 'return', OperandType.Return, [value])
 	}
 
-	private getTryCatchBlock (): Operand {
+	private getTryCatchBlock (pos:[number, number]): Operand {
 		const children: Operand[] = []
 		const tryBlock = this.getControlBlock()
 		children.push(tryBlock)
 		if (this.nextIs('catch')) {
 			const catchChildren: Operand[] = []
+			const catchPos = this.pos('catch'.length)
 			this.index += 'catch'.length
 			if (this.current === '(') {
 				this.index += 1
@@ -409,19 +490,19 @@ export class Parser {
 			}
 			const catchBlock = this.getControlBlock()
 			catchChildren.push(catchBlock)
-			const catchNode = new Operand('catch', OperandType.Catch, catchChildren)
+			const catchNode = new Operand(catchPos, 'catch', OperandType.Catch, catchChildren)
 			children.push(catchNode)
 		}
 		if (this.current === ';') this.index += 1
-		return new Operand('try', OperandType.Try, children)
+		return new Operand(pos, 'try', OperandType.Try, children)
 	}
 
-	private getThrow (): Operand {
+	private getThrow (pos:[number, number]): Operand {
 		const exception = this.getExpression(undefined, undefined, ';')
-		return new Operand('throw', OperandType.Throw, [exception])
+		return new Operand(pos, 'throw', OperandType.Throw, [exception])
 	}
 
-	private getIfBlock (): Operand {
+	private getIfBlock (pos:[number, number]): Operand {
 		const children: Operand[] = []
 		const condition = this.getExpression(undefined, undefined, ')')
 		children.push(condition)
@@ -429,10 +510,11 @@ export class Parser {
 		children.push(block)
 
 		while (this.nextIs('elseif(')) {
+			const elseIfPos = this.pos()
 			this.index += 'elseif('.length
 			const condition = this.getExpression(undefined, undefined, ')')
 			const elseIfBlock = this.getControlBlock()
-			const elseIfNode = new Operand('elseif', OperandType.ElseIf, [condition, elseIfBlock])
+			const elseIfNode = new Operand(elseIfPos, 'elseif', OperandType.ElseIf, [condition, elseIfBlock])
 			children.push(elseIfNode)
 		}
 
@@ -441,10 +523,10 @@ export class Parser {
 			const elseBlock = this.getControlBlock()
 			children.push(elseBlock)
 		}
-		return new Operand('if', OperandType.If, children)
+		return new Operand(pos, 'if', OperandType.If, children)
 	}
 
-	private getSwitchBlock (): Operand {
+	private getSwitchBlock (pos:[number, number]): Operand {
 		const children = []
 		const value = this.getExpression(undefined, undefined, ')')
 		children.push(value)
@@ -460,6 +542,9 @@ export class Parser {
 			} else {
 				compare = this.getValue()
 			}
+			const caseNode = new Operand(this.pos(), compare, OperandType.Case)
+			const block = new Operand(this.pos(), 'block', OperandType.Block)
+			caseNode.children = [block]
 			if (this.current === ':') this.index += 1
 			const lines: Operand[] = []
 			while (true) {
@@ -476,40 +561,41 @@ export class Parser {
 					break
 				}
 			}
-			const block = new Operand('block', OperandType.Block, lines)
-			const caseNode = new Operand(compare, OperandType.Case, [block])
+			block.children = lines
 			children.push(caseNode)
 		}
 
 		if (next === 'default:') {
 			this.index += 'default:'.length
+			const defaultNode = new Operand(this.pos(), 'default', OperandType.Default)
+			const block = new Operand(this.pos(), 'block', OperandType.Block)
+			defaultNode.children = [block]
 			const lines: Operand[] = []
 			while (true) {
 				const line = this.getExpression(undefined, undefined, ';}')
 				if (line !== undefined) lines.push(line)
 				if (this.current === '}' || this.offset(-1) === '}') break
 			}
-			const block = new Operand('block', OperandType.Block, lines)
-			const defaultNode = new Operand('default', OperandType.Default, [block])
+			block.children = lines
 			children.push(defaultNode)
 		}
 		if (this.current === '}') this.index += 1
-		return new Operand('switch', OperandType.Switch, children)
+		return new Operand(pos, 'switch', OperandType.Switch, children)
 	}
 
-	private getWhileBlock (): Operand {
+	private getWhileBlock (pos:[number, number]): Operand {
 		const condition = this.getExpression(undefined, undefined, ')')
 		const block = this.getControlBlock()
-		return new Operand('while', OperandType.While, [condition, block])
+		return new Operand(pos, 'while', OperandType.While, [condition, block])
 	}
 
-	private getForBlock (): Operand {
+	private getForBlock (pos:[number, number]): Operand {
 		const first = this.getExpression(undefined, undefined, '; ')
 		if (this.offset(-1) === ';') {
 			const condition = this.getExpression(undefined, undefined, ';')
 			const increment = this.getExpression(undefined, undefined, ')')
 			const block = this.getControlBlock()
-			return new Operand('for', OperandType.For, [first, condition, increment, block])
+			return new Operand(pos, 'for', OperandType.For, [first, condition, increment, block])
 		} else if (this.nextIs('in')) {
 			this.index += 2
 			// si hay espacios luego del in debe eliminarlos
@@ -518,22 +604,24 @@ export class Parser {
 			}
 			const list = this.getExpression(undefined, undefined, ')')
 			const block = this.getControlBlock()
-			return new Operand('forIn', OperandType.ForIn, [first, list, block])
+			return new Operand(pos, 'forIn', OperandType.ForIn, [first, list, block])
 		}
 		throw new Error('expression for error')
 	}
 
-	private getFunctionBlock (): Operand {
+	private getFunctionBlock (pos:[number, number]): Operand {
 		const name = this.getValue()
 		if (this.current === '(') this.index += 1
+		const argsPos = this.pos()
 		const args = this.getArgs()
 		const block = this.getBlock()
-		const argsNode = new Operand('args', OperandType.Args, args)
-		return new Operand(name, OperandType.Func, [argsNode, block])
+		const argsNode = new Operand(argsPos, 'args', OperandType.Args, args)
+		return new Operand(pos, name, OperandType.Func, [argsNode, block])
 	}
 
 	private getChildFunc (name: string, parent: Operand): Operand {
 		let isArrow = false
+		const pos = this.pos()
 		const variableName = this.getValue(false)
 		if (variableName !== '') {
 			// example: p => {name:p.name}
@@ -557,38 +645,44 @@ export class Parser {
 			this.index += 2 // [=>]
 		}
 		if (isArrow) {
-			const variable = new Operand(variableName, OperandType.Var)
+			const variable = new Operand(pos, variableName, OperandType.Var)
 			const body = this.getExpression(undefined, undefined, ')')
-			return new Operand(name, OperandType.Arrow, [parent, variable, body])
+			return new Operand(pos, name, OperandType.Arrow, [parent, variable, body])
 		} else {
+			if (this.current === ')') {
+				this.index += 1
+				// Example: xxx.xxx()
+				return new Operand(pos, name, OperandType.ChildFunc, [parent])
+			}
+			// Example: xxx.xxx(x)
 			const args = this.getArgs(')')
 			args.splice(0, 0, parent)
-			return new Operand(name, OperandType.ChildFunc, args)
+			return new Operand(pos, name, OperandType.ChildFunc, args)
 		}
 	}
 
-	private getIndexOperand (name: string): Operand {
+	private getIndexOperand (name: string, pos:[number, number]): Operand {
 		const idx = this.getExpression(undefined, undefined, ']')
-		const operand = new Operand(name, OperandType.Var)
-		return new Operand('[]', OperandType.Operator, [operand, idx])
+		const operand = new Operand(pos, name, OperandType.Var)
+		return new Operand(pos, '[]', OperandType.Operator, [operand, idx])
 	}
 
-	private getEnum (value: string): Operand {
+	private getEnum (value: string, pos:[number, number]): Operand {
 		if (value.includes('.') && this.model.isEnum(value)) {
 			const names = value.split('.')
 			const enumName = names[0]
 			const enumOption = names[1]
 			const enumValue = this.model.getEnumValue(enumName, enumOption)
-			return new Operand(enumValue, OperandType.Const, [], Type.get(value))
+			return new Operand(pos, enumValue, OperandType.Const, [], Type.get(value))
 		} else {
 			const values = this.model.getEnum(value)
 			const attributes = []
 			for (const name in values) {
 				const _value = values[name]
-				const attribute = new Operand(name, OperandType.KeyVal, [new Operand(_value, OperandType.Const, [], Type.get(_value))])
+				const attribute = new Operand(pos, name, OperandType.KeyVal, [new Operand(pos, _value, OperandType.Const, [], Type.get(_value))])
 				attributes.push(attribute)
 			}
-			return new Operand('obj', OperandType.Obj, attributes)
+			return new Operand(pos, 'obj', OperandType.Obj, attributes)
 		}
 	}
 }

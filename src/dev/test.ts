@@ -5,7 +5,7 @@ export const template = {
 	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
 	cases: [{
 		name: 'lab',
-		template: '\t\texpect(exp.eval(\'${test}\', context)).toStrictEqual(${result})\n'
+		template: '\t\texpect(exp.eval(${test}, context)).toStrictEqual(${result})\n'
 	}]
 }
 

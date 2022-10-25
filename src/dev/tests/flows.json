@@ -15,28 +15,51 @@
         "type": "robot",
         "mac": "12:3d:1c:9b:7e:db"
       }
-    ],
-    "list": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9
-    ],
-    "total": 45,
-    "i": 9
+    ]
   },
   "cases": [
     {
       "name": "lab",
       "tests": [
         {
-          "test": "list = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\t\t\t\ttotal = 0;\n\t\t\t\tfor (i = 0; i < list.length(); i += 1) {\n\t\t\t\t  total += list[i]\n\t\t\t\t}\n\t\t\t\t",
+          "test": " list = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\t\t\t\t  total = 0;\n\t\t\t\t  for (i = 0; i < list.length(); i += 1) {\n\t\t\t\t    total += list[i]\n\t\t\t\t  }\n\t\t\t\t  total;\n\t\t\t\t",
           "result": 45
+        },
+        {
+          "test": "\n\t\t\t\t\tdevice = devices[0];\n\t\t\t\t\tswitch (device.type) {\n\t\t\t\t\t\tcase \"phone\":\n\t\t\t\t\t\t\tkey = device.imei;\n\t\t\t\t\t\tcase \"computer\":\n\t\t\t\t\t\t\tkey = device.mac;\n\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\tif (isNotNull(device.imei)) {\n\t\t\t\t\t\t\t\tkey = device.imei;\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tkey = device.mac;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\tid= concat(device.type,\"-\",key);\n\t\t\t\t",
+          "result": "phone-911784599437339"
+        },
+        {
+          "test": " list = [1, 2, 3, 4, 5, 6];\n\t\t\t\t  b = 1;\n\t\t\t\t  for (a in list) {\n\t\t\t\t    if (b < 10) {\n\t\t\t\t      b = a * b;\n\t\t\t\t    }\n\t\t\t\t  }\n\t\t\t\t  b;\n\t\t\t\t",
+          "result": 24
+        },
+        {
+          "test": " rectangle = {\"x\":50,\"y\":50,\"width\":80,\"height\":60};\n\t\t\t\t\tsleepSecs = 1;\n\t\t\t\t\tsource=nvl(source,\"data/source.jpg\");\n\t\t\t\t",
+          "result": "data/source.jpg"
+        },
+        {
+          "test": " rectangle = {\n\t\t\t\t\t\t\"x\":50,\n\t\t\t\t\t\t\"y\":50,\n\t\t\t\t\t\t\"width\":80,\n\t\t\t\t\t\t\"height\":60\n\t\t\t\t\t};\n\t\t\t\t\tsleepSecs = 1;\n\t\t\t\t\tsource=nvl(source,\"data/source.jpg\");\n\t\t\t\t",
+          "result": "data/source.jpg"
+        },
+        {
+          "test": " devices.map(p => \n\t\t\t\t\t\tconcat(p.type,\"-\",\n\t\t\t\t\t\t\tif(p.type==\"phone\") {\n\t\t\t\t\t\t\t\tp.imei\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\tp.mac\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t)\n\t\t\t\t\t)\n\t\t\t\t",
+          "result": [
+            "phone-911784599437339",
+            "computer-11:3d:1c:9b:7e:db",
+            "robot-12:3d:1c:9b:7e:db"
+          ]
+        },
+        {
+          "test": " devices.map(p=>\n\t\t\t\t\t\tswitch (p.type) {\n\t\t\t\t\t\t\tcase \"phone\": 1;\n\t\t\t\t\t\t\tcase \"robot\": 2 ;\n\t\t\t\t\t\t\tdefault: 3;\n\t\t\t\t\t\t}\n\t\t\t\t\t)\n\t\t\t\t",
+          "result": [
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "test": " while (p=devices.pop()) {\n\t\t\t\t    mac=p.mac;\n\t\t\t\t  }\n\t\t\t\t  mac;\n\t\t\t\t",
+          "result": "10:3d:1c:9b:7e:db"
         }
       ]
     }

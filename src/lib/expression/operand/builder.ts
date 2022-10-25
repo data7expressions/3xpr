@@ -2,7 +2,6 @@
 import { Context, Operand, OperandType, IOperandBuilder, IModelManager, IEvaluatorFactory } from '../contract'
 import { Parser } from './parser'
 import { ConstBuilder } from './factory'
-// import { OperandSerializer } from '.'
 
 export class OperandBuilder implements IOperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
@@ -41,7 +40,7 @@ export class OperandBuilder implements IOperandBuilder {
 		}
 		if (allConstants) {
 			const value = operand.eval(new Context())
-			const constant = new ConstBuilder().build(value)
+			const constant = new ConstBuilder().build(operand.pos, value)
 			constant.id = operand.id
 			return constant
 		} else {

@@ -8,8 +8,8 @@ import {
 } from './evaluators'
 
 export class ConstBuilder {
-	public build (value:any): Operand {
-		const operand = new Operand(value, OperandType.Const, [], Type.get(value))
+	public build (pos:[number, number], value:any): Operand {
+		const operand = new Operand(pos, value, OperandType.Const, [], Type.get(value))
 		operand.evaluator = new ConstEvaluator(operand)
 		return operand
 	}

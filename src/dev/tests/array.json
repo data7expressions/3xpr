@@ -37,15 +37,6 @@
           "lat": 38,
           "long": 57.33
         }
-      },
-      {
-        "name": "Salta",
-        "province": "SA",
-        "population": 520683,
-        "coordinates": {
-          "lat": 24.33,
-          "long": 64.3
-        }
       }
     ],
     "salta": {

@@ -86,45 +86,6 @@ export class OperandHelper {
 		return list.join('')
 	}
 
-	public normalize (expression: string): string[] {
-		let isString = false
-		let quotes = ''
-		const buffer = expression.split('')
-		const length = buffer.length
-		const result = []
-		let i = 0
-		while (i < length) {
-			const p = buffer[i]
-			if (isString && p === quotes) {
-				isString = false
-			} else if (!isString && (p === '\'' || p === '"' || p === '`')) {
-				isString = true
-				quotes = p
-			}
-			if (isString) {
-				result.push(p)
-			} else if (p === ' ') {
-				// Only leave spaces when it's between alphanumeric characters.
-				// for example in the case of "} if" there should not be a space
-				if (i + 1 < length && i - 1 >= 0 && this.validator.isAlphanumeric(buffer[i - 1]) && this.validator.isAlphanumeric(buffer[i + 1])) {
-					result.push(p)
-				}
-			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
-			// TODO: si estamos dentro de un objecto NO debería agregar ; luego de } sino rompe el obj
-			// } else if (p === '\n' && result.length > 0 && result[result.length - 1] === '}') {
-			// result.push(';')
-			} else if (p !== '\n' && p !== '\r' && p !== '\t') {
-				result.push(p)
-			}
-			i += 1
-		}
-		if (result[result.length - 1] === ';') {
-			result.splice(-1)
-			return result
-		}
-		return result
-	}
-
 	public objectKey (obj:any) : any {
 		const keys = Object.keys(obj).sort()
 		const list:string[] = []
@@ -219,7 +180,7 @@ export class OperandHelper {
 				value = this.sum(list, variable, operand.children[0], context)
 				break
 			}
-			return new ConstBuilder().build(value)
+			return new ConstBuilder().build(operand.pos, value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
 				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context)
@@ -316,99 +277,3 @@ export class OperandHelper {
 	}
 }
 export const operandHelper = new OperandHelper(h3lp.validator)
-
-// export class TypeHelper {
-// // eslint-disable-next-line no-useless-constructor
-// public constructor (private readonly validator:Validator) { }
-// public getType (value: any): Type {
-// if (value === null || value === undefined) {
-// return 'any'
-// } else if (Array.isArray(value)) {
-// if (value.length > 0) {
-// return { items: this.getType(value[0]) }
-// }
-// return { items: 'any' }
-// } else if (typeof value === 'object') {
-// const properties: PropertyType[] = []
-// for (const entry of Object.entries(value)) {
-// properties.push({ name: entry[0], type: this.getType(entry[1]) })
-// }
-// return { properties: properties }
-// } else if (typeof value === 'string') {
-// // TODO determinar si es fecha.
-// return 'string'
-// } else if (typeof value === 'number') {
-// if (this.validator.isInteger(value)) {
-// return 'integer'
-// }
-// return 'decimal'
-// } else if (typeof value === 'boolean') {
-// return 'boolean'
-// }
-// return 'any'
-// }
-
-// public isPrimitive (type:Type | string): boolean {
-// let value:string
-// if (typeof type === 'string') {
-// value = type
-// } else {
-// value = type.toString()
-// }
-// return ['string', 'integer', 'decimal', 'number', 'boolean', 'date', 'datetime', 'time'].includes(value)
-// }
-
-// public isArrayType (type:Type| string) : boolean {
-// if (typeof type === 'string') {
-// return type.startsWith('[') && type.endsWith(']')
-// }
-// return (type as ArrayType).items !== undefined
-// }
-
-// public isObjectType (type:Type|string) : boolean {
-// if (typeof type === 'string') {
-// return type.startsWith('{') && type.endsWith('}')
-// }
-// return (type as ObjectType).properties !== undefined
-// }
-
-// public toString (type?: Type): string {
-// if (type === undefined) {
-// return 'any'
-// }
-// if (this.isPrimitive(type)) {
-// return type.toString()
-// }
-// if (this.isObjectType(type)) {
-// const properties:string[] = []
-// const objectType = type as ObjectType
-// for (const propertyType of objectType.properties) {
-// properties.push(`${propertyType.name}:${this.toString(propertyType.type)}`)
-// }
-// return `{${properties.join(',')}}`
-// }
-// if (this.isArrayType(type)) {
-// const arrayType = type as ArrayType
-// return `[${this.toString(arrayType.items)}]`
-// }
-// return 'any'
-// }
-
-// public serialize (type?: Type):string| undefined {
-// if (type === undefined || type === null) {
-// return undefined
-// }
-// return JSON.stringify(type)
-// }
-
-// public deserialize (type?: string):Type | undefined {
-// if (type === undefined || type === null) {
-// return undefined
-// }
-// if (this.isPrimitive(type)) {
-// return type as Type
-// }
-// return JSON.parse(type) as Type
-// }
-// }
-// export const typeHelper = new TypeHelper(h3lp.validator)

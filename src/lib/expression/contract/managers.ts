@@ -35,15 +35,17 @@ export interface IModelManager {
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
 	addFunctionAlias (alias:string, reference:string):void
-	isEnum (name:string):boolean
+	getConstantValue (name:string): any | undefined
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any
 	getFormat (name:string): Format | undefined
 	getOperator (operator:string, operands?:number): OperatorMetadata
 	getFunction (name: string): OperatorMetadata
 	priority (name: string, cardinality?:number): number
+	isEnum (name:string):boolean
 	isConstant (name:string):boolean
-	getConstantValue (name:string): any | undefined
+	isOperator (name:string, operands?:number):boolean
+	isFunction (name:string):boolean
 }
 
 export interface IOperandBuilder {
