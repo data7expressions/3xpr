@@ -1,6 +1,5 @@
 import { Context, Operand, OperandType } from '../contract'
 import { ConstBuilder } from './factory'
-// import { h3lp, Validator } from 'h3lp'
 
 export class OperandHelper {
 	public clone (operand: Operand): Operand {
