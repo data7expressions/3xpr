@@ -39,14 +39,13 @@ export class Parser {
 	}
 
 	public parse () {
-		const nodes: Operand[] = []
+		const operands: Operand[] = []
 		while (!this.end) {
-			const node = this.getExpression(undefined, undefined, ';')
-			if (!node) break
-			nodes.push(node)
+			const operand = this.getExpression(undefined, undefined, ';')
+			if (!operand) break
+			operands.push(operand)
 		}
-		const result = nodes.length === 1 ? nodes[0] : new Operand([0, 0], 'block', OperandType.Block, nodes)
-		return result
+		return operands.length === 1 ? operands[0] : new Operand([0, 0], 'block', OperandType.Block, operands)
 	}
 
 	private getExpression (operand1?: Operand, operator?: string, _break = ''): Operand {
@@ -77,7 +76,7 @@ export class Parser {
 					expression = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1, operand2])
 					isBreak = true
 					break
-				} else if (this.model.priority(operator as string) >= this.model.priority(nextOperator)) {
+				} else if (this.model.priority(operator) >= this.model.priority(nextOperator)) {
 					operand1 = new Operand(this.pos(operator.length), operator, OperandType.Operator, [operand1, operand2])
 					operator = nextOperator
 				} else {
@@ -100,7 +99,6 @@ export class Parser {
 		let isBitNot = false
 		let operand = null
 		let char = this.current
-		const pos = this.pos()
 		if (char === '-') {
 			isNegative = true
 			this.index += 1
@@ -114,6 +112,7 @@ export class Parser {
 			this.index += 1
 			char = this.current
 		}
+		const pos = this.pos()
 		if (h3lp.validator.isAlphanumeric(char)) {
 			let value: any = this.getValue()
 			if (value === 'function' && this.current === '(') {
@@ -224,9 +223,9 @@ export class Parser {
 			throw new Error('Operand undefined')
 		}
 		operand = this.solveChain(operand, pos)
-		if (isNegative) operand = new Operand(pos, '-', OperandType.Operator, [operand])
-		if (isNot) operand = new Operand(pos, '!', OperandType.Operator, [operand])
-		if (isBitNot) operand = new Operand(pos, '~', OperandType.Operator, [operand])
+		if (isNegative) operand = new Operand([pos[0], pos[1] - 1], '-', OperandType.Operator, [operand])
+		if (isNot) operand = new Operand([pos[0], pos[1] - 1], '!', OperandType.Operator, [operand])
+		if (isBitNot) operand = new Operand([pos[0], pos[1] - 1], '~', OperandType.Operator, [operand])
 		return operand
 	}
 
@@ -333,7 +332,7 @@ export class Parser {
 			} else if (p !== '\r' && p !== '\t') {
 				result.push([p, line, col])
 			}
-			i += 1
+			i++
 			col++
 		}
 		if (result[result.length - 1][0] === ';') {
@@ -342,7 +341,7 @@ export class Parser {
 		return result
 	}
 
-	private get end () {
+	private get end ():boolean {
 		return this.index >= this.length
 	}
 
@@ -350,7 +349,7 @@ export class Parser {
 		return this.buffer[this.index]
 	}
 
-	private offset (offset = 0) {
+	private offset (offset = 0):any {
 		return this.buffer[this.index + offset]
 	}
 
@@ -362,7 +361,9 @@ export class Parser {
 	private nextIs (key: string): boolean {
 		const array = key.split('')
 		for (let i = 0; i < array.length; i++) {
-			if (this.buffer[this.index + i] !== array[i]) { return false }
+			if (this.buffer[this.index + i] !== array[i]) {
+				return false
+			}
 		}
 		return true
 	}
@@ -615,8 +616,8 @@ export class Parser {
 		const argsPos = this.pos()
 		const args = this.getArgs()
 		const block = this.getBlock()
-		const argsNode = new Operand(argsPos, 'args', OperandType.Args, args)
-		return new Operand(pos, name, OperandType.Func, [argsNode, block])
+		const argsOperand = new Operand(argsPos, 'args', OperandType.Args, args)
+		return new Operand(pos, name, OperandType.Func, [argsOperand, block])
 	}
 
 	private getChildFunc (name: string, parent: Operand): Operand {

@@ -1,20 +1,14 @@
 import { Context, Operand, OperandType } from '../contract'
 import { ConstBuilder } from './factory'
-import { h3lp, Validator } from 'h3lp'
+// import { h3lp, Validator } from 'h3lp'
 
 export class OperandHelper {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly validator:Validator) {}
-
 	public clone (operand: Operand): Operand {
 		return JSON.parse(JSON.stringify(operand))
 	}
 
 	public toExpression (operand: Operand): string {
 		const list: string[] = []
-		// if (!node || !node.type) {
-		// console.log(node)
-		// }
 		switch (operand.type) {
 		case OperandType.Const:
 		case OperandType.Var:
@@ -276,4 +270,4 @@ export class OperandHelper {
 		return sum
 	}
 }
-export const operandHelper = new OperandHelper(h3lp.validator)
+export const operandHelper = new OperandHelper()

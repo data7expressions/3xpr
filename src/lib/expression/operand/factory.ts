@@ -26,7 +26,7 @@ export class EvaluatorFactory implements IEvaluatorFactory {
 		} else if (operatorMetadata.function !== undefined) {
 			return new CallFuncEvaluator(operand, operatorMetadata.function)
 		} else {
-			throw new Error(`Function ${name} not implemented`)
+			throw new Error(`Operator ${operand.name} not implemented`)
 		}
 	}
 
@@ -37,7 +37,7 @@ export class EvaluatorFactory implements IEvaluatorFactory {
 		} else if (operatorMetadata.function !== undefined) {
 			return new CallFuncEvaluator(operand, operatorMetadata.function)
 		} else {
-			throw new Error(`Function ${name} not implemented`)
+			throw new Error(`Function ${operand.name} not implemented`)
 		}
 	}
 

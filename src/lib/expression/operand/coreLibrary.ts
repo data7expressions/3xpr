@@ -443,7 +443,6 @@ class Assignment extends PrototypeEvaluator {
 		return value
 	}
 }
-
 class AssignmentAddition extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
 		return new AssignmentAddition(operand)

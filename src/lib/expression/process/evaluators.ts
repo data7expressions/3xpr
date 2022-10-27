@@ -8,7 +8,6 @@ export class PropertyProcessEvaluator extends Evaluator {
 		return h3lp.obj.getValue(value, this.operand.name)
 	}
 }
-
 export abstract class ProcessEvaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand) {}
@@ -24,7 +23,6 @@ export abstract class ProcessEvaluator {
 		return step.values
 	}
 }
-
 export class StackEvaluator extends Evaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand, private readonly child:ProcessEvaluator) {
@@ -48,13 +46,11 @@ export class StackEvaluator extends Evaluator {
 		return result
 	}
 }
-
 export class ListProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		return this.solveChildren(context, step)
 	}
 }
-
 export class ObjProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		const result = this.solveChildren(context, step)
@@ -68,7 +64,6 @@ export class ObjProcessEvaluator extends ProcessEvaluator {
 		return obj
 	}
 }
-
 export class CallFuncProcessEvaluator extends ProcessEvaluator {
 	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
 	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
@@ -83,7 +78,6 @@ export class CallFuncProcessEvaluator extends ProcessEvaluator {
 		return this._function(...result)
 	}
 }
-
 export class BlockProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		const result = this.solveChildren(context, step)
@@ -96,7 +90,6 @@ export class BlockProcessEvaluator extends ProcessEvaluator {
 		return null
 	}
 }
-
 export class IfProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		if (step.values.length === 0) {
@@ -135,7 +128,6 @@ export class IfProcessEvaluator extends ProcessEvaluator {
 		}
 	}
 }
-
 export class WhileProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		const condition = this.operand.children[0]
@@ -170,7 +162,6 @@ export class WhileProcessEvaluator extends ProcessEvaluator {
 		return blockResult
 	}
 }
-
 export class ForProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		let lastValue:any = null
@@ -225,7 +216,6 @@ export class ForProcessEvaluator extends ProcessEvaluator {
 		return lastValue
 	}
 }
-
 export class ForInProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		let lastValue:any = null
@@ -255,7 +245,6 @@ export class ForInProcessEvaluator extends ProcessEvaluator {
 		return lastValue
 	}
 }
-
 export class SwitchProcessEvaluator extends ProcessEvaluator {
 	public eval (context: Context, step:Step): any {
 		// evaluate
@@ -281,25 +270,21 @@ export class SwitchProcessEvaluator extends ProcessEvaluator {
 		}
 	}
 }
-
 export class FuncProcessEvaluator extends ProcessEvaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
 export class TryProcessEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
 export class CatchProcessEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-
 export class ThrowProcessEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')

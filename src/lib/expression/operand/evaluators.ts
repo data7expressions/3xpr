@@ -154,7 +154,6 @@ export class ForInEvaluator extends Evaluator {
 			if (context) {
 				context.data.set(item.name, value)
 			}
-			// item.set(value)
 			lastValue = block.eval(context)
 		}
 		return lastValue

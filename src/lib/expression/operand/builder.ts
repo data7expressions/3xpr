@@ -31,9 +31,8 @@ export class OperandBuilder implements IOperandBuilder {
 
 	private reduceOperand (operand: Operand): Operand {
 		let allConstants = true
-		for (const k in operand.children) {
-			const p = operand.children[k]
-			if (!(p.type === OperandType.Const)) {
+		for (const child of operand.children) {
+			if (!(child.type === OperandType.Const)) {
 				allConstants = false
 				break
 			}
@@ -45,8 +44,8 @@ export class OperandBuilder implements IOperandBuilder {
 			return constant
 		} else {
 			for (let i = 0; i < operand.children.length; i++) {
-				const p = operand.children[i]
-				operand.children[i] = this.reduce(p)
+				const child = operand.children[i]
+				operand.children[i] = this.reduce(child)
 			}
 		}
 		return operand
@@ -56,8 +55,8 @@ export class OperandBuilder implements IOperandBuilder {
 		const id = parentId ? parentId + '.' + index : index.toString()
 		if (operand.children) {
 			for (let i = 0; i < operand.children.length; i++) {
-				const childNode = operand.children[i]
-				this.complete(childNode, i + 1, id)
+				const child = operand.children[i]
+				this.complete(child, i + 1, id)
 			}
 		}
 		operand.id = id
