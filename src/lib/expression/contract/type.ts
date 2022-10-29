@@ -1,4 +1,4 @@
-// export type PrimitiveType = 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'datetime'| 'time'| 'any' | 'void'
+// export type PrimitiveType = 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'dateTime'| 'time'| 'any' | 'void'
 // // eslint-disable-next-line no-use-before-define
 // export type Type = PrimitiveType | ObjectType | ArrayType
 
@@ -22,7 +22,7 @@ export enum Kind
 , number = 'number'
 , boolean = 'boolean'
 , date = 'date'
-, datetime = 'datetime'
+, dateTime = 'dateTime'
 , time = 'time'
 , void = 'void'
 , obj = 'obj'
@@ -74,8 +74,8 @@ export class Type {
 		return new Type(Kind.date)
 	}
 
-	public static get datetime ():Type {
-		return new Type(Kind.datetime)
+	public static get dateTime ():Type {
+		return new Type(Kind.dateTime)
 	}
 
 	public static get time ():Type {
@@ -104,7 +104,7 @@ export class Type {
 		} else {
 			return false
 		}
-		return ['string', 'integer', 'decimal', 'number', 'boolean', 'date', 'datetime', 'time'].includes(value)
+		return ['string', 'integer', 'decimal', 'number', 'boolean', 'date', 'dateTime', 'time'].includes(value)
 	}
 
 	public static to (kind:Kind | string): Type {

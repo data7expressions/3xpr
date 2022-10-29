@@ -13,23 +13,19 @@
           {
             "article": "Pear",
             "unitPrice": 1.78,
-            "qty": 2,
-            "subtotal": 3.56
+            "qty": 2
           },
           {
             "article": "Banana",
             "unitPrice": 1.99,
-            "qty": 1,
-            "subtotal": 1.99
+            "qty": 1
           },
           {
             "article": "White grape",
             "unitPrice": 2.03,
-            "qty": 1,
-            "subtotal": 2.03
+            "qty": 1
           }
-        ],
-        "total": 7.58
+        ]
       },
       {
         "number": "20002",
@@ -42,67 +38,21 @@
           {
             "article": "Apple",
             "unitPrice": 2.15,
-            "qty": 1,
-            "subtotal": 2.15
+            "qty": 1
           },
           {
             "article": "Banana",
             "unitPrice": 1.99,
-            "qty": 2,
-            "subtotal": 3.98
+            "qty": 2
           },
           {
             "article": "Pear",
             "unitPrice": 1.78,
-            "qty": 1,
-            "subtotal": 1.78
+            "qty": 1
           }
-        ],
-        "total": 7.91
+        ]
       }
-    ],
-    "p": {
-      "number": "20002",
-      "customer": {
-        "firstName": "Paul",
-        "lastName": "Smith"
-      },
-      "orderTime": "2022-07-30T12:12:43",
-      "details": [
-        {
-          "article": "Apple",
-          "unitPrice": 2.15,
-          "qty": 1,
-          "subtotal": 2.15
-        },
-        {
-          "article": "Banana",
-          "unitPrice": 1.99,
-          "qty": 2,
-          "subtotal": 3.98
-        },
-        {
-          "article": "Pear",
-          "unitPrice": 1.78,
-          "qty": 1,
-          "subtotal": 1.78
-        }
-      ],
-      "total": 7.91
-    },
-    "q": {
-      "article": "Pear",
-      "unitPrice": 1.78,
-      "qty": 1,
-      "subtotal": 1.78
-    },
-    "total": 15.49,
-    "Var": {
-      "article": "Pear",
-      "unitPrice": 1.78,
-      "qty": 1,
-      "subtotal": 1.78
-    }
+    ]
   },
   "cases": [
     {
@@ -191,6 +141,26 @@
           "result": [
             {
               "article": "Pear",
+              "qty": 2
+            },
+            {
+              "article": "Banana",
+              "qty": 1
+            },
+            {
+              "article": "White grape",
+              "qty": 1
+            },
+            {
+              "article": "Apple",
+              "qty": 1
+            },
+            {
+              "article": "Banana",
+              "qty": 2
+            },
+            {
+              "article": "Pear",
               "qty": 1
             }
           ]
@@ -200,8 +170,23 @@
           "result": [
             {
               "article": "Pear",
-              "count": 6,
-              "total": 15.49
+              "count": 2,
+              "total": 5.34
+            },
+            {
+              "article": "Banana",
+              "count": 2,
+              "total": 5.97
+            },
+            {
+              "article": "White grape",
+              "count": 1,
+              "total": 2.03
+            },
+            {
+              "article": "Apple",
+              "count": 1,
+              "total": 2.15
             }
           ]
         },

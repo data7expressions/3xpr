@@ -1,6 +1,6 @@
 import { h3lp } from 'h3lp'
 import { Context, PrototypeEvaluator, IModelManager, Operand, OperandType, IEvaluator } from '../contract'
-import { operandHelper } from '../..'
+import { operandHelper, expressions as exp } from '../..'
 
 export class CoreLibrary {
 	// eslint-disable-next-line no-useless-constructor
@@ -38,9 +38,9 @@ export class CoreLibrary {
 		this.model.addFormat('integer', '^\\d+$')
 		this.model.addFormat('decimal', '^\\d+\\.\\d+$')
 		this.model.addFormat('string', '^[a-zA-Z0-9_.]+$')
-		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-dateTime
 		this.model.addFormat('date', '^\\d{4}-\\d{2}-\\d{2}$')
-		this.model.addFormat('datetime', '\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)')
+		this.model.addFormat('dateTime', '\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)')
 		this.model.addFormat('time', '\\[0-2]\\d:[0-5]\\d:[0-5]\\d')
 	}
 
@@ -231,7 +231,7 @@ export class CoreLibrary {
 			const date = new Date(value)
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.model.addFunction('datetime(value: string):dateTime', (value: string):string => new Date(value).toISOString())
+		this.model.addFunction('dateTime(value: string):dateTime', (value: string):string => new Date(value).toISOString())
 		this.model.addFunction('year(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getFullYear()
 		})
@@ -646,7 +646,7 @@ class Map extends PrototypeEvaluator {
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
-						const operandCloned = operandHelper.clone(keyValue.children[0])
+						const operandCloned = exp.clone(keyValue.children[0])
 						const operandResolved = operandHelper.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value: value })

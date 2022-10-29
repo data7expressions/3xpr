@@ -71,17 +71,7 @@
       1,
       3,
       5
-    ],
-    "p": {
-      "name": "Mar del Plata",
-      "province": "BA",
-      "population": 593337,
-      "coordinates": {
-        "lat": 38,
-        "long": 57.33
-      }
-    },
-    "b": 18
+    ]
   },
   "cases": [
     {

@@ -12,7 +12,7 @@ const list = async (context:any) => {
 			tests: [
 				'5*(7+9)==(5*7+5*9)',
 				'toNumber(phoneCode) <= 30',
-				'`${name} belongs to ${region}`',
+				// '`${name} belongs to ${region}`',
 				'timezones.filter(p => substring(p.name,0,1)=="C")',
 				'timezones.filter(p => p.offset == 1).sort(p => p.pos.lat).name',
 				'stringify(timezones.first(p => p.name == "Madrid").pos)',

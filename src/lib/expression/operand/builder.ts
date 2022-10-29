@@ -14,6 +14,17 @@ export class OperandBuilder implements IOperandBuilder {
 		return reduced
 	}
 
+	public clone (source: Operand): Operand {
+		const children: Operand[] = []
+		for (const child of source.children) {
+			children.push(this.clone(child))
+		}
+		const target = new Operand(source.pos, source.name, source.type, children, source.returnType)
+		target.id = source.id
+		target.evaluator = this.factory.create(target)
+		return target
+	}
+
 	private reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {
 			return this.reduceOperand(operand)

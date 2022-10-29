@@ -50,6 +50,7 @@ export interface IModelManager {
 
 export interface IOperandBuilder {
 	build (expression: string): Operand
+	clone (source: Operand): Operand
 }
 
 // Abstract Factory
@@ -70,7 +71,7 @@ export interface IExpressions {
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
-	// clone (operand: Operand):Operand
+	clone (operand: Operand):Operand
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	eval (expression: string, data?: any): any

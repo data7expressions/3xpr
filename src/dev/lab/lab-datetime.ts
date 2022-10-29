@@ -3,18 +3,18 @@ import { template } from '../test'
 
 (async () => {
 	const test = {
-		name: 'datetime',
+		name: 'dateTime',
 		context: {},
 		cases: [{
 			name: 'lab',
 			func: (expression: any, context: any) => exp.eval(expression, context),
 			tests: [
-				'today()',
-				'now()',
-				'curTime()',
+				// 'today()',
+				// 'now()',
+				// 'curTime()',
 				'time("2021-09-06T14:39:11.444Z")',
 				'date("2021-09-06T14:39:11.444Z")',
-				'datetime("2021-09-06T14:39:11.444Z")',
+				'dateTime("2021-09-06T14:39:11.444Z")',
 				'year("2021-09-06T14:39:11.444Z")',
 				'month("2021-09-06T14:39:11.444Z")',
 				'day("2021-09-06T14:39:11.444Z")',

@@ -21,7 +21,7 @@
     "device": "phone",
     "date": "2022-08-22",
     "time": "22:14:30",
-    "datetime": "1997-07-08T22:14:30.000Z"
+    "dateTime": "1997-07-08T22:14:30.000Z"
   },
   "cases": [
     {
@@ -176,7 +176,7 @@
           "result": true
         },
         {
-          "test": "isDateTime(datetime)",
+          "test": "isDateTime(dateTime)",
           "result": true
         },
         {
@@ -236,7 +236,7 @@
           "result": true
         },
         {
-          "test": "isDateTimeFormat(datetime)",
+          "test": "isDateTimeFormat(dateTime)",
           "result": true
         },
         {

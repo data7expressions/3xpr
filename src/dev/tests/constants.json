@@ -1,10 +1,6 @@
 {
   "name": "constants",
-  "context": {
-    "a": false,
-    "pi": 3.14159,
-    "name": "Bpb"
-  },
+  "context": {},
   "cases": [
     {
       "name": "lab",
@@ -22,8 +18,8 @@
           "result": 3.14159
         },
         {
-          "test": "name = \"Bpb\" ",
-          "result": "Bpb"
+          "test": "musician = \"Charly Garcia\" ",
+          "result": "Charly Garcia"
         },
         {
           "test": "a = nvl(null,false)",

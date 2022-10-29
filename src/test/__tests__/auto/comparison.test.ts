@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import { expressions as exp } from '../../../lib'
 describe('comparison', () => {
-	const context = JSON.parse('{"a":"1","b":2,"c":{"a":4,"b":5},"d":"house","e":"car","f":"","g":null,"devices":["phone","computer","robot"],"pi":3.141516,"requerid":false,"device":"phone","date":"2022-08-22","time":"22:14:30","datetime":"1997-07-08T22:14:30.000Z"}')
+	const context = JSON.parse('{"a":"1","b":2,"c":{"a":4,"b":5},"d":"house","e":"car","f":"","g":null,"devices":["phone","computer","robot"],"pi":3.141516,"requerid":false,"device":"phone","date":"2022-08-22","time":"22:14:30","dateTime":"1997-07-08T22:14:30.000Z"}')
 	test('lab', () => {
 		expect(exp.eval('3>2', context)).toStrictEqual(true)
 		expect(exp.eval('a+b', context)).toStrictEqual('12')
@@ -40,7 +40,7 @@ describe('comparison', () => {
 		expect(exp.eval('isString(b)', context)).toStrictEqual(false)
 		expect(exp.eval('isString(d)', context)).toStrictEqual(true)
 		expect(exp.eval('isDate(date)', context)).toStrictEqual(true)
-		expect(exp.eval('isDateTime(datetime)', context)).toStrictEqual(true)
+		expect(exp.eval('isDateTime(dateTime)', context)).toStrictEqual(true)
 		expect(exp.eval('isDateTime(time)', context)).toStrictEqual(false)
 		expect(exp.eval('isTime(time)', context)).toStrictEqual(false)
 		expect(exp.eval('isObject(c)', context)).toStrictEqual(true)
@@ -55,7 +55,7 @@ describe('comparison', () => {
 		expect(exp.eval('isIntegerFormat(pi)', context)).toStrictEqual(false)
 		expect(exp.eval('isIntegerFormat(b)', context)).toStrictEqual(true)
 		expect(exp.eval('isDateFormat(date)', context)).toStrictEqual(true)
-		expect(exp.eval('isDateTimeFormat(datetime)', context)).toStrictEqual(true)
+		expect(exp.eval('isDateTimeFormat(dateTime)', context)).toStrictEqual(true)
 		expect(exp.eval('isDateTimeFormat(time)', context)).toStrictEqual(false)
 		expect(exp.eval('isTimeFormat(time)', context)).toStrictEqual(false)
 	})

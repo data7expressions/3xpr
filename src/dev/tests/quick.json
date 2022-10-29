@@ -4,20 +4,32 @@
     "name": "Spain",
     "region": "Europe",
     "phoneCode": "34",
-    "timezones": [],
-    "list": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9
-    ],
-    "total": 45,
-    "i": 9
+    "timezones": [
+      {
+        "name": "Madrid",
+        "offset": 1,
+        "pos": {
+          "lat": 40.4165,
+          "log": -3.70256
+        }
+      },
+      {
+        "name": "Ceuta",
+        "offset": 1,
+        "pos": {
+          "lat": 35.8883,
+          "log": -5.3162
+        }
+      },
+      {
+        "name": "Canary",
+        "offset": 0,
+        "pos": {
+          "lat": 28.1248,
+          "log": -15.43
+        }
+      }
+    ]
   },
   "cases": [
     {
@@ -30,10 +42,6 @@
         {
           "test": "toNumber(phoneCode) <= 30",
           "result": false
-        },
-        {
-          "test": "`${name} belongs to ${region}`",
-          "result": "Spain belongs to Europe"
         },
         {
           "test": "timezones.filter(p => substring(p.name,0,1)==\"C\")",
@@ -96,13 +104,6 @@
             "{\"name\":\"Ceuta\",\"offset\":1,\"pos\":{\"lat\":35.89,\"log\":-5.32}}",
             "{\"name\":\"Canary\",\"offset\":0,\"pos\":{\"lat\":28.12,\"log\":-15.43}}"
           ]
-        },
-        {
-          "test": "\n\t\t\t\tlist = [1, 2, 3, 4, 5, 6, 7, 8, 9];\n\t\t\t\ttotal = 0;\n\t\t\t\tfor (i = 0; i < list.length(); i += 1) {\n\t\t\t\ttotal += list[i];\n\t\t\t\t};\n\t\t\t\t",
-          "result": 45
-        },
-        {
-          "test": "\n\t\t\t\twhile (p=timezones.pop()) {\n\t\t\t\t\tconsole(p);\n\t\t\t\t};\n\t\t\t\t"
         }
       ]
     }

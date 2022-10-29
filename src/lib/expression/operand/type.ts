@@ -11,7 +11,7 @@ export class TypeManager implements ITypeManager {
 	// tuple: [integer,string]
 	// entries:[string,any]
 	// }
-	// Primitives: integer, decimal, string, boolean, datetime, date, time
+	// Primitives: integer, decimal, string, boolean, dateTime, date, time
 	// array: [<<type>>]
 	// object {key:<<type>>}
 	// predicate:  c + b < a

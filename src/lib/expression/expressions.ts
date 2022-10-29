@@ -101,6 +101,10 @@ export class Expressions implements IExpressions {
 		return Type.toString(operand.returnType)
 	}
 
+	public clone (source: Operand): Operand {
+		return this.basic.clone(source)
+	}
+
 	/**
 	 * Evaluate and solve expression
 	 * @param expression  string expression

@@ -5,7 +5,7 @@ describe('conversion', () => {
 	test('lab', () => {
 		expect(exp.eval('toString(month(customer.birthday))', context)).toStrictEqual('3')
 		expect(exp.eval('toNumber("3.141516")', context)).toStrictEqual(3.141516)
-		expect(exp.eval('dateToString(datetime(customer.birthday))', context)).toStrictEqual('1975-03-20T22:45:11.000Z')
+		expect(exp.eval('dateToString(dateTime(customer.birthday))', context)).toStrictEqual('1975-03-20T22:45:11.000Z')
 		expect(exp.eval('keys(customer)', context)).toStrictEqual(['firstName','lastName','birthday'])
 		expect(exp.eval('values(customer)', context)).toStrictEqual(['Juan','Lopez','1975-03-20T23:45:11'])
 		expect(exp.eval('entries(customer)', context)).toStrictEqual([['firstName','Juan'],['lastName','Lopez'],['birthday','1975-03-20T23:45:11']])

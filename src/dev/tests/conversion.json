@@ -21,7 +21,7 @@
           "result": 3.141516
         },
         {
-          "test": "dateToString(datetime(customer.birthday))",
+          "test": "dateToString(dateTime(customer.birthday))",
           "result": "1975-03-20T22:45:11.000Z"
         },
         {

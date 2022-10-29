@@ -1,6 +1,6 @@
 export interface Signal {
 	name:string
-	datetime: Date
+	dateTime: Date
 }
 
 export interface WaitSignal extends Signal {

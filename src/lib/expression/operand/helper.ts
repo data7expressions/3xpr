@@ -2,10 +2,6 @@ import { Context, Operand, OperandType } from '../contract'
 import { ConstBuilder } from './factory'
 
 export class OperandHelper {
-	public clone (operand: Operand): Operand {
-		return JSON.parse(JSON.stringify(operand))
-	}
-
 	public toExpression (operand: Operand): string {
 		const list: string[] = []
 		switch (operand.type) {

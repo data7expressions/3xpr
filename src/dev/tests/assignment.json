@@ -1,13 +1,12 @@
 {
   "name": "assignment",
   "context": {
-    "a": 8,
+    "a": "1",
     "b": 2,
     "c": {
-      "a": 1,
+      "a": 4,
       "b": 5
-    },
-    "d": "value of a is: 8"
+    }
   },
   "cases": [
     {

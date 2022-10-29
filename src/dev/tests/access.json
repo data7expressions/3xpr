@@ -52,32 +52,7 @@
           }
         ]
       }
-    ],
-    "p": {
-      "number": "20002",
-      "customer": {
-        "firstName": "Paul",
-        "lastName": "Smith"
-      },
-      "orderTime": "2022-07-30T12:12:43",
-      "details": [
-        {
-          "article": "Apple",
-          "unitPrice": 2.15,
-          "qty": 1
-        },
-        {
-          "article": "Banana",
-          "unitPrice": 1.99,
-          "qty": 2
-        },
-        {
-          "article": "Pear",
-          "unitPrice": 1.78,
-          "qty": 1
-        }
-      ]
-    }
+    ]
   },
   "cases": [
     {

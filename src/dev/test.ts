@@ -13,7 +13,7 @@ export const templateParameter = {
 	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
 	cases: [{
 		name: 'lab',
-		template: '\t\texpect(exp.parameters(\'${test}\')).toStrictEqual(${result})\n'
+		template: '\t\texpect(exp.parameters(${test})).toStrictEqual(${result})\n'
 	}]
 }
 
@@ -21,7 +21,7 @@ export const templateType = {
 	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
 	cases: [{
 		name: 'lab',
-		template: '\t\texpect(exp.type(\'${test}\')).toStrictEqual(${result})\n'
+		template: '\t\texpect(exp.type(${test})).toStrictEqual(${result})\n'
 	}]
 }
 
