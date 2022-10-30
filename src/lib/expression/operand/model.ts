@@ -16,16 +16,6 @@ export class ModelManager implements IModelManager {
 		this._functions = {}
 	}
 
-	public get operators ():[string, OperatorMetadata][] {
-		const operators:[string, OperatorMetadata][] = []
-		for (const entry of Object.entries(this._operators)) {
-			for (const q of Object.values(entry[1] as any)) {
-				operators.push([entry[0], q as OperatorMetadata])
-			}
-		}
-		return operators
-	}
-
 	public get constants ():[string, any][] {
 		return Object.entries(this._constants)
 	}
@@ -36,6 +26,16 @@ export class ModelManager implements IModelManager {
 
 	public get enums ():[string, [string, any][]][] {
 		return Object.entries(this._enums)
+	}
+
+	public get operators ():[string, OperatorMetadata][] {
+		const operators:[string, OperatorMetadata][] = []
+		for (const entry of Object.entries(this._operators)) {
+			for (const q of Object.values(entry[1] as any)) {
+				operators.push([entry[0], q as OperatorMetadata])
+			}
+		}
+		return operators
 	}
 
 	public get functions ():[string, OperatorMetadata][] {
@@ -72,83 +72,6 @@ export class ModelManager implements IModelManager {
 
 	public addFunctionAlias (alias:string, reference:string):void {
 		this._functions[alias] = this._functions[reference]
-	}
-
-	public isEnum (name:string):boolean {
-		const names = name.split('.')
-		return this._enums[names[0]] !== undefined
-	}
-
-	public isConstant (name:string):boolean {
-		return this._constants[name] !== undefined
-	}
-
-	public getEnumValue (name:string, option:string):any {
-		if (this._enums[name] === undefined) {
-			throw new Error(`enum: ${name} not found `)
-		}
-		const values = this._enums[name] as [string, any][]
-		const value = values.find(p => p[0] === option)
-		if (value === undefined) {
-			throw new Error(`option ${option} in enum: ${name} not found `)
-		}
-		return value[1]
-	}
-
-	public getEnum (name:string):[string, any][] {
-		return this._enums[name]
-	}
-
-	public getConstantValue (name:string): any | undefined {
-		return this._constants[name]
-	}
-
-	public getFormat (name:string): Format | undefined {
-		return this._formats[name]
-	}
-
-	public isOperator (name:string, operands?:number):boolean {
-		const operators = this._operators[name]
-		if (operands !== undefined) {
-			return operators && operators[operands] !== undefined
-		}
-		return operators !== undefined
-	}
-
-	public isFunction (name:string):boolean {
-		return this._functions[name] !== undefined
-	}
-
-	public getOperator (name:string, operands?:number): OperatorMetadata {
-		const operators = this._operators[name]
-		if (operators === undefined) {
-			throw new Error(`operator: ${name} not found `)
-		}
-		if (operands !== undefined) {
-			const operator = operators[operands]
-			if (operator === undefined) {
-				throw new Error(`operator ${name} with ${operands} operands not found `)
-			}
-			return operator
-		} else if (Object.keys(operators).length === 1) {
-			return Object.values(operators)[0] as OperatorMetadata
-		} else if (operators[2] !== undefined) {
-			return operators[2]
-		}
-		throw new Error(`it is necessary to determine the number of operands for the operator ${name}`)
-	}
-
-	public getFunction (name: string): OperatorMetadata {
-		const metadata = this._functions[name]
-		if (metadata === undefined) {
-			throw new Error(`function: ${name} not found `)
-		}
-		return metadata
-	}
-
-	public priority (name: string, cardinality?:number): number {
-		const metadata = this.getOperator(name, cardinality)
-		return metadata && metadata.priority ? metadata.priority : -1
 	}
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {
@@ -195,6 +118,83 @@ export class ModelManager implements IModelManager {
 			metadata.doc = additionalInfo.doc
 		}
 		this._functions[singInfo.name] = metadata
+	}
+
+	public getEnumValue (name:string, option:string):any {
+		if (this._enums[name] === undefined) {
+			throw new Error(`enum: ${name} not found `)
+		}
+		const values = this._enums[name] as [string, any][]
+		const value = values.find(p => p[0] === option)
+		if (value === undefined) {
+			throw new Error(`option ${option} in enum: ${name} not found `)
+		}
+		return value[1]
+	}
+
+	public getEnum (name:string):[string, any][] {
+		return this._enums[name]
+	}
+
+	public getConstantValue (name:string): any | undefined {
+		return this._constants[name]
+	}
+
+	public getFormat (name:string): Format | undefined {
+		return this._formats[name]
+	}
+
+	public getOperator (name:string, operands?:number): OperatorMetadata {
+		const operators = this._operators[name]
+		if (operators === undefined) {
+			throw new Error(`operator: ${name} not found `)
+		}
+		if (operands !== undefined) {
+			const operator = operators[operands]
+			if (operator === undefined) {
+				throw new Error(`operator ${name} with ${operands} operands not found `)
+			}
+			return operator
+		} else if (Object.keys(operators).length === 1) {
+			return Object.values(operators)[0] as OperatorMetadata
+		} else if (operators[2] !== undefined) {
+			return operators[2]
+		}
+		throw new Error(`it is necessary to determine the number of operands for the operator ${name}`)
+	}
+
+	public getFunction (name: string): OperatorMetadata {
+		const metadata = this._functions[name]
+		if (metadata === undefined) {
+			throw new Error(`function: ${name} not found `)
+		}
+		return metadata
+	}
+
+	public isEnum (name:string):boolean {
+		const names = name.split('.')
+		return this._enums[names[0]] !== undefined
+	}
+
+	public isConstant (name:string):boolean {
+		return this._constants[name] !== undefined
+	}
+
+	public isOperator (name:string, operands?:number):boolean {
+		const operators = this._operators[name]
+		if (operands !== undefined) {
+			return operators && operators[operands] !== undefined
+		}
+		return operators !== undefined
+	}
+
+	public isFunction (name:string):boolean {
+		return this._functions[name] !== undefined
+	}
+
+	public priority (name: string, cardinality?:number): number {
+		const metadata = this.getOperator(name, cardinality)
+		return metadata && metadata.priority ? metadata.priority : -1
 	}
 
 	private getSing (sing:string): Sing {
@@ -287,8 +287,7 @@ export class ModelManager implements IModelManager {
 			name: functionName,
 			returnType: _return !== '' ? _return : 'void',
 			params: params,
-			async: prefix === 'async'
-
+			isAsync: prefix === 'async'
 		}
 	}
 

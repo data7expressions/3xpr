@@ -18,7 +18,7 @@ export interface Sing {
 	name:string
 	params:Parameter[]
 	returnType:string
-	async: boolean
+	isAsync: boolean
 }
 export interface Format {
 	name: string

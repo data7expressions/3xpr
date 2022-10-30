@@ -9,7 +9,7 @@ export class OperandBuilder implements IOperandBuilder {
 
 	public build (expression: string): Operand {
 		const operand = new Parser(this.model, expression).parse()
-		this.complete(operand, 1)
+		this.complete(operand)
 		const reduced = this.reduce(operand)
 		return reduced
 	}
@@ -62,12 +62,12 @@ export class OperandBuilder implements IOperandBuilder {
 		return operand
 	}
 
-	private complete (operand: Operand, index:number, parentId?:string): void {
+	private complete (operand: Operand, index = 0, parentId?:string): void {
 		const id = parentId ? parentId + '.' + index : index.toString()
 		if (operand.children) {
 			for (let i = 0; i < operand.children.length; i++) {
 				const child = operand.children[i]
-				this.complete(child, i + 1, id)
+				this.complete(child, i, id)
 			}
 		}
 		operand.id = id
