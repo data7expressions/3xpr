@@ -13,25 +13,29 @@ const hashCode = (str:string):number => {
 }
 
 (async () => {
-	exp.addFunction('xxx(n1:number,n2:number):number', (n1: number, n2: number): number => n1 + n2)
-	console.log(exp.eval('xxx(7,2)'))
+	const context = { a: [1, 2, 3, 4, 5], b: 0 }
+	const result = exp.eval('a.filter(p=> p>1 && p<5).map(p=> p*2)', context)
+	console.log(result)
 
-	const text = 'adsas34893849348394839483948b fdsfjdkfjdfjkdsdksldksldksld  fdfddskldksldksfdfdsldksdlsd'
-	console.log(hashCode(text))
-	console.log(hashCode(text))
-	console.log(hashCode('adsas34893849348394839483948bfdsfjdkfjdfjkdsdksldksldksld  fdfddskldksldksfdfdsldksdlsd'))
-	console.log(hashCode(text))
+	// exp.addFunction('xxx(n1:number,n2:number):number', (n1: number, n2: number): number => n1 + n2)
+	// console.log(exp.eval('xxx(7,2)'))
 
-	console.log(crypto.createHash('sha256').update(text).digest('base64'))
-	console.log(crypto.createHash('sha256').update(text).digest('base64'))
-	console.log(crypto.createHash('sha256').update(text).digest('base64'))
+	// const text = 'adsas34893849348394839483948b fdsfjdkfjdfjkdsdksldksldksld  fdfddskldksldksfdfdsldksdlsd'
+	// console.log(hashCode(text))
+	// console.log(hashCode(text))
+	// console.log(hashCode('adsas34893849348394839483948bfdsfjdkfjdfjkdsdksldksldksld  fdfddskldksldksfdfdsldksdlsd'))
+	// console.log(hashCode(text))
 
-	const content = await helper.fs.read('./src/dev/config/model.yaml')
-	if (content) {
-		console.log(hashCode(content))
-		console.log(hashCode(content))
-		console.log(crypto.createHash('sha256').update(content).digest('base64'))
-	}
+	// console.log(crypto.createHash('sha256').update(text).digest('base64'))
+	// console.log(crypto.createHash('sha256').update(text).digest('base64'))
+	// console.log(crypto.createHash('sha256').update(text).digest('base64'))
+
+	// const content = await helper.fs.read('./src/dev/config/model.yaml')
+	// if (content) {
+	// 	console.log(hashCode(content))
+	// 	console.log(hashCode(content))
+	// 	console.log(crypto.createHash('sha256').update(content).digest('base64'))
+	// }
 })()
 
 // https://www.geeksforgeeks.org/node-js-hash-digest-method/

@@ -44,7 +44,7 @@ export interface ListType {
 }
 export class Type {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (public readonly kind:Kind, public spec?: ObjType | ListType) { }
+	public constructor (public readonly kind:Kind, public obj?: ObjType, public list?:ListType) { }
 
 	public static get any ():Type {
 		return new Type(Kind.any)
@@ -87,12 +87,12 @@ export class Type {
 	}
 
 	// eslint-disable-next-line no-use-before-define,
-	public static obj (properties: PropertyType[] = []):Type {
+	public static Obj (properties: PropertyType[] = []):Type {
 		return new Type(Kind.obj, { properties: properties })
 	}
 
-	public static list (items:Type):Type {
-		return new Type(Kind.list, { items: items })
+	public static List (items:Type):Type {
+		return new Type(Kind.list, undefined, { items: items })
 	}
 
 	public static isPrimitive (type:Type | string): boolean {
@@ -120,7 +120,7 @@ export class Type {
 			return Type.any
 		} else if (Array.isArray(value)) {
 			if (value.length > 0) {
-				return Type.list(this.get(value[0]))
+				return Type.List(this.get(value[0]))
 			}
 			return Type.any
 		} else if (typeof value === 'object') {
@@ -128,7 +128,7 @@ export class Type {
 			for (const entry of Object.entries(value)) {
 				properties.push({ name: entry[0], type: this.get(entry[1]) })
 			}
-			return Type.obj(properties)
+			return Type.Obj(properties)
 		} else if (typeof value === 'string') {
 			// TODO determinar si es fecha.
 			return Type.string
@@ -166,14 +166,14 @@ export class Type {
 		}
 		if (this.isObj(type)) {
 			const properties:string[] = []
-			const objectType = type.spec as ObjType
+			const objectType = type.obj as ObjType
 			for (const propertyType of objectType.properties) {
 				properties.push(`${propertyType.name}:${this.toString(propertyType.type)}`)
 			}
 			return `{${properties.join(',')}}`
 		}
 		if (this.isList(type)) {
-			const arrayType = type.spec as ListType
+			const arrayType = type.list as ListType
 			return `[${this.toString(arrayType.items)}]`
 		}
 		return 'any'

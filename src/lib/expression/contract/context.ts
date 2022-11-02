@@ -31,10 +31,10 @@ export class Data {
 		return h3lp.obj.getValue(data, name)
 	}
 
-	set (name:string, value:any):void {
+	set (name:string, value:any):boolean {
 		const names = h3lp.obj.names(name)
 		const data = this.getData(names[0])
-		h3lp.obj.setValue(data, name, value)
+		return h3lp.obj.setValue(data, name, value)
 	}
 
 	init (name:string, value:any):void {

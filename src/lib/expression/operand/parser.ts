@@ -29,11 +29,11 @@ export class Parser {
 				this.singleOperators.push(name)
 			} else if (name.length === 2) {
 				this.doubleOperators.push(name)
+				if (metadata.priority === 1) {
+					this.assignmentOperators.push(name)
+				}
 			} else if (name.length === 3) {
 				this.tripleOperators.push(name)
-			}
-			if (metadata.priority === 1) {
-				this.assignmentOperators.push(name)
 			}
 		}
 	}
@@ -288,16 +288,22 @@ export class Parser {
 		let op = null
 		if (this.index + 2 < this.length) {
 			const triple = this.current + this.offset(1) + this.offset(2)
-			if (this.tripleOperators.includes(triple)) op = triple
+			if (this.tripleOperators.includes(triple)) {
+				op = triple
+			}
 		}
-		if (op == null && this.index + 1 < this.length) {
+		if (op === null && this.index + 1 < this.length) {
 			const double = this.current + this.offset(1)
-			if (this.doubleOperators.includes(double)) op = double
+			if (this.doubleOperators.includes(double)) {
+				op = double
+			}
 		}
-		if (!this.model.isOperator(this.current)) {
-			return undefined
+		if (op === null) {
+			if (!this.model.isOperator(this.current)) {
+				return undefined
+			}
+			op = this.current
 		}
-		if (op == null) op = this.current
 		this.index += op.length
 		return op
 	}

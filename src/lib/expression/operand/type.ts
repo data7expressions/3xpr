@@ -96,17 +96,17 @@ export class TypeManager implements ITypeManager {
 			this.solveType(child.children[0])
 			properties.push({ name: child.name, type: child.children[0].returnType })
 		}
-		obj.returnType = Type.obj(properties)
+		obj.returnType = Type.Obj(properties)
 	}
 
 	private solveProperty (property: Operand): void {
 		this.solveType(property.children[0])
 		if (property.children[0].returnType === undefined) {
-			property.children[0].returnType = Type.list(Type.obj([{ name: property.name }]))
+			property.children[0].returnType = Type.List(Type.Obj([{ name: property.name }]))
 		} else if (Type.isList(property.children[0].returnType)) {
-			const listType = property.children[0].returnType.spec as ListType
+			const listType = property.children[0].returnType.list as ListType
 			if (listType.items && Type.isObj(listType.items)) {
-				const objectType = listType.items.spec as ObjType
+				const objectType = listType.items.obj as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType && propertyType.type) {
 					property.returnType = propertyType.type
@@ -119,7 +119,7 @@ export class TypeManager implements ITypeManager {
 		this.solveType(array.children[0])
 		// si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
 		if (array.children[0].returnType !== undefined) {
-			array.returnType = Type.list(array.children[0].returnType)
+			array.returnType = Type.List(array.children[0].returnType)
 		}
 	}
 
@@ -201,7 +201,7 @@ export class TypeManager implements ITypeManager {
 		if (type.endsWith('[]')) {
 			const elementType = type.substring(0, type.length - 2)
 			if (Type.isPrimitive(elementType)) {
-				return Type.list(Type.get(elementType))
+				return Type.List(Type.get(elementType))
 			}
 		}
 		return undefined
@@ -211,7 +211,7 @@ export class TypeManager implements ITypeManager {
 		const beforeType = array.children[0].returnType
 		this.solveTemplate(array.children[0])
 		if (array.children[0].returnType && array.children[0].returnType !== beforeType) {
-			array.returnType = Type.list(array.children[0].returnType)
+			array.returnType = Type.List(array.children[0].returnType)
 		}
 	}
 
@@ -219,9 +219,9 @@ export class TypeManager implements ITypeManager {
 		const beforeType = property.children[0].returnType
 		this.solveTemplate(property.children[0])
 		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && Type.isList(property.children[0].returnType)) {
-			const arrayType = property.children[0].returnType.spec as ListType
+			const arrayType = property.children[0].returnType.list as ListType
 			if (Type.isObj(arrayType.items)) {
-				const objectType = arrayType.items.spec as ObjType
+				const objectType = arrayType.items.obj as ObjType
 				const propertyType = objectType.properties.find(p => p.name === property.name)
 				if (propertyType && propertyType.type) {
 					property.returnType = propertyType.type
@@ -245,7 +245,7 @@ export class TypeManager implements ITypeManager {
 			for (const child of obj.children) {
 				properties.push({ name: child.name, type: child.children[0].returnType })
 			}
-			obj.returnType = Type.obj(properties)
+			obj.returnType = Type.Obj(properties)
 		}
 	}
 
@@ -256,7 +256,7 @@ export class TypeManager implements ITypeManager {
 			if (metadata.returnType === 'T') {
 				templateType = operator.returnType
 			} else if (metadata.returnType === 'T[]' && Type.isList(operator.returnType)) {
-				templateType = (operator.returnType.spec as ListType).items
+				templateType = (operator.returnType.list as ListType).items
 			}
 		}
 		// intenta resolver T por alguno de los parámetros
@@ -275,7 +275,7 @@ export class TypeManager implements ITypeManager {
 						templateType = child.returnType
 						break
 					} else if (paramMetadata.type === 'T[]' && Type.isList(child.returnType)) {
-						templateType = (child.returnType.spec as ListType).items
+						templateType = (child.returnType.list as ListType).items
 						break
 					}
 				}
@@ -287,7 +287,7 @@ export class TypeManager implements ITypeManager {
 				if (metadata.returnType === 'T') {
 					operator.returnType = templateType
 				} else if (metadata.returnType === 'T[]') {
-					operator.returnType = Type.list(templateType)
+					operator.returnType = Type.List(templateType)
 				}
 			}
 			for (let i = 0; i < metadata.params.length; i++) {
@@ -303,7 +303,7 @@ export class TypeManager implements ITypeManager {
 					if (paramMetadata.type === 'T') {
 						child.returnType = templateType
 					} else if (paramMetadata.type === 'T[]') {
-						child.returnType = Type.list(templateType)
+						child.returnType = Type.List(templateType)
 					}
 				}
 			}
@@ -311,7 +311,7 @@ export class TypeManager implements ITypeManager {
 	}
 
 	private getElementType (array: Operand): Type | undefined {
-		return array.returnType ? (array.returnType.spec as ListType).items : undefined
+		return array.returnType ? (array.returnType.list as ListType).items : undefined
 	}
 
 	private setVariableType (name: string, type: Type, operand: Operand) {
