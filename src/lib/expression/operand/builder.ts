@@ -10,8 +10,7 @@ export class OperandBuilder implements IOperandBuilder {
 	public build (expression: string): Operand {
 		const operand = new Parser(this.model, expression).parse()
 		this.complete(operand)
-		const reduced = this.reduce(operand)
-		return reduced
+		return this.reduce(operand)
 	}
 
 	public clone (source: Operand): Operand {

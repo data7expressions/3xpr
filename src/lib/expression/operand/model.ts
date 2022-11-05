@@ -292,6 +292,7 @@ export class ModelManager implements IModelManager {
 	}
 
 	private getTypeFromValue (type:string) :string {
+		// TODO:
 		return type
 	}
 }

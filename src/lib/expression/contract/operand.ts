@@ -48,7 +48,6 @@ export interface OperatorAdditionalInfo {
 
 export interface FunctionAdditionalInfo {
 	deterministic?:boolean
-	// multipleParams?:boolean
 	doc?: OperatorDoc
 }
 

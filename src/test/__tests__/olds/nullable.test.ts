@@ -1,6 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
 import { expressions as exp } from '../../../lib'
-
 describe('nullable', () => {
 	const context = JSON.parse('{"a":1,"b":null,"c":"","e":"hello"}')
 	test('lab', () => {

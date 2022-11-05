@@ -1,6 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
 import { expressions as exp } from '../../../lib'
-
 describe('parameters', () => {
 	const context = JSON.parse('{}')
 	test('lab', () => {

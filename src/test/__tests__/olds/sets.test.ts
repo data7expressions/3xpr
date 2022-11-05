@@ -1,6 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
 import { expressions as exp } from '../../../lib'
-
 describe('sets', () => {
 	const context = JSON.parse('{"ods":[1,3,5,7,9],"prime":[2,3,5,7],"orders":[{"number":"20003","details":[{"article":"Pear","qty":2},{"article":"Banana","qty":2},{"article":"White grape","qty":1},{"article":"Apple","qty":1}]},{"number":"20004","details":[{"article":"Apple","qty":1},{"article":"Banana","qty":2},{"article":"Pear","qty":1}]}]}')
 	test('lab', () => {
