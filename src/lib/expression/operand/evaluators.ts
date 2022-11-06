@@ -1,4 +1,4 @@
-import { h3lp } from 'h3lp'
+import { h3lp, IReplacer } from 'h3lp'
 import { Kind, Evaluator, Context, Operand, OperandType } from '../contract'
 
 export class ConstEvaluator extends Evaluator {
@@ -29,24 +29,23 @@ export class EnvEvaluator extends Evaluator {
 		return process.env[this.operand.name]
 	}
 }
+
+class TemplateReplacer implements IReplacer {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (private readonly context: Context) { }
+
+	replace (match: string): string | undefined {
+		let value = process.env[match]
+		if (value === undefined && this.context.data) {
+			value = this.context.data.get(match)
+		}
+		return value === undefined ? match : value
+	}
+}
+
 export class TemplateEvaluator extends Evaluator {
 	public eval (context: Context): any {
-		// info https://www.tutorialstonight.com/javascript-string-format.php
-		const name = this.operand.name.toString() as string
-		const result = name.replace(/\${([a-zA-Z0-9_.]+)}/g, (match, field) => {
-			let value = process.env[field]
-			if (value === undefined && context.data) {
-				value = context.data.get(field)
-			}
-			return value === undefined ? match : value
-		})
-		return result.replace(/\$([a-zA-Z0-9_.]+)/g, (match, field) => {
-			let value = process.env[field]
-			if (value === undefined && context.data) {
-				value = context.data.get(field)
-			}
-			return value === undefined ? match : value
-		})
+		return h3lp.utils.template(this.operand.name.toString(), new TemplateReplacer(context))
 	}
 }
 export class PropertyEvaluator extends Evaluator {
