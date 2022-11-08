@@ -25,3 +25,8 @@ export interface Format {
 	pattern: string
 	regExp: RegExp
 }
+
+export class Position {
+	// eslint-disable-next-line no-useless-constructor
+	public constructor (readonly ln: number, readonly col:number) {}
+}

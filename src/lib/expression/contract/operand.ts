@@ -1,4 +1,4 @@
-import { Type, Context, Parameter } from '.'
+import { Type, Context, Parameter, Position } from '.'
 
 export enum OperandType
 { Const = 'Const'
@@ -60,7 +60,7 @@ export class Operand {
 	public number?: number
 	public id?: string
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (public readonly pos:[number, number], public readonly name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
+	public constructor (public readonly pos:Position, public readonly name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
 	public eval (context: Context): any {
 		if (!this.evaluator) {
 			throw new Error('Evaluator not implemented')

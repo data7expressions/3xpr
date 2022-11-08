@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Operand, IModelManager, OperandType, Type } from '../contract'
+import { Operand, IModelManager, OperandType, Type, Position } from '../contract'
 
 export class Parser {
 	private model: IModelManager
@@ -45,7 +45,7 @@ export class Parser {
 			if (!operand) break
 			operands.push(operand)
 		}
-		return operands.length === 1 ? operands[0] : new Operand([0, 0], 'block', OperandType.Block, operands)
+		return operands.length === 1 ? operands[0] : new Operand(new Position(0, 0), 'block', OperandType.Block, operands)
 	}
 
 	private getExpression (operand1?: Operand, operator?: string, _break = ''): Operand {
@@ -228,13 +228,13 @@ export class Parser {
 			throw new Error('Operand undefined')
 		}
 		operand = this.solveChain(operand, pos)
-		if (isNegative) operand = new Operand([pos[0], pos[1] - 1], '-', OperandType.Operator, [operand])
-		if (isNot) operand = new Operand([pos[0], pos[1] - 1], '!', OperandType.Operator, [operand])
-		if (isBitNot) operand = new Operand([pos[0], pos[1] - 1], '~', OperandType.Operator, [operand])
+		if (isNegative) operand = new Operand(new Position(pos.ln, pos.col - 1), '-', OperandType.Operator, [operand])
+		if (isNot) operand = new Operand(new Position(pos.ln, pos.col - 1), '!', OperandType.Operator, [operand])
+		if (isBitNot) operand = new Operand(new Position(pos.ln, pos.col - 1), '~', OperandType.Operator, [operand])
 		return operand
 	}
 
-	private solveChain (operand: Operand, pos:[number, number]): Operand {
+	private solveChain (operand: Operand, pos:Position): Operand {
 		if (this.end) {
 			return operand
 		}
@@ -364,9 +364,9 @@ export class Parser {
 		return this.buffer[this.index + offset]
 	}
 
-	private pos (offset = 0): [number, number] {
+	private pos (offset = 0): Position {
 		const position = this.positions[this.index - offset]
-		return [position[1], position[2]]
+		return new Position(position[1], position[2])
 	}
 
 	private nextIs (key: string): boolean {
@@ -432,7 +432,7 @@ export class Parser {
 		return args
 	}
 
-	private getObject (pos:[number, number]): Operand {
+	private getObject (pos:Position): Operand {
 		const attributes = []
 		while (true) {
 			let name = null
@@ -482,12 +482,12 @@ export class Parser {
 		}
 	}
 
-	private getReturn (pos:[number, number]): Operand {
+	private getReturn (pos:Position): Operand {
 		const value = this.getExpression(undefined, undefined, ';')
 		return new Operand(pos, 'return', OperandType.Return, [value])
 	}
 
-	private getTryCatchBlock (pos:[number, number]): Operand {
+	private getTryCatchBlock (pos:Position): Operand {
 		const children: Operand[] = []
 		const tryBlock = this.getControlBlock()
 		children.push(tryBlock)
@@ -509,12 +509,12 @@ export class Parser {
 		return new Operand(pos, 'try', OperandType.Try, children)
 	}
 
-	private getThrow (pos:[number, number]): Operand {
+	private getThrow (pos:Position): Operand {
 		const exception = this.getExpression(undefined, undefined, ';')
 		return new Operand(pos, 'throw', OperandType.Throw, [exception])
 	}
 
-	private getIfBlock (pos:[number, number]): Operand {
+	private getIfBlock (pos:Position): Operand {
 		const children: Operand[] = []
 		const condition = this.getExpression(undefined, undefined, ')')
 		children.push(condition)
@@ -538,7 +538,7 @@ export class Parser {
 		return new Operand(pos, 'if', OperandType.If, children)
 	}
 
-	private getSwitchBlock (pos:[number, number]): Operand {
+	private getSwitchBlock (pos:Position): Operand {
 		const children = []
 		const value = this.getExpression(undefined, undefined, ')')
 		children.push(value)
@@ -595,13 +595,13 @@ export class Parser {
 		return new Operand(pos, 'switch', OperandType.Switch, children)
 	}
 
-	private getWhileBlock (pos:[number, number]): Operand {
+	private getWhileBlock (pos:Position): Operand {
 		const condition = this.getExpression(undefined, undefined, ')')
 		const block = this.getControlBlock()
 		return new Operand(pos, 'while', OperandType.While, [condition, block])
 	}
 
-	private getForBlock (pos:[number, number]): Operand {
+	private getForBlock (pos:Position): Operand {
 		const first = this.getExpression(undefined, undefined, '; ')
 		if (this.offset(-1) === ';') {
 			const condition = this.getExpression(undefined, undefined, ';')
@@ -621,7 +621,7 @@ export class Parser {
 		throw new Error('expression for error')
 	}
 
-	private getFunctionBlock (pos:[number, number]): Operand {
+	private getFunctionBlock (pos:Position): Operand {
 		const name = this.getValue()
 		if (this.current === '(') this.index += 1
 		const argsPos = this.pos()
@@ -673,13 +673,13 @@ export class Parser {
 		}
 	}
 
-	private getIndexOperand (name: string, pos:[number, number]): Operand {
+	private getIndexOperand (name: string, pos:Position): Operand {
 		const idx = this.getExpression(undefined, undefined, ']')
 		const operand = new Operand(pos, name, OperandType.Var)
 		return new Operand(pos, '[]', OperandType.Operator, [operand, idx])
 	}
 
-	private getEnum (value: string, pos:[number, number]): Operand {
+	private getEnum (value: string, pos:Position): Operand {
 		if (value.includes('.') && this.model.isEnum(value)) {
 			const names = value.split('.')
 			const enumName = names[0]

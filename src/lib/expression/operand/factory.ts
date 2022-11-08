@@ -1,5 +1,5 @@
 
-import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelManager, Type } from '../contract'
+import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelManager, Type, Position } from '../contract'
 import {
 	ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, PropertyEvaluator,
 	ListEvaluator, ObjEvaluator, BlockEvaluator, IfEvaluator, WhileEvaluator,
@@ -8,7 +8,7 @@ import {
 } from './evaluators'
 
 export class ConstBuilder {
-	public build (pos:[number, number], value:any): Operand {
+	public build (pos:Position, value:any): Operand {
 		const operand = new Operand(pos, value, OperandType.Const, [], Type.get(value))
 		operand.evaluator = new ConstEvaluator(operand)
 		return operand
