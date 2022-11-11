@@ -5,7 +5,7 @@ import path from 'path'
 const template = {
 	header:
 `/* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../../lib'
+import { expressions as exp } from '../../''
 `,
 	cases: [{
 		name: 'lab',
@@ -59,5 +59,5 @@ import { expressions as exp } from '../../../lib'
 		.add({ source: path.join(root, 'sets.json'), template: template })
 		.add({ source: path.join(root, 'string.json'), template: template })
 		.add({ source: path.join(root, 'type.json'), template: templateType })
-		.build('./src/test/__tests__/auto')
+		.build('./src/lib/__tests__/auto')
 })()
