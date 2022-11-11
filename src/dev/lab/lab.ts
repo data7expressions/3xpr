@@ -1,5 +1,18 @@
 import { expressions as exp } from '../../lib'
+
 (async () => {
-	exp.addFunction((n1: number, n2: number): number => n1 % n2, 'xxx(n1:number,n2:number):number')
-	console.log(exp.eval('xxx(7,2)'))
+	const context = {
+		firstName: 'Juan',
+		lastName: 'Lopez',
+		email: 'jlopez@email.com',
+		age: 44,
+		food: 'pizza',
+		film: 'Estación central',
+		a: null,
+		b: '',
+		c: ' '
+	}
+	// eslint-disable-next-line no-template-curly-in-string
+	const result = exp.eval('`${firstName} is ${age} years old and likes ${food}`', context)
+	console.log(result)
 })()

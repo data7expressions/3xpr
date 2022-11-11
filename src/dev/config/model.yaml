@@ -528,7 +528,7 @@ functions:
     - name: value 
       type: any
   isDateTime:
-    description: Evaluate if it is a datetime
+    description: Evaluate if it is a dateTime
     category: comparison
     deterministic: true 
     return: boolean 
@@ -600,7 +600,7 @@ functions:
     - name: value 
       type: any
   isDateTimeFormat:
-    description: Evaluates if it has datetime format
+    description: Evaluates if it has dateTime format
     category: comparison
     deterministic: true 
     return: boolean 
@@ -811,7 +811,7 @@ functions:
       type: string
     - name: value
       type: string       
-  initcap:
+  title:
     description: Capitalize words 
     category: string
     deterministic: true 
@@ -1004,19 +1004,19 @@ functions:
 # dateTime :---------------------------------------------------------
   curTime:
     description: Get the current time 
-    category: datetime 
+    category: dateTime 
     return: Date
   today:
     description: Get the current date 
-    category: datetime 
+    category: dateTime 
     return: Date 
   now:
-    description: Get the current datetime 
-    category: datetime 
+    description: Get the current dateTime 
+    category: dateTime 
     return: Date
   time:
     description: Convert string to time
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1024,15 +1024,15 @@ functions:
       type: string 
   date:
     description: Convert string to date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
     - name: value
       type: string  
-  datetime:
-    description: Convert string to datetime
-    category: datetime
+  dateTime:
+    description: Convert string to dateTime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1040,7 +1040,7 @@ functions:
       type: string              
   year:
     description: Get year from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1048,7 +1048,7 @@ functions:
       type: Date
   month:
     description: Get month from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1056,7 +1056,7 @@ functions:
       type: Date     
   day:
     description: Get day of month from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1064,7 +1064,7 @@ functions:
       type: Date
   weekday:
     description: get date of week from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1072,7 +1072,7 @@ functions:
       type: Date
   hour:
     description: get hour from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1080,7 +1080,7 @@ functions:
       type: Date
   minute:
     description: Get minute from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1088,7 +1088,7 @@ functions:
       type: Date    
   second:
     description: Get second from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1096,7 +1096,7 @@ functions:
       type: Date
   millisecond:
     description: Get millisecond from date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: number 
     params:
@@ -1104,7 +1104,7 @@ functions:
       type: Date    
   addYear:
     description: Add years to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1114,7 +1114,7 @@ functions:
       type: number 
   addMonth:
     description: Add months to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1124,7 +1124,7 @@ functions:
       type: number 
   addDay:
     description: Add days to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1134,7 +1134,7 @@ functions:
       type: number
   addHour:
     description: Add hours to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1144,7 +1144,7 @@ functions:
       type: number 
   addMinute:
     description: Add minutes to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1154,7 +1154,7 @@ functions:
       type: number 
   addSecond:
     description: Add seconds to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1164,7 +1164,7 @@ functions:
       type: number 
   addMillisecond:
     description: Add milliseconds to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1174,7 +1174,7 @@ functions:
       type: number      
   addTime:
     description: Add time to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1184,7 +1184,7 @@ functions:
       type: Date 
   subtractTime:
     description: subtract time to a date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1194,7 +1194,7 @@ functions:
       type: Date 
   yearDiff:
     description: difference between two dates in years
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1204,7 +1204,7 @@ functions:
       type: Date 
   dayDiff:
     description: difference between two dates in days
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1214,7 +1214,7 @@ functions:
       type: Date 
   hourDiff:
     description: difference between two dates in hours
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1224,7 +1224,7 @@ functions:
       type: Date
   secondDiff:
     description: difference between two dates in seconds
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1234,7 +1234,7 @@ functions:
       type: Date 
   millisecondDiff:
     description: difference between two dates in milliseconds
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1244,7 +1244,7 @@ functions:
       type: Date
   dayToDate:
     description: days to  Date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1252,7 +1252,7 @@ functions:
       type: number
   hourToDate:
     description: hours to  Date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1260,7 +1260,7 @@ functions:
       type: number 
   secondToDate:
     description: seconds to  Date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1268,7 +1268,7 @@ functions:
       type: number  
   millisecondToDate:
     description: milliseconds to Date
-    category: datetime
+    category: dateTime
     deterministic: true 
     return: Date 
     params:
@@ -1678,9 +1678,9 @@ formats:
   integer: ^\d+$
   decimal: ^\d+\.\d+$
   string: ^[a-zA-Z0-9_.]+$
-  # https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  # https://stackoverflow.com/questions/3143070/javascript-regex-iso-dateTime
   date: ^\d{4}-\d{2}-\d{2}$
-  datetime: \d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)
+  dateTime: \d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)
   time: \[0-2]\d:[0-5]\d:[0-5]\d
 constants:
   true: true

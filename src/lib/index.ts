@@ -1,22 +1,7 @@
-import { Expressions } from './manager'
-import { Parameter, ActionObserver, Operand } from './model'
-
-export * from './model'
-export * from './operand'
-export * from './manager'
-export * from './parser'
-export * from './manager/expressions'
+import { Expressions, Parameter, ActionObserver } from './expression'
+export * from './expression'
 
 export const expressions = Expressions.instance
-
-/**
-	 * Parser expression
-	 * @param expression  expression
-	 * @returns Operand
-	 */
-export const parse = (expression: string): Operand => {
-	return expressions.parse(expression)
-}
 
 /**
  * Get parameters of expression
@@ -35,6 +20,10 @@ export const parameters = (expression: string): Parameter[] => {
  */
 export const evaluate = (expression: string, data?: any): any => {
 	return expressions.eval(expression, data)
+}
+
+export const run = (expression: string, data?: any): any => {
+	return expressions.run(expression, data)
 }
 
 export const subscribe = (observer:ActionObserver):void => {
