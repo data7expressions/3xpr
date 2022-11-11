@@ -107,31 +107,31 @@ export class CoreLibrary {
 
 	private comparisonFunctions (): void {
 		this.model.addFunction('between(value:any,from:any,to:any):boolean',
-			(value:any, from:any, to:any):boolean => h3lp.validator.between(value, from, to))
+			(value:any, from:any, to:any):boolean => h3lp.val.between(value, from, to))
 		this.model.addFunction('includes(source:string|any[],value:any):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
 		this.model.addFunctionAlias('in', 'includes')
-		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => h3lp.validator.isNull(value))
-		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => h3lp.validator.isNotNull(value))
-		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => h3lp.validator.isEmpty(value))
-		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => h3lp.validator.isNotEmpty(value))
-		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => h3lp.validator.isBoolean(value))
-		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => h3lp.validator.isNumber(value))
-		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => h3lp.validator.isInteger(value))
-		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => h3lp.validator.isDecimal(value))
-		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => h3lp.validator.isString(value))
-		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => h3lp.validator.isDate(value))
-		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => h3lp.validator.isDateTime(value))
-		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => h3lp.validator.isTime(value))
-		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => h3lp.validator.isObject(value))
-		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => h3lp.validator.isArray(value))
-		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isBooleanFormat(value))
-		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isNumberFormat(value))
-		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isIntegerFormat(value))
-		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDecimalFormat(value))
-		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDateFormat(value))
-		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isDateTimeFormat(value))
-		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => h3lp.validator.isTimeFormat(value))
+		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => h3lp.val.isNull(value))
+		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => h3lp.val.isNotNull(value))
+		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => h3lp.val.isEmpty(value))
+		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => h3lp.val.isNotEmpty(value))
+		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => h3lp.val.isBoolean(value))
+		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => h3lp.val.isNumber(value))
+		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => h3lp.val.isInteger(value))
+		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => h3lp.val.isDecimal(value))
+		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => h3lp.val.isString(value))
+		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => h3lp.val.isDate(value))
+		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => h3lp.val.isDateTime(value))
+		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => h3lp.val.isTime(value))
+		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => h3lp.val.isObject(value))
+		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => h3lp.val.isArray(value))
+		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => h3lp.val.isBooleanFormat(value))
+		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => h3lp.val.isNumberFormat(value))
+		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => h3lp.val.isIntegerFormat(value))
+		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => h3lp.val.isDecimalFormat(value))
+		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => h3lp.val.isDateFormat(value))
+		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => h3lp.val.isDateTimeFormat(value))
+		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => h3lp.val.isTimeFormat(value))
 	}
 
 	private numberFunctions (): void {
@@ -161,7 +161,7 @@ export class CoreLibrary {
 	}
 
 	private conversionFunctions (): void {
-		this.model.addFunction('toString(value:any):string', (value:any):string => h3lp.string.toString(value))
+		this.model.addFunction('toString(value:any):string', (value:any):string => h3lp.str.toString(value))
 		this.model.addFunction('toNumber(value:any):number', (value:any):number => h3lp.utils.toNumber(value))
 		this.model.addFunction('dateToString(date:date):string', (date:Date) => {
 			if (typeof date === 'string') {
@@ -179,7 +179,7 @@ export class CoreLibrary {
 
 	private stringFunctions (): void {
 		this.model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
-		this.model.addFunction('capitalize(value:string):string', (value:string):string => h3lp.string.capitalize(value))
+		this.model.addFunction('capitalize(value:string):string', (value:string):string => h3lp.str.capitalize(value))
 		this.model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
 		this.model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
 		this.model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
@@ -187,17 +187,17 @@ export class CoreLibrary {
 		this.model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
 		this.model.addFunction('indexOf(value:string, sub:string, start:number):number', (value:string, sub:string, start:number):number => value.indexOf(sub, start))
 		this.model.addFunction('join(values:string[],separator:string=","):string', (values:string[], separator = ','):string => values.join(separator))
-		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => h3lp.string.replace(value, source, target))
+		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => h3lp.str.replace(value, source, target))
 		this.model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
 		this.model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
 		this.model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
 		this.model.addFunctionAlias('substr', 'substring')
 		this.model.addFunction('trim(value: string):string', (value: string):string => value.trim())
 		this.model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
-		this.model.addFunction('concat(...values:any):string', (...values:any):string => h3lp.string.concat(values))
+		this.model.addFunction('concat(...values:any):string', (...values:any):string => h3lp.str.concat(values))
 		this.model.addFunctionAlias('concatenate', 'concat')
 		this.model.addFunction('test(value: string, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
-		this.model.addFunction('title(value:string):string', (value:string):string => h3lp.string.initCap(value))
+		this.model.addFunction('title(value:string):string', (value:string):string => h3lp.str.initCap(value))
 		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
 		this.model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value

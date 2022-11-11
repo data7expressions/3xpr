@@ -113,7 +113,7 @@ export class Parser {
 			char = this.current
 		}
 		const pos = this.pos()
-		if (h3lp.validator.isAlphanumeric(char)) {
+		if (h3lp.val.isAlphanumeric(char)) {
 			let value: any = this.getValue()
 			if (value === 'function' && this.current === '(') {
 				this.index += 1
@@ -160,7 +160,7 @@ export class Parser {
 			} else if (!this.end && this.current === '[') {
 				this.index += 1
 				operand = this.getIndexOperand(value, pos)
-			} else if (h3lp.validator.isIntegerFormat(value)) {
+			} else if (h3lp.val.isIntegerFormat(value)) {
 				if (isNegative) {
 					value = parseInt(value) * -1
 					isNegative = false
@@ -171,7 +171,7 @@ export class Parser {
 					value = parseInt(value)
 				}
 				operand = new Operand(pos, value, OperandType.Const, [], Type.integer)
-			} else if (h3lp.validator.isDecimalFormat(value)) {
+			} else if (h3lp.val.isDecimalFormat(value)) {
 				if (isNegative) {
 					value = parseFloat(value) * -1
 					isNegative = false
@@ -330,7 +330,7 @@ export class Parser {
 			} else if (p === ' ') {
 				// Only leave spaces when it's between alphanumeric characters.
 				// for example in the case of "} if" there should not be a space
-				if (i + 1 < length && i - 1 >= 0 && h3lp.validator.isAlphanumeric(buffer[i - 1]) && h3lp.validator.isAlphanumeric(buffer[i + 1])) {
+				if (i + 1 < length && i - 1 >= 0 && h3lp.val.isAlphanumeric(buffer[i - 1]) && h3lp.val.isAlphanumeric(buffer[i + 1])) {
 					result.push([p, line, col])
 				}
 			// when there is a block that ends with "}" and then there is an enter , replace the enter with ";"
@@ -382,13 +382,13 @@ export class Parser {
 	private getValue (increment = true): string {
 		const buff = []
 		if (increment) {
-			while (!this.end && h3lp.validator.isAlphanumeric(this.current)) {
+			while (!this.end && h3lp.val.isAlphanumeric(this.current)) {
 				buff.push(this.current)
 				this.index += 1
 			}
 		} else {
 			let index = this.index
-			while (!this.end && h3lp.validator.isAlphanumeric(this.buffer[index])) {
+			while (!this.end && h3lp.val.isAlphanumeric(this.buffer[index])) {
 				buff.push(this.buffer[index])
 				index += 1
 			}
