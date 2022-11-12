@@ -58,7 +58,7 @@ describe('flows', () => {
 								}
 							)
 						)
-					`, context)).toStrictEqual(['phone-911784599437339','computer-11:3d:1c:9b:7e:db','robot-12:3d:1c:9b:7e:db'])
+					`, context)).toStrictEqual(['phone-911784599437339', 'computer-11:3d:1c:9b:7e:db', 'robot-12:3d:1c:9b:7e:db'])
 		expect(exp.eval(` devices.map(p=>
 							switch (p.type) {
 								case "phone": 1;
@@ -66,7 +66,7 @@ describe('flows', () => {
 								default: 3;
 							}
 						)
-					`, context)).toStrictEqual([1,3,2])
+					`, context)).toStrictEqual([1, 3, 2])
 		expect(exp.eval(` while (p=devices.pop()) {
 						mac=p.mac;
 					}
