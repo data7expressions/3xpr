@@ -19,7 +19,7 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 export class Expressions implements IExpressions {
 	private cache: ICache<number, Operand>
 	private processCache: ICache<number, Operand>
-	private observers:ActionObserver[]=[];
+	private observers:ActionObserver[] = []
 	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager) {
 		this.cache = new MemoryCache<number, Operand>()
 		this.processCache = new MemoryCache<number, Operand>()
@@ -202,7 +202,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {
-		const args = { expression: expression, context: context }
+		const args = { expression, context }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.before(args)
@@ -215,7 +215,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private afterExecutionNotify (expression:string, context: Context, result:any) {
-		const args = { expression: expression, context: context, result: result }
+		const args = { expression, context, result }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.after(args)
@@ -228,7 +228,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private errorExecutionNotify (expression:string, context: Context, error:any) {
-		const args = { expression: expression, context: context, error: error }
+		const args = { expression, context, error }
 		this.observers.forEach((observer:ActionObserver) => {
 			if (observer.condition === undefined) {
 				observer.error(args)

@@ -85,6 +85,7 @@ export class Token {
 export class Context {
 	public data:Data
 	public token: Token
+	// eslint-disable-next-line no-use-before-define
 	public parent?: Context
 	constructor (data?:Data, token?:Token, parent?:Context) {
 		this.data = data || new Data({})

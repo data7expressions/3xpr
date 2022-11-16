@@ -99,7 +99,7 @@ export class OperandHelper {
 					throw new Error(`Property value ${keyValue.name} is an object, so it cannot be grouped`)
 				}
 				key = key === '' ? value : `${key}-${value}`
-				values.push({ name: keyValue.name, value: value })
+				values.push({ name: keyValue.name, value })
 			}
 			// find if the key already exists in the list of keys
 			const keyItem = keys.find((p:any) => p.key === key)
@@ -108,7 +108,7 @@ export class OperandHelper {
 				keyItem.items.push(item)
 			} else {
 				// if the key does not exist add the key, the values and the item
-				keys.push({ key: key, values: values, items: [item], summarizers: [] })
+				keys.push({ key, values, items: [item], summarizers: [] })
 			}
 		}
 		return keys

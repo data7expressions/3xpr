@@ -49,11 +49,11 @@ export class HelperTest {
 	public static async buildSuite (request: TestSuiteRequest):Promise<void> {
 		const func = request.func || ((expression:string, context:any) => exp.eval(expression, context))
 		const context = request.context || {}
-		const suite: TestSuite = { name: request.name, method: request.method || 'eval', context: context, cases: [] }
+		const suite: TestSuite = { name: request.name, method: request.method || 'eval', context, cases: [] }
 		for (const expression of request.expressions) {
 			try {
 				const result = func(expression, context)
-				suite.cases.push({ expression: expression, result: result })
+				suite.cases.push({ expression, result })
 			} catch (error:any) {
 				console.log(error.stack)
 				console.log(`exp: ${expression} error: ${error}`)

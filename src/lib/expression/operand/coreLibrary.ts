@@ -649,7 +649,7 @@ class Map extends PrototypeEvaluator {
 						const operandCloned = exp.clone(keyValue.children[0])
 						const operandResolved = operandHelper.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
-						key.summarizers.push({ name: keyValue.name, value: value })
+						key.summarizers.push({ name: keyValue.name, value })
 					}
 				}
 				// build the list of results
@@ -791,7 +791,7 @@ class Reverse extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			const value = this.operand.children[2].eval(childContext)
-			values.push({ value: value, p: item })
+			values.push({ value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		values.reverse()
@@ -819,7 +819,7 @@ class Sort extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			const value = this.operand.children[2].eval(childContext)
-			values.push({ value: value, p: item })
+			values.push({ value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
 		return values.map(p => p.p)
@@ -1035,12 +1035,12 @@ class Union extends PrototypeEvaluator {
 		} else if (typeof a[0] === 'object') {
 			for (const element of a) {
 				const key = operandHelper.objectKey(element)
-				result.push({ key: key, value: element })
+				result.push({ key, value: element })
 			}
 			for (const element of b) {
 				const key = operandHelper.objectKey(element)
 				if (!result.find((p:any) => p.key === key)) {
-					result.push({ key: key, value: element })
+					result.push({ key, value: element })
 				}
 			}
 			return result.map((p:any) => p.value)
