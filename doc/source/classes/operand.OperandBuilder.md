@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[operand/operandBuilder.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operandBuilder.ts#L13)
+[operand/operandBuilder.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/operandBuilder.ts#L13)
 
 ## Methods
 
@@ -56,4 +56,4 @@
 
 #### Defined in
 
-[operand/operandBuilder.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operandBuilder.ts#L17)
+[operand/operandBuilder.ts:17](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/operandBuilder.ts#L17)

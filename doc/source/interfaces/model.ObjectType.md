@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[model/type.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/type.ts#L10)
+[model/type.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/type.ts#L10)

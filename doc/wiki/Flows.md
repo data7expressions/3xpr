@@ -10,7 +10,7 @@
 ## Examples
 
 ```js
-import { expressions as exp } from 'js-expressions'
+import { expressions as exp } from '3xpr'
 
 let context = {
 	devices: [

@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[manager/expressions.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L8)
+[manager/expressions.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L8)

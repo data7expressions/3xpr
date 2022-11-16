@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[model/observer.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L4)
+[model/observer.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L4)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[model/observer.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L6)
+[model/observer.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L6)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[model/observer.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L3)
+[model/observer.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L3)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[model/observer.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L5)
+[model/observer.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L5)

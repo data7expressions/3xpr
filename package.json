@@ -1,18 +1,18 @@
 {
-	"name": "js-expressions",
+	"name": "3xpr",
 	"version": "1.5.4",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
 	"main": "./index.js",
 	"private": true,
-	"homepage": "https://github.com/FlavioLionelRita/js-expressions#readme",
+	"homepage": "https://github.com/FlavioLionelRita/3xpr#readme",
 	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/js-expressions/issues"
+		"url": "https://github.com/FlavioLionelRita/3xpr/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/FlavioLionelRita/js-expressions.git"
+		"url": "https://github.com/FlavioLionelRita/3xpr.git"
 	},
 	"scripts": {
 		"lint": "npx eslint src",

@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[operand/library.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L16)
+[operand/library.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L16)
 
 ## Properties
 
@@ -49,7 +49,7 @@
 
 #### Defined in
 
-[operand/library.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L11)
+[operand/library.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L11)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L12)
+[operand/library.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L12)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:14](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L14)
+[operand/library.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L14)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L10)
+[operand/library.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L10)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L13)
+[operand/library.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L13)
 
 ## Methods
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L24)
+[operand/library.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L24)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:28](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L28)
+[operand/library.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L28)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[operand/library.ts:32](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L32)
+[operand/library.ts:32](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L32)
 
 ___
 
@@ -177,4 +177,4 @@ ___
 
 #### Defined in
 
-[operand/library.ts:49](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/library.ts#L49)
+[operand/library.ts:49](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/library.ts#L49)

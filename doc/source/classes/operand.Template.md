@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[operand/operands.ts:46](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L46)
+[operand/operands.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/operands.ts#L46)
 
 ## Properties
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[model/operands.ts:26](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L26)
+[model/operands.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L26)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:23](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L23)
+[model/operands.ts:23](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L23)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:24](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L24)
+[model/operands.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L24)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L25)
+[model/operands.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L25)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L21)
+[model/operands.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L21)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:22](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L22)
+[model/operands.ts:22](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L22)
 
 ## Methods
 
@@ -155,4 +155,4 @@ ___
 
 #### Defined in
 
-[operand/operands.ts:50](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/operands.ts#L50)
+[operand/operands.ts:50](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/operands.ts#L50)

@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[model/operands.ts:44](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L44)
+[model/operands.ts:44](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L44)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:52](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L52)
+[model/operands.ts:52](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L52)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:45](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L45)
+[model/operands.ts:45](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L45)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:43](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L43)
+[model/operands.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L43)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:51](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L51)
+[model/operands.ts:51](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L51)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:46](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L46)
+[model/operands.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L46)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:40](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L40)
+[model/operands.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L40)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:47](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L47)
+[model/operands.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L47)
 
 ___
 
@@ -110,7 +110,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:41](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L41)
+[model/operands.ts:41](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L41)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:50](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L50)
+[model/operands.ts:50](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L50)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:48](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L48)
+[model/operands.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L48)
 
 ___
 
@@ -140,7 +140,7 @@ ___
 
 #### Defined in
 
-[model/operands.ts:49](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L49)
+[model/operands.ts:49](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L49)
 
 ___
 
@@ -150,4 +150,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:42](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L42)
+[model/operands.ts:42](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L42)

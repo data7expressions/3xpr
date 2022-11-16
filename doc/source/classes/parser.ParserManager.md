@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L12)
+[parser/parserManager.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L12)
 
 ## Properties
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[parser/parserManager.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L10)
+[parser/parserManager.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L10)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L8)
+[parser/parserManager.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L8)
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L9)
+[parser/parserManager.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L9)
 
 ## Methods
 
@@ -96,7 +96,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:141](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L141)
+[parser/parserManager.ts:141](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L141)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:47](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L47)
+[parser/parserManager.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L47)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:43](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L43)
+[parser/parserManager.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L43)
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L39)
+[parser/parserManager.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L39)
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:160](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L160)
+[parser/parserManager.ts:160](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L160)
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:51](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L51)
+[parser/parserManager.ts:51](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L51)
 
 ___
 
@@ -242,7 +242,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:34](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L34)
+[parser/parserManager.ts:34](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L34)
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L20)
+[parser/parserManager.ts:20](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L20)
 
 ___
 
@@ -284,4 +284,4 @@ ___
 
 #### Defined in
 
-[parser/parserManager.ts:65](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/parserManager.ts#L65)
+[parser/parserManager.ts:65](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/parserManager.ts#L65)

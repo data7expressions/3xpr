@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[model/operands.ts:73](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L73)
+[model/operands.ts:73](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L73)

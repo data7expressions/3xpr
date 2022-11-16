@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[model/operands.ts:69](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L69)
+[model/operands.ts:69](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L69)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[model/operands.ts:68](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/operands.ts#L68)
+[model/operands.ts:68](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/operands.ts#L68)

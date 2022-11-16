@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[operand/typeManager.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/typeManager.ts#L9)
+[operand/typeManager.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/typeManager.ts#L9)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[operand/typeManager.ts:25](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/typeManager.ts#L25)
+[operand/typeManager.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/typeManager.ts#L25)
 
 ___
 
@@ -81,4 +81,4 @@ ___
 
 #### Defined in
 
-[operand/typeManager.ts:40](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/typeManager.ts#L40)
+[operand/typeManager.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/typeManager.ts#L40)

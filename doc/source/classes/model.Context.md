@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[model/context.ts:72](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L72)
+[model/context.ts:72](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/context.ts#L72)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[model/context.ts:70](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L70)
+[model/context.ts:70](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/context.ts#L70)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[model/context.ts:71](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L71)
+[model/context.ts:71](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/context.ts#L71)
 
 ## Methods
 
@@ -68,4 +68,4 @@ ___
 
 #### Defined in
 
-[model/context.ts:77](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/context.ts#L77)
+[model/context.ts:77](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/context.ts#L77)

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[model/type.ts:1](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/type.ts#L1)
+[model/type.ts:1](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/type.ts#L1)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 #### Defined in
 
-[model/type.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/type.ts#L3)
+[model/type.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/type.ts#L3)

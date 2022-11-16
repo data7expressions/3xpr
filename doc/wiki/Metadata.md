@@ -8,7 +8,7 @@
 ### GetType
 
 ```js
-import { expressions as exp } from 'js-expressions'
+import { expressions as exp } from '3xpr'
 (async () => {
 	const type = exp.getType('a + 1')
 	console.log(type)
@@ -37,7 +37,7 @@ import { expressions as exp } from 'js-expressions'
 ### Parameters
 
 ```js
-import { expressions as exp } from 'js-expressions'
+import { expressions as exp } from '3xpr'
 (async () => {
 	const parameters = exp.parameters('a + 1')
 	console.log(JSON.stringify(parameters))

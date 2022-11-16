@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[model/type.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/type.ts#L6)
+[model/type.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/type.ts#L6)
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 #### Defined in
 
-[model/type.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/type.ts#L7)
+[model/type.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/type.ts#L7)

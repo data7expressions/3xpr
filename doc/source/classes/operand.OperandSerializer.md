@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[operand/serializer.ts:13](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/serializer.ts#L13)
+[operand/serializer.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/serializer.ts#L13)
 
 ## Methods
 
@@ -58,7 +58,7 @@
 
 #### Defined in
 
-[operand/serializer.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/serializer.ts#L17)
+[operand/serializer.ts:17](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/serializer.ts#L17)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[operand/serializer.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/serializer.ts#L39)
+[operand/serializer.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/serializer.ts#L39)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[operand/serializer.ts:21](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/operand/serializer.ts#L21)
+[operand/serializer.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/operand/serializer.ts#L21)

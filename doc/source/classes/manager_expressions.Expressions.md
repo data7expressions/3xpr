@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:29](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L29)
+[manager/expressions.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L29)
 
 ## Accessors
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[manager/expressions.ts:58](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L58)
+[manager/expressions.ts:58](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L58)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:62](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L62)
+[manager/expressions.ts:62](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L62)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:66](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L66)
+[manager/expressions.ts:66](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L66)
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:50](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L50)
+[manager/expressions.ts:50](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L50)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:54](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L54)
+[manager/expressions.ts:54](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L54)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:46](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L46)
+[manager/expressions.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L46)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:39](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L39)
+[manager/expressions.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L39)
 
 ## Methods
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:70](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L70)
+[manager/expressions.ts:70](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L70)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:102](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L102)
+[manager/expressions.ts:102](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L102)
 
 ___
 
@@ -220,7 +220,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[manager/expressions.ts:176](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L176)
+[manager/expressions.ts:176](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L176)
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:86](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L86)
+[manager/expressions.ts:86](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L86)
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:82](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L82)
+[manager/expressions.ts:82](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L82)
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:90](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L90)
+[manager/expressions.ts:90](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L90)
 
 ___
 
@@ -301,7 +301,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:98](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L98)
+[manager/expressions.ts:98](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L98)
 
 ___
 
@@ -322,7 +322,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:94](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L94)
+[manager/expressions.ts:94](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L94)
 
 ___
 
@@ -346,7 +346,7 @@ Type of expression
 
 #### Defined in
 
-[manager/expressions.ts:159](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L159)
+[manager/expressions.ts:159](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L159)
 
 ___
 
@@ -366,7 +366,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:78](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L78)
+[manager/expressions.ts:78](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L78)
 
 ___
 
@@ -386,7 +386,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:74](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L74)
+[manager/expressions.ts:74](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L74)
 
 ___
 
@@ -410,7 +410,7 @@ Parameters of expression
 
 #### Defined in
 
-[manager/expressions.ts:149](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L149)
+[manager/expressions.ts:149](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L149)
 
 ___
 
@@ -434,7 +434,7 @@ Operand
 
 #### Defined in
 
-[manager/expressions.ts:111](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L111)
+[manager/expressions.ts:111](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L111)
 
 ___
 
@@ -454,7 +454,7 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:191](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L191)
+[manager/expressions.ts:191](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L191)
 
 ___
 
@@ -474,4 +474,4 @@ ___
 
 #### Defined in
 
-[manager/expressions.ts:195](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/manager/expressions.ts#L195)
+[manager/expressions.ts:195](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/manager/expressions.ts#L195)

@@ -39,7 +39,7 @@
 
 #### Defined in
 
-[model/parser.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L9)
+[model/parser.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L9)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L8)
+[model/parser.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L8)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L7)
+[model/parser.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L7)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:12](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L12)
+[model/parser.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L12)
 
 ___
 
@@ -120,7 +120,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L10)
+[model/parser.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L10)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L6)
+[model/parser.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L6)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[model/parser.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L5)
+[model/parser.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L5)
 
 ___
 
@@ -175,4 +175,4 @@ ___
 
 #### Defined in
 
-[model/parser.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/parser.ts#L11)
+[model/parser.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/parser.ts#L11)

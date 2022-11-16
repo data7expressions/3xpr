@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[model/observer.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L11)
+[model/observer.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L11)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[model/observer.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L10)
+[model/observer.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L10)
 
 ## Methods
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[model/observer.ts:16](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L16)
+[model/observer.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L16)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[model/observer.ts:15](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L15)
+[model/observer.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L15)
 
 ___
 
@@ -104,4 +104,4 @@ ___
 
 #### Defined in
 
-[model/observer.ts:17](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/observer.ts#L17)
+[model/observer.ts:17](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/observer.ts#L17)

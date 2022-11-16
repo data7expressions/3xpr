@@ -41,7 +41,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:11](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L11)
+[parser/expressionConfig.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L11)
 
 ## Properties
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L8)
+[parser/expressionConfig.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L8)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L9)
+[parser/expressionConfig.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L9)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L10)
+[parser/expressionConfig.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L10)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L6)
+[parser/expressionConfig.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L6)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L7)
+[parser/expressionConfig.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L7)
 
 ## Methods
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:20](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L20)
+[parser/expressionConfig.ts:20](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L20)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:138](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L138)
+[parser/expressionConfig.ts:138](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L138)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:134](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L134)
+[parser/expressionConfig.ts:134](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L134)
 
 ___
 
@@ -208,7 +208,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:142](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L142)
+[parser/expressionConfig.ts:142](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L142)
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:162](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L162)
+[parser/expressionConfig.ts:162](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L162)
 
 ___
 
@@ -257,7 +257,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:146](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L146)
+[parser/expressionConfig.ts:146](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L146)
 
 ___
 
@@ -281,7 +281,7 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:129](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L129)
+[parser/expressionConfig.ts:129](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L129)
 
 ___
 
@@ -305,4 +305,4 @@ ___
 
 #### Defined in
 
-[parser/expressionConfig.ts:43](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/parser/expressionConfig.ts#L43)
+[parser/expressionConfig.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/parser/expressionConfig.ts#L43)

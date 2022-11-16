@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[model/managers.ts:5](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/managers.ts#L5)
+[model/managers.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/managers.ts#L5)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[model/managers.ts:4](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/managers.ts#L4)
+[model/managers.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/managers.ts#L4)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[model/managers.ts:3](https://github.com/FlavioLionelRita/js-expressions/blob/a373ee9/src/lib/model/managers.ts#L3)
+[model/managers.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/a373ee9/src/lib/model/managers.ts#L3)
