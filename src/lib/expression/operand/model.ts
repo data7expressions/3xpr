@@ -59,7 +59,7 @@ export class ModelManager implements IModelManager {
 	}
 
 	public addFormat (key:string, pattern:string):void {
-		this._formats[key] = { name: key, pattern: pattern, regExp: new RegExp(pattern) } as Format
+		this._formats[key] = { name: key, pattern, regExp: new RegExp(pattern) } as Format
 	}
 
 	public addConstant (key:string, value:any):void {
@@ -243,7 +243,7 @@ export class ModelManager implements IModelManager {
 					name = name.replace('...', '')
 				}
 				// Add Param
-				params.push({ name: name, type: type !== '' ? type : 'any', default: _default !== '' ? _default : undefined, multiple: multiple })
+				params.push({ name, type: type !== '' ? type : 'any', default: _default !== '' ? _default : undefined, multiple })
 				if (buffer[index] === ')') {
 					break
 				}
@@ -286,7 +286,7 @@ export class ModelManager implements IModelManager {
 		return {
 			name: functionName,
 			returnType: _return !== '' ? _return : 'void',
-			params: params,
+			params,
 			isAsync: prefix === 'async'
 		}
 	}

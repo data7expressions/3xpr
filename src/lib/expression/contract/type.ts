@@ -1,19 +1,3 @@
-// export type PrimitiveType = 'string' | 'integer' | 'decimal'| 'number'| 'boolean' | 'date' | 'dateTime'| 'time'| 'any' | 'void'
-// // eslint-disable-next-line no-use-before-define
-// export type Type = PrimitiveType | ObjectType | ArrayType
-
-// export interface PropertyType {
-// name:string
-// type?: Type
-// }
-// export interface ObjectType {
-// properties: PropertyType[]
-// }
-
-// export interface ArrayType {
-// items:Type
-// }
-
 export enum Kind
 { any = 'any'
 , string = 'string'
@@ -88,11 +72,11 @@ export class Type {
 
 	// eslint-disable-next-line no-use-before-define,
 	public static Obj (properties: PropertyType[] = []):Type {
-		return new Type(Kind.obj, { properties: properties })
+		return new Type(Kind.obj, { properties })
 	}
 
 	public static List (items:Type):Type {
-		return new Type(Kind.list, undefined, { items: items })
+		return new Type(Kind.list, undefined, { items })
 	}
 
 	public static isPrimitive (type:Type | string): boolean {
