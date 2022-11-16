@@ -18,15 +18,18 @@ module.exports = function (grunt) {
 		copy: {
 			lib: { expand: true, cwd: 'build/lib', src: '**', dest: 'dist/' },
 			readme: { expand: true, src: './README.md', dest: 'dist/' },
-			license: { expand: true, src: './LICENSE', dest: 'dist/' }
+			license: { expand: true, src: './LICENSE', dest: 'dist/' },
+			jest: { expand: true, src: './jest-unit-config.json', dest: 'dist/' }
 		}
 	})
 
 	grunt.registerTask('create-package', 'create package.json for dist', function () {
 		const data = require('./package.json')
 		delete data.devDependencies
-		delete data.scripts
 		delete data.private
+		data.scripts = {
+			test: data.scripts.test
+		}
 		data.main = 'index.js'
 		data.types = 'index.d.ts'
 		fs.writeFileSync('dist/package.json', JSON.stringify(data, null, 2), 'utf8')
@@ -36,13 +39,9 @@ module.exports = function (grunt) {
 		const task = require('./build/dev/task/buildWiki')
 		task.apply(this.async())
 	})
-
-	grunt.registerTask('lint', ['exec:lint'])
-	grunt.registerTask('build', ['lint', 'clean:build', 'exec:tsc'])
-	grunt.registerTask('test', ['exec:test'])
-	grunt.registerTask('dist', ['build', 'test', 'clean:dist', 'copy:lib', 'copy:readme', 'copy:license', 'create-package'])
+	grunt.registerTask('dist', ['clean:dist', 'clean:build', 'exec:tsc', 'exec:lint', 'exec:test', 'copy:lib', 'copy:jest', 'copy:readme', 'copy:license', 'create-package'])
 	grunt.registerTask('release', ['dist', 'exec:release'])
-	grunt.registerTask('to_develop', ['build', 'test', 'exec:to_develop'])
+	grunt.registerTask('to_develop', ['dist', 'exec:to_develop'])
 	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
 	grunt.registerTask('default', [])
 }
