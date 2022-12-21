@@ -1,5 +1,5 @@
 import { Type, Data, Operand, Context, IExpressions, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
-import { ModelManager, TypeManager, CoreLibrary, EvaluatorFactory } from './operand'
+import { ModelManager, TypeManager, CoreLibrary, EvaluatorFactory, OperandReducer, OperandNormalizer } from './operand'
 import { ProcessOperandFactory } from './process'
 import { h3lp, MemoryCache, ICache } from 'h3lp'
 import { OperandBuilder } from '.'
@@ -9,8 +9,10 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
 		const model = new ModelManager()
 		const typeManager = new TypeManager(model)
-		const basic = new OperandBuilder(model, new EvaluatorFactory(model))
-		const process = new OperandBuilder(model, new ProcessOperandFactory(model))
+		const normalizer = new OperandNormalizer(model)
+		const reducer = new OperandReducer(model)
+		const basic = new OperandBuilder(model, normalizer, reducer, new EvaluatorFactory(model))
+		const process = new OperandBuilder(model, normalizer, reducer, new ProcessOperandFactory(model))
 		new CoreLibrary(model).load()
 		return new Expressions(model, basic, process, typeManager)
 	}
