@@ -23,6 +23,8 @@ export interface ITypeManager {
 }
 
 export interface IModelManager {
+	get operatorAlias():[string, any][]
+	get functionAlias():[string, any][]
 	get enums(): [string, [string, any][]][]
 	get formats(): [string, Format][]
 	get constants(): [string, any][]

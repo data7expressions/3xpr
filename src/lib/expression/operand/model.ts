@@ -8,12 +8,24 @@ export class ModelManager implements IModelManager {
 	private _formats: any
 	private _operators: any
 	private _functions: any
+	public _operatorAlias:any
+	public _functionAlias:any
 	constructor () {
 		this._enums = {}
 		this._constants = {}
 		this._formats = {}
 		this._operators = {}
 		this._functions = {}
+		this._operatorAlias = {}
+		this._functionAlias = {}
+	}
+
+	public get operatorAlias ():[string, any][] {
+		return Object.entries(this._operatorAlias)
+	}
+
+	public get functionAlias ():[string, any][] {
+		return Object.entries(this._functionAlias)
 	}
 
 	public get constants ():[string, any][] {
@@ -35,11 +47,23 @@ export class ModelManager implements IModelManager {
 				operators.push([entry[0], q as OperatorMetadata])
 			}
 		}
+		for (const entry of Object.entries(this._operatorAlias)) {
+			const key = entry[1] as string
+			for (const q of Object.values(this._operators[key] as any)) {
+				operators.push([entry[0], q as OperatorMetadata])
+			}
+		}
 		return operators
 	}
 
 	public get functions ():[string, OperatorMetadata][] {
-		return Object.entries(this._functions)
+		let list:[string, OperatorMetadata][] = []
+		list = Object.entries(this._functions)
+		for (const entry of Object.entries(this._functionAlias)) {
+			const key = entry[1] as string
+			list.push([entry[0], this._functions[key]])
+		}
+		return list
 	}
 
 	public addEnum (name:string, values:[string, any][] | any):void {
@@ -67,11 +91,11 @@ export class ModelManager implements IModelManager {
 	}
 
 	public addOperatorAlias (alias:string, reference:string):void {
-		this._operators[alias] = this._operators[reference]
+		this._operatorAlias[alias] = reference
 	}
 
 	public addFunctionAlias (alias:string, reference:string):void {
-		this._functions[alias] = this._functions[reference]
+		this._functionAlias[alias] = reference
 	}
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {
@@ -145,9 +169,14 @@ export class ModelManager implements IModelManager {
 	}
 
 	public getOperator (name:string, operands?:number): OperatorMetadata {
-		const operators = this._operators[name]
+		let operators = this._operators[name]
 		if (operators === undefined) {
-			throw new Error(`operator: ${name} not found `)
+			const key = this._operatorAlias[name]
+			if (key) {
+				operators = this._operators[key]
+			} else {
+				throw new Error(`operator: ${name} not found `)
+			}
 		}
 		if (operands !== undefined) {
 			const operator = operators[operands]
@@ -164,9 +193,14 @@ export class ModelManager implements IModelManager {
 	}
 
 	public getFunction (name: string): OperatorMetadata {
-		const metadata = this._functions[name]
+		let metadata = this._functions[name]
 		if (metadata === undefined) {
-			throw new Error(`function: ${name} not found `)
+			const key = this._functionAlias[name]
+			if (key) {
+				metadata = this._functions[key]
+			} else {
+				throw new Error(`function: ${name} not found `)
+			}
 		}
 		return metadata
 	}
@@ -181,15 +215,23 @@ export class ModelManager implements IModelManager {
 	}
 
 	public isOperator (name:string, operands?:number):boolean {
-		const operators = this._operators[name]
+		let operators = this._operators[name]
+		if (operators === undefined) {
+			const key = this._operatorAlias[name]
+			if (key) {
+				operators = this._operators[key]
+			} else {
+				return false
+			}
+		}
 		if (operands !== undefined) {
 			return operators && operators[operands] !== undefined
 		}
-		return operators !== undefined
+		return true
 	}
 
 	public isFunction (name:string):boolean {
-		return this._functions[name] !== undefined
+		return this._functions[name] !== undefined || this._functionAlias[name] !== undefined
 	}
 
 	public priority (name: string, cardinality?:number): number {

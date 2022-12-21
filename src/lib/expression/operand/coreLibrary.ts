@@ -665,6 +665,9 @@ class Map extends PrototypeEvaluator {
 				}
 				return rows
 			}
+		} else if (this.operand.children[2].type === OperandType.Var && !Array.isArray(list)) {
+			// Example orders.0.number
+			return list
 		}
 		// simple case without aggregate functions
 		const childContext = context.newContext()

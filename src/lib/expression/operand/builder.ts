@@ -5,12 +5,13 @@ import { ConstBuilder } from './factory'
 
 export class OperandBuilder implements IOperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model: IModelManager, private readonly factory: IEvaluatorFactory) {}
+	public constructor (protected readonly model: IModelManager, protected readonly factory: IEvaluatorFactory) {}
 
 	public build (expression: string): Operand {
 		const operand = new Parser(this.model, expression).parse()
-		this.complete(operand)
-		return this.reduce(operand)
+		const normalized = this.normalize(operand)
+		this.complete(normalized)
+		return this.reduce(normalized)
 	}
 
 	public clone (source: Operand): Operand {
@@ -24,7 +25,50 @@ export class OperandBuilder implements IOperandBuilder {
 		return target
 	}
 
-	private reduce (operand: Operand): Operand {
+	protected normalize (operand: Operand): Operand {
+		if (operand.type === OperandType.Var && operand.children.length === 0) {
+			// Example: Products => Products.map(p=>p)
+			const arrowVariable = new Operand(operand.pos, 'p', OperandType.Var)
+			const allFields = new Operand(operand.pos, 'p', OperandType.Var)
+			const map = new Operand(operand.pos, 'map', OperandType.Arrow, [operand, arrowVariable, allFields])
+			this.normalizeOperand(map)
+			return map
+		} else {
+			this.normalizeOperand(operand)
+			return operand
+		}
+	}
+
+	protected normalizeOperand (operand: Operand): void {
+		if (operand.type === OperandType.Arrow || operand.type === OperandType.ChildFunc || operand.type === OperandType.CallFunc) {
+			const alias = this.model.functionAlias.find(p => p[0] === operand.name)
+			if (alias) {
+				operand.name = alias[1]
+			}
+		} else if (operand.type === OperandType.Operator) {
+			const alias = this.model.operatorAlias.find(p => p[0] === operand.name)
+			if (alias) {
+				operand.name = alias[1]
+			}
+		}
+		for (const child of operand.children) {
+			this.normalizeOperand(child)
+		}
+	}
+
+	protected complete (operand: Operand, index = 0, parentId?:string): void {
+		const id = parentId ? parentId + '.' + index : index.toString()
+		if (operand.children) {
+			for (let i = 0; i < operand.children.length; i++) {
+				const child = operand.children[i]
+				this.complete(child, i, id)
+			}
+		}
+		operand.id = id
+		operand.evaluator = this.factory.create(operand)
+	}
+
+	protected reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand.type === OperandType.CallFunc) {
@@ -39,7 +83,7 @@ export class OperandBuilder implements IOperandBuilder {
 		return operand
 	}
 
-	private reduceOperand (operand: Operand): Operand {
+	protected reduceOperand (operand: Operand): Operand {
 		let allConstants = true
 		for (const child of operand.children) {
 			if (!(child.type === OperandType.Const)) {
@@ -59,17 +103,5 @@ export class OperandBuilder implements IOperandBuilder {
 			}
 		}
 		return operand
-	}
-
-	private complete (operand: Operand, index = 0, parentId?:string): void {
-		const id = parentId ? parentId + '.' + index : index.toString()
-		if (operand.children) {
-			for (let i = 0; i < operand.children.length; i++) {
-				const child = operand.children[i]
-				this.complete(child, i, id)
-			}
-		}
-		operand.id = id
-		operand.evaluator = this.factory.create(operand)
 	}
 }
