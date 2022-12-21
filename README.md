@@ -18,11 +18,11 @@ and [bitwise](https://github.com/FlavioLionelRita/3xpr/wiki/Bitwise) operators
 , [string](https://github.com/FlavioLionelRita/3xpr/wiki/String)
 ,	[datetime](https://github.com/FlavioLionelRita/3xpr/wiki/DateTime)
 , [array](https://github.com/FlavioLionelRita/3xpr/wiki/Array)
-and [nullable](https://github.com/FlavioLionelRita/3xpr/wiki/Nullable) functions
-- [Conversion](https://github.com/FlavioLionelRita/3xpr/wiki/Conversion) functions
-- [Arrow](https://github.com/FlavioLionelRita/3xpr/wiki/Arrow) functions
-- [Group](https://github.com/FlavioLionelRita/3xpr/wiki/Group) functions (distinct, first, last, min, max, sum and avg)
-- [Sets](https://github.com/FlavioLionelRita/3xpr/wiki/Sets) functions (union, intersection, difference and symmetric difference)
+and [nullable functions](https://github.com/FlavioLionelRita/3xpr/wiki/Nullable)
+- [Conversion functions](https://github.com/FlavioLionelRita/3xpr/wiki/Conversion)
+- [Arrow functions](https://github.com/FlavioLionelRita/3xpr/wiki/Arrow)
+- [Group functions](https://github.com/FlavioLionelRita/3xpr/wiki/Group) (distinct, first, last, min, max, sum and avg)
+- [Sets functions](https://github.com/FlavioLionelRita/3xpr/wiki/Sets) (union, intersection, difference and symmetric difference)
 - [Control flows](https://github.com/FlavioLionelRita/3xpr/wiki/Flows) flows
 - Environment variables
 - [Extend](https://github.com/FlavioLionelRita/3xpr/wiki/Extend)
