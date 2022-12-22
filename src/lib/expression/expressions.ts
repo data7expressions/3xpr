@@ -117,7 +117,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.basicBuild(expression)
+			const operand = this.build(expression)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -154,7 +154,7 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
-	private basicBuild (expression: string): Operand {
+	public build (expression: string): Operand {
 		try {
 			const key = h3lp.utils.hashCode(expression)
 			const value = this.cache.get(key)
