@@ -4,7 +4,6 @@ export enum OperandType
 { Const = 'Const'
 , Var = 'Var'
 , Env = 'Env'
-, Entity = 'Entity'
 , Property = 'Property'
 , Template = 'Template'
 , KeyVal = 'KeyVal'
