@@ -3,7 +3,7 @@ import { Operand, IModelManager, Type, PropertyType, ObjType, Parameter, ListTyp
 
 export class TypeManager implements ITypeManager {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly model: IModelManager) {}
+	constructor (protected readonly model: IModelManager) {}
 
 	// Example
 	// {
@@ -39,7 +39,7 @@ export class TypeManager implements ITypeManager {
 		return operand.returnType || Type.any
 	}
 
-	private solveType (operand: Operand):void {
+	protected solveType (operand: Operand):void {
 		if (operand.type === OperandType.Const || operand.type === OperandType.Var || operand.type === OperandType.Template) {
 			return
 		}
@@ -58,7 +58,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveTemplate (operand: Operand):void {
+	protected solveTemplate (operand: Operand):void {
 		if (operand.type === OperandType.Const || operand.type === OperandType.Var || operand.type === OperandType.Template) {
 			return
 		}
@@ -81,7 +81,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private setUndefinedAsAny (operand: Operand): void {
+	protected setUndefinedAsAny (operand: Operand): void {
 		if (operand.returnType === undefined) {
 			operand.returnType = Type.any
 		}
@@ -90,7 +90,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveObject (obj: Operand): void {
+	protected solveObject (obj: Operand): void {
 		const properties: PropertyType[] = []
 		for (const child of obj.children) {
 			this.solveType(child.children[0])
@@ -99,7 +99,7 @@ export class TypeManager implements ITypeManager {
 		obj.returnType = Type.Obj(properties)
 	}
 
-	private solveProperty (property: Operand): void {
+	protected solveProperty (property: Operand): void {
 		this.solveType(property.children[0])
 		if (property.children[0].returnType === undefined) {
 			property.children[0].returnType = Type.List(Type.Obj([{ name: property.name }]))
@@ -115,7 +115,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveArray (array: Operand): void {
+	protected solveArray (array: Operand): void {
 		this.solveType(array.children[0])
 		// si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
 		if (array.children[0].returnType !== undefined) {
@@ -123,7 +123,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveArrow (arrow: Operand): void {
+	protected solveArrow (arrow: Operand): void {
 		const metadata = this.model.getFunction(arrow.name)
 		const array = arrow.children[0]
 		const variable = arrow.children.length > 1 ? arrow.children[1] : undefined
@@ -156,7 +156,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveOperator (operator: Operand): void {
+	protected solveOperator (operator: Operand): void {
 		const metadata = this.metadata(operator)
 		// intenta resolver el return type por metadata
 		if (!this.isIndeterminateType(metadata.returnType)) {
@@ -189,7 +189,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private trySolveFromMetadata (type?:string) : Type | undefined {
+	protected trySolveFromMetadata (type?:string) : Type | undefined {
 		// si de acuerdo a la metadata el tipo es primitivo, asigna el tipo
 		if (type === undefined) {
 			return undefined
@@ -207,7 +207,7 @@ export class TypeManager implements ITypeManager {
 		return undefined
 	}
 
-	private solveTemplateArray (array: Operand): void {
+	protected solveTemplateArray (array: Operand): void {
 		const beforeType = array.children[0].returnType
 		this.solveTemplate(array.children[0])
 		if (array.children[0].returnType && array.children[0].returnType !== beforeType) {
@@ -215,7 +215,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveTemplateProperty (property: Operand): void {
+	protected solveTemplateProperty (property: Operand): void {
 		const beforeType = property.children[0].returnType
 		this.solveTemplate(property.children[0])
 		if (property.children[0].returnType !== undefined && property.children[0].returnType !== beforeType && Type.isList(property.children[0].returnType)) {
@@ -230,7 +230,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveTemplateObject (obj: Operand): void {
+	protected solveTemplateObject (obj: Operand): void {
 		let changed = false
 		for (const child of obj.children) {
 			const value = child.children[0]
@@ -249,7 +249,7 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private solveTemplateOperator (operator: Operand, metadata:OperatorMetadata): void {
+	protected solveTemplateOperator (operator: Operand, metadata:OperatorMetadata): void {
 		let templateType:Type|undefined
 		// intenta resolver T por return
 		if (operator.returnType) {
@@ -310,11 +310,11 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private getElementType (array: Operand): Type | undefined {
+	protected getElementType (array: Operand): Type | undefined {
 		return array.returnType ? (array.returnType.list as ListType).items : undefined
 	}
 
-	private setVariableType (name: string, type: Type, operand: Operand) {
+	protected setVariableType (name: string, type: Type, operand: Operand) {
 		if (operand.type === OperandType.Var && operand.name === name) {
 			operand.returnType = type
 		}
@@ -326,18 +326,18 @@ export class TypeManager implements ITypeManager {
 		}
 	}
 
-	private isIndeterminateType (type?:string): boolean {
+	protected isIndeterminateType (type?:string): boolean {
 		if (type === undefined) {
 			return true
 		}
 		return ['T', 'T[]', 'any', 'any[]'].includes(type)
 	}
 
-	private hadTemplate (metadata: OperatorMetadata): boolean {
+	protected hadTemplate (metadata: OperatorMetadata): boolean {
 		return metadata.returnType === 'T' || metadata.returnType === 'T[]' || metadata.params.find(p => p.type === 'T' || p.type === 'T[]') !== undefined
 	}
 
-	private undefinedTypes (operator: Operand): boolean {
+	protected undefinedTypes (operator: Operand): boolean {
 		return operator.returnType === undefined || operator.children.find(p => p.returnType === undefined) !== undefined
 	}
 
@@ -346,7 +346,7 @@ export class TypeManager implements ITypeManager {
 	 * @param operator
 	 * @returns
 	 */
-	private metadata (operator: Operand): OperatorMetadata {
+	protected metadata (operator: Operand): OperatorMetadata {
 		return operator.type === OperandType.Operator
 			? this.model.getOperator(operator.name, operator.children.length)
 			: this.model.getFunction(operator.name)

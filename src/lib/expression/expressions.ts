@@ -1,5 +1,5 @@
-import { Type, Data, Operand, Context, IExpressions, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
-import { ModelManager, TypeManager, CoreLibrary, EvaluatorFactory, OperandReducer, OperandNormalizer } from './operand'
+import { Type, Data, Operand, Context, IExpressions, IParameterManager, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
+import { ModelManager, TypeManager, ParameterManager, CoreLibrary, EvaluatorFactory, OperandReducer, OperandNormalizer } from './operand'
 import { ProcessOperandFactory } from './process'
 import { h3lp, MemoryCache, ICache } from 'h3lp'
 import { OperandBuilder } from '.'
@@ -9,12 +9,13 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 	public build ():IExpressions {
 		const model = new ModelManager()
 		const typeManager = new TypeManager(model)
+		const parameterManager = new ParameterManager()
 		const normalizer = new OperandNormalizer(model)
 		const reducer = new OperandReducer(model)
 		const basic = new OperandBuilder(model, normalizer, reducer, new EvaluatorFactory(model))
 		const process = new OperandBuilder(model, normalizer, reducer, new ProcessOperandFactory(model))
 		new CoreLibrary(model).load()
-		return new Expressions(model, basic, process, typeManager)
+		return new Expressions(model, basic, process, typeManager, parameterManager)
 	}
 }
 
@@ -22,7 +23,7 @@ export class Expressions implements IExpressions {
 	private cache: ICache<number, Operand>
 	private processCache: ICache<number, Operand>
 	private observers:ActionObserver[] = []
-	constructor (private readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager) {
+	constructor (public readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager, private readonly parameterManager: IParameterManager) {
 		this.cache = new MemoryCache<number, Operand>()
 		this.processCache = new MemoryCache<number, Operand>()
 	}
@@ -90,7 +91,7 @@ export class Expressions implements IExpressions {
 	 */
 	public parameters (expression: string): Parameter[] {
 		const operand = this.typed(expression)
-		return this.typeManager.parameters(operand)
+		return this.parameterManager.parameters(operand)
 	}
 
 	/**
@@ -117,7 +118,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.basicBuild(expression)
+			const operand = this.build(expression)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -154,7 +155,7 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
-	private basicBuild (expression: string): Operand {
+	public build (expression: string): Operand {
 		try {
 			const key = h3lp.utils.hashCode(expression)
 			const value = this.cache.get(key)

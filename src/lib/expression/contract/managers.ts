@@ -19,6 +19,9 @@ export abstract class ActionObserver {
 
 export interface ITypeManager {
 	type (operand: Operand):Type
+}
+
+export interface IParameterManager {
 	parameters (operand: Operand): Parameter[]
 }
 
@@ -82,6 +85,7 @@ export interface IExpressions {
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
 	clone (operand: Operand):Operand
+	build (expression: string): Operand
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	eval (expression: string, data?: any): any
