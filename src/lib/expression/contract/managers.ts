@@ -19,6 +19,9 @@ export abstract class ActionObserver {
 
 export interface ITypeManager {
 	type (operand: Operand):Type
+}
+
+export interface IParameterManager {
 	parameters (operand: Operand): Parameter[]
 }
 
