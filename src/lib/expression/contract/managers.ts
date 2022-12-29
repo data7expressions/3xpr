@@ -1,5 +1,4 @@
 import { Type } from './type'
-// import { Node } from './node'
 import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, IEvaluator, Context } from '.'
 import { Operand, OperatorMetadata } from './operand'
 
@@ -72,6 +71,7 @@ export interface IEvaluatorFactory {
 }
 
 export interface IExpressions {
+	model: IModelManager
 	get enums(): [string, [string, any][]][]
 	get formats(): [string, Format][]
 	get constants(): [string, any][]
