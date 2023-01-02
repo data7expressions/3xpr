@@ -1,5 +1,5 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { Operand, IModelManager, Type, PropertyType, ObjType, Parameter, ListType, ITypeManager, OperatorMetadata, OperandType } from '../contract'
+import { Operand, IModelManager, Type, PropertyType, ObjType, ListType, ITypeManager, OperatorMetadata, OperandType } from '../contract'
 
 export class TypeManager implements ITypeManager {
 	// eslint-disable-next-line no-useless-constructor
@@ -16,21 +16,6 @@ export class TypeManager implements ITypeManager {
 	// object {key:<<type>>}
 	// predicate:  c + b < a
 	// indeterminate: any
-
-	public parameters (operand: Operand): Parameter[] {
-		const parameters: Parameter[] = []
-		if (operand.type === OperandType.Var) {
-			parameters.push({ name: operand.name, type: Type.toString(operand.returnType) })
-		}
-		for (const child of operand.children) {
-			const childParameters = this.parameters(child)
-			const newParameters = childParameters.filter((p:Parameter) => !parameters.map((p:Parameter) => p.name).includes(p.name))
-			if (newParameters.length > 0) {
-				parameters.push(...newParameters)
-			}
-		}
-		return parameters
-	}
 
 	public type (operand: Operand): Type {
 		this.solveType(operand)
