@@ -24,7 +24,7 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"h3lp": "1.0.7"
+		"h3lp": "1.0.8"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.15.4",
