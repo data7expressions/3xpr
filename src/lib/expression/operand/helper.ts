@@ -7,6 +7,7 @@ export class OperandHelper {
 		switch (operand.type) {
 		case OperandType.Const:
 		case OperandType.Var:
+		case OperandType.Property:
 			list.push(operand.name)
 			break
 		case OperandType.List:
