@@ -71,8 +71,8 @@ export class CoreLibrary {
 		this.model.addOperator('>=(a:T,b:T):boolean', (a: any, b: any):boolean => a >= b, { priority: 4 })
 		this.model.addOperator('<=(a:T,b:T):boolean', (a: any, b: any):boolean => a <= b, { priority: 3 })
 
-		this.model.addOperator('&&(a:T,b:T):boolean', new And(), { priority: 3 })
-		this.model.addOperator('||(a:T,b:T):boolean', new Or(), { priority: 3 })
+		this.model.addOperator('&&(a:boolean,b:boolean):boolean', new And(), { priority: 3 })
+		this.model.addOperator('||(a:boolean,b:boolean):boolean', new Or(), { priority: 3 })
 		this.model.addOperator('!(a:boolean):boolean', (a: boolean):boolean => !a, { priority: 5 })
 
 		this.model.addOperator('[](list:T[],index:integer):T', (list: any[], index: any): any => list[index], { priority: 2 })
@@ -106,9 +106,9 @@ export class CoreLibrary {
 	}
 
 	private comparisonFunctions (): void {
-		this.model.addFunction('between(value:any,from:any,to:any):boolean',
+		this.model.addFunction('between(value:T,from:T,to:T):boolean',
 			(value:any, from:any, to:any):boolean => h3lp.val.between(value, from, to))
-		this.model.addFunction('includes(source:string|any[],value:any):boolean',
+		this.model.addFunction('includes(source:string|T[],value:string|T):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
 		this.model.addFunctionAlias('in', 'includes')
 		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => h3lp.val.isNull(value))
