@@ -352,7 +352,7 @@ export class CoreLibrary {
 	private arrayFunctions (): void {
 		this.model.addFunction('map(list: any[], predicate: T):T[]', new Map())
 		this.model.addFunctionAlias('select', 'map')
-		this.model.addFunction('foreach(list: any[], predicate: any)', new Foreach())
+		this.model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
 		this.model.addFunctionAlias('each', 'foreach')
 		this.model.addFunction('filter(list: T[], predicate: boolean):T[]', new Filter())
 		this.model.addFunctionAlias('where', 'filter')
@@ -366,6 +366,12 @@ export class CoreLibrary {
 			return list
 		})
 		this.model.addFunctionAlias('insert', 'push')
+		this.model.addFunction('bulkInsert(list: T[], value: T[]):T[]', (list: any[], items: any[]): any => {
+			for (const item of items) {
+				list.push(item)
+			}
+			return list
+		})
 		this.model.addFunction('pop(list: T[]): T', (list: any[]): any => list.pop())
 		this.model.addFunction('length(source: any[]|string):number', (source: any[]|string):number => source.length)
 		this.model.addFunctionAlias('len', 'length')
