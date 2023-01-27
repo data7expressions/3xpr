@@ -77,9 +77,10 @@ export class TypeManager implements ITypeManager {
 
 	protected solveObject (obj: Operand): void {
 		const properties: PropertyType[] = []
-		for (const child of obj.children) {
-			this.solveType(child.children[0])
-			properties.push({ name: child.name, type: child.children[0].returnType })
+		for (const keyVal of obj.children) {
+			this.solveType(keyVal.children[0])
+			keyVal.returnType = keyVal.children[0].returnType
+			properties.push({ name: keyVal.name, type: keyVal.children[0].returnType })
 		}
 		obj.returnType = Type.Obj(properties)
 	}
