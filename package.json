@@ -1,6 +1,6 @@
 {
 	"name": "3xpr",
-	"version": "1.6.9",
+	"version": "1.6.10",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -24,20 +24,20 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"h3lp": "1.0.10"
+		"h3lp": "1.2.3"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.19.1",
-		"@types/js-yaml": "^4.0.5",
-		"config-extends": "^1.0.8",
-		"js-yaml": "^4.1.0",
 		"@types/jest": "^29.4.0",
+		"@types/js-yaml": "^4.0.5",
 		"@types/node": "^18.11.18",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
+		"config-extends": "^1.0.8",
 		"eslint": "^8.32.0",
 		"eslint-config-standard": "^17.0.0",
 		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-n": "^15.6.1",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^6.1.1",
 		"grunt": "^1.5.3",
@@ -46,8 +46,9 @@
 		"grunt-contrib-copy": "^1.0.0",
 		"grunt-contrib-uglify": "^5.0.1",
 		"grunt-exec": "^3.0.0",
-		"load-grunt-tasks": "^5.1.0",
 		"jest": "^29.4.1",
+		"js-yaml": "^4.1.0",
+		"load-grunt-tasks": "^5.1.0",
 		"ts-jest": "^29.0.5",
 		"ts-node": "^10.9.1",
 		"typedoc": "^0.23.24",
