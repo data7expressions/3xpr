@@ -84,6 +84,8 @@ export interface IExpressions {
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	toExpression (func: Function): string
 	clone (operand: Operand):Operand
 	build (expression: string): Operand
 	parameters (expression: string): Parameter[]
