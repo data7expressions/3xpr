@@ -266,4 +266,5 @@ export class OperandHelper {
 		return sum
 	}
 }
+
 export const operandHelper = new OperandHelper()

@@ -1,7 +1,12 @@
-import { Type, Data, Operand, Context, IExpressions, IParameterManager, IBuilder, Parameter, Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo } from './contract'
+import {
+	Type, Data, Operand, Context, IExpressions, IParameterManager, IBuilder, Parameter,
+	Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver,
+	FunctionAdditionalInfo, OperatorAdditionalInfo, OperandType
+} from './contract'
 import { ModelManager, TypeManager, ParameterManager, CoreLibrary, EvaluatorFactory, OperandReducer, OperandNormalizer } from './operand'
 import { ProcessOperandFactory } from './process'
-import { h3lp, MemoryCache, ICache } from 'h3lp'
+import { MemoryCache, ICache } from 'h3lp'
+import { helper } from './helper'
 import { OperandBuilder } from '.'
 
 // eslint-disable-next-line no-use-before-define
@@ -85,6 +90,39 @@ export class Expressions implements IExpressions {
 	}
 
 	/**
+	 * Convert a lambda expression to a query expression
+	 * @param lambda lambda expression
+	 * @returns Expression manager
+	 */
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	public toExpression (func: Function): string {
+		if (!func) {
+			throw new Error('empty lambda function}')
+		}
+		const expression = helper.expression.clearLambda(func)
+		const operand = this.build(expression)
+		let aux = operand
+		while (aux.type !== OperandType.Var) {
+			if (aux.children.length > 0) {
+				aux = aux.children[0]
+			}
+		}
+		if (aux.name.includes('.')) {
+			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
+			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+			const names:string[] = aux.name.split('.')
+			if (names[0].startsWith('__')) {
+				// aux.name = names.slice(1).join('.')
+				const result = expression.replace(names[0] + '.', '')
+				return result
+			}
+		}
+		// Example: Products.map(p=>p) =>  Products.map(p=>p)
+		// Example: Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
+		return expression
+	}
+
+	/**
 	 * Get parameters of expression
 	 * @param expression  expression
 	 * @returns Parameters of expression
@@ -157,7 +195,7 @@ export class Expressions implements IExpressions {
 
 	public build (expression: string): Operand {
 		try {
-			const key = h3lp.utils.hashCode(expression)
+			const key = helper.utils.hashCode(expression)
 			const value = this.cache.get(key)
 			if (!value) {
 				const operand = this.basic.build(expression)
@@ -173,7 +211,7 @@ export class Expressions implements IExpressions {
 
 	private processBuild (expression: string): Operand {
 		try {
-			const key = h3lp.utils.hashCode(expression)
+			const key = helper.utils.hashCode(expression)
 			const value = this.processCache.get(key)
 			if (!value) {
 				const operand = this.process.build(expression)
@@ -188,7 +226,7 @@ export class Expressions implements IExpressions {
 	}
 
 	private typed (expression: string): Operand {
-		const key = h3lp.utils.hashCode(expression)
+		const key = helper.utils.hashCode(expression)
 		const value = this.cache.get(key) as Operand
 		if (!value) {
 			const operand = this.basic.build(expression)
