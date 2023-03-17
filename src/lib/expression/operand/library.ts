@@ -110,7 +110,18 @@ export class CoreLibrary {
 			(value:any, from:any, to:any):boolean => h3lp.val.between(value, from, to))
 		this.model.addFunction('includes(source:string|T[],value:string|T):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
-		this.model.addFunctionAlias('in', 'includes')
+		this.model.addFunctionAlias('contains', 'includes')
+		this.model.addFunction('in(source:T,...values:T):boolean',
+			(source:any, ...values:any):boolean => {
+				if (source === undefined || values === undefined) {
+					return false
+				}
+				if (values.length === 1 && Array.isArray(values)) {
+					return values[0].includes(source)
+				} else {
+					return values.includes(source)
+				}
+			})
 		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => h3lp.val.isNull(value))
 		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => h3lp.val.isNotNull(value))
 		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => h3lp.val.isEmpty(value))
