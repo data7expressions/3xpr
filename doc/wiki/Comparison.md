@@ -7,12 +7,13 @@
 |>=							|greaterThanOrEqual	|
 |<=							|lessThanOrEqual		|
 
-|Function 		|Description                                   																|
-|-------------|-----------------------------------------------------------------------------|
-|between			|Specifies how to retrieve values from an expression within a specific range	|
-|in/includes	|Is used to reduce the use of multiple OR conditions													|
-|isNull				|Evaluate if it is null																												|
-|isNotNull		|Evaluate if it is not null																										|
+|Function 						|Description                                   																|
+|---------------------|-----------------------------------------------------------------------------|
+|between							|Specifies how to retrieve values from an expression within a specific range	|
+|includes/contains		|Is used to reduce the use of multiple OR conditions													|
+|in										|If an element is in a list																										|
+|isNull								|Evaluate if it is null																												|
+|isNotNull						|Evaluate if it is not null																										|
 
 ## Examples
 
@@ -55,12 +56,15 @@ const context = {
 |d<e																|false				|
 |d>e																|true					|
 |d<>e																|true					|
-|includes("phone",devices)					|false				|
-|includes("other",devices)					|false				|
-|in("other",devices)								|false				|
+|includes(devices,"phone")					|true					|
+|includes(devices,"other")					|false				|
+|contains(devices,"other")					|false				|
+|in("phone",devices)								|true					|
+|in("phone",devices)								|true					|
 |"phone".in(devices)								|false				|
 |device.in(devices)									|false				|
-|d.in(["garage", "house","office"])	|false				|
+|d.in(["garage", "house","office"])	|true					|
+|d.in("garage", "house","office")		|true					|
 |between(12,10,20)									|true					|
 |between(2,10,20)										|false				|
 |between(pi,1,5)										|true					|
@@ -175,7 +179,7 @@ const context = {
 	- from: T
 	- to: T
 
-### includes
+### includes / contains
 
 - description: Determines if an array includes a certain element
 - deterministic: true
@@ -186,12 +190,12 @@ const context = {
 
 ### in
 
-- description: Determines if an array includes a certain element
+- description: Determines if an element is in a list
 - deterministic: true
 - return: boolean
 - params:
-	- list: T[]
 	- value: T
+	- list: T[]
 
 ### isNull
 
