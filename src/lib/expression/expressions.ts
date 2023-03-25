@@ -156,11 +156,11 @@ export class Expressions implements IExpressions {
 	 * @param data Data with variables
 	 * @returns Result of the evaluate expression
 	 */
-	public eval (expression: string, data?: any): any {
+	public eval (expression: string, data?: any, useCache = true): any {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.build(expression)
+			const operand = this.build(expression, useCache)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result

@@ -90,7 +90,7 @@ export interface IExpressions {
 	build (expression: string, useCache?:boolean): Operand
 	parameters (expression: string, useCache?:boolean): Parameter[]
 	type (expression: string, useCache?:boolean): string
-	eval (expression: string, data?: any): any
+	eval (expression: string, data?: any, useCache?:boolean): any
 	run (expression: string, data?: any, useCache?:boolean): any
 	subscribe (observer:ActionObserver):void
 	unsubscribe (observer:ActionObserver): void
