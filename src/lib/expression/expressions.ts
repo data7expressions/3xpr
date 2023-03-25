@@ -131,8 +131,8 @@ export class Expressions implements IExpressions {
 	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
-	public parameters (expression: string): Parameter[] {
-		const operand = this.typed(expression)
+	public parameters (expression: string, useCache = true): Parameter[] {
+		const operand = this.typed(expression, useCache)
 		return this.parameterManager.parameters(operand)
 	}
 
@@ -141,8 +141,8 @@ export class Expressions implements IExpressions {
 	 * @param expression  expression
 	 * @returns Type of expression
 	 */
-	public type (expression: string): string {
-		const operand = this.typed(expression)
+	public type (expression: string, useCache = true): string {
+		const operand = this.typed(expression, useCache)
 		return Type.toString(operand.returnType)
 	}
 
@@ -170,11 +170,11 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	public run (expression: string, data: any = {}): any {
+	public run (expression: string, data: any = {}, useCache = true): any {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.processBuild(expression)
+			const operand = this.processBuild(expression, useCache)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -197,8 +197,11 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
-	public build (expression: string): Operand {
+	public build (expression: string, useCache = true): Operand {
 		try {
+			if (!useCache) {
+				return this.basic.build(expression)
+			}
 			const key = helper.utils.hashCode(expression)
 			const value = this.cache.get(key)
 			if (!value) {
@@ -213,8 +216,11 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	private processBuild (expression: string): Operand {
+	private processBuild (expression: string, useCache:boolean): Operand {
 		try {
+			if (!useCache) {
+				return this.process.build(expression)
+			}
 			const key = helper.utils.hashCode(expression)
 			const value = this.processCache.get(key)
 			if (!value) {
@@ -229,7 +235,12 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	private typed (expression: string): Operand {
+	private typed (expression: string, useCache:boolean): Operand {
+		if (!useCache) {
+			const operand = this.basic.build(expression)
+			this.typeManager.type(operand)
+			return operand
+		}
 		const key = helper.utils.hashCode(expression)
 		const value = this.cache.get(key) as Operand
 		if (!value) {

@@ -87,11 +87,11 @@ export interface IExpressions {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	toExpression (func: Function): string
 	clone (operand: Operand):Operand
-	build (expression: string): Operand
-	parameters (expression: string): Parameter[]
-	type (expression: string): string
+	build (expression: string, useCache?:boolean): Operand
+	parameters (expression: string, useCache?:boolean): Parameter[]
+	type (expression: string, useCache?:boolean): string
 	eval (expression: string, data?: any): any
-	run (expression: string, data?: any): any
+	run (expression: string, data?: any, useCache?:boolean): any
 	subscribe (observer:ActionObserver):void
 	unsubscribe (observer:ActionObserver): void
 }
