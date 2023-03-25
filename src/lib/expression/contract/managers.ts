@@ -71,7 +71,7 @@ export interface IEvaluatorFactory {
 }
 
 export interface IExpressions {
-	model: IModelManager
+	get model(): IModelManager
 	get enums(): [string, [string, any][]][]
 	get formats(): [string, Format][]
 	get constants(): [string, any][]

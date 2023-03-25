@@ -28,9 +28,13 @@ export class Expressions implements IExpressions {
 	private cache: ICache<number, Operand>
 	private processCache: ICache<number, Operand>
 	private observers:ActionObserver[] = []
-	constructor (public readonly model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager, private readonly parameterManager: IParameterManager) {
+	constructor (private readonly _model: IModelManager, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeManager: ITypeManager, private readonly parameterManager: IParameterManager) {
 		this.cache = new MemoryCache<number, Operand>()
 		this.processCache = new MemoryCache<number, Operand>()
+	}
+
+	public get model (): IModelManager {
+		return this._model
 	}
 
 	private static _instance: IExpressions
