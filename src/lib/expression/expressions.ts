@@ -104,7 +104,7 @@ export class Expressions implements IExpressions {
 			throw new Error('empty lambda function}')
 		}
 		const expression = helper.expression.clearLambda(func)
-		const operand = this.build(expression)
+		const operand = this.build(expression, true)
 		let aux = operand
 		while (aux.type !== OperandType.Var) {
 			if (aux.children.length > 0) {
@@ -131,8 +131,8 @@ export class Expressions implements IExpressions {
 	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
-	public parameters (expression: string, useCache = true): Parameter[] {
-		const operand = this.typed(expression, useCache)
+	public parameters (expression: string): Parameter[] {
+		const operand = this.typed(expression)
 		return this.parameterManager.parameters(operand)
 	}
 
@@ -141,8 +141,8 @@ export class Expressions implements IExpressions {
 	 * @param expression  expression
 	 * @returns Type of expression
 	 */
-	public type (expression: string, useCache = true): string {
-		const operand = this.typed(expression, useCache)
+	public type (expression: string): string {
+		const operand = this.typed(expression)
 		return Type.toString(operand.returnType)
 	}
 
@@ -156,11 +156,11 @@ export class Expressions implements IExpressions {
 	 * @param data Data with variables
 	 * @returns Result of the evaluate expression
 	 */
-	public eval (expression: string, data?: any, useCache = true): any {
+	public eval (expression: string, data?: any): any {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.build(expression, useCache)
+			const operand = this.build(expression, true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -170,11 +170,11 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	public run (expression: string, data: any = {}, useCache = true): any {
+	public run (expression: string, data: any = {}): any {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.processBuild(expression, useCache)
+			const operand = this.processBuild(expression, true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -197,7 +197,7 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
-	public build (expression: string, useCache = true): Operand {
+	public build (expression: string, useCache:boolean): Operand {
 		try {
 			if (!useCache) {
 				return this.basic.build(expression)
@@ -235,12 +235,7 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	private typed (expression: string, useCache:boolean): Operand {
-		if (!useCache) {
-			const operand = this.basic.build(expression)
-			this.typeManager.type(operand)
-			return operand
-		}
+	private typed (expression: string): Operand {
 		const key = helper.utils.hashCode(expression)
 		const value = this.cache.get(key) as Operand
 		if (!value) {
