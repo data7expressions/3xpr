@@ -84,6 +84,7 @@ export abstract class PrototypeEvaluator implements IEvaluator {
 }
 
 export interface OperandMetadata {
+	pos:Position,
 	type: OperandType,
 	name: string,
 	children?: OperandMetadata[],
