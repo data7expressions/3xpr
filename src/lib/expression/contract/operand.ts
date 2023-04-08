@@ -1,4 +1,5 @@
-import { Type, Context, Parameter, Position } from '.'
+import { Context, Parameter, Position } from '.'
+import { Type } from 'json-light'
 
 export enum OperandType
 { Const = 'Const'

@@ -1,6 +1,6 @@
 import { h3lp, IReplacer } from 'h3lp'
-import { Kind, Evaluator, Context, Operand, OperandType } from '../contract'
-
+import { Evaluator, Context, Operand, OperandType } from '../contract'
+import { Kind } from 'json-light'
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
 		if (this.operand.returnType === undefined) {

@@ -1,5 +1,6 @@
 
-import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelManager, Type, Position } from '../contract'
+import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelManager, Position } from '../contract'
+import { Type } from 'json-light'
 import {
 	ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, PropertyEvaluator,
 	ListEvaluator, ObjEvaluator, BlockEvaluator, IfEvaluator, WhileEvaluator,

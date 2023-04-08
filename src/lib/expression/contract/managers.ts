@@ -1,4 +1,4 @@
-import { Type } from './type'
+import { Type } from 'json-light'
 import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, IEvaluator, Context } from '.'
 import { Operand, OperatorMetadata } from './operand'
 

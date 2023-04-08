@@ -1,8 +1,9 @@
 import {
-	Type, Data, Operand, Context, IExpressions, IParameterManager, IBuilder, Parameter,
+	Data, Operand, Context, IExpressions, IParameterManager, IBuilder, Parameter,
 	Format, IOperandBuilder, OperatorMetadata, ITypeManager, IModelManager, ActionObserver,
 	FunctionAdditionalInfo, OperatorAdditionalInfo, OperandType
 } from './contract'
+import { Type } from 'json-light'
 import { ModelManager, TypeManager, ParameterManager, CoreLibrary, EvaluatorFactory, OperandReducer, OperandNormalizer } from './operand'
 import { ProcessOperandFactory } from './process'
 import { MemoryCache, ICache } from 'h3lp'
@@ -143,7 +144,7 @@ export class Expressions implements IExpressions {
 	 */
 	public type (expression: string): string {
 		const operand = this.typed(expression)
-		return Type.toString(operand.returnType)
+		return Type.stringify(operand.returnType)
 	}
 
 	public clone (source: Operand): Operand {

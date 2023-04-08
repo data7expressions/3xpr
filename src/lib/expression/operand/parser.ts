@@ -1,6 +1,6 @@
 import { h3lp } from 'h3lp'
-import { Operand, IModelManager, OperandType, Type, Position } from '../contract'
-
+import { Operand, IModelManager, OperandType, Position } from '../contract'
+import { Type } from 'json-light'
 export class Parser {
 	private model: IModelManager
 	private positions: [string, number, number][]
@@ -38,7 +38,7 @@ export class Parser {
 		}
 	}
 
-	public parse () {
+	public parse () : Operand {
 		const operands: Operand[] = []
 		while (!this.end) {
 			const operand = this.getExpression(undefined, undefined, ';')

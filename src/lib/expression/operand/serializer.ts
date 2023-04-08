@@ -1,6 +1,6 @@
 
-import { Operand, OperandType, Type, OperandMetadata } from '../contract'
-
+import { Operand, OperandType, OperandMetadata } from '../contract'
+import { Type } from 'json-light'
 export class OperandSerializer {
 	public clone (sentence: Operand): Operand {
 		const serialized = this.serialize(sentence)
@@ -21,7 +21,7 @@ export class OperandSerializer {
 		for (const child of operand.children) {
 			children.push(this._serialize(child))
 		}
-		return { pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.toString(operand.returnType) }
+		return { pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.stringify(operand.returnType) }
 	}
 
 	private _deserialize (metadata: OperandMetadata): Operand {

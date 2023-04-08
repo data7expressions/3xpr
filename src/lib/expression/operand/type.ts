@@ -1,6 +1,6 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { Operand, IModelManager, Type, PropertyType, ObjType, ListType, ITypeManager, OperatorMetadata, OperandType } from '../contract'
-
+import { Operand, IModelManager, ITypeManager, OperatorMetadata, OperandType } from '../contract'
+import { Type, PropertyType, ObjType, ListType } from 'json-light'
 export class TypeManager implements ITypeManager {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (protected readonly model: IModelManager) {}
