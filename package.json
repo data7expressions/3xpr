@@ -25,7 +25,7 @@
 	},
 	"dependencies": {
 		"h3lp": "1.2.8",
-		"json-light": "0.1.0"
+		"json-light": "0.2.0"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.19.1",
