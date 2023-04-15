@@ -14,39 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unsubscribe = exports.subscribe = exports.run = exports.evaluate = exports.parameters = exports.expressions = void 0;
-const expression_1 = require("./expression");
-__exportStar(require("./expression"), exports);
-exports.expressions = expression_1.Expressions.instance;
-/**
- * Get parameters of expression
- * @param expression  expression
- * @returns Parameters of expression
- */
-const parameters = (expression) => {
-    return exports.expressions.parameters(expression);
-};
-exports.parameters = parameters;
-/**
- * Evaluate and solve expression
- * @param expression  string expression
- * @param data Data with variables
- * @returns Result of the evaluate expression
- */
-const evaluate = (expression, data) => {
-    return exports.expressions.eval(expression, data);
-};
-exports.evaluate = evaluate;
-const run = (expression, data) => {
-    return exports.expressions.run(expression, data);
-};
-exports.run = run;
-const subscribe = (observer) => {
-    exports.expressions.subscribe(observer);
-};
-exports.subscribe = subscribe;
-const unsubscribe = (observer) => {
-    exports.expressions.subscribe(observer);
-};
-exports.unsubscribe = unsubscribe;
+__exportStar(require("./domain"), exports);
+__exportStar(require("./application"), exports);
+__exportStar(require("./infrastructure"), exports);
 //# sourceMappingURL=index.js.map
