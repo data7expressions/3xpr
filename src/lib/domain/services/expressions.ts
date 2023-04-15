@@ -21,6 +21,7 @@ export interface IExpressions {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	toExpression (func: Function): string
 	graphqlToExpression (graphql: string): string
+	clone (source:Operand):Operand
 	build (expression: string, useCache:boolean): Operand
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
