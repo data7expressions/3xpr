@@ -190,6 +190,10 @@ export class Expressions implements IExpressions {
 		}
 	}
 
+	public clone (source:Operand):Operand {
+		return this.basic.clone(source)
+	}
+
 	private processBuild (expression: string, useCache:boolean): Operand {
 		try {
 			if (!useCache) {
