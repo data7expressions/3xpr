@@ -1,6 +1,6 @@
 {
 	"name": "3xpr",
-	"version": "1.9.9",
+	"version": "1.9.10",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -25,7 +25,7 @@
 	},
 	"dependencies": {
 		"h3lp": "1.2.8",
-		"json-light": "0.2.0"
+		"typ3s": "0.0.2"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.19.1",
