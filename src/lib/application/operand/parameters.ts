@@ -1,6 +1,6 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
 import { Operand, Parameter, IParameterService, OperandType } from '../../domain'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 export class ParameterService implements IParameterService {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []

@@ -1,6 +1,6 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
 import { Operand, IModelService, ITypeService, OperatorMetadata, OperandType } from '../../domain'
-import { Type, PropertyType, ObjType, ListType } from 'json-light'
+import { Type, PropertyType, ObjType, ListType } from 'typ3s'
 export class TypeService implements ITypeService {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (protected readonly model: IModelService) {}

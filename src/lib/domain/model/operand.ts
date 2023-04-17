@@ -1,5 +1,5 @@
 import { Context, Parameter, Position } from '..'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 
 export enum OperandType
 { Const = 'Const'

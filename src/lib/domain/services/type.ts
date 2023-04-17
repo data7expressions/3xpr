@@ -1,4 +1,4 @@
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 import { Operand } from '../model'
 
 export interface ITypeService {

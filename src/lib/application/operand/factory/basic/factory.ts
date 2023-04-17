@@ -1,6 +1,6 @@
 
 import { Operand, OperandType, IEvaluator, IEvaluatorFactory, IModelService, Position } from '../../../../domain'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 import {
 	ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, PropertyEvaluator,
 	ListEvaluator, ObjEvaluator, BlockEvaluator, IfEvaluator, WhileEvaluator,

@@ -1,4 +1,4 @@
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 import { MemoryCache, ICache } from 'h3lp'
 import {
 	Data, Operand, Context, IExpressions, IParameterService, Parameter,

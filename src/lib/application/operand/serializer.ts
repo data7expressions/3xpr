@@ -1,6 +1,6 @@
 
 import { Operand, OperandType, OperandMetadata } from '../../domain'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 export class OperandSerializer {
 	public clone (sentence: Operand): Operand {
 		const serialized = this.serialize(sentence)

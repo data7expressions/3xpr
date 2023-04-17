@@ -1,6 +1,6 @@
 import { h3lp } from 'h3lp'
 import { Operand, IModelService, OperandType, Position } from '../../domain'
-import { Type } from 'json-light'
+import { Type } from 'typ3s'
 export class Parser {
 	private model: IModelService
 	private positions: [string, number, number][]
