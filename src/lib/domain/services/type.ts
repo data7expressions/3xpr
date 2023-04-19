@@ -1,6 +1,6 @@
 import { Type } from 'typ3s'
-import { Operand } from '../model'
+import { Operand } from '../entities'
 
 export interface ITypeService {
-	type (operand: Operand):Type
+	getType (operand: Operand):Type
 }

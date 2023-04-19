@@ -2,7 +2,7 @@ import { IModelService } from './model'
 import {
 	Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo,
 	Operand, OperatorMetadata, ActionObserver
-} from '../model'
+} from '../entities'
 
 export interface IExpressions {
 	get model(): IModelService

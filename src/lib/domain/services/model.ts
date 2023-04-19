@@ -1,4 +1,4 @@
-import { Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata } from '../model'
+import { Format, OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata } from '../entities'
 
 export interface IModelService {
 	get operatorAlias():[string, any][]

@@ -1,18 +1,35 @@
 import { Type } from 'typ3s'
-import { MemoryCache, ICache } from 'h3lp'
+import { ICache } from 'h3lp'
+import { helper } from './helper'
 import {
 	Data, Operand, Context, IExpressions, IParameterService, Parameter,
-	Format, IOperandBuilder, OperatorMetadata, ITypeService, IModelService, ActionObserver,
-	FunctionAdditionalInfo, OperatorAdditionalInfo, OperandType, helper
+	Format, OperatorMetadata, ITypeService, IModelService, ActionObserver,
+	FunctionAdditionalInfo, OperatorAdditionalInfo, OperandType, IOperandService,
+	IOperandNormalizer, IOperandReducer,
+	IExpressionNormalize, IExpressionParse, IOperandBuilder
 } from '../domain'
+import { CoreLibrary } from './model/library'
+import { OperandService, BasicOperandBuilder, ProcessOperandBuilder } from './operand'
 
 export class Expressions implements IExpressions {
-	private cache: ICache<number, Operand>
-	private processCache: ICache<number, Operand>
+	private operandService:IOperandService
 	private observers:ActionObserver[] = []
-	constructor (private readonly _model: IModelService, private readonly basic:IOperandBuilder, private readonly process:IOperandBuilder, private readonly typeService: ITypeService, private readonly parameterService: IParameterService) {
-		this.cache = new MemoryCache<number, Operand>()
-		this.processCache = new MemoryCache<number, Operand>()
+	constructor (
+		private readonly _model: IModelService,
+		typeService: ITypeService,
+		private readonly parameterService: IParameterService,
+		expressionNormalize:IExpressionNormalize,
+		expressionParse:IExpressionParse,
+		operandNormalizer:IOperandNormalizer,
+		operandReducer:IOperandReducer,
+		cache: ICache<string, Operand>
+	) {
+		this.operandService = new OperandService(typeService, cache)
+		const basic = new BasicOperandBuilder(expressionNormalize, expressionParse, operandNormalizer, operandReducer, _model)
+		const process = new ProcessOperandBuilder(expressionNormalize, expressionParse, operandNormalizer, operandReducer, _model)
+		new CoreLibrary(_model, basic).load()
+		this.operandService.addBuilder(basic)
+		this.operandService.addBuilder(process)
 	}
 
 	public get model (): IModelService {
@@ -67,6 +84,10 @@ export class Expressions implements IExpressions {
 		this.model.addFunctionAlias(alias, reference)
 	}
 
+	public addOperandBuilder (builder:IOperandBuilder):void {
+		this.operandService.addBuilder(builder)
+	}
+
 	/**
 	 * Convert a lambda expression to a query expression
 	 * @param lambda lambda expression
@@ -106,7 +127,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.typed(expression)
+		const operand = this.operandService.typed(expression, 'basic')
 		return this.parameterService.parameters(operand)
 	}
 
@@ -120,7 +141,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.typed(expression)
+		const operand = this.operandService.typed(expression, 'basic')
 		return Type.stringify(operand.returnType)
 	}
 
@@ -134,7 +155,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.build(expression, true)
+			const operand = this.operandService.build(expression, 'basic', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -148,7 +169,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.processBuild(expression, true)
+			const operand = this.operandService.build(expression, 'process', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -172,62 +193,11 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		try {
-			if (!useCache) {
-				return this.basic.build(expression)
-			}
-			const key = helper.utils.hashCode(expression)
-			const value = this.cache.get(key)
-			if (!value) {
-				const operand = this.basic.build(expression)
-				this.cache.set(key, operand)
-				return operand
-			} else {
-				return value
-			}
-		} catch (error: any) {
-			throw new Error('expression: ' + expression + ' error: ' + error.toString())
-		}
+		return this.operandService.build(expression, 'basic', useCache)
 	}
 
 	public clone (source:Operand):Operand {
-		return this.basic.clone(source)
-	}
-
-	private processBuild (expression: string, useCache:boolean): Operand {
-		try {
-			if (!useCache) {
-				return this.process.build(expression)
-			}
-			const key = helper.utils.hashCode(expression)
-			const value = this.processCache.get(key)
-			if (!value) {
-				const operand = this.process.build(expression)
-				this.processCache.set(key, operand)
-				return operand
-			} else {
-				return value
-			}
-		} catch (error: any) {
-			throw new Error('expression: ' + expression + ' error: ' + error.toString())
-		}
-	}
-
-	private typed (expression: string): Operand {
-		const key = helper.utils.hashCode(expression)
-		const value = this.cache.get(key) as Operand
-		if (!value) {
-			const operand = this.basic.build(expression)
-			this.typeService.type(operand)
-			this.cache.set(key, operand)
-			return operand
-		} else if (value.returnType === undefined) {
-			this.typeService.type(value)
-			this.cache.set(key, value)
-			return value
-		} else {
-			return value
-		}
+		return this.operandService.clone(source, 'basic')
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {
