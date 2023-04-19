@@ -1,7 +1,7 @@
 import { ICache } from 'h3lp';
 import { Operand, IParameterService, Parameter, Format, OperatorMetadata, ITypeService, IModelService, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService, IOperandBuilder } from '../../domain';
 import { IExpressions } from '../../application';
-export declare class ExpressionsAdapter implements IExpressions {
+export declare class Expressions implements IExpressions {
     readonly _model: IModelService;
     private readonly parameterService;
     operandService: IOperandService;
