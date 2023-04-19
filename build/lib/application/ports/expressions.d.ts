@@ -14,7 +14,7 @@ export interface IExpressions {
     addFormat(key: string, pattern: string): void;
     addConstant(key: string, value: any): void;
     toExpression(func: Function): string;
-    graphqlToExpression(graphql: string): string;
+    graphqlToExpression(graphql: string): [string, any];
     clone(source: Operand): Operand;
     build(expression: string, useCache: boolean): Operand;
     parameters(expression: string): Parameter[];

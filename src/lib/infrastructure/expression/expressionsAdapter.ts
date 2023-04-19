@@ -5,10 +5,9 @@ import {
 	Format, OperatorMetadata, ITypeService, IModelService, ActionObserver,
 	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService, IOperandBuilder
 } from '../../domain'
-import {
-	CoreLibrary, OperandService, BasicOperandBuilder, ProcessOperandBuilder,
-	ExpressionConvertFromFunction, ExpressionConvertFromGraphql, IExpressions
-} from '../../application'
+import { CoreLibrary, OperandService, BasicOperandBuilder, ProcessOperandBuilder, IExpressions } from '../../application'
+import { ExpressionConvertFromFunction } from './convertFromFunction'
+import { ExpressionConvertFromGraphql } from './convertFromGraphql'
 
 export class ExpressionsAdapter implements IExpressions {
 	private operandService:IOperandService
@@ -97,7 +96,7 @@ export class ExpressionsAdapter implements IExpressions {
 		return this.convertFromFunction.toExpression(func)
 	}
 
-	public graphqlToExpression (graphql: string): string {
+	public graphqlToExpression (graphql: string): [string, any ] {
 		return this.convertFromGraphql.toExpression(graphql)
 	}
 

@@ -1,6 +1,5 @@
 import { IOperandBuilder, Operand, ITypeService, IOperandService } from '../../../domain'
-import { Type } from 'typ3s'
-import { MemoryCache, ICache } from 'h3lp'
+import { ICache } from 'h3lp'
 import { helper } from '../../helper'
 
 export class OperandService implements IOperandService {

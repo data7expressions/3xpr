@@ -19,7 +19,7 @@ export interface IExpressions {
 	addConstant (key:string, value:any):void
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	toExpression (func: Function): string
-	graphqlToExpression (graphql: string): string
+	graphqlToExpression (graphql: string): [string, any ]
 	clone (source:Operand):Operand
 	build (expression: string, useCache:boolean): Operand
 	parameters (expression: string): Parameter[]
