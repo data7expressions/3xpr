@@ -11,14 +11,17 @@ class Expressions {
         this._model = _model;
         this.parameterService = parameterService;
         this.observers = [];
-        this.operandService = new application_1.OperandService(typeService, cache);
+        this._operandService = new application_1.OperandService(typeService, cache);
         const basic = new application_1.BasicOperandBuilder(_model);
         const process = new application_1.ProcessOperandBuilder(_model);
         new application_1.CoreLibrary(_model, basic).load();
-        this.operandService.addBuilder(basic);
-        this.operandService.addBuilder(process);
-        this.convertFromFunction = new convertFromFunction_1.ExpressionConvertFromFunction(this.operandService);
+        this._operandService.addBuilder(basic);
+        this._operandService.addBuilder(process);
+        this.convertFromFunction = new convertFromFunction_1.ExpressionConvertFromFunction(this._operandService);
         this.convertFromGraphql = new convertFromGraphql_1.ExpressionConvertFromGraphql();
+    }
+    get operandService() {
+        return this._operandService;
     }
     get model() {
         return this._model;
@@ -60,7 +63,7 @@ class Expressions {
         this.model.addFunctionAlias(alias, reference);
     }
     addOperandBuilder(builder) {
-        this.operandService.addBuilder(builder);
+        this._operandService.addBuilder(builder);
     }
     /**
      * Convert a lambda expression to a query expression
@@ -80,7 +83,7 @@ class Expressions {
      * @returns Parameters of expression
      */
     parameters(expression) {
-        const operand = this.operandService.typed(expression, 'basic');
+        const operand = this._operandService.typed(expression, 'basic');
         return this.parameterService.parameters(operand);
     }
     /**
@@ -89,7 +92,7 @@ class Expressions {
      * @returns Type of expression
      */
     type(expression) {
-        const operand = this.operandService.typed(expression, 'basic');
+        const operand = this._operandService.typed(expression, 'basic');
         return typ3s_1.Type.stringify(operand.returnType);
     }
     /**
@@ -102,7 +105,7 @@ class Expressions {
         const context = new domain_1.Context(new domain_1.Data(data));
         try {
             this.beforeExecutionNotify(expression, context);
-            const operand = this.operandService.build(expression, 'basic', true);
+            const operand = this._operandService.build(expression, 'basic', true);
             const result = operand.eval(context);
             this.afterExecutionNotify(expression, context, result);
             return result;
@@ -116,7 +119,7 @@ class Expressions {
         const context = new domain_1.Context(new domain_1.Data(data));
         try {
             this.beforeExecutionNotify(expression, context);
-            const operand = this.operandService.build(expression, 'process', true);
+            const operand = this._operandService.build(expression, 'process', true);
             const result = operand.eval(context);
             this.afterExecutionNotify(expression, context, result);
             return result;
@@ -138,10 +141,10 @@ class Expressions {
         this.observers.splice(index, 1);
     }
     build(expression, useCache) {
-        return this.operandService.build(expression, 'basic', useCache);
+        return this._operandService.build(expression, 'basic', useCache);
     }
     clone(source) {
-        return this.operandService.clone(source, 'basic');
+        return this._operandService.clone(source, 'basic');
     }
     beforeExecutionNotify(expression, context) {
         const args = { expression, context };
