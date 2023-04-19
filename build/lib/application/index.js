@@ -18,5 +18,5 @@ __exportStar(require("./helper"), exports);
 __exportStar(require("./model"), exports);
 __exportStar(require("./expression"), exports);
 __exportStar(require("./operand"), exports);
-__exportStar(require("./expressions"), exports);
+__exportStar(require("./ports/expressions"), exports);
 //# sourceMappingURL=index.js.map

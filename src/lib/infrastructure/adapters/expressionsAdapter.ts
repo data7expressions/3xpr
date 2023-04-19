@@ -1,35 +1,34 @@
 import { Type } from 'typ3s'
 import { ICache } from 'h3lp'
-import { helper } from './helper'
 import {
-	Data, Operand, Context, IExpressions, IParameterService, Parameter,
+	Data, Operand, Context, IParameterService, Parameter,
 	Format, OperatorMetadata, ITypeService, IModelService, ActionObserver,
-	FunctionAdditionalInfo, OperatorAdditionalInfo, OperandType, IOperandService,
-	IOperandNormalizer, IOperandReducer,
-	IExpressionNormalize, IExpressionParse, IOperandBuilder
-} from '../domain'
-import { CoreLibrary } from './model/library'
-import { OperandService, BasicOperandBuilder, ProcessOperandBuilder } from './operand'
+	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService, IOperandBuilder
+} from '../../domain'
+import {
+	CoreLibrary, OperandService, BasicOperandBuilder, ProcessOperandBuilder,
+	ExpressionConvertFromFunction, ExpressionConvertFromGraphql, IExpressions
+} from '../../application'
 
-export class Expressions implements IExpressions {
+export class ExpressionsAdapter implements IExpressions {
 	private operandService:IOperandService
+	private convertFromFunction:ExpressionConvertFromFunction
+	private convertFromGraphql:ExpressionConvertFromGraphql
 	private observers:ActionObserver[] = []
 	constructor (
 		private readonly _model: IModelService,
 		typeService: ITypeService,
 		private readonly parameterService: IParameterService,
-		expressionNormalize:IExpressionNormalize,
-		expressionParse:IExpressionParse,
-		operandNormalizer:IOperandNormalizer,
-		operandReducer:IOperandReducer,
 		cache: ICache<string, Operand>
 	) {
 		this.operandService = new OperandService(typeService, cache)
-		const basic = new BasicOperandBuilder(expressionNormalize, expressionParse, operandNormalizer, operandReducer, _model)
-		const process = new ProcessOperandBuilder(expressionNormalize, expressionParse, operandNormalizer, operandReducer, _model)
+		const basic = new BasicOperandBuilder(_model)
+		const process = new ProcessOperandBuilder(_model)
 		new CoreLibrary(_model, basic).load()
 		this.operandService.addBuilder(basic)
 		this.operandService.addBuilder(process)
+		this.convertFromFunction = new ExpressionConvertFromFunction(this.operandService)
+		this.convertFromGraphql = new ExpressionConvertFromGraphql()
 	}
 
 	public get model (): IModelService {
@@ -95,30 +94,11 @@ export class Expressions implements IExpressions {
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public toExpression (func: Function): string {
-		if (!func) {
-			throw new Error('empty lambda function}')
-		}
-		const expression = helper.expression.clearLambda(func)
-		const operand = this.build(expression, true)
-		let aux = operand
-		while (aux.type !== OperandType.Var) {
-			if (aux.children.length > 0) {
-				aux = aux.children[0]
-			}
-		}
-		if (aux.name.includes('.')) {
-			// Example: __model_1.Products.map(p=>p) =>  Products.map(p=>p)
-			// Example: __model_1.Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-			const names:string[] = aux.name.split('.')
-			if (names[0].startsWith('__')) {
-				// aux.name = names.slice(1).join('.')
-				const result = expression.replace(names[0] + '.', '')
-				return result
-			}
-		}
-		// Example: Products.map(p=>p) =>  Products.map(p=>p)
-		// Example: Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-		return expression
+		return this.convertFromFunction.toExpression(func)
+	}
+
+	public graphqlToExpression (graphql: string): string {
+		return this.convertFromGraphql.toExpression(graphql)
 	}
 
 	/**
@@ -129,10 +109,6 @@ export class Expressions implements IExpressions {
 	public parameters (expression: string): Parameter[] {
 		const operand = this.operandService.typed(expression, 'basic')
 		return this.parameterService.parameters(operand)
-	}
-
-	public graphqlToExpression (graphql: string): string {
-		return graphql
 	}
 
 	/**

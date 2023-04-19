@@ -1,5 +1,4 @@
-export * from './expressions';
+export * from '../../application/ports/expressions';
 export * from './model';
-export * from './operand';
 export * from './parameter';
 export * from './type';

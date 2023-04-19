@@ -17,4 +17,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./services/parser"), exports);
 __exportStar(require("./useCases/normalize"), exports);
 __exportStar(require("./useCases/parse"), exports);
+__exportStar(require("./useCases/convertFromFunction"), exports);
+__exportStar(require("./useCases/convertFromGraphql"), exports);
 //# sourceMappingURL=index.js.map

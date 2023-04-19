@@ -1,7 +1,5 @@
 import { h3lp } from 'h3lp'
-import { IExpressionNormalize } from '../../../domain'
-
-export class ExpressionNormalize implements IExpressionNormalize {
+export class ExpressionNormalize {
 	public normalize (expression: string): [string, number, number][] {
 		let isString = false
 		let quotes = ''

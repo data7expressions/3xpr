@@ -1,7 +1,7 @@
-import { Operand, IModelService, IExpressionParse } from '../../../domain'
+import { Operand, IModelService } from '../../../domain'
 import { Parser } from '../services/parser'
 
-export class ExpressionParse implements IExpressionParse {
+export class ExpressionParse {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly model: IModelService) {}
 

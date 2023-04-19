@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
-import { Context, Operand, OperandType, IModelService, IOperandReducer } from '../../../domain'
+import { Context, Operand, OperandType, IModelService } from '../../../domain'
 import { ConstBuilder } from './build/factory'
 
-export class OperandReducer implements IOperandReducer {
+export class OperandReduce {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly model: IModelService) {}
 

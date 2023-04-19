@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
-import { Operand, OperandType, IModelService, IOperandNormalizer } from '../../../domain'
+import { Operand, OperandType, IModelService } from '../../../domain'
 
-export class OperandNormalizer implements IOperandNormalizer {
+export class OperandNormalize {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly model: IModelService) {}
 

@@ -1,4 +1,3 @@
-import { IExpressionNormalize } from '../../../domain';
-export declare class ExpressionNormalize implements IExpressionNormalize {
+export declare class ExpressionNormalize {
     normalize(expression: string): [string, number, number][];
 }

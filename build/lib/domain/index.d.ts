@@ -1,3 +1,4 @@
 export * from './entities';
-export * from './services';
-export * from './expression';
+export * from './model/services';
+export * from './operand/services';
+export * from './operand/entities';

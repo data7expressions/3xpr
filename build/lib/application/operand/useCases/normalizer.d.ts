@@ -1,5 +1,5 @@
-import { Operand, IModelService, IOperandNormalizer } from '../../../domain';
-export declare class OperandNormalizer implements IOperandNormalizer {
+import { Operand, IModelService } from '../../../domain';
+export declare class OperandNormalize {
     protected readonly model: IModelService;
     constructor(model: IModelService);
     normalize(operand: Operand): Operand;

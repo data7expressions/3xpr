@@ -1,6 +1,6 @@
 import { Parameter, ActionObserver } from '../domain';
 export * from './builder';
-export declare const expressions: import("../domain").IExpressions;
+export declare const expressions: import("..").IExpressions;
 /**
  * Get parameters of expression
  * @param expression  expression

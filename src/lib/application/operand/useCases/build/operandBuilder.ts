@@ -1,27 +1,27 @@
 /* eslint-disable no-case-declarations */
-import { 
-	Operand, IOperandBuilder, IEvaluatorFactory, IOperandNormalizer, IOperandReducer,
-	IExpressionNormalize, IExpressionParse
-} from '../../../../domain'
-
+import { Operand, IOperandBuilder, IEvaluatorFactory, IModelService } from '../../../../domain'
+import { OperandNormalize, OperandReduce} from '../../'
+import { ExpressionNormalize, ExpressionParse } from '../../../expression'
 export abstract class OperandBuilder implements IOperandBuilder {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (
-		protected readonly expressionNormalize: IExpressionNormalize,
-		protected readonly expressionParse: IExpressionParse,
-		protected readonly normalizer:IOperandNormalizer,
-		protected readonly reducer:IOperandReducer,
-		protected readonly evaluatorfactory: IEvaluatorFactory
-	) {}
+	protected expressionNormalize: ExpressionNormalize
+	protected expressionParse: ExpressionParse
+	protected normalize:OperandNormalize
+	protected reduce:OperandReduce
+	public constructor (protected readonly evaluatorFactory: IEvaluatorFactory,modelService:IModelService) {
+		this.expressionNormalize = new ExpressionNormalize()
+		this.expressionParse = new ExpressionParse(modelService)
+		this.normalize = new OperandNormalize(modelService)
+		this.reduce = new OperandReduce(modelService)
+	}
 
 	public abstract get key():string
 
 	public build (expression: string): Operand {
 		const expressionNormalized = this.expressionNormalize.normalize(expression)
 		const operand = this.expressionParse.parse(expressionNormalized)
-		const normalized = this.normalizer.normalize(operand)
+		const normalized = this.normalize.normalize(operand)
 		this.complete(normalized)
-		return this.reducer.reduce(normalized)
+		return this.reduce.reduce(normalized)
 	}
 
 	public clone (source: Operand): Operand {
@@ -31,7 +31,7 @@ export abstract class OperandBuilder implements IOperandBuilder {
 		}
 		const target = new Operand(source.pos, source.name, source.type, children, source.returnType)
 		target.id = source.id
-		target.evaluator = this.evaluatorfactory.create(target)
+		target.evaluator = this.evaluatorFactory.create(target)
 		return target
 	}
 
@@ -44,6 +44,6 @@ export abstract class OperandBuilder implements IOperandBuilder {
 			}
 		}
 		operand.id = id
-		operand.evaluator = this.evaluatorfactory.create(operand)
+		operand.evaluator = this.evaluatorFactory.create(operand)
 	}
 }

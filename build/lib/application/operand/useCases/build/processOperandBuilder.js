@@ -4,8 +4,8 @@ exports.ProcessOperandBuilder = void 0;
 const operandBuilder_1 = require("./operandBuilder");
 const factory_1 = require("./factory/process/factory");
 class ProcessOperandBuilder extends operandBuilder_1.OperandBuilder {
-    constructor(expressionNormalize, expressionParse, normalizer, reducer, model) {
-        super(expressionNormalize, expressionParse, normalizer, reducer, new factory_1.ProcessEvaluatorFactory(model));
+    constructor(model) {
+        super(new factory_1.ProcessEvaluatorFactory(model), model);
     }
     get key() {
         return 'process';

@@ -1,3 +1,10 @@
+
+export class ExpressionConvertFromGraphql {
+	public toExpression (graphql: string): string {
+		throw new Error('NotImplemented')
+	}
+}
+
 // import { h3lp } from 'h3lp'
 
 // export class GraphqlParser {

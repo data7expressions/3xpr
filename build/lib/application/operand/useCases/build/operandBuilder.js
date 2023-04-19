@@ -3,21 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OperandBuilder = void 0;
 /* eslint-disable no-case-declarations */
 const domain_1 = require("../../../../domain");
+const __1 = require("../../");
+const expression_1 = require("../../../expression");
 class OperandBuilder {
-    // eslint-disable-next-line no-useless-constructor
-    constructor(expressionNormalize, expressionParse, normalizer, reducer, evaluatorfactory) {
-        this.expressionNormalize = expressionNormalize;
-        this.expressionParse = expressionParse;
-        this.normalizer = normalizer;
-        this.reducer = reducer;
-        this.evaluatorfactory = evaluatorfactory;
+    constructor(evaluatorFactory, modelService) {
+        this.evaluatorFactory = evaluatorFactory;
+        this.expressionNormalize = new expression_1.ExpressionNormalize();
+        this.expressionParse = new expression_1.ExpressionParse(modelService);
+        this.normalize = new __1.OperandNormalize(modelService);
+        this.reduce = new __1.OperandReduce(modelService);
     }
     build(expression) {
         const expressionNormalized = this.expressionNormalize.normalize(expression);
         const operand = this.expressionParse.parse(expressionNormalized);
-        const normalized = this.normalizer.normalize(operand);
+        const normalized = this.normalize.normalize(operand);
         this.complete(normalized);
-        return this.reducer.reduce(normalized);
+        return this.reduce.reduce(normalized);
     }
     clone(source) {
         const children = [];
@@ -26,7 +27,7 @@ class OperandBuilder {
         }
         const target = new domain_1.Operand(source.pos, source.name, source.type, children, source.returnType);
         target.id = source.id;
-        target.evaluator = this.evaluatorfactory.create(target);
+        target.evaluator = this.evaluatorFactory.create(target);
         return target;
     }
     complete(operand, index = 0, parentId) {
@@ -38,7 +39,7 @@ class OperandBuilder {
             }
         }
         operand.id = id;
-        operand.evaluator = this.evaluatorfactory.create(operand);
+        operand.evaluator = this.evaluatorFactory.create(operand);
     }
 }
 exports.OperandBuilder = OperandBuilder;

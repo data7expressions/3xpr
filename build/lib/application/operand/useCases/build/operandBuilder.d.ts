@@ -1,11 +1,13 @@
-import { Operand, IOperandBuilder, IEvaluatorFactory, IOperandNormalizer, IOperandReducer, IExpressionNormalize, IExpressionParse } from '../../../../domain';
+import { Operand, IOperandBuilder, IEvaluatorFactory, IModelService } from '../../../../domain';
+import { OperandNormalize, OperandReduce } from '../../';
+import { ExpressionNormalize, ExpressionParse } from '../../../expression';
 export declare abstract class OperandBuilder implements IOperandBuilder {
-    protected readonly expressionNormalize: IExpressionNormalize;
-    protected readonly expressionParse: IExpressionParse;
-    protected readonly normalizer: IOperandNormalizer;
-    protected readonly reducer: IOperandReducer;
-    protected readonly evaluatorfactory: IEvaluatorFactory;
-    constructor(expressionNormalize: IExpressionNormalize, expressionParse: IExpressionParse, normalizer: IOperandNormalizer, reducer: IOperandReducer, evaluatorfactory: IEvaluatorFactory);
+    protected readonly evaluatorFactory: IEvaluatorFactory;
+    protected expressionNormalize: ExpressionNormalize;
+    protected expressionParse: ExpressionParse;
+    protected normalize: OperandNormalize;
+    protected reduce: OperandReduce;
+    constructor(evaluatorFactory: IEvaluatorFactory, modelService: IModelService);
     abstract get key(): string;
     build(expression: string): Operand;
     clone(source: Operand): Operand;

@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OperandReducer = void 0;
+exports.OperandReduce = void 0;
 /* eslint-disable no-case-declarations */
 const domain_1 = require("../../../domain");
 const factory_1 = require("./build/factory");
-class OperandReducer {
+class OperandReduce {
     // eslint-disable-next-line no-useless-constructor
     constructor(model) {
         this.model = model;
@@ -47,5 +47,5 @@ class OperandReducer {
         return operand;
     }
 }
-exports.OperandReducer = OperandReducer;
+exports.OperandReduce = OperandReduce;
 //# sourceMappingURL=reducer.js.map

@@ -1,8 +1,7 @@
-import { IModelService } from './model'
 import {
 	Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo,
-	Operand, OperatorMetadata, ActionObserver
-} from '../entities'
+	Operand, OperatorMetadata, ActionObserver, IModelService
+} from '../../domain'
 
 export interface IExpressions {
 	get model(): IModelService

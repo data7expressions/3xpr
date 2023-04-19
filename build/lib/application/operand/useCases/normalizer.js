@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OperandNormalizer = void 0;
+exports.OperandNormalize = void 0;
 /* eslint-disable no-case-declarations */
 const domain_1 = require("../../../domain");
-class OperandNormalizer {
+class OperandNormalize {
     // eslint-disable-next-line no-useless-constructor
     constructor(model) {
         this.model = model;
@@ -40,5 +40,5 @@ class OperandNormalizer {
         }
     }
 }
-exports.OperandNormalizer = OperandNormalizer;
+exports.OperandNormalize = OperandNormalize;
 //# sourceMappingURL=normalizer.js.map

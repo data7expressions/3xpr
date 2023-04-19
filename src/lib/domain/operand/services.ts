@@ -1,4 +1,6 @@
-import { IEvaluator, Operand } from '../entities'
+import { IEvaluator, Operand } from './entities'
+import { Parameter } from '../entities'
+import { Type } from 'typ3s'
 
 export interface IOperandBuilder {
 	get key():string
@@ -6,12 +8,12 @@ export interface IOperandBuilder {
 	clone (source: Operand): Operand
 }
 
-export interface IOperandNormalizer {
-	normalize (operand: Operand): Operand
+export interface ITypeService {
+	getType (operand: Operand):Type
 }
 
-export interface IOperandReducer {
-	reduce (operand: Operand): Operand
+export interface IParameterService {
+	parameters (operand: Operand): Parameter[]
 }
 
 // Abstract Factory
