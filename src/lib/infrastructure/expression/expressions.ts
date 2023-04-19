@@ -9,7 +9,7 @@ import { CoreLibrary, OperandService, BasicOperandBuilder, ProcessOperandBuilder
 import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { ExpressionConvertFromGraphql } from './convertFromGraphql'
 
-export class ExpressionsAdapter implements IExpressions {
+export class Expressions implements IExpressions {
 	public operandService:IOperandService
 	private convertFromFunction:ExpressionConvertFromFunction
 	private convertFromGraphql:ExpressionConvertFromGraphql
