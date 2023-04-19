@@ -10,7 +10,7 @@ import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { ExpressionConvertFromGraphql } from './convertFromGraphql'
 
 export class Expressions implements IExpressions {
-	public operandService:IOperandService
+	private _operandService:IOperandService
 	private convertFromFunction:ExpressionConvertFromFunction
 	private convertFromGraphql:ExpressionConvertFromGraphql
 	private observers:ActionObserver[] = []
@@ -20,14 +20,18 @@ export class Expressions implements IExpressions {
 		private readonly parameterService: IParameterService,
 		cache: ICache<string, Operand>
 	) {
-		this.operandService = new OperandService(typeService, cache)
+		this._operandService = new OperandService(typeService, cache)
 		const basic = new BasicOperandBuilder(_model)
 		const process = new ProcessOperandBuilder(_model)
 		new CoreLibrary(_model, basic).load()
-		this.operandService.addBuilder(basic)
-		this.operandService.addBuilder(process)
-		this.convertFromFunction = new ExpressionConvertFromFunction(this.operandService)
+		this._operandService.addBuilder(basic)
+		this._operandService.addBuilder(process)
+		this.convertFromFunction = new ExpressionConvertFromFunction(this._operandService)
 		this.convertFromGraphql = new ExpressionConvertFromGraphql()
+	}
+
+	public get operandService (): IOperandService {
+		return this._operandService
 	}
 
 	public get model (): IModelService {
@@ -83,7 +87,7 @@ export class Expressions implements IExpressions {
 	}
 
 	public addOperandBuilder (builder:IOperandBuilder):void {
-		this.operandService.addBuilder(builder)
+		this._operandService.addBuilder(builder)
 	}
 
 	/**
@@ -106,7 +110,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandService.typed(expression, 'basic')
+		const operand = this._operandService.typed(expression, 'basic')
 		return this.parameterService.parameters(operand)
 	}
 
@@ -116,7 +120,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandService.typed(expression, 'basic')
+		const operand = this._operandService.typed(expression, 'basic')
 		return Type.stringify(operand.returnType)
 	}
 
@@ -130,7 +134,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, 'basic', true)
+			const operand = this._operandService.build(expression, 'basic', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -144,7 +148,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, 'process', true)
+			const operand = this._operandService.build(expression, 'process', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -168,11 +172,11 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		return this.operandService.build(expression, 'basic', useCache)
+		return this._operandService.build(expression, 'basic', useCache)
 	}
 
 	public clone (source:Operand):Operand {
-		return this.operandService.clone(source, 'basic')
+		return this._operandService.clone(source, 'basic')
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {
