@@ -4,11 +4,12 @@ import { IExpressions } from '../../application';
 export declare class Expressions implements IExpressions {
     readonly _model: IModelService;
     private readonly parameterService;
-    operandService: IOperandService;
+    private _operandService;
     private convertFromFunction;
     private convertFromGraphql;
     private observers;
     constructor(_model: IModelService, typeService: ITypeService, parameterService: IParameterService, cache: ICache<string, Operand>);
+    get operandService(): IOperandService;
     get model(): IModelService;
     get operators(): [string, OperatorMetadata][];
     get enums(): [string, [string, any][]][];
