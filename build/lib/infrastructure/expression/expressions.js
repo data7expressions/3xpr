@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExpressionsAdapter = void 0;
+exports.Expressions = void 0;
 const typ3s_1 = require("typ3s");
 const domain_1 = require("../../domain");
 const application_1 = require("../../application");
 const convertFromFunction_1 = require("./convertFromFunction");
 const convertFromGraphql_1 = require("./convertFromGraphql");
-class ExpressionsAdapter {
+class Expressions {
     constructor(_model, typeService, parameterService, cache) {
         this._model = _model;
         this.parameterService = parameterService;
@@ -183,5 +183,5 @@ class ExpressionsAdapter {
         });
     }
 }
-exports.ExpressionsAdapter = ExpressionsAdapter;
-//# sourceMappingURL=expressionsAdapter.js.map
+exports.Expressions = Expressions;
+//# sourceMappingURL=expressions.js.map
