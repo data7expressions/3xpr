@@ -1,4 +1,4 @@
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, Operand, OperatorMetadata, ActionObserver, IModelService, IOperandBuilder } from '../../domain';
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, Operand, OperatorMetadata, ActionObserver, IModelService, IOperandBuilder, IOperandService } from '../../domain';
 export interface IExpressions {
     get model(): IModelService;
     get enums(): [string, [string, any][]][];
@@ -6,6 +6,7 @@ export interface IExpressions {
     get constants(): [string, any][];
     get operators(): [string, OperatorMetadata][];
     get functions(): [string, OperatorMetadata][];
+    operandService: IOperandService;
     addOperator(sing: string, source: any, additionalInfo: OperatorAdditionalInfo): void;
     addFunction(sing: string, source: any, additionalInfo?: FunctionAdditionalInfo): void;
     addOperatorAlias(alias: string, reference: string): void;
