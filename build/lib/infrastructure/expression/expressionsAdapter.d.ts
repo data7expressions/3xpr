@@ -29,7 +29,7 @@ export declare class ExpressionsAdapter implements IExpressions {
      * @returns Expression manager
      */
     toExpression(func: Function): string;
-    graphqlToExpression(graphql: string): string;
+    graphqlToExpression(graphql: string): [string, any];
     /**
      * Get parameters of expression
      * @param expression  expression

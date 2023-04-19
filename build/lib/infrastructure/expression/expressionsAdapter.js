@@ -4,6 +4,8 @@ exports.ExpressionsAdapter = void 0;
 const typ3s_1 = require("typ3s");
 const domain_1 = require("../../domain");
 const application_1 = require("../../application");
+const convertFromFunction_1 = require("./convertFromFunction");
+const convertFromGraphql_1 = require("./convertFromGraphql");
 class ExpressionsAdapter {
     constructor(_model, typeService, parameterService, cache) {
         this._model = _model;
@@ -15,8 +17,8 @@ class ExpressionsAdapter {
         new application_1.CoreLibrary(_model, basic).load();
         this.operandService.addBuilder(basic);
         this.operandService.addBuilder(process);
-        this.convertFromFunction = new application_1.ExpressionConvertFromFunction(this.operandService);
-        this.convertFromGraphql = new application_1.ExpressionConvertFromGraphql();
+        this.convertFromFunction = new convertFromFunction_1.ExpressionConvertFromFunction(this.operandService);
+        this.convertFromGraphql = new convertFromGraphql_1.ExpressionConvertFromGraphql();
     }
     get model() {
         return this._model;

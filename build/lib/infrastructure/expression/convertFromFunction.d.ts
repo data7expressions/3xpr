@@ -1,4 +1,4 @@
-import { IOperandService } from '../../../domain';
+import { IOperandService } from '../../domain';
 export declare class ExpressionConvertFromFunction {
     private readonly operandService;
     constructor(operandService: IOperandService);

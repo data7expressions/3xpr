@@ -1,5 +1,5 @@
-import { helper } from '../../helper'
-import { OperandType, IOperandService } from '../../../domain'
+import { helper } from '../../application/helper'
+import { OperandType, IOperandService } from '../../domain'
 
 export class ExpressionConvertFromFunction {
 	// eslint-disable-next-line no-useless-constructor

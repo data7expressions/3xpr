@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExpressionConvertFromFunction = void 0;
-const helper_1 = require("../../helper");
-const domain_1 = require("../../../domain");
+const helper_1 = require("../../application/helper");
+const domain_1 = require("../../domain");
 class ExpressionConvertFromFunction {
     // eslint-disable-next-line no-useless-constructor
     constructor(operandService) {

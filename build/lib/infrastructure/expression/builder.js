@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExpressionsBuilder = void 0;
 const h3lp_1 = require("h3lp");
-const application_1 = require("../application");
-const expressionsAdapter_1 = require("./adapters/expressionsAdapter");
+const application_1 = require("../../application");
+const expressionsAdapter_1 = require("./expressionsAdapter");
 // eslint-disable-next-line no-use-before-define
 class ExpressionsBuilder {
     build() {

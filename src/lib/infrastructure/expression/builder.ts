@@ -1,7 +1,7 @@
-import { IBuilder, Operand } from '../domain'
+import { IBuilder, Operand } from '../../domain'
 import { MemoryCache } from 'h3lp'
-import { ModelService, TypeService, ParameterService, IExpressions } from '../application'
-import { ExpressionsAdapter } from './adapters/expressionsAdapter'
+import { ModelService, TypeService, ParameterService, IExpressions } from '../../application'
+import { ExpressionsAdapter } from './expressionsAdapter'
 
 // eslint-disable-next-line no-use-before-define
 export class ExpressionsBuilder implements IBuilder<IExpressions> {

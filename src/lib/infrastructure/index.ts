@@ -1,6 +1,6 @@
 import { Parameter, ActionObserver } from '../domain'
-import { ExpressionsBuilder } from './builder'
-export * from './builder'
+import { ExpressionsBuilder } from './expression/builder'
+export * from './expression/builder'
 export const expressions = new ExpressionsBuilder().build()
 
 /**

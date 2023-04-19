@@ -15,8 +15,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.unsubscribe = exports.subscribe = exports.run = exports.evaluate = exports.parameters = exports.expressions = void 0;
-const builder_1 = require("./builder");
-__exportStar(require("./builder"), exports);
+const builder_1 = require("./expression/builder");
+__exportStar(require("./expression/builder"), exports);
 exports.expressions = new builder_1.ExpressionsBuilder().build();
 /**
  * Get parameters of expression
