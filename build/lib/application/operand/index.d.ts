@@ -1,4 +1,5 @@
 export * from './useCases/build/factory';
+export * from './useCases/build/operandBuilder';
 export * from './useCases/build/basicOperandBuilder';
 export * from './useCases/build/processOperandBuilder';
 export * from './useCases/reducer';
