@@ -1,6 +1,6 @@
 import {
 	Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo,
-	Operand, OperatorMetadata, ActionObserver, IModelService
+	Operand, OperatorMetadata, ActionObserver, IModelService, IOperandBuilder
 } from '../../domain'
 
 export interface IExpressions {
@@ -17,6 +17,7 @@ export interface IExpressions {
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
+	addOperandBuilder (builder:IOperandBuilder):void
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	toExpression (func: Function): string
 	graphqlToExpression (graphql: string): [string, any ]

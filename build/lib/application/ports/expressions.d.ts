@@ -1,4 +1,4 @@
-import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, Operand, OperatorMetadata, ActionObserver, IModelService } from '../../domain';
+import { Parameter, Format, OperatorAdditionalInfo, FunctionAdditionalInfo, Operand, OperatorMetadata, ActionObserver, IModelService, IOperandBuilder } from '../../domain';
 export interface IExpressions {
     get model(): IModelService;
     get enums(): [string, [string, any][]][];
@@ -13,6 +13,7 @@ export interface IExpressions {
     addEnum(key: string, values: [string, any][] | any): void;
     addFormat(key: string, pattern: string): void;
     addConstant(key: string, value: any): void;
+    addOperandBuilder(builder: IOperandBuilder): void;
     toExpression(func: Function): string;
     graphqlToExpression(graphql: string): [string, any];
     clone(source: Operand): Operand;
