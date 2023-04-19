@@ -1,3 +1,5 @@
-export * from './operand'
 export * from './helper'
-export * from './expressions'
+export * from './model'
+export * from './expression'
+export * from './operand'
+export * from './ports/expressions'

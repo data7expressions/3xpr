@@ -1,8 +1,7 @@
-import { IExpressions, IBuilder } from '../domain'
-import {
-	ModelService, TypeService, ParameterService, CoreLibrary, EvaluatorFactory, OperandReducer,
-	OperandNormalizer, OperandBuilder, ProcessOperandFactory, Expressions
-} from '../application'
+import { IBuilder, Operand } from '../domain'
+import { MemoryCache } from 'h3lp'
+import { ModelService, TypeService, ParameterService, IExpressions } from '../application'
+import { ExpressionsAdapter } from './adapters/expressionsAdapter'
 
 // eslint-disable-next-line no-use-before-define
 export class ExpressionsBuilder implements IBuilder<IExpressions> {
@@ -10,11 +9,7 @@ export class ExpressionsBuilder implements IBuilder<IExpressions> {
 		const model = new ModelService()
 		const typeManager = new TypeService(model)
 		const parameterManager = new ParameterService()
-		const normalizer = new OperandNormalizer(model)
-		const reducer = new OperandReducer(model)
-		const basic = new OperandBuilder(model, normalizer, reducer, new EvaluatorFactory(model))
-		const process = new OperandBuilder(model, normalizer, reducer, new ProcessOperandFactory(model))
-		new CoreLibrary(model, basic).load()
-		return new Expressions(model, basic, process, typeManager, parameterManager)
+		const cache = new MemoryCache<string, Operand>()
+		return new ExpressionsAdapter(model, typeManager, parameterManager, cache)
 	}
 }
