@@ -9,13 +9,13 @@ class ConstEvaluator extends domain_1.Evaluator {
         if (this.operand.returnType === undefined) {
             return this.operand.name;
         }
-        switch (this.operand.returnType.kind) {
-            case typ3s_1.Kind.string:
+        switch (this.operand.returnType.primitive) {
+            case typ3s_1.Primitive.string:
                 return this.operand.name;
-            case typ3s_1.Kind.boolean:
+            case typ3s_1.Primitive.boolean:
                 return Boolean(this.operand.name);
-            case typ3s_1.Kind.integer:
-            case typ3s_1.Kind.decimal:
+            case typ3s_1.Primitive.integer:
+            case typ3s_1.Primitive.decimal:
                 return parseFloat(this.operand.name);
             default:
                 return this.operand.name;

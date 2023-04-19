@@ -1,18 +1,18 @@
 import { h3lp, IReplacer } from 'h3lp'
 import { Evaluator, Context, Operand, OperandType } from '../../../../../../domain'
-import { Kind } from 'typ3s'
+import { Primitive } from 'typ3s'
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
 		if (this.operand.returnType === undefined) {
 			return this.operand.name
 		}
-		switch (this.operand.returnType.kind) {
-		case Kind.string:
+		switch (this.operand.returnType.primitive) {
+		case Primitive.string:
 			return this.operand.name
-		case Kind.boolean:
+		case Primitive.boolean:
 			return Boolean(this.operand.name)
-		case Kind.integer:
-		case Kind.decimal:
+		case Primitive.integer:
+		case Primitive.decimal:
 			return parseFloat(this.operand.name)
 		default:
 			return this.operand.name
