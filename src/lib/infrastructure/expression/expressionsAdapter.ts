@@ -10,12 +10,12 @@ import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { ExpressionConvertFromGraphql } from './convertFromGraphql'
 
 export class ExpressionsAdapter implements IExpressions {
-	private operandService:IOperandService
+	public operandService:IOperandService
 	private convertFromFunction:ExpressionConvertFromFunction
 	private convertFromGraphql:ExpressionConvertFromGraphql
 	private observers:ActionObserver[] = []
 	constructor (
-		private readonly _model: IModelService,
+		public readonly _model: IModelService,
 		typeService: ITypeService,
 		private readonly parameterService: IParameterService,
 		cache: ICache<string, Operand>

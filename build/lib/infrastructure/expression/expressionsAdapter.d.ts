@@ -1,10 +1,10 @@
 import { ICache } from 'h3lp';
-import { Operand, IParameterService, Parameter, Format, OperatorMetadata, ITypeService, IModelService, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandBuilder } from '../../domain';
+import { Operand, IParameterService, Parameter, Format, OperatorMetadata, ITypeService, IModelService, ActionObserver, FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService, IOperandBuilder } from '../../domain';
 import { IExpressions } from '../../application';
 export declare class ExpressionsAdapter implements IExpressions {
-    private readonly _model;
+    readonly _model: IModelService;
     private readonly parameterService;
-    private operandService;
+    operandService: IOperandService;
     private convertFromFunction;
     private convertFromGraphql;
     private observers;
