@@ -15,6 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./useCases/build/factory"), exports);
+__exportStar(require("./useCases/build/operandBuilder"), exports);
 __exportStar(require("./useCases/build/basicOperandBuilder"), exports);
 __exportStar(require("./useCases/build/processOperandBuilder"), exports);
 __exportStar(require("./useCases/reducer"), exports);
