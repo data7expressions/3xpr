@@ -18,13 +18,13 @@ describe('access', () => {
         expect(__1.expressions.eval('orders.customer.firstName', context)).toStrictEqual(['John', 'Paul']);
         expect(__1.expressions.eval('orders.0.details.article', context)).toStrictEqual(['Pear', 'Banana', 'White grape']);
         expect(__1.expressions.eval('orders[0].details.2.article', context)).toStrictEqual('White grape');
-        expect(__1.expressions.eval('orders.0.details', context)).toStrictEqual([{ article: 'Pear', unitPrice: 1.78, qty: 2 }, { article: 'Banana', unitPrice: 1.99, qty: 1 }, { article: 'White grape', unitPrice: 2.03, qty: 1 }]);
+        expect(__1.expressions.eval('orders.0.details', context)).toStrictEqual([{ 'article': 'Pear', 'unitPrice': 1.78, 'qty': 2 }, { 'article': 'Banana', 'unitPrice': 1.99, 'qty': 1 }, { 'article': 'White grape', 'unitPrice': 2.03, 'qty': 1 }]);
         expect(__1.expressions.eval('orders.customer[orders.customer.length()-1]["firstName"]', context)).toStrictEqual('Paul');
         expect(__1.expressions.eval('orders.details.article.distinct()', context)).toStrictEqual(['Pear', 'Banana', 'White grape', 'Apple']);
         expect(__1.expressions.eval('orders.details.article.filter(p => p.includes("e"))', context)).toStrictEqual(['Pear', 'White grape', 'Apple', 'Pear']);
         expect(__1.expressions.eval('orders.details.article.filter(p => p.includes("e")).distinct()', context)).toStrictEqual(['Pear', 'White grape', 'Apple']);
         expect(__1.expressions.eval('orders.filter(p=> p.number == "20002").details.article.filter(p => p.includes("e"))', context)).toStrictEqual(['Apple', 'Pear']);
-        expect(__1.expressions.eval('orders.map(p => {nro:p.number, customer: `${p.customer.firstName} ${p.customer.lastName}`})', context)).toStrictEqual([{ nro: '20001', customer: 'John Murphy' }, { nro: '20002', customer: 'Paul Smith' }]);
+        expect(__1.expressions.eval('orders.map(p => {nro:p.number, customer: `${p.customer.firstName} ${p.customer.lastName}`})', context)).toStrictEqual([{ 'nro': '20001', 'customer': 'John Murphy' }, { 'nro': '20002', 'customer': 'Paul Smith' }]);
         expect(__1.expressions.eval('orders.map(p => {nro:p.number, articles: p.details.article }).articles.distinct()', context)).toStrictEqual(['Pear', 'Banana', 'White grape', 'Apple']);
     });
 });

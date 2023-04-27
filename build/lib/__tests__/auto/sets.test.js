@@ -9,10 +9,10 @@ describe('sets', () => {
         expect(__1.expressions.eval('ods.intersection(prime)', context)).toStrictEqual([3, 5, 7]);
         expect(__1.expressions.eval('ods.difference(prime)', context)).toStrictEqual([1, 9]);
         expect(__1.expressions.eval('ods.symmetricDifference(prime)', context)).toStrictEqual([1, 9, 2]);
-        expect(__1.expressions.eval('orders[0].details.union(orders[1].details)', context)).toStrictEqual([{ article: 'Pear', qty: 2 }, { article: 'Banana', qty: 2 }, { article: 'White grape', qty: 1 }, { article: 'Apple', qty: 1 }, { article: 'Pear', qty: 1 }]);
-        expect(__1.expressions.eval('orders[0].details.intersection(orders[1].details)', context)).toStrictEqual([{ article: 'Apple', qty: 1 }, { article: 'Banana', qty: 2 }]);
-        expect(__1.expressions.eval('orders[0].details.difference(orders[1].details)', context)).toStrictEqual([{ article: 'Pear', qty: 2 }, { article: 'White grape', qty: 1 }]);
-        expect(__1.expressions.eval('orders[0].details.symmetricDifference(orders[1].details)', context)).toStrictEqual([{ article: 'Pear', qty: 2 }, { article: 'White grape', qty: 1 }, { article: 'Pear', qty: 1 }]);
+        expect(__1.expressions.eval('orders[0].details.union(orders[1].details)', context)).toStrictEqual([{ 'article': 'Pear', 'qty': 2 }, { 'article': 'Banana', 'qty': 2 }, { 'article': 'White grape', 'qty': 1 }, { 'article': 'Apple', 'qty': 1 }, { 'article': 'Pear', 'qty': 1 }]);
+        expect(__1.expressions.eval('orders[0].details.intersection(orders[1].details)', context)).toStrictEqual([{ 'article': 'Apple', 'qty': 1 }, { 'article': 'Banana', 'qty': 2 }]);
+        expect(__1.expressions.eval('orders[0].details.difference(orders[1].details)', context)).toStrictEqual([{ 'article': 'Pear', 'qty': 2 }, { 'article': 'White grape', 'qty': 1 }]);
+        expect(__1.expressions.eval('orders[0].details.symmetricDifference(orders[1].details)', context)).toStrictEqual([{ 'article': 'Pear', 'qty': 2 }, { 'article': 'White grape', 'qty': 1 }, { 'article': 'Pear', 'qty': 1 }]);
     });
 });
 //# sourceMappingURL=sets.test.js.map

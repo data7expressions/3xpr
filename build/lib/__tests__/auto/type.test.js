@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable no-template-curly-in-string */
 const lib_1 = require("../../../lib");
 describe('type', () => {
+    const context = JSON.parse('{}');
     test('lab', () => {
         expect(lib_1.expressions.type('1 + a')).toStrictEqual('integer');
         expect(lib_1.expressions.type('b + a')).toStrictEqual('any');
