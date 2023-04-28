@@ -2,10 +2,13 @@ import { helper } from '../../'
 import { Context, Operand, OperandType, IEvaluator } from '../../commons/domain'
 import { IModelService } from '../../model/domain'
 import { PrototypeEvaluator, IOperandBuilder } from '../../operand/domain'
-
+import { Autowired } from 'h3lp'
 export class CoreLibrary {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly model:IModelService, private readonly builder:IOperandBuilder) {}
+	@Autowired('exp.operand.builder.basic')
+	private builder!: IOperandBuilder
+
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	public load ():void {
 		this.constants()

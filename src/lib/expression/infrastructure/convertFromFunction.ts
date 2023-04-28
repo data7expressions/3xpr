@@ -1,10 +1,13 @@
 import { helper } from '../../'
 import { IOperandService } from '../../operand/domain'
 import { OperandType } from '../../commons/domain'
+import { Autowired, Service } from 'h3lp'
 
+@Service('exp.expression.convert.fromFunction')
 export class ExpressionConvertFromFunction {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly operandService:IOperandService) {}
+	@Autowired('exp.operand.service')
+	private operandService!:IOperandService
+
 	/**
 	 * Convert a lambda expression to a query expression
 	 * @param lambda lambda expression

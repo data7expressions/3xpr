@@ -3,8 +3,6 @@ import { Operand, OperandType, Position } from '../../../commons/domain'
 import { IModelService } from '../../../model/domain'
 import { Type } from 'typ3s'
 export class Parser {
-	// private model: IModelService
-	// private expression: [string, number, number][]
 	private buffer: string[]
 	private length: number
 	private index: number

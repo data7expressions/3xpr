@@ -1,10 +1,12 @@
 /* eslint-disable no-case-declarations */
 import { IModelService } from '../../../model/domain'
 import { Operand, OperandType } from '../../../commons/domain'
+import { Autowired, Service } from 'h3lp'
 
+@Service('exp.operand.normalize')
 export class OperandNormalize {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelService) {}
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	public normalize (operand: Operand): Operand {
 		if (operand.type === OperandType.Var && operand.children.length === 0) {

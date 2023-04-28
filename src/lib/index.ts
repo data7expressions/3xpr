@@ -1,17 +1,21 @@
-import { ExpressionsBuilder } from './expression/infrastructure'
-import { Parameter, ActionObserver } from './commons/domain'
+import { Factory, MemoryCache } from 'h3lp'
+import { ModelService } from './model/application'
+import { Expressions } from './expression/infrastructure'
+import { Parameter, ActionObserver, Operand } from './commons/domain'
 import { Helper } from './commons/application'
-export const helper = new Helper()
-export const expressions = new ExpressionsBuilder().build()
+Factory.add('exp.operand.cache', new MemoryCache<string, Operand>())
+Factory.add('exp.model.service', new ModelService())
 export * from './commons/domain'
 export * from './commons/application'
 export * from './model/domain'
 export * from './model/application'
 export * from './operand/domain'
 export * from './operand/application'
+export * from './operand/infrastructure'
 export * from './expression/application'
 export * from './expression/infrastructure'
-export * from './operand/infrastructure'
+export const helper = new Helper()
+export const expressions = new Expressions()
 
 /**
  * Get parameters of expression

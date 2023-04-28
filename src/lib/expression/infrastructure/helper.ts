@@ -1,7 +1,7 @@
 import { IStringHelper, Service, Autowired } from 'h3lp'
 import { IExpressionHelper } from '../../commons/application'
 
-@Service('helper.expression')
+@Service('exp.helper.expression')
 export class ExpressionHelper implements IExpressionHelper {
 	@Autowired('helper.str')
 	private str!:IStringHelper

@@ -1,13 +1,11 @@
-import { IModelService } from '../../../../model/domain'
 import { OperandBuilder } from './operandBuilder'
 import { EvaluatorFactory } from './factory/basic/factory'
+import { Service } from 'h3lp'
+import { IEvaluatorFactory } from 'lib/operand/domain'
 
+@Service('exp.operand.builder.basic')
 export class BasicOperandBuilder extends OperandBuilder {
-	public constructor (model:IModelService) {
-		super(new EvaluatorFactory(model), model)
-	}
-
-	public get key (): string {
-		return 'basic'
+	protected get evaluatorFactory (): IEvaluatorFactory {
+		return new EvaluatorFactory()
 	}
 }

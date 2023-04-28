@@ -1,7 +1,7 @@
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../../operand/domain'
 import { Format, Parameter, ActionObserver, Operand } from '../../../commons/domain'
 import { IModelService } from '../../../model/domain'
-import { IOperandBuilder, IOperandService } from '../../domain'
+import { IOperandService } from '../../domain'
 
 export interface IExpressions {
 	get model(): IModelService
@@ -18,7 +18,7 @@ export interface IExpressions {
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
-	addOperandBuilder (builder:IOperandBuilder):void
+	// addOperandBuilder (builder:IOperandBuilder):void
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	toExpression (func: Function): string
 	graphqlToExpression (graphql: string): [string, any ]

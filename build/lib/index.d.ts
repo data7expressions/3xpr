@@ -1,16 +1,17 @@
+import { Expressions } from './expression/infrastructure';
 import { Parameter, ActionObserver } from './commons/domain';
 import { Helper } from './commons/application';
-export declare const helper: Helper;
-export declare const expressions: import("./operand/application").IExpressions;
 export * from './commons/domain';
 export * from './commons/application';
 export * from './model/domain';
 export * from './model/application';
 export * from './operand/domain';
 export * from './operand/application';
+export * from './operand/infrastructure';
 export * from './expression/application';
 export * from './expression/infrastructure';
-export * from './operand/infrastructure';
+export declare const helper: Helper;
+export declare const expressions: Expressions;
 /**
  * Get parameters of expression
  * @param expression  expression

@@ -1,22 +1,23 @@
 /* eslint-disable no-case-declarations */
 import { IOperandBuilder, IEvaluatorFactory } from '../../../domain'
-import { IModelService} from '../../../../model/domain'
-import { Operand} from '../../../../commons/domain'
-import { OperandNormalize, OperandReduce} from '../../'
+import { Operand } from '../../../../commons/domain'
+import { OperandNormalize, OperandReduce } from '../../'
 import { ExpressionNormalize, ExpressionParse } from '../../../../expression/application'
+import { Autowired } from 'h3lp'
 export abstract class OperandBuilder implements IOperandBuilder {
-	protected expressionNormalize: ExpressionNormalize
-	protected expressionParse: ExpressionParse
-	protected normalize:OperandNormalize
-	protected reduce:OperandReduce
-	public constructor (protected readonly evaluatorFactory: IEvaluatorFactory,modelService:IModelService) {
-		this.expressionNormalize = new ExpressionNormalize()
-		this.expressionParse = new ExpressionParse(modelService)
-		this.normalize = new OperandNormalize(modelService)
-		this.reduce = new OperandReduce(modelService)
-	}
+	protected abstract get evaluatorFactory():IEvaluatorFactory
 
-	public abstract get key():string
+	@Autowired('exp.expression.parse')
+	protected expressionParse!: ExpressionParse
+
+	@Autowired('exp.expression.normalize')
+	protected expressionNormalize!: ExpressionNormalize
+
+	@Autowired('exp.operand.normalize')
+	protected normalize!: OperandNormalize
+
+	@Autowired('exp.operand.reduce')
+	protected reduce!:OperandReduce
 
 	public build (expression: string): Operand {
 		const expressionNormalized = this.expressionNormalize.normalize(expression)

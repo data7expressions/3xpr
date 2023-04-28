@@ -3,7 +3,7 @@ import { Context, Operand, OperandType } from '../../commons/domain'
 import { IOperandHelper } from '../../commons/application'
 import { ConstBuilder } from '../application'
 
-@Service('helper.operand')
+@Service('exp.helper.operand')
 export class OperandHelper implements IOperandHelper {
 	public toExpression (operand: Operand): string {
 		const list: string[] = []

@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Evaluator} from '../../../../../domain'
+import { Evaluator } from '../../../../../domain'
 import { Operand, OperandType, Context, Step } from '../../../../../../commons/domain'
 
 export class PropertyProcessEvaluator extends Evaluator {

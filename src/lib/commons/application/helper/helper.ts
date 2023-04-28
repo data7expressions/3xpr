@@ -3,9 +3,9 @@ import { IExpressionHelper } from './expression'
 import { IOperandHelper } from './operand'
 
 export class Helper extends H3lp {
-	@Autowired('helper.expression')
+	@Autowired('exp.helper.expression')
 	public expression!:IExpressionHelper
 
-	@Autowired('helper.operand')
+	@Autowired('exp.helper.operand')
 	public operand!:IOperandHelper
 }

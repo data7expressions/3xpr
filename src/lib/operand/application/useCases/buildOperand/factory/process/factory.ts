@@ -1,6 +1,6 @@
 
 import { Operand, OperandType, IEvaluator } from '../../../../../../commons/domain'
-import { IModelService} from '../../../../../../model/domain'
+import { IModelService } from '../../../../../../model/domain'
 import { IEvaluatorFactory } from '../../../../../domain'
 import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, BreakEvaluator, ContinueEvaluator, ReturnEvaluator } from '../basic/evaluators'
 import {
@@ -9,10 +9,11 @@ import {
 	ForInProcessEvaluator, SwitchProcessEvaluator, FuncProcessEvaluator,
 	TryProcessEvaluator, CatchProcessEvaluator, ThrowProcessEvaluator, StackEvaluator
 } from './evaluators'
+import { Autowired } from 'h3lp'
 
 export class ProcessEvaluatorFactory implements IEvaluatorFactory {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelService) { }
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	protected createOperator (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)

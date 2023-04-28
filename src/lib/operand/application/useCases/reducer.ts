@@ -2,10 +2,12 @@
 import { ConstBuilder } from './buildOperand/factory/basic/factory'
 import { IModelService } from '../../../model/domain'
 import { Operand, OperandType, Context } from '../../../commons/domain'
+import { Autowired, Service } from 'h3lp'
 
+@Service('exp.operand.reduce')
 export class OperandReduce {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelService) {}
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	public reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {

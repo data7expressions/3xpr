@@ -1,44 +1,36 @@
 import { Type } from 'typ3s'
-import { ICache } from 'h3lp'
+import { Autowired } from 'h3lp'
 import { IModelService } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../commons/domain'
 import {
-	IParameterService, OperatorMetadata, ITypeService,
-	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService, IOperandBuilder
+	IParameterService, OperatorMetadata,
+	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService
 } from '../../operand/domain'
-import { OperandService, BasicOperandBuilder, ProcessOperandBuilder, IExpressions } from '../../operand/application'
+import { IExpressions } from '../../operand/application'
 import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { CoreLibrary } from './library'
 import { ExpressionConvertFromGraphql } from './convertFromGraphql'
 
 export class Expressions implements IExpressions {
-	private _operandService:IOperandService
-	private convertFromFunction:ExpressionConvertFromFunction
-	private convertFromGraphql:ExpressionConvertFromGraphql
 	private observers:ActionObserver[] = []
-	constructor (
-		public readonly _model: IModelService,
-		typeService: ITypeService,
-		private readonly parameterService: IParameterService,
-		cache: ICache<string, Operand>
-	) {
-		this._operandService = new OperandService(typeService, cache)
-		const basic = new BasicOperandBuilder(_model)
-		const process = new ProcessOperandBuilder(_model)
-		new CoreLibrary(_model, basic).load()
-		this._operandService.addBuilder(basic)
-		this._operandService.addBuilder(process)
-		this.convertFromFunction = new ExpressionConvertFromFunction(this._operandService)
-		this.convertFromGraphql = new ExpressionConvertFromGraphql()
+	constructor () {
+		new CoreLibrary().load()
 	}
 
-	public get operandService (): IOperandService {
-		return this._operandService
-	}
+	@Autowired('exp.expression.convert.fromGraphql')
+	private convertFromGraphql!:ExpressionConvertFromGraphql
 
-	public get model (): IModelService {
-		return this._model
-	}
+	@Autowired('exp.expression.convert.fromFunction')
+	private convertFromFunction!:ExpressionConvertFromFunction
+
+	@Autowired('exp.service.parameter')
+	private parameterService!: IParameterService
+
+	@Autowired('exp.model.service')
+	public model!: IModelService
+
+	@Autowired('exp.operand.service')
+	public operandService!: IOperandService
 
 	public get operators (): [string, OperatorMetadata][] {
 		return this.model.operators
@@ -88,10 +80,6 @@ export class Expressions implements IExpressions {
 		this.model.addFunctionAlias(alias, reference)
 	}
 
-	public addOperandBuilder (builder:IOperandBuilder):void {
-		this._operandService.addBuilder(builder)
-	}
-
 	/**
 	 * Convert a lambda expression to a query expression
 	 * @param lambda lambda expression
@@ -112,7 +100,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this._operandService.typed(expression, 'basic')
+		const operand = this.operandService.typed(expression, 'basic')
 		return this.parameterService.parameters(operand)
 	}
 
@@ -122,7 +110,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this._operandService.typed(expression, 'basic')
+		const operand = this.operandService.typed(expression, 'basic')
 		return Type.stringify(operand.returnType)
 	}
 
@@ -136,7 +124,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this._operandService.build(expression, 'basic', true)
+			const operand = this.operandService.build(expression, 'basic', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -150,7 +138,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this._operandService.build(expression, 'process', true)
+			const operand = this.operandService.build(expression, 'process', true)
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -174,11 +162,11 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		return this._operandService.build(expression, 'basic', useCache)
+		return this.operandService.build(expression, 'basic', useCache)
 	}
 
 	public clone (source:Operand):Operand {
-		return this._operandService.clone(source, 'basic')
+		return this.operandService.clone(source, 'basic')
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {

@@ -25,6 +25,7 @@
 		"rtrim",
 		"substr",
 		"title",
-		"trunc"
+		"trunc",
+		"usecase"
 	]
 }

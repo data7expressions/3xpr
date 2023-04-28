@@ -2,6 +2,8 @@
 import { IParameterService } from '../../domain'
 import { Operand, Parameter, OperandType } from '../../../commons/domain'
 import { Type } from 'typ3s'
+import { Service } from 'h3lp'
+@Service('exp.service.parameter')
 export class ParameterService implements IParameterService {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []

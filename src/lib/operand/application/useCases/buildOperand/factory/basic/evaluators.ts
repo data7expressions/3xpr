@@ -1,6 +1,6 @@
 import { h3lp, IReplacer } from 'h3lp'
 import { Context, Operand, OperandType } from '../../../../../../commons/domain'
-import { Evaluator} from '../../../../../domain'
+import { Evaluator } from '../../../../../domain'
 import { Primitive } from 'typ3s'
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {

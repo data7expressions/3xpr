@@ -15,19 +15,23 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.unsubscribe = exports.subscribe = exports.run = exports.evaluate = exports.parameters = exports.expressions = exports.helper = void 0;
+const h3lp_1 = require("h3lp");
+const application_1 = require("./model/application");
 const infrastructure_1 = require("./expression/infrastructure");
-const application_1 = require("./commons/application");
-exports.helper = new application_1.Helper();
-exports.expressions = new infrastructure_1.ExpressionsBuilder().build();
+const application_2 = require("./commons/application");
+h3lp_1.Factory.add('exp.operand.cache', new h3lp_1.MemoryCache());
+h3lp_1.Factory.add('exp.model.service', new application_1.ModelService());
 __exportStar(require("./commons/domain"), exports);
 __exportStar(require("./commons/application"), exports);
 __exportStar(require("./model/domain"), exports);
 __exportStar(require("./model/application"), exports);
 __exportStar(require("./operand/domain"), exports);
 __exportStar(require("./operand/application"), exports);
+__exportStar(require("./operand/infrastructure"), exports);
 __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
-__exportStar(require("./operand/infrastructure"), exports);
+exports.helper = new application_2.Helper();
+exports.expressions = new infrastructure_1.Expressions();
 /**
  * Get parameters of expression
  * @param expression  expression

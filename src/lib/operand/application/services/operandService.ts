@@ -1,19 +1,18 @@
 import { IOperandBuilder, ITypeService, IOperandService } from '../../domain'
 import { Operand } from '../../../commons/domain'
 import { helper } from '../../..'
-import { ICache } from 'h3lp'
+import { ICache, Autowired, Service } from 'h3lp'
 
+@Service('exp.operand.service')
 export class OperandService implements IOperandService {
-	private builders:any
-	constructor (
-		private readonly typeService: ITypeService,
-		private readonly cache: ICache<string, Operand>) {
-		this.builders = {}
-	}
+	@Autowired('exp.operand.cache')
+	private cache!: ICache<string, Operand>
 
-	public addBuilder (builder:IOperandBuilder):void {
-		this.builders[builder.key] = builder
-	}
+	@Autowired('exp.service.type')
+	private typeService!: ITypeService
+
+	@Autowired('exp.operand.builder')
+	private builders!:any
 
 	private getBuilder (key:string):IOperandBuilder {
 		return this.builders[key] as IOperandBuilder

@@ -1,8 +1,9 @@
 
-import { IEvaluatorFactory} from '../../../../../domain'
+import { IEvaluatorFactory } from '../../../../../domain'
 import { Operand, OperandType, Position, IEvaluator } from '../../../../../../commons/domain'
-import { IModelService} from '../../../../../../model/domain'
+import { IModelService } from '../../../../../../model/domain'
 import { Type } from 'typ3s'
+import { Autowired } from 'h3lp'
 import {
 	ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, PropertyEvaluator,
 	ListEvaluator, ObjEvaluator, BlockEvaluator, IfEvaluator, WhileEvaluator,
@@ -19,8 +20,8 @@ export class ConstBuilder {
 }
 
 export class EvaluatorFactory implements IEvaluatorFactory {
-	// eslint-disable-next-line no-useless-constructor
-	public constructor (protected readonly model: IModelService) { }
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	protected createOperator (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)

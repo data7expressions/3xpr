@@ -3,9 +3,11 @@ import { ITypeService, OperatorMetadata } from '../../domain'
 import { Operand, OperandType } from '../../../commons/domain'
 import { IModelService } from '../../../model/domain'
 import { Type, PropertyType, ObjType, ListType } from 'typ3s'
+import { Autowired, Service } from 'h3lp'
+@Service('exp.service.type')
 export class TypeService implements ITypeService {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (protected readonly model: IModelService) {}
+	@Autowired('exp.model.service')
+	private model!: IModelService
 
 	// Example
 	// {

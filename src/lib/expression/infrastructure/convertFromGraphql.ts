@@ -1,5 +1,7 @@
 
-import { h3lp } from 'h3lp'
+import { h3lp, Service } from 'h3lp'
+
+@Service('exp.expression.convert.fromGraphql')
 export class ExpressionConvertFromGraphql {
 	public toExpression (graphql: string): [string, any ] {
 		return new GraphqlParser(graphql).parse()
