@@ -2,10 +2,7 @@ import { Type } from 'typ3s'
 import { Autowired } from 'h3lp'
 import { IModelService } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import {
-	IParameterService, OperatorMetadata,
-	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService
-} from '../../operand/domain'
+import { IParameterService, OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService } from '../../operand/domain'
 import { IExpressions } from '../../operand/application'
 import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { CoreLibrary } from './library'
@@ -100,7 +97,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandService.typed(expression, 'basic')
+		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
 		return this.parameterService.parameters(operand)
 	}
 
@@ -110,7 +107,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandService.typed(expression, 'basic')
+		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
 		return Type.stringify(operand.returnType)
 	}
 
@@ -124,7 +121,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, 'basic', true)
+			const operand = this.operandService.build(expression, { type: 'basic', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -138,7 +135,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, 'process', true)
+			const operand = this.operandService.build(expression, { type: 'process', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -162,7 +159,7 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		return this.operandService.build(expression, 'basic', useCache)
+		return this.operandService.build(expression, { type: 'basic', cache: useCache })
 	}
 
 	public clone (source:Operand):Operand {

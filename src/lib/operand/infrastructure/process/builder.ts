@@ -1,4 +1,4 @@
-import { OperandBuilder } from '../../application/useCases/build'
+import { OperandBuilder } from '../../application/services/builder'
 import { EvaluatorFactory } from '../../application/services/factory'
 
 export class ProcessOperandBuilder extends OperandBuilder {

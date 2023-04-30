@@ -1,11 +1,11 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { ITypeService, OperatorMetadata } from '../../domain'
+import { OperatorMetadata } from '../../domain'
 import { Operand, OperandType } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { Type, PropertyType, ObjType, ListType } from 'typ3s'
-import { Autowired, Service } from 'h3lp'
-@Service('exp.service.type')
-export class TypeService implements ITypeService {
+import { Autowired } from 'h3lp'
+// @Service('exp.service.type')
+export class TypeService {
 	@Autowired('exp.model.service')
 	private model!: IModelService
 
@@ -22,14 +22,24 @@ export class TypeService implements ITypeService {
 	// indeterminate: any
 
 	public getType (operand: Operand): Type {
-		this.solveType(operand)
-		this.solveTemplate(operand)
-		this.setUndefinedAsAny(operand)
+		this.solve(operand)
 		return operand.returnType || Type.any
 	}
 
+	public solve (operand: Operand): void {
+		this.solveType(operand)
+		this.solveTemplate(operand)
+		this.setUndefinedAsAny(operand)
+	}
+
 	protected solveType (operand: Operand):void {
-		if (operand.type === OperandType.Const || operand.type === OperandType.Var || operand.type === OperandType.Template) {
+		if (operand.type === OperandType.Const ||
+			operand.type === OperandType.Var ||
+			operand.type === OperandType.Template ||
+			operand.type === OperandType.Env ||
+			operand.type === OperandType.Default ||
+			operand.type === OperandType.Return ||
+			operand.type === OperandType.Break) {
 			return
 		}
 		if (operand.type === OperandType.List) {
@@ -42,13 +52,36 @@ export class TypeService implements ITypeService {
 			this.solveOperator(operand)
 		} else if (operand.type === OperandType.Property) {
 			this.solveProperty(operand)
+		} else if (operand.type === OperandType.Block) {
+			this.solveBlock(operand)
+		} else if (operand.type === OperandType.If ||
+			operand.type === OperandType.ElseIf ||
+			operand.type === OperandType.Else ||
+			operand.type === OperandType.For ||
+			operand.type === OperandType.ForIn ||
+			operand.type === OperandType.While ||
+			operand.type === OperandType.Switch ||
+			operand.type === OperandType.Case) {
+			this.solveAny(operand)
 		} else {
-			throw new Error(`${operand.type} ${operand.name}  not supported`)
+			throw new Error(`Type: ${operand.type} name: ${operand.name} not supported`)
 		}
 	}
 
 	protected solveTemplate (operand: Operand):void {
-		if (operand.type === OperandType.Const || operand.type === OperandType.Var || operand.type === OperandType.Template) {
+		if (operand.type === OperandType.Const ||
+			operand.type === OperandType.Var ||
+			operand.type === OperandType.Template ||
+			operand.type === OperandType.Env ||
+			operand.type === OperandType.Block ||
+			operand.type === OperandType.If ||
+			operand.type === OperandType.ElseIf ||
+			operand.type === OperandType.Else ||
+			operand.type === OperandType.For ||
+			operand.type === OperandType.ForIn ||
+			operand.type === OperandType.While ||
+			operand.type === OperandType.Switch ||
+			operand.type === OperandType.Case) {
 			return
 		}
 		if (operand.type === OperandType.List) {
@@ -66,7 +99,7 @@ export class TypeService implements ITypeService {
 		} else if (operand.type === OperandType.Property) {
 			this.solveTemplateProperty(operand)
 		} else {
-			throw new Error(`${operand.type} ${operand.name} not supported`)
+			throw new Error(`Type: ${operand.type} name: ${operand.name} on template not supported`)
 		}
 	}
 
@@ -106,10 +139,31 @@ export class TypeService implements ITypeService {
 	}
 
 	protected solveArray (array: Operand): void {
+		if (array.children === undefined || array.children.length === 0) {
+			return
+		}
 		this.solveType(array.children[0])
 		// si se resolvió el tipo del elemento, el tipo del array sera [<<TYPE>>]
 		if (array.children[0].returnType !== undefined) {
 			array.returnType = Type.List(array.children[0].returnType)
+		}
+	}
+
+	protected solveBlock (block: Operand): void {
+		if (block.children === undefined || block.children.length === 0) {
+			return
+		}
+		for (const line of block.children) {
+			this.solveType(line)
+		}
+	}
+
+	protected solveAny (_for: Operand): void {
+		if (_for.children === undefined || _for.children.length === 0) {
+			return
+		}
+		for (const part of _for.children) {
+			this.solveType(part)
 		}
 	}
 

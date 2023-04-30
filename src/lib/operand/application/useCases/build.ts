@@ -1,53 +1,47 @@
-/* eslint-disable no-case-declarations */
-import { IOperandBuilder, IEvaluatorFactory } from '../../domain'
+import { IOperandBuilder, OperandBuildOptions } from '../../domain'
 import { Operand } from '../../../shared/domain'
-import { OperandNormalize, OperandReduce } from '..'
-import { ExpressionNormalize, ExpressionParse } from '../../../expression/application'
-import { Autowired } from 'h3lp'
-export abstract class OperandBuilder implements IOperandBuilder {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (protected readonly evaluatorFactory:IEvaluatorFactory) {}
+import { helper } from '../../..'
+import { TypeService } from '../services/typeService'
+import { ICache, Autowired } from 'h3lp'
 
-	@Autowired('exp.expression.parse')
-	protected expressionParse!: ExpressionParse
-
-	@Autowired('exp.expression.normalize')
-	protected expressionNormalize!: ExpressionNormalize
-
-	@Autowired('exp.operand.normalize')
-	protected normalize!: OperandNormalize
-
-	@Autowired('exp.operand.reduce')
-	protected reduce!:OperandReduce
-
-	public build (expression: string): Operand {
-		const expressionNormalized = this.expressionNormalize.normalize(expression)
-		const operand = this.expressionParse.parse(expressionNormalized)
-		const normalized = this.normalize.normalize(operand)
-		this.complete(normalized)
-		return this.reduce.reduce(normalized)
+export class OperandBuild {
+	private typeService:TypeService
+	constructor () {
+		this.typeService = new TypeService()
 	}
 
-	public clone (source: Operand): Operand {
-		const children: Operand[] = []
-		for (const child of source.children) {
-			children.push(this.clone(child))
-		}
-		const target = new Operand(source.pos, source.name, source.type, children, source.returnType)
-		target.id = source.id
-		target.evaluator = this.evaluatorFactory.create(target)
-		return target
+	@Autowired('exp.operand.cache')
+	private cache!: ICache<string, Operand>
+
+	@Autowired('exp.operand.builder')
+	private builders!:any
+
+	private getBuilder (key:string):IOperandBuilder {
+		return this.builders[key] as IOperandBuilder
 	}
 
-	protected complete (operand: Operand, index = 0, parentId?:string): void {
-		const id = parentId ? parentId + '.' + index : index.toString()
-		if (operand.children) {
-			for (let i = 0; i < operand.children.length; i++) {
-				const child = operand.children[i]
-				this.complete(child, i, id)
+	public build (expression: string, options:OperandBuildOptions): Operand {
+		try {
+			const builder = this.getBuilder(options.type)
+			if (!options.cache) {
+				return builder.build(expression)
 			}
+			const key = `${helper.utils.hashCode(expression)}-${options.type}`
+			const value = this.cache.get(key)
+			if (!value) {
+				const operand = builder.build(expression)
+				this.typeService.solve(operand)
+				this.cache.set(key, operand)
+				return operand
+			} else {
+				return value
+			}
+		} catch (error: any) {
+			throw new Error('expression: ' + expression + ' error: ' + error.toString())
 		}
-		operand.id = id
-		operand.evaluator = this.evaluatorFactory.create(operand)
+	}
+
+	public clone (operand: Operand, type:string): Operand {
+		return this.getBuilder(type).clone(operand)
 	}
 }

@@ -19,7 +19,7 @@ export class ExpressionConvertFromFunction {
 			throw new Error('empty lambda function}')
 		}
 		const expression = helper.expression.clearLambda(func)
-		const operand = this.operandService.build(expression, 'basic', true)
+		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
 		let aux = operand
 		while (aux.type !== OperandType.Var) {
 			if (aux.children.length > 0) {

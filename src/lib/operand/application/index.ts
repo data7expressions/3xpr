@@ -1,6 +1,6 @@
 
 export * from './services/factory'
-export * from './useCases/build'
+export * from './services/builder'
 export * from './useCases/reduce'
 export * from './useCases/normalize'
 export * from './services/serializer'

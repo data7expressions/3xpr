@@ -32,6 +32,7 @@ __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
 exports.helper = new application_2.Helper();
 exports.expressions = new infrastructure_1.Expressions();
+h3lp_1.Factory.add('expressions', exports.expressions);
 /**
  * Get parameters of expression
  * @param expression  expression

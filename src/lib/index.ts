@@ -16,6 +16,7 @@ export * from './expression/application'
 export * from './expression/infrastructure'
 export const helper = new Helper()
 export const expressions = new Expressions()
+Factory.add('expressions', expressions)
 
 /**
  * Get parameters of expression
