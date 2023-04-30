@@ -1,4 +1,4 @@
-import { Context } from '../../commons/domain'
+import { Context } from '../../shared/domain'
 export interface ActionObserverArgs{
 	expression:string
 	context: Context

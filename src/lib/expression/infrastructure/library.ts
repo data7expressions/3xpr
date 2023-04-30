@@ -1,5 +1,5 @@
 import { helper } from '../../'
-import { Context, Operand, OperandType, IEvaluator } from '../../commons/domain'
+import { Context, Operand, OperandType, IEvaluator } from '../../shared/domain'
 import { IModelService } from '../../model/domain'
 import { PrototypeEvaluator, IOperandBuilder } from '../../operand/domain'
 import { Autowired } from 'h3lp'

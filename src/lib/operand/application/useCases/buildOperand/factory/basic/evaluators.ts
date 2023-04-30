@@ -1,7 +1,17 @@
-import { h3lp, IReplacer } from 'h3lp'
-import { Context, Operand, OperandType } from '../../../../../../commons/domain'
-import { Evaluator } from '../../../../../domain'
-import { Primitive } from 'typ3s'
+import { Autowired, h3lp, IReplacer, Service } from 'h3lp'
+import { Context, OperandType, Operand, IEvaluator, Position } from '../../../../../../shared/domain'
+import { Evaluator, EvaluatorBuilder } from '../../../../../domain'
+import { IModelService } from '../../../../../../model/domain'
+import { Primitive, Type } from 'typ3s'
+
+export class ConstBuilder {
+	public build (pos:Position, value:any): Operand {
+		const operand = new Operand(pos, value, OperandType.Const, [], Type.get(value))
+		operand.evaluator = new ConstEvaluator(operand)
+		return operand
+	}
+}
+
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
 		if (this.operand.returnType === undefined) {
@@ -20,18 +30,96 @@ export class ConstEvaluator extends Evaluator {
 		}
 	}
 }
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Const}`)
+export class ConstEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ConstEvaluator(operand)
+	}
+}
+
 export class VarEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return context.data.get(this.operand.name)
 	}
 }
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Var}`)
+export class VarEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new VarEvaluator(operand)
+	}
+}
+
+class CallFuncEvaluator extends Evaluator {
+	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
+	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
+		super(operand)
+	}
+
+	public eval (context: Context): any {
+		const args = []
+		for (const child of this.operand.children) {
+			args.push(child.eval(context))
+		}
+		return this._function(...args)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Operator}`)
+export class OperatorEvaluatorBuilder implements EvaluatorBuilder {
+	@Autowired('exp.model.service')
+	private model!: IModelService
+
+	build (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)
+		if (operatorMetadata.custom) {
+			return operatorMetadata.custom.clone(operand)
+		} else if (operatorMetadata.function !== undefined) {
+			return new CallFuncEvaluator(operand, operatorMetadata.function)
+		} else {
+			throw new Error(`Operator ${operand.name} not implemented`)
+		}
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.CallFunc}`)
+export class FunctionEvaluatorBuilder implements EvaluatorBuilder {
+	@Autowired('exp.model.service')
+	private model!: IModelService
+
+	build (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getFunction(operand.name)
+		if (operatorMetadata.custom) {
+			return operatorMetadata.custom.clone(operand)
+		} else if (operatorMetadata.function !== undefined) {
+			return new CallFuncEvaluator(operand, operatorMetadata.function)
+		} else {
+			throw new Error(`Function ${operand.name} not implemented`)
+		}
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.ChildFunc}`)
+export class ChildFuncEvaluatorBuilder extends FunctionEvaluatorBuilder {}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Arrow}`)
+export class ArrowEvaluatorBuilder extends FunctionEvaluatorBuilder {}
+
 export class EnvEvaluator extends Evaluator {
 	public eval (): any {
 		return process.env[this.operand.name]
 	}
 }
 
-class TemplateReplacer implements IReplacer {
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Env}`)
+export class EnvEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new EnvEvaluator(operand)
+	}
+}
+
+export class TemplateReplacer implements IReplacer {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly context: Context) { }
 
@@ -49,14 +137,30 @@ export class TemplateEvaluator extends Evaluator {
 		return h3lp.utils.template(this.operand.name.toString(), new TemplateReplacer(context))
 	}
 }
-export class PropertyEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Template}`)
+export class TemplateEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new TemplateEvaluator(operand)
+	}
+}
+
+class PropertyEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
 		if (value === undefined || value === null) return null
 		return h3lp.obj.getValue(value, this.operand.name)
 	}
 }
-export class ListEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Property}`)
+export class PropertyEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new PropertyEvaluator(operand)
+	}
+}
+
+class ListEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const values = []
 		for (let i = 0; i < this.operand.children.length; i++) {
@@ -65,7 +169,15 @@ export class ListEvaluator extends Evaluator {
 		return values
 	}
 }
-export class ObjEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.List}`)
+export class ListEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ListEvaluator(operand)
+	}
+}
+
+class ObjEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const obj: { [k: string]: any } = {}
 		for (const child of this.operand.children) {
@@ -74,21 +186,15 @@ export class ObjEvaluator extends Evaluator {
 		return obj
 	}
 }
-export class CallFuncEvaluator extends Evaluator {
-	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
-	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
-		super(operand)
-	}
 
-	public eval (context: Context): any {
-		const args = []
-		for (const child of this.operand.children) {
-			args.push(child.eval(context))
-		}
-		return this._function(...args)
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Obj}`)
+export class ObjEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ObjEvaluator(operand)
 	}
 }
-export class BlockEvaluator extends Evaluator {
+
+class BlockEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		for (let i = 0; i < this.operand.children.length; i++) {
@@ -97,7 +203,14 @@ export class BlockEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class IfEvaluator extends Evaluator {
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Block}`)
+export class BlockEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new BlockEvaluator(operand)
+	}
+}
+
+class IfEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const condition = this.operand.children[0].eval(context)
 		if (condition) {
@@ -119,7 +232,38 @@ export class IfEvaluator extends Evaluator {
 		}
 	}
 }
-export class WhileEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.If}`)
+export class IfEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new IfEvaluator(operand)
+	}
+}
+
+class SwitchEvaluator extends Evaluator {
+	public eval (context: Context): any {
+		const value = this.operand.children[0].eval(context)
+		for (let i = 1; i < this.operand.children.length; i++) {
+			const option = this.operand.children[i]
+			if (option.type === OperandType.Case) {
+				if (option.name === value) {
+					return option.children[0].eval(context)
+				}
+			} else if (option.type === OperandType.Default) {
+				return option.children[0].eval(context)
+			}
+		}
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Switch}`)
+export class SwitchEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new SwitchEvaluator(operand)
+	}
+}
+
+class WhileEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const condition = this.operand.children[0]
@@ -130,7 +274,15 @@ export class WhileEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class ForEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.While}`)
+export class WhileEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new WhileEvaluator(operand)
+	}
+}
+
+class ForEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const initialize = this.operand.children[0]
@@ -143,7 +295,15 @@ export class ForEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class ForInEvaluator extends Evaluator {
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.For}`)
+export class ForEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ForEvaluator(operand)
+	}
+}
+
+class ForInEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		let lastValue:any = null
 		const item = this.operand.children[0]
@@ -159,53 +319,100 @@ export class ForInEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-export class SwitchEvaluator extends Evaluator {
-	public eval (context: Context): any {
-		const value = this.operand.children[0].eval(context)
-		for (let i = 1; i < this.operand.children.length; i++) {
-			const option = this.operand.children[i]
-			if (option.type === OperandType.Case) {
-				if (option.name === value) {
-					return option.children[0].eval(context)
-				}
-			} else if (option.type === OperandType.Default) {
-				return option.children[0].eval(context)
-			}
-		}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.ForIn}`)
+export class ForInEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ForInEvaluator(operand)
 	}
 }
-export class BreakEvaluator extends Evaluator {
+
+export class NotImplementedEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
 	}
 }
-export class ContinueEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Break}`)
+export class BreakEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class FuncEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Continue}`)
+export class ContinueEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class ReturnEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Func}`)
+export class FuncEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class TryEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Return}`)
+export class ReturnEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class CatchEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Try}`)
+export class TryEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class ThrowEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Catch}`)
+export class CatchEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Throw}`)
+export class ThrowEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Default}`)
+export class DefaultEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Case}`)
+export class CaseEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.KeyVal}`)
+export class KeyValEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.Else}`)
+export class ElseEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.basic.evaluator.builder.${OperandType.ElseIf}`)
+export class ElseIfEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }

@@ -1,4 +1,4 @@
-import { Context, Parameter, Position, IEvaluator, Operand, OperandType } from '../../commons/domain'
+import { Context, Parameter, Position, IEvaluator, Operand, OperandType } from '../../shared/domain'
 
 export interface ParameterDoc {
 	name: string
@@ -23,6 +23,10 @@ export abstract class Evaluator implements IEvaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand) {}
 	public abstract eval(context: Context): any
+}
+
+export interface EvaluatorBuilder {
+	build(operand:Operand):IEvaluator
 }
 
 // https://www.sourcecodeexamples.net/2020/08/typescript-prototype-pattern-example.html

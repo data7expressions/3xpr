@@ -1,5 +1,5 @@
 import { h3lp } from 'h3lp'
-import { Operand, OperandType, Position } from '../../../commons/domain'
+import { Operand, OperandType, Position } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { Type } from 'typ3s'
 export class Parser {

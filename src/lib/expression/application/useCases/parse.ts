@@ -1,4 +1,4 @@
-import { Operand } from '../../../commons/domain'
+import { Operand } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { Parser } from '../../../expression/application/services/parser'
 import { Autowired, Service } from 'h3lp'

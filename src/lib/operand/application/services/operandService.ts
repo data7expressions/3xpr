@@ -1,5 +1,5 @@
 import { IOperandBuilder, ITypeService, IOperandService } from '../../domain'
-import { Operand } from '../../../commons/domain'
+import { Operand } from '../../../shared/domain'
 import { helper } from '../../..'
 import { ICache, Autowired, Service } from 'h3lp'
 

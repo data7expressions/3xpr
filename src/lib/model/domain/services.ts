@@ -1,4 +1,4 @@
-import { Format } from '../../commons/domain'
+import { Format } from '../../shared/domain'
 import { OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata } from '../../operand/domain/entities'
 export interface IModelService {
 	get operatorAlias():[string, any][]

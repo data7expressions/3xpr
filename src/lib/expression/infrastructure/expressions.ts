@@ -1,7 +1,7 @@
 import { Type } from 'typ3s'
 import { Autowired } from 'h3lp'
 import { IModelService } from '../../model/domain'
-import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../commons/domain'
+import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
 import {
 	IParameterService, OperatorMetadata,
 	FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService

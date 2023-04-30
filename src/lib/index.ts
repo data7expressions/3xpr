@@ -1,12 +1,12 @@
 import { Factory, MemoryCache } from 'h3lp'
 import { ModelService } from './model/application'
 import { Expressions } from './expression/infrastructure'
-import { Parameter, ActionObserver, Operand } from './commons/domain'
-import { Helper } from './commons/application'
+import { Parameter, ActionObserver, Operand } from './shared/domain'
+import { Helper } from './shared/application'
 Factory.add('exp.operand.cache', new MemoryCache<string, Operand>())
 Factory.add('exp.model.service', new ModelService())
-export * from './commons/domain'
-export * from './commons/application'
+export * from './shared/domain'
+export * from './shared/application'
 export * from './model/domain'
 export * from './model/application'
 export * from './operand/domain'

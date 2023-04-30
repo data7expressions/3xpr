@@ -18,11 +18,11 @@ exports.unsubscribe = exports.subscribe = exports.run = exports.evaluate = expor
 const h3lp_1 = require("h3lp");
 const application_1 = require("./model/application");
 const infrastructure_1 = require("./expression/infrastructure");
-const application_2 = require("./commons/application");
+const application_2 = require("./shared/application");
 h3lp_1.Factory.add('exp.operand.cache', new h3lp_1.MemoryCache());
 h3lp_1.Factory.add('exp.model.service', new application_1.ModelService());
-__exportStar(require("./commons/domain"), exports);
-__exportStar(require("./commons/application"), exports);
+__exportStar(require("./shared/domain"), exports);
+__exportStar(require("./shared/application"), exports);
 __exportStar(require("./model/domain"), exports);
 __exportStar(require("./model/application"), exports);
 __exportStar(require("./operand/domain"), exports);

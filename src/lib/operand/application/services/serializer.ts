@@ -1,5 +1,5 @@
 
-import { Operand, OperandType } from '../../../commons/domain'
+import { Operand, OperandType } from '../../../shared/domain'
 import { OperandMetadata } from '../../domain'
 import { Type } from 'typ3s'
 import { Service } from 'h3lp'

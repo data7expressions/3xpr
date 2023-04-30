@@ -1,4 +1,4 @@
-import { Parameter, IEvaluator, Operand } from '../../commons/domain'
+import { Parameter, IEvaluator, Operand } from '../../shared/domain'
 import { Type } from 'typ3s'
 
 export interface IOperandBuilder {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo, PrototypeEvaluator } from '../../operand/domain'
-import { Sing, Format, Parameter } from '../../commons/domain'
+import { Sing, Format, Parameter } from '../../shared/domain'
 import { IModelService } from '../domain'
 export class ModelService implements IModelService {
 	private _enums: any

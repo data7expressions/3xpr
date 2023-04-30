@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { IModelService } from '../../../model/domain'
-import { Operand, OperandType } from '../../../commons/domain'
+import { Operand, OperandType } from '../../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
 @Service('exp.operand.normalize')

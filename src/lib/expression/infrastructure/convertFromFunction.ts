@@ -1,6 +1,6 @@
 import { helper } from '../../'
 import { IOperandService } from '../../operand/domain'
-import { OperandType } from '../../commons/domain'
+import { OperandType } from '../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
 @Service('exp.expression.convert.fromFunction')

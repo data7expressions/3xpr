@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
-import { ConstBuilder } from './buildOperand/factory/basic/factory'
+import { ConstBuilder } from './buildOperand/factory/basic/evaluators'
 import { IModelService } from '../../../model/domain'
-import { Operand, OperandType, Context } from '../../../commons/domain'
+import { Operand, OperandType, Context } from '../../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
 @Service('exp.operand.reduce')

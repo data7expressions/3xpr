@@ -1,5 +1,5 @@
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../../operand/domain'
-import { Format, Parameter, ActionObserver, Operand } from '../../../commons/domain'
+import { Format, Parameter, ActionObserver, Operand } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { IOperandService } from '../../domain'
 

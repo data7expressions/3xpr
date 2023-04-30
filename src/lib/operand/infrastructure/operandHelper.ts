@@ -1,6 +1,6 @@
 import { Service } from 'h3lp'
-import { Context, Operand, OperandType } from '../../commons/domain'
-import { IOperandHelper } from '../../commons/application'
+import { Context, Operand, OperandType } from '../../shared/domain'
+import { IOperandHelper } from '../../shared/application'
 import { ConstBuilder } from '../application'
 
 @Service('exp.helper.operand')

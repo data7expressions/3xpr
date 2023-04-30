@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { IOperandBuilder, IEvaluatorFactory } from '../../../domain'
-import { Operand } from '../../../../commons/domain'
+import { Operand } from '../../../../shared/domain'
 import { OperandNormalize, OperandReduce } from '../../'
 import { ExpressionNormalize, ExpressionParse } from '../../../../expression/application'
 import { Autowired } from 'h3lp'

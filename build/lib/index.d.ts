@@ -1,8 +1,8 @@
 import { Expressions } from './expression/infrastructure';
-import { Parameter, ActionObserver } from './commons/domain';
-import { Helper } from './commons/application';
-export * from './commons/domain';
-export * from './commons/application';
+import { Parameter, ActionObserver } from './shared/domain';
+import { Helper } from './shared/application';
+export * from './shared/domain';
+export * from './shared/application';
 export * from './model/domain';
 export * from './model/application';
 export * from './operand/domain';

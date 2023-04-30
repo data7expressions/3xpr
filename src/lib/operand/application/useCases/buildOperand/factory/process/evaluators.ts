@@ -1,6 +1,56 @@
-import { h3lp } from 'h3lp'
-import { Evaluator } from '../../../../../domain'
-import { Operand, OperandType, Context, Step } from '../../../../../../commons/domain'
+import { Autowired, Service, h3lp } from 'h3lp'
+import { Evaluator, EvaluatorBuilder } from '../../../../../domain'
+import { Operand, OperandType, Context, Step, IEvaluator } from '../../../../../../shared/domain'
+import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, NotImplementedEvaluator } from '../basic/evaluators'
+import { IModelService } from '../../../../../../model/domain'
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Const}`)
+export class ConstProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ConstEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Var}`)
+export class VarProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new VarEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Env}`)
+export class EnvProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new EnvEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Template}`)
+export class TemplateProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new TemplateEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Break}`)
+export class BreakProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Continue}`)
+export class ContinueProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Return}`)
+export class ReturnProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
 
 export class PropertyProcessEvaluator extends Evaluator {
 	public eval (context: Context): any {
@@ -9,11 +59,23 @@ export class PropertyProcessEvaluator extends Evaluator {
 		return h3lp.obj.getValue(value, this.operand.name)
 	}
 }
-export abstract class ProcessEvaluator {
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Property}`)
+export class PropertyProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new PropertyProcessEvaluator(operand)
+	}
+}
+
+export abstract class ProcessEvaluator implements IEvaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand) {}
-	public abstract eval(context: Context, step:Step): any
-	protected solveChildren (context: Context, step:Step): any {
+
+	public abstract eval(context: Context, step?:Step): any
+	protected solveChildren (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
 		for (let i = step.values.length - 1; i < this.operand.children.length; i++) {
 			const value = this.operand.children[i].eval(context)
 			if (context.token.isBreak) {
@@ -47,13 +109,21 @@ export class StackEvaluator extends Evaluator {
 		return result
 	}
 }
+
 export class ListProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
 		return this.solveChildren(context, step)
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.List}`)
+export class ListProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ListProcessEvaluator(operand)
+	}
+}
 export class ObjProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
 		const result = this.solveChildren(context, step)
 		if (context.token.isBreak) {
 			return result
@@ -65,6 +135,13 @@ export class ObjProcessEvaluator extends ProcessEvaluator {
 		return obj
 	}
 }
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Obj}`)
+export class ObjProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ObjProcessEvaluator(operand)
+	}
+}
+
 export class CallFuncProcessEvaluator extends ProcessEvaluator {
 	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
 	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
@@ -79,8 +156,51 @@ export class CallFuncProcessEvaluator extends ProcessEvaluator {
 		return this._function(...result)
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Operator}`)
+export class OperatorProcessEvaluatorBuilder implements EvaluatorBuilder {
+	@Autowired('exp.model.service')
+	private model!: IModelService
+
+	build (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)
+		if (operatorMetadata.custom) {
+			// En el caso custom no sera posible acceder a la pila
+			return operatorMetadata.custom.clone(operand)
+		} else if (operatorMetadata.function !== undefined) {
+			return new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
+		} else {
+			throw new Error(`Function ${name} not implemented`)
+		}
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.CallFunc}`)
+export class FunctionProcessEvaluatorBuilder implements EvaluatorBuilder {
+	@Autowired('exp.model.service')
+	private model!: IModelService
+
+	build (operand:Operand): IEvaluator {
+		const operatorMetadata = this.model.getFunction(operand.name)
+		if (operatorMetadata.custom) {
+			// En el caso custom no sera posible acceder a la pila
+			return operatorMetadata.custom.clone(operand)
+		} else if (operatorMetadata.function !== undefined) {
+			return new StackEvaluator(operand, new CallFuncProcessEvaluator(operand, operatorMetadata.function))
+		} else {
+			throw new Error(`Function ${name} not implemented`)
+		}
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.ChildFunc}`)
+export class ChildFuncProcessEvaluatorBuilder extends FunctionProcessEvaluatorBuilder {}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Arrow}`)
+export class ArrowProcessEvaluatorBuilder extends FunctionProcessEvaluatorBuilder {}
+
 export class BlockProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
 		const result = this.solveChildren(context, step)
 		if (context.token.isBreak) {
 			return result
@@ -91,8 +211,19 @@ export class BlockProcessEvaluator extends ProcessEvaluator {
 		return null
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Block}`)
+export class BlockProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new BlockProcessEvaluator(operand)
+	}
+}
+
 export class IfProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
 		if (step.values.length === 0) {
 			const condition = this.operand.children[0].eval(context)
 			if (context.token.isBreak) {
@@ -129,8 +260,19 @@ export class IfProcessEvaluator extends ProcessEvaluator {
 		}
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.If}`)
+export class IfProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new IfProcessEvaluator(operand)
+	}
+}
+
 export class WhileProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
 		const condition = this.operand.children[0]
 		const block = this.operand.children[1]
 		let blockResult:any = null
@@ -163,8 +305,19 @@ export class WhileProcessEvaluator extends ProcessEvaluator {
 		return blockResult
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.While}`)
+export class WhileProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new WhileProcessEvaluator(operand)
+	}
+}
 export class ForProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
+
 		let lastValue:any = null
 		const initialize = this.operand.children[0]
 		const condition = this.operand.children[1]
@@ -217,8 +370,20 @@ export class ForProcessEvaluator extends ProcessEvaluator {
 		return lastValue
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.For}`)
+export class ForProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ForProcessEvaluator(operand)
+	}
+}
+
 export class ForInProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
+
 		let lastValue:any = null
 		const item = this.operand.children[0]
 		const list = this.operand.children[1]
@@ -246,8 +411,19 @@ export class ForInProcessEvaluator extends ProcessEvaluator {
 		return lastValue
 	}
 }
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.ForIn}`)
+export class ForInProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new ForInProcessEvaluator(operand)
+	}
+}
+
 export class SwitchProcessEvaluator extends ProcessEvaluator {
-	public eval (context: Context, step:Step): any {
+	public eval (context: Context, step?:Step): any {
+		if (step === undefined) {
+			throw new Error('step undefined')
+		}
 		// evaluate
 		let value
 		if (step.values.length === 0) {
@@ -271,23 +447,38 @@ export class SwitchProcessEvaluator extends ProcessEvaluator {
 		}
 	}
 }
-export class FuncProcessEvaluator extends ProcessEvaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Switch}`)
+export class SwitchProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new SwitchProcessEvaluator(operand)
 	}
 }
-export class TryProcessEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Func}`)
+export class FuncProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class CatchProcessEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Try}`)
+export class TryProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
-export class ThrowProcessEvaluator extends Evaluator {
-	public eval (): any {
-		throw new Error('NotImplemented')
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Catch}`)
+export class CatchProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
+	}
+}
+
+@Service(`exp.operand.process.evaluator.builder.${OperandType.Throw}`)
+export class ThrowProcessEvaluatorBuilder implements EvaluatorBuilder {
+	build (operand:Operand): IEvaluator {
+		return new NotImplementedEvaluator(operand)
 	}
 }
