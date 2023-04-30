@@ -1,8 +1,8 @@
 import { Autowired, Service, h3lp } from 'h3lp'
-import { Evaluator, EvaluatorBuilder } from '../../../../../domain'
-import { Operand, OperandType, Context, Step, IEvaluator } from '../../../../../../shared/domain'
+import { Evaluator, EvaluatorBuilder } from '../../domain'
+import { Operand, OperandType, Context, Step, IEvaluator } from '../../../shared/domain'
 import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, NotImplementedEvaluator } from '../basic/evaluators'
-import { IModelService } from '../../../../../../model/domain'
+import { IModelService } from '../../../model/domain'
 @Service(`exp.operand.process.evaluator.builder.${OperandType.Const}`)
 export class ConstProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {

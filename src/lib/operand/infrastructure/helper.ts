@@ -1,10 +1,13 @@
-import { Service } from 'h3lp'
+import { Autowired, Service } from 'h3lp'
 import { Context, Operand, OperandType } from '../../shared/domain'
 import { IOperandHelper } from '../../shared/application'
-import { ConstBuilder } from '../application'
+import { IConstBuilder } from '../application/services/constBuilder'
 
 @Service('exp.helper.operand')
 export class OperandHelper implements IOperandHelper {
+	@Autowired('exp.operand.builder.ConstBuilder')
+	private constBuilder!: IConstBuilder
+
 	public toExpression (operand: Operand): string {
 		const list: string[] = []
 		switch (operand.type) {
@@ -173,7 +176,7 @@ export class OperandHelper implements IOperandHelper {
 				value = this.sum(list, variable, operand.children[0], context)
 				break
 			}
-			return new ConstBuilder().build(operand.pos, value)
+			return this.constBuilder.build(operand.pos, value)
 		} else if (operand.children && operand.children.length > 0) {
 			for (let i = 0; i < operand.children.length; i++) {
 				operand.children[i] = this.solveAggregates(list, variable, operand.children[i], context)

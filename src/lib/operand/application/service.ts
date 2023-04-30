@@ -1,6 +1,6 @@
-import { IOperandBuilder, ITypeService, IOperandService } from '../../domain'
-import { Operand } from '../../../shared/domain'
-import { helper } from '../../..'
+import { IOperandBuilder, ITypeService, IOperandService } from '../domain'
+import { Operand } from '../../shared/domain'
+import { helper } from '../..'
 import { ICache, Autowired, Service } from 'h3lp'
 
 @Service('exp.operand.service')

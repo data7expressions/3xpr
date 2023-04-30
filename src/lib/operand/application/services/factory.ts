@@ -1,13 +1,16 @@
 
-import { Operand, IEvaluator } from '../../../../../../shared/domain'
-import { EvaluatorBuilder, IEvaluatorFactory } from '../../../../../domain'
+import { IEvaluatorFactory, EvaluatorBuilder } from '../../domain'
+import { Operand, IEvaluator } from '../../../shared/domain'
 import { Factory } from 'h3lp'
 
-export class ProcessEvaluatorFactory implements IEvaluatorFactory {
+export class EvaluatorFactory implements IEvaluatorFactory {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly buildersNamespace:string) {}
+
 	private _evaluators: any
 	private get evaluators ():any {
 		if (this._evaluators === undefined) {
-			this._evaluators = Factory.get('exp.operand.process.evaluator.builder')
+			this._evaluators = Factory.get(this.buildersNamespace)
 		}
 		return this._evaluators
 	}

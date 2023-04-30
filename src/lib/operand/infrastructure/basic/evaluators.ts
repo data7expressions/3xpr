@@ -1,16 +1,8 @@
 import { Autowired, h3lp, IReplacer, Service } from 'h3lp'
-import { Context, OperandType, Operand, IEvaluator, Position } from '../../../../../../shared/domain'
-import { Evaluator, EvaluatorBuilder } from '../../../../../domain'
-import { IModelService } from '../../../../../../model/domain'
-import { Primitive, Type } from 'typ3s'
-
-export class ConstBuilder {
-	public build (pos:Position, value:any): Operand {
-		const operand = new Operand(pos, value, OperandType.Const, [], Type.get(value))
-		operand.evaluator = new ConstEvaluator(operand)
-		return operand
-	}
-}
+import { Context, OperandType, Operand, IEvaluator } from '../../../shared/domain'
+import { Evaluator, EvaluatorBuilder } from '../../domain'
+import { IModelService } from '../../../model/domain'
+import { Primitive } from 'typ3s'
 
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {

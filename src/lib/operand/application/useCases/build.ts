@@ -1,11 +1,12 @@
 /* eslint-disable no-case-declarations */
-import { IOperandBuilder, IEvaluatorFactory } from '../../../domain'
-import { Operand } from '../../../../shared/domain'
-import { OperandNormalize, OperandReduce } from '../../'
-import { ExpressionNormalize, ExpressionParse } from '../../../../expression/application'
+import { IOperandBuilder, IEvaluatorFactory } from '../../domain'
+import { Operand } from '../../../shared/domain'
+import { OperandNormalize, OperandReduce } from '..'
+import { ExpressionNormalize, ExpressionParse } from '../../../expression/application'
 import { Autowired } from 'h3lp'
 export abstract class OperandBuilder implements IOperandBuilder {
-	protected abstract get evaluatorFactory():IEvaluatorFactory
+	// eslint-disable-next-line no-useless-constructor
+	constructor (protected readonly evaluatorFactory:IEvaluatorFactory) {}
 
 	@Autowired('exp.expression.parse')
 	protected expressionParse!: ExpressionParse

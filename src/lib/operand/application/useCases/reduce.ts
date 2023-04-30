@@ -1,13 +1,16 @@
 /* eslint-disable no-case-declarations */
-import { ConstBuilder } from './buildOperand/factory/basic/evaluators'
 import { IModelService } from '../../../model/domain'
 import { Operand, OperandType, Context } from '../../../shared/domain'
 import { Autowired, Service } from 'h3lp'
+import { IConstBuilder } from '../services/constBuilder'
 
 @Service('exp.operand.reduce')
 export class OperandReduce {
 	@Autowired('exp.model.service')
 	private model!: IModelService
+
+	@Autowired('exp.operand.builder.ConstBuilder')
+	private constBuilder!: IConstBuilder
 
 	public reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {
@@ -34,7 +37,7 @@ export class OperandReduce {
 		}
 		if (allConstants) {
 			const value = operand.eval(new Context())
-			const constant = new ConstBuilder().build(operand.pos, value)
+			const constant = this.constBuilder.build(operand.pos, value)
 			constant.id = operand.id
 			return constant
 		} else {
