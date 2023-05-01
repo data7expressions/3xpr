@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.unsubscribe = exports.subscribe = exports.run = exports.evaluate = exports.parameters = exports.expressions = exports.helper = void 0;
+exports.unsubscribe = exports.subscribe = exports.evalAsync = exports.evaluate = exports.parameters = exports.expressions = exports.helper = void 0;
 const h3lp_1 = require("h3lp");
 const application_1 = require("./model/application");
 const infrastructure_1 = require("./expression/infrastructure");
@@ -52,10 +52,10 @@ const evaluate = (expression, data) => {
     return exports.expressions.eval(expression, data);
 };
 exports.evaluate = evaluate;
-const run = (expression, data) => {
-    return exports.expressions.run(expression, data);
+const evalAsync = (expression, data) => {
+    return exports.expressions.evalAsync(expression, data);
 };
-exports.run = run;
+exports.evalAsync = evalAsync;
 const subscribe = (observer) => {
     exports.expressions.subscribe(observer);
 };

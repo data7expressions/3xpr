@@ -37,8 +37,8 @@ export const evaluate = (expression: string, data?: any): any => {
 	return expressions.eval(expression, data)
 }
 
-export const run = (expression: string, data?: any): any => {
-	return expressions.run(expression, data)
+export const evalAsync = (expression: string, data?: any): Promise<any> => {
+	return expressions.evalAsync(expression, data)
 }
 
 export const subscribe = (observer:ActionObserver):void => {

@@ -25,6 +25,6 @@ export declare const parameters: (expression: string) => Parameter[];
  * @returns Result of the evaluate expression
  */
 export declare const evaluate: (expression: string, data?: any) => any;
-export declare const run: (expression: string, data?: any) => any;
+export declare const evalAsync: (expression: string, data?: any) => Promise<any>;
 export declare const subscribe: (observer: ActionObserver) => void;
 export declare const unsubscribe: (observer: ActionObserver) => void;

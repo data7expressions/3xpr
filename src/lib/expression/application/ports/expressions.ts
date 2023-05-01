@@ -26,7 +26,7 @@ export interface IExpressions {
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	eval (expression: string, data?: any): any
-	run (expression: string, data?: any): any
+	evalAsync (expression: string, data?: any): Promise<any>
 	subscribe (observer:ActionObserver):void
 	unsubscribe (observer:ActionObserver): void
 }

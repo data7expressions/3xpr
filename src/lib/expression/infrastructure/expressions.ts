@@ -99,7 +99,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
+		const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
 		return this.parameterService.parameters(operand)
 	}
 
@@ -109,7 +109,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
+		const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
 		return Type.stringify(operand.returnType)
 	}
 
@@ -123,7 +123,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
+			const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -133,11 +133,11 @@ export class Expressions implements IExpressions {
 		}
 	}
 
-	public run (expression: string, data: any = {}): any {
+	public evalAsync (expression: string, data: any = {}): Promise<any> {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, { type: 'process', cache: true })
+			const operand = this.operandBuild.build(expression, { type: 'async', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -161,11 +161,11 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		return this.operandBuild.build(expression, { type: 'basic', cache: useCache })
+		return this.operandBuild.build(expression, { type: 'sync', cache: useCache })
 	}
 
 	public clone (source:Operand):Operand {
-		return this.operandClone.clone(source, 'basic')
+		return this.operandClone.clone(source, 'sync')
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {

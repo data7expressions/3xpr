@@ -5,7 +5,7 @@ import { Autowired, Service } from 'h3lp'
 
 @Service('exp.expression.convert.fromFunction')
 export class ExpressionConvertFromFunction {
-	@Autowired('exp.operand.builder.basic')
+	@Autowired('exp.operand.builder.sync')
 	private operandBuilder!:IOperandBuilder
 
 	/**

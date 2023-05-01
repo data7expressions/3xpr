@@ -1,7 +1,7 @@
 import { Service } from 'h3lp'
 import { OperandType, Operand, Position } from '../../shared/domain'
 import { Type } from 'typ3s'
-import { ConstEvaluator } from './basic/evaluators'
+import { ConstEvaluator } from './evaluators/sync'
 
 @Service('exp.operand.builder.ConstBuilder')
 export class ConstBuilder {
