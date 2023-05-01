@@ -1,9 +1,9 @@
 
-import { IEvaluatorFactory, EvaluatorBuilder } from '../../domain'
+import { EvaluatorBuilder } from '../../domain'
 import { Operand, IEvaluator } from '../../../shared/domain'
 import { Factory } from 'h3lp'
 
-export class EvaluatorFactory implements IEvaluatorFactory {
+export class EvaluatorFactory {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly buildersNamespace:string) {}
 

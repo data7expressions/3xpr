@@ -2,11 +2,12 @@ import { Type } from 'typ3s'
 import { Autowired } from 'h3lp'
 import { IModelService } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { IParameterService, OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, IOperandService } from '../../operand/domain'
-import { IExpressions } from '../../operand/application'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo } from '../../operand/domain'
+import { OperandClone, ParameterService } from '../../operand/application'
 import { ExpressionConvertFromFunction } from './convertFromFunction'
 import { CoreLibrary } from './library'
 import { ExpressionConvertFromGraphql } from './convertFromGraphql'
+import { OperandBuild, IExpressions } from '../application'
 
 export class Expressions implements IExpressions {
 	private observers:ActionObserver[] = []
@@ -14,20 +15,21 @@ export class Expressions implements IExpressions {
 		new CoreLibrary().load()
 	}
 
+	private parameterService = new ParameterService()
+	private operandBuild = new OperandBuild()
+	private operandClone = new OperandClone()
+
 	@Autowired('exp.expression.convert.fromGraphql')
 	private convertFromGraphql!:ExpressionConvertFromGraphql
 
 	@Autowired('exp.expression.convert.fromFunction')
 	private convertFromFunction!:ExpressionConvertFromFunction
 
-	@Autowired('exp.service.parameter')
-	private parameterService!: IParameterService
-
 	@Autowired('exp.model.service')
 	public model!: IModelService
 
-	@Autowired('exp.operand.service')
-	public operandService!: IOperandService
+	// @Autowired('exp.operand.service')
+	// public operandService!: IOperandService
 
 	public get operators (): [string, OperatorMetadata][] {
 		return this.model.operators
@@ -97,7 +99,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
+		const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
 		return this.parameterService.parameters(operand)
 	}
 
@@ -107,7 +109,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
+		const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
 		return Type.stringify(operand.returnType)
 	}
 
@@ -121,7 +123,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, { type: 'basic', cache: true })
+			const operand = this.operandBuild.build(expression, { type: 'basic', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -135,7 +137,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandService.build(expression, { type: 'process', cache: true })
+			const operand = this.operandBuild.build(expression, { type: 'process', cache: true })
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -159,11 +161,11 @@ export class Expressions implements IExpressions {
 	}
 
 	public build (expression: string, useCache:boolean): Operand {
-		return this.operandService.build(expression, { type: 'basic', cache: useCache })
+		return this.operandBuild.build(expression, { type: 'basic', cache: useCache })
 	}
 
 	public clone (source:Operand):Operand {
-		return this.operandService.clone(source, 'basic')
+		return this.operandClone.clone(source, 'basic')
 	}
 
 	private beforeExecutionNotify (expression:string, context: Context) {

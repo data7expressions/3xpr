@@ -1,9 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { IModelService } from '../../../model/domain'
 import { Operand, OperandType } from '../../../shared/domain'
-import { Autowired, Service } from 'h3lp'
+import { Autowired } from 'h3lp'
 
-@Service('exp.operand.normalize')
 export class OperandNormalize {
 	@Autowired('exp.model.service')
 	private model!: IModelService

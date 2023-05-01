@@ -2,8 +2,7 @@
 import { Operand, OperandType } from '../../../shared/domain'
 import { OperandMetadata } from '../../domain'
 import { Type } from 'typ3s'
-import { Service } from 'h3lp'
-@Service('exp.service.serializer')
+
 export class OperandSerializer {
 	public clone (sentence: Operand): Operand {
 		const serialized = this.serialize(sentence)

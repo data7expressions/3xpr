@@ -1,10 +1,8 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { IParameterService } from '../../domain'
 import { Operand, Parameter, OperandType } from '../../../shared/domain'
 import { Type } from 'typ3s'
-import { Service } from 'h3lp'
-@Service('exp.service.parameter')
-export class ParameterService implements IParameterService {
+
+export class ParameterService {
 	public parameters (operand: Operand): Parameter[] {
 		const parameters: Parameter[] = []
 		if (operand.type === OperandType.Var) {

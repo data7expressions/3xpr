@@ -23,7 +23,7 @@ export class ConstEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Const}`)
+@Service(`exp.operand.eval.basic.${OperandType.Const}`)
 export class ConstEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ConstEvaluator(operand)
@@ -36,7 +36,7 @@ export class VarEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Var}`)
+@Service(`exp.operand.eval.basic.${OperandType.Var}`)
 export class VarEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new VarEvaluator(operand)
@@ -58,7 +58,7 @@ class CallFuncEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Operator}`)
+@Service(`exp.operand.eval.basic.${OperandType.Operator}`)
 export class OperatorEvaluatorBuilder implements EvaluatorBuilder {
 	@Autowired('exp.model.service')
 	private model!: IModelService
@@ -75,7 +75,7 @@ export class OperatorEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.CallFunc}`)
+@Service(`exp.operand.eval.basic.${OperandType.CallFunc}`)
 export class FunctionEvaluatorBuilder implements EvaluatorBuilder {
 	@Autowired('exp.model.service')
 	private model!: IModelService
@@ -92,10 +92,10 @@ export class FunctionEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.ChildFunc}`)
+@Service(`exp.operand.eval.basic.${OperandType.ChildFunc}`)
 export class ChildFuncEvaluatorBuilder extends FunctionEvaluatorBuilder {}
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Arrow}`)
+@Service(`exp.operand.eval.basic.${OperandType.Arrow}`)
 export class ArrowEvaluatorBuilder extends FunctionEvaluatorBuilder {}
 
 export class EnvEvaluator extends Evaluator {
@@ -104,7 +104,7 @@ export class EnvEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Env}`)
+@Service(`exp.operand.eval.basic.${OperandType.Env}`)
 export class EnvEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new EnvEvaluator(operand)
@@ -130,7 +130,7 @@ export class TemplateEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Template}`)
+@Service(`exp.operand.eval.basic.${OperandType.Template}`)
 export class TemplateEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new TemplateEvaluator(operand)
@@ -145,7 +145,7 @@ class PropertyEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Property}`)
+@Service(`exp.operand.eval.basic.${OperandType.Property}`)
 export class PropertyEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new PropertyEvaluator(operand)
@@ -162,7 +162,7 @@ class ListEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.List}`)
+@Service(`exp.operand.eval.basic.${OperandType.List}`)
 export class ListEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ListEvaluator(operand)
@@ -179,7 +179,7 @@ class ObjEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Obj}`)
+@Service(`exp.operand.eval.basic.${OperandType.Obj}`)
 export class ObjEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ObjEvaluator(operand)
@@ -195,7 +195,7 @@ class BlockEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Block}`)
+@Service(`exp.operand.eval.basic.${OperandType.Block}`)
 export class BlockEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new BlockEvaluator(operand)
@@ -225,7 +225,7 @@ class IfEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.If}`)
+@Service(`exp.operand.eval.basic.${OperandType.If}`)
 export class IfEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new IfEvaluator(operand)
@@ -248,7 +248,7 @@ class SwitchEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Switch}`)
+@Service(`exp.operand.eval.basic.${OperandType.Switch}`)
 export class SwitchEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new SwitchEvaluator(operand)
@@ -267,7 +267,7 @@ class WhileEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.While}`)
+@Service(`exp.operand.eval.basic.${OperandType.While}`)
 export class WhileEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new WhileEvaluator(operand)
@@ -288,7 +288,7 @@ class ForEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.For}`)
+@Service(`exp.operand.eval.basic.${OperandType.For}`)
 export class ForEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForEvaluator(operand)
@@ -312,7 +312,7 @@ class ForInEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.ForIn}`)
+@Service(`exp.operand.eval.basic.${OperandType.ForIn}`)
 export class ForInEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForInEvaluator(operand)
@@ -325,84 +325,84 @@ export class NotImplementedEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Break}`)
+@Service(`exp.operand.eval.basic.${OperandType.Break}`)
 export class BreakEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Continue}`)
+@Service(`exp.operand.eval.basic.${OperandType.Continue}`)
 export class ContinueEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Func}`)
+@Service(`exp.operand.eval.basic.${OperandType.Func}`)
 export class FuncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Return}`)
+@Service(`exp.operand.eval.basic.${OperandType.Return}`)
 export class ReturnEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Try}`)
+@Service(`exp.operand.eval.basic.${OperandType.Try}`)
 export class TryEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Catch}`)
+@Service(`exp.operand.eval.basic.${OperandType.Catch}`)
 export class CatchEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Throw}`)
+@Service(`exp.operand.eval.basic.${OperandType.Throw}`)
 export class ThrowEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Default}`)
+@Service(`exp.operand.eval.basic.${OperandType.Default}`)
 export class DefaultEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Case}`)
+@Service(`exp.operand.eval.basic.${OperandType.Case}`)
 export class CaseEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.KeyVal}`)
+@Service(`exp.operand.eval.basic.${OperandType.KeyVal}`)
 export class KeyValEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.Else}`)
+@Service(`exp.operand.eval.basic.${OperandType.Else}`)
 export class ElseEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.basic.evaluator.builder.${OperandType.ElseIf}`)
+@Service(`exp.operand.eval.basic.${OperandType.ElseIf}`)
 export class ElseIfEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)

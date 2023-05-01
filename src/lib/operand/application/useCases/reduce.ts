@@ -1,10 +1,9 @@
 /* eslint-disable no-case-declarations */
 import { IModelService } from '../../../model/domain'
 import { Operand, OperandType, Context } from '../../../shared/domain'
-import { Autowired, Service } from 'h3lp'
+import { Autowired } from 'h3lp'
 import { IConstBuilder } from '../services/constBuilder'
 
-@Service('exp.operand.reduce')
 export class OperandReduce {
 	@Autowired('exp.model.service')
 	private model!: IModelService

@@ -2,6 +2,7 @@ import { helper } from '../../'
 import { Context, Operand, OperandType, IEvaluator } from '../../shared/domain'
 import { IModelService } from '../../model/domain'
 import { PrototypeEvaluator, IOperandBuilder } from '../../operand/domain'
+import { OperandClone } from '../../operand/application'
 import { Autowired } from 'h3lp'
 export class CoreLibrary {
 	@Autowired('exp.operand.builder.basic')
@@ -638,6 +639,8 @@ class Map extends PrototypeEvaluator {
 		super(operand)
 	}
 
+	private operandClone = new OperandClone()
+
 	public clone (operand:Operand): IEvaluator {
 		return new Map(this.builder, operand)
 	}
@@ -672,7 +675,7 @@ class Map extends PrototypeEvaluator {
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
-						const operandCloned = this.builder.clone(keyValue.children[0])
+						const operandCloned = this.operandClone.clone(keyValue.children[0], 'basic')
 						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value })

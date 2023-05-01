@@ -3,49 +3,49 @@ import { Evaluator, EvaluatorBuilder } from '../../domain'
 import { Operand, OperandType, Context, Step, IEvaluator } from '../../../shared/domain'
 import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, NotImplementedEvaluator } from '../basic/evaluators'
 import { IModelService } from '../../../model/domain'
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Const}`)
+@Service(`exp.operand.eval.process.${OperandType.Const}`)
 export class ConstProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ConstEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Var}`)
+@Service(`exp.operand.eval.process.${OperandType.Var}`)
 export class VarProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new VarEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Env}`)
+@Service(`exp.operand.eval.process.${OperandType.Env}`)
 export class EnvProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new EnvEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Template}`)
+@Service(`exp.operand.eval.process.${OperandType.Template}`)
 export class TemplateProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new TemplateEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Break}`)
+@Service(`exp.operand.eval.process.${OperandType.Break}`)
 export class BreakProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Continue}`)
+@Service(`exp.operand.eval.process.${OperandType.Continue}`)
 export class ContinueProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Return}`)
+@Service(`exp.operand.eval.process.${OperandType.Return}`)
 export class ReturnProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
@@ -60,7 +60,7 @@ export class PropertyProcessEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Property}`)
+@Service(`exp.operand.eval.process.${OperandType.Property}`)
 export class PropertyProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new PropertyProcessEvaluator(operand)
@@ -116,7 +116,7 @@ export class ListProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.List}`)
+@Service(`exp.operand.eval.process.${OperandType.List}`)
 export class ListProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ListProcessEvaluator(operand)
@@ -135,7 +135,7 @@ export class ObjProcessEvaluator extends ProcessEvaluator {
 		return obj
 	}
 }
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Obj}`)
+@Service(`exp.operand.eval.process.${OperandType.Obj}`)
 export class ObjProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ObjProcessEvaluator(operand)
@@ -157,7 +157,7 @@ export class CallFuncProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Operator}`)
+@Service(`exp.operand.eval.process.${OperandType.Operator}`)
 export class OperatorProcessEvaluatorBuilder implements EvaluatorBuilder {
 	@Autowired('exp.model.service')
 	private model!: IModelService
@@ -175,7 +175,7 @@ export class OperatorProcessEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.CallFunc}`)
+@Service(`exp.operand.eval.process.${OperandType.CallFunc}`)
 export class FunctionProcessEvaluatorBuilder implements EvaluatorBuilder {
 	@Autowired('exp.model.service')
 	private model!: IModelService
@@ -193,10 +193,10 @@ export class FunctionProcessEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.ChildFunc}`)
+@Service(`exp.operand.eval.process.${OperandType.ChildFunc}`)
 export class ChildFuncProcessEvaluatorBuilder extends FunctionProcessEvaluatorBuilder {}
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Arrow}`)
+@Service(`exp.operand.eval.process.${OperandType.Arrow}`)
 export class ArrowProcessEvaluatorBuilder extends FunctionProcessEvaluatorBuilder {}
 
 export class BlockProcessEvaluator extends ProcessEvaluator {
@@ -212,7 +212,7 @@ export class BlockProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Block}`)
+@Service(`exp.operand.eval.process.${OperandType.Block}`)
 export class BlockProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new BlockProcessEvaluator(operand)
@@ -261,7 +261,7 @@ export class IfProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.If}`)
+@Service(`exp.operand.eval.process.${OperandType.If}`)
 export class IfProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new IfProcessEvaluator(operand)
@@ -306,7 +306,7 @@ export class WhileProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.While}`)
+@Service(`exp.operand.eval.process.${OperandType.While}`)
 export class WhileProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new WhileProcessEvaluator(operand)
@@ -371,7 +371,7 @@ export class ForProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.For}`)
+@Service(`exp.operand.eval.process.${OperandType.For}`)
 export class ForProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForProcessEvaluator(operand)
@@ -412,7 +412,7 @@ export class ForInProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.ForIn}`)
+@Service(`exp.operand.eval.process.${OperandType.ForIn}`)
 export class ForInProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForInProcessEvaluator(operand)
@@ -448,35 +448,35 @@ export class SwitchProcessEvaluator extends ProcessEvaluator {
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Switch}`)
+@Service(`exp.operand.eval.process.${OperandType.Switch}`)
 export class SwitchProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new SwitchProcessEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Func}`)
+@Service(`exp.operand.eval.process.${OperandType.Func}`)
 export class FuncProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Try}`)
+@Service(`exp.operand.eval.process.${OperandType.Try}`)
 export class TryProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Catch}`)
+@Service(`exp.operand.eval.process.${OperandType.Catch}`)
 export class CatchProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.process.evaluator.builder.${OperandType.Throw}`)
+@Service(`exp.operand.eval.process.${OperandType.Throw}`)
 export class ThrowProcessEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)

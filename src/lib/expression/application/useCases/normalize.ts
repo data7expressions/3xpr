@@ -1,6 +1,5 @@
-import { Service, h3lp } from 'h3lp'
+import { h3lp } from 'h3lp'
 
-@Service('exp.expression.normalize')
 export class ExpressionNormalize {
 	public normalize (expression: string): [string, number, number][] {
 		let isString = false

@@ -1,12 +1,12 @@
 import { helper } from '../../'
-import { IOperandService } from '../../operand/domain'
+import { IOperandBuilder } from '../../operand/domain'
 import { OperandType } from '../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
 @Service('exp.expression.convert.fromFunction')
 export class ExpressionConvertFromFunction {
-	@Autowired('exp.operand.service')
-	private operandService!:IOperandService
+	@Autowired('exp.operand.builder.basic')
+	private operandBuilder!:IOperandBuilder
 
 	/**
 	 * Convert a lambda expression to a query expression
@@ -19,7 +19,7 @@ export class ExpressionConvertFromFunction {
 			throw new Error('empty lambda function}')
 		}
 		const expression = helper.expression.clearLambda(func)
-		const operand = this.operandService.build(expression, { type: 'basic', cache: true })
+		const operand = this.operandBuilder.build(expression)
 		let aux = operand
 		while (aux.type !== OperandType.Var) {
 			if (aux.children.length > 0) {

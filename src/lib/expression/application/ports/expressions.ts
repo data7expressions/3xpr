@@ -1,7 +1,6 @@
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../../operand/domain'
 import { Format, Parameter, ActionObserver, Operand } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
-import { IOperandService } from '../../domain'
 
 export interface IExpressions {
 	get model(): IModelService
@@ -10,7 +9,7 @@ export interface IExpressions {
 	get constants(): [string, any][]
 	get operators(): [string, OperatorMetadata][]
 	get functions(): [string, OperatorMetadata][]
-	get operandService():IOperandService
+	// get operandService():IOperandService
 	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
