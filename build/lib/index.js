@@ -28,6 +28,7 @@ __exportStar(require("./model/application"), exports);
 __exportStar(require("./operand/domain"), exports);
 __exportStar(require("./operand/application"), exports);
 __exportStar(require("./operand/infrastructure"), exports);
+__exportStar(require("./expression/domain"), exports);
 __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
 exports.helper = new application_3.Helper();

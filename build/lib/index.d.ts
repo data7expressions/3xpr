@@ -8,6 +8,7 @@ export * from './model/application';
 export * from './operand/domain';
 export * from './operand/application';
 export * from './operand/infrastructure';
+export * from './expression/domain';
 export * from './expression/application';
 export * from './expression/infrastructure';
 export declare const helper: Helper;
