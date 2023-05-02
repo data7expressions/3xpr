@@ -2,8 +2,8 @@
 import { h3lp, Service } from 'h3lp'
 import { ExpressionConverter } from '../application'
 
-@Service('exp.expression.converter.fromGraphql')
-export class ExpressionConvertFromGraphql implements ExpressionConverter {
+@Service('exp.expression.converter.graphql')
+export class ExpressionConvertGraphql implements ExpressionConverter {
 	public convert (source: any): [string, any ] {
 		return new GraphqlParser(source).parse()
 	}
