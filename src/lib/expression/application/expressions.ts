@@ -4,9 +4,7 @@ import { IModelService } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
 import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo } from '../../operand/domain'
 import { OperandClone, ParameterService } from '../../operand/application'
-import { ExpressionConvertFromFunction } from '../infrastructure/convertFromFunction'
 import { CoreLibrary } from '../infrastructure/library'
-import { ExpressionConvertFromGraphql } from '../infrastructure/convertFromGraphql'
 import { OperandBuild } from '.'
 import { IExpressions } from '../domain'
 import { ExpressionConvert } from './useCases/convert'
@@ -21,12 +19,6 @@ export class Expressions implements IExpressions {
 	private parameterService = new ParameterService()
 	private operandBuild = new OperandBuild()
 	private operandClone = new OperandClone()
-
-	@Autowired('exp.expression.convert.fromGraphql')
-	private convertFromGraphql!:ExpressionConvertFromGraphql
-
-	@Autowired('exp.expression.convert.fromFunction')
-	private convertFromFunction!:ExpressionConvertFromFunction
 
 	@Autowired('exp.model.service')
 	public model!: IModelService
