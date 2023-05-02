@@ -3,8 +3,8 @@ import { IOperandBuilder } from '../../operand/domain'
 import { OperandType } from '../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
-@Service('exp.expression.converter.fromFunction')
-export class ExpressionConvertFromFunction implements ExpressionConverter {
+@Service('exp.expression.converter.function')
+export class ExpressionConvertFunction implements ExpressionConverter {
 	@Autowired('exp.operand.builder.sync')
 	private operandBuilder!:IOperandBuilder
 

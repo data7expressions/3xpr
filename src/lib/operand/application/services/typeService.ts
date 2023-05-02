@@ -1,11 +1,12 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { OperatorMetadata } from '../../domain'
+import { ITypeService, OperatorMetadata } from '../../domain'
 import { Operand, OperandType } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { Type, PropertyType, ObjType, ListType } from 'typ3s'
-import { Autowired } from 'h3lp'
-// @Service('exp.service.type')
-export class TypeService {
+import { Autowired, Service } from 'h3lp'
+
+@Service('exp.operand.typeService')
+export class TypeService implements ITypeService {
 	@Autowired('exp.model.service')
 	private model!: IModelService
 
