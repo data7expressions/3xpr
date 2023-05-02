@@ -1,4 +1,4 @@
-import { h3lp } from 'h3lp'
+import { Autowired, h3lp } from 'h3lp'
 import { Operand, OperandType, Position } from '../../../shared/domain'
 import { IModelService } from '../../../model/domain'
 import { Type } from 'typ3s'
@@ -695,5 +695,14 @@ export class Parser {
 			}
 			return new Operand(pos, 'obj', OperandType.Obj, attributes)
 		}
+	}
+}
+
+export class ExpressionParse {
+	@Autowired('exp.model.service')
+	private model!: IModelService
+
+	public parse (expression: [string, number, number][]): Operand {
+		return new Parser(this.model, expression).parse()
 	}
 }

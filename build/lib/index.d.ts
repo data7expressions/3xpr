@@ -1,4 +1,4 @@
-import { Expressions } from './expression/infrastructure';
+import { Expressions } from './expression/application';
 import { Parameter, ActionObserver } from './shared/domain';
 import { Helper } from './shared/application';
 export * from './shared/domain';

@@ -1,6 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { Operand } from '../../../shared/domain'
-import { ExpressionNormalize, ExpressionParse } from '../../../expression/application'
+import { ExpressionParse } from './parser'
+import { ExpressionNormalizer } from './normalizer'
 import { IOperandBuilder } from '../../../operand/domain'
 import { OperandComplete, OperandNormalize, OperandReduce, TypeService } from '../../../operand/application'
 
@@ -8,7 +9,7 @@ export class OperandBuilder implements IOperandBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly type:string) {}
 	private parse = new ExpressionParse()
-	private normalize = new ExpressionNormalize()
+	private normalize = new ExpressionNormalizer()
 	private operandNormalize = new OperandNormalize()
 	private operandComplete = new OperandComplete()
 	private operandReduce = new OperandReduce()

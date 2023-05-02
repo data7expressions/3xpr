@@ -4,10 +4,12 @@ import { IModelService } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
 import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo } from '../../operand/domain'
 import { OperandClone, ParameterService } from '../../operand/application'
-import { ExpressionConvertFromFunction } from './convertFromFunction'
-import { CoreLibrary } from './library'
-import { ExpressionConvertFromGraphql } from './convertFromGraphql'
-import { OperandBuild, IExpressions } from '../application'
+import { ExpressionConvertFromFunction } from '../infrastructure/convertFromFunction'
+import { CoreLibrary } from '../infrastructure/library'
+import { ExpressionConvertFromGraphql } from '../infrastructure/convertFromGraphql'
+import { OperandBuild } from '.'
+import { IExpressions } from '../domain'
+import { ExpressionConvert } from './useCases/convert'
 
 export class Expressions implements IExpressions {
 	private observers:ActionObserver[] = []
@@ -15,6 +17,7 @@ export class Expressions implements IExpressions {
 		new CoreLibrary().load()
 	}
 
+	private expressionConvert = new ExpressionConvert()
 	private parameterService = new ParameterService()
 	private operandBuild = new OperandBuild()
 	private operandClone = new OperandClone()
@@ -79,18 +82,8 @@ export class Expressions implements IExpressions {
 		this.model.addFunctionAlias(alias, reference)
 	}
 
-	/**
-	 * Convert a lambda expression to a query expression
-	 * @param lambda lambda expression
-	 * @returns Expression manager
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
-		return this.convertFromFunction.toExpression(func)
-	}
-
-	public graphqlToExpression (graphql: string): [string, any ] {
-		return this.convertFromGraphql.toExpression(graphql)
+	public convert (source: any, from:string): [string, any] {
+		return this.expressionConvert.convert(source, from)
 	}
 
 	/**

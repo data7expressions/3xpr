@@ -1,6 +1,6 @@
-import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../../operand/domain'
-import { Format, Parameter, ActionObserver, Operand } from '../../../shared/domain'
-import { IModelService } from '../../../model/domain'
+import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../operand/domain'
+import { Format, Parameter, ActionObserver, Operand } from '../../shared/domain'
+import { IModelService } from '../../model/domain'
 
 export interface IExpressions {
 	get model(): IModelService
@@ -19,8 +19,7 @@ export interface IExpressions {
 	addConstant (key:string, value:any):void
 	// addOperandBuilder (builder:IOperandBuilder):void
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	toExpression (func: Function): string
-	graphqlToExpression (graphql: string): [string, any ]
+	convert (source: any, from:string): [string, any]
 	clone (source:Operand):Operand
 	build (expression: string, useCache:boolean): Operand
 	parameters (expression: string): Parameter[]

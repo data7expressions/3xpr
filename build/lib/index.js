@@ -17,8 +17,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.unsubscribe = exports.subscribe = exports.evalAsync = exports.evaluate = exports.parameters = exports.expressions = exports.helper = void 0;
 const h3lp_1 = require("h3lp");
 const application_1 = require("./model/application");
-const infrastructure_1 = require("./expression/infrastructure");
-const application_2 = require("./shared/application");
+const application_2 = require("./expression/application");
+const application_3 = require("./shared/application");
 h3lp_1.Factory.add('exp.operand.cache', new h3lp_1.MemoryCache());
 h3lp_1.Factory.add('exp.model.service', new application_1.ModelService());
 __exportStar(require("./shared/domain"), exports);
@@ -30,8 +30,8 @@ __exportStar(require("./operand/application"), exports);
 __exportStar(require("./operand/infrastructure"), exports);
 __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
-exports.helper = new application_2.Helper();
-exports.expressions = new infrastructure_1.Expressions();
+exports.helper = new application_3.Helper();
+exports.expressions = new application_2.Expressions();
 h3lp_1.Factory.add('expressions', exports.expressions);
 /**
  * Get parameters of expression

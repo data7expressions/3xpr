@@ -1,6 +1,6 @@
 import { h3lp } from 'h3lp'
 
-export class ExpressionNormalize {
+export class ExpressionNormalizer {
 	public normalize (expression: string): [string, number, number][] {
 		let isString = false
 		let quotes = ''

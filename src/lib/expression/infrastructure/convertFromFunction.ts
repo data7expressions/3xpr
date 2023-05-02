@@ -1,10 +1,10 @@
-import { helper } from '../../'
+import { ExpressionConverter, helper } from '../../'
 import { IOperandBuilder } from '../../operand/domain'
 import { OperandType } from '../../shared/domain'
 import { Autowired, Service } from 'h3lp'
 
-@Service('exp.expression.convert.fromFunction')
-export class ExpressionConvertFromFunction {
+@Service('exp.expression.converter.fromFunction')
+export class ExpressionConvertFromFunction implements ExpressionConverter {
 	@Autowired('exp.operand.builder.sync')
 	private operandBuilder!:IOperandBuilder
 
@@ -14,7 +14,7 @@ export class ExpressionConvertFromFunction {
 	 * @returns Expression manager
 	 */
 	// eslint-disable-next-line @typescript-eslint/ban-types
-	public toExpression (func: Function): string {
+	public convert (func: Function): [string, any] {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
@@ -33,11 +33,11 @@ export class ExpressionConvertFromFunction {
 			if (names[0].startsWith('__')) {
 				// aux.name = names.slice(1).join('.')
 				const result = expression.replace(names[0] + '.', '')
-				return result
+				return [result, undefined]
 			}
 		}
 		// Example: Products.map(p=>p) =>  Products.map(p=>p)
 		// Example: Orders.details.map(p=>p) =>  Orders.details.map(p=>p)
-		return expression
+		return [expression, undefined]
 	}
 }

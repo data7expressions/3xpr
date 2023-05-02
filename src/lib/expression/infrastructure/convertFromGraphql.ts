@@ -1,10 +1,11 @@
 
 import { h3lp, Service } from 'h3lp'
+import { ExpressionConverter } from '../application'
 
-@Service('exp.expression.convert.fromGraphql')
-export class ExpressionConvertFromGraphql {
-	public toExpression (graphql: string): [string, any ] {
-		return new GraphqlParser(graphql).parse()
+@Service('exp.expression.converter.fromGraphql')
+export class ExpressionConvertFromGraphql implements ExpressionConverter {
+	public convert (source: any): [string, any ] {
+		return new GraphqlParser(source).parse()
 	}
 }
 
@@ -57,6 +58,7 @@ class GraphqlParser {
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	private readArgs (_break = '') : void {
 		// while (true) {
 		// const name = this.getName()
