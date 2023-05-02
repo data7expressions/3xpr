@@ -20,7 +20,7 @@ export class OperandBuilder implements IOperandBuilder {
 		const normalized = this.operandNormalize.normalize(operand)
 		const completed = this.operandComplete.complete(normalized, this.type)
 		const reduced = this.operandReduce.reduce(completed)
-		this.typeService.solve(reduced)
+		reduced.returnType = this.typeService.getType(reduced)
 		return reduced
 	}
 }

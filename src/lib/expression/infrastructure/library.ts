@@ -80,7 +80,9 @@ export class CoreLibrary {
 		this.model.addOperator('||(a:boolean,b:boolean):boolean', new Or(), { priority: 3 })
 		this.model.addOperator('!(a:boolean):boolean', (a: boolean):boolean => !a, { priority: 5 })
 
-		this.model.addOperator('[](list:T[],index:integer):T', (list: any[], index: any): any => list[index], { priority: 2 })
+		// index is any, because it can also be string when used to access a property of an object
+		// example: orders[0]["number"]
+		this.model.addOperator('[](list:T[],index:any):T', (list: any[], index: any): any => list[index], { priority: 2 })
 		this.model.addOperator('$(name:string):string', (name:string):any => process.env[name], { priority: 9 })
 
 		this.model.addOperator('=(a:T,b:T):T', new Assignment(), { priority: 1 })
