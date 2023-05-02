@@ -7,6 +7,7 @@
 	"editor.insertSpaces": false,
 	"cSpell.words": [
 		"ascii",
+		"Autowired",
 		"Charly",
 		"concat",
 		"Flavio",
@@ -24,6 +25,7 @@
 		"rtrim",
 		"substr",
 		"title",
-		"trunc"
+		"trunc",
+		"usecase"
 	]
 }

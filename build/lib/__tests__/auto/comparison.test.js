@@ -26,11 +26,12 @@ describe('comparison', () => {
         expect(__1.expressions.eval('contains(devices,"other")', context)).toStrictEqual(false);
         expect(__1.expressions.eval('devices.contains("phone")', context)).toStrictEqual(true);
         expect(__1.expressions.eval('devices.contains(device)', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('["garage", "house","office"].contains(d)', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('["garage", "house","office"].includes(d)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('in(device,devices)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('device.in(devices)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('in(2,[1,3,4])', context)).toStrictEqual(false);
         expect(__1.expressions.eval('in(2,[1,2,3,4])', context)).toStrictEqual(true);
-        expect(__1.expressions.eval('["garage", "house","office"].includes(d)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('d.in(["garage", "house","office"])', context)).toStrictEqual(true);
         expect(__1.expressions.eval('d.in("garage", "house","office")', context)).toStrictEqual(true);
         expect(__1.expressions.eval('between(12,10,20)', context)).toStrictEqual(true);

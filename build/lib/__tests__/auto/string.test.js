@@ -21,6 +21,11 @@ describe('string', () => {
         expect(__1.expressions.eval('substring(film,1,3)', context)).toStrictEqual('st');
         expect(__1.expressions.eval('upper(film)', context)).toStrictEqual('ESTACIÓN CENTRAL');
         expect(__1.expressions.eval('startWith(film,"E")', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('startWith(film,"Est")', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('startWith(film,"Est",0)', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('startWith(film,"st",1)', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('film.startWith("Est")', context)).toStrictEqual(true);
+        expect(__1.expressions.eval('film.startWith("N")', context)).toStrictEqual(false);
         expect(__1.expressions.eval('strCount(film,"a")', context)).toStrictEqual(2);
         expect(__1.expressions.eval('`${firstName} is ${age} years old and likes ${food}`', context)).toStrictEqual('Juan is 44 years old and likes pizza');
         expect(__1.expressions.eval('test("5","[a-zA-Z0-9_.]+$")', context)).toStrictEqual(true);

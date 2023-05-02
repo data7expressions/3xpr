@@ -36,7 +36,7 @@ import { expressions as exp } from '../../../lib'
 }
 
 ;(async () => {
-	const root = '~/develop/expressions/expressions-test-suite/tests/v1'
+	const root = '~/project/3xpr/expressions-test-suite/tests/v1'
 	await h3lp.test
 		.createBuilder()
 		.add({ source: path.join(root, 'access.json'), template })
