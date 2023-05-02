@@ -2,7 +2,7 @@
 import { expressions as exp } from '../../../lib'
 
 describe('type', () => {
-	const context = JSON.parse('{}')
+	// const context = JSON.parse('{}')
 	test('lab', () => {
 		expect(exp.type('1 + a')).toStrictEqual('integer')
 		expect(exp.type('b + a')).toStrictEqual('any')

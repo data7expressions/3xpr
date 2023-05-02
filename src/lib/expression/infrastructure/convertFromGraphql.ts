@@ -58,24 +58,24 @@ class GraphqlParser {
 	}
 
 	private readArgs (_break = '') : void {
-	// while (true) {
-	// const name = this.getName()
-	// this.forwardSpaces()
-	// if (this.current === ':') this.index += 1
-	// else throw new Error(`attribute ${name} without value`)
-	// const value = this.read()
-	// properties.push({ name, type })
-	// this.forwardSpaces()
-	// if (this.current === ',') {
-	// this.index += 1
-	// } else if (this.current === '}') {
-	// this.index += 1
-	// break
-	// } else {
-	// throw new Error('Object without end')
-	// }
-	// }
-	// return { properties }
+		// while (true) {
+		// const name = this.getName()
+		// this.forwardSpaces()
+		// if (this.current === ':') this.index += 1
+		// else throw new Error(`attribute ${name} without value`)
+		// const value = this.read()
+		// properties.push({ name, type })
+		// this.forwardSpaces()
+		// if (this.current === ',') {
+		// this.index += 1
+		// } else if (this.current === '}') {
+		// this.index += 1
+		// break
+		// } else {
+		// throw new Error('Object without end')
+		// }
+		// }
+		// return { properties }
 	}
 
 	private getName (increment = true): string {

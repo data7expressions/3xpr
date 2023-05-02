@@ -2,7 +2,7 @@
 import { expressions as exp } from '../../../lib'
 
 describe('parameters', () => {
-	const context = JSON.parse('{}')
+	// const context = JSON.parse('{}')
 	test('lab', () => {
 		expect(exp.parameters('1 + a')).toStrictEqual([{ name: 'a', type: 'integer' }])
 		expect(exp.parameters('b + a')).toStrictEqual([{ name: 'b', type: 'any' }, { name: 'a', type: 'any' }])
