@@ -3,7 +3,7 @@ import { Autowired } from 'h3lp'
 import { EvaluatorFactory } from '../services/factory'
 
 export class OperandClone {
-	@Autowired('operand.evaluator.factory')
+	@Autowired('operand.eval.factory')
 	private factories!:any
 
 	private getFactory (key:string):EvaluatorFactory {
