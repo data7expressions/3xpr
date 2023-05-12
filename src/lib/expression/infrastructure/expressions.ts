@@ -2,7 +2,7 @@ import { Type } from 'typ3s'
 import { MemoryCache } from 'h3lp'
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService, EvaluatorFactory } from '../../operand/domain'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService, EvaluatorFactory, ConstBuilder } from '../../operand/domain'
 import { OperandClone, OperandSerializerImpl, ParameterServiceImpl } from '../../operand/application'
 import { CoreLibrary } from './library'
 import { ExpressionEvaluateImpl, ExpressionEvaluateObserveDecorator, OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
@@ -15,13 +15,14 @@ import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
 
 export class Expressions implements IExpressions {
 	public model: ModelService
+	public constBuilder: ConstBuilder
 	private expressionConvert:ExpressionConvert
 	private parameterService:ParameterService
 	private operandBuild:OperandBuild
 	private operandClone:OperandClone
 	private expressionEvaluator:ExpressionEvaluateObserveDecorator
 	constructor () {
-		const constBuilder = new ConstBuilderImpl()
+		this.constBuilder = new ConstBuilderImpl()
 		this.model = new ModelServiceImpl()
 		this.operandClone = new OperandClone()
 		this.parameterService = new ParameterServiceImpl()
@@ -29,11 +30,11 @@ export class Expressions implements IExpressions {
 		this.operandBuild = new OperandBuild()
 			.add('sync',
 				new OperandBuilderCacheDecorator(
-					new OperandBuilderImpl(new SyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
+					new OperandBuilderImpl(new SyncEvaluatorFactoryBuilder(this.model).build(), this.model, this.constBuilder),
 					new MemoryCache<string, string>(),
 					operandSerializer))
 			.add('async', new OperandBuilderCacheDecorator(
-				new OperandBuilderImpl(new AsyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
+				new OperandBuilderImpl(new AsyncEvaluatorFactoryBuilder(this.model).build(), this.model, this.constBuilder),
 				new MemoryCache<string, string>(),
 				operandSerializer))
 		this.expressionConvert = new ExpressionConvert()

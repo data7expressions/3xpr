@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { ModelService } from '../../../model/domain'
 import { Operand, OperandType, Context } from '../../../shared/domain'
-import { ConstBuilder } from '../services/constBuilder'
+import { ConstBuilder } from '../../domain/constBuilder'
 
 export class OperandReduce {
 	// eslint-disable-next-line no-useless-constructor
