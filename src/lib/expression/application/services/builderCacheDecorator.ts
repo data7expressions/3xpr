@@ -2,15 +2,18 @@
 import { Operand } from '../../../shared/domain'
 import { OperandBuilder, OperandSerializer } from '../../../operand/domain'
 import { Autowired, ICache, IUtils } from 'h3lp'
-import { EvaluatorFactory, OperandComplete } from '../../../operand/application'
+import { OperandComplete } from '../../../operand/application'
 
 export class OperandBuilderCacheDecorator implements OperandBuilder {
 	private operandComplete:OperandComplete
 	constructor (private readonly builder:OperandBuilder,
 		private readonly cache: ICache<string, string>,
-		private readonly serializer:OperandSerializer,
-		private readonly evaluatorFactory:EvaluatorFactory) {
-		this.operandComplete = new OperandComplete(this.evaluatorFactory)
+		private readonly serializer:OperandSerializer) {
+		this.operandComplete = new OperandComplete(builder.evaluatorFactory)
+	}
+
+	public get evaluatorFactory () {
+		return this.builder.evaluatorFactory
 	}
 
 	@Autowired('h3lp.utils')

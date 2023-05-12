@@ -1,7 +1,14 @@
-import { Operand, Parameter } from '../../shared/domain'
+import { IEvaluator, Operand, Parameter } from '../../shared/domain'
 import { Type } from 'typ3s'
+import { EvaluatorBuilder } from './entities'
 
+export interface EvaluatorFactory {
+	add (key:string, evaluator:EvaluatorBuilder):EvaluatorFactory
+	get (key:string):EvaluatorBuilder|undefined
+	create (operand:Operand): IEvaluator|undefined
+}
 export interface OperandBuilder {
+	evaluatorFactory:EvaluatorFactory
 	build (expression: string): Operand
 }
 export interface OperandBuildOptions {

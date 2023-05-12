@@ -1,8 +1,8 @@
 
-import { EvaluatorBuilder } from '../../domain'
+import { EvaluatorBuilder, EvaluatorFactory } from '../../domain'
 import { Operand, IEvaluator } from '../../../shared/domain'
 
-export class EvaluatorFactory {
+export class EvaluatorFactoryImpl implements EvaluatorFactory {
 	private evaluators: any
 	constructor () {
 		this.evaluators = {}

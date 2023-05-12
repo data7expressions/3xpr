@@ -1,9 +1,9 @@
 import { h3lp, IReplacer } from 'h3lp'
 import { Context, OperandType, Operand, IEvaluator } from '../../../shared/domain'
-import { Evaluator, EvaluatorBuilder } from '../../domain'
+import { Evaluator, EvaluatorBuilder, EvaluatorFactory } from '../../domain'
 import { ModelService } from '../../../model/domain'
 import { Primitive } from 'typ3s'
-import { EvaluatorFactory } from '../../application'
+import { EvaluatorFactoryImpl } from '../../application'
 
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
@@ -386,7 +386,7 @@ export class SyncEvaluatorFactoryBuilder {
 	constructor (private readonly model: ModelService) {}
 
 	public build (): EvaluatorFactory {
-		return new EvaluatorFactory()
+		return new EvaluatorFactoryImpl()
 			.add(OperandType.Const, new ConstEvaluatorBuilder())
 			.add(OperandType.Var, new VarEvaluatorBuilder())
 			.add(OperandType.Operator, new OperatorEvaluatorBuilder(this.model))

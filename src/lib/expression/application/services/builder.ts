@@ -2,8 +2,8 @@
 import { Operand } from '../../../shared/domain'
 import { ExpressionParse } from './parser'
 import { ExpressionNormalizer } from './normalizer'
-import { OperandBuilder, TypeService } from '../../../operand/domain'
-import { OperandComplete, OperandNormalize, OperandReduce, TypeServiceImpl, ConstBuilder, EvaluatorFactory } from '../../../operand/application'
+import { EvaluatorFactory, OperandBuilder, TypeService } from '../../../operand/domain'
+import { OperandComplete, OperandNormalize, OperandReduce, TypeServiceImpl, ConstBuilder } from '../../../operand/application'
 import { ModelService } from '../../../model/domain'
 
 export class OperandBuilderImpl implements OperandBuilder {
@@ -13,7 +13,7 @@ export class OperandBuilderImpl implements OperandBuilder {
 	private operandComplete:OperandComplete
 	private operandReduce:OperandReduce
 	private typeService:TypeService
-	constructor (private readonly evaluatorFactory:EvaluatorFactory,
+	constructor (public readonly evaluatorFactory:EvaluatorFactory,
 		private readonly model: ModelService,
 		private readonly constBuilder: ConstBuilder
 	) {
