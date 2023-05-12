@@ -1,58 +1,52 @@
-import { Autowired, Service, h3lp } from 'h3lp'
+import { h3lp } from 'h3lp'
 import { Evaluator, EvaluatorBuilder } from '../../domain'
 import { Operand, OperandType, Context, Step, IEvaluator } from '../../../shared/domain'
 import { ConstEvaluator, VarEvaluator, EnvEvaluator, TemplateEvaluator, NotImplementedEvaluator } from './sync'
-import { IModelService } from '../../../model/domain'
-@Service(`exp.operand.eval.async.${OperandType.Const}`)
-export class ConstAsyncEvaluatorBuilder implements EvaluatorBuilder {
+import { ModelService } from '../../../model/domain'
+import { EvaluatorFactory } from '../../../operand/application'
+class ConstAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ConstEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Var}`)
-export class VarAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class VarAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new VarEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Env}`)
-export class EnvAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class EnvAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new EnvEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Template}`)
-export class TemplateAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class TemplateAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new TemplateEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Break}`)
-export class BreakAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class BreakAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Continue}`)
-export class ContinueAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ContinueAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Return}`)
-export class ReturnAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ReturnAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-export class PropertyAsyncEvaluator extends Evaluator {
+class PropertyAsyncEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		const value = this.operand.children[0].eval(context)
 		if (value === undefined || value === null) return null
@@ -60,14 +54,13 @@ export class PropertyAsyncEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Property}`)
-export class PropertyAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class PropertyAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new PropertyAsyncEvaluator(operand)
 	}
 }
 
-export abstract class AsyncEvaluator implements IEvaluator {
+abstract class AsyncEvaluator implements IEvaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand) {}
 
@@ -86,7 +79,7 @@ export abstract class AsyncEvaluator implements IEvaluator {
 		return step.values
 	}
 }
-export class StackEvaluator extends Evaluator {
+class StackEvaluator extends Evaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (protected readonly operand: Operand, private readonly child:AsyncEvaluator) {
 		super(operand)
@@ -110,19 +103,18 @@ export class StackEvaluator extends Evaluator {
 	}
 }
 
-export class ListAsyncEvaluator extends AsyncEvaluator {
+class ListAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		return this.solveChildren(context, step)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.List}`)
-export class ListAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ListAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ListAsyncEvaluator(operand)
 	}
 }
-export class ObjAsyncEvaluator extends AsyncEvaluator {
+class ObjAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		const result = this.solveChildren(context, step)
 		if (context.token.isBreak) {
@@ -135,14 +127,14 @@ export class ObjAsyncEvaluator extends AsyncEvaluator {
 		return obj
 	}
 }
-@Service(`exp.operand.eval.async.${OperandType.Obj}`)
-export class ObjAsyncEvaluatorBuilder implements EvaluatorBuilder {
+
+class ObjAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ObjAsyncEvaluator(operand)
 	}
 }
 
-export class CallFuncAsyncEvaluator extends AsyncEvaluator {
+class CallFuncAsyncEvaluator extends AsyncEvaluator {
 	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
 	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
 		super(operand)
@@ -157,10 +149,9 @@ export class CallFuncAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Operator}`)
-export class OperatorAsyncEvaluatorBuilder implements EvaluatorBuilder {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+class OperatorAsyncEvaluatorBuilder implements EvaluatorBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	build (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)
@@ -175,10 +166,9 @@ export class OperatorAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.CallFunc}`)
-export class FunctionAsyncEvaluatorBuilder implements EvaluatorBuilder {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+class FunctionAsyncEvaluatorBuilder implements EvaluatorBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	build (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getFunction(operand.name)
@@ -193,13 +183,10 @@ export class FunctionAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.ChildFunc}`)
-export class ChildFuncAsyncEvaluatorBuilder extends FunctionAsyncEvaluatorBuilder {}
+class ChildFuncAsyncEvaluatorBuilder extends FunctionAsyncEvaluatorBuilder {}
+class ArrowAsyncEvaluatorBuilder extends FunctionAsyncEvaluatorBuilder {}
 
-@Service(`exp.operand.eval.async.${OperandType.Arrow}`)
-export class ArrowAsyncEvaluatorBuilder extends FunctionAsyncEvaluatorBuilder {}
-
-export class BlockAsyncEvaluator extends AsyncEvaluator {
+class BlockAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		const result = this.solveChildren(context, step)
 		if (context.token.isBreak) {
@@ -212,14 +199,13 @@ export class BlockAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Block}`)
-export class BlockAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class BlockAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new BlockAsyncEvaluator(operand)
 	}
 }
 
-export class IfAsyncEvaluator extends AsyncEvaluator {
+class IfAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		if (step === undefined) {
 			throw new Error('step undefined')
@@ -261,14 +247,13 @@ export class IfAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.If}`)
-export class IfAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class IfAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new IfAsyncEvaluator(operand)
 	}
 }
 
-export class WhileAsyncEvaluator extends AsyncEvaluator {
+class WhileAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		if (step === undefined) {
 			throw new Error('step undefined')
@@ -306,13 +291,12 @@ export class WhileAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.While}`)
-export class WhileAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class WhileAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new WhileAsyncEvaluator(operand)
 	}
 }
-export class ForAsyncEvaluator extends AsyncEvaluator {
+class ForAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		if (step === undefined) {
 			throw new Error('step undefined')
@@ -371,14 +355,13 @@ export class ForAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.For}`)
-export class ForAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ForAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForAsyncEvaluator(operand)
 	}
 }
 
-export class ForInAsyncEvaluator extends AsyncEvaluator {
+class ForInAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		if (step === undefined) {
 			throw new Error('step undefined')
@@ -412,14 +395,13 @@ export class ForInAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.ForIn}`)
-export class ForInAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ForInAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForInAsyncEvaluator(operand)
 	}
 }
 
-export class SwitchAsyncEvaluator extends AsyncEvaluator {
+class SwitchAsyncEvaluator extends AsyncEvaluator {
 	public eval (context: Context, step?:Step): any {
 		if (step === undefined) {
 			throw new Error('step undefined')
@@ -448,37 +430,70 @@ export class SwitchAsyncEvaluator extends AsyncEvaluator {
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Switch}`)
-export class SwitchAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class SwitchAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new SwitchAsyncEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Func}`)
-export class FuncAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class FuncAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Try}`)
-export class TryAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class TryAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Catch}`)
-export class CatchAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class CatchAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.async.${OperandType.Throw}`)
-export class ThrowAsyncEvaluatorBuilder implements EvaluatorBuilder {
+class ThrowAsyncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
+	}
+}
+
+export class AsyncEvaluatorFactoryBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
+
+	public build (): EvaluatorFactory {
+		return new EvaluatorFactory()
+			.add(OperandType.Const, new ConstAsyncEvaluatorBuilder())
+			.add(OperandType.Var, new VarAsyncEvaluatorBuilder())
+			.add(OperandType.Operator, new OperatorAsyncEvaluatorBuilder(this.model))
+			.add(OperandType.CallFunc, new FunctionAsyncEvaluatorBuilder(this.model))
+			.add(OperandType.ChildFunc, new ChildFuncAsyncEvaluatorBuilder(this.model))
+			.add(OperandType.Arrow, new ArrowAsyncEvaluatorBuilder(this.model))
+			.add(OperandType.Env, new EnvAsyncEvaluatorBuilder())
+			.add(OperandType.Template, new TemplateAsyncEvaluatorBuilder())
+			.add(OperandType.Property, new PropertyAsyncEvaluatorBuilder())
+			.add(OperandType.List, new ListAsyncEvaluatorBuilder())
+			.add(OperandType.Obj, new ObjAsyncEvaluatorBuilder())
+			// .add(OperandType.KeyVal, new KeyValEvaluatorBuilder())
+			.add(OperandType.Block, new BlockAsyncEvaluatorBuilder())
+			.add(OperandType.If, new IfAsyncEvaluatorBuilder())
+			// .add(OperandType.Else, new ElseEvaluatorBuilder())
+			// .add(OperandType.ElseIf, new ElseIfEvaluatorBuilder())
+			.add(OperandType.Switch, new SwitchAsyncEvaluatorBuilder())
+			.add(OperandType.While, new WhileAsyncEvaluatorBuilder())
+			.add(OperandType.For, new ForAsyncEvaluatorBuilder())
+			.add(OperandType.ForIn, new ForInAsyncEvaluatorBuilder())
+			.add(OperandType.Break, new BreakAsyncEvaluatorBuilder())
+			.add(OperandType.Continue, new ContinueAsyncEvaluatorBuilder())
+			.add(OperandType.Func, new FuncAsyncEvaluatorBuilder())
+			.add(OperandType.Return, new ReturnAsyncEvaluatorBuilder())
+			.add(OperandType.Try, new TryAsyncEvaluatorBuilder())
+			.add(OperandType.Catch, new CatchAsyncEvaluatorBuilder())
+			.add(OperandType.Throw, new ThrowAsyncEvaluatorBuilder())
+			// .add(OperandType.Default, new DefaultEvaluatorBuilder())
+			// .add(OperandType.Case, new CaseAsyncEvaluatorBuilder())
 	}
 }

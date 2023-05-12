@@ -1,12 +1,12 @@
-import { Autowired, Service } from 'h3lp'
+import { Service } from 'h3lp'
 import { Context, Operand, OperandType } from '../../shared/domain'
 import { IOperandHelper } from '../../shared/application'
-import { IConstBuilder } from '../application/services/constBuilder'
+import { ConstBuilder } from '../application/services/constBuilder'
 
 @Service('exp.helper.operand')
 export class OperandHelper implements IOperandHelper {
-	@Autowired('exp.operand.builder.ConstBuilder')
-	private constBuilder!: IConstBuilder
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly constBuilder: ConstBuilder) {}
 
 	public toExpression (operand: Operand): string {
 		const list: string[] = []

@@ -1,15 +1,12 @@
 /* eslint-disable no-case-declarations */
-import { IModelService } from '../../../model/domain'
+import { ModelService } from '../../../model/domain'
 import { Operand, OperandType, Context } from '../../../shared/domain'
-import { Autowired } from 'h3lp'
-import { IConstBuilder } from '../services/constBuilder'
+import { ConstBuilder } from '../services/constBuilder'
 
 export class OperandReduce {
-	@Autowired('exp.model.service')
-	private model!: IModelService
-
-	@Autowired('exp.operand.builder.ConstBuilder')
-	private constBuilder!: IConstBuilder
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService,
+		private readonly constBuilder: ConstBuilder) {}
 
 	public reduce (operand: Operand): Operand {
 		if (operand.type === OperandType.Operator) {

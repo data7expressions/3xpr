@@ -1,9 +1,9 @@
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo } from '../../operand/domain'
 import { Format, Parameter, ActionObserver, Operand } from '../../shared/domain'
-import { IModelService } from '../../model/domain'
+import { ModelService, Library } from '../../model/domain'
 
 export interface IExpressions {
-	get model(): IModelService
+	get model(): ModelService
 	get enums(): [string, [string, any][]][]
 	get formats(): [string, Format][]
 	get constants(): [string, any][]
@@ -16,9 +16,10 @@ export interface IExpressions {
 	addEnum (key:string, values:[string, any][] | any):void
 	addFormat (key:string, pattern:string):void
 	addConstant (key:string, value:any):void
+	addLibrary (library:Library):IExpressions
 	convert (source: any, from:string): [string, any]
 	clone (source:Operand):Operand
-	build (expression: string, useCache:boolean): Operand
+	build (expression: string): Operand
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	eval (expression: string, data?: any): any

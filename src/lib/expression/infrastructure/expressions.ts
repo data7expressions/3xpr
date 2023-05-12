@@ -1,30 +1,56 @@
 import { Type } from 'typ3s'
-import { Autowired } from 'h3lp'
-import { IModelService } from '../../model/domain'
+import { MemoryCache } from 'h3lp'
+import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo } from '../../operand/domain'
-import { OperandClone, ParameterService } from '../../operand/application'
-import { CoreLibrary } from '../infrastructure/library'
-import { OperandBuild } from '.'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService } from '../../operand/domain'
+import { OperandClone, OperandSerializerImpl, ParameterServiceImpl } from '../../operand/application'
+import { CoreLibrary } from './library'
+import { OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
 import { IExpressions } from '../domain'
-import { ExpressionConvert } from './useCases/convert'
+import { ExpressionConvert } from '../application/useCases/convert'
+import { ModelServiceImpl } from '../../model/application'
+import { AsyncEvaluatorFactoryBuilder, ConstBuilderImpl, SyncEvaluatorFactoryBuilder } from '../../operand/infrastructure'
+import { ExpressionConvertFunction } from './convertFrom/convertFromFunction'
+import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
 
 export class Expressions implements IExpressions {
+	public model: ModelService
+	private expressionConvert:ExpressionConvert
+	private parameterService:ParameterService
+	private operandBuild:OperandBuild
+	private operandClone = new OperandClone()
 	private observers:ActionObserver[] = []
 	constructor () {
-		new CoreLibrary().load()
+		const constBuilder = new ConstBuilderImpl()
+		this.model = new ModelServiceImpl()
+		this.parameterService = new ParameterServiceImpl()
+		const operandSerializer = new OperandSerializerImpl()
+		const syncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
+		const asyncEvaluatorFactory = new AsyncEvaluatorFactoryBuilder(this.model).build()
+		this.operandBuild = new OperandBuild()
+			.add('sync',
+				new OperandBuilderCacheDecorator(
+					new OperandBuilderImpl(syncEvaluatorFactory, this.model, constBuilder),
+					new MemoryCache<string, string>(),
+					operandSerializer,
+					syncEvaluatorFactory))
+			.add('async', new OperandBuilderCacheDecorator(
+				new OperandBuilderImpl(asyncEvaluatorFactory, this.model, constBuilder),
+				new MemoryCache<string, string>(),
+				operandSerializer,
+				asyncEvaluatorFactory))
+
+		this.expressionConvert = new ExpressionConvert()
+			.add('function', new ExpressionConvertFunction(this.operandBuild.get('sync')))
+			.add('graphql', new ExpressionConvertGraphql())
+
+		new CoreLibrary(this.operandBuild.get('sync')).load(this.model)
 	}
 
-	private expressionConvert = new ExpressionConvert()
-	private parameterService = new ParameterService()
-	private operandBuild = new OperandBuild()
-	private operandClone = new OperandClone()
-
-	@Autowired('exp.model.service')
-	public model!: IModelService
-
-	// @Autowired('exp.operand.service')
-	// public operandService!: IOperandService
+	public addLibrary (library:Library):IExpressions {
+		library.load(this.model)
+		return this
+	}
 
 	public get operators (): [string, OperatorMetadata][] {
 		return this.model.operators
@@ -84,7 +110,7 @@ export class Expressions implements IExpressions {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
+		const operand = this.operandBuild.build(expression, 'sync')
 		return this.parameterService.parameters(operand)
 	}
 
@@ -94,7 +120,7 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
+		const operand = this.operandBuild.build(expression, 'sync')
 		return Type.stringify(operand.returnType)
 	}
 
@@ -108,7 +134,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, { type: 'sync', cache: true })
+			const operand = this.operandBuild.build(expression, 'sync')
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -122,7 +148,7 @@ export class Expressions implements IExpressions {
 		const context = new Context(new Data(data))
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, { type: 'async', cache: true })
+			const operand = this.operandBuild.build(expression, 'async')
 			const result = operand.eval(context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
@@ -145,8 +171,8 @@ export class Expressions implements IExpressions {
 		this.observers.splice(index, 1)
 	}
 
-	public build (expression: string, useCache:boolean): Operand {
-		return this.operandBuild.build(expression, { type: 'sync', cache: useCache })
+	public build (expression: string): Operand {
+		return this.operandBuild.build(expression, 'sync')
 	}
 
 	public clone (source:Operand):Operand {
