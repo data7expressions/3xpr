@@ -1,47 +1,30 @@
-import { Type } from 'typ3s'
-import { MemoryCache } from 'h3lp'
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService, EvaluatorFactory } from '../../operand/domain'
-import { OperandClone, OperandSerializerImpl, ParameterServiceImpl } from '../../operand/application'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, EvaluatorFactory, ConstBuilder, OperandFacade } from '../../operand/domain'
 import { CoreLibrary } from './library'
-import { ExpressionEvaluateImpl, ExpressionEvaluateObserveDecorator, OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
+import { ExpressionEvaluateImpl, ExpressionEvaluateObserveDecorator } from '../application'
 import { IExpressions } from '../domain'
 import { ExpressionConvert } from '../application/useCases/convert'
 import { ModelServiceImpl } from '../../model/application'
-import { AsyncEvaluatorFactoryBuilder, ConstBuilderImpl, SyncEvaluatorFactoryBuilder } from '../../operand/infrastructure'
 import { ExpressionConvertFunction } from './convertFrom/convertFromFunction'
 import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
+import { OperandFacadeImpl } from '../../operand/infrastructure'
 
 export class Expressions implements IExpressions {
 	public model: ModelService
+
 	private expressionConvert:ExpressionConvert
-	private parameterService:ParameterService
-	private operandBuild:OperandBuild
-	private operandClone:OperandClone
+	private operandFacade:OperandFacade
 	private expressionEvaluator:ExpressionEvaluateObserveDecorator
 	constructor () {
-		const constBuilder = new ConstBuilderImpl()
 		this.model = new ModelServiceImpl()
-		this.operandClone = new OperandClone()
-		this.parameterService = new ParameterServiceImpl()
-		const operandSerializer = new OperandSerializerImpl()
-		this.operandBuild = new OperandBuild()
-			.add('sync',
-				new OperandBuilderCacheDecorator(
-					new OperandBuilderImpl(new SyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
-					new MemoryCache<string, string>(),
-					operandSerializer))
-			.add('async', new OperandBuilderCacheDecorator(
-				new OperandBuilderImpl(new AsyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
-				new MemoryCache<string, string>(),
-				operandSerializer))
+		this.operandFacade = new OperandFacadeImpl(this.model)
 		this.expressionConvert = new ExpressionConvert()
-			.add('function', new ExpressionConvertFunction(this.operandBuild.get('sync')))
+			.add('function', new ExpressionConvertFunction(this.operandFacade.getBuilder('sync')))
 			.add('graphql', new ExpressionConvertGraphql())
-		new CoreLibrary(this.operandBuild.get('sync')).load(this.model)
+		new CoreLibrary(this.operandFacade.getBuilder('sync')).load(this.model)
 		this.expressionEvaluator = new ExpressionEvaluateObserveDecorator(
-			new ExpressionEvaluateImpl(this.operandBuild)
+			new ExpressionEvaluateImpl(this.operandFacade)
 		)
 	}
 
@@ -68,10 +51,6 @@ export class Expressions implements IExpressions {
 
 	public get functions (): [string, OperatorMetadata][] {
 		return this.model.functions
-	}
-
-	public getEvaluatorFactory (key:string):EvaluatorFactory {
-		return this.operandBuild.get(key).evaluatorFactory
 	}
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void {
@@ -106,14 +85,21 @@ export class Expressions implements IExpressions {
 		return this.expressionConvert.convert(source, from)
 	}
 
+	public get constBuilder (): ConstBuilder {
+		return this.operandFacade.constBuilder
+	}
+
+	public getEvaluatorFactory (key:string):EvaluatorFactory {
+		return this.operandFacade.getBuilder(key).evaluatorFactory
+	}
+
 	/**
 	 * Get parameters of expression
 	 * @param expression  expression
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandBuild.build(expression, 'sync')
-		return this.parameterService.parameters(operand)
+		return this.operandFacade.parameters(expression)
 	}
 
 	/**
@@ -122,8 +108,15 @@ export class Expressions implements IExpressions {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandBuild.build(expression, 'sync')
-		return Type.stringify(operand.returnType)
+		return this.operandFacade.type(expression)
+	}
+
+	public build (expression: string): Operand {
+		return this.operandFacade.build(expression, 'sync')
+	}
+
+	public clone (source:Operand):Operand {
+		return this.operandFacade.clone(source)
 	}
 
 	/**
@@ -149,13 +142,5 @@ export class Expressions implements IExpressions {
 
 	public unsubscribe (observer:ActionObserver): void {
 		this.expressionEvaluator.unsubscribe(observer)
-	}
-
-	public build (expression: string): Operand {
-		return this.operandBuild.build(expression, 'sync')
-	}
-
-	public clone (source:Operand):Operand {
-		return this.operandClone.clone(source, 'sync')
 	}
 }

@@ -1,7 +1,7 @@
 import { OperandType, Operand, Position } from '../../shared/domain'
 import { Type } from 'typ3s'
 import { ConstEvaluator } from './evaluators/sync'
-import { ConstBuilder } from '../application'
+import { ConstBuilder } from '../domain'
 
 export class ConstBuilderImpl implements ConstBuilder {
 	public build (pos:Position, value:any): Operand {

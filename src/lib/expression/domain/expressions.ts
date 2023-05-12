@@ -1,4 +1,4 @@
-import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo, EvaluatorFactory } from '../../operand/domain'
+import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo, EvaluatorFactory, ConstBuilder } from '../../operand/domain'
 import { Format, Parameter, ActionObserver, Operand } from '../../shared/domain'
 import { ModelService, Library } from '../../model/domain'
 
@@ -9,6 +9,7 @@ export interface IExpressions {
 	get constants(): [string, any][]
 	get operators(): [string, OperatorMetadata][]
 	get functions(): [string, OperatorMetadata][]
+	constBuilder: ConstBuilder
 	getEvaluatorFactory (key:string):EvaluatorFactory
 	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void

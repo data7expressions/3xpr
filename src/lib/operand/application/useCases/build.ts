@@ -1,6 +1,6 @@
 
 import { Operand } from '../../../shared/domain'
-import { OperandBuilder } from '../../../operand/domain'
+import { OperandBuilder } from '../../domain'
 
 export class OperandBuild {
 	private builders:any
