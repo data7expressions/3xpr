@@ -2,7 +2,7 @@ import { Type } from 'typ3s'
 import { MemoryCache } from 'h3lp'
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService } from '../../operand/domain'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService, EvaluatorFactory } from '../../operand/domain'
 import { OperandClone, OperandSerializerImpl, ParameterServiceImpl } from '../../operand/application'
 import { CoreLibrary } from './library'
 import { ExpressionEvaluateImpl, ExpressionEvaluateObserveDecorator, OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
@@ -26,20 +26,16 @@ export class Expressions implements IExpressions {
 		this.operandClone = new OperandClone()
 		this.parameterService = new ParameterServiceImpl()
 		const operandSerializer = new OperandSerializerImpl()
-		const syncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
-		const asyncEvaluatorFactory = new AsyncEvaluatorFactoryBuilder(this.model).build()
 		this.operandBuild = new OperandBuild()
 			.add('sync',
 				new OperandBuilderCacheDecorator(
-					new OperandBuilderImpl(syncEvaluatorFactory, this.model, constBuilder),
+					new OperandBuilderImpl(new SyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
 					new MemoryCache<string, string>(),
-					operandSerializer,
-					syncEvaluatorFactory))
+					operandSerializer))
 			.add('async', new OperandBuilderCacheDecorator(
-				new OperandBuilderImpl(asyncEvaluatorFactory, this.model, constBuilder),
+				new OperandBuilderImpl(new AsyncEvaluatorFactoryBuilder(this.model).build(), this.model, constBuilder),
 				new MemoryCache<string, string>(),
-				operandSerializer,
-				asyncEvaluatorFactory))
+				operandSerializer))
 		this.expressionConvert = new ExpressionConvert()
 			.add('function', new ExpressionConvertFunction(this.operandBuild.get('sync')))
 			.add('graphql', new ExpressionConvertGraphql())
@@ -72,6 +68,10 @@ export class Expressions implements IExpressions {
 
 	public get functions (): [string, OperatorMetadata][] {
 		return this.model.functions
+	}
+
+	public getEvaluatorFactory (key:string):EvaluatorFactory {
+		return this.operandBuild.get(key).evaluatorFactory
 	}
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void {

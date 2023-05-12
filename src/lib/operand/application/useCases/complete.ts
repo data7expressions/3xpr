@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
+import { EvaluatorFactory } from '../../domain'
 import { Operand } from '../../../shared/domain'
-import { EvaluatorFactory } from '..'
 
 export class OperandComplete {
 	// eslint-disable-next-line no-useless-constructor

@@ -1,6 +1,6 @@
+import { EvaluatorFactory } from '../../domain'
 import { Operand } from '../../../shared/domain'
 import { Autowired } from 'h3lp'
-import { EvaluatorFactory } from '../services/factory'
 
 export class OperandClone {
 	@Autowired('exp.operand.eval.factory')
