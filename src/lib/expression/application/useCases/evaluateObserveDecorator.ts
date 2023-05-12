@@ -1,11 +1,11 @@
 import { Context, ActionObserver } from '../../../shared/domain'
-import { ExpressionEvaluator } from '../../domain'
+import { ExpressionEvaluate } from '../../domain'
 
-export class ExpressionEvaluatorObserveDecorator implements ExpressionEvaluator {
+export class ExpressionEvaluateObserveDecorator implements ExpressionEvaluate {
 	private observers:ActionObserver[] = []
 
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly evaluator:ExpressionEvaluator) {}
+	constructor (private readonly evaluator:ExpressionEvaluate) {}
 
 	public eval (expression: string, context:Context): any {
 		try {
