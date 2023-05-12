@@ -27,3 +27,9 @@ export interface IExpressions {
 	subscribe (observer:ActionObserver):void
 	unsubscribe (observer:ActionObserver): void
 }
+
+export interface ExpressionEvaluator {
+
+	eval (expression: string, data?: any): any
+	evalAsync (expression: string, data?: any): Promise<any>
+}

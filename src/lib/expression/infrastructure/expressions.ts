@@ -5,7 +5,7 @@ import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../..
 import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ParameterService } from '../../operand/domain'
 import { OperandClone, OperandSerializerImpl, ParameterServiceImpl } from '../../operand/application'
 import { CoreLibrary } from './library'
-import { OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
+import { ExpressionEvaluatorImpl, ExpressionEvaluatorObserveDecorator, OperandBuild, OperandBuilderCacheDecorator, OperandBuilderImpl } from '../application'
 import { IExpressions } from '../domain'
 import { ExpressionConvert } from '../application/useCases/convert'
 import { ModelServiceImpl } from '../../model/application'
@@ -18,11 +18,12 @@ export class Expressions implements IExpressions {
 	private expressionConvert:ExpressionConvert
 	private parameterService:ParameterService
 	private operandBuild:OperandBuild
-	private operandClone = new OperandClone()
-	private observers:ActionObserver[] = []
+	private operandClone:OperandClone
+	private expressionEvaluator:ExpressionEvaluatorObserveDecorator
 	constructor () {
 		const constBuilder = new ConstBuilderImpl()
 		this.model = new ModelServiceImpl()
+		this.operandClone = new OperandClone()
 		this.parameterService = new ParameterServiceImpl()
 		const operandSerializer = new OperandSerializerImpl()
 		const syncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
@@ -39,12 +40,13 @@ export class Expressions implements IExpressions {
 				new MemoryCache<string, string>(),
 				operandSerializer,
 				asyncEvaluatorFactory))
-
 		this.expressionConvert = new ExpressionConvert()
 			.add('function', new ExpressionConvertFunction(this.operandBuild.get('sync')))
 			.add('graphql', new ExpressionConvertGraphql())
-
 		new CoreLibrary(this.operandBuild.get('sync')).load(this.model)
+		this.expressionEvaluator = new ExpressionEvaluatorObserveDecorator(
+			new ExpressionEvaluatorImpl(this.operandBuild)
+		)
 	}
 
 	public addLibrary (library:Library):IExpressions {
@@ -132,43 +134,21 @@ export class Expressions implements IExpressions {
 	 */
 	public eval (expression: string, data?: any): any {
 		const context = new Context(new Data(data))
-		try {
-			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, 'sync')
-			const result = operand.eval(context)
-			this.afterExecutionNotify(expression, context, result)
-			return result
-		} catch (error) {
-			this.errorExecutionNotify(expression, context, error)
-			throw error
-		}
+		return this.expressionEvaluator.eval(expression, context)
 	}
 
 	public evalAsync (expression: string, data: any = {}): Promise<any> {
 		const context = new Context(new Data(data))
-		try {
-			this.beforeExecutionNotify(expression, context)
-			const operand = this.operandBuild.build(expression, 'async')
-			const result = operand.eval(context)
-			this.afterExecutionNotify(expression, context, result)
-			return result
-		} catch (error) {
-			this.errorExecutionNotify(expression, context, error)
-			throw error
-		}
+		return this.expressionEvaluator.evalAsync(expression, context)
 	}
 
 	// Listeners and subscribers
 	public subscribe (observer:ActionObserver):void {
-		this.observers.push(observer)
+		this.expressionEvaluator.subscribe(observer)
 	}
 
 	public unsubscribe (observer:ActionObserver): void {
-		const index = this.observers.indexOf(observer)
-		if (index === -1) {
-			throw new Error('Subject: Nonexistent observer.')
-		}
-		this.observers.splice(index, 1)
+		this.expressionEvaluator.unsubscribe(observer)
 	}
 
 	public build (expression: string): Operand {
@@ -177,44 +157,5 @@ export class Expressions implements IExpressions {
 
 	public clone (source:Operand):Operand {
 		return this.operandClone.clone(source, 'sync')
-	}
-
-	private beforeExecutionNotify (expression:string, context: Context) {
-		const args = { expression, context }
-		this.observers.forEach((observer:ActionObserver) => {
-			if (observer.condition === undefined) {
-				observer.before(args)
-			} else {
-				if (this.eval(observer.condition, context)) {
-					observer.before(args)
-				}
-			}
-		})
-	}
-
-	private afterExecutionNotify (expression:string, context: Context, result:any) {
-		const args = { expression, context, result }
-		this.observers.forEach((observer:ActionObserver) => {
-			if (observer.condition === undefined) {
-				observer.after(args)
-			} else {
-				if (this.eval(observer.condition, context)) {
-					observer.after(args)
-				}
-			}
-		})
-	}
-
-	private errorExecutionNotify (expression:string, context: Context, error:any) {
-		const args = { expression, context, error }
-		this.observers.forEach((observer:ActionObserver) => {
-			if (observer.condition === undefined) {
-				observer.error(args)
-			} else {
-				if (this.eval(observer.condition, context)) {
-					observer.error(args)
-				}
-			}
-		})
 	}
 }
