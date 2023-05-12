@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 import { Operand } from '../../../shared/domain'
-import { OperandBuilder, OperandSerializer } from '../../../operand/domain'
+import { OperandBuilder, OperandSerializer } from '../../domain'
 import { Autowired, ICache, IUtils } from 'h3lp'
-import { OperandComplete } from '../../../operand/application'
+import { OperandComplete } from '..'
 
 export class OperandBuilderCacheDecorator implements OperandBuilder {
 	private operandComplete:OperandComplete

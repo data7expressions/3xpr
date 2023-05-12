@@ -2,8 +2,8 @@
 import { Operand } from '../../../shared/domain'
 import { ExpressionParse } from './parser'
 import { ExpressionNormalizer } from './normalizer'
-import { ConstBuilder, EvaluatorFactory, OperandBuilder, TypeService } from '../../../operand/domain'
-import { OperandComplete, OperandNormalize, OperandReduce, TypeServiceImpl } from '../../../operand/application'
+import { ConstBuilder, EvaluatorFactory, OperandBuilder, TypeService } from '../../domain'
+import { OperandComplete, OperandNormalize, OperandReduce, TypeServiceImpl } from '..'
 import { ModelService } from '../../../model/domain'
 
 export class OperandBuilderImpl implements OperandBuilder {

@@ -1,6 +1,7 @@
 import { IEvaluator, Operand, Parameter } from '../../shared/domain'
 import { Type } from 'typ3s'
 import { EvaluatorBuilder } from './entities'
+import { ConstBuilder } from './constBuilder'
 
 export interface EvaluatorFactory {
 	add (key:string, evaluator:EvaluatorBuilder):EvaluatorFactory
@@ -28,4 +29,13 @@ export interface OperandSerializer {
 	clone (sentence: Operand): Operand
 	serialize (sentence: Operand): string
 	deserialize (value: string): Operand
+}
+
+export interface OperandFacade {
+	constBuilder: ConstBuilder
+	getBuilder (key:string):OperandBuilder
+	parameters (expression: string): Parameter[]
+	type (expression: string): string
+	build (expression: string, key:string):Operand
+	clone (source:Operand):Operand
 }
