@@ -1,22 +1,24 @@
 
 import { EvaluatorBuilder } from '../../domain'
 import { Operand, IEvaluator } from '../../../shared/domain'
-import { Factory } from 'h3lp'
 
 export class EvaluatorFactory {
-	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly buildersNamespace:string) {}
+	private evaluators: any
+	constructor () {
+		this.evaluators = {}
+	}
 
-	private _evaluators: any
-	private get evaluators ():any {
-		if (this._evaluators === undefined) {
-			this._evaluators = Factory.get(this.buildersNamespace)
-		}
-		return this._evaluators
+	public add (key:string, evaluator:EvaluatorBuilder):EvaluatorFactory {
+		this.evaluators[key] = evaluator
+		return this
+	}
+
+	public get (key:string):EvaluatorBuilder|undefined {
+		return this.evaluators[key] as EvaluatorBuilder
 	}
 
 	public create (operand:Operand): IEvaluator|undefined {
-		const evaluatorBuilder = this.evaluators[operand.type] as EvaluatorBuilder
+		const evaluatorBuilder = this.get(operand.type)
 		if (evaluatorBuilder === undefined) {
 			throw new Error(`Evaluator for ${operand.type} ${operand.name} not found`)
 		}

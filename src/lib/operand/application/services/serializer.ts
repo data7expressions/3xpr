@@ -1,9 +1,9 @@
 
 import { Operand, OperandType } from '../../../shared/domain'
-import { OperandMetadata } from '../../domain'
+import { OperandMetadata, OperandSerializer } from '../../domain'
 import { Type } from 'typ3s'
 
-export class OperandSerializer {
+export class OperandSerializerImpl implements OperandSerializer {
 	public clone (sentence: Operand): Operand {
 		const serialized = this.serialize(sentence)
 		const deserialized = this.deserialize(serialized)

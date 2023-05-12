@@ -1,124 +1,120 @@
-import { helper } from '../../'
+import { helper } from '../..'
 import { Context, Operand, OperandType, IEvaluator } from '../../shared/domain'
-import { IModelService } from '../../model/domain'
-import { PrototypeEvaluator, IOperandBuilder } from '../../operand/domain'
+import { ModelService, Library } from '../../model/domain'
+import { PrototypeEvaluator, OperandBuilder } from '../../operand/domain'
 import { OperandClone } from '../../operand/application'
-import { Autowired } from 'h3lp'
-export class CoreLibrary {
-	@Autowired('exp.operand.builder.sync')
-	private builder!: IOperandBuilder
+export class CoreLibrary implements Library {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly builder: OperandBuilder) {}
 
-	@Autowired('exp.model.service')
-	private model!: IModelService
-
-	public load ():void {
-		this.constants()
-		this.enums()
-		this.formats()
-		this.operators()
-		this.generalFunctions()
-		this.comparisonFunctions()
-		this.nullFunctions()
-		this.numberFunctions()
-		this.stringFunctions()
-		this.arrayFunctions()
-		this.groupFunctions()
-		this.dateTimeFunctions()
-		this.conversionFunctions()
-		this.setsFunctions()
+	public load (model: ModelService):void {
+		this.constants(model)
+		this.enums(model)
+		this.formats(model)
+		this.operators(model)
+		this.generalFunctions(model)
+		this.comparisonFunctions(model)
+		this.nullFunctions(model)
+		this.numberFunctions(model)
+		this.stringFunctions(model)
+		this.arrayFunctions(model)
+		this.groupFunctions(model)
+		this.dateTimeFunctions(model)
+		this.conversionFunctions(model)
+		this.setsFunctions(model)
 	}
 
-	private constants (): void {
-		this.model.addConstant('true', true)
-		this.model.addConstant('false', false)
-		this.model.addConstant('null', null)
+	private constants (model: ModelService): void {
+		model.addConstant('true', true)
+		model.addConstant('false', false)
+		model.addConstant('null', null)
 	}
 
-	private enums (): void {
-		this.model.addEnum('DayOfWeek', [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3], ['Thursday', 4], ['Friday', 5], ['Saturday', 6]])
+	private enums (model: ModelService): void {
+		model.addEnum('DayOfWeek', [['Sunday', 0], ['Monday', 1], ['Tuesday', 2], ['Wednesday', 3], ['Thursday', 4], ['Friday', 5], ['Saturday', 6]])
 	}
 
-	private formats (): void {
-		this.model.addFormat('email', '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
-		this.model.addFormat('integer', '^\\d+$')
-		this.model.addFormat('decimal', '^\\d+\\.\\d+$')
-		this.model.addFormat('string', '^[a-zA-Z0-9_.]+$')
+	private formats (model: ModelService): void {
+		model.addFormat('email', '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')
+		model.addFormat('integer', '^\\d+$')
+		model.addFormat('decimal', '^\\d+\\.\\d+$')
+		model.addFormat('string', '^[a-zA-Z0-9_.]+$')
 		// https://stackoverflow.com/questions/3143070/javascript-regex-iso-dateTime
-		this.model.addFormat('date', '^\\d{4}-\\d{2}-\\d{2}$')
-		this.model.addFormat('dateTime', '\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)')
-		this.model.addFormat('time', '\\[0-2]\\d:[0-5]\\d:[0-5]\\d')
+		model.addFormat('date', '^\\d{4}-\\d{2}-\\d{2}$')
+		model.addFormat('dateTime', '\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d\\.\\d+([+-][0-2]\\d:[0-5]\\d|Z)')
+		model.addFormat('time', '\\[0-2]\\d:[0-5]\\d:[0-5]\\d')
 	}
 
-	private operators (): void {
-		this.model.addOperator('+(a:T,b:T):T', (a: any, b: any):any => a + b, { priority: 5 })
-		this.model.addOperator('-(a:number,b:number):number', (a: number, b: number):number => a - b, { priority: 5 })
-		this.model.addOperator('-(a:number):number', (a: number):number => a * -1, { priority: 9 })
-		this.model.addOperator('*(a:number,b:number):number', (a: number, b: number):number => a * b, { priority: 6 })
-		this.model.addOperator('/(a:number,b:number):number', (a: number, b: number):number => a / b, { priority: 6 })
-		this.model.addOperator('**(a:number,b:number):number', (a: number, b: number):number => a ** b, { priority: 7 })
-		this.model.addOperator('//(a:number,b:number):number', (a: number, b: number):number => Math.pow(a, 1 / b), { priority: 7 })
-		this.model.addOperator('%(a:number,b:number):number', (a: number, b: number):number => a % b, { priority: 8 })
+	private operators (model: ModelService): void {
+		model.addOperator('+(a:T,b:T):T', (a: any, b: any):any => a + b, { priority: 5 })
+		model.addOperator('-(a:number,b:number):number', (a: number, b: number):number => a - b, { priority: 5 })
+		model.addOperator('-(a:number):number', (a: number):number => a * -1, { priority: 9 })
+		model.addOperator('*(a:number,b:number):number', (a: number, b: number):number => a * b, { priority: 6 })
+		model.addOperator('/(a:number,b:number):number', (a: number, b: number):number => a / b, { priority: 6 })
+		model.addOperator('**(a:number,b:number):number', (a: number, b: number):number => a ** b, { priority: 7 })
+		model.addOperator('//(a:number,b:number):number', (a: number, b: number):number => Math.pow(a, 1 / b), { priority: 7 })
+		model.addOperator('%(a:number,b:number):number', (a: number, b: number):number => a % b, { priority: 8 })
 
-		this.model.addOperator('&(a:number,b:number):number', (a: number, b: number):number => a & b, { priority: 5 })
-		this.model.addOperator('|(a:number,b:number):number', (a: number, b: number):number => a | b, { priority: 5 })
-		this.model.addOperator('^(a:number,b:number):number', (a: number, b: number):number => a ^ b, { priority: 5 })
-		this.model.addOperator('~(a:number):number', (a: number):number => ~a, { priority: 9 })
-		this.model.addOperator('<<(a:number,b:number):number', (a: number, b: number):number => a << b, { priority: 5 })
-		this.model.addOperator('>>(a:number,b:number):number', (a: number, b: number):number => a >> b, { priority: 5 })
+		model.addOperator('&(a:number,b:number):number', (a: number, b: number):number => a & b, { priority: 5 })
+		model.addOperator('|(a:number,b:number):number', (a: number, b: number):number => a | b, { priority: 5 })
+		model.addOperator('^(a:number,b:number):number', (a: number, b: number):number => a ^ b, { priority: 5 })
+		model.addOperator('~(a:number):number', (a: number):number => ~a, { priority: 9 })
+		model.addOperator('<<(a:number,b:number):number', (a: number, b: number):number => a << b, { priority: 5 })
+		model.addOperator('>>(a:number,b:number):number', (a: number, b: number):number => a >> b, { priority: 5 })
 
-		this.model.addOperator('==(a:T,b:T):boolean', (a: any, b: any):boolean => a === b, { priority: 4 })
-		this.model.addOperatorAlias('===', '==')
-		this.model.addOperator('!=(a:T,b:T):boolean', (a: any, b: any):boolean => a !== b, { priority: 4 })
-		this.model.addOperatorAlias('!==', '!=')
-		this.model.addOperatorAlias('<>', '!=')
-		this.model.addOperator('>(a:T,b:T):boolean', (a: any, b: any):boolean => a > b, { priority: 4 })
-		this.model.addOperator('<(a:T,b:T):boolean', (a: any, b: any):boolean => a < b, { priority: 4 })
-		this.model.addOperator('>=(a:T,b:T):boolean', (a: any, b: any):boolean => a >= b, { priority: 4 })
-		this.model.addOperator('<=(a:T,b:T):boolean', (a: any, b: any):boolean => a <= b, { priority: 3 })
+		model.addOperator('==(a:T,b:T):boolean', (a: any, b: any):boolean => a === b, { priority: 4 })
+		model.addOperatorAlias('===', '==')
+		model.addOperator('!=(a:T,b:T):boolean', (a: any, b: any):boolean => a !== b, { priority: 4 })
+		model.addOperatorAlias('!==', '!=')
+		model.addOperatorAlias('<>', '!=')
+		model.addOperator('>(a:T,b:T):boolean', (a: any, b: any):boolean => a > b, { priority: 4 })
+		model.addOperator('<(a:T,b:T):boolean', (a: any, b: any):boolean => a < b, { priority: 4 })
+		model.addOperator('>=(a:T,b:T):boolean', (a: any, b: any):boolean => a >= b, { priority: 4 })
+		model.addOperator('<=(a:T,b:T):boolean', (a: any, b: any):boolean => a <= b, { priority: 3 })
 
-		this.model.addOperator('&&(a:boolean,b:boolean):boolean', new And(), { priority: 3 })
-		this.model.addOperator('||(a:boolean,b:boolean):boolean', new Or(), { priority: 3 })
-		this.model.addOperator('!(a:boolean):boolean', (a: boolean):boolean => !a, { priority: 5 })
+		model.addOperator('&&(a:boolean,b:boolean):boolean', new And(), { priority: 3 })
+		model.addOperator('||(a:boolean,b:boolean):boolean', new Or(), { priority: 3 })
+		model.addOperator('!(a:boolean):boolean', (a: boolean):boolean => !a, { priority: 5 })
 
 		// index is any, because it can also be string when used to access a property of an object
 		// example: orders[0]["number"]
-		this.model.addOperator('[](list:T[],index:any):T', (list: any[], index: any): any => list[index], { priority: 2 })
-		this.model.addOperator('$(name:string):string', (name:string):any => process.env[name], { priority: 9 })
+		model.addOperator('[](list:T[],index:any):T', (list: any[], index: any): any => list[index], { priority: 2 })
+		model.addOperator('$(name:string):string', (name:string):any => process.env[name], { priority: 9 })
 
-		this.model.addOperator('=(a:T,b:T):T', new Assignment(), { priority: 1 })
-		this.model.addOperator('+=(a:number,b:number):number', new AssignmentAddition(), { priority: 1 })
-		this.model.addOperator('-=(a:number,b:number):number', new AssignmentSubtraction(), { priority: 1 })
-		this.model.addOperator('*=(a:number,b:number):number', new AssignmentMultiplication(), { priority: 1 })
-		this.model.addOperator('/=(a:number,b:number):number', new AssignmentDivision(), { priority: 1 })
-		this.model.addOperator('**=(a:number,b:number):number', new AssignmentExponentiation(), { priority: 1 })
-		this.model.addOperator('//=(a:number,b:number):number', new AssignmentFloorDivision(), { priority: 1 })
-		this.model.addOperator('%=(a:number,b:number):number', new AssignmentMod(), { priority: 1 })
-		this.model.addOperator('&=(a:number,b:number):number', new AssignmentBitAnd(), { priority: 1 })
-		this.model.addOperator('|=(a:number,b:number):number', new AssignmentBitOr(), { priority: 1 })
-		this.model.addOperator('^=(a:number,b:number):number', new AssignmentBitXor(), { priority: 1 })
-		this.model.addOperator('<<=(a:number,b:number):number', new AssignmentLeftShift(), { priority: 1 })
-		this.model.addOperator('>>=(a:number,b:number):number', new AssignmentRightShift(), { priority: 1 })
+		model.addOperator('=(a:T,b:T):T', new Assignment(), { priority: 1 })
+		model.addOperator('+=(a:number,b:number):number', new AssignmentAddition(), { priority: 1 })
+		model.addOperator('-=(a:number,b:number):number', new AssignmentSubtraction(), { priority: 1 })
+		model.addOperator('*=(a:number,b:number):number', new AssignmentMultiplication(), { priority: 1 })
+		model.addOperator('/=(a:number,b:number):number', new AssignmentDivision(), { priority: 1 })
+		model.addOperator('**=(a:number,b:number):number', new AssignmentExponentiation(), { priority: 1 })
+		model.addOperator('//=(a:number,b:number):number', new AssignmentFloorDivision(), { priority: 1 })
+		model.addOperator('%=(a:number,b:number):number', new AssignmentMod(), { priority: 1 })
+		model.addOperator('&=(a:number,b:number):number', new AssignmentBitAnd(), { priority: 1 })
+		model.addOperator('|=(a:number,b:number):number', new AssignmentBitOr(), { priority: 1 })
+		model.addOperator('^=(a:number,b:number):number', new AssignmentBitXor(), { priority: 1 })
+		model.addOperator('<<=(a:number,b:number):number', new AssignmentLeftShift(), { priority: 1 })
+		model.addOperator('>>=(a:number,b:number):number', new AssignmentRightShift(), { priority: 1 })
 	}
 
-	private generalFunctions (): void {
-		// this.model.addFunction('async sleep(ms?: number)', Functions.sleep)
-		this.model.addFunction('console(value:any)', (value: any) => {
+	private generalFunctions (model: ModelService): void {
+		// model.addFunction('async sleep(ms?: number)', Functions.sleep)
+		model.addFunction('console(value:any)', (value: any) => {
 			console.log(typeof value === 'object' ? JSON.stringify(value) : value)
 		})
 	}
 
-	private nullFunctions (): void {
-		this.model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => helper.utils.nvl(value, _default))
-		this.model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => helper.utils.nvl2(value, a, b))
+	private nullFunctions (model: ModelService): void {
+		model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => helper.utils.nvl(value, _default))
+		model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => helper.utils.nvl2(value, a, b))
 	}
 
-	private comparisonFunctions (): void {
-		this.model.addFunction('between(value:T,from:T,to:T):boolean',
+	private comparisonFunctions (model: ModelService): void {
+		model.addFunction('between(value:T,from:T,to:T):boolean',
 			(value:any, from:any, to:any):boolean => helper.val.between(value, from, to))
-		this.model.addFunction('includes(source:string|T[],value:string|T):boolean',
+		model.addFunction('includes(source:string|T[],value:string|T):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
-		this.model.addFunctionAlias('contains', 'includes')
-		this.model.addFunction('in(source:T,...values:T):boolean',
+		model.addFunctionAlias('contains', 'includes')
+		model.addFunction('in(source:T,...values:T):boolean',
 			(source:any, ...values:any):boolean => {
 				if (source === undefined || values === undefined) {
 					return false
@@ -129,95 +125,95 @@ export class CoreLibrary {
 					return values.includes(source)
 				}
 			})
-		this.model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.val.isNull(value))
-		this.model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.val.isNotNull(value))
-		this.model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.val.isEmpty(value))
-		this.model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => helper.val.isNotEmpty(value))
-		this.model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => helper.val.isBoolean(value))
-		this.model.addFunction('isNumber(value:any):boolean', (value:any):boolean => helper.val.isNumber(value))
-		this.model.addFunction('isInteger(value:any):boolean', (value:any):boolean => helper.val.isInteger(value))
-		this.model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => helper.val.isDecimal(value))
-		this.model.addFunction('isString(value:any):boolean', (value:any):boolean => helper.val.isString(value))
-		this.model.addFunction('isDate(value:any):boolean', (value:any):boolean => helper.val.isDate(value))
-		this.model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => helper.val.isDateTime(value))
-		this.model.addFunction('isTime(value:any):boolean', (value:any):boolean => helper.val.isTime(value))
-		this.model.addFunction('isObject(value:any):boolean', (value:any):boolean => helper.val.isObject(value))
-		this.model.addFunction('isArray(value:any):boolean', (value:any):boolean => helper.val.isArray(value))
-		this.model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => helper.val.isBooleanFormat(value))
-		this.model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => helper.val.isNumberFormat(value))
-		this.model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => helper.val.isIntegerFormat(value))
-		this.model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => helper.val.isDecimalFormat(value))
-		this.model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => helper.val.isDateFormat(value))
-		this.model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isDateTimeFormat(value))
-		this.model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isTimeFormat(value))
+		model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.val.isNull(value))
+		model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.val.isNotNull(value))
+		model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.val.isEmpty(value))
+		model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => helper.val.isNotEmpty(value))
+		model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => helper.val.isBoolean(value))
+		model.addFunction('isNumber(value:any):boolean', (value:any):boolean => helper.val.isNumber(value))
+		model.addFunction('isInteger(value:any):boolean', (value:any):boolean => helper.val.isInteger(value))
+		model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => helper.val.isDecimal(value))
+		model.addFunction('isString(value:any):boolean', (value:any):boolean => helper.val.isString(value))
+		model.addFunction('isDate(value:any):boolean', (value:any):boolean => helper.val.isDate(value))
+		model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => helper.val.isDateTime(value))
+		model.addFunction('isTime(value:any):boolean', (value:any):boolean => helper.val.isTime(value))
+		model.addFunction('isObject(value:any):boolean', (value:any):boolean => helper.val.isObject(value))
+		model.addFunction('isArray(value:any):boolean', (value:any):boolean => helper.val.isArray(value))
+		model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => helper.val.isBooleanFormat(value))
+		model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => helper.val.isNumberFormat(value))
+		model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => helper.val.isIntegerFormat(value))
+		model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => helper.val.isDecimalFormat(value))
+		model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => helper.val.isDateFormat(value))
+		model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isDateTimeFormat(value))
+		model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isTimeFormat(value))
 	}
 
-	private numberFunctions (): void {
-		this.model.addFunction('abs(x:number):number', Math.abs)
-		this.model.addFunction('acos(x:number):number', Math.acos)
-		this.model.addFunction('asin(x:number):number', Math.asin)
-		this.model.addFunction('atan(x:number):number', Math.atan)
-		this.model.addFunction('atan2(x:number):number', Math.atan2)
-		this.model.addFunction('ceil(x:number):number', Math.ceil)
-		this.model.addFunction('cos(x:number):number', Math.cos)
-		this.model.addFunction('cosh(x:number):number', Math.cosh)
-		this.model.addFunction('exp(x:number):number', Math.exp)
-		this.model.addFunction('floor(x:number):number', Math.floor)
-		this.model.addFunction('ln(x:number):number', Math.log)
-		this.model.addFunction('log10(x:number):number', Math.log10)
-		this.model.addFunction('log(x:number):number', Math.log)
-		this.model.addFunction('remainder(n1:number,n2:number):number', (n1: number, n2: number) => n1 % n2)
-		this.model.addFunction('round(num:number,decimals=0):number', (num: number, decimals = 0) =>
+	private numberFunctions (model: ModelService): void {
+		model.addFunction('abs(x:number):number', Math.abs)
+		model.addFunction('acos(x:number):number', Math.acos)
+		model.addFunction('asin(x:number):number', Math.asin)
+		model.addFunction('atan(x:number):number', Math.atan)
+		model.addFunction('atan2(x:number):number', Math.atan2)
+		model.addFunction('ceil(x:number):number', Math.ceil)
+		model.addFunction('cos(x:number):number', Math.cos)
+		model.addFunction('cosh(x:number):number', Math.cosh)
+		model.addFunction('exp(x:number):number', Math.exp)
+		model.addFunction('floor(x:number):number', Math.floor)
+		model.addFunction('ln(x:number):number', Math.log)
+		model.addFunction('log10(x:number):number', Math.log10)
+		model.addFunction('log(x:number):number', Math.log)
+		model.addFunction('remainder(n1:number,n2:number):number', (n1: number, n2: number) => n1 % n2)
+		model.addFunction('round(num:number,decimals=0):number', (num: number, decimals = 0) =>
 			decimals > 0 ? Number(num.toFixed(decimals)) : Math.round(num)
 		)
-		this.model.addFunction('sign(x:number):number', Math.sign)
-		this.model.addFunction('sin(x:number):number', Math.sin)
-		this.model.addFunction('sinh(x:number):number', Math.sinh)
-		this.model.addFunction('tan(x:number):number', Math.tan)
-		this.model.addFunction('tanh(x:number):number', Math.tanh)
-		this.model.addFunction('trunc(x:number):number', Math.trunc)
+		model.addFunction('sign(x:number):number', Math.sign)
+		model.addFunction('sin(x:number):number', Math.sin)
+		model.addFunction('sinh(x:number):number', Math.sinh)
+		model.addFunction('tan(x:number):number', Math.tan)
+		model.addFunction('tanh(x:number):number', Math.tanh)
+		model.addFunction('trunc(x:number):number', Math.trunc)
 	}
 
-	private conversionFunctions (): void {
-		this.model.addFunction('toString(value:any):string', (value:any):string => helper.str.toString(value))
-		this.model.addFunction('toNumber(value:any):number', (value:any):number => helper.utils.toNumber(value))
-		this.model.addFunction('dateToString(date:date):string', (date:Date) => {
+	private conversionFunctions (model: ModelService): void {
+		model.addFunction('toString(value:any):string', (value:any):string => helper.str.toString(value))
+		model.addFunction('toNumber(value:any):number', (value:any):number => helper.utils.toNumber(value))
+		model.addFunction('dateToString(date:date):string', (date:Date) => {
 			if (typeof date === 'string') {
 				return new Date(date).toISOString()
 			}
 			return date.toISOString()
 		})
-		this.model.addFunction('stringify(value:any):string', (value: any): string => JSON.stringify(value))
-		this.model.addFunction('parse(value:string):any', (value: string): any => JSON.parse(value))
-		this.model.addFunction('keys(obj: any):string[]', (obj: any): string[] => typeof obj === 'object' ? Object.keys(obj) : [])
-		this.model.addFunction('values(obj: any):any[]', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
-		this.model.addFunction('entries(obj: any):[string,any][]', (obj: any): [string, any][] => typeof obj === 'object' ? Object.entries(obj) : [])
-		this.model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => helper.obj.fromEntries(entries))
+		model.addFunction('stringify(value:any):string', (value: any): string => JSON.stringify(value))
+		model.addFunction('parse(value:string):any', (value: string): any => JSON.parse(value))
+		model.addFunction('keys(obj: any):string[]', (obj: any): string[] => typeof obj === 'object' ? Object.keys(obj) : [])
+		model.addFunction('values(obj: any):any[]', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
+		model.addFunction('entries(obj: any):[string,any][]', (obj: any): [string, any][] => typeof obj === 'object' ? Object.entries(obj) : [])
+		model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => helper.obj.fromEntries(entries))
 	}
 
-	private stringFunctions (): void {
-		this.model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
-		this.model.addFunction('capitalize(value:string):string', (value:string):string => helper.str.capitalize(value))
-		this.model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
-		this.model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
-		this.model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
-		this.model.addFunction('lpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padStart(len, pad))
-		this.model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
-		this.model.addFunction('indexOf(value:string, sub:string, start:number):number', (value:string, sub:string, start:number):number => value.indexOf(sub, start))
-		this.model.addFunction('join(values:string[],separator:string=","):string', (values:string[], separator = ','):string => values.join(separator))
-		this.model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => helper.str.replace(value, source, target))
-		this.model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
-		this.model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
-		this.model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
-		this.model.addFunctionAlias('substr', 'substring')
-		this.model.addFunction('trim(value: string):string', (value: string):string => value.trim())
-		this.model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
-		this.model.addFunction('concat(...values:any):string', (...values:any):string => helper.str.concat(values))
-		this.model.addFunctionAlias('concatenate', 'concat')
-		this.model.addFunction('test(value: string, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
-		this.model.addFunction('title(value:string):string', (value:string):string => helper.str.initCap(value))
-		this.model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
-		this.model.addFunction('mask(value: string):string', (value: string):string => {
+	private stringFunctions (model: ModelService): void {
+		model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
+		model.addFunction('capitalize(value:string):string', (value:string):string => helper.str.capitalize(value))
+		model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
+		model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
+		model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
+		model.addFunction('lpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padStart(len, pad))
+		model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
+		model.addFunction('indexOf(value:string, sub:string, start:number):number', (value:string, sub:string, start:number):number => value.indexOf(sub, start))
+		model.addFunction('join(values:string[],separator:string=","):string', (values:string[], separator = ','):string => values.join(separator))
+		model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => helper.str.replace(value, source, target))
+		model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
+		model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
+		model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
+		model.addFunctionAlias('substr', 'substring')
+		model.addFunction('trim(value: string):string', (value: string):string => value.trim())
+		model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
+		model.addFunction('concat(...values:any):string', (...values:any):string => helper.str.concat(values))
+		model.addFunctionAlias('concatenate', 'concat')
+		model.addFunction('test(value: string, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
+		model.addFunction('title(value:string):string', (value:string):string => helper.str.initCap(value))
+		model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
+		model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value
 			if (value.length > 8) {
 				return value.substring(0, 3) + '*****' + value.substring(value.length - 3, value.length)
@@ -227,89 +223,89 @@ export class CoreLibrary {
 				return '*'
 			}
 		})
-		this.model.addFunction('split(value:string,separator:string=","):string[]', (value:string, separator = ','):string[] => value.split(separator))
-		this.model.addFunction('startWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.startsWith(sub, start))
+		model.addFunction('split(value:string,separator:string=","):string[]', (value:string, separator = ','):string[] => value.split(separator))
+		model.addFunction('startWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.startsWith(sub, start))
 	}
 
-	private dateTimeFunctions (): void {
-		this.model.addFunction('curTime():time', ():string => {
+	private dateTimeFunctions (model: ModelService): void {
+		model.addFunction('curTime():time', ():string => {
 			const date = new Date()
 			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
 		})
-		this.model.addFunction('today():date', ():string => {
+		model.addFunction('today():date', ():string => {
 			const date = new Date()
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.model.addFunction('now():dateTime', ():string => new Date().toISOString())
-		this.model.addFunction('time(value: string):time', (value: string):string => {
+		model.addFunction('now():dateTime', ():string => new Date().toISOString())
+		model.addFunction('time(value: string):time', (value: string):string => {
 			const date = new Date(value)
 			return date.getHours() + ':' + (date.getMinutes() + 1) + ':' + date.getSeconds()
 		})
-		this.model.addFunction('date(value: string):date', (value: string):string => {
+		model.addFunction('date(value: string):date', (value: string):string => {
 			const date = new Date(value)
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 		})
-		this.model.addFunction('dateTime(value: string):dateTime', (value: string):string => new Date(value).toISOString())
-		this.model.addFunction('year(value: dateTime):integer', (value: string):number => {
+		model.addFunction('dateTime(value: string):dateTime', (value: string):string => new Date(value).toISOString())
+		model.addFunction('year(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getFullYear()
 		})
-		this.model.addFunction('month(value: dateTime):integer', (value: string):number => {
+		model.addFunction('month(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getMonth() + 1
 		})
-		this.model.addFunction('day(value: dateTime):integer', (value: string):number => {
+		model.addFunction('day(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getDate()
 		})
-		this.model.addFunction('weekday(value: dateTime):integer', (value: string):number => {
+		model.addFunction('weekday(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getDay()
 		})
-		this.model.addFunction('hour(value: dateTime):integer', (value: string) => {
+		model.addFunction('hour(value: dateTime):integer', (value: string) => {
 			return new Date(value).getHours()
 		})
-		this.model.addFunction('minute(value: dateTime):integer', (value: string):number => {
+		model.addFunction('minute(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getMinutes()
 		})
-		this.model.addFunction('second(value: dateTime):integer', (value: string):number => {
+		model.addFunction('second(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getSeconds()
 		})
-		this.model.addFunction('millisecond(value: dateTime):integer', (value: string):number => {
+		model.addFunction('millisecond(value: dateTime):integer', (value: string):number => {
 			return new Date(value).getMilliseconds()
 		})
-		this.model.addFunction('addYear(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addYear(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setFullYear(_date.getFullYear() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addMonth(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addMonth(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setMonth(_date.getMonth() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addDay(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addDay(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setDate(_date.getDate() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addHour(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addHour(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setHours(_date.getHours() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addMinute(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addMinute(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setMinutes(_date.getMinutes() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addSecond(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addSecond(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setSeconds(_date.getSeconds() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addMillisecond(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
+		model.addFunction('addMillisecond(date: dateTime, value: number):dateTime', (date: string, value: number):string => {
 			const _date = new Date(date)
 			_date.setMilliseconds(_date.getMilliseconds() + value)
 			return _date.toISOString()
 		})
-		this.model.addFunction('addTime(date: dateTime, time: time):dateTime', (date: string, time: string):string => {
+		model.addFunction('addTime(date: dateTime, time: time):dateTime', (date: string, time: string):string => {
 			const _time = new Date('2000-01-01T' + time)
 			const _date = new Date(date)
 			_date.setHours(_date.getHours() + _time.getHours())
@@ -318,7 +314,7 @@ export class CoreLibrary {
 			_date.setMilliseconds(_date.getSeconds() + _time.getMilliseconds())
 			return _date.toISOString()
 		})
-		this.model.addFunction('subtractTime(date: dateTime, time: time):dateTime', (date: string, time: string):string => {
+		model.addFunction('subtractTime(date: dateTime, time: time):dateTime', (date: string, time: string):string => {
 			const _time = new Date('2000-01-01T' + time)
 			const _date = new Date(date)
 			_date.setHours(_date.getHours() - _time.getHours())
@@ -328,73 +324,73 @@ export class CoreLibrary {
 			return _date.toISOString()
 		})
 
-		this.model.addFunction('yearDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
+		model.addFunction('yearDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.abs(_date2.getFullYear() - _date1.getFullYear())
 		})
-		this.model.addFunction('dayDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
+		model.addFunction('dayDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.floor((_date1.getTime() - _date2.getTime()) / (24 * 3600 * 1000))
 		})
-		this.model.addFunction('hourDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
+		model.addFunction('hourDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.floor((_date1.getTime() - _date2.getTime()) / (3600 * 1000))
 		})
-		this.model.addFunction('secondDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
+		model.addFunction('secondDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.floor((_date1.getTime() - _date2.getTime()) / (1000))
 		})
-		this.model.addFunction('millisecondDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
+		model.addFunction('millisecondDiff(date1: dateTime, date2: dateTime):integer', (date1: string, date2: string):number => {
 			const _date1 = new Date(date1)
 			const _date2 = new Date(date2)
 			return Math.floor(_date1.getTime() - _date2.getTime())
 		})
-		this.model.addFunction('dayToDate(value: number):dateTime', (value: number):string => {
+		model.addFunction('dayToDate(value: number):dateTime', (value: number):string => {
 			return new Date(value * 24 * 3600 * 1000).toISOString()
 		})
-		this.model.addFunction('hourToDate(value: number):dateTime', (value: number):string => {
+		model.addFunction('hourToDate(value: number):dateTime', (value: number):string => {
 			return new Date(value * 3600 * 1000).toISOString()
 		})
-		this.model.addFunction('secondToDate(value: number):dateTime', (value: number):string => {
+		model.addFunction('secondToDate(value: number):dateTime', (value: number):string => {
 			return new Date(value * 1000).toISOString()
 		})
-		this.model.addFunction('millisecondToDate(value: number):dateTime', (value: number):string => {
+		model.addFunction('millisecondToDate(value: number):dateTime', (value: number):string => {
 			return new Date(value).toISOString()
 		})
 	}
 
-	private arrayFunctions (): void {
-		this.model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder))
-		this.model.addFunctionAlias('select', 'map')
-		this.model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
-		this.model.addFunctionAlias('each', 'foreach')
-		this.model.addFunction('filter(list: T[], predicate: boolean):T[]', new Filter())
-		this.model.addFunctionAlias('where', 'filter')
-		this.model.addFunction('reverse(list: T[], predicate: any):T[]', new Reverse())
-		this.model.addFunction('sort(list: T[], predicate: any):T[]', new Sort())
-		this.model.addFunctionAlias('order', 'sort')
-		this.model.addFunction('remove(list: T[], predicate: boolean):T[]', new Remove())
-		this.model.addFunctionAlias('delete', 'remove')
-		this.model.addFunction('push(list: T[], value: T):T[]', (list: any[], item: any): any => {
+	private arrayFunctions (model: ModelService): void {
+		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder))
+		model.addFunctionAlias('select', 'map')
+		model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
+		model.addFunctionAlias('each', 'foreach')
+		model.addFunction('filter(list: T[], predicate: boolean):T[]', new Filter())
+		model.addFunctionAlias('where', 'filter')
+		model.addFunction('reverse(list: T[], predicate: any):T[]', new Reverse())
+		model.addFunction('sort(list: T[], predicate: any):T[]', new Sort())
+		model.addFunctionAlias('order', 'sort')
+		model.addFunction('remove(list: T[], predicate: boolean):T[]', new Remove())
+		model.addFunctionAlias('delete', 'remove')
+		model.addFunction('push(list: T[], value: T):T[]', (list: any[], item: any): any => {
 			list.push(item)
 			return list
 		})
-		this.model.addFunctionAlias('insert', 'push')
-		this.model.addFunction('bulkInsert(list: T[], value: T[]):T[]', (list: any[], items: any[]): any => {
+		model.addFunctionAlias('insert', 'push')
+		model.addFunction('bulkInsert(list: T[], value: T[]):T[]', (list: any[], items: any[]): any => {
 			for (const item of items) {
 				list.push(item)
 			}
 			return list
 		})
-		this.model.addFunction('pop(list: T[]): T', (list: any[]): any => list.pop())
-		this.model.addFunction('length(source: any[]|string):number', (source: any[]|string):number => source.length)
-		this.model.addFunctionAlias('len', 'length')
-		this.model.addFunction('slice(list: T[], from:integer, to:integer):T[]', (list: any[], from:number, to:number):any[] => list.slice(from, to))
-		this.model.addFunction('page(list: T[], page:integer, records:integer):T[]', (list: any[], page:number, records:number):any[] => {
+		model.addFunction('pop(list: T[]): T', (list: any[]): any => list.pop())
+		model.addFunction('length(source: any[]|string):number', (source: any[]|string):number => source.length)
+		model.addFunctionAlias('len', 'length')
+		model.addFunction('slice(list: T[], from:integer, to:integer):T[]', (list: any[], from:number, to:number):any[] => list.slice(from, to))
+		model.addFunction('page(list: T[], page:integer, records:integer):T[]', (list: any[], page:number, records:number):any[] => {
 			let from = (page - 1) * records
 			if (from < 0) {
 				from = 0
@@ -408,22 +404,22 @@ export class CoreLibrary {
 		// this.addFunction('update', ArrayFunctions.update, OperatorType.arrow, Update)
 	}
 
-	private groupFunctions (): void {
-		this.model.addFunction('distinct(list: any[], predicate: any): any[]', new Distinct())
-		this.model.addFunction('first(list: T[], predicate: boolean): T', new First())
-		this.model.addFunction('last(list: T[], predicate: boolean): T', new Last())
-		this.model.addFunction('count(list: T[], predicate: boolean): integer', new Count())
-		this.model.addFunction('max(list: T[], predicate: boolean): T', new Max())
-		this.model.addFunction('min(list: T[], predicate: boolean): T', new Min())
-		this.model.addFunction('avg(list: T[], value: number): number', new Avg())
-		this.model.addFunction('sum(list: T[], value: number): number', new Sum())
+	private groupFunctions (model: ModelService): void {
+		model.addFunction('distinct(list: any[], predicate: any): any[]', new Distinct())
+		model.addFunction('first(list: T[], predicate: boolean): T', new First())
+		model.addFunction('last(list: T[], predicate: boolean): T', new Last())
+		model.addFunction('count(list: T[], predicate: boolean): integer', new Count())
+		model.addFunction('max(list: T[], predicate: boolean): T', new Max())
+		model.addFunction('min(list: T[], predicate: boolean): T', new Min())
+		model.addFunction('avg(list: T[], value: number): number', new Avg())
+		model.addFunction('sum(list: T[], value: number): number', new Sum())
 	}
 
-	private setsFunctions (): void {
-		this.model.addFunction('union(a: T[], b: T[]): T[]', new Union())
-		this.model.addFunction('intersection(a: T[], b: T[]): T[]', new Intersection())
-		this.model.addFunction('difference(a: T[], b: T[]): T[]', new Difference())
-		this.model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', new SymmetricDifference())
+	private setsFunctions (model: ModelService): void {
+		model.addFunction('union(a: T[], b: T[]): T[]', new Union())
+		model.addFunction('intersection(a: T[], b: T[]): T[]', new Intersection())
+		model.addFunction('difference(a: T[], b: T[]): T[]', new Difference())
+		model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', new SymmetricDifference())
 	}
 }
 
@@ -637,7 +633,7 @@ class AssignmentRightShift extends PrototypeEvaluator {
 }
 class Map extends PrototypeEvaluator {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly builder:IOperandBuilder, operand?: Operand) {
+	public constructor (private readonly builder:OperandBuilder, operand?: Operand) {
 		super(operand)
 	}
 

@@ -1,14 +1,14 @@
 // import { Const, Var, Template, Operator, CallFunc, Arrow, List, Obj, Property } from './operands'
-import { ITypeService, OperatorMetadata } from '../../domain'
+import { TypeService, OperatorMetadata } from '../../domain'
 import { Operand, OperandType } from '../../../shared/domain'
-import { IModelService } from '../../../model/domain'
+import { ModelService } from '../../../model/domain'
 import { Type, PropertyType, ObjType, ListType } from 'typ3s'
-import { Autowired, Service } from 'h3lp'
+import { Service } from 'h3lp'
 
 @Service('exp.operand.typeService')
-export class TypeService implements ITypeService {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+export class TypeServiceImpl implements TypeService {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	// Example
 	// {

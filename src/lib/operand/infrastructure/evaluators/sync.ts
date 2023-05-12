@@ -1,8 +1,9 @@
-import { Autowired, h3lp, IReplacer, Service } from 'h3lp'
+import { h3lp, IReplacer } from 'h3lp'
 import { Context, OperandType, Operand, IEvaluator } from '../../../shared/domain'
 import { Evaluator, EvaluatorBuilder } from '../../domain'
-import { IModelService } from '../../../model/domain'
+import { ModelService } from '../../../model/domain'
 import { Primitive } from 'typ3s'
+import { EvaluatorFactory } from '../../application'
 
 export class ConstEvaluator extends Evaluator {
 	public eval (): any {
@@ -23,8 +24,7 @@ export class ConstEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Const}`)
-export class ConstEvaluatorBuilder implements EvaluatorBuilder {
+class ConstEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ConstEvaluator(operand)
 	}
@@ -36,8 +36,7 @@ export class VarEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Var}`)
-export class VarEvaluatorBuilder implements EvaluatorBuilder {
+class VarEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new VarEvaluator(operand)
 	}
@@ -58,10 +57,9 @@ class CallFuncEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Operator}`)
-export class OperatorEvaluatorBuilder implements EvaluatorBuilder {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+class OperatorEvaluatorBuilder implements EvaluatorBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	build (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getOperator(operand.name, operand.children.length)
@@ -75,10 +73,9 @@ export class OperatorEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.CallFunc}`)
-export class FunctionEvaluatorBuilder implements EvaluatorBuilder {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+class FunctionEvaluatorBuilder implements EvaluatorBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	build (operand:Operand): IEvaluator {
 		const operatorMetadata = this.model.getFunction(operand.name)
@@ -92,11 +89,8 @@ export class FunctionEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.ChildFunc}`)
-export class ChildFuncEvaluatorBuilder extends FunctionEvaluatorBuilder {}
-
-@Service(`exp.operand.eval.sync.${OperandType.Arrow}`)
-export class ArrowEvaluatorBuilder extends FunctionEvaluatorBuilder {}
+class ChildFuncEvaluatorBuilder extends FunctionEvaluatorBuilder {}
+class ArrowEvaluatorBuilder extends FunctionEvaluatorBuilder {}
 
 export class EnvEvaluator extends Evaluator {
 	public eval (): any {
@@ -104,14 +98,13 @@ export class EnvEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Env}`)
-export class EnvEvaluatorBuilder implements EvaluatorBuilder {
+class EnvEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new EnvEvaluator(operand)
 	}
 }
 
-export class TemplateReplacer implements IReplacer {
+class TemplateReplacer implements IReplacer {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (private readonly context: Context) { }
 
@@ -130,8 +123,7 @@ export class TemplateEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Template}`)
-export class TemplateEvaluatorBuilder implements EvaluatorBuilder {
+class TemplateEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new TemplateEvaluator(operand)
 	}
@@ -145,8 +137,7 @@ class PropertyEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Property}`)
-export class PropertyEvaluatorBuilder implements EvaluatorBuilder {
+class PropertyEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new PropertyEvaluator(operand)
 	}
@@ -162,8 +153,7 @@ class ListEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.List}`)
-export class ListEvaluatorBuilder implements EvaluatorBuilder {
+class ListEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ListEvaluator(operand)
 	}
@@ -179,8 +169,7 @@ class ObjEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Obj}`)
-export class ObjEvaluatorBuilder implements EvaluatorBuilder {
+class ObjEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ObjEvaluator(operand)
 	}
@@ -195,8 +184,8 @@ class BlockEvaluator extends Evaluator {
 		return lastValue
 	}
 }
-@Service(`exp.operand.eval.sync.${OperandType.Block}`)
-export class BlockEvaluatorBuilder implements EvaluatorBuilder {
+
+class BlockEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new BlockEvaluator(operand)
 	}
@@ -225,8 +214,7 @@ class IfEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.If}`)
-export class IfEvaluatorBuilder implements EvaluatorBuilder {
+class IfEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new IfEvaluator(operand)
 	}
@@ -248,8 +236,7 @@ class SwitchEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Switch}`)
-export class SwitchEvaluatorBuilder implements EvaluatorBuilder {
+class SwitchEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new SwitchEvaluator(operand)
 	}
@@ -267,8 +254,7 @@ class WhileEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.While}`)
-export class WhileEvaluatorBuilder implements EvaluatorBuilder {
+class WhileEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new WhileEvaluator(operand)
 	}
@@ -288,8 +274,7 @@ class ForEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.For}`)
-export class ForEvaluatorBuilder implements EvaluatorBuilder {
+class ForEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForEvaluator(operand)
 	}
@@ -312,8 +297,7 @@ class ForInEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.ForIn}`)
-export class ForInEvaluatorBuilder implements EvaluatorBuilder {
+class ForInEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new ForInEvaluator(operand)
 	}
@@ -325,86 +309,112 @@ export class NotImplementedEvaluator extends Evaluator {
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Break}`)
-export class BreakEvaluatorBuilder implements EvaluatorBuilder {
+class BreakEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Continue}`)
-export class ContinueEvaluatorBuilder implements EvaluatorBuilder {
+class ContinueEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Func}`)
-export class FuncEvaluatorBuilder implements EvaluatorBuilder {
+class FuncEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Return}`)
-export class ReturnEvaluatorBuilder implements EvaluatorBuilder {
+class ReturnEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Try}`)
-export class TryEvaluatorBuilder implements EvaluatorBuilder {
+class TryEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Catch}`)
-export class CatchEvaluatorBuilder implements EvaluatorBuilder {
+class CatchEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Throw}`)
-export class ThrowEvaluatorBuilder implements EvaluatorBuilder {
+class ThrowEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Default}`)
-export class DefaultEvaluatorBuilder implements EvaluatorBuilder {
+class DefaultEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Case}`)
-export class CaseEvaluatorBuilder implements EvaluatorBuilder {
+class CaseEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.KeyVal}`)
-export class KeyValEvaluatorBuilder implements EvaluatorBuilder {
+class KeyValEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.Else}`)
-export class ElseEvaluatorBuilder implements EvaluatorBuilder {
+class ElseEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
 	}
 }
 
-@Service(`exp.operand.eval.sync.${OperandType.ElseIf}`)
-export class ElseIfEvaluatorBuilder implements EvaluatorBuilder {
+class ElseIfEvaluatorBuilder implements EvaluatorBuilder {
 	build (operand:Operand): IEvaluator {
 		return new NotImplementedEvaluator(operand)
+	}
+}
+
+export class SyncEvaluatorFactoryBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
+
+	public build (): EvaluatorFactory {
+		return new EvaluatorFactory()
+			.add(OperandType.Const, new ConstEvaluatorBuilder())
+			.add(OperandType.Var, new VarEvaluatorBuilder())
+			.add(OperandType.Operator, new OperatorEvaluatorBuilder(this.model))
+			.add(OperandType.CallFunc, new FunctionEvaluatorBuilder(this.model))
+			.add(OperandType.ChildFunc, new ChildFuncEvaluatorBuilder(this.model))
+			.add(OperandType.Arrow, new ArrowEvaluatorBuilder(this.model))
+			.add(OperandType.Env, new EnvEvaluatorBuilder())
+			.add(OperandType.Template, new TemplateEvaluatorBuilder())
+			.add(OperandType.Property, new PropertyEvaluatorBuilder())
+			.add(OperandType.List, new ListEvaluatorBuilder())
+			.add(OperandType.Obj, new ObjEvaluatorBuilder())
+			.add(OperandType.KeyVal, new KeyValEvaluatorBuilder())
+			.add(OperandType.Block, new BlockEvaluatorBuilder())
+			.add(OperandType.If, new IfEvaluatorBuilder())
+			.add(OperandType.Else, new ElseEvaluatorBuilder())
+			.add(OperandType.ElseIf, new ElseIfEvaluatorBuilder())
+			.add(OperandType.Switch, new SwitchEvaluatorBuilder())
+			.add(OperandType.While, new WhileEvaluatorBuilder())
+			.add(OperandType.For, new ForEvaluatorBuilder())
+			.add(OperandType.ForIn, new ForInEvaluatorBuilder())
+			.add(OperandType.Break, new BreakEvaluatorBuilder())
+			.add(OperandType.Continue, new ContinueEvaluatorBuilder())
+			.add(OperandType.Func, new FuncEvaluatorBuilder())
+			.add(OperandType.Return, new ReturnEvaluatorBuilder())
+			.add(OperandType.Try, new TryEvaluatorBuilder())
+			.add(OperandType.Catch, new CatchEvaluatorBuilder())
+			.add(OperandType.Throw, new ThrowEvaluatorBuilder())
+			.add(OperandType.Default, new DefaultEvaluatorBuilder())
+			.add(OperandType.Case, new CaseEvaluatorBuilder())
 	}
 }

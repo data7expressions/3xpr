@@ -1,6 +1,6 @@
-import { Autowired, h3lp } from 'h3lp'
+import { h3lp } from 'h3lp'
 import { Operand, OperandType, Position } from '../../../shared/domain'
-import { IModelService } from '../../../model/domain'
+import { ModelService } from '../../../model/domain'
 import { Type } from 'typ3s'
 export class Parser {
 	private buffer: string[]
@@ -11,7 +11,7 @@ export class Parser {
 	private tripleOperators: string[]
 	private assignmentOperators: string[]
 
-	constructor (private readonly model: IModelService, private readonly expression: [string, number, number][]) {
+	constructor (private readonly model: ModelService, private readonly expression: [string, number, number][]) {
 		// this.model = model
 		// this.positions = this.normalize(expression)
 		this.buffer = this.expression.map(p => p[0])
@@ -699,8 +699,8 @@ export class Parser {
 }
 
 export class ExpressionParse {
-	@Autowired('exp.model.service')
-	private model!: IModelService
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService) {}
 
 	public parse (expression: [string, number, number][]): Operand {
 		return new Parser(this.model, expression).parse()

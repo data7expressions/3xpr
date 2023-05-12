@@ -1,6 +1,6 @@
 import { Format } from '../../shared/domain'
 import { OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata } from '../../operand/domain/entities'
-export interface IModelService {
+export interface ModelService {
 	get operatorAlias():[string, any][]
 	get functionAlias():[string, any][]
 	get enums(): [string, [string, any][]][]

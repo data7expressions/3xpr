@@ -47,7 +47,7 @@ export class Operand {
 	public constructor (public readonly pos:Position, public name:any, public readonly type:OperandType, public children:Operand[] = [], public returnType?:Type) { }
 	public eval (context: Context): any {
 		if (!this.evaluator) {
-			throw new Error('Evaluator not implemented')
+			throw new Error(`${this.name} evaluator not implemented`)
 		}
 		return this.evaluator.eval(context)
 	}

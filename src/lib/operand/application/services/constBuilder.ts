@@ -1,5 +1,5 @@
 import { Operand, Position } from '../../../shared/domain'
 
-export interface IConstBuilder {
+export interface ConstBuilder {
 	build (pos:Position, value:any): Operand
 }

@@ -1,12 +1,10 @@
-import { ExpressionConverter, helper } from '../../'
-import { IOperandBuilder } from '../../operand/domain'
-import { OperandType } from '../../shared/domain'
-import { Autowired, Service } from 'h3lp'
+import { ExpressionConverter, helper } from '../../..'
+import { OperandBuilder } from '../../../operand/domain'
+import { OperandType } from '../../../shared/domain'
 
-@Service('exp.expression.converter.function')
 export class ExpressionConvertFunction implements ExpressionConverter {
-	@Autowired('exp.operand.builder.sync')
-	private operandBuilder!:IOperandBuilder
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly operandBuilder:OperandBuilder) {}
 
 	/**
 	 * Convert a lambda expression to a query expression
