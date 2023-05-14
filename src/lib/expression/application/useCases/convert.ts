@@ -1,20 +1,21 @@
 
-import { ExpressionConverter } from '../ports/converter'
+import { ExpressionConvert, ExpressionConverter } from '../../domain'
 
-export class ExpressionConvert {
+// eslint-disable-next-line no-use-before-define
+export class ExpressionConvertImp implements ExpressionConvert {
 	private converts:any = {}
 
-	public add (key:string, converter:ExpressionConverter): ExpressionConvert {
+	public addConvert (key:string, converter:ExpressionConverter): ExpressionConvert {
 		this.converts[key] = converter
 		return this
 	}
 
-	public get (key:string):ExpressionConverter {
+	public getConvert (key:string):ExpressionConverter {
 		return this.converts[key] as ExpressionConverter
 	}
 
 	public convert (source:any, from:string): [string, any] {
-		const converter = this.get(from)
+		const converter = this.getConvert(from)
 		if (converter === undefined) {
 			throw new Error(`Converter ${from} not implemented`)
 		}

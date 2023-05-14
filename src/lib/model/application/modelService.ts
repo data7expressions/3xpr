@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { OperatorMetadata, OperatorAdditionalInfo, FunctionAdditionalInfo, PrototypeEvaluator } from '../../operand/domain'
 import { Sing, Format, Parameter } from '../../shared/domain'
-import { ModelService } from '../domain'
+import { Library, ModelService } from '../domain'
 export class ModelServiceImpl implements ModelService {
 	private _enums: any
 	private _constants: any
@@ -96,6 +96,10 @@ export class ModelServiceImpl implements ModelService {
 
 	public addFunctionAlias (alias:string, reference:string):void {
 		this._functionAlias[alias] = reference
+	}
+
+	public addLibrary (library:Library):void {
+		library.load(this)
 	}
 
 	public addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo): void {

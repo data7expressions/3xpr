@@ -1,36 +1,22 @@
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
-import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, EvaluatorFactory, ConstBuilder, OperandFacade } from '../../operand/domain'
-import { CoreLibrary } from './library'
-import { ExpressionEvaluateImpl, ExpressionEvaluateObserveDecorator } from '../application'
-import { IExpressions } from '../domain'
-import { ExpressionConvert } from '../application/useCases/convert'
-import { ModelServiceImpl } from '../../model/application'
-import { ExpressionConvertFunction } from './convertFrom/convertFromFunction'
-import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
-import { OperandFacadeImpl } from '../../operand/infrastructure'
+import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ConstBuilder, OperandFacade, OperandBuilder } from '../../operand/domain'
+import { ExpressionConvert, ExpressionConverter, ExpressionEvaluate, ExpressionListener, IExpressions } from '../domain'
 
 export class Expressions implements IExpressions {
-	public model: ModelService
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly model: ModelService,
+		private readonly expressionConvert:ExpressionConvert,
+		private readonly operandFacade:OperandFacade,
+		private readonly expressionEvaluator:ExpressionEvaluate,
+		private readonly listener:ExpressionListener) {}
 
-	private expressionConvert:ExpressionConvert
-	private operandFacade:OperandFacade
-	private expressionEvaluator:ExpressionEvaluateObserveDecorator
-	constructor () {
-		this.model = new ModelServiceImpl()
-		this.operandFacade = new OperandFacadeImpl(this.model)
-		this.expressionConvert = new ExpressionConvert()
-			.add('function', new ExpressionConvertFunction(this.operandFacade.getBuilder('sync')))
-			.add('graphql', new ExpressionConvertGraphql())
-		new CoreLibrary(this.operandFacade.getBuilder('sync')).load(this.model)
-		this.expressionEvaluator = new ExpressionEvaluateObserveDecorator(
-			new ExpressionEvaluateImpl(this.operandFacade)
-		)
+	get operatorAlias (): [string, any][] {
+		return this.model.operatorAlias
 	}
 
-	public addLibrary (library:Library):IExpressions {
-		library.load(this.model)
-		return this
+	get functionAlias (): [string, any][] {
+		return this.model.functionAlias
 	}
 
 	public get operators (): [string, OperatorMetadata][] {
@@ -81,16 +67,60 @@ export class Expressions implements IExpressions {
 		this.model.addFunctionAlias(alias, reference)
 	}
 
-	public convert (source: any, from:string): [string, any] {
-		return this.expressionConvert.convert(source, from)
+	public addLibrary (library:Library):void {
+		this.model.addLibrary(library)
+	}
+
+	getConstantValue (name:string): any | undefined {
+		return this.model.getConstantValue(name)
+	}
+
+	getEnumValue (name:string, option:string):any {
+		return this.model.getEnumValue(name, option)
+	}
+
+	getEnum (name:string):any {
+		return this.model.getEnum(name)
+	}
+
+	getFormat (name:string): Format | undefined {
+		return this.model.getFormat(name)
+	}
+
+	getOperator (operator:string, operands?:number): OperatorMetadata {
+		return this.model.getOperator(operator, operands)
+	}
+
+	getFunction (name: string): OperatorMetadata {
+		return this.model.getFunction(name)
+	}
+
+	priority (name: string, cardinality?:number): number {
+		return this.model.priority(name, cardinality)
+	}
+
+	isEnum (name:string):boolean {
+		return this.model.isEnum(name)
+	}
+
+	isConstant (name:string):boolean {
+		return this.model.isConstant(name)
+	}
+
+	isOperator (name:string, operands?:number):boolean {
+		return this.model.isOperator(name, operands)
+	}
+
+	isFunction (name:string):boolean {
+		return this.model.isFunction(name)
 	}
 
 	public get constBuilder (): ConstBuilder {
 		return this.operandFacade.constBuilder
 	}
 
-	public getEvaluatorFactory (key:string):EvaluatorFactory {
-		return this.operandFacade.getBuilder(key).evaluatorFactory
+	public getBuilder (key:string):OperandBuilder {
+		return this.operandFacade.getBuilder(key)
 	}
 
 	/**
@@ -111,12 +141,12 @@ export class Expressions implements IExpressions {
 		return this.operandFacade.type(expression)
 	}
 
-	public build (expression: string): Operand {
-		return this.operandFacade.build(expression, 'sync')
+	public build (expression: string, key?:string): Operand {
+		return this.operandFacade.build(expression, key)
 	}
 
-	public clone (source:Operand):Operand {
-		return this.operandFacade.clone(source)
+	public clone (source:Operand, key?:string):Operand {
+		return this.operandFacade.clone(source, key)
 	}
 
 	/**
@@ -135,12 +165,25 @@ export class Expressions implements IExpressions {
 		return this.expressionEvaluator.evalAsync(expression, context)
 	}
 
+	public addConvert (key: string, converter: ExpressionConverter): ExpressionConvert {
+		this.expressionConvert.addConvert(key, converter)
+		return this
+	}
+
+	public getConvert (key: string): ExpressionConverter {
+		return this.expressionConvert.getConvert(key)
+	}
+
+	public convert (source: any, from:string): [string, any] {
+		return this.expressionConvert.convert(source, from)
+	}
+
 	// Listeners and subscribers
 	public subscribe (observer:ActionObserver):void {
-		this.expressionEvaluator.subscribe(observer)
+		this.listener.subscribe(observer)
 	}
 
 	public unsubscribe (observer:ActionObserver): void {
-		this.expressionEvaluator.unsubscribe(observer)
+		this.listener.unsubscribe(observer)
 	}
 }
