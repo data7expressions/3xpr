@@ -1,6 +1,6 @@
 
 import { h3lp } from 'h3lp'
-import { ExpressionConverter } from '../../application'
+import { ExpressionConverter } from '../../domain'
 
 export class ExpressionConvertGraphql implements ExpressionConverter {
 	public convert (source: any): [string, any ] {

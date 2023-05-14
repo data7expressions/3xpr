@@ -1,5 +1,6 @@
 import { Format } from '../../shared/domain'
 import { OperatorAdditionalInfo, FunctionAdditionalInfo, OperatorMetadata } from '../../operand/domain/entities'
+import { Library } from './library'
 export interface ModelService {
 	get operatorAlias():[string, any][]
 	get functionAlias():[string, any][]
@@ -15,6 +16,7 @@ export interface ModelService {
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
 	addFunctionAlias (alias:string, reference:string):void
+	addLibrary (library:Library):void
 	getConstantValue (name:string): any | undefined
 	getEnumValue (name:string, option:string):any
 	getEnum (name:string):any

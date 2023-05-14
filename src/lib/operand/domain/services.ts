@@ -36,6 +36,6 @@ export interface OperandFacade {
 	getBuilder (key:string):OperandBuilder
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
-	build (expression: string, key:string):Operand
-	clone (source:Operand):Operand
+	build (expression: string, key?:string):Operand
+	clone (source:Operand, key?:string):Operand
 }

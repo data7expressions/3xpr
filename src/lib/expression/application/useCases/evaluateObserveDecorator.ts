@@ -1,7 +1,7 @@
 import { Context, ActionObserver } from '../../../shared/domain'
-import { ExpressionEvaluate } from '../../domain'
+import { ExpressionEvaluate, ExpressionListener } from '../../domain'
 
-export class ExpressionEvaluateObserveDecorator implements ExpressionEvaluate {
+export class ExpressionEvaluateObserveDecorator implements ExpressionEvaluate, ExpressionListener {
 	private observers:ActionObserver[] = []
 
 	// eslint-disable-next-line no-useless-constructor

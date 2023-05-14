@@ -29,7 +29,7 @@ __exportStar(require("./expression/domain"), exports);
 __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
 exports.helper = new application_1.Helper();
-exports.expressions = new infrastructure_1.Expressions();
+exports.expressions = new infrastructure_1.ExpressionsBuilder().build();
 h3lp_1.Factory.add('expressions', exports.expressions);
 /**
  * Get parameters of expression

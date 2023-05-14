@@ -1,6 +1,5 @@
 import { Parameter, ActionObserver } from './shared/domain';
 import { Helper } from './shared/application';
-import { Expressions } from './expression/infrastructure';
 export * from './shared/domain';
 export * from './shared/application';
 export * from './model/domain';
@@ -12,7 +11,7 @@ export * from './expression/domain';
 export * from './expression/application';
 export * from './expression/infrastructure';
 export declare const helper: Helper;
-export declare const expressions: Expressions;
+export declare const expressions: import("./expression/domain").IExpressions;
 /**
  * Get parameters of expression
  * @param expression  expression

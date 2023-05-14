@@ -1,7 +1,7 @@
 import { Factory } from 'h3lp'
 import { Parameter, ActionObserver } from './shared/domain'
 import { Helper } from './shared/application'
-import { Expressions } from './expression/infrastructure'
+import { ExpressionsBuilder } from './expression/infrastructure'
 
 export * from './shared/domain'
 export * from './shared/application'
@@ -14,7 +14,7 @@ export * from './expression/domain'
 export * from './expression/application'
 export * from './expression/infrastructure'
 export const helper = new Helper()
-export const expressions = new Expressions()
+export const expressions = new ExpressionsBuilder().build()
 Factory.add('expressions', expressions)
 
 /**
