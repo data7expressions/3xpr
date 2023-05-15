@@ -1,9 +1,9 @@
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
 import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ConstBuilder, OperandFacade, OperandBuilder } from '../../operand/domain'
-import { ExpressionConvert, ExpressionConverter, ExpressionEvaluate, ExpressionListener, IExpressions } from '../domain'
+import { ExpressionConvert, ExpressionConverter, ExpressionEvaluate, ExpressionListener, Expressions } from '../domain'
 
-export class Expressions implements IExpressions {
+export class ExpressionsImpl implements Expressions {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly model: ModelService,
 		private readonly expressionConvert:ExpressionConvert,
@@ -71,47 +71,47 @@ export class Expressions implements IExpressions {
 		this.model.addLibrary(library)
 	}
 
-	getConstantValue (name:string): any | undefined {
+	public getConstantValue (name:string): any | undefined {
 		return this.model.getConstantValue(name)
 	}
 
-	getEnumValue (name:string, option:string):any {
+	public getEnumValue (name:string, option:string):any {
 		return this.model.getEnumValue(name, option)
 	}
 
-	getEnum (name:string):any {
+	public getEnum (name:string):any {
 		return this.model.getEnum(name)
 	}
 
-	getFormat (name:string): Format | undefined {
+	public getFormat (name:string): Format | undefined {
 		return this.model.getFormat(name)
 	}
 
-	getOperator (operator:string, operands?:number): OperatorMetadata {
+	public getOperator (operator:string, operands?:number): OperatorMetadata {
 		return this.model.getOperator(operator, operands)
 	}
 
-	getFunction (name: string): OperatorMetadata {
+	public getFunction (name: string): OperatorMetadata {
 		return this.model.getFunction(name)
 	}
 
-	priority (name: string, cardinality?:number): number {
+	public priority (name: string, cardinality?:number): number {
 		return this.model.priority(name, cardinality)
 	}
 
-	isEnum (name:string):boolean {
+	public isEnum (name:string):boolean {
 		return this.model.isEnum(name)
 	}
 
-	isConstant (name:string):boolean {
+	public isConstant (name:string):boolean {
 		return this.model.isConstant(name)
 	}
 
-	isOperator (name:string, operands?:number):boolean {
+	public isOperator (name:string, operands?:number):boolean {
 		return this.model.isOperator(name, operands)
 	}
 
-	isFunction (name:string):boolean {
+	public isFunction (name:string):boolean {
 		return this.model.isFunction(name)
 	}
 
