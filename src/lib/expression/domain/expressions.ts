@@ -20,7 +20,7 @@ export interface ExpressionConvert {
 	getConvert (key:string):ExpressionConverter
 	convert (source:any, from:string): [string, any]
 }
-export interface IExpressions extends ModelService, ExpressionEvaluate, OperandFacade, ExpressionConvert, ExpressionListener {}
+export interface Expressions extends ModelService, ExpressionEvaluate, OperandFacade, ExpressionConvert, ExpressionListener {}
 
 export interface ExpressionConfig {
 	model: ModelService

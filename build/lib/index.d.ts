@@ -11,7 +11,7 @@ export * from './expression/domain';
 export * from './expression/application';
 export * from './expression/infrastructure';
 export declare const helper: Helper;
-export declare const expressions: import("./expression/domain").IExpressions;
+export declare const expressions: import("./expression/domain").Expressions;
 /**
  * Get parameters of expression
  * @param expression  expression
