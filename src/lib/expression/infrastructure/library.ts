@@ -5,7 +5,10 @@ import { PrototypeEvaluator, OperandBuilder } from '../../operand/domain'
 import { OperandClone } from '../../operand/application'
 export class CoreLibrary implements Library {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly builder: OperandBuilder) {}
+	constructor (
+		private readonly builder: OperandBuilder,
+		private readonly operandClone: OperandClone
+	) {}
 
 	public load (model: ModelService):void {
 		this.constants(model)
@@ -364,7 +367,7 @@ export class CoreLibrary implements Library {
 	}
 
 	private arrayFunctions (model: ModelService): void {
-		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder))
+		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder, this.operandClone))
 		model.addFunctionAlias('select', 'map')
 		model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
 		model.addFunctionAlias('each', 'foreach')
@@ -633,14 +636,15 @@ class AssignmentRightShift extends PrototypeEvaluator {
 }
 class Map extends PrototypeEvaluator {
 	// eslint-disable-next-line no-useless-constructor
-	public constructor (private readonly builder:OperandBuilder, operand?: Operand) {
+	public constructor (
+		private readonly builder:OperandBuilder,
+		private readonly operandClone:OperandClone,
+		operand?: Operand) {
 		super(operand)
 	}
 
-	private operandClone = new OperandClone()
-
 	public clone (operand:Operand): IEvaluator {
-		return new Map(this.builder, operand)
+		return new Map(this.builder, this.operandClone, operand)
 	}
 
 	public eval (context: Context): any {

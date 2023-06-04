@@ -3,9 +3,7 @@ import { TypeService, OperatorMetadata } from '../../domain'
 import { Operand, OperandType } from '../../../shared/domain'
 import { ModelService } from '../../../model/domain'
 import { Type, PropertyType, ObjType, ListType } from 'typ3s'
-import { Service } from 'h3lp'
 
-@Service('exp.operand.typeService')
 export class TypeServiceImpl implements TypeService {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly model: ModelService) {}

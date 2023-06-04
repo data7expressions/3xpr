@@ -1,23 +1,21 @@
 /* eslint-disable no-case-declarations */
 import { Operand } from '../../../shared/domain'
 import { OperandBuilder, OperandSerializer } from '../../domain'
-import { Autowired, ICache, IUtils } from 'h3lp'
+import { ICache, IUtils } from 'h3lp'
 import { OperandComplete } from '..'
 
 export class OperandBuilderCacheDecorator implements OperandBuilder {
 	private operandComplete:OperandComplete
 	constructor (private readonly builder:OperandBuilder,
 		private readonly cache: ICache<string, string>,
-		private readonly serializer:OperandSerializer) {
+		private readonly serializer:OperandSerializer,
+		private readonly utils: IUtils) {
 		this.operandComplete = new OperandComplete(builder.evaluatorFactory)
 	}
 
 	public get evaluatorFactory () {
 		return this.builder.evaluatorFactory
 	}
-
-	@Autowired('h3lp.utils')
-	private utils!: IUtils
 
 	public build (expression: string): Operand {
 		const key = this.utils.hashCode(expression).toString()

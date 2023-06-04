@@ -6,15 +6,21 @@ import { ModelServiceImpl } from '../../model/application'
 import { ExpressionConvertFunction } from './convertFrom/convertFromFunction'
 import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
 import { OperandFacadeBuilder } from '../../operand/infrastructure'
+import { OperandClone } from '../../operand/application'
+import { Helper } from '../../shared/application'
 
 export class ExpressionsBuilder {
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly helper:Helper) {}
+
 	public build (): Expressions {
 		const model = new ModelServiceImpl()
-		const operandFacade = new OperandFacadeBuilder().build(model)
+		const operandFacade = new OperandFacadeBuilder(model, this.helper).build()
 		const expressionConvert = new ExpressionConvertImp()
 			.addConvert('function', new ExpressionConvertFunction(operandFacade.getBuilder('sync')))
 			.addConvert('graphql', new ExpressionConvertGraphql())
-		new CoreLibrary(operandFacade.getBuilder('sync')).load(model)
+		const operandClone = new OperandClone()
+		new CoreLibrary(operandFacade.getBuilder('sync'), operandClone).load(model)
 		const expressionEvaluator = new ExpressionEvaluateObserveDecorator(
 			new ExpressionEvaluateImpl(operandFacade)
 		)

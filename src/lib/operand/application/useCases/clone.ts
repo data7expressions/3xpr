@@ -1,10 +1,7 @@
 import { EvaluatorFactory } from '../../domain'
 import { Operand } from '../../../shared/domain'
-import { Autowired } from 'h3lp'
-
 export class OperandClone {
-	@Autowired('exp.operand.eval.factory')
-	private factories!:any
+	private factories:any = {}
 
 	private getFactory (key:string):EvaluatorFactory {
 		return this.factories[key] as EvaluatorFactory
