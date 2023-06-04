@@ -1,10 +1,9 @@
-import { IStringHelper, Service, Autowired } from 'h3lp'
+import { IStringHelper } from 'h3lp'
 import { IExpressionHelper } from '../../shared/application'
 
-@Service('exp.helper.expression')
 export class ExpressionHelper implements IExpressionHelper {
-	@Autowired('helper.str')
-	private str!:IStringHelper
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly str:IStringHelper) {}
 
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	public clearLambda (func:Function):string {

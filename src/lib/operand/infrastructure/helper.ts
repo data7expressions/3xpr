@@ -1,9 +1,7 @@
-import { Service } from 'h3lp'
 import { Context, Operand, OperandType } from '../../shared/domain'
 import { IOperandHelper } from '../../shared/application'
 import { ConstBuilder } from '../domain/constBuilder'
 
-@Service('exp.helper.operand')
 export class OperandHelper implements IOperandHelper {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly constBuilder: ConstBuilder) {}

@@ -1,5 +1,4 @@
 import { Parameter, ActionObserver } from './shared/domain';
-import { Helper } from './shared/application';
 export * from './shared/domain';
 export * from './shared/application';
 export * from './model/domain';
@@ -10,7 +9,7 @@ export * from './operand/infrastructure';
 export * from './expression/domain';
 export * from './expression/application';
 export * from './expression/infrastructure';
-export declare const helper: Helper;
+export declare const helper: import("./shared/application").Helper;
 export declare const expressions: import("./expression/domain").Expressions;
 /**
  * Get parameters of expression

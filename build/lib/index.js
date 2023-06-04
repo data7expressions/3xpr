@@ -16,7 +16,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.unsubscribe = exports.subscribe = exports.evalAsync = exports.evaluate = exports.parameters = exports.expressions = exports.helper = void 0;
 const h3lp_1 = require("h3lp");
-const application_1 = require("./shared/application");
 const infrastructure_1 = require("./expression/infrastructure");
 __exportStar(require("./shared/domain"), exports);
 __exportStar(require("./shared/application"), exports);
@@ -28,8 +27,8 @@ __exportStar(require("./operand/infrastructure"), exports);
 __exportStar(require("./expression/domain"), exports);
 __exportStar(require("./expression/application"), exports);
 __exportStar(require("./expression/infrastructure"), exports);
-exports.helper = new application_1.Helper();
-exports.expressions = new infrastructure_1.ExpressionsBuilder().build();
+exports.helper = new infrastructure_1.HelperBuilder().build();
+exports.expressions = new infrastructure_1.ExpressionsBuilder(exports.helper).build();
 h3lp_1.Factory.add('expressions', exports.expressions);
 /**
  * Get parameters of expression
