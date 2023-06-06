@@ -31,11 +31,14 @@ export interface OperandSerializer {
 	deserialize (value: string): Operand
 }
 
-export interface OperandFacade {
+export interface OperandCloner {
+	clone (source:Operand, key?:string):Operand
+}
+
+export interface OperandFacade extends OperandCloner {
 	constBuilder: ConstBuilder
 	getBuilder (key:string):OperandBuilder
 	parameters (expression: string): Parameter[]
 	type (expression: string): string
 	build (expression: string, key?:string):Operand
-	clone (source:Operand, key?:string):Operand
 }
