@@ -1,6 +1,6 @@
-import { EvaluatorFactory } from '../../domain'
+import { EvaluatorFactory, OperandCloner } from '../../domain'
 import { Operand } from '../../../shared/domain'
-export class OperandClone {
+export class OperandClone implements OperandCloner {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly factories:[string, EvaluatorFactory][]) {}
 
