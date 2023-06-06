@@ -23,7 +23,7 @@ export class OperandSerializerImpl implements OperandSerializer {
 		for (const child of operand.children) {
 			children.push(this._serialize(child))
 		}
-		return { pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: Type.stringify(operand.returnType) }
+		return { pos: operand.pos, name: operand.name, children, number: operand.number, type: operand.type, returnType: operand.returnType !== undefined ? Type.stringify(operand.returnType) : undefined }
 	}
 
 	private _deserialize (metadata: OperandMetadata): Operand {
@@ -35,7 +35,7 @@ export class OperandSerializerImpl implements OperandSerializer {
 			}
 		}
 		// eslint-disable-next-line no-case-declarations
-		const operand = new Operand(metadata.pos, metadata.name, OperandType[metadata.type], children, Type.to(metadata.returnType as string))
+		const operand = new Operand(metadata.pos, metadata.name, OperandType[metadata.type], children, metadata.returnType !== undefined ? Type.to(metadata.returnType as string) : undefined)
 		operand.number = metadata.number
 		return operand
 	}
