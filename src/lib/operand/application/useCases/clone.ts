@@ -1,10 +1,15 @@
 import { EvaluatorFactory } from '../../domain'
 import { Operand } from '../../../shared/domain'
 export class OperandClone {
-	private factories:any = {}
+	// eslint-disable-next-line no-useless-constructor
+	constructor (private readonly factories:[string, EvaluatorFactory][]) {}
 
 	private getFactory (key:string):EvaluatorFactory {
-		return this.factories[key] as EvaluatorFactory
+		const factory = this.factories.find(p => p[0] === key)?.[1]
+		if (factory === undefined) {
+			throw new Error(`Factory ${key} not found`)
+		}
+		return factory
 	}
 
 	public clone (operand: Operand, type:string): Operand {

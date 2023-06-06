@@ -1,13 +1,12 @@
 import { helper } from '../..'
 import { Context, Operand, OperandType, IEvaluator } from '../../shared/domain'
 import { ModelService, Library } from '../../model/domain'
-import { PrototypeEvaluator, OperandBuilder } from '../../operand/domain'
-import { OperandClone } from '../../operand/application'
+import { PrototypeEvaluator, OperandBuilder, OperandCloner } from '../../operand/domain'
 export class CoreLibrary implements Library {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly builder: OperandBuilder,
-		private readonly operandClone: OperandClone
+		private readonly cloner: OperandCloner
 	) {}
 
 	public load (model: ModelService):void {
@@ -367,7 +366,7 @@ export class CoreLibrary implements Library {
 	}
 
 	private arrayFunctions (model: ModelService): void {
-		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder, this.operandClone))
+		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder, this.cloner))
 		model.addFunctionAlias('select', 'map')
 		model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
 		model.addFunctionAlias('each', 'foreach')
@@ -638,13 +637,13 @@ class Map extends PrototypeEvaluator {
 	// eslint-disable-next-line no-useless-constructor
 	public constructor (
 		private readonly builder:OperandBuilder,
-		private readonly operandClone:OperandClone,
+		private readonly cloner:OperandCloner,
 		operand?: Operand) {
 		super(operand)
 	}
 
 	public clone (operand:Operand): IEvaluator {
-		return new Map(this.builder, this.operandClone, operand)
+		return new Map(this.builder, this.cloner, operand)
 	}
 
 	public eval (context: Context): any {
@@ -677,7 +676,7 @@ class Map extends PrototypeEvaluator {
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
-						const operandCloned = this.operandClone.clone(keyValue.children[0], 'sync')
+						const operandCloned = this.cloner.clone(keyValue.children[0], 'sync')
 						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value })

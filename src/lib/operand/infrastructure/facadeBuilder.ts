@@ -19,7 +19,7 @@ export class OperandFacadeBuilder {
 		const constBuilder = new ConstBuilderImpl()
 		const syncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
 		const asyncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
-		const operandClone = new OperandClone()
+		const operandClone = new OperandClone([['sync', syncEvaluatorFactory], ['async', asyncEvaluatorFactory]])
 		const parameterService = new ParameterServiceImpl()
 		const operandSerializer = new OperandSerializerImpl()
 		const operandBuild = new OperandBuild()

@@ -6,7 +6,6 @@ import { ModelServiceImpl } from '../../model/application'
 import { ExpressionConvertFunction } from './convertFrom/convertFromFunction'
 import { ExpressionConvertGraphql } from './convertFrom/convertFromGraphql'
 import { OperandFacadeBuilder } from '../../operand/infrastructure'
-import { OperandClone } from '../../operand/application'
 import { Helper } from '../../shared/application'
 
 export class ExpressionsBuilder {
@@ -19,8 +18,7 @@ export class ExpressionsBuilder {
 		const expressionConvert = new ExpressionConvertImp()
 			.addConvert('function', new ExpressionConvertFunction(operandFacade.getBuilder('sync')))
 			.addConvert('graphql', new ExpressionConvertGraphql())
-		const operandClone = new OperandClone()
-		new CoreLibrary(operandFacade.getBuilder('sync'), operandClone).load(model)
+		new CoreLibrary(operandFacade.getBuilder('sync'), operandFacade).load(model)
 		const expressionEvaluator = new ExpressionEvaluateObserveDecorator(
 			new ExpressionEvaluateImpl(operandFacade)
 		)
