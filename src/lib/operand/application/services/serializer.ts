@@ -1,4 +1,3 @@
-
 import { Operand, OperandType } from '../../../shared/domain'
 import { OperandMetadata, OperandSerializer } from '../../domain'
 import { Type } from 'typ3s'
