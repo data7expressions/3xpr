@@ -1,4 +1,3 @@
-
 export * from './services/factory'
 export * from './useCases/reduce'
 export * from './useCases/normalize'

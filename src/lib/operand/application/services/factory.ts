@@ -1,4 +1,3 @@
-
 import { EvaluatorBuilder, EvaluatorFactory } from '../../domain'
 import { Operand, IEvaluator } from '../../../shared/domain'
 

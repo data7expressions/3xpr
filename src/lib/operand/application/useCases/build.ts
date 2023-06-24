@@ -1,4 +1,3 @@
-
 import { Operand } from '../../../shared/domain'
 import { OperandBuilder } from '../../domain'
 

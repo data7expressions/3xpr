@@ -1,4 +1,3 @@
-
 import { ExpressionConvert, ExpressionConverter } from '../../domain'
 
 // eslint-disable-next-line no-use-before-define
