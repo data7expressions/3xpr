@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 		}
 	})
 	grunt.registerTask('dist', ['clean:dist', 'clean:build', 'exec:tsc', 'exec:lint', 'exec:test', 'copy:lib', 'copy:jest', 'copy:readme', 'copy:license', 'create-package'])
-	grunt.registerTask('doc', ['build-wiki', 'exec:doc'])
+	grunt.registerTask('doc', ['exec:doc'])
 	grunt.registerTask('release', ['dist', 'doc', 'exec:getOriginalBranch', 'run-release-if-applicable'])
 	grunt.registerTask('default', [])
 }
