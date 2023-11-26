@@ -1,9 +1,6 @@
 {
 	"entryPoints": [
-		"src/lib/manager/expressions.ts",
-		"src/lib/model",
-		"src/lib/operand",
-		"src/lib/parser"
+		"src/lib"
 	],
 	"out": "doc/source",
 	"excludePrivate": true,

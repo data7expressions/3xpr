@@ -985,6 +985,28 @@ functions:
       type: string  
     - name: position
       type: number
+  startsWith:
+    description: Indicates whether a text string begins with the characters of a given text string.  
+    category: string
+    deterministic: true 
+    return: boolean
+    params:
+    - name: value
+      type: string
+    - name: stringSearched
+      type: string  
+    - name: position
+      type: number
+  like:
+    description: Indicates whether a text string matches a specified pattern.  
+    category: string
+    deterministic: true 
+    return: boolean
+    params:
+    - name: value
+      type: string
+    - name: pattern
+      type: string    
   isEmpty:
     description: Evaluate if it is empty
     category: string
