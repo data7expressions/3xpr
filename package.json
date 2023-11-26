@@ -36,7 +36,7 @@
 		"@types/node": "^20.03.1",
 		"@typescript-eslint/eslint-plugin": "^5.60.0",
 		"@typescript-eslint/parser": "^5.60.0",
-		"config-extends": "^1.0.8",
+		"config-extends": "^2.0.6",
 		"eslint": "^8.43.0",
 		"eslint-config-standard": "^17.1.0",
 		"eslint-plugin-import": "^2.27.5",
