@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.12.13](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.12...v1.12.13) (2023-11-26)
+
 ### [1.12.12](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.11...v1.12.12) (2023-11-26)
 
 ### [1.12.11](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.10...v1.12.11) (2023-11-26)
