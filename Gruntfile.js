@@ -6,12 +6,10 @@ module.exports = function (grunt) {
 		originalBranch: '',
 		version: '',
 		exec: {
-			lint: { cmd: 'npx eslint src ' },
-			test: { cmd: 'npx jest --config jest-unit-config.json ' },
-			tsc: { cmd: 'npx tsc ' },
-			release: { cmd: './release.sh' },
-			to_develop: { cmd: './to_develop.sh' },
-			doc: { cmd: 'npx typedoc ' },
+			lint: { cmd: 'npx eslint src' },
+			test: { cmd: 'npx jest --config jest-unit-config.json' },
+			tsc: { cmd: 'npx tsc' },
+			doc: { cmd: 'npx typedoc' },
 			getOriginalBranch: {
 				cmd: 'git branch | sed -n -e \'s/^\\* \\(.*\\)/\\1/p\'',
 				callback: function (error, stdout, stderr) {
