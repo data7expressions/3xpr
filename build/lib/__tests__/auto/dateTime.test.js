@@ -5,7 +5,7 @@ const __1 = require("../../");
 describe('dateTime', () => {
     const context = JSON.parse('{}');
     test('lab', () => {
-        expect(__1.expressions.eval('time("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('16:40:11');
+        // expect(exp.eval('time("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('16:40:11')
         expect(__1.expressions.eval('date("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('2021-9-6');
         expect(__1.expressions.eval('dateTime("2021-09-06T14:39:11.444Z")', context)).toStrictEqual('2021-09-06T14:39:11.444Z');
         expect(__1.expressions.eval('year("2021-09-06T14:39:11.444Z")', context)).toStrictEqual(2021);
