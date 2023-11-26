@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 			gitFlowRelease: {
 				cmd: `git add . && git commit -m "chore(release): <%= version %>" && git push && git push --tags
 				  &&  git checkout -b release/<%= version %> && git push --set-upstream origin release/<%= version %>
-				  &&  git checkout master && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push
+				  &&  git checkout main && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push
 				  &&  git checkout <%= originalBranch %> && git merge release/<%= version %> -m "chore(release): release <%= version %>" && git push
 				  &&  git branch -D release/<%= version %>
 				`
