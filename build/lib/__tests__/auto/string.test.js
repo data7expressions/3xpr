@@ -34,12 +34,12 @@ describe('string', () => {
         expect(__1.expressions.eval('isEmpty(b)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('isEmpty(c)', context)).toStrictEqual(true);
         expect(__1.expressions.eval('isEmpty(food)', context)).toStrictEqual(false);
-        expect(__1.expressions.eval('$HOME', context)).toStrictEqual('/home/flavio');
-        expect(__1.expressions.eval('${USER}', context)).toStrictEqual('flavio');
-        expect(__1.expressions.eval('concat($HOME,$USER)', context)).toStrictEqual('/home/flavioflavio');
-        expect(__1.expressions.eval('concat(${HOME},$USER)', context)).toStrictEqual('/home/flavioflavio');
+        expect(__1.expressions.eval('$HOME', context)).toStrictEqual(process.env.HOME);
+        expect(__1.expressions.eval('${USER}', context)).toStrictEqual(process.env.USER);
+        expect(__1.expressions.eval('concat($HOME,$USER)', context)).toStrictEqual(`${process.env.HOME}${process.env.USER}`);
+        expect(__1.expressions.eval('concat(${HOME},$USER)', context)).toStrictEqual(`${process.env.HOME}${process.env.USER}`);
         expect(__1.expressions.eval('"Hello"+" "+"world"', context)).toStrictEqual('Hello world');
-        expect(__1.expressions.eval('`value of home: $HOME`', context)).toStrictEqual('value of home: /home/flavio');
+        expect(__1.expressions.eval('`value of home: $HOME`', context)).toStrictEqual(`value of home: ${process.env.HOME}`);
         expect(__1.expressions.eval('length(email) > 10 && length(email) < 100', context)).toStrictEqual(true);
         expect(__1.expressions.eval('email.length() > 10 && email.length() < 100', context)).toStrictEqual(true);
         expect(__1.expressions.eval('isEmpty(b)', context)).toStrictEqual(true);
