@@ -127,6 +127,8 @@ export class CoreLibrary implements Library {
 					return values.includes(source)
 				}
 			})
+		model.addFunction('like(value:string,pattern:string):boolean',
+			(value:string, pattern:any):boolean => value && pattern ? value.includes(pattern) : false)
 		model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.val.isNull(value))
 		model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.val.isNotNull(value))
 		model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.val.isEmpty(value))
@@ -227,6 +229,7 @@ export class CoreLibrary implements Library {
 		})
 		model.addFunction('split(value:string,separator:string=","):string[]', (value:string, separator = ','):string[] => value.split(separator))
 		model.addFunction('startWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.startsWith(sub, start))
+		model.addFunctionAlias('startsWith', 'startWith')
 	}
 
 	private dateTimeFunctions (model: ModelService): void {

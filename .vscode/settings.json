@@ -27,5 +27,6 @@
 		"title",
 		"trunc",
 		"usecase"
-	]
+	],
+	"editor.inlineSuggest.showToolbar": "onHover"
 }
