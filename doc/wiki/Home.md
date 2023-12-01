@@ -1,6 +1,6 @@
 # 3xpr
 
->Js-expression is an extensible expression evaluator and parser.
+>3xpr is an extensible expression evaluator and parser.
 >
 >Besides the operators, functions, variables, objects and arrays that are supported.
 >
