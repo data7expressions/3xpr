@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/expression/domain/expressions.ts#L27)
+[src/lib/expression/domain/expressions.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L27)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/expression/domain/expressions.ts#L29)
+[src/lib/expression/domain/expressions.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L29)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/expression/domain/expressions.ts#L26)
+[src/lib/expression/domain/expressions.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L26)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/expression/domain/expressions.ts#L28)
+[src/lib/expression/domain/expressions.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L28)

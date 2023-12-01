@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.14.1](https://github.com/FlavioLionelRita/3xpr/compare/v1.14.0...v1.14.1) (2023-12-01)
+
 ## [1.14.0](https://github.com/FlavioLionelRita/3xpr/compare/v1.13.2...v1.14.0) (2023-12-01)
 
 
