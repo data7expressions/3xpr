@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 			lint: { cmd: 'npx eslint src' },
 			test: { cmd: 'npx jest --config jest-unit-config.json' },
 			tsc: { cmd: 'npx tsc' },
-			doc: { cmd: 'npx typedoc' },
+			doc: { cmd: 'npx typedoc --plugin typedoc-plugin-markdown --out doc/source src/lib/index.ts' },
 			getOriginalBranch: {
 				cmd: 'git branch | sed -n -e \'s/^\\* \\(.*\\)/\\1/p\'',
 				callback: function (error, stdout, stderr) {
