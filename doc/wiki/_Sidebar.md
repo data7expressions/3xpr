@@ -13,7 +13,7 @@
   * [[Comparison]]
   * [[Logical]]
   * [[Bitwise]]
-	* [[Assignment]]
+  * [[Assignment]]
 * Functions
   * [[Numeric]]
   * [[String]]
@@ -24,6 +24,6 @@
 * Related Projects
   * [typ3s](https://www.npmjs.com/package/typ3s)
   * [jexp](https://www.npmjs.com/package/jexp)
-  * [lambdaorm](https://github.com/FlavioLionelRita/lambdaorm)
+  * [lambdaorm](https://www.npmjs.com/package/lambdaorm)
 * [Source Code Documentation](https://github.com/FlavioLionelRita/3xpr/tree/main/doc/source/README.md)
 * [Change log](https://github.com/FlavioLionelRita/3xpr/tree/main/CHANGELOG.md)

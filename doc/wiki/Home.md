@@ -87,4 +87,3 @@ while (p=timezones.pop()) {
 - [typ3s](https://www.npmjs.com/package/typ3s)
 - [jexp](https://www.npmjs.com/package/jexp)
 - [lambdaorm](https://github.com/FlavioLionelRita/lambdaorm)
-
