@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/operand/domain/entities.ts#L24)
+[src/lib/operand/domain/entities.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L24)
 
 ## Methods
 
@@ -58,4 +58,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/operand/domain/entities.ts#L25)
+[src/lib/operand/domain/entities.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L25)

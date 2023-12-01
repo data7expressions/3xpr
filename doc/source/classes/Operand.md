@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ## Properties
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L43)
+[src/lib/shared/domain/operand.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L43)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:45](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L45)
+[src/lib/shared/domain/operand.ts:45](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L45)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:44](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L44)
+[src/lib/shared/domain/operand.ts:44](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L44)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
 
 ## Methods
 
@@ -145,4 +145,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L48)
