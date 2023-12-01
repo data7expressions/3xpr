@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.13.0](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.20...v1.13.0) (2023-12-01)
+
+
+### Features
+
+* support names of function with dot ([93f45cc](https://github.com/FlavioLionelRita/3xpr/commit/93f45cc55863c8c1586fca5deb5e2942f41ee07e)), closes [#201](https://github.com/FlavioLionelRita/3xpr/issues/201)
+
 ### [1.12.20](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.18...v1.12.20) (2023-11-28)
 
 ### [1.12.19](https://github.com/FlavioLionelRita/3xpr/compare/v1.12.18...v1.12.19) (2023-11-28)
