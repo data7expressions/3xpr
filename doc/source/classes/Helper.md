@@ -51,7 +51,7 @@ H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/application/helper/helper.ts#L6)
 
 ## Properties
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/application/helper/helper.ts#L6)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/application/helper/helper.ts#L6)
 
 ___
 

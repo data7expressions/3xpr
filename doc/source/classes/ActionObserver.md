@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/observer.ts#L10)
+[src/lib/shared/domain/observer.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/observer.ts#L10)
 
 ## Properties
 
@@ -46,7 +46,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/observer.ts#L10)
+[src/lib/shared/domain/observer.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/observer.ts#L10)
 
 ## Methods
 
@@ -66,7 +66,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/observer.ts#L12)
+[src/lib/shared/domain/observer.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/observer.ts#L12)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/observer.ts#L11)
+[src/lib/shared/domain/observer.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/observer.ts#L11)
 
 ___
 
@@ -106,4 +106,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/observer.ts#L13)
+[src/lib/shared/domain/observer.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/observer.ts#L13)
