@@ -131,12 +131,12 @@ export class Parser {
 				operand = this.getSwitchBlock(pos)
 			} else if (!this.end && this.current === '(') {
 				this.index += 1
-				if (value.includes('.')) {
+				if (value.includes('.') && !this.model.isFunction(value)) {
 					const names = h3lp.obj.names(value)
-					const functionName = names.pop() as string
-					const variableName = names.join('.')
-					const variable = new Operand(pos, variableName, OperandType.Var)
-					operand = this.getChildFunc(functionName, variable)
+					const childName = names.pop() as string
+					const parentName = names.join('.')
+					const variable = new Operand(pos, parentName, OperandType.Var)
+					operand = this.getChildFunc(childName, variable)
 				} else {
 					if (this.current === ')') {
 						this.index++
@@ -242,7 +242,7 @@ export class Parser {
 			const name = this.getValue()
 			if (this.current === '(') {
 				this.index += 1
-				if (name.includes('.')) {
+				if (name.includes('.') && !this.model.isFunction(name)) {
 					// .xxx.xxx(p=> p.xxx)
 					const names = h3lp.obj.names(name)
 					const propertyName = names.slice(0, -1).join('.')

@@ -12,10 +12,16 @@ export class OperandReduce {
 		if (operand.type === OperandType.Operator) {
 			return this.reduceOperand(operand)
 		} else if (operand.type === OperandType.CallFunc) {
-			// Example: .[0].states.filter() where function name is states.filter
-			const names = operand.name.split('.')
-			const funcName = names[names.length - 1]
-			const funcMetadata = this.model.getFunction(funcName)
+			let funcMetadata:any = null
+			if (this.model.isFunction(operand.name)) {
+				// Example: orm.execute(expression, data, options)
+				funcMetadata = this.model.getFunction(operand.name)
+			} else {
+				// Example: .[0].states.filter() where function name is states.filter
+				const names = operand.name.split('.')
+				const funcName = names[names.length - 1]
+				funcMetadata = this.model.getFunction(funcName)
+			}
 			if (funcMetadata && funcMetadata.deterministic) {
 				return this.reduceOperand(operand)
 			}
