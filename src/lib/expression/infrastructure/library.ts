@@ -99,8 +99,11 @@ export class CoreLibrary implements Library {
 	}
 
 	private generalFunctions (model: ModelService): void {
-		// model.addFunction('async sleep(ms?: number)', Functions.sleep)
-		model.addFunction('console(value:any)', (value: any) => {
+		// model.addFunction('sleep(ms?: number):void', (ms: number = 0):void => {
+		// const promise = new Promise(resolve => setTimeout(resolve, ms))
+		// awaiter(() => promise)
+		// })
+		model.addFunction('console(value:any):void', (value: any) => {
 			console.log(typeof value === 'object' ? JSON.stringify(value) : value)
 		})
 	}

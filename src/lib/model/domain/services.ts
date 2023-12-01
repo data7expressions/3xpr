@@ -9,6 +9,7 @@ export interface ModelService {
 	get constants(): [string, any][]
 	get operators(): [string, OperatorMetadata][]
 	get functions(): [string, OperatorMetadata][]
+	// get namespaces(): string[]
 	addEnum (name:string, values:[string, any][] | any):void
 	addConstant (key:string, value:any):void
 	addFormat (key:string, pattern:string):void
@@ -16,6 +17,7 @@ export interface ModelService {
 	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
 	addFunctionAlias (alias:string, reference:string):void
+	// addNamespace (namespace:string):void
 	addLibrary (library:Library):void
 	getConstantValue (name:string): any | undefined
 	getEnumValue (name:string, option:string):any
@@ -28,4 +30,5 @@ export interface ModelService {
 	isConstant (name:string):boolean
 	isOperator (name:string, operands?:number):boolean
 	isFunction (name:string):boolean
+	// isNamespace (namespace:string):boolean
 }
