@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/operand/domain/entities.ts#L14)
+[src/lib/operand/domain/entities.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/operand/domain/entities.ts#L14)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/operand/domain/entities.ts#L13)
+[src/lib/operand/domain/entities.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/operand/domain/entities.ts#L13)

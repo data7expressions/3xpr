@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.14.0](https://github.com/FlavioLionelRita/3xpr/compare/v1.13.2...v1.14.0) (2023-12-01)
+
+
+### Features
+
+* update readme and wiki ([aba9c36](https://github.com/FlavioLionelRita/3xpr/commit/aba9c36970bc64c956153508155f482bdeaa3f0c)), closes [#201](https://github.com/FlavioLionelRita/3xpr/issues/201)
+
 ### [1.13.2](https://github.com/FlavioLionelRita/3xpr/compare/v1.13.1...v1.13.2) (2023-12-01)
 
 ### [1.13.1](https://github.com/FlavioLionelRita/3xpr/compare/v1.13.0...v1.13.1) (2023-12-01)

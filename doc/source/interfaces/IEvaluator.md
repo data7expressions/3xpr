@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/370020b/src/lib/shared/domain/operand.ts#L39)
+[src/lib/shared/domain/operand.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/aba9c36/src/lib/shared/domain/operand.ts#L39)
