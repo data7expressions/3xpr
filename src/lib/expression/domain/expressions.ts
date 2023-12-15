@@ -2,9 +2,10 @@ import { OperandFacade } from '../../operand/domain'
 import { ModelService } from '../../model/domain'
 import { ActionObserver } from '../../shared/domain'
 
-export interface ExpressionEvaluate {
+export interface Executor {
 	eval (expression: string, data?: any): any
 	evalAsync (expression: string, data?: any): Promise<any>
+	execute (task: string, data?: any): Promise<any>
 }
 
 export interface ExpressionListener {
@@ -20,11 +21,11 @@ export interface ExpressionConvert {
 	getConvert (key:string):ExpressionConverter
 	convert (source:any, from:string): [string, any]
 }
-export interface Expressions extends ModelService, ExpressionEvaluate, OperandFacade, ExpressionConvert, ExpressionListener {}
+export interface Expressions extends ModelService, Executor, OperandFacade, ExpressionConvert, ExpressionListener {}
 
 export interface ExpressionConfig {
 	model: ModelService
 	expressionConvert:ExpressionConvert
 	operandFacade:OperandFacade
-	expressionEvaluator:ExpressionEvaluate
+	executor:Executor
 }

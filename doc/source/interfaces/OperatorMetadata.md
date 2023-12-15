@@ -6,6 +6,7 @@
 
 ### Properties
 
+- [async](OperatorMetadata.md#async)
 - [custom](OperatorMetadata.md#custom)
 - [deterministic](OperatorMetadata.md#deterministic)
 - [doc](OperatorMetadata.md#doc)
@@ -17,13 +18,23 @@
 
 ## Properties
 
+### async
+
+• **async**: `boolean`
+
+#### Defined in
+
+[src/lib/operand/domain/entities.ts:76](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L76)
+
+___
+
 ### custom
 
 • `Optional` **custom**: [`PrototypeEvaluator`](../classes/PrototypeEvaluator.md)
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:57](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L57)
+[src/lib/operand/domain/entities.ts:75](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L75)
 
 ___
 
@@ -33,7 +44,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:50](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L50)
+[src/lib/operand/domain/entities.ts:68](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L68)
 
 ___
 
@@ -43,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:53](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L53)
+[src/lib/operand/domain/entities.ts:71](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L71)
 
 ___
 
@@ -53,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:56](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L56)
+[src/lib/operand/domain/entities.ts:74](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L74)
 
 ___
 
@@ -63,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:51](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L51)
+[src/lib/operand/domain/entities.ts:69](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L69)
 
 ___
 
@@ -73,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:49](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L49)
+[src/lib/operand/domain/entities.ts:67](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L67)
 
 ___
 
@@ -83,7 +94,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:54](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L54)
+[src/lib/operand/domain/entities.ts:72](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L72)
 
 ___
 
@@ -93,4 +104,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:52](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L52)
+[src/lib/operand/domain/entities.ts:70](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L70)

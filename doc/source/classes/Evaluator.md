@@ -15,6 +15,8 @@
 ### Methods
 
 - [eval](Evaluator.md#eval)
+- [evalAsync](Evaluator.md#evalasync)
+- [isAsync](Evaluator.md#isasync)
 
 ## Constructors
 
@@ -34,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L24)
+[src/lib/operand/domain/entities.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L26)
 
 ## Methods
 
@@ -58,4 +60,42 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L25)
+[src/lib/operand/domain/entities.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L27)
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](Context.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Implementation of
+
+[IEvaluator](../interfaces/IEvaluator.md).[evalAsync](../interfaces/IEvaluator.md#evalasync)
+
+#### Defined in
+
+[src/lib/operand/domain/entities.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L28)
+
+___
+
+### isAsync
+
+▸ **isAsync**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/lib/operand/domain/entities.ts:37](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L37)

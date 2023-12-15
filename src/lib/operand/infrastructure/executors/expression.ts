@@ -22,6 +22,14 @@ export class ConstEvaluator extends Evaluator {
 			return this.operand.name
 		}
 	}
+
+	public async evalAsync (): Promise<any> {
+		return Promise.resolve(this.eval())
+	}
+
+	public isAsync (): boolean {
+		return false
+	}
 }
 
 class ConstEvaluatorBuilder implements EvaluatorBuilder {
@@ -34,6 +42,14 @@ export class VarEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return context.data.get(this.operand.name)
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		return Promise.resolve(this.eval(context))
+	}
+
+	public isAsync (): boolean {
+		return false
+	}
 }
 
 class VarEvaluatorBuilder implements EvaluatorBuilder {
@@ -44,7 +60,7 @@ class VarEvaluatorBuilder implements EvaluatorBuilder {
 
 class CallFuncEvaluator extends Evaluator {
 	// eslint-disable-next-line no-useless-constructor, @typescript-eslint/ban-types
-	public constructor (protected readonly operand: Operand, private readonly _function: Function) {
+	public constructor (protected readonly operand: Operand, private readonly _function: Function, private readonly _isAsync: boolean) {
 		super(operand)
 	}
 
@@ -54,6 +70,14 @@ class CallFuncEvaluator extends Evaluator {
 			args.push(child.eval(context))
 		}
 		return this._function(...args)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		return Promise.resolve(this.eval(context))
+	}
+
+	public isAsync (): boolean {
+		return this._isAsync
 	}
 }
 
@@ -66,7 +90,7 @@ class OperatorEvaluatorBuilder implements EvaluatorBuilder {
 		if (operatorMetadata.custom) {
 			return operatorMetadata.custom.clone(operand)
 		} else if (operatorMetadata.function !== undefined) {
-			return new CallFuncEvaluator(operand, operatorMetadata.function)
+			return new CallFuncEvaluator(operand, operatorMetadata.function, operatorMetadata.async)
 		} else {
 			throw new Error(`Operator ${operand.name} not implemented`)
 		}
@@ -82,7 +106,7 @@ class FunctionEvaluatorBuilder implements EvaluatorBuilder {
 		if (operatorMetadata.custom) {
 			return operatorMetadata.custom.clone(operand)
 		} else if (operatorMetadata.function !== undefined) {
-			return new CallFuncEvaluator(operand, operatorMetadata.function)
+			return new CallFuncEvaluator(operand, operatorMetadata.function, operatorMetadata.async)
 		} else {
 			throw new Error(`Function ${operand.name} not implemented`)
 		}
@@ -95,6 +119,14 @@ class ArrowEvaluatorBuilder extends FunctionEvaluatorBuilder {}
 export class EnvEvaluator extends Evaluator {
 	public eval (): any {
 		return process.env[this.operand.name]
+	}
+
+	public async evalAsync (): Promise<any> {
+		return Promise.resolve(this.eval())
+	}
+
+	public isAsync (): boolean {
+		return false
 	}
 }
 
@@ -121,6 +153,14 @@ export class TemplateEvaluator extends Evaluator {
 	public eval (context: Context): any {
 		return h3lp.utils.template(this.operand.name.toString(), new TemplateReplacer(context))
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		return Promise.resolve(this.eval(context))
+	}
+
+	public isAsync (): boolean {
+		return false
+	}
 }
 
 class TemplateEvaluatorBuilder implements EvaluatorBuilder {
@@ -134,6 +174,16 @@ class PropertyEvaluator extends Evaluator {
 		const value = this.operand.children[0].eval(context)
 		if (value === undefined || value === null) return null
 		return h3lp.obj.getValue(value, this.operand.name)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		const value = this.operand.children[0].evalAsync(context)
+		if (value === undefined || value === null) return null
+		return h3lp.obj.getValue(value, this.operand.name)
+	}
+
+	public isAsync (): boolean {
+		return this.operand.children[0].isAsync()
 	}
 }
 
@@ -151,6 +201,15 @@ class ListEvaluator extends Evaluator {
 		}
 		return values
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		const result = await this.evalAsyncChildren(context)
+		const obj: { [k: string]: any } = {}
+		for (let i = 0; i < result.length; i++) {
+			obj[this.operand.children[i].name] = result
+		}
+		return obj
+	}
 }
 
 class ListEvaluatorBuilder implements EvaluatorBuilder {
@@ -164,6 +223,15 @@ class ObjEvaluator extends Evaluator {
 		const obj: { [k: string]: any } = {}
 		for (const child of this.operand.children) {
 			obj[child.name] = child.children[0].eval(context)
+		}
+		return obj
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		const result = await this.evalAsyncChildren(context)
+		const obj: { [k: string]: any } = {}
+		for (let i = 0; i < result.length; i++) {
+			obj[this.operand.children[i].name] = result
 		}
 		return obj
 	}
@@ -182,6 +250,10 @@ class BlockEvaluator extends Evaluator {
 			lastValue = this.operand.children[i].eval(context)
 		}
 		return lastValue
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		return this.evalAsyncChildren(context)
 	}
 }
 
@@ -212,6 +284,27 @@ class IfEvaluator extends Evaluator {
 			}
 		}
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		const condition = await this.operand.children[0].evalAsync(context)
+		if (condition) {
+			const ifBlock = this.operand.children[1]
+			return ifBlock.evalAsync(context)
+		} else if (this.operand.children.length > 2) {
+			for (let i = 2; i < this.operand.children.length; i++) {
+				if (this.operand.children[i].type === OperandType.ElseIf) {
+					const elseIfCondition = this.operand.children[i].children[0].eval(context)
+					if (elseIfCondition) {
+						const elseIfBlock = this.operand.children[i].children[1]
+						return elseIfBlock.evalAsync(context)
+					}
+				} else {
+					const elseBlock = this.operand.children[i]
+					return elseBlock.evalAsync(context)
+				}
+			}
+		}
+	}
 }
 
 class IfEvaluatorBuilder implements EvaluatorBuilder {
@@ -234,6 +327,20 @@ class SwitchEvaluator extends Evaluator {
 			}
 		}
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		const value = await this.operand.children[0].evalAsync(context)
+		for (let i = 1; i < this.operand.children.length; i++) {
+			const option = this.operand.children[i]
+			if (option.type === OperandType.Case) {
+				if (option.name === value) {
+					return await option.children[0].evalAsync(context)
+				}
+			} else if (option.type === OperandType.Default) {
+				return await option.children[0].evalAsync(context)
+			}
+		}
+	}
 }
 
 class SwitchEvaluatorBuilder implements EvaluatorBuilder {
@@ -249,6 +356,16 @@ class WhileEvaluator extends Evaluator {
 		const block = this.operand.children[1]
 		while (condition.eval(context)) {
 			lastValue = block.eval(context)
+		}
+		return lastValue
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		let lastValue:any = null
+		const condition = this.operand.children[0]
+		const block = this.operand.children[1]
+		while (await condition.evalAsync(context)) {
+			lastValue = await block.evalAsync(context)
 		}
 		return lastValue
 	}
@@ -269,6 +386,18 @@ class ForEvaluator extends Evaluator {
 		const block = this.operand.children[3]
 		for (initialize.eval(context); condition.eval(context); increment.eval(context)) {
 			lastValue = block.eval(context)
+		}
+		return lastValue
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		let lastValue:any = null
+		const initialize = this.operand.children[0]
+		const condition = this.operand.children[1]
+		const increment = this.operand.children[2]
+		const block = this.operand.children[3]
+		for (await initialize.evalAsync(context); await condition.evalAsync(context); await increment.evalAsync(context)) {
+			lastValue = await block.evalAsync(context)
 		}
 		return lastValue
 	}
@@ -295,6 +424,21 @@ class ForInEvaluator extends Evaluator {
 		}
 		return lastValue
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		let lastValue:any = null
+		const item = this.operand.children[0]
+		const list = await this.operand.children[1].evalAsync(context)
+		const block = this.operand.children[2]
+		for (let i = 0; i < list.length; i++) {
+			const value = list[i]
+			if (context) {
+				context.data.set(item.name, value)
+			}
+			lastValue = await block.evalAsync(context)
+		}
+		return lastValue
+	}
 }
 
 class ForInEvaluatorBuilder implements EvaluatorBuilder {
@@ -306,6 +450,14 @@ class ForInEvaluatorBuilder implements EvaluatorBuilder {
 export class NotImplementedEvaluator extends Evaluator {
 	public eval (): any {
 		throw new Error('NotImplemented')
+	}
+
+	public async evalAsync (): Promise<any> {
+		throw new Error('NotImplemented')
+	}
+
+	public isAsync (): boolean {
+		return false
 	}
 }
 
@@ -381,7 +533,7 @@ class ElseIfEvaluatorBuilder implements EvaluatorBuilder {
 	}
 }
 
-export class SyncEvaluatorFactoryBuilder {
+export class ExpressionEvaluatorFactoryBuilder {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly model: ModelService) {}
 

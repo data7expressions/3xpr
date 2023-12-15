@@ -109,7 +109,8 @@ export class ModelServiceImpl implements ModelService {
 			deterministic: false,
 			operands: singInfo.params.length,
 			params: singInfo.params,
-			returnType: singInfo.returnType
+			returnType: singInfo.returnType,
+			async: additionalInfo.async || false
 		}
 		if (source instanceof PrototypeEvaluator) {
 			metadata.custom = source as PrototypeEvaluator
@@ -133,7 +134,8 @@ export class ModelServiceImpl implements ModelService {
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
 			params: singInfo.params,
-			returnType: singInfo.returnType
+			returnType: singInfo.returnType,
+			async: additionalInfo && additionalInfo.async ? additionalInfo.async : false
 		}
 		if (source instanceof PrototypeEvaluator) {
 			metadata.custom = source as PrototypeEvaluator

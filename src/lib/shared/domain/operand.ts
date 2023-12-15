@@ -37,6 +37,7 @@ export enum OperandType
 
 export interface IEvaluator {
 	eval(context: Context): any
+	evalAsync(context: Context): Promise<any>
 }
 
 export class Operand {
@@ -50,5 +51,23 @@ export class Operand {
 			throw new Error(`${this.name} evaluator not implemented`)
 		}
 		return this.evaluator.eval(context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (!this.evaluator) {
+			throw new Error(`${this.name} evaluator not implemented`)
+		}
+		return this.evaluator.evalAsync(context)
+	}
+
+	public isAsync (): boolean {
+		return this.children.some(p => p.isAsync())
+	}
+
+	public async solve (context: Context): Promise<any> {
+		if (this.isAsync()) {
+			return await this.evalAsync(context)
+		}
+		return this.eval(context)
 	}
 }

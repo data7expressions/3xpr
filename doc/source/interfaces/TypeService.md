@@ -30,4 +30,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/services.ts#L21)
+[src/lib/operand/domain/services.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L21)

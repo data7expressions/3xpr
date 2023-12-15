@@ -12,6 +12,7 @@
 ### Methods
 
 - [eval](IEvaluator.md#eval)
+- [evalAsync](IEvaluator.md#evalasync)
 
 ## Methods
 
@@ -31,4 +32,24 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L39)
+[src/lib/shared/domain/operand.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L39)
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](../classes/Context.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/shared/domain/operand.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L40)

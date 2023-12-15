@@ -1,6 +1,6 @@
 import { OperandType, Operand, Position } from '../../shared/domain'
 import { Type } from 'typ3s'
-import { ConstEvaluator } from './evaluators/sync'
+import { ConstEvaluator } from './executors/expression'
 import { ConstBuilder } from '../domain'
 
 export class ConstBuilderImpl implements ConstBuilder {

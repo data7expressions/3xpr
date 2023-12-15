@@ -99,10 +99,9 @@ export class CoreLibrary implements Library {
 	}
 
 	private generalFunctions (model: ModelService): void {
-		// model.addFunction('sleep(ms?: number):void', (ms: number = 0):void => {
-		// const promise = new Promise(resolve => setTimeout(resolve, ms))
-		// awaiter(() => promise)
-		// })
+		model.addFunction('sleep(ms?: number):void', async (ms: number = 0):Promise<void> => {
+			return new Promise(resolve => setTimeout(resolve, ms))
+		}, { async: true })
 		model.addFunction('console(value:any):void', (value: any) => {
 			console.log(typeof value === 'object' ? JSON.stringify(value) : value)
 		})
@@ -443,6 +442,14 @@ class And extends PrototypeEvaluator {
 		if (!this.operand.children[0].eval(context) as boolean) return false
 		return this.operand.children[1].eval(context) as boolean
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		if (!(await this.operand.children[0].solve(context)) as boolean) return false
+		return await this.operand.children[1].solve(context) as boolean
+	}
 }
 class Or extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -456,6 +463,14 @@ class Or extends PrototypeEvaluator {
 		if (this.operand.children[0].eval(context)) return true
 		return this.operand.children[1].eval(context)
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		if (await this.operand.children[0].solve(context)) return true
+		return await this.operand.children[1].solve(context)
+	}
 }
 class Assignment extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -467,6 +482,15 @@ class Assignment extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = await this.operand.children[1].solve(context)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -484,6 +508,15 @@ class AssignmentAddition extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = (await this.operand.children[0].solve(context)) + (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentSubtraction extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -495,6 +528,15 @@ class AssignmentSubtraction extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[0].eval(context) - this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = (await this.operand.children[0].solve(context)) - (await this.operand.children[1].solve(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -512,6 +554,15 @@ class AssignmentMultiplication extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = (await this.operand.children[0].solve(context)) * (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentDivision extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -523,6 +574,15 @@ class AssignmentDivision extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[0].eval(context) / this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = (await this.operand.children[0].solve(context)) / (await this.operand.children[1].solve(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -540,6 +600,15 @@ class AssignmentExponentiation extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const value = (await this.operand.children[0].solve(context)) ** (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentFloorDivision extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -551,6 +620,16 @@ class AssignmentFloorDivision extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = Math.floor(this.operand.children[0].eval(context) / this.operand.children[1].eval(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = Math.floor((await this.operand.children[0].solve(context)) / (await this.operand.children[1].solve(context)))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -568,6 +647,16 @@ class AssignmentMod extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) % (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentBitAnd extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -579,6 +668,16 @@ class AssignmentBitAnd extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[0].eval(context) & this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) & (await this.operand.children[1].solve(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -596,6 +695,16 @@ class AssignmentBitOr extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) | (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentBitXor extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -607,6 +716,16 @@ class AssignmentBitXor extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[0].eval(context) ^ this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) ^ (await this.operand.children[1].solve(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -624,6 +743,16 @@ class AssignmentLeftShift extends PrototypeEvaluator {
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) << (await this.operand.children[1].solve(context))
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
 }
 class AssignmentRightShift extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -635,6 +764,16 @@ class AssignmentRightShift extends PrototypeEvaluator {
 			throw new Error('Operand undefined')
 		}
 		const value = this.operand.children[0].eval(context) >> this.operand.children[1].eval(context)
+		context.data.set(this.operand.children[0].name, value)
+		return value
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const value = (await this.operand.children[0].solve(context)) >> (await this.operand.children[1].solve(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -682,7 +821,7 @@ class Map extends PrototypeEvaluator {
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
-						const operandCloned = this.cloner.clone(keyValue.children[0], 'sync')
+						const operandCloned = this.cloner.clone(keyValue.children[0], 'expression')
 						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value })
@@ -710,6 +849,69 @@ class Map extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			const row = this.operand.children[2].eval(childContext)
+			rows.push(row)
+		}
+		return rows
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const rows = []
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		if (this.operand.children[2].type === OperandType.Obj) {
+			const groupers:Operand[] = []
+			const aggregates:Operand[] = []
+			for (const child of this.operand.children[2].children) {
+				// In the case of being an object the value to return, find out if there are fields that are summarized
+				const keyValue = child
+				if (keyValue) {
+					if (helper.operand.haveAggregates(keyValue.children[0])) {
+						aggregates.push(keyValue)
+					} else {
+						groupers.push(keyValue)
+					}
+				}
+			}
+			if (aggregates.length > 0) {
+				// case with aggregate functions
+				const keys = helper.operand.getKeys(this.operand.children[1], groupers, list, context)
+				// once you got all the keys you have to calculate the aggregates fields
+				const variable = this.operand.children[1]
+				for (const key of keys) {
+					for (const keyValue of aggregates) {
+						const operandCloned = this.cloner.clone(keyValue.children[0], 'expression')
+						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
+						const value = await operandResolved.solve(context)
+						key.summarizers.push({ name: keyValue.name, value })
+					}
+				}
+				// build the list of results
+				for (const key of keys) {
+					const row:any = {}
+					for (const value of key.values) {
+						row[value.name] = value.value
+					}
+					for (const summarizer of key.summarizers) {
+						row[summarizer.name] = summarizer.value
+					}
+					rows.push(row)
+				}
+				return rows
+			}
+		} else if (this.operand.children[2].type === OperandType.Var && !Array.isArray(list)) {
+			// Example orders.0.number
+			return list
+		}
+		// simple case without aggregate functions
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			const row = await this.operand.children[2].solve(childContext)
 			rows.push(row)
 		}
 		return rows
@@ -763,6 +965,50 @@ class Distinct extends PrototypeEvaluator {
 		}
 		return rows
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		const rows = []
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		if (this.operand.children.length === 1) {
+			// simple case
+			for (const item of list) {
+				if (rows.find((p:any) => p === item) === undefined) {
+					rows.push(item)
+				}
+			}
+			return rows
+		} else if (this.operand.children[2].type === OperandType.Obj) {
+			// case with aggregate functions
+			const keys = helper.operand.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
+			// build the list of results
+			for (const key of keys) {
+				const row:any = {}
+				for (const value of key.values) {
+					row[value.name] = value.value
+				}
+				rows.push(row)
+			}
+			return rows
+		} else if (this.operand.children[2].type === OperandType.List) {
+			throw new Error('Distinct not support Array result')
+		}
+		// simple case without aggregate functions
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = await this.operand.children[2].solve(childContext)
+			if (rows.find((p:any) => p === value) === undefined) {
+				rows.push(value)
+			}
+		}
+		return rows
+	}
 }
 class Foreach extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -781,6 +1027,23 @@ class Foreach extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			this.operand.children[2].eval(childContext)
+		}
+		return list
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			await this.operand.children[2].solve(childContext)
 		}
 		return list
 	}
@@ -803,6 +1066,26 @@ class Filter extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			if (this.operand.children[2].eval(childContext)) {
+				rows.push(item)
+			}
+		}
+		return rows
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const rows = []
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			if (await this.operand.children[2].solve(childContext)) {
 				rows.push(item)
 			}
 		}
@@ -836,6 +1119,30 @@ class Reverse extends PrototypeEvaluator {
 		values.reverse()
 		return values.map(p => p.p)
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		if (this.operand.children.length === 1) {
+			return list.reverse()
+		}
+		const values = []
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = await this.operand.children[2].solve(childContext)
+			values.push({ value, p: item })
+		}
+		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
+		values.reverse()
+		return values.map(p => p.p)
+	}
 }
 class Sort extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -858,6 +1165,29 @@ class Sort extends PrototypeEvaluator {
 		for (const item of list) {
 			childContext.data.set(this.operand.children[1].name, item)
 			const value = this.operand.children[2].eval(childContext)
+			values.push({ value, p: item })
+		}
+		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
+		return values.map(p => p.p)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const values = []
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		if (this.operand.children.length === 1) {
+			return list.sort()
+		}
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			const value = await this.operand.children[2].solve(childContext)
 			values.push({ value, p: item })
 		}
 		values.sort((a, b) => a.value > b.value ? 1 : a.value < b.value ? -1 : 0)
@@ -887,6 +1217,26 @@ class Remove extends PrototypeEvaluator {
 		}
 		return rows
 	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const rows = []
+		const list: any[] = await this.operand.children[0].solve(context)
+		if (!list) {
+			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		}
+		const childContext = context.newContext()
+		for (const item of list) {
+			childContext.data.set(this.operand.children[1].name, item)
+			if (!(await this.operand.children[2].solve(childContext))) {
+				rows.push(item)
+			}
+		}
+		return rows
+	}
 }
 class First extends PrototypeEvaluator {
 	public clone (operand:Operand): IEvaluator {
@@ -897,7 +1247,21 @@ class First extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.first(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.first(await this.operand.children[0].solve(context), context)
+	}
+
+	private first (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -916,7 +1280,21 @@ class Last extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.last(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.last(await this.operand.children[0].solve(context), context)
+	}
+
+	private last (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -935,7 +1313,20 @@ class Count extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.count(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+		return this.count(await this.operand.children[0].solve(context), context)
+	}
+
+	private count (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -954,7 +1345,21 @@ class Max extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.max(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.max(await this.operand.children[0].solve(context), context)
+	}
+
+	private max (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -979,7 +1384,21 @@ class Min extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.min(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.min(await this.operand.children[0].solve(context), context)
+	}
+
+	private min (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -1004,9 +1423,20 @@ class Avg extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
-		if (!list) {
-			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		return this.avg(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.avg(await this.operand.children[0].solve(context), context)
+	}
+
+	private avg (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
 		}
 		if (this.operand.children.length === 1) {
 			let sum = 0
@@ -1029,7 +1459,21 @@ class Sum extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const list: any[] = this.operand.children[0].eval(context)
+		return this.sum(this.operand.children[0].eval(context), context)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		return this.sum(await this.operand.children[0].solve(context), context)
+	}
+
+	private sum (list: any[], context: Context): any {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!list) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -1056,12 +1500,20 @@ class Union extends PrototypeEvaluator {
 		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
-		if (!a) {
-			throw new Error(`Array ${this.operand.children[0].name} undefined`)
+		return this.union(a, b)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
 		}
-		if (!b) {
-			throw new Error(`Array ${this.operand.children[1].name} undefined`)
-		}
+
+		const a: any[] = await this.operand.children[0].solve(context)
+		const b: any[] = await this.operand.children[1].solve(context)
+		return this.union(a, b)
+	}
+
+	private union (a: any[], b: any[]): any[] {
 		if (a.length === 0) {
 			return b
 		}
@@ -1104,6 +1556,23 @@ class Intersection extends PrototypeEvaluator {
 		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
+		return this.intersection(a, b)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const a: any[] = await this.operand.children[0].solve(context)
+		const b: any[] = await this.operand.children[1].solve(context)
+		return this.intersection(a, b)
+	}
+
+	private intersection (a: any[], b: any[]): any[] {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!a) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -1146,6 +1615,24 @@ class Difference extends PrototypeEvaluator {
 		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
+		return this.difference(a, b)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const a: any[] = await this.operand.children[0].solve(context)
+		const b: any[] = await this.operand.children[1].solve(context)
+		return this.difference(a, b)
+	}
+
+	private difference (a: any[], b: any[]): any[] {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
 		if (!a) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}
@@ -1191,6 +1678,23 @@ class SymmetricDifference extends PrototypeEvaluator {
 		}
 		const a: any[] = this.operand.children[0].eval(context)
 		const b: any[] = this.operand.children[1].eval(context)
+		return this.symmetricDifference(a, b)
+	}
+
+	public async evalAsync (context: Context): Promise<any> {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
+
+		const a: any[] = await this.operand.children[0].solve(context)
+		const b: any[] = await this.operand.children[1].solve(context)
+		return this.symmetricDifference(a, b)
+	}
+
+	private symmetricDifference (a: any[], b: any[]): any[] {
+		if (this.operand === undefined) {
+			throw new Error('Operand undefined')
+		}
 		if (!a) {
 			throw new Error(`Array ${this.operand.children[0].name} undefined`)
 		}

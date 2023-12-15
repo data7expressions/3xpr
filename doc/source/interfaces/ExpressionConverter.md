@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L16)
+[src/lib/expression/domain/expressions.ts:17](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L17)

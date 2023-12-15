@@ -16,6 +16,7 @@
 
 - [clone](PrototypeEvaluator.md#clone)
 - [eval](PrototypeEvaluator.md#eval)
+- [evalAsync](PrototypeEvaluator.md#evalasync)
 
 ## Constructors
 
@@ -35,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:35](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L35)
+[src/lib/operand/domain/entities.ts:52](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L52)
 
 ## Methods
 
@@ -55,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:36](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L36)
+[src/lib/operand/domain/entities.ts:53](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L53)
 
 ___
 
@@ -79,4 +80,28 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:37](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/operand/domain/entities.ts#L37)
+[src/lib/operand/domain/entities.ts:54](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L54)
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](Context.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Implementation of
+
+[IEvaluator](../interfaces/IEvaluator.md).[evalAsync](../interfaces/IEvaluator.md#evalasync)
+
+#### Defined in
+
+[src/lib/operand/domain/entities.ts:55](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/entities.ts#L55)

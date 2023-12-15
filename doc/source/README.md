@@ -16,8 +16,8 @@ Expressions
 - [Data](classes/Data.md)
 - [Evaluator](classes/Evaluator.md)
 - [EvaluatorFactoryImpl](classes/EvaluatorFactoryImpl.md)
-- [ExpressionEvaluateImpl](classes/ExpressionEvaluateImpl.md)
-- [ExpressionEvaluateObserveDecorator](classes/ExpressionEvaluateObserveDecorator.md)
+- [ExecutorImpl](classes/ExecutorImpl.md)
+- [ExecutorObserveDecorator](classes/ExecutorObserveDecorator.md)
 - [ExpressionNormalizer](classes/ExpressionNormalizer.md)
 - [ExpressionParse](classes/ExpressionParse.md)
 - [ExpressionsBuilder](classes/ExpressionsBuilder.md)
@@ -51,10 +51,10 @@ Expressions
 - [ConstBuilder](interfaces/ConstBuilder.md)
 - [EvaluatorBuilder](interfaces/EvaluatorBuilder.md)
 - [EvaluatorFactory](interfaces/EvaluatorFactory.md)
+- [Executor](interfaces/Executor.md)
 - [ExpressionConfig](interfaces/ExpressionConfig.md)
 - [ExpressionConvert](interfaces/ExpressionConvert.md)
 - [ExpressionConverter](interfaces/ExpressionConverter.md)
-- [ExpressionEvaluate](interfaces/ExpressionEvaluate.md)
 - [ExpressionListener](interfaces/ExpressionListener.md)
 - [Expressions](interfaces/Expressions.md)
 - [Format](interfaces/Format.md)
@@ -104,7 +104,7 @@ Expressions
 
 #### Defined in
 
-[src/lib/index.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L16)
+[src/lib/index.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L16)
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L15)
+[src/lib/index.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L15)
 
 ## Functions
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:38](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L38)
+[src/lib/index.ts:38](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L38)
 
 ___
 
@@ -160,7 +160,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[src/lib/index.ts:34](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L34)
+[src/lib/index.ts:34](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L34)
 
 ___
 
@@ -184,7 +184,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/index.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L24)
+[src/lib/index.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L24)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:42](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L42)
+[src/lib/index.ts:42](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L42)
 
 ___
 
@@ -224,4 +224,4 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/index.ts#L46)
+[src/lib/index.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/index.ts#L46)

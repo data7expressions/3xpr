@@ -16,7 +16,7 @@ export class OperandBuild {
 		return this.builders[key] as OperandBuilder
 	}
 
-	public build (expression: string, key = 'sync'): Operand {
+	public build (expression: string, key = 'expression'): Operand {
 		try {
 			return this.get(key).build(expression)
 		} catch (error: any) {

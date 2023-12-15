@@ -1,16 +1,16 @@
 import { Context, ActionObserver } from '../../../shared/domain'
-import { ExpressionEvaluate, ExpressionListener } from '../../domain'
+import { Executor, ExpressionListener } from '../../domain'
 
-export class ExpressionEvaluateObserveDecorator implements ExpressionEvaluate, ExpressionListener {
+export class ExecutorObserveDecorator implements Executor, ExpressionListener {
 	private observers:ActionObserver[] = []
 
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly evaluator:ExpressionEvaluate) {}
+	constructor (private readonly executor:Executor) {}
 
 	public eval (expression: string, context:Context): any {
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const result = this.evaluator.eval(expression, context)
+			const result = this.executor.eval(expression, context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
 		} catch (error) {
@@ -22,11 +22,23 @@ export class ExpressionEvaluateObserveDecorator implements ExpressionEvaluate, E
 	public async evalAsync (expression: string, context:Context): Promise<any> {
 		try {
 			this.beforeExecutionNotify(expression, context)
-			const result = await this.evaluator.evalAsync(expression, context)
+			const result = await this.executor.evalAsync(expression, context)
 			this.afterExecutionNotify(expression, context, result)
 			return result
 		} catch (error) {
 			this.errorExecutionNotify(expression, context, error)
+			throw error
+		}
+	}
+
+	public async execute (task: string, context:Context): Promise<any> {
+		try {
+			this.beforeExecutionNotify(task, context)
+			const result = await this.executor.execute(task, context)
+			this.afterExecutionNotify(task, context, result)
+			return result
+		} catch (error) {
+			this.errorExecutionNotify(task, context, error)
 			throw error
 		}
 	}
