@@ -6,12 +6,22 @@
 
 ### Properties
 
+- [executor](ExpressionConfig.md#executor)
 - [expressionConvert](ExpressionConfig.md#expressionconvert)
-- [expressionEvaluator](ExpressionConfig.md#expressionevaluator)
 - [model](ExpressionConfig.md#model)
 - [operandFacade](ExpressionConfig.md#operandfacade)
 
 ## Properties
+
+### executor
+
+• **executor**: [`Executor`](Executor.md)
+
+#### Defined in
+
+[src/lib/expression/domain/expressions.ts:30](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L30)
+
+___
 
 ### expressionConvert
 
@@ -19,17 +29,7 @@
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L27)
-
-___
-
-### expressionEvaluator
-
-• **expressionEvaluator**: [`ExpressionEvaluate`](ExpressionEvaluate.md)
-
-#### Defined in
-
-[src/lib/expression/domain/expressions.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L29)
+[src/lib/expression/domain/expressions.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L28)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L26)
+[src/lib/expression/domain/expressions.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L27)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/expression/domain/expressions.ts#L28)
+[src/lib/expression/domain/expressions.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L29)

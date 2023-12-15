@@ -25,6 +25,6 @@ import { expressions as exp } from '../../lib'
 		]
 	}
 
-	const result = exp.eval('orders[1].details.sum(p=> p.unitPrice * p.qty )', context)
+	const result = await exp.evalAsync('sleep(5000)', context)
 	console.log(result)
 })()

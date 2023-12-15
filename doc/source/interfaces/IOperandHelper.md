@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L15)
+[src/lib/shared/application/helper/operand.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L15)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L10)
+[src/lib/shared/application/helper/operand.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L10)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L8)
+[src/lib/shared/application/helper/operand.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L8)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L11)
+[src/lib/shared/application/helper/operand.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L11)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L6)
+[src/lib/shared/application/helper/operand.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L6)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L7)
+[src/lib/shared/application/helper/operand.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L7)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L12)
+[src/lib/shared/application/helper/operand.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L12)
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L13)
+[src/lib/shared/application/helper/operand.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L13)
 
 ___
 
@@ -223,7 +223,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L14)
+[src/lib/shared/application/helper/operand.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L14)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L5)
+[src/lib/shared/application/helper/operand.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L5)
 
 ___
 
@@ -266,7 +266,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L9)
+[src/lib/shared/application/helper/operand.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L9)
 
 ___
 
@@ -289,7 +289,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L16)
+[src/lib/shared/application/helper/operand.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L16)
 
 ___
 
@@ -309,4 +309,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/operand.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/application/helper/operand.ts#L4)
+[src/lib/shared/application/helper/operand.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/application/helper/operand.ts#L4)

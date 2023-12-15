@@ -22,6 +22,9 @@
 ### Methods
 
 - [eval](Operand.md#eval)
+- [evalAsync](Operand.md#evalasync)
+- [isAsync](Operand.md#isasync)
+- [solve](Operand.md#solve)
 
 ## Constructors
 
@@ -45,7 +48,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ## Properties
 
@@ -55,7 +58,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ___
 
@@ -65,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L43)
+[src/lib/shared/domain/operand.ts:44](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L44)
 
 ___
 
@@ -75,7 +78,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:45](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L45)
+[src/lib/shared/domain/operand.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L46)
 
 ___
 
@@ -85,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ___
 
@@ -95,7 +98,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:44](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L44)
+[src/lib/shared/domain/operand.ts:45](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L45)
 
 ___
 
@@ -105,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ___
 
@@ -115,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ___
 
@@ -125,7 +128,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:47](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L47)
+[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L48)
 
 ## Methods
 
@@ -145,4 +148,58 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/FlavioLionelRita/3xpr/blob/911c547/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:49](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L49)
+
+___
+
+### evalAsync
+
+▸ **evalAsync**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](Context.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/shared/domain/operand.ts:56](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L56)
+
+___
+
+### isAsync
+
+▸ **isAsync**(): `boolean`
+
+#### Returns
+
+`boolean`
+
+#### Defined in
+
+[src/lib/shared/domain/operand.ts:63](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L63)
+
+___
+
+### solve
+
+▸ **solve**(`context`): `Promise`\<`any`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`Context`](Context.md) |
+
+#### Returns
+
+`Promise`\<`any`\>
+
+#### Defined in
+
+[src/lib/shared/domain/operand.ts:67](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/operand.ts#L67)
