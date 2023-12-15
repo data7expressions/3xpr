@@ -21,7 +21,7 @@ export class OperandFacadeImpl implements OperandFacade {
 	 * @returns Parameters of expression
 	 */
 	public parameters (expression: string): Parameter[] {
-		const operand = this.operandBuild.build(expression, 'sync')
+		const operand = this.operandBuild.build(expression, 'expression')
 		return this.parameterService.parameters(operand)
 	}
 
@@ -31,15 +31,15 @@ export class OperandFacadeImpl implements OperandFacade {
 	 * @returns Type of expression
 	 */
 	public type (expression: string): string {
-		const operand = this.operandBuild.build(expression, 'sync')
+		const operand = this.operandBuild.build(expression, 'expression')
 		return Type.stringify(operand.returnType)
 	}
 
-	public build (expression: string, key = 'sync'): Operand {
+	public build (expression: string, key = 'expression'): Operand {
 		return this.operandBuild.build(expression, key)
 	}
 
-	public clone (source:Operand, key = 'sync'):Operand {
+	public clone (source:Operand, key = 'expression'):Operand {
 		return this.operandClone.clone(source, key)
 	}
 }

@@ -1,14 +1,14 @@
 import { ModelService, Library } from '../../model/domain'
 import { Data, Operand, Context, Parameter, Format, ActionObserver } from '../../shared/domain'
 import { OperatorMetadata, FunctionAdditionalInfo, OperatorAdditionalInfo, ConstBuilder, OperandFacade, OperandBuilder } from '../../operand/domain'
-import { ExpressionConvert, ExpressionConverter, ExpressionEvaluate, ExpressionListener, Expressions } from '../domain'
+import { ExpressionConvert, ExpressionConverter, Executor, ExpressionListener, Expressions } from '../domain'
 
 export class ExpressionsImpl implements Expressions {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly model: ModelService,
 		private readonly expressionConvert:ExpressionConvert,
 		private readonly operandFacade:OperandFacade,
-		private readonly expressionEvaluator:ExpressionEvaluate,
+		private readonly executor:Executor,
 		private readonly listener:ExpressionListener) {}
 
 	get operatorAlias (): [string, any][] {
@@ -157,12 +157,17 @@ export class ExpressionsImpl implements Expressions {
 	 */
 	public eval (expression: string, data?: any): any {
 		const context = new Context(new Data(data))
-		return this.expressionEvaluator.eval(expression, context)
+		return this.executor.eval(expression, context)
 	}
 
 	public evalAsync (expression: string, data: any = {}): Promise<any> {
 		const context = new Context(new Data(data))
-		return this.expressionEvaluator.evalAsync(expression, context)
+		return this.executor.evalAsync(expression, context)
+	}
+
+	public execute (task: string, data: any = {}): Promise<any> {
+		const context = new Context(new Data(data))
+		return this.executor.execute(task, context)
 	}
 
 	public addConvert (key: string, converter: ExpressionConverter): ExpressionConvert {

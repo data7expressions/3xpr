@@ -7,9 +7,10 @@ import { OperandSerializerImpl } from '../application/services/serializer'
 import { OperandBuild } from '../application/useCases/build'
 import { OperandClone } from '../application/useCases/clone'
 import { ConstBuilderImpl } from './constBuilder'
-import { SyncEvaluatorFactoryBuilder } from './evaluators/sync'
+import { ExpressionEvaluatorFactoryBuilder } from './executors/expression'
 import { H3lp, MemoryCache } from 'h3lp'
 import { OperandFacadeImpl } from '../application'
+import { TaskEvaluatorFactoryBuilder } from './executors/task'
 
 export class OperandFacadeBuilder {
 	// eslint-disable-next-line no-useless-constructor
@@ -17,19 +18,19 @@ export class OperandFacadeBuilder {
 
 	public build ():OperandFacade {
 		const constBuilder = new ConstBuilderImpl()
-		const syncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
-		const asyncEvaluatorFactory = new SyncEvaluatorFactoryBuilder(this.model).build()
-		const operandClone = new OperandClone([['sync', syncEvaluatorFactory], ['async', asyncEvaluatorFactory]])
+		const expressionEvaluatorFactory = new ExpressionEvaluatorFactoryBuilder(this.model).build()
+		const taskEvaluatorFactory = new TaskEvaluatorFactoryBuilder(this.model).build()
+		const operandClone = new OperandClone([['expression', expressionEvaluatorFactory], ['task', taskEvaluatorFactory]])
 		const parameterService = new ParameterServiceImpl()
 		const operandSerializer = new OperandSerializerImpl()
 		const operandBuild = new OperandBuild()
-			.add('sync',
+			.add('expression',
 				new OperandBuilderCacheDecorator(
-					new OperandBuilderImpl(syncEvaluatorFactory, this.model, constBuilder),
+					new OperandBuilderImpl(expressionEvaluatorFactory, this.model, constBuilder),
 					new MemoryCache<string, string>(),
 					operandSerializer, this.h3lp.utils))
-			.add('async', new OperandBuilderCacheDecorator(
-				new OperandBuilderImpl(asyncEvaluatorFactory, this.model, constBuilder),
+			.add('task', new OperandBuilderCacheDecorator(
+				new OperandBuilderImpl(taskEvaluatorFactory, this.model, constBuilder),
 				new MemoryCache<string, string>(),
 				operandSerializer, this.h3lp.utils))
 
