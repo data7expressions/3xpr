@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+## [1.15.0](https://github.com/FlavioLionelRita/3xpr/compare/v1.14.1...v1.15.0) (2023-12-15)
+
+
+### Features
+
+* refactorize for async eval expression ([6712340](https://github.com/FlavioLionelRita/3xpr/commit/6712340d793382dddda1a14df48667b9c5367078)), closes [#62](https://github.com/FlavioLionelRita/3xpr/issues/62)
+
 ### [1.14.1](https://github.com/FlavioLionelRita/3xpr/compare/v1.14.0...v1.14.1) (2023-12-01)
 
 ## [1.14.0](https://github.com/FlavioLionelRita/3xpr/compare/v1.13.2...v1.14.0) (2023-12-01)
