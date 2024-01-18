@@ -37,4 +37,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:35](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L35)
+[src/lib/operand/domain/services.ts:35](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L35)

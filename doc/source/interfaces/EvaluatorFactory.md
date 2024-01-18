@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L7)
+[src/lib/operand/domain/services.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L7)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L9)
+[src/lib/operand/domain/services.ts:9](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L9)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L8)
+[src/lib/operand/domain/services.ts:8](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L8)

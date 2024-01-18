@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/signals.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L3)
+[src/lib/shared/domain/signals.ts:3](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L3)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/signals.ts:2](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L2)
+[src/lib/shared/domain/signals.ts:2](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L2)
 
 ___
 
@@ -52,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/signals.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L7)
+[src/lib/shared/domain/signals.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/signals.ts#L7)

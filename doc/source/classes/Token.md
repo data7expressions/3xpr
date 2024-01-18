@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:58](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L58)
+[src/lib/shared/domain/context.ts:58](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L58)
 
 ## Properties
 
@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:52](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L52)
+[src/lib/shared/domain/context.ts:52](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L52)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:54](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L54)
+[src/lib/shared/domain/context.ts:54](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L54)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:55](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L55)
+[src/lib/shared/domain/context.ts:55](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L55)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:56](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L56)
+[src/lib/shared/domain/context.ts:56](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L56)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:53](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L53)
+[src/lib/shared/domain/context.ts:53](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L53)
 
 ## Methods
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:66](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L66)
+[src/lib/shared/domain/context.ts:66](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L66)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:76](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L76)
+[src/lib/shared/domain/context.ts:76](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L76)
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:71](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L71)
+[src/lib/shared/domain/context.ts:71](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L71)
 
 ___
 
@@ -153,4 +153,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:80](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L80)
+[src/lib/shared/domain/context.ts:80](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/context.ts#L80)

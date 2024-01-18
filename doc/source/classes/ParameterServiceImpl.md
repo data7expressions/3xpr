@@ -48,4 +48,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/parameterService.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/application/services/parameterService.ts#L7)
+[src/lib/operand/application/services/parameterService.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/application/services/parameterService.ts#L7)
