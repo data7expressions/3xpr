@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:62](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L62)
+[src/lib/operand/domain/entities.ts:62](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L62)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:61](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L61)
+[src/lib/operand/domain/entities.ts:61](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L61)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:64](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L64)
+[src/lib/operand/domain/entities.ts:64](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L64)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:59](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L59)
+[src/lib/operand/domain/entities.ts:59](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L59)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:63](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L63)
+[src/lib/operand/domain/entities.ts:63](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L63)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:60](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/entities.ts#L60)
+[src/lib/operand/domain/entities.ts:60](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/domain/entities.ts#L60)
