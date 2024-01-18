@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/expression/infrastructure/expressionsBuilder.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/infrastructure/expressionsBuilder.ts#L13)
+[src/lib/expression/infrastructure/expressionsBuilder.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/expression/infrastructure/expressionsBuilder.ts#L13)
 
 ## Methods
 
@@ -44,4 +44,4 @@
 
 #### Defined in
 
-[src/lib/expression/infrastructure/expressionsBuilder.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/infrastructure/expressionsBuilder.ts#L15)
+[src/lib/expression/infrastructure/expressionsBuilder.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/expression/infrastructure/expressionsBuilder.ts#L15)
