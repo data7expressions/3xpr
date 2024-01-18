@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/base.ts#L7)
+[src/lib/shared/domain/base.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/base.ts#L7)

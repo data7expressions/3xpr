@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:6](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/application/services/serializer.ts#L6)
+[src/lib/operand/application/services/serializer.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/application/services/serializer.ts#L6)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:16](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/application/services/serializer.ts#L16)
+[src/lib/operand/application/services/serializer.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/application/services/serializer.ts#L16)
 
 ___
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:12](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/application/services/serializer.ts#L12)
+[src/lib/operand/application/services/serializer.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/application/services/serializer.ts#L12)

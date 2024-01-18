@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:13](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L13)
+[src/lib/model/application/modelService.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L13)
 
 ## Properties
 
@@ -71,7 +71,7 @@
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:12](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L12)
+[src/lib/model/application/modelService.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L12)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:11](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L11)
+[src/lib/model/application/modelService.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L11)
 
 ## Accessors
 
@@ -99,7 +99,7 @@ ModelService.constants
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:31](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L31)
+[src/lib/model/application/modelService.ts:31](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L31)
 
 ___
 
@@ -117,7 +117,7 @@ ModelService.enums
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:39](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L39)
+[src/lib/model/application/modelService.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L39)
 
 ___
 
@@ -135,7 +135,7 @@ ModelService.formats
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:35](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L35)
+[src/lib/model/application/modelService.ts:35](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L35)
 
 ___
 
@@ -153,7 +153,7 @@ ModelService.functionAlias
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:27](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L27)
+[src/lib/model/application/modelService.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L27)
 
 ___
 
@@ -171,7 +171,7 @@ ModelService.functions
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:59](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L59)
+[src/lib/model/application/modelService.ts:59](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L59)
 
 ___
 
@@ -189,7 +189,7 @@ ModelService.operatorAlias
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:23](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L23)
+[src/lib/model/application/modelService.ts:23](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L23)
 
 ___
 
@@ -207,7 +207,7 @@ ModelService.operators
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:43](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L43)
+[src/lib/model/application/modelService.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L43)
 
 ## Methods
 
@@ -232,7 +232,7 @@ ModelService.operators
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:89](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L89)
+[src/lib/model/application/modelService.ts:89](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L89)
 
 ___
 
@@ -257,7 +257,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:69](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L69)
+[src/lib/model/application/modelService.ts:69](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L69)
 
 ___
 
@@ -282,7 +282,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:85](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L85)
+[src/lib/model/application/modelService.ts:85](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L85)
 
 ___
 
@@ -308,7 +308,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:131](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L131)
+[src/lib/model/application/modelService.ts:131](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L131)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:97](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L97)
+[src/lib/model/application/modelService.ts:97](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L97)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:101](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L101)
+[src/lib/model/application/modelService.ts:101](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L101)
 
 ___
 
@@ -383,7 +383,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:105](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L105)
+[src/lib/model/application/modelService.ts:105](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L105)
 
 ___
 
@@ -408,7 +408,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:93](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L93)
+[src/lib/model/application/modelService.ts:93](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L93)
 
 ___
 
@@ -432,7 +432,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:169](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L169)
+[src/lib/model/application/modelService.ts:169](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L169)
 
 ___
 
@@ -456,7 +456,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:165](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L165)
+[src/lib/model/application/modelService.ts:165](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L165)
 
 ___
 
@@ -481,7 +481,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:153](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L153)
+[src/lib/model/application/modelService.ts:153](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L153)
 
 ___
 
@@ -505,7 +505,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:173](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L173)
+[src/lib/model/application/modelService.ts:173](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L173)
 
 ___
 
@@ -529,7 +529,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:201](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L201)
+[src/lib/model/application/modelService.ts:201](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L201)
 
 ___
 
@@ -554,7 +554,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:177](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L177)
+[src/lib/model/application/modelService.ts:177](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L177)
 
 ___
 
@@ -578,7 +578,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:219](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L219)
+[src/lib/model/application/modelService.ts:219](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L219)
 
 ___
 
@@ -602,7 +602,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:214](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L214)
+[src/lib/model/application/modelService.ts:214](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L214)
 
 ___
 
@@ -626,7 +626,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:239](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L239)
+[src/lib/model/application/modelService.ts:239](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L239)
 
 ___
 
@@ -651,7 +651,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:223](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L223)
+[src/lib/model/application/modelService.ts:223](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L223)
 
 ___
 
@@ -676,4 +676,4 @@ ___
 
 #### Defined in
 
-[src/lib/model/application/modelService.ts:243](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/application/modelService.ts#L243)
+[src/lib/model/application/modelService.ts:243](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/application/modelService.ts#L243)

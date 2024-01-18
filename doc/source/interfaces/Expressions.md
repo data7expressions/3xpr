@@ -83,7 +83,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:39](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L39)
+[src/lib/operand/domain/services.ts:39](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L39)
 
 ## Accessors
 
@@ -101,7 +101,7 @@ ModelService.constants
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:9](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L9)
+[src/lib/model/domain/services.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L9)
 
 ___
 
@@ -119,7 +119,7 @@ ModelService.enums
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L7)
+[src/lib/model/domain/services.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L7)
 
 ___
 
@@ -137,7 +137,7 @@ ModelService.formats
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:8](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L8)
+[src/lib/model/domain/services.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L8)
 
 ___
 
@@ -155,7 +155,7 @@ ModelService.functionAlias
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:6](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L6)
+[src/lib/model/domain/services.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L6)
 
 ___
 
@@ -173,7 +173,7 @@ ModelService.functions
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:11](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L11)
+[src/lib/model/domain/services.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L11)
 
 ___
 
@@ -191,7 +191,7 @@ ModelService.operatorAlias
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:5](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L5)
+[src/lib/model/domain/services.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L5)
 
 ___
 
@@ -209,7 +209,7 @@ ModelService.operators
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:10](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L10)
+[src/lib/model/domain/services.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L10)
 
 ## Methods
 
@@ -234,7 +234,7 @@ ModelService.operators
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:14](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L14)
+[src/lib/model/domain/services.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L14)
 
 ___
 
@@ -259,7 +259,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:20](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L20)
+[src/lib/expression/domain/expressions.ts:20](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L20)
 
 ___
 
@@ -284,7 +284,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:13](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L13)
+[src/lib/model/domain/services.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L13)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:15](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L15)
+[src/lib/model/domain/services.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L15)
 
 ___
 
@@ -335,7 +335,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:17](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L17)
+[src/lib/model/domain/services.ts:17](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L17)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:19](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L19)
+[src/lib/model/domain/services.ts:19](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L19)
 
 ___
 
@@ -384,7 +384,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:21](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L21)
+[src/lib/model/domain/services.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L21)
 
 ___
 
@@ -410,7 +410,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:16](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L16)
+[src/lib/model/domain/services.ts:16](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L16)
 
 ___
 
@@ -435,7 +435,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:18](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L18)
+[src/lib/model/domain/services.ts:18](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L18)
 
 ___
 
@@ -460,7 +460,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:43](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L43)
+[src/lib/operand/domain/services.ts:43](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L43)
 
 ___
 
@@ -485,7 +485,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:35](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L35)
+[src/lib/operand/domain/services.ts:35](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L35)
 
 ___
 
@@ -510,7 +510,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:22](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L22)
+[src/lib/expression/domain/expressions.ts:22](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L22)
 
 ___
 
@@ -535,7 +535,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:6](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L6)
+[src/lib/expression/domain/expressions.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L6)
 
 ___
 
@@ -560,7 +560,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:7](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L7)
+[src/lib/expression/domain/expressions.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L7)
 
 ___
 
@@ -585,7 +585,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:8](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L8)
+[src/lib/expression/domain/expressions.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L8)
 
 ___
 
@@ -609,7 +609,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:40](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L40)
+[src/lib/operand/domain/services.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L40)
 
 ___
 
@@ -633,7 +633,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:22](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L22)
+[src/lib/model/domain/services.ts:22](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L22)
 
 ___
 
@@ -657,7 +657,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:21](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L21)
+[src/lib/expression/domain/expressions.ts:21](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L21)
 
 ___
 
@@ -681,7 +681,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:24](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L24)
+[src/lib/model/domain/services.ts:24](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L24)
 
 ___
 
@@ -706,7 +706,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:23](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L23)
+[src/lib/model/domain/services.ts:23](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L23)
 
 ___
 
@@ -730,7 +730,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:25](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L25)
+[src/lib/model/domain/services.ts:25](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L25)
 
 ___
 
@@ -754,7 +754,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:27](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L27)
+[src/lib/model/domain/services.ts:27](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L27)
 
 ___
 
@@ -779,7 +779,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:26](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L26)
+[src/lib/model/domain/services.ts:26](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L26)
 
 ___
 
@@ -803,7 +803,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:30](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L30)
+[src/lib/model/domain/services.ts:30](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L30)
 
 ___
 
@@ -827,7 +827,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:29](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L29)
+[src/lib/model/domain/services.ts:29](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L29)
 
 ___
 
@@ -851,7 +851,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:32](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L32)
+[src/lib/model/domain/services.ts:32](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L32)
 
 ___
 
@@ -876,7 +876,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:31](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L31)
+[src/lib/model/domain/services.ts:31](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L31)
 
 ___
 
@@ -900,7 +900,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:41](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L41)
+[src/lib/operand/domain/services.ts:41](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L41)
 
 ___
 
@@ -925,7 +925,7 @@ ___
 
 #### Defined in
 
-[src/lib/model/domain/services.ts:28](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/model/domain/services.ts#L28)
+[src/lib/model/domain/services.ts:28](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/model/domain/services.ts#L28)
 
 ___
 
@@ -949,7 +949,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:12](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L12)
+[src/lib/expression/domain/expressions.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L12)
 
 ___
 
@@ -973,7 +973,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:42](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/operand/domain/services.ts#L42)
+[src/lib/operand/domain/services.ts:42](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/domain/services.ts#L42)
 
 ___
 
@@ -997,4 +997,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:13](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/expression/domain/expressions.ts#L13)
+[src/lib/expression/domain/expressions.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/expression/domain/expressions.ts#L13)

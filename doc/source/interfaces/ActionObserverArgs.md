@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:4](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/observer.ts#L4)
+[src/lib/shared/domain/observer.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/observer.ts#L4)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:6](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/observer.ts#L6)
+[src/lib/shared/domain/observer.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/observer.ts#L6)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:3](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/observer.ts#L3)
+[src/lib/shared/domain/observer.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/observer.ts#L3)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:5](https://github.com/expr-solver/3xpr/blob/2371f39/src/lib/shared/domain/observer.ts#L5)
+[src/lib/shared/domain/observer.ts:5](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/observer.ts#L5)
