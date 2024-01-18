@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/parser.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/application/services/parser.ts#L14)
+[src/lib/operand/application/services/parser.ts:14](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/application/services/parser.ts#L14)
 
 ## Methods
 
@@ -45,4 +45,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/parser.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/operand/application/services/parser.ts#L40)
+[src/lib/operand/application/services/parser.ts:40](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/operand/application/services/parser.ts#L40)

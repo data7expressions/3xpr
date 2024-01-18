@@ -1,18 +1,18 @@
 {
 	"name": "3xpr",
-	"version": "1.15.0",
+	"version": "1.15.1",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
 	"main": "./index.js",
 	"private": true,
-	"homepage": "https://github.com/FlavioLionelRita/3xpr#readme",
+	"homepage": "https://github.com/expr-solver/3xpr#readme",
 	"bugs": {
-		"url": "https://github.com/FlavioLionelRita/3xpr/issues"
+		"url": "https://github.com/expr-solver/3xpr/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/FlavioLionelRita/3xpr.git"
+		"url": "https://github.com/expr-solver/3xpr.git"
 	},
 	"standard-version": {
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"h3lp": "^1.5.1",
-		"typ3s": "^0.1.0"
+		"typ3s": "^0.1.8"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",

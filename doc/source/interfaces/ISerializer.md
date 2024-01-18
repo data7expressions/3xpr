@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/base.ts#L4)
+[src/lib/shared/domain/base.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/base.ts#L4)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/base.ts#L3)
+[src/lib/shared/domain/base.ts:3](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/base.ts#L3)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:2](https://github.com/FlavioLionelRita/3xpr/blob/2371f39/src/lib/shared/domain/base.ts#L2)
+[src/lib/shared/domain/base.ts:2](https://github.com/FlavioLionelRita/3xpr/blob/7a34f03/src/lib/shared/domain/base.ts#L2)
