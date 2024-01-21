@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/application/useCases/build.ts#L6)
+[src/lib/operand/application/useCases/build.ts:6](https://github.com/FlavioLionelRita/3xpr/blob/ec38cc3/src/lib/operand/application/useCases/build.ts#L6)
 
 ## Methods
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/application/useCases/build.ts#L10)
+[src/lib/operand/application/useCases/build.ts:10](https://github.com/FlavioLionelRita/3xpr/blob/ec38cc3/src/lib/operand/application/useCases/build.ts#L10)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:19](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/application/useCases/build.ts#L19)
+[src/lib/operand/application/useCases/build.ts:19](https://github.com/FlavioLionelRita/3xpr/blob/ec38cc3/src/lib/operand/application/useCases/build.ts#L19)
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/79b98e7/src/lib/operand/application/useCases/build.ts#L15)
+[src/lib/operand/application/useCases/build.ts:15](https://github.com/FlavioLionelRita/3xpr/blob/ec38cc3/src/lib/operand/application/useCases/build.ts#L15)
