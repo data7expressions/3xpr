@@ -40,4 +40,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/normalizer.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/ec38cc3/src/lib/operand/application/services/normalizer.ts#L4)
+[src/lib/operand/application/services/normalizer.ts:4](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/operand/application/services/normalizer.ts#L4)
