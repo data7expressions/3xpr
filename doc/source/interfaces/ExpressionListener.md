@@ -37,7 +37,7 @@
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/expression/domain/expressions.ts#L12)
+[src/lib/expression/domain/expressions.ts:12](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/expression/domain/expressions.ts#L12)
 
 ___
 
@@ -57,4 +57,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/expression/domain/expressions.ts#L13)
+[src/lib/expression/domain/expressions.ts:13](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/expression/domain/expressions.ts#L13)

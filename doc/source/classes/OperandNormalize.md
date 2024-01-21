@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/normalize.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/operand/application/useCases/normalize.ts#L7)
+[src/lib/operand/application/useCases/normalize.ts:7](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/operand/application/useCases/normalize.ts#L7)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/normalize.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/operand/application/useCases/normalize.ts#L9)
+[src/lib/operand/application/useCases/normalize.ts:9](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/operand/application/useCases/normalize.ts#L9)

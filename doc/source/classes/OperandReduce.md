@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/reduce.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/operand/application/useCases/reduce.ts#L8)
+[src/lib/operand/application/useCases/reduce.ts:8](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/operand/application/useCases/reduce.ts#L8)
 
 ## Methods
 
@@ -51,4 +51,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/reduce.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/6694e5e/src/lib/operand/application/useCases/reduce.ts#L11)
+[src/lib/operand/application/useCases/reduce.ts:11](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/operand/application/useCases/reduce.ts#L11)
