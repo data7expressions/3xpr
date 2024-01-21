@@ -8,6 +8,7 @@
 	"cSpell.words": [
 		"ascii",
 		"Autowired",
+		"branchlint",
 		"branchlintrc",
 		"Charly",
 		"commitlint",
@@ -15,6 +16,7 @@
 		"deasync",
 		"Flavio",
 		"Gitflow",
+		"github",
 		"Gruntfile",
 		"imei",
 		"jexl",
@@ -26,6 +28,7 @@
 		"lpad",
 		"ltrim",
 		"nlohmann",
+		"npmjs",
 		"NPMN",
 		"nullable",
 		"rpad",
