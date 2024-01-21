@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.4](https://github.com/expr-solver/3xpr/compare/v1.15.3...v1.15.4) (2024-01-21)
+
 ### [1.15.3](https://github.com/expr-solver/3xpr/compare/v1.15.2...v1.15.3) (2024-01-21)
 
 ### [1.15.2](https://github.com/expr-solver/3xpr/compare/v1.15.1...v1.15.2) (2024-01-18)
