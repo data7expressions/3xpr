@@ -6,13 +6,13 @@
 	"license": "Apache-2.0 License",
 	"main": "./index.js",
 	"private": true,
-	"homepage": "https://github.com/expr-solver/3xpr#readme",
+	"homepage": "https://github.com/data7expressions/3xpr#readme",
 	"bugs": {
-		"url": "https://github.com/expr-solver/3xpr/issues"
+		"url": "https://github.com/data7expressions/3xpr/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/expr-solver/3xpr.git"
+		"url": "https://github.com/data7expressions/3xpr.git"
 	},
 	"standard-version": {
 		"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\n## Versions\n"
