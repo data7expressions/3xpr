@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:30](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/shared/domain/base.ts#L30)
+[src/lib/shared/domain/base.ts:30](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/shared/domain/base.ts#L30)
 
 ## Properties
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:30](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/shared/domain/base.ts#L30)
+[src/lib/shared/domain/base.ts:30](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/shared/domain/base.ts#L30)
 
 ___
 
@@ -52,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:30](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/shared/domain/base.ts#L30)
+[src/lib/shared/domain/base.ts:30](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/shared/domain/base.ts#L30)

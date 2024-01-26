@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:46](https://github.com/FlavioLionelRita/3xpr/blob/d3ae653/src/lib/operand/domain/entities.ts#L46)
+[src/lib/operand/domain/entities.ts:46](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/domain/entities.ts#L46)
