@@ -49,4 +49,4 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/constBuilder.ts:7](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/infrastructure/constBuilder.ts#L7)
+[src/lib/operand/infrastructure/constBuilder.ts:7](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/operand/infrastructure/constBuilder.ts#L7)

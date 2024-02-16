@@ -31,4 +31,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/constBuilder.ts:4](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/domain/constBuilder.ts#L4)
+[src/lib/operand/domain/constBuilder.ts:4](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/operand/domain/constBuilder.ts#L4)

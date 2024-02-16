@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/model/domain/library.ts:4](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/model/domain/library.ts#L4)
+[src/lib/model/domain/library.ts:4](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/model/domain/library.ts#L4)

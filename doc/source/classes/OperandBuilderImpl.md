@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/application/services/builder.ts#L16)
+[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/operand/application/services/builder.ts#L16)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/application/services/builder.ts#L16)
+[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/operand/application/services/builder.ts#L16)
 
 ## Methods
 
@@ -78,4 +78,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:28](https://github.com/data7expressions/3xpr/blob/2bf95c0/src/lib/operand/application/services/builder.ts#L28)
+[src/lib/operand/application/services/builder.ts:28](https://github.com/data7expressions/3xpr/blob/24a5f5b/src/lib/operand/application/services/builder.ts#L28)
