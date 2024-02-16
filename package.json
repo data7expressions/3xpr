@@ -1,6 +1,6 @@
 {
 	"name": "3xpr",
-	"version": "1.15.8",
+	"version": "1.15.9",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -34,8 +34,8 @@
 		"@types/jest": "^29.5.2",
 		"@types/js-yaml": "^4.0.5",
 		"@types/node": "^20.9.2",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^6.12.0",
+		"@typescript-eslint/eslint-plugin": "^6.12.0",
+		"@typescript-eslint/parser": "^6.14.0",
 		"config-extends": "2.0.9",
 		"eslint": "^8.54.0",
 		"eslint-config-standard": "^17.1.0",
