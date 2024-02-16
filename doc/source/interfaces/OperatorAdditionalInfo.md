@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L15)
+[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L15)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L14)
+[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L14)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L13)
+[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L13)

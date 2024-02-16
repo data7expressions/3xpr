@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:52](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L52)
+[src/lib/operand/domain/entities.ts:52](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L52)
 
 ## Methods
 
@@ -56,7 +56,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:53](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L53)
+[src/lib/operand/domain/entities.ts:53](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L53)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:54](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L54)
+[src/lib/operand/domain/entities.ts:54](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L54)
 
 ___
 
@@ -104,4 +104,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:55](https://github.com/data7expressions/3xpr/blob/4f3ff2e/src/lib/operand/domain/entities.ts#L55)
+[src/lib/operand/domain/entities.ts:55](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/domain/entities.ts#L55)
