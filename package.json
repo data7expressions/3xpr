@@ -35,7 +35,7 @@
 		"@types/js-yaml": "^4.0.5",
 		"@types/node": "^20.9.2",
 		"@typescript-eslint/eslint-plugin": "^6.12.0",
-		"@typescript-eslint/parser": "^6.14.0",
+		"@typescript-eslint/parser": "^7.0.2",
 		"config-extends": "2.0.9",
 		"eslint": "^8.54.0",
 		"eslint-config-standard": "^17.1.0",
