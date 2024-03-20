@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:7](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/shared/domain/base.ts#L7)
+[src/lib/shared/domain/base.ts:7](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/shared/domain/base.ts#L7)

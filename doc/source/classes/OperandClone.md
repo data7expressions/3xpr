@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/clone.ts:5](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/application/useCases/clone.ts#L5)
+[src/lib/operand/application/useCases/clone.ts:5](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/operand/application/useCases/clone.ts#L5)
 
 ## Methods
 
@@ -59,4 +59,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/clone.ts:15](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/operand/application/useCases/clone.ts#L15)
+[src/lib/operand/application/useCases/clone.ts:15](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/operand/application/useCases/clone.ts#L15)

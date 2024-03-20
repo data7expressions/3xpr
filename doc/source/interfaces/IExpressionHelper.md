@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[src/lib/shared/application/helper/expression.ts:3](https://github.com/data7expressions/3xpr/blob/a027e32/src/lib/shared/application/helper/expression.ts#L3)
+[src/lib/shared/application/helper/expression.ts:3](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/shared/application/helper/expression.ts#L3)
