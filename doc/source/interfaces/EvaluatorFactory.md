@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:7](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/operand/domain/services.ts#L7)
+[src/lib/operand/domain/services.ts:7](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/operand/domain/services.ts#L7)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:9](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/operand/domain/services.ts#L9)
+[src/lib/operand/domain/services.ts:9](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/operand/domain/services.ts#L9)
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:8](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/operand/domain/services.ts#L8)
+[src/lib/operand/domain/services.ts:8](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/operand/domain/services.ts#L8)

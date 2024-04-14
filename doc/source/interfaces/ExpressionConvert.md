@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:20](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/expression/domain/expressions.ts#L20)
+[src/lib/expression/domain/expressions.ts:20](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/expression/domain/expressions.ts#L20)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/expression/domain/expressions.ts#L22)
+[src/lib/expression/domain/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/expression/domain/expressions.ts#L22)
 
 ___
 
@@ -76,4 +76,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/domain/expressions.ts:21](https://github.com/data7expressions/3xpr/blob/e9bbe90/src/lib/expression/domain/expressions.ts#L21)
+[src/lib/expression/domain/expressions.ts:21](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/expression/domain/expressions.ts#L21)
