@@ -51,7 +51,7 @@ H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
 
 ## Properties
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/95c7d152921f5a8f5f272209d2eafc5adcde5f98/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
 
 ___
 
