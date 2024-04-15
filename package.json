@@ -1,6 +1,6 @@
 {
 	"name": "3xpr",
-	"version": "1.15.11",
+	"version": "1.15.12",
 	"description": "expressions",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -26,7 +26,7 @@
 		"release": "grunt release"
 	},
 	"dependencies": {
-		"h3lp": "^1.8.4",
+		"h3lp": "^1.9.1",
 		"typ3s": "^0.1.17"
 	},
 	"devDependencies": {
