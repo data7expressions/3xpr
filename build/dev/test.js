@@ -39,7 +39,7 @@ class HelperTest {
                 console.log(`exp: ${expression} error: ${error}`);
             }
         }
-        await lib_1.helper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2));
+        await lib_1.exprHelper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2));
     }
     static show(list, context, method = 'eval', func = (expression, context) => lib_1.expressions.eval(expression, context)) {
         const tests = [];
@@ -100,11 +100,11 @@ class HelperTest {
     }
     static async test(expression, file) {
         try {
-            const content = await lib_1.helper.fs.read(file);
+            const content = await lib_1.exprHelper.fs.read(file);
             if (!content) {
                 throw Error(`can not read file ${file}`);
             }
-            const data = lib_1.helper.utils.tryParse(content);
+            const data = lib_1.exprHelper.utils.tryParse(content);
             if (data === null || data === undefined) {
                 throw Error(`can not parse content of ${file}`);
             }

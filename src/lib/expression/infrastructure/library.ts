@@ -1,12 +1,13 @@
-import { helper } from '../..'
 import { Context, Operand, OperandType, IEvaluator } from '../../shared/domain'
 import { ModelService, Library } from '../../model/domain'
 import { PrototypeEvaluator, OperandBuilder, OperandCloner } from '../../operand/domain'
+import { ExprH3lp } from '../../shared/infrastructure'
 export class CoreLibrary implements Library {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (
 		private readonly builder: OperandBuilder,
-		private readonly cloner: OperandCloner
+		private readonly cloner: OperandCloner,
+		private readonly helper: ExprH3lp
 	) {}
 
 	public load (model: ModelService):void {
@@ -108,13 +109,13 @@ export class CoreLibrary implements Library {
 	}
 
 	private nullFunctions (model: ModelService): void {
-		model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => helper.utils.nvl(value, _default))
-		model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => helper.utils.nvl2(value, a, b))
+		model.addFunction('nvl(value:T, default:T):T', (value:any, _default:any):any => this.helper.utils.nvl(value, _default))
+		model.addFunction('nvl2(value:any, a:T,b:T):T', (value:any, a:any, b:any):any => this.helper.utils.nvl2(value, a, b))
 	}
 
 	private comparisonFunctions (model: ModelService): void {
 		model.addFunction('between(value:T,from:T,to:T):boolean',
-			(value:any, from:any, to:any):boolean => helper.val.between(value, from, to))
+			(value:any, from:any, to:any):boolean => this.helper.val.between(value, from, to))
 		model.addFunction('includes(source:string|T[],value:string|T):boolean',
 			(source:string|any[], value:any):boolean => source && value ? source.includes(value) : false)
 		model.addFunctionAlias('contains', 'includes')
@@ -131,27 +132,27 @@ export class CoreLibrary implements Library {
 			})
 		model.addFunction('like(value:string,pattern:string):boolean',
 			(value:string, pattern:any):boolean => value && pattern ? value.includes(pattern) : false)
-		model.addFunction('isNull(value:any):boolean', (value:any):boolean => helper.val.isNull(value))
-		model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => helper.val.isNotNull(value))
-		model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => helper.val.isEmpty(value))
-		model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => helper.val.isNotEmpty(value))
-		model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => helper.val.isBoolean(value))
-		model.addFunction('isNumber(value:any):boolean', (value:any):boolean => helper.val.isNumber(value))
-		model.addFunction('isInteger(value:any):boolean', (value:any):boolean => helper.val.isInteger(value))
-		model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => helper.val.isDecimal(value))
-		model.addFunction('isString(value:any):boolean', (value:any):boolean => helper.val.isString(value))
-		model.addFunction('isDate(value:any):boolean', (value:any):boolean => helper.val.isDate(value))
-		model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => helper.val.isDateTime(value))
-		model.addFunction('isTime(value:any):boolean', (value:any):boolean => helper.val.isTime(value))
-		model.addFunction('isObject(value:any):boolean', (value:any):boolean => helper.val.isObject(value))
-		model.addFunction('isArray(value:any):boolean', (value:any):boolean => helper.val.isArray(value))
-		model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => helper.val.isBooleanFormat(value))
-		model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => helper.val.isNumberFormat(value))
-		model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => helper.val.isIntegerFormat(value))
-		model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => helper.val.isDecimalFormat(value))
-		model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => helper.val.isDateFormat(value))
-		model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isDateTimeFormat(value))
-		model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => helper.val.isTimeFormat(value))
+		model.addFunction('isNull(value:any):boolean', (value:any):boolean => this.helper.val.isNull(value))
+		model.addFunction('isNotNull(value:any):boolean', (value:any):boolean => this.helper.val.isNotNull(value))
+		model.addFunction('isEmpty(value:string):boolean', (value:any):boolean => this.helper.val.isEmpty(value))
+		model.addFunction('isNotEmpty(value:string):boolean', (value:any):boolean => this.helper.val.isNotEmpty(value))
+		model.addFunction('isBoolean(value:any):boolean', (value:any):boolean => this.helper.val.isBoolean(value))
+		model.addFunction('isNumber(value:any):boolean', (value:any):boolean => this.helper.val.isNumber(value))
+		model.addFunction('isInteger(value:any):boolean', (value:any):boolean => this.helper.val.isInteger(value))
+		model.addFunction('isDecimal(value:any):boolean', (value:any):boolean => this.helper.val.isDecimal(value))
+		model.addFunction('isString(value:any):boolean', (value:any):boolean => this.helper.val.isString(value))
+		model.addFunction('isDate(value:any):boolean', (value:any):boolean => this.helper.val.isDate(value))
+		model.addFunction('isDateTime(value:any):boolean', (value:any):boolean => this.helper.val.isDateTime(value))
+		model.addFunction('isTime(value:any):boolean', (value:any):boolean => this.helper.val.isTime(value))
+		model.addFunction('isObject(value:any):boolean', (value:any):boolean => this.helper.val.isObject(value))
+		model.addFunction('isArray(value:any):boolean', (value:any):boolean => this.helper.val.isArray(value))
+		model.addFunction('isBooleanFormat(value:string):boolean', (value:string):boolean => this.helper.val.isBooleanFormat(value))
+		model.addFunction('isNumberFormat(value:string):boolean', (value:string):boolean => this.helper.val.isNumberFormat(value))
+		model.addFunction('isIntegerFormat(value:string):boolean', (value:string):boolean => this.helper.val.isIntegerFormat(value))
+		model.addFunction('isDecimalFormat(value:string):boolean', (value:string):boolean => this.helper.val.isDecimalFormat(value))
+		model.addFunction('isDateFormat(value:string):boolean', (value:string):boolean => this.helper.val.isDateFormat(value))
+		model.addFunction('isDateTimeFormat(value:string):boolean', (value:string):boolean => this.helper.val.isDateTimeFormat(value))
+		model.addFunction('isTimeFormat(value:string):boolean', (value:string):boolean => this.helper.val.isTimeFormat(value))
 	}
 
 	private numberFunctions (model: ModelService): void {
@@ -181,8 +182,8 @@ export class CoreLibrary implements Library {
 	}
 
 	private conversionFunctions (model: ModelService): void {
-		model.addFunction('toString(value:any):string', (value:any):string => helper.str.toString(value))
-		model.addFunction('toNumber(value:any):number', (value:any):number => helper.utils.toNumber(value))
+		model.addFunction('toString(value:any):string', (value:any):string => this.helper.str.toString(value))
+		model.addFunction('toNumber(value:any):number', (value:any):number => this.helper.utils.toNumber(value))
 		model.addFunction('dateToString(date:date):string', (date:Date) => {
 			if (typeof date === 'string') {
 				return new Date(date).toISOString()
@@ -194,12 +195,12 @@ export class CoreLibrary implements Library {
 		model.addFunction('keys(obj: any):string[]', (obj: any): string[] => typeof obj === 'object' ? Object.keys(obj) : [])
 		model.addFunction('values(obj: any):any[]', (obj: any): any[] => typeof obj === 'object' ? Object.values(obj) : [])
 		model.addFunction('entries(obj: any):[string,any][]', (obj: any): [string, any][] => typeof obj === 'object' ? Object.entries(obj) : [])
-		model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => helper.obj.fromEntries(entries))
+		model.addFunction('fromEntries(entries: [string,any][]): any', (entries: [string, any][]): any => this.helper.obj.fromEntries(entries))
 	}
 
 	private stringFunctions (model: ModelService): void {
 		model.addFunction('chr(ascii: number):string', (ascii: number):string => String.fromCharCode(ascii))
-		model.addFunction('capitalize(value:string):string', (value:string):string => helper.str.capitalize(value))
+		model.addFunction('capitalize(value:string):string', (value:string):string => this.helper.str.capitalize(value))
 		model.addFunction('endsWith(value:string, sub:string, start:number):boolean', (value:string, sub:string, start:number):boolean => value.endsWith(sub, start))
 		model.addFunction('strCount(source: string, value: string):number', (source: string, value: string):number => source.split(value).length - 1)
 		model.addFunction('lower(value: string):string', (value: string):string => value.toLowerCase())
@@ -207,17 +208,17 @@ export class CoreLibrary implements Library {
 		model.addFunction('ltrim(value: string):string', (value: string):string => value.trimLeft())
 		model.addFunction('indexOf(value:string, sub:string, start:number):number', (value:string, sub:string, start:number):number => value.indexOf(sub, start))
 		model.addFunction('join(values:string[],separator:string=","):string', (values:string[], separator = ','):string => values.join(separator))
-		model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => helper.str.replace(value, source, target))
+		model.addFunction('replace(value: string, source: string, target: string):string', (value: string, source: string, target: string):string => this.helper.str.replace(value, source, target))
 		model.addFunction('rpad(value: string, len: number, pad: string):string', (value: string, len: number, pad: string):string => value.padEnd(len, pad))
 		model.addFunction('rtrim(value: string):string', (value: string):string => value.trimRight())
 		model.addFunction('substring(value: string, from: number, count: number):string', (value: string, from: number, count: number):string => value.substring(from, count))
 		model.addFunctionAlias('substr', 'substring')
 		model.addFunction('trim(value: string):string', (value: string):string => value.trim())
 		model.addFunction('upper(value: string):string', (value: string):string => value.toUpperCase())
-		model.addFunction('concat(...values:any):string', (...values:any):string => helper.str.concat(values))
+		model.addFunction('concat(...values:any):string', (...values:any):string => this.helper.str.concat(values))
 		model.addFunctionAlias('concatenate', 'concat')
 		model.addFunction('test(value: string, regexp: string):boolean', (value: any, regexp: string):boolean => new RegExp(regexp).test(value))
-		model.addFunction('title(value:string):string', (value:string):string => helper.str.initCap(value))
+		model.addFunction('title(value:string):string', (value:string):string => this.helper.str.initCap(value))
 		model.addFunction('match(value: string, regexp: string):any', (value: string, regexp: string):any => value ? value.match(regexp) : null)
 		model.addFunction('mask(value: string):string', (value: string):string => {
 			if (!value) return value
@@ -371,7 +372,7 @@ export class CoreLibrary implements Library {
 	}
 
 	private arrayFunctions (model: ModelService): void {
-		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder, this.cloner))
+		model.addFunction('map(list: any[], predicate: T):T[]', new Map(this.builder, this.cloner, this.helper))
 		model.addFunctionAlias('select', 'map')
 		model.addFunction('foreach(list: any[], predicate: any):void', new Foreach())
 		model.addFunctionAlias('each', 'foreach')
@@ -412,21 +413,21 @@ export class CoreLibrary implements Library {
 	}
 
 	private groupFunctions (model: ModelService): void {
-		model.addFunction('distinct(list: any[], predicate: any): any[]', new Distinct())
-		model.addFunction('first(list: T[], predicate: boolean): T', new First())
-		model.addFunction('last(list: T[], predicate: boolean): T', new Last())
-		model.addFunction('count(list: T[], predicate: boolean): integer', new Count())
-		model.addFunction('max(list: T[], predicate: boolean): T', new Max())
-		model.addFunction('min(list: T[], predicate: boolean): T', new Min())
-		model.addFunction('avg(list: T[], value: number): number', new Avg())
-		model.addFunction('sum(list: T[], value: number): number', new Sum())
+		model.addFunction('distinct(list: any[], predicate: any): any[]', new Distinct(this.helper))
+		model.addFunction('first(list: T[], predicate: boolean): T', new First(this.helper))
+		model.addFunction('last(list: T[], predicate: boolean): T', new Last(this.helper))
+		model.addFunction('count(list: T[], predicate: boolean): integer', new Count(this.helper))
+		model.addFunction('max(list: T[], predicate: boolean): T', new Max(this.helper))
+		model.addFunction('min(list: T[], predicate: boolean): T', new Min(this.helper))
+		model.addFunction('avg(list: T[], value: number): number', new Avg(this.helper))
+		model.addFunction('sum(list: T[], value: number): number', new Sum(this.helper))
 	}
 
 	private setsFunctions (model: ModelService): void {
-		model.addFunction('union(a: T[], b: T[]): T[]', new Union())
-		model.addFunction('intersection(a: T[], b: T[]): T[]', new Intersection())
-		model.addFunction('difference(a: T[], b: T[]): T[]', new Difference())
-		model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', new SymmetricDifference())
+		model.addFunction('union(a: T[], b: T[]): T[]', new Union(this.helper))
+		model.addFunction('intersection(a: T[], b: T[]): T[]', new Intersection(this.helper))
+		model.addFunction('difference(a: T[], b: T[]): T[]', new Difference(this.helper))
+		model.addFunction('symmetricDifference(a: T[], b: T[]): T[]', new SymmetricDifference(this.helper))
 	}
 }
 
@@ -783,12 +784,13 @@ class Map extends PrototypeEvaluator {
 	public constructor (
 		private readonly builder:OperandBuilder,
 		private readonly cloner:OperandCloner,
+		private readonly helper: ExprH3lp,
 		operand?: Operand) {
 		super(operand)
 	}
 
 	public clone (operand:Operand): IEvaluator {
-		return new Map(this.builder, this.cloner, operand)
+		return new Map(this.builder, this.cloner, this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -807,7 +809,7 @@ class Map extends PrototypeEvaluator {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
 				const keyValue = child
 				if (keyValue) {
-					if (helper.operand.haveAggregates(keyValue.children[0])) {
+					if (this.helper.operand.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
 					} else {
 						groupers.push(keyValue)
@@ -816,13 +818,13 @@ class Map extends PrototypeEvaluator {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = helper.operand.getKeys(this.operand.children[1], groupers, list, context)
+				const keys = this.helper.operand.getKeys(this.operand.children[1], groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = this.cloner.clone(keyValue.children[0], 'expression')
-						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
+						const operandResolved = this.helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = operandResolved.eval(context)
 						key.summarizers.push({ name: keyValue.name, value })
 					}
@@ -870,7 +872,7 @@ class Map extends PrototypeEvaluator {
 				// In the case of being an object the value to return, find out if there are fields that are summarized
 				const keyValue = child
 				if (keyValue) {
-					if (helper.operand.haveAggregates(keyValue.children[0])) {
+					if (this.helper.operand.haveAggregates(keyValue.children[0])) {
 						aggregates.push(keyValue)
 					} else {
 						groupers.push(keyValue)
@@ -879,13 +881,13 @@ class Map extends PrototypeEvaluator {
 			}
 			if (aggregates.length > 0) {
 				// case with aggregate functions
-				const keys = helper.operand.getKeys(this.operand.children[1], groupers, list, context)
+				const keys = this.helper.operand.getKeys(this.operand.children[1], groupers, list, context)
 				// once you got all the keys you have to calculate the aggregates fields
 				const variable = this.operand.children[1]
 				for (const key of keys) {
 					for (const keyValue of aggregates) {
 						const operandCloned = this.cloner.clone(keyValue.children[0], 'expression')
-						const operandResolved = helper.operand.solveAggregates(key.items, variable, operandCloned, context)
+						const operandResolved = this.helper.operand.solveAggregates(key.items, variable, operandCloned, context)
 						const value = await operandResolved.solve(context)
 						key.summarizers.push({ name: keyValue.name, value })
 					}
@@ -918,8 +920,12 @@ class Map extends PrototypeEvaluator {
 	}
 }
 class Distinct extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Distinct(operand)
+		return new Distinct(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -941,7 +947,7 @@ class Distinct extends PrototypeEvaluator {
 			return rows
 		} else if (this.operand.children[2].type === OperandType.Obj) {
 			// case with aggregate functions
-			const keys = helper.operand.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
+			const keys = this.helper.operand.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -985,7 +991,7 @@ class Distinct extends PrototypeEvaluator {
 			return rows
 		} else if (this.operand.children[2].type === OperandType.Obj) {
 			// case with aggregate functions
-			const keys = helper.operand.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
+			const keys = this.helper.operand.getKeys(this.operand.children[1], this.operand.children[2].children, list, context.newContext())
 			// build the list of results
 			for (const key of keys) {
 				const row:any = {}
@@ -1239,8 +1245,12 @@ class Remove extends PrototypeEvaluator {
 	}
 }
 class First extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new First(operand)
+		return new First(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1268,12 +1278,16 @@ class First extends PrototypeEvaluator {
 		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[0] : null
 		}
-		return helper.operand.first(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.first(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Last extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Last(operand)
+		return new Last(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1301,12 +1315,16 @@ class Last extends PrototypeEvaluator {
 		if (this.operand.children.length === 1) {
 			return list && list.length > 0 ? list[list.length - 1] : null
 		}
-		return helper.operand.last(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.last(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Count extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Count(operand)
+		return new Count(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1333,12 +1351,16 @@ class Count extends PrototypeEvaluator {
 		if (this.operand.children.length === 1) {
 			return list.length
 		}
-		return helper.operand.count(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.count(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Max extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Max(operand)
+		return new Max(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1372,12 +1394,16 @@ class Max extends PrototypeEvaluator {
 			}
 			return max
 		}
-		return helper.operand.max(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.max(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Min extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Min(operand)
+		return new Min(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1411,12 +1437,16 @@ class Min extends PrototypeEvaluator {
 			}
 			return min
 		}
-		return helper.operand.min(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.min(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Avg extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Avg(operand)
+		return new Avg(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1447,12 +1477,16 @@ class Avg extends PrototypeEvaluator {
 			}
 			return list.length > 0 ? sum / list.length : 0
 		}
-		return helper.operand.avg(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.avg(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Sum extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Sum(operand)
+		return new Sum(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1486,12 +1520,16 @@ class Sum extends PrototypeEvaluator {
 			}
 			return sum
 		}
-		return helper.operand.sum(list, this.operand.children[1], this.operand.children[2], context.newContext())
+		return this.helper.operand.sum(list, this.operand.children[1], this.operand.children[2], context.newContext())
 	}
 }
 class Union extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Union(operand)
+		return new Union(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1525,11 +1563,11 @@ class Union extends PrototypeEvaluator {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				result.push({ key, value: element })
 			}
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				if (!result.find((p:any) => p.key === key)) {
 					result.push({ key, value: element })
 				}
@@ -1546,8 +1584,12 @@ class Union extends PrototypeEvaluator {
 	}
 }
 class Intersection extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Intersection(operand)
+		return new Intersection(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1586,9 +1628,9 @@ class Intersection extends PrototypeEvaluator {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = a.map((p:any) => helper.operand.objectKey(p))
+			const keys = a.map((p:any) => this.helper.operand.objectKey(p))
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				if (keys.includes(key)) {
 					result.push(element)
 				}
@@ -1605,8 +1647,12 @@ class Intersection extends PrototypeEvaluator {
 	}
 }
 class Difference extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new Difference(operand)
+		return new Difference(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1649,9 +1695,9 @@ class Difference extends PrototypeEvaluator {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const keys = b.map((p:any) => helper.operand.objectKey(p))
+			const keys = b.map((p:any) => this.helper.operand.objectKey(p))
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				if (!keys.includes(key)) {
 					result.push(element)
 				}
@@ -1668,8 +1714,12 @@ class Difference extends PrototypeEvaluator {
 	}
 }
 class SymmetricDifference extends PrototypeEvaluator {
+	constructor (private readonly helper: ExprH3lp, operand?: Operand) {
+		super(operand)
+	}
+
 	public clone (operand:Operand): IEvaluator {
-		return new SymmetricDifference(operand)
+		return new SymmetricDifference(this.helper, operand)
 	}
 
 	public eval (context: Context): any {
@@ -1711,16 +1761,16 @@ class SymmetricDifference extends PrototypeEvaluator {
 		if (Array.isArray(a[0]) || Array.isArray(b[0])) {
 			throw new Error('Cannot union arrays of arrays')
 		} else if (typeof a[0] === 'object') {
-			const aKeys = a.map((p:any) => helper.operand.objectKey(p))
-			const bKeys = b.map((p:any) => helper.operand.objectKey(p))
+			const aKeys = a.map((p:any) => this.helper.operand.objectKey(p))
+			const bKeys = b.map((p:any) => this.helper.operand.objectKey(p))
 			for (const element of a) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				if (!bKeys.includes(key)) {
 					result.push(element)
 				}
 			}
 			for (const element of b) {
-				const key = helper.operand.objectKey(element)
+				const key = this.helper.operand.objectKey(element)
 				if (!aKeys.includes(key)) {
 					result.push(element)
 				}

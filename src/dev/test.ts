@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp, helper } from '../lib'
+import { expressions as exp, exprHelper } from '../lib'
 
 export const template = {
 	template: '/* eslint-disable no-template-curly-in-string */\nimport { expressions as exp } from \'../../../lib\'\ndescribe(\'${name}\', () => {\n\tconst context = JSON.parse(\'${context}\')\n${cases}})\n',
@@ -59,7 +59,7 @@ export class HelperTest {
 				console.log(`exp: ${expression} error: ${error}`)
 			}
 		}
-		await helper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2))
+		await exprHelper.fs.write(`./src/dev/tests/${request.name}.json`, JSON.stringify(suite, null, 2))
 	}
 
 	public static show (list:string[], context:any, method = 'eval', func:(expression:string, context?:any)=> any = (expression:string, context:any) => exp.eval(expression, context)) {
@@ -112,11 +112,11 @@ export class HelperTest {
 
 	public static async test (expression:string, file:string): Promise<void> {
 		try {
-			const content = await helper.fs.read(file)
+			const content = await exprHelper.fs.read(file)
 			if (!content) {
 				throw Error(`can not read file ${file}`)
 			}
-			const data = helper.utils.tryParse(content)
+			const data = exprHelper.utils.tryParse(content)
 			if (data === null || data === undefined) {
 				throw Error(`can not parse content of ${file}`)
 			}

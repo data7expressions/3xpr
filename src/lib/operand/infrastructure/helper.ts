@@ -1,8 +1,7 @@
 import { Context, Operand, OperandType } from '../../shared/domain'
-import { IOperandHelper } from '../../shared/application'
 import { ConstBuilder } from '../domain/constBuilder'
 
-export class OperandHelper implements IOperandHelper {
+export class OperandHelper {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly constBuilder: ConstBuilder) {}
 

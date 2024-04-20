@@ -1,10 +1,11 @@
-import { ExpressionConverter, helper } from '../../..'
+import { ExpressionConverter } from '../../..'
 import { OperandBuilder } from '../../../operand/domain'
 import { OperandType } from '../../../shared/domain'
+import { ExprH3lp } from '../../../shared/infrastructure'
 
 export class ExpressionConvertFunction implements ExpressionConverter {
 	// eslint-disable-next-line no-useless-constructor
-	constructor (private readonly operandBuilder:OperandBuilder) {}
+	constructor (private readonly operandBuilder:OperandBuilder, private readonly helper: ExprH3lp) {}
 
 	/**
 	 * Convert a lambda expression to a query expression
@@ -16,7 +17,7 @@ export class ExpressionConvertFunction implements ExpressionConverter {
 		if (!func) {
 			throw new Error('empty lambda function}')
 		}
-		const expression = helper.expression.clearLambda(func)
+		const expression = this.helper.expression.clearLambda(func)
 		const operand = this.operandBuilder.build(expression)
 		let aux = operand
 		while (aux.type !== OperandType.Var) {

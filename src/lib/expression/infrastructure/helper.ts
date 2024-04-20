@@ -1,7 +1,6 @@
 import { IStringHelper } from 'h3lp'
-import { IExpressionHelper } from '../../shared/application'
 
-export class ExpressionHelper implements IExpressionHelper {
+export class ExpressionHelper {
 	// eslint-disable-next-line no-useless-constructor
 	constructor (private readonly str:IStringHelper) {}
 
