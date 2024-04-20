@@ -18,12 +18,11 @@ Expressions
 - [EvaluatorFactoryImpl](classes/EvaluatorFactoryImpl.md)
 - [ExecutorImpl](classes/ExecutorImpl.md)
 - [ExecutorObserveDecorator](classes/ExecutorObserveDecorator.md)
+- [ExprH3lp](classes/ExprH3lp.md)
+- [ExpressionHelper](classes/ExpressionHelper.md)
 - [ExpressionNormalizer](classes/ExpressionNormalizer.md)
 - [ExpressionParse](classes/ExpressionParse.md)
-- [ExpressionsBuilder](classes/ExpressionsBuilder.md)
 - [ExpressionsImpl](classes/ExpressionsImpl.md)
-- [Helper](classes/Helper.md)
-- [HelperBuilder](classes/HelperBuilder.md)
 - [ModelServiceImpl](classes/ModelServiceImpl.md)
 - [Operand](classes/Operand.md)
 - [OperandBuild](classes/OperandBuild.md)
@@ -61,8 +60,6 @@ Expressions
 - [FunctionAdditionalInfo](interfaces/FunctionAdditionalInfo.md)
 - [IBuilder](interfaces/IBuilder.md)
 - [IEvaluator](interfaces/IEvaluator.md)
-- [IExpressionHelper](interfaces/IExpressionHelper.md)
-- [IOperandHelper](interfaces/IOperandHelper.md)
 - [ISerializer](interfaces/ISerializer.md)
 - [Library](interfaces/Library.md)
 - [ModelService](interfaces/ModelService.md)
@@ -85,8 +82,8 @@ Expressions
 
 ### Variables
 
+- [exprHelper](README.md#exprhelper)
 - [expressions](README.md#expressions)
-- [helper](README.md#helper)
 
 ### Functions
 
@@ -98,23 +95,23 @@ Expressions
 
 ## Variables
 
+### exprHelper
+
+• `Const` **exprHelper**: [`ExprH3lp`](classes/ExprH3lp.md)
+
+#### Defined in
+
+[src/lib/index.ts:16](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L16)
+
+___
+
 ### expressions
 
 • `Const` **expressions**: [`Expressions`](interfaces/Expressions.md)
 
 #### Defined in
 
-[src/lib/index.ts:16](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L16)
-
-___
-
-### helper
-
-• `Const` **helper**: [`Helper`](classes/Helper.md)
-
-#### Defined in
-
-[src/lib/index.ts:15](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L15)
+[src/lib/index.ts:17](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L17)
 
 ## Functions
 
@@ -135,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:38](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L38)
+[src/lib/index.ts:39](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L39)
 
 ___
 
@@ -160,7 +157,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[src/lib/index.ts:34](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L34)
+[src/lib/index.ts:35](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L35)
 
 ___
 
@@ -184,7 +181,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/index.ts:24](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L24)
+[src/lib/index.ts:25](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L25)
 
 ___
 
@@ -204,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:42](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L42)
+[src/lib/index.ts:43](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L43)
 
 ___
 
@@ -224,4 +221,4 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:46](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/index.ts#L46)
+[src/lib/index.ts:47](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/index.ts#L47)

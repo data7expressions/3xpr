@@ -1,49 +1,47 @@
-[Expressions](../README.md) / Helper
+[Expressions](../README.md) / ExprH3lp
 
-# Class: Helper
+# Class: ExprH3lp
 
 ## Hierarchy
 
 - `H3lp`
 
-  ↳ **`Helper`**
+  ↳ **`ExprH3lp`**
 
 ## Table of contents
 
 ### Constructors
 
-- [constructor](Helper.md#constructor)
+- [constructor](ExprH3lp.md#constructor)
 
 ### Properties
 
-- [array](Helper.md#array)
-- [expression](Helper.md#expression)
-- [fs](Helper.md#fs)
-- [http](Helper.md#http)
-- [obj](Helper.md#obj)
-- [operand](Helper.md#operand)
-- [str](Helper.md#str)
-- [test](Helper.md#test)
-- [utils](Helper.md#utils)
-- [val](Helper.md#val)
+- [array](ExprH3lp.md#array)
+- [expression](ExprH3lp.md#expression)
+- [fs](ExprH3lp.md#fs)
+- [http](ExprH3lp.md#http)
+- [obj](ExprH3lp.md#obj)
+- [operand](ExprH3lp.md#operand)
+- [str](ExprH3lp.md#str)
+- [test](ExprH3lp.md#test)
+- [utils](ExprH3lp.md#utils)
+- [val](ExprH3lp.md#val)
 
 ## Constructors
 
 ### constructor
 
-• **new Helper**(`expression`, `operand`, `h3lp`): [`Helper`](Helper.md)
+• **new ExprH3lp**(`h3lp`): [`ExprH3lp`](ExprH3lp.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `expression` | [`IExpressionHelper`](../interfaces/IExpressionHelper.md) |
-| `operand` | [`IOperandHelper`](../interfaces/IOperandHelper.md) |
 | `h3lp` | `H3lp` |
 
 #### Returns
 
-[`Helper`](Helper.md)
+[`ExprH3lp`](ExprH3lp.md)
 
 #### Overrides
 
@@ -51,7 +49,7 @@ H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L8)
 
 ## Properties
 
@@ -71,11 +69,11 @@ ___
 
 ### expression
 
-• `Readonly` **expression**: [`IExpressionHelper`](../interfaces/IExpressionHelper.md)
+• **expression**: [`ExpressionHelper`](ExpressionHelper.md)
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L6)
 
 ___
 
@@ -123,11 +121,11 @@ ___
 
 ### operand
 
-• `Readonly` **operand**: [`IOperandHelper`](../interfaces/IOperandHelper.md)
+• **operand**: [`OperandHelper`](OperandHelper.md)
 
 #### Defined in
 
-[src/lib/shared/application/helper/helper.ts:6](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/shared/application/helper/helper.ts#L6)
+[src/lib/shared/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L7)
 
 ___
 

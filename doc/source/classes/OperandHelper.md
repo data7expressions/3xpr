@@ -2,10 +2,6 @@
 
 # Class: OperandHelper
 
-## Implements
-
-- [`IOperandHelper`](../interfaces/IOperandHelper.md)
-
 ## Table of contents
 
 ### Constructors
@@ -46,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L7)
+[src/lib/operand/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L6)
 
 ## Methods
 
@@ -67,13 +63,9 @@
 
 `number`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[avg](../interfaces/IOperandHelper.md#avg)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:247](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L247)
+[src/lib/operand/infrastructure/helper.ts:246](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L246)
 
 ___
 
@@ -94,13 +86,9 @@ ___
 
 `number`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[count](../interfaces/IOperandHelper.md#count)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:186](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L186)
+[src/lib/operand/infrastructure/helper.ts:185](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L185)
 
 ___
 
@@ -118,13 +106,9 @@ ___
 
 [`Operand`](Operand.md)[]
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[findAggregates](../interfaces/IOperandHelper.md#findaggregates)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:135](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L135)
+[src/lib/operand/infrastructure/helper.ts:134](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L134)
 
 ___
 
@@ -145,13 +129,9 @@ ___
 
 `any`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[first](../interfaces/IOperandHelper.md#first)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:198](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L198)
+[src/lib/operand/infrastructure/helper.ts:197](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L197)
 
 ___
 
@@ -172,13 +152,9 @@ ___
 
 `any`[]
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[getKeys](../interfaces/IOperandHelper.md#getkeys)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:93](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L93)
+[src/lib/operand/infrastructure/helper.ts:92](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L92)
 
 ___
 
@@ -196,13 +172,9 @@ ___
 
 `boolean`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[haveAggregates](../interfaces/IOperandHelper.md#haveaggregates)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:122](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L122)
+[src/lib/operand/infrastructure/helper.ts:121](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L121)
 
 ___
 
@@ -223,13 +195,9 @@ ___
 
 `any`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[last](../interfaces/IOperandHelper.md#last)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:209](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L209)
+[src/lib/operand/infrastructure/helper.ts:208](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L208)
 
 ___
 
@@ -250,13 +218,9 @@ ___
 
 `any`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[max](../interfaces/IOperandHelper.md#max)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:221](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L221)
+[src/lib/operand/infrastructure/helper.ts:220](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L220)
 
 ___
 
@@ -277,13 +241,9 @@ ___
 
 `any`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[min](../interfaces/IOperandHelper.md#min)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:234](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L234)
+[src/lib/operand/infrastructure/helper.ts:233](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L233)
 
 ___
 
@@ -301,13 +261,9 @@ ___
 
 `any`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[objectKey](../interfaces/IOperandHelper.md#objectkey)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:83](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L83)
+[src/lib/operand/infrastructure/helper.ts:82](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L82)
 
 ___
 
@@ -328,13 +284,9 @@ ___
 
 [`Operand`](Operand.md)
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[solveAggregates](../interfaces/IOperandHelper.md#solveaggregates)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:151](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L151)
+[src/lib/operand/infrastructure/helper.ts:150](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L150)
 
 ___
 
@@ -355,13 +307,9 @@ ___
 
 `number`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[sum](../interfaces/IOperandHelper.md#sum)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:260](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L260)
+[src/lib/operand/infrastructure/helper.ts:259](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L259)
 
 ___
 
@@ -379,10 +327,6 @@ ___
 
 `string`
 
-#### Implementation of
-
-[IOperandHelper](../interfaces/IOperandHelper.md).[toExpression](../interfaces/IOperandHelper.md#toexpression)
-
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:9](https://github.com/data7expressions/3xpr/blob/820056652399b9d4be780d625cfa3ed69c7546d3/src/lib/operand/infrastructure/helper.ts#L9)
+[src/lib/operand/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/infrastructure/helper.ts#L8)
