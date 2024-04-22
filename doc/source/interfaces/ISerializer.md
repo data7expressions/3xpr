@@ -34,7 +34,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:4](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/domain/base.ts#L4)
+[src/lib/shared/domain/base.ts:4](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/domain/base.ts#L4)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:3](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/domain/base.ts#L3)
+[src/lib/shared/domain/base.ts:3](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/domain/base.ts#L3)
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/base.ts:2](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/domain/base.ts#L2)
+[src/lib/shared/domain/base.ts:2](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/domain/base.ts#L2)

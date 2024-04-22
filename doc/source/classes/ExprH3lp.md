@@ -49,7 +49,7 @@ H3lp.constructor
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L8)
+[src/lib/shared/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/infrastructure/helper.ts#L8)
 
 ## Properties
 
@@ -73,7 +73,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L6)
+[src/lib/shared/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/infrastructure/helper.ts#L6)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/shared/infrastructure/helper.ts#L7)
+[src/lib/shared/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/shared/infrastructure/helper.ts#L7)
 
 ___
 

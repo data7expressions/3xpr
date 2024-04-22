@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/domain/entities.ts#L15)
+[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/operand/domain/entities.ts#L15)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/domain/entities.ts#L14)
+[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/operand/domain/entities.ts#L14)
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/8079ebf4d334625389cc55450995826c919de4a9/src/lib/operand/domain/entities.ts#L13)
+[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/operand/domain/entities.ts#L13)
