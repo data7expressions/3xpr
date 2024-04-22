@@ -1,14 +1,14 @@
-import { H3lp } from 'h3lp'
 import { ExpressionHelper } from '../../expression/infrastructure'
 import { ConstBuilderImpl, OperandHelper } from '../../operand/infrastructure'
+import { TypeH3lp } from 'typ3s'
 
-export class ExprH3lp extends H3lp {
+export class ExprH3lp extends TypeH3lp {
 	public expression:ExpressionHelper
 	public operand:OperandHelper
-	constructor (h3lp: H3lp) {
-		super(h3lp.utils, h3lp.val, h3lp.fs, h3lp.http, h3lp.obj, h3lp.str, h3lp.test, h3lp.array)
+	constructor (typeH3lp: TypeH3lp) {
+		super(typeH3lp)
 		const constBuilder = new ConstBuilderImpl()
 		this.operand = new OperandHelper(constBuilder)
-		this.expression = new ExpressionHelper(h3lp.str)
+		this.expression = new ExpressionHelper(typeH3lp.str)
 	}
 }
