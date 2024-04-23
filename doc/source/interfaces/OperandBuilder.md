@@ -25,7 +25,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:12](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/operand/domain/services.ts#L12)
+[src/lib/operand/domain/services.ts:12](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/operand/domain/services.ts#L12)
 
 ## Methods
 
@@ -45,4 +45,4 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:13](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/operand/domain/services.ts#L13)
+[src/lib/operand/domain/services.ts:13](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/operand/domain/services.ts#L13)

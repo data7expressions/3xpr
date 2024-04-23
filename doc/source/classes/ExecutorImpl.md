@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/expression/application/useCases/executor.ts:7](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/expression/application/useCases/executor.ts#L7)
+[src/lib/expression/application/useCases/executor.ts:7](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/expression/application/useCases/executor.ts#L7)
 
 ## Methods
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/lib/expression/application/useCases/executor.ts:9](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/expression/application/useCases/executor.ts#L9)
+[src/lib/expression/application/useCases/executor.ts:9](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/expression/application/useCases/executor.ts#L9)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/useCases/executor.ts:14](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/expression/application/useCases/executor.ts#L14)
+[src/lib/expression/application/useCases/executor.ts:14](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/expression/application/useCases/executor.ts#L14)
 
 ___
 
@@ -111,4 +111,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/useCases/executor.ts:19](https://github.com/data7expressions/3xpr/blob/2c0e61c034cb60bff8ac419f4ab59027dc3bdc28/src/lib/expression/application/useCases/executor.ts#L19)
+[src/lib/expression/application/useCases/executor.ts:19](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/expression/application/useCases/executor.ts#L19)
