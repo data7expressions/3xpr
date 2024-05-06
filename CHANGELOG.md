@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.16](https://github.com/data7expressions/3xpr/compare/v1.15.15...v1.15.16) (2024-05-06)
+
+
+### Bug Fixes
+
+* bugfix cosh function ([383dad4](https://github.com/data7expressions/3xpr/commit/383dad40c3415837443b6ccd0c7960abae2de02b)), closes [#0](https://github.com/data7expressions/3xpr/issues/0)
+
 ### [1.15.15](https://github.com/data7expressions/3xpr/compare/v1.15.14...v1.15.15) (2024-04-23)
 
 ### [1.15.14](https://github.com/data7expressions/3xpr/compare/v1.15.13...v1.15.14) (2024-04-22)
