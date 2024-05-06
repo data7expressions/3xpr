@@ -43,7 +43,7 @@ export class ExpressionsImpl implements Expressions {
 		this.model.addOperator(source, sing, additionalInfo)
 	}
 
-	public addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void {
+	public addFunction (sing:string, source:any, additionalInfo: FunctionAdditionalInfo):void {
 		this.model.addFunction(sing, source, additionalInfo)
 	}
 

@@ -6,17 +6,19 @@ export interface ParameterDoc {
 }
 export interface OperatorDoc {
 	description: string
-	params:ParameterDoc[]
+	params?:ParameterDoc[]
 }
 
 export interface OperatorAdditionalInfo {
 	priority: number
+	description: string
 	doc?: OperatorDoc
 	async?: boolean
 }
 
 export interface FunctionAdditionalInfo {
 	deterministic?:boolean
+	description: string
 	doc?: OperatorDoc
 	async?: boolean
 }
@@ -68,7 +70,7 @@ export interface OperatorMetadata {
 	deterministic:boolean
 	operands: number
 	returnType:string
-	doc?: OperatorDoc
+	doc: OperatorDoc
 	priority?:number
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	function?: Function

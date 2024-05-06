@@ -108,6 +108,7 @@ export class ModelServiceImpl implements ModelService {
 			priority: additionalInfo.priority,
 			deterministic: false,
 			operands: singInfo.params.length,
+			doc: additionalInfo.doc ? additionalInfo.doc : { description: additionalInfo.description || sing },
 			params: singInfo.params,
 			returnType: singInfo.returnType,
 			async: additionalInfo.async || false
@@ -128,13 +129,14 @@ export class ModelServiceImpl implements ModelService {
 		this._operators[singInfo.name][metadata.operands] = metadata
 	}
 
-	public addFunction (sing:string, source:any, additionalInfo?:FunctionAdditionalInfo):void {
+	public addFunction (sing:string, source:any, additionalInfo:FunctionAdditionalInfo):void {
 		const singInfo = this.getSing(sing)
 		const metadata:OperatorMetadata = {
 			deterministic: additionalInfo && additionalInfo.deterministic ? additionalInfo.deterministic : true,
 			operands: singInfo.params.length,
 			params: singInfo.params,
 			returnType: singInfo.returnType,
+			doc: additionalInfo.doc ? additionalInfo.doc : { description: additionalInfo.description || sing },
 			async: additionalInfo && additionalInfo.async ? additionalInfo.async : false
 		}
 		if (source instanceof PrototypeEvaluator) {

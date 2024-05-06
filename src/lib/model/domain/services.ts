@@ -14,7 +14,7 @@ export interface ModelService {
 	addConstant (key:string, value:any):void
 	addFormat (key:string, pattern:string):void
 	addOperator (sing:string, source:any, additionalInfo: OperatorAdditionalInfo):void
-	addFunction (sing:string, source:any, additionalInfo?: FunctionAdditionalInfo):void
+	addFunction (sing:string, source:any, additionalInfo: FunctionAdditionalInfo):void
 	addOperatorAlias (alias:string, reference:string):void
 	addFunctionAlias (alias:string, reference:string):void
 	// addNamespace (namespace:string):void
