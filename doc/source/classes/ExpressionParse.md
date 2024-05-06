@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/parser.ts:703](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/operand/application/services/parser.ts#L703)
+[src/lib/operand/application/services/parser.ts:703](https://github.com/data7expressions/3xpr/blob/383dad40c3415837443b6ccd0c7960abae2de02b/src/lib/operand/application/services/parser.ts#L703)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/parser.ts:705](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/operand/application/services/parser.ts#L705)
+[src/lib/operand/application/services/parser.ts:705](https://github.com/data7expressions/3xpr/blob/383dad40c3415837443b6ccd0c7960abae2de02b/src/lib/operand/application/services/parser.ts#L705)

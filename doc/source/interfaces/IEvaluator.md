@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:39](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/shared/domain/operand.ts#L39)
+[src/lib/shared/domain/operand.ts:39](https://github.com/data7expressions/3xpr/blob/383dad40c3415837443b6ccd0c7960abae2de02b/src/lib/shared/domain/operand.ts#L39)
 
 ___
 
@@ -52,4 +52,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:40](https://github.com/data7expressions/3xpr/blob/afd3b19f5d11ae44b57444edce640638f4fba296/src/lib/shared/domain/operand.ts#L40)
+[src/lib/shared/domain/operand.ts:40](https://github.com/data7expressions/3xpr/blob/383dad40c3415837443b6ccd0c7960abae2de02b/src/lib/shared/domain/operand.ts#L40)
