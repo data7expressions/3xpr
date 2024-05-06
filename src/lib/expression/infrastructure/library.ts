@@ -163,7 +163,7 @@ export class CoreLibrary implements Library {
 		model.addFunction('atan2(x:number):number', Math.atan2, { description: 'Arc tangent of two variables' })
 		model.addFunction('ceil(x:number):number', Math.ceil, { description: 'Ceiling' })
 		model.addFunction('cos(x:number):number', Math.cos, { description: 'Cosine' })
-		model.addFunction('cosh(x:number):number', Math.cos, { description: 'Hyperbolic cosine' })
+		model.addFunction('cosh(x:number):number', Math.cosh, { description: 'Hyperbolic cosine' })
 		model.addFunction('exp(x:number):number', Math.exp, { description: 'Exponential' })
 		model.addFunction('floor(x:number):number', Math.floor, { description: 'Floor' })
 		model.addFunction('ln(x:number):number', Math.log, { description: 'Natural logarithm' })
