@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.17](https://github.com/data7expressions/3xpr/compare/v1.15.16...v1.15.17) (2024-05-07)
+
+
+### Bug Fixes
+
+* test for bugfix Unary operator used immediately before exponentiation expression ([64a822a](https://github.com/data7expressions/3xpr/commit/64a822ad282830c500d60420b01aaf3627354d0e)), closes [#0](https://github.com/data7expressions/3xpr/issues/0)
+
 ### [1.15.16](https://github.com/data7expressions/3xpr/compare/v1.15.15...v1.15.16) (2024-05-06)
 
 
