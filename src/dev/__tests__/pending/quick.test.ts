@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 
 describe('quick', () => {
 	const context = JSON.parse('{"country":"Spain","region":"Europe","phoneCode":"34","timezones":[{"city":"Madrid","offset":1,"pos":{"lat":40.4165,"log":-3.70256}},{"city":"Ceuta","offset":1,"pos":{"lat":35.8883,"log":-5.3162}},{"city":"Canary","offset":0,"pos":{"lat":28.1248,"log":-15.43}}]}')

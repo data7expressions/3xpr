@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 
 describe('dateTime', () => {
 	const context = JSON.parse('{}')

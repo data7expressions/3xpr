@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 
 describe('comparison', () => {
 	const context = JSON.parse('{"a":"1","b":2,"c":{"a":4,"b":5},"d":"house","e":"car","f":"","g":null,"devices":["phone","computer","robot"],"pi":3.141516,"requerid":false,"device":"phone","date":"2022-08-22","time":"22:14:30","dateTime":"1997-07-08T22:14:30.000Z"}')

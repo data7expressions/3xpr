@@ -1,4 +1,4 @@
-import { expressions } from '..'
+import { expressions } from '../../lib'
 
 describe('Array', () => {
 	test('children', () => {

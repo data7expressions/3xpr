@@ -5,7 +5,7 @@ import path from 'path'
 const template = {
 	header:
 `/* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 `,
 	cases: [{
 		name: 'lab',

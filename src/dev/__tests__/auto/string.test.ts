@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 
 describe('string', () => {
 	const context = JSON.parse('{"firstName":"Juan","lastName":"Lopez","email":"jlopez@email.com","age":44,"food":"pizza","film":"Estación central","a":null,"b":"","c":" "}')

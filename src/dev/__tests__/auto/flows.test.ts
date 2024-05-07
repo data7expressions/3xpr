@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 
 describe('flows', () => {
 	const context = JSON.parse('{"devices":[{"type":"phone","imei":"911784599437339","mac":"10:3d:1c:9b:7e:db"},{"type":"computer","mac":"11:3d:1c:9b:7e:db"},{"type":"robot","mac":"12:3d:1c:9b:7e:db"}]}')

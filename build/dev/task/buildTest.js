@@ -8,7 +8,7 @@ const h3lp_1 = require("h3lp");
 const path_1 = __importDefault(require("path"));
 const template = {
     header: `/* eslint-disable no-template-curly-in-string */
-import { expressions as exp } from '../../'
+import { expressions as exp } from '../../../lib'
 `,
     cases: [{
             name: 'lab',
