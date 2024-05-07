@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/complete.ts:7](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/useCases/complete.ts#L7)
+[src/lib/operand/application/useCases/complete.ts:7](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/useCases/complete.ts#L7)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/complete.ts:9](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/useCases/complete.ts#L9)
+[src/lib/operand/application/useCases/complete.ts:9](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/useCases/complete.ts#L9)

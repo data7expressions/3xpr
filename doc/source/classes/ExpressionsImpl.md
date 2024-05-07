@@ -80,7 +80,7 @@
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L8)
+[src/lib/expression/application/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L8)
 
 ## Accessors
 
@@ -98,7 +98,7 @@
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:118](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L118)
+[src/lib/expression/application/expressions.ts:118](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L118)
 
 ___
 
@@ -116,7 +116,7 @@ Expressions.constants
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:34](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L34)
+[src/lib/expression/application/expressions.ts:34](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L34)
 
 ___
 
@@ -134,7 +134,7 @@ Expressions.enums
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:26](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L26)
+[src/lib/expression/application/expressions.ts:26](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L26)
 
 ___
 
@@ -152,7 +152,7 @@ Expressions.formats
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L30)
+[src/lib/expression/application/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L30)
 
 ___
 
@@ -170,7 +170,7 @@ Expressions.functionAlias
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:18](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L18)
+[src/lib/expression/application/expressions.ts:18](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L18)
 
 ___
 
@@ -188,7 +188,7 @@ Expressions.functions
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:38](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L38)
+[src/lib/expression/application/expressions.ts:38](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L38)
 
 ___
 
@@ -206,7 +206,7 @@ Expressions.operatorAlias
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:14](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L14)
+[src/lib/expression/application/expressions.ts:14](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L14)
 
 ___
 
@@ -224,7 +224,7 @@ Expressions.operators
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L22)
+[src/lib/expression/application/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L22)
 
 ## Methods
 
@@ -249,7 +249,7 @@ Expressions.operators
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:58](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L58)
+[src/lib/expression/application/expressions.ts:58](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L58)
 
 ___
 
@@ -274,7 +274,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:173](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L173)
+[src/lib/expression/application/expressions.ts:173](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L173)
 
 ___
 
@@ -299,7 +299,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:50](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L50)
+[src/lib/expression/application/expressions.ts:50](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L50)
 
 ___
 
@@ -324,7 +324,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:54](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L54)
+[src/lib/expression/application/expressions.ts:54](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L54)
 
 ___
 
@@ -350,7 +350,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:46](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L46)
+[src/lib/expression/application/expressions.ts:46](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L46)
 
 ___
 
@@ -375,7 +375,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:66](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L66)
+[src/lib/expression/application/expressions.ts:66](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L66)
 
 ___
 
@@ -399,7 +399,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:70](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L70)
+[src/lib/expression/application/expressions.ts:70](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L70)
 
 ___
 
@@ -425,7 +425,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:42](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L42)
+[src/lib/expression/application/expressions.ts:42](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L42)
 
 ___
 
@@ -450,7 +450,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:62](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L62)
+[src/lib/expression/application/expressions.ts:62](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L62)
 
 ___
 
@@ -475,7 +475,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:144](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L144)
+[src/lib/expression/application/expressions.ts:144](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L144)
 
 ___
 
@@ -500,7 +500,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:148](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L148)
+[src/lib/expression/application/expressions.ts:148](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L148)
 
 ___
 
@@ -525,7 +525,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:182](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L182)
+[src/lib/expression/application/expressions.ts:182](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L182)
 
 ___
 
@@ -554,7 +554,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:158](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L158)
+[src/lib/expression/application/expressions.ts:158](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L158)
 
 ___
 
@@ -579,7 +579,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:163](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L163)
+[src/lib/expression/application/expressions.ts:163](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L163)
 
 ___
 
@@ -604,7 +604,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:168](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L168)
+[src/lib/expression/application/expressions.ts:168](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L168)
 
 ___
 
@@ -628,7 +628,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:122](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L122)
+[src/lib/expression/application/expressions.ts:122](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L122)
 
 ___
 
@@ -652,7 +652,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:74](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L74)
+[src/lib/expression/application/expressions.ts:74](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L74)
 
 ___
 
@@ -676,7 +676,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:178](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L178)
+[src/lib/expression/application/expressions.ts:178](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L178)
 
 ___
 
@@ -700,7 +700,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:82](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L82)
+[src/lib/expression/application/expressions.ts:82](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L82)
 
 ___
 
@@ -725,7 +725,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:78](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L78)
+[src/lib/expression/application/expressions.ts:78](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L78)
 
 ___
 
@@ -749,7 +749,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:86](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L86)
+[src/lib/expression/application/expressions.ts:86](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L86)
 
 ___
 
@@ -773,7 +773,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:94](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L94)
+[src/lib/expression/application/expressions.ts:94](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L94)
 
 ___
 
@@ -798,7 +798,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:90](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L90)
+[src/lib/expression/application/expressions.ts:90](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L90)
 
 ___
 
@@ -822,7 +822,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:106](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L106)
+[src/lib/expression/application/expressions.ts:106](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L106)
 
 ___
 
@@ -846,7 +846,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:102](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L102)
+[src/lib/expression/application/expressions.ts:102](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L102)
 
 ___
 
@@ -870,7 +870,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:114](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L114)
+[src/lib/expression/application/expressions.ts:114](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L114)
 
 ___
 
@@ -895,7 +895,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:110](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L110)
+[src/lib/expression/application/expressions.ts:110](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L110)
 
 ___
 
@@ -923,7 +923,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:131](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L131)
+[src/lib/expression/application/expressions.ts:131](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L131)
 
 ___
 
@@ -948,7 +948,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:98](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L98)
+[src/lib/expression/application/expressions.ts:98](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L98)
 
 ___
 
@@ -972,7 +972,7 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:187](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L187)
+[src/lib/expression/application/expressions.ts:187](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L187)
 
 ___
 
@@ -1000,7 +1000,7 @@ Type of expression
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:140](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L140)
+[src/lib/expression/application/expressions.ts:140](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L140)
 
 ___
 
@@ -1024,4 +1024,4 @@ ___
 
 #### Defined in
 
-[src/lib/expression/application/expressions.ts:191](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/expression/application/expressions.ts#L191)
+[src/lib/expression/application/expressions.ts:191](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/application/expressions.ts#L191)

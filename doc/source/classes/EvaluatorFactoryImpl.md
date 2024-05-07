@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/factory.ts:6](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/services/factory.ts#L6)
+[src/lib/operand/application/services/factory.ts:6](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/services/factory.ts#L6)
 
 ## Methods
 
@@ -55,7 +55,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/factory.ts:10](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/services/factory.ts#L10)
+[src/lib/operand/application/services/factory.ts:10](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/services/factory.ts#L10)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/factory.ts:19](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/services/factory.ts#L19)
+[src/lib/operand/application/services/factory.ts:19](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/services/factory.ts#L19)
 
 ___
 
@@ -103,4 +103,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/factory.ts:15](https://github.com/data7expressions/3xpr/blob/642a08e921107fd290b12e1861cb9231aaa7127a/src/lib/operand/application/services/factory.ts#L15)
+[src/lib/operand/application/services/factory.ts:15](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/operand/application/services/factory.ts#L15)
