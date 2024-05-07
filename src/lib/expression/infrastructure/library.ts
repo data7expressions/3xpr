@@ -607,7 +607,7 @@ class AssignmentExponentiation extends PrototypeEvaluator {
 		}
 		const a = await this.operand.children[0].solve(context)
 		const b = await this.operand.children[1].solve(context)
-		const value = (a) ** (b)
+		const value = Math.pow(a, b)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
