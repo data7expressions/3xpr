@@ -35,7 +35,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/typeService.ts:9](https://github.com/data7expressions/3xpr/blob/49b6c877a765fd974fe31289a320b70575692631/src/lib/operand/application/services/typeService.ts#L9)
+[src/lib/operand/application/services/typeService.ts:9](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/application/services/typeService.ts#L9)
 
 ## Methods
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/typeService.ts:23](https://github.com/data7expressions/3xpr/blob/49b6c877a765fd974fe31289a320b70575692631/src/lib/operand/application/services/typeService.ts#L23)
+[src/lib/operand/application/services/typeService.ts:23](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/application/services/typeService.ts#L23)
 
 ___
 
@@ -79,4 +79,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/typeService.ts:28](https://github.com/data7expressions/3xpr/blob/49b6c877a765fd974fe31289a320b70575692631/src/lib/operand/application/services/typeService.ts#L28)
+[src/lib/operand/application/services/typeService.ts:28](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/application/services/typeService.ts#L28)
