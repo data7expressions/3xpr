@@ -34,7 +34,7 @@ import { expressions as exp } from '../../../lib'
         }]
 };
 (async () => {
-    const root = '~/project/3xpr/expressions-test-suite/tests/v1';
+    const root = '~/personal/org/data7expressions//expressions-test-suite/tests/v1';
     await h3lp_1.h3lp.test
         .createBuilder()
         .add({ source: path_1.default.join(root, 'access.json'), template })
@@ -57,6 +57,6 @@ import { expressions as exp } from '../../../lib'
         .add({ source: path_1.default.join(root, 'sets.json'), template })
         .add({ source: path_1.default.join(root, 'string.json'), template })
         .add({ source: path_1.default.join(root, 'type.json'), template: templateType })
-        .build('./src/lib/__tests__/auto');
+        .build('./src/dev/__tests__/auto');
 })();
 //# sourceMappingURL=buildTest.js.map
