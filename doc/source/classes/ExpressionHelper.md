@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/lib/expression/infrastructure/helper.ts:5](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/infrastructure/helper.ts#L5)
+[src/lib/expression/infrastructure/helper.ts:5](https://github.com/data7expressions/3xpr/blob/49b6c877a765fd974fe31289a320b70575692631/src/lib/expression/infrastructure/helper.ts#L5)
 
 ## Methods
 
@@ -50,4 +50,4 @@
 
 #### Defined in
 
-[src/lib/expression/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/67c52f7411be29dd217e3e83f8162cdf62d63d02/src/lib/expression/infrastructure/helper.ts#L8)
+[src/lib/expression/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/49b6c877a765fd974fe31289a320b70575692631/src/lib/expression/infrastructure/helper.ts#L8)
