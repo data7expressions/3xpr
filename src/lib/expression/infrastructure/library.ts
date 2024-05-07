@@ -51,11 +51,11 @@ export class CoreLibrary implements Library {
 	private operators (model: ModelService): void {
 		model.addOperator('+(a:T,b:T):T', (a: any, b: any):any => a + b, { priority: 5, description: 'Addition' })
 		model.addOperator('-(a:number,b:number):number', (a: number, b: number):number => a - b, { priority: 5, description: 'Subtraction' })
-		model.addOperator('-(a:number):number', (a: number):number => a * -1, { priority: 9, description: 'Negation' })
+		model.addOperator('-(a:number):number', (a: number):number => a * (-1), { priority: 9, description: 'Negation' })
 		model.addOperator('*(a:number,b:number):number', (a: number, b: number):number => a * b, { priority: 6, description: 'Multiplication' })
 		model.addOperator('/(a:number,b:number):number', (a: number, b: number):number => a / b, { priority: 6, description: 'Division' })
 		model.addOperator('**(a:number,b:number):number', (a: number, b: number):number => a ** b, { priority: 7, description: 'Exponentiation' })
-		model.addOperator('//(a:number,b:number):number', (a: number, b: number):number => Math.pow(a, 1 / b), { priority: 7, description: 'Root' })
+		model.addOperator('//(a:number,b:number):number', (a: number, b: number):number => Math.pow(a, (1 / b)), { priority: 7, description: 'Root' })
 		model.addOperator('%(a:number,b:number):number', (a: number, b: number):number => a % b, { priority: 8, description: 'Modulus' })
 
 		model.addOperator('&(a:number,b:number):number', (a: number, b: number):number => a & b, { priority: 5, description: 'Bitwise AND' })
@@ -596,7 +596,7 @@ class AssignmentExponentiation extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) ** this.operand.children[1].eval(context)
+		const value = (this.operand.children[0].eval(context)) ** (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -619,7 +619,7 @@ class AssignmentFloorDivision extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = Math.floor(this.operand.children[0].eval(context) / this.operand.children[1].eval(context))
+		const value = Math.floor(this.operand.children[0].eval(context) / (this.operand.children[1].eval(context)))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -643,7 +643,7 @@ class AssignmentMod extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) % this.operand.children[1].eval(context)
+		const value = this.operand.children[0].eval(context) % (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -667,7 +667,7 @@ class AssignmentBitAnd extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) & this.operand.children[1].eval(context)
+		const value = this.operand.children[0].eval(context) & (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -691,7 +691,7 @@ class AssignmentBitOr extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) | this.operand.children[1].eval(context)
+		const value = (this.operand.children[0].eval(context)) | (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -715,7 +715,7 @@ class AssignmentBitXor extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) ^ this.operand.children[1].eval(context)
+		const value = (this.operand.children[0].eval(context)) ^ (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -739,7 +739,7 @@ class AssignmentLeftShift extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) << this.operand.children[1].eval(context)
+		const value = (this.operand.children[0].eval(context)) << (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
@@ -763,7 +763,7 @@ class AssignmentRightShift extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = this.operand.children[0].eval(context) >> this.operand.children[1].eval(context)
+		const value = (this.operand.children[0].eval(context)) >> (this.operand.children[1].eval(context))
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}

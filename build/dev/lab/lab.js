@@ -26,7 +26,7 @@ const lib_1 = require("../../lib");
             }
         ]
     };
-    const result = await lib_1.expressions.evalAsync('sleep(5000)', context);
+    const result = lib_1.expressions.eval('5*(7+9)==5*7+5*9', context);
     console.log(result);
 })();
 //# sourceMappingURL=lab.js.map

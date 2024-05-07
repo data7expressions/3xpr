@@ -25,6 +25,6 @@ import { expressions as exp } from '../../lib'
 		]
 	}
 
-	const result = await exp.evalAsync('sleep(5000)', context)
+	const result = exp.eval('5*(7+9)==5*7+5*9', context)
 	console.log(result)
 })()
