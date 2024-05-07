@@ -34,7 +34,7 @@ import { expressions as exp } from '../../../lib'
         }]
 };
 (async () => {
-    const root = '~/personal/org/data7expressions//expressions-test-suite/tests/v1';
+    const root = '~/personal/org/data7expressions/expressions-test-suite/tests/v1';
     await h3lp_1.h3lp.test
         .createBuilder()
         .add({ source: path_1.default.join(root, 'access.json'), template })
