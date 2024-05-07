@@ -605,7 +605,9 @@ class AssignmentExponentiation extends PrototypeEvaluator {
 		if (this.operand === undefined) {
 			throw new Error('Operand undefined')
 		}
-		const value = (await this.operand.children[0].solve(context)) ** (await this.operand.children[1].solve(context))
+		const a = await this.operand.children[0].solve(context)
+		const b = await this.operand.children[1].solve(context)
+		const value = (a) ** (b)
 		context.data.set(this.operand.children[0].name, value)
 		return value
 	}
