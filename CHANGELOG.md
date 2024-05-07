@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.18](https://github.com/data7expressions/3xpr/compare/v1.15.17...v1.15.18) (2024-05-07)
+
+
+### Bug Fixes
+
+* bugfix in tgest ([67c52f7](https://github.com/data7expressions/3xpr/commit/67c52f7411be29dd217e3e83f8162cdf62d63d02)), closes [#0](https://github.com/data7expressions/3xpr/issues/0)
+* bugfix on generate test ([5a5395d](https://github.com/data7expressions/3xpr/commit/5a5395d69874ae0efcfb48c74cc4585ee09371a7)), closes [#0](https://github.com/data7expressions/3xpr/issues/0)
+
 ### [1.15.17](https://github.com/data7expressions/3xpr/compare/v1.15.16...v1.15.17) (2024-05-07)
 
 
