@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.20](https://github.com/data7expressions/3xpr/compare/v1.15.19...v1.15.20) (2024-05-07)
+
+
+### Bug Fixes
+
+* test use Math.pow ([bc0cfcc](https://github.com/data7expressions/3xpr/commit/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b)), closes [#83](https://github.com/data7expressions/3xpr/issues/83)
+
 ### [1.15.19](https://github.com/data7expressions/3xpr/compare/v1.15.18...v1.15.19) (2024-05-07)
 
 
