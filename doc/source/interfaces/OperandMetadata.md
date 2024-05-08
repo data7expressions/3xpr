@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:64](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L64)
+[src/lib/operand/domain/entities.ts:64](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L64)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:63](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L63)
+[src/lib/operand/domain/entities.ts:63](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L63)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:66](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L66)
+[src/lib/operand/domain/entities.ts:66](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L66)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:61](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L61)
+[src/lib/operand/domain/entities.ts:61](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L61)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:65](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L65)
+[src/lib/operand/domain/entities.ts:65](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L65)
 
 ___
 
@@ -71,4 +71,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/entities.ts:62](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/operand/domain/entities.ts#L62)
+[src/lib/operand/domain/entities.ts:62](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/domain/entities.ts#L62)
