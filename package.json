@@ -26,8 +26,8 @@
 		"release": "grunt release"
 	},
 	"dependencies": {
-		"typ3s": "^1.0.3",
-		"h3lp": "^1.10.1"
+		"typ3s": "^1.0.4",
+		"h3lp": "^1.11.0"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.23.3",
