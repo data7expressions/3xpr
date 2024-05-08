@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:4](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/observer.ts#L4)
+[src/lib/shared/domain/observer.ts:4](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/shared/domain/observer.ts#L4)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:6](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/observer.ts#L6)
+[src/lib/shared/domain/observer.ts:6](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/shared/domain/observer.ts#L6)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:3](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/observer.ts#L3)
+[src/lib/shared/domain/observer.ts:3](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/shared/domain/observer.ts#L3)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/observer.ts:5](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/observer.ts#L5)
+[src/lib/shared/domain/observer.ts:5](https://github.com/data7expressions/3xpr/blob/0681e5e0ab11411af82827485c7d10cdec6b6fd6/src/lib/shared/domain/observer.ts#L5)
