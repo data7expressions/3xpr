@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/signals.ts:3](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/shared/domain/signals.ts#L3)
+[src/lib/shared/domain/signals.ts:3](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/signals.ts#L3)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/signals.ts:2](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/shared/domain/signals.ts#L2)
+[src/lib/shared/domain/signals.ts:2](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/shared/domain/signals.ts#L2)

@@ -50,7 +50,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:6](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/application/services/serializer.ts#L6)
+[src/lib/operand/application/services/serializer.ts:6](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/application/services/serializer.ts#L6)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:16](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/application/services/serializer.ts#L16)
+[src/lib/operand/application/services/serializer.ts:16](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/application/services/serializer.ts#L16)
 
 ___
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/services/serializer.ts:12](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/application/services/serializer.ts#L12)
+[src/lib/operand/application/services/serializer.ts:12](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/application/services/serializer.ts#L12)

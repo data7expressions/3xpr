@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:39](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L39)
+[src/lib/operand/domain/services.ts:39](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L39)
 
 ## Methods
 
@@ -57,7 +57,7 @@
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:43](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L43)
+[src/lib/operand/domain/services.ts:43](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L43)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L35)
+[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L35)
 
 ___
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:40](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L40)
+[src/lib/operand/domain/services.ts:40](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L40)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:41](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L41)
+[src/lib/operand/domain/services.ts:41](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L41)
 
 ___
 
@@ -142,4 +142,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/domain/services.ts:42](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/domain/services.ts#L42)
+[src/lib/operand/domain/services.ts:42](https://github.com/data7expressions/3xpr/blob/4ba1e4ce6d1a7c81471bad9e3b4b08ed95379b30/src/lib/operand/domain/services.ts#L42)
