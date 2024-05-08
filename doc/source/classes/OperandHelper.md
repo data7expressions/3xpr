@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L6)
+[src/lib/operand/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L6)
 
 ## Methods
 
@@ -65,7 +65,7 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:246](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L246)
+[src/lib/operand/infrastructure/helper.ts:246](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L246)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:185](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L185)
+[src/lib/operand/infrastructure/helper.ts:185](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L185)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:134](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L134)
+[src/lib/operand/infrastructure/helper.ts:134](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L134)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:197](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L197)
+[src/lib/operand/infrastructure/helper.ts:197](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L197)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:92](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L92)
+[src/lib/operand/infrastructure/helper.ts:92](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L92)
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:121](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L121)
+[src/lib/operand/infrastructure/helper.ts:121](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L121)
 
 ___
 
@@ -197,7 +197,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:208](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L208)
+[src/lib/operand/infrastructure/helper.ts:208](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L208)
 
 ___
 
@@ -220,7 +220,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:220](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L220)
+[src/lib/operand/infrastructure/helper.ts:220](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L220)
 
 ___
 
@@ -243,7 +243,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:233](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L233)
+[src/lib/operand/infrastructure/helper.ts:233](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L233)
 
 ___
 
@@ -263,7 +263,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:82](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L82)
+[src/lib/operand/infrastructure/helper.ts:82](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L82)
 
 ___
 
@@ -286,7 +286,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:150](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L150)
+[src/lib/operand/infrastructure/helper.ts:150](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L150)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:259](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L259)
+[src/lib/operand/infrastructure/helper.ts:259](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L259)
 
 ___
 
@@ -329,4 +329,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/helper.ts#L8)
+[src/lib/operand/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/helper.ts#L8)

@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/facadeBuilder.ts:17](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/facadeBuilder.ts#L17)
+[src/lib/operand/infrastructure/facadeBuilder.ts:17](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/facadeBuilder.ts#L17)
 
 ## Methods
 
@@ -45,4 +45,4 @@
 
 #### Defined in
 
-[src/lib/operand/infrastructure/facadeBuilder.ts:19](https://github.com/data7expressions/3xpr/blob/bc0cfccce8742d24fc7e8aa4c9e318845fb27c3b/src/lib/operand/infrastructure/facadeBuilder.ts#L19)
+[src/lib/operand/infrastructure/facadeBuilder.ts:19](https://github.com/data7expressions/3xpr/blob/75bc908120831b89f4db473368191027448620e2/src/lib/operand/infrastructure/facadeBuilder.ts#L19)
