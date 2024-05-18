@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Versions
 
+### [1.15.24](https://github.com/data7expressions/3xpr/compare/v1.15.23...v1.15.24) (2024-05-18)
+
 ### [1.15.23](https://github.com/data7expressions/3xpr/compare/v1.15.22...v1.15.23) (2024-05-08)
 
 ### [1.15.22](https://github.com/data7expressions/3xpr/compare/v1.15.21...v1.15.22) (2024-05-08)
