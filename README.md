@@ -104,6 +104,35 @@ while (p=timezones.pop()) {
 //         {"name":"Madrid","offset":1,"pos":{"lat":40.4,"log":-3.7}}
 ```
 
+## Extend
+
+You can extend the library by adding enums, constants, formats, operators, and functions.
+To do this, use the following functions:
+
+- **AddConstant**: Adds a constant to the library.
+- **AddEnum**: Adds an enumeration to the library.
+- **AddFormat**: Adds a format to the library.
+- **AddOperator**: Adds an operator to the library.
+- **AddFunction**: Adds a function to the library.
+
+### Example
+
+```typescript
+import { expressions as exp } from '3xpr'
+const CryptoJS = require('crypto-js')
+
+exp.addFunction(
+	'encrypt(value:string):string',
+	(value: string, key:string):string => CryptoJS.AES.encrypt(value, key).toString(),
+	{ description: 'Encrypt a string' }
+)
+exp.addFunction(
+	'decrypt(value:string):string', 
+	(value: string, key:string):string => CryptoJS.AES.decrypt(value, key).toString(CryptoJS.enc.Utf8),
+	{ description: 'Decrypt a string' }
+)
+```
+
 ## Related projects
 
 - [typ3s](https://www.npmjs.com/package/typ3s)

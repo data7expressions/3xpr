@@ -26,7 +26,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:6](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/application/useCases/build.ts#L6)
+[src/lib/operand/application/useCases/build.ts:6](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/useCases/build.ts#L6)
 
 ## Methods
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:10](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/application/useCases/build.ts#L10)
+[src/lib/operand/application/useCases/build.ts:10](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/useCases/build.ts#L10)
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:19](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/application/useCases/build.ts#L19)
+[src/lib/operand/application/useCases/build.ts:19](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/useCases/build.ts#L19)
 
 ___
 
@@ -88,4 +88,4 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/useCases/build.ts:15](https://github.com/data7expressions/3xpr/blob/f4e2acb64a050b90425cc59870d6318b60f5c045/src/lib/operand/application/useCases/build.ts#L15)
+[src/lib/operand/application/useCases/build.ts:15](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/useCases/build.ts#L15)

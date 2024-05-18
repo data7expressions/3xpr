@@ -1,6 +1,15 @@
-You can extend the library by creating a class derived from "Library" and adding an instance of it via the addLibrary method.
+You can extend the library by adding enums, constants, formats, operators, and functions.
+To do this, use the following functions:
 
-## Enums
+- **AddConstant**: Adds a constant to the library.
+- **AddEnum**: Adds an enumeration to the library.
+- **AddFormat**: Adds a format to the library.
+- **AddOperator**: Adds an operator to the library.
+- **AddFunction**: Adds a function to the library.
+
+## Examples
+
+### Enums
 
 This example extends the library with two enumerations, ColorConversion and Color.
 
@@ -24,7 +33,7 @@ console.log(exp.eval('Color.GREEN')))
 
 - [Definition](https://github.com/data7expressions/3xpr/blob/main/doc/source/interfaces/Expressions.md#addenum)
 
-## Functions
+### Functions
 
 This is a real example of how the library is extended with custom functions.
 These functions are used in the [λORM](https://www.npmjs.com/package/lambdaorm) library.
@@ -79,7 +88,7 @@ exp.addFunction('orm.constraints(query:string):any', (query:string) => {
 
 - [Definition](https://github.com/data7expressions/3xpr/blob/main/doc/source/interfaces/Expressions.md#addfunction)
 
-## Asynchronous functions
+### Asynchronous functions
 
 Asynchronous functions can be defined by adding the async property to the function definition.
 These functions are used in the [λORM Service](https://github.com/lambda-orm/lambdaorm-svc).
