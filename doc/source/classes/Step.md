@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/context.ts#L48)
+[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L48)
 
 ## Properties
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/context.ts#L48)
+[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L48)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/context.ts#L48)
+[src/lib/shared/domain/context.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L48)
 
 ___
 
@@ -63,4 +63,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/context.ts:46](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/context.ts#L46)
+[src/lib/shared/domain/context.ts:46](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L46)

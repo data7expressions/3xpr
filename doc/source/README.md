@@ -101,7 +101,7 @@ Expressions
 
 #### Defined in
 
-[src/lib/index.ts:16](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L16)
+[src/lib/index.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L16)
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:17](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L17)
+[src/lib/index.ts:17](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L17)
 
 ## Functions
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:38](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L38)
+[src/lib/index.ts:38](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L38)
 
 ___
 
@@ -157,7 +157,7 @@ Result of the evaluate expression
 
 #### Defined in
 
-[src/lib/index.ts:34](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L34)
+[src/lib/index.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L34)
 
 ___
 
@@ -181,7 +181,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/index.ts:24](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L24)
+[src/lib/index.ts:24](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L24)
 
 ___
 
@@ -201,7 +201,7 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:42](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L42)
+[src/lib/index.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L42)
 
 ___
 
@@ -221,4 +221,4 @@ ___
 
 #### Defined in
 
-[src/lib/index.ts:46](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/index.ts#L46)
+[src/lib/index.ts:46](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L46)

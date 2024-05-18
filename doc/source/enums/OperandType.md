@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:35](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L35)
+[src/lib/shared/domain/operand.ts:35](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L35)
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:16](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L16)
+[src/lib/shared/domain/operand.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L16)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:18](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L18)
+[src/lib/shared/domain/operand.ts:18](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L18)
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:28](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L28)
+[src/lib/shared/domain/operand.ts:28](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L28)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:15](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L15)
+[src/lib/shared/domain/operand.ts:15](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L15)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:26](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L26)
+[src/lib/shared/domain/operand.ts:26](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L26)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:33](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L33)
+[src/lib/shared/domain/operand.ts:33](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L33)
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:17](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L17)
+[src/lib/shared/domain/operand.ts:17](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L17)
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:6](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L6)
+[src/lib/shared/domain/operand.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L6)
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:29](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L29)
+[src/lib/shared/domain/operand.ts:29](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L29)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:27](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L27)
+[src/lib/shared/domain/operand.ts:27](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L27)
 
 ___
 
@@ -155,7 +155,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:21](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L21)
+[src/lib/shared/domain/operand.ts:21](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L21)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:20](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L20)
+[src/lib/shared/domain/operand.ts:20](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L20)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:8](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L8)
+[src/lib/shared/domain/operand.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L8)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:23](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L23)
+[src/lib/shared/domain/operand.ts:23](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L23)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:24](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L24)
+[src/lib/shared/domain/operand.ts:24](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L24)
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:30](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L30)
+[src/lib/shared/domain/operand.ts:30](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L30)
 
 ___
 
@@ -215,7 +215,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:19](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L19)
+[src/lib/shared/domain/operand.ts:19](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L19)
 
 ___
 
@@ -225,7 +225,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:11](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L11)
+[src/lib/shared/domain/operand.ts:11](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L11)
 
 ___
 
@@ -235,7 +235,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:12](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L12)
+[src/lib/shared/domain/operand.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L12)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:13](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L13)
+[src/lib/shared/domain/operand.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L13)
 
 ___
 
@@ -255,7 +255,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:14](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L14)
+[src/lib/shared/domain/operand.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L14)
 
 ___
 
@@ -265,7 +265,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:9](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L9)
+[src/lib/shared/domain/operand.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L9)
 
 ___
 
@@ -275,7 +275,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:31](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L31)
+[src/lib/shared/domain/operand.ts:31](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L31)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:25](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L25)
+[src/lib/shared/domain/operand.ts:25](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L25)
 
 ___
 
@@ -295,7 +295,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:10](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L10)
+[src/lib/shared/domain/operand.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L10)
 
 ___
 
@@ -305,7 +305,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:34](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L34)
+[src/lib/shared/domain/operand.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L34)
 
 ___
 
@@ -315,7 +315,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:32](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L32)
+[src/lib/shared/domain/operand.ts:32](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L32)
 
 ___
 
@@ -325,7 +325,7 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:7](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L7)
+[src/lib/shared/domain/operand.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L7)
 
 ___
 
@@ -335,4 +335,4 @@ ___
 
 #### Defined in
 
-[src/lib/shared/domain/operand.ts:22](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/shared/domain/operand.ts#L22)
+[src/lib/shared/domain/operand.ts:22](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L22)

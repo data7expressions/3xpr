@@ -40,7 +40,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/services/builder.ts#L16)
+[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builder.ts#L16)
 
 ## Properties
 
@@ -54,7 +54,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/services/builder.ts#L16)
+[src/lib/operand/application/services/builder.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builder.ts#L16)
 
 ## Methods
 
@@ -78,4 +78,4 @@
 
 #### Defined in
 
-[src/lib/operand/application/services/builder.ts:28](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/services/builder.ts#L28)
+[src/lib/operand/application/services/builder.ts:28](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builder.ts#L28)

@@ -45,7 +45,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L9)
+[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L9)
 
 ## Properties
 
@@ -59,7 +59,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L9)
+[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L9)
 
 ## Methods
 
@@ -84,7 +84,7 @@
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:38](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L38)
+[src/lib/operand/application/facade.ts:38](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L38)
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:42](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L42)
+[src/lib/operand/application/facade.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L42)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:14](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L14)
+[src/lib/operand/application/facade.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L14)
 
 ___
 
@@ -161,7 +161,7 @@ Parameters of expression
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:23](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L23)
+[src/lib/operand/application/facade.ts:23](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L23)
 
 ___
 
@@ -189,4 +189,4 @@ Type of expression
 
 #### Defined in
 
-[src/lib/operand/application/facade.ts:33](https://github.com/data7expressions/3xpr/blob/418dbf851deea161666265a0dc4715e3f1fa01b7/src/lib/operand/application/facade.ts#L33)
+[src/lib/operand/application/facade.ts:33](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L33)
