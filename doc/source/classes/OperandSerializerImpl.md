@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandSerializerImpl
 
 # Class: OperandSerializerImpl
@@ -6,23 +10,11 @@
 
 - [`OperandSerializer`](../interfaces/OperandSerializer.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandSerializerImpl.md#constructor)
-
-### Methods
-
-- [clone](OperandSerializerImpl.md#clone)
-- [deserialize](OperandSerializerImpl.md#deserialize)
-- [serialize](OperandSerializerImpl.md#serialize)
-
 ## Constructors
 
-### constructor
+### new OperandSerializerImpl()
 
-• **new OperandSerializerImpl**(): [`OperandSerializerImpl`](OperandSerializerImpl.md)
+> **new OperandSerializerImpl**(): [`OperandSerializerImpl`](OperandSerializerImpl.md)
 
 #### Returns
 
@@ -30,15 +22,13 @@
 
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`sentence`): [`Operand`](Operand.md)
+> **clone**(`sentence`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Operand`](Operand.md) |
+• **sentence**: [`Operand`](Operand.md)
 
 #### Returns
 
@@ -46,23 +36,21 @@
 
 #### Implementation of
 
-[OperandSerializer](../interfaces/OperandSerializer.md).[clone](../interfaces/OperandSerializer.md#clone)
+[`OperandSerializer`](../interfaces/OperandSerializer.md).[`clone`](../interfaces/OperandSerializer.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/serializer.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/serializer.ts#L6)
+[src/lib/operand/application/services/serializer.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/serializer.ts#L6)
 
-___
+***
 
-### deserialize
+### deserialize()
 
-▸ **deserialize**(`value`): [`Operand`](Operand.md)
+> **deserialize**(`value`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
+• **value**: `string`
 
 #### Returns
 
@@ -70,23 +58,21 @@ ___
 
 #### Implementation of
 
-[OperandSerializer](../interfaces/OperandSerializer.md).[deserialize](../interfaces/OperandSerializer.md#deserialize)
+[`OperandSerializer`](../interfaces/OperandSerializer.md).[`deserialize`](../interfaces/OperandSerializer.md#deserialize)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/serializer.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/serializer.ts#L16)
+[src/lib/operand/application/services/serializer.ts:16](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/serializer.ts#L16)
 
-___
+***
 
-### serialize
+### serialize()
 
-▸ **serialize**(`sentence`): `string`
+> **serialize**(`sentence`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Operand`](Operand.md) |
+• **sentence**: [`Operand`](Operand.md)
 
 #### Returns
 
@@ -94,8 +80,8 @@ ___
 
 #### Implementation of
 
-[OperandSerializer](../interfaces/OperandSerializer.md).[serialize](../interfaces/OperandSerializer.md#serialize)
+[`OperandSerializer`](../interfaces/OperandSerializer.md).[`serialize`](../interfaces/OperandSerializer.md#serialize)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/serializer.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/serializer.ts#L12)
+[src/lib/operand/application/services/serializer.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/serializer.ts#L12)

@@ -1,30 +1,27 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperatorDoc
 
 # Interface: OperatorDoc
-
-## Table of contents
-
-### Properties
-
-- [description](OperatorDoc.md#description)
-- [params](OperatorDoc.md#params)
 
 ## Properties
 
 ### description
 
-• **description**: `string`
+> **description**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L8)
+[src/lib/operand/domain/entities.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L8)
 
-___
+***
 
-### params
+### params?
 
-• `Optional` **params**: [`ParameterDoc`](ParameterDoc.md)[]
+> `optional` **params**: [`ParameterDoc`](ParameterDoc.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L9)
+[src/lib/operand/domain/entities.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L9)

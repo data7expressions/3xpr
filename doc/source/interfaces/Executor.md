@@ -1,85 +1,71 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Executor
 
 # Interface: Executor
 
-## Hierarchy
+## Extended by
 
-- **`Executor`**
-
-  ↳ [`Expressions`](Expressions.md)
-
-## Implemented by
-
-- [`ExecutorImpl`](../classes/ExecutorImpl.md)
-- [`ExecutorObserveDecorator`](../classes/ExecutorObserveDecorator.md)
-
-## Table of contents
-
-### Methods
-
-- [eval](Executor.md#eval)
-- [evalAsync](Executor.md#evalasync)
-- [execute](Executor.md#execute)
+- [`Expressions`](Expressions.md)
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`expression`, `data?`): `any`
+> **eval**(`expression`, `data`?): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data?` | `any` |
+• **expression**: `string`
+
+• **data?**: `any`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L6)
+[src/lib/expression/domain/expressions.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L6)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`expression`, `data?`): `Promise`\<`any`\>
+> **evalAsync**(`expression`, `data`?): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data?` | `any` |
+• **expression**: `string`
+
+• **data?**: `any`
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L7)
+[src/lib/expression/domain/expressions.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L7)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`task`, `data?`): `Promise`\<`any`\>
+> **execute**(`task`, `data`?): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `task` | `string` |
-| `data?` | `any` |
+• **task**: `string`
+
+• **data?**: `any`
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L8)
+[src/lib/expression/domain/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L8)

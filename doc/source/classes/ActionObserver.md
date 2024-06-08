@@ -1,109 +1,89 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ActionObserver
 
-# Class: ActionObserver
-
-## Table of contents
-
-### Constructors
-
-- [constructor](ActionObserver.md#constructor)
-
-### Properties
-
-- [condition](ActionObserver.md#condition)
-
-### Methods
-
-- [after](ActionObserver.md#after)
-- [before](ActionObserver.md#before)
-- [error](ActionObserver.md#error)
+# Class: `abstract` ActionObserver
 
 ## Constructors
 
-### constructor
+### new ActionObserver()
 
-• **new ActionObserver**(`condition?`): [`ActionObserver`](ActionObserver.md)
+> **new ActionObserver**(`condition`?): [`ActionObserver`](ActionObserver.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `condition?` | `string` |
+• **condition?**: `string`
 
 #### Returns
 
 [`ActionObserver`](ActionObserver.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L10)
+[src/lib/shared/domain/observer.ts:10](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L10)
 
 ## Properties
 
-### condition
+### condition?
 
-• `Optional` `Readonly` **condition**: `string`
+> `optional` `readonly` **condition**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L10)
+[src/lib/shared/domain/observer.ts:10](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L10)
 
 ## Methods
 
-### after
+### after()
 
-▸ **after**(`args`): `void`
+> `abstract` **after**(`args`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L12)
+[src/lib/shared/domain/observer.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L12)
 
-___
+***
 
-### before
+### before()
 
-▸ **before**(`args`): `void`
+> `abstract` **before**(`args`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:11](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L11)
+[src/lib/shared/domain/observer.ts:11](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L11)
 
-___
+***
 
-### error
+### error()
 
-▸ **error**(`args`): `void`
+> `abstract` **error**(`args`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md) |
+• **args**: [`ActionObserverArgs`](../interfaces/ActionObserverArgs.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L13)
+[src/lib/shared/domain/observer.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L13)

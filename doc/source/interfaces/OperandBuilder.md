@@ -1,48 +1,35 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandBuilder
 
 # Interface: OperandBuilder
-
-## Implemented by
-
-- [`OperandBuilderCacheDecorator`](../classes/OperandBuilderCacheDecorator.md)
-- [`OperandBuilderImpl`](../classes/OperandBuilderImpl.md)
-
-## Table of contents
-
-### Properties
-
-- [evaluatorFactory](OperandBuilder.md#evaluatorfactory)
-
-### Methods
-
-- [build](OperandBuilder.md#build)
 
 ## Properties
 
 ### evaluatorFactory
 
-• **evaluatorFactory**: [`EvaluatorFactory`](EvaluatorFactory.md)
+> **evaluatorFactory**: [`EvaluatorFactory`](EvaluatorFactory.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L12)
+[src/lib/operand/domain/services.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L12)
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`): [`Operand`](../classes/Operand.md)
+> **build**(`expression`): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 [`Operand`](../classes/Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L13)
+[src/lib/operand/domain/services.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L13)

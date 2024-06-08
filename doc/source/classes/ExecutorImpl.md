@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExecutorImpl
 
 # Class: ExecutorImpl
@@ -6,50 +10,35 @@
 
 - [`Executor`](../interfaces/Executor.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExecutorImpl.md#constructor)
-
-### Methods
-
-- [eval](ExecutorImpl.md#eval)
-- [evalAsync](ExecutorImpl.md#evalasync)
-- [execute](ExecutorImpl.md#execute)
-
 ## Constructors
 
-### constructor
+### new ExecutorImpl()
 
-• **new ExecutorImpl**(`operand`): [`ExecutorImpl`](ExecutorImpl.md)
+> **new ExecutorImpl**(`operand`): [`ExecutorImpl`](ExecutorImpl.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`OperandFacade`](../interfaces/OperandFacade.md) |
+• **operand**: [`OperandFacade`](../interfaces/OperandFacade.md)
 
 #### Returns
 
 [`ExecutorImpl`](ExecutorImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executor.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executor.ts#L7)
+[src/lib/expression/application/useCases/executor.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executor.ts#L7)
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`expression`, `context`): `any`
+> **eval**(`expression`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `context` | [`Context`](Context.md) |
+• **expression**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -57,24 +46,23 @@
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[eval](../interfaces/Executor.md#eval)
+[`Executor`](../interfaces/Executor.md).[`eval`](../interfaces/Executor.md#eval)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executor.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executor.ts#L9)
+[src/lib/expression/application/useCases/executor.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executor.ts#L9)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`expression`, `context`): `Promise`\<`any`\>
+> **evalAsync**(`expression`, `context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `context` | [`Context`](Context.md) |
+• **expression**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -82,24 +70,23 @@ ___
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[evalAsync](../interfaces/Executor.md#evalasync)
+[`Executor`](../interfaces/Executor.md).[`evalAsync`](../interfaces/Executor.md#evalasync)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executor.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executor.ts#L14)
+[src/lib/expression/application/useCases/executor.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executor.ts#L14)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`expression`, `context`): `Promise`\<`any`\>
+> **execute**(`expression`, `context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `context` | [`Context`](Context.md) |
+• **expression**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -107,8 +94,8 @@ ___
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[execute](../interfaces/Executor.md#execute)
+[`Executor`](../interfaces/Executor.md).[`execute`](../interfaces/Executor.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executor.ts:19](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executor.ts#L19)
+[src/lib/expression/application/useCases/executor.ts:19](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executor.ts#L19)

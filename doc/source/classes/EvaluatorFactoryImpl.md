@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / EvaluatorFactoryImpl
 
 # Class: EvaluatorFactoryImpl
@@ -6,44 +10,31 @@
 
 - [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](EvaluatorFactoryImpl.md#constructor)
-
-### Methods
-
-- [add](EvaluatorFactoryImpl.md#add)
-- [create](EvaluatorFactoryImpl.md#create)
-- [get](EvaluatorFactoryImpl.md#get)
-
 ## Constructors
 
-### constructor
+### new EvaluatorFactoryImpl()
 
-• **new EvaluatorFactoryImpl**(): [`EvaluatorFactoryImpl`](EvaluatorFactoryImpl.md)
+> **new EvaluatorFactoryImpl**(): [`EvaluatorFactoryImpl`](EvaluatorFactoryImpl.md)
 
 #### Returns
 
 [`EvaluatorFactoryImpl`](EvaluatorFactoryImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/factory.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/factory.ts#L6)
+[src/lib/operand/application/services/factory.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/factory.ts#L6)
 
 ## Methods
 
-### add
+### add()
 
-▸ **add**(`key`, `evaluator`): [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
+> **add**(`key`, `evaluator`): [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `evaluator` | [`EvaluatorBuilder`](../interfaces/EvaluatorBuilder.md) |
+• **key**: `string`
+
+• **evaluator**: [`EvaluatorBuilder`](../interfaces/EvaluatorBuilder.md)
 
 #### Returns
 
@@ -51,23 +42,21 @@
 
 #### Implementation of
 
-[EvaluatorFactory](../interfaces/EvaluatorFactory.md).[add](../interfaces/EvaluatorFactory.md#add)
+[`EvaluatorFactory`](../interfaces/EvaluatorFactory.md).[`add`](../interfaces/EvaluatorFactory.md#add)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/factory.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/factory.ts#L10)
+[src/lib/operand/application/services/factory.ts:10](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/factory.ts#L10)
 
-___
+***
 
-### create
+### create()
 
-▸ **create**(`operand`): `undefined` \| [`IEvaluator`](../interfaces/IEvaluator.md)
+> **create**(`operand`): `undefined` \| [`IEvaluator`](../interfaces/IEvaluator.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
@@ -75,23 +64,21 @@ ___
 
 #### Implementation of
 
-[EvaluatorFactory](../interfaces/EvaluatorFactory.md).[create](../interfaces/EvaluatorFactory.md#create)
+[`EvaluatorFactory`](../interfaces/EvaluatorFactory.md).[`create`](../interfaces/EvaluatorFactory.md#create)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/factory.ts:19](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/factory.ts#L19)
+[src/lib/operand/application/services/factory.ts:19](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/factory.ts#L19)
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`key`): `undefined` \| [`EvaluatorBuilder`](../interfaces/EvaluatorBuilder.md)
+> **get**(`key`): `undefined` \| [`EvaluatorBuilder`](../interfaces/EvaluatorBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
@@ -99,8 +86,8 @@ ___
 
 #### Implementation of
 
-[EvaluatorFactory](../interfaces/EvaluatorFactory.md).[get](../interfaces/EvaluatorFactory.md#get)
+[`EvaluatorFactory`](../interfaces/EvaluatorFactory.md).[`get`](../interfaces/EvaluatorFactory.md#get)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/factory.ts:15](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/factory.ts#L15)
+[src/lib/operand/application/services/factory.ts:15](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/factory.ts#L15)

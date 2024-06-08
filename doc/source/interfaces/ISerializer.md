@@ -1,77 +1,65 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ISerializer
 
 # Interface: ISerializer\<T\>
 
 ## Type parameters
 
-| Name |
-| :------ |
-| `T` |
-
-## Table of contents
-
-### Methods
-
-- [clone](ISerializer.md#clone)
-- [deserialize](ISerializer.md#deserialize)
-- [serialize](ISerializer.md#serialize)
+• **T**
 
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`value`): `T`
+> **clone**(`value`): `T`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `T` |
+• **value**: `T`
 
 #### Returns
 
 `T`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:4](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L4)
+[src/lib/shared/domain/base.ts:4](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L4)
 
-___
+***
 
-### deserialize
+### deserialize()
 
-▸ **deserialize**(`value`): `T`
+> **deserialize**(`value`): `T`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `any` |
+• **value**: `any`
 
 #### Returns
 
 `T`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:3](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L3)
+[src/lib/shared/domain/base.ts:3](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L3)
 
-___
+***
 
-### serialize
+### serialize()
 
-▸ **serialize**(`value`): `any`
+> **serialize**(`value`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `T` |
+• **value**: `T`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:2](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L2)
+[src/lib/shared/domain/base.ts:2](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L2)

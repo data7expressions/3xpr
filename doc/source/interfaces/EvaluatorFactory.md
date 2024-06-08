@@ -1,76 +1,63 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / EvaluatorFactory
 
 # Interface: EvaluatorFactory
 
-## Implemented by
-
-- [`EvaluatorFactoryImpl`](../classes/EvaluatorFactoryImpl.md)
-
-## Table of contents
-
-### Methods
-
-- [add](EvaluatorFactory.md#add)
-- [create](EvaluatorFactory.md#create)
-- [get](EvaluatorFactory.md#get)
-
 ## Methods
 
-### add
+### add()
 
-▸ **add**(`key`, `evaluator`): [`EvaluatorFactory`](EvaluatorFactory.md)
+> **add**(`key`, `evaluator`): [`EvaluatorFactory`](EvaluatorFactory.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `evaluator` | [`EvaluatorBuilder`](EvaluatorBuilder.md) |
+• **key**: `string`
+
+• **evaluator**: [`EvaluatorBuilder`](EvaluatorBuilder.md)
 
 #### Returns
 
 [`EvaluatorFactory`](EvaluatorFactory.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L7)
+[src/lib/operand/domain/services.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L7)
 
-___
+***
 
-### create
+### create()
 
-▸ **create**(`operand`): `undefined` \| [`IEvaluator`](IEvaluator.md)
+> **create**(`operand`): `undefined` \| [`IEvaluator`](IEvaluator.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](../classes/Operand.md) |
+• **operand**: [`Operand`](../classes/Operand.md)
 
 #### Returns
 
 `undefined` \| [`IEvaluator`](IEvaluator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L9)
+[src/lib/operand/domain/services.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L9)
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`key`): `undefined` \| [`EvaluatorBuilder`](EvaluatorBuilder.md)
+> **get**(`key`): `undefined` \| [`EvaluatorBuilder`](EvaluatorBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
 `undefined` \| [`EvaluatorBuilder`](EvaluatorBuilder.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L8)
+[src/lib/operand/domain/services.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L8)

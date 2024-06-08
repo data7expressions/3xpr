@@ -1,52 +1,47 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ActionObserverArgs
 
 # Interface: ActionObserverArgs
-
-## Table of contents
-
-### Properties
-
-- [context](ActionObserverArgs.md#context)
-- [error](ActionObserverArgs.md#error)
-- [expression](ActionObserverArgs.md#expression)
-- [result](ActionObserverArgs.md#result)
 
 ## Properties
 
 ### context
 
-• **context**: [`Context`](../classes/Context.md)
+> **context**: [`Context`](../classes/Context.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:4](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L4)
+[src/lib/shared/domain/observer.ts:4](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L4)
 
-___
+***
 
-### error
+### error?
 
-• `Optional` **error**: `any`
+> `optional` **error**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L6)
+[src/lib/shared/domain/observer.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L6)
 
-___
+***
 
 ### expression
 
-• **expression**: `string`
+> **expression**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:3](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L3)
+[src/lib/shared/domain/observer.ts:3](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L3)
 
-___
+***
 
-### result
+### result?
 
-• `Optional` **result**: `any`
+> `optional` **result**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/observer.ts:5](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/observer.ts#L5)
+[src/lib/shared/domain/observer.ts:5](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/observer.ts#L5)

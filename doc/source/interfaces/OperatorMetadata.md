@@ -1,107 +1,97 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperatorMetadata
 
 # Interface: OperatorMetadata
-
-## Table of contents
-
-### Properties
-
-- [async](OperatorMetadata.md#async)
-- [custom](OperatorMetadata.md#custom)
-- [deterministic](OperatorMetadata.md#deterministic)
-- [doc](OperatorMetadata.md#doc)
-- [function](OperatorMetadata.md#function)
-- [operands](OperatorMetadata.md#operands)
-- [params](OperatorMetadata.md#params)
-- [priority](OperatorMetadata.md#priority)
-- [returnType](OperatorMetadata.md#returntype)
 
 ## Properties
 
 ### async
 
-• **async**: `boolean`
+> **async**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:78](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L78)
+[src/lib/operand/domain/entities.ts:78](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L78)
 
-___
+***
 
-### custom
+### custom?
 
-• `Optional` **custom**: [`PrototypeEvaluator`](../classes/PrototypeEvaluator.md)
+> `optional` **custom**: [`PrototypeEvaluator`](../classes/PrototypeEvaluator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:77](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L77)
+[src/lib/operand/domain/entities.ts:77](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L77)
 
-___
+***
 
 ### deterministic
 
-• **deterministic**: `boolean`
+> **deterministic**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:70](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L70)
+[src/lib/operand/domain/entities.ts:70](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L70)
 
-___
+***
 
 ### doc
 
-• **doc**: [`OperatorDoc`](OperatorDoc.md)
+> **doc**: [`OperatorDoc`](OperatorDoc.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:73](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L73)
+[src/lib/operand/domain/entities.ts:73](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L73)
 
-___
+***
 
-### function
+### function?
 
-• `Optional` **function**: `Function`
+> `optional` **function**: `Function`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:76](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L76)
+[src/lib/operand/domain/entities.ts:76](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L76)
 
-___
+***
 
 ### operands
 
-• **operands**: `number`
+> **operands**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:71](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L71)
+[src/lib/operand/domain/entities.ts:71](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L71)
 
-___
+***
 
 ### params
 
-• **params**: [`Parameter`](Parameter.md)[]
+> **params**: [`Parameter`](Parameter.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:69](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L69)
+[src/lib/operand/domain/entities.ts:69](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L69)
 
-___
+***
 
-### priority
+### priority?
 
-• `Optional` **priority**: `number`
+> `optional` **priority**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:74](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L74)
+[src/lib/operand/domain/entities.ts:74](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L74)
 
-___
+***
 
 ### returnType
 
-• **returnType**: `string`
+> **returnType**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:72](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L72)
+[src/lib/operand/domain/entities.ts:72](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L72)

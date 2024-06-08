@@ -1,205 +1,181 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Operand
 
 # Class: Operand
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Operand.md#constructor)
-
-### Properties
-
-- [children](Operand.md#children)
-- [evaluator](Operand.md#evaluator)
-- [id](Operand.md#id)
-- [name](Operand.md#name)
-- [number](Operand.md#number)
-- [pos](Operand.md#pos)
-- [returnType](Operand.md#returntype)
-- [type](Operand.md#type)
-
-### Methods
-
-- [eval](Operand.md#eval)
-- [evalAsync](Operand.md#evalasync)
-- [isAsync](Operand.md#isasync)
-- [solve](Operand.md#solve)
-
 ## Constructors
 
-### constructor
+### new Operand()
 
-• **new Operand**(`pos`, `name`, `type`, `children?`, `returnType?`): [`Operand`](Operand.md)
+> **new Operand**(`pos`, `name`, `type`, `children`, `returnType`?): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `pos` | [`Position`](Position.md) | `undefined` |
-| `name` | `any` | `undefined` |
-| `type` | [`OperandType`](../enums/OperandType.md) | `undefined` |
-| `children` | [`Operand`](Operand.md)[] | `[]` |
-| `returnType?` | `Type` | `undefined` |
+• **pos**: [`Position`](Position.md)
+
+• **name**: `any`
+
+• **type**: [`OperandType`](../enumerations/OperandType.md)
+
+• **children**: [`Operand`](Operand.md)[]= `[]`
+
+• **returnType?**: `Type`
 
 #### Returns
 
 [`Operand`](Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
 ## Properties
 
 ### children
 
-• **children**: [`Operand`](Operand.md)[] = `[]`
+> **children**: [`Operand`](Operand.md)[] = `[]`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
-___
+***
 
-### evaluator
+### evaluator?
 
-• `Optional` **evaluator**: [`IEvaluator`](../interfaces/IEvaluator.md)
+> `optional` **evaluator**: [`IEvaluator`](../interfaces/IEvaluator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:44](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L44)
+[src/lib/shared/domain/operand.ts:44](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L44)
 
-___
+***
 
-### id
+### id?
 
-• `Optional` **id**: `string`
+> `optional` **id**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:46](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L46)
+[src/lib/shared/domain/operand.ts:46](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L46)
 
-___
+***
 
 ### name
 
-• **name**: `any`
+> **name**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
-___
+***
 
-### number
+### number?
 
-• `Optional` **number**: `number`
+> `optional` **number**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:45](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L45)
+[src/lib/shared/domain/operand.ts:45](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L45)
 
-___
+***
 
 ### pos
 
-• `Readonly` **pos**: [`Position`](Position.md)
+> `readonly` **pos**: [`Position`](Position.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
-___
+***
 
-### returnType
+### returnType?
 
-• `Optional` **returnType**: `Type`
+> `optional` **returnType**: `Type`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
-___
+***
 
 ### type
 
-• `Readonly` **type**: [`OperandType`](../enums/OperandType.md)
+> `readonly` **type**: [`OperandType`](../enumerations/OperandType.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L48)
+[src/lib/shared/domain/operand.ts:48](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L48)
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`context`): `any`
+> **eval**(`context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](Context.md) |
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:49](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L49)
+[src/lib/shared/domain/operand.ts:49](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L49)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`context`): `Promise`\<`any`\>
+> **evalAsync**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](Context.md) |
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:56](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L56)
+[src/lib/shared/domain/operand.ts:56](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L56)
 
-___
+***
 
-### isAsync
+### isAsync()
 
-▸ **isAsync**(): `boolean`
+> **isAsync**(): `boolean`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:63](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L63)
+[src/lib/shared/domain/operand.ts:63](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L63)
 
-___
+***
 
-### solve
+### solve()
 
-▸ **solve**(`context`): `Promise`\<`any`\>
+> **solve**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](Context.md) |
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:67](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L67)
+[src/lib/shared/domain/operand.ts:67](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L67)

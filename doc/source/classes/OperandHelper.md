@@ -1,332 +1,313 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandHelper
 
 # Class: OperandHelper
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandHelper.md#constructor)
-
-### Methods
-
-- [avg](OperandHelper.md#avg)
-- [count](OperandHelper.md#count)
-- [findAggregates](OperandHelper.md#findaggregates)
-- [first](OperandHelper.md#first)
-- [getKeys](OperandHelper.md#getkeys)
-- [haveAggregates](OperandHelper.md#haveaggregates)
-- [last](OperandHelper.md#last)
-- [max](OperandHelper.md#max)
-- [min](OperandHelper.md#min)
-- [objectKey](OperandHelper.md#objectkey)
-- [solveAggregates](OperandHelper.md#solveaggregates)
-- [sum](OperandHelper.md#sum)
-- [toExpression](OperandHelper.md#toexpression)
-
 ## Constructors
 
-### constructor
+### new OperandHelper()
 
-• **new OperandHelper**(`constBuilder`): [`OperandHelper`](OperandHelper.md)
+> **new OperandHelper**(`constBuilder`): [`OperandHelper`](OperandHelper.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `constBuilder` | [`ConstBuilder`](../interfaces/ConstBuilder.md) |
+• **constBuilder**: [`ConstBuilder`](../interfaces/ConstBuilder.md)
 
 #### Returns
 
 [`OperandHelper`](OperandHelper.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L6)
+[src/lib/operand/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L6)
 
 ## Methods
 
-### avg
+### avg()
 
-▸ **avg**(`list`, `variable`, `aggregate`, `context`): `number`
+> **avg**(`list`, `variable`, `aggregate`, `context`): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:246](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L246)
+[src/lib/operand/infrastructure/helper.ts:246](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L246)
 
-___
+***
 
-### count
+### count()
 
-▸ **count**(`list`, `variable`, `aggregate`, `context`): `number`
+> **count**(`list`, `variable`, `aggregate`, `context`): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:185](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L185)
+[src/lib/operand/infrastructure/helper.ts:185](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L185)
 
-___
+***
 
-### findAggregates
+### findAggregates()
 
-▸ **findAggregates**(`operand`): [`Operand`](Operand.md)[]
+> **findAggregates**(`operand`): [`Operand`](Operand.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
 [`Operand`](Operand.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:134](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L134)
+[src/lib/operand/infrastructure/helper.ts:134](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L134)
 
-___
+***
 
-### first
+### first()
 
-▸ **first**(`list`, `variable`, `aggregate`, `context`): `any`
+> **first**(`list`, `variable`, `aggregate`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:197](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L197)
+[src/lib/operand/infrastructure/helper.ts:197](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L197)
 
-___
+***
 
-### getKeys
+### getKeys()
 
-▸ **getKeys**(`variable`, `fields`, `list`, `context`): `any`[]
+> **getKeys**(`variable`, `fields`, `list`, `context`): `any`[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `variable` | [`Operand`](Operand.md) |
-| `fields` | [`Operand`](Operand.md)[] |
-| `list` | `any`[] |
-| `context` | [`Context`](Context.md) |
+• **variable**: [`Operand`](Operand.md)
+
+• **fields**: [`Operand`](Operand.md)[]
+
+• **list**: `any`[]
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:92](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L92)
+[src/lib/operand/infrastructure/helper.ts:92](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L92)
 
-___
+***
 
-### haveAggregates
+### haveAggregates()
 
-▸ **haveAggregates**(`operand`): `boolean`
+> **haveAggregates**(`operand`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:121](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L121)
+[src/lib/operand/infrastructure/helper.ts:121](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L121)
 
-___
+***
 
-### last
+### last()
 
-▸ **last**(`list`, `variable`, `aggregate`, `context`): `any`
+> **last**(`list`, `variable`, `aggregate`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:208](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L208)
+[src/lib/operand/infrastructure/helper.ts:208](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L208)
 
-___
+***
 
-### max
+### max()
 
-▸ **max**(`list`, `variable`, `aggregate`, `context`): `any`
+> **max**(`list`, `variable`, `aggregate`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:220](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L220)
+[src/lib/operand/infrastructure/helper.ts:220](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L220)
 
-___
+***
 
-### min
+### min()
 
-▸ **min**(`list`, `variable`, `aggregate`, `context`): `any`
+> **min**(`list`, `variable`, `aggregate`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:233](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L233)
+[src/lib/operand/infrastructure/helper.ts:233](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L233)
 
-___
+***
 
-### objectKey
+### objectKey()
 
-▸ **objectKey**(`obj`): `any`
+> **objectKey**(`obj`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `obj` | `any` |
+• **obj**: `any`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:82](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L82)
+[src/lib/operand/infrastructure/helper.ts:82](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L82)
 
-___
+***
 
-### solveAggregates
+### solveAggregates()
 
-▸ **solveAggregates**(`list`, `variable`, `operand`, `context`): [`Operand`](Operand.md)
+> **solveAggregates**(`list`, `variable`, `operand`, `context`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `operand` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **operand**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 [`Operand`](Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:150](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L150)
+[src/lib/operand/infrastructure/helper.ts:150](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L150)
 
-___
+***
 
-### sum
+### sum()
 
-▸ **sum**(`list`, `variable`, `aggregate`, `context`): `number`
+> **sum**(`list`, `variable`, `aggregate`, `context`): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `list` | `any`[] |
-| `variable` | [`Operand`](Operand.md) |
-| `aggregate` | [`Operand`](Operand.md) |
-| `context` | [`Context`](Context.md) |
+• **list**: `any`[]
+
+• **variable**: [`Operand`](Operand.md)
+
+• **aggregate**: [`Operand`](Operand.md)
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
 `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:259](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L259)
+[src/lib/operand/infrastructure/helper.ts:259](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L259)
 
-___
+***
 
-### toExpression
+### toExpression()
 
-▸ **toExpression**(`operand`): `string`
+> **toExpression**(`operand`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/helper.ts#L8)
+[src/lib/operand/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/helper.ts#L8)

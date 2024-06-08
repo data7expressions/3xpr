@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandBuilderCacheDecorator
 
 # Class: OperandBuilderCacheDecorator
@@ -6,72 +10,53 @@
 
 - [`OperandBuilder`](../interfaces/OperandBuilder.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandBuilderCacheDecorator.md#constructor)
-
-### Accessors
-
-- [evaluatorFactory](OperandBuilderCacheDecorator.md#evaluatorfactory)
-
-### Methods
-
-- [build](OperandBuilderCacheDecorator.md#build)
-
 ## Constructors
 
-### constructor
+### new OperandBuilderCacheDecorator()
 
-• **new OperandBuilderCacheDecorator**(`builder`, `cache`, `serializer`, `utils`): [`OperandBuilderCacheDecorator`](OperandBuilderCacheDecorator.md)
+> **new OperandBuilderCacheDecorator**(`builder`, `cache`, `serializer`, `utils`): [`OperandBuilderCacheDecorator`](OperandBuilderCacheDecorator.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `builder` | [`OperandBuilder`](../interfaces/OperandBuilder.md) |
-| `cache` | `ICache`\<`string`, `string`\> |
-| `serializer` | [`OperandSerializer`](../interfaces/OperandSerializer.md) |
-| `utils` | `IUtils` |
+• **builder**: [`OperandBuilder`](../interfaces/OperandBuilder.md)
+
+• **cache**: `ICache`\<`string`, `string`\>
+
+• **serializer**: [`OperandSerializer`](../interfaces/OperandSerializer.md)
+
+• **utils**: `IUtils`
 
 #### Returns
 
 [`OperandBuilderCacheDecorator`](OperandBuilderCacheDecorator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/builderCacheDecorator.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builderCacheDecorator.ts#L9)
+[src/lib/operand/application/services/builderCacheDecorator.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/builderCacheDecorator.ts#L9)
 
 ## Accessors
 
 ### evaluatorFactory
 
-• `get` **evaluatorFactory**(): [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
+> `get` **evaluatorFactory**(): [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
 
 #### Returns
 
 [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)
 
-#### Implementation of
+#### Source
 
-[OperandBuilder](../interfaces/OperandBuilder.md).[evaluatorFactory](../interfaces/OperandBuilder.md#evaluatorfactory)
-
-#### Defined in
-
-[src/lib/operand/application/services/builderCacheDecorator.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builderCacheDecorator.ts#L16)
+[src/lib/operand/application/services/builderCacheDecorator.ts:16](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/builderCacheDecorator.ts#L16)
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`): [`Operand`](Operand.md)
+> **build**(`expression`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
@@ -79,8 +64,8 @@
 
 #### Implementation of
 
-[OperandBuilder](../interfaces/OperandBuilder.md).[build](../interfaces/OperandBuilder.md#build)
+[`OperandBuilder`](../interfaces/OperandBuilder.md).[`build`](../interfaces/OperandBuilder.md#build)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/builderCacheDecorator.ts:20](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/builderCacheDecorator.ts#L20)
+[src/lib/operand/application/services/builderCacheDecorator.ts:20](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/builderCacheDecorator.ts#L20)

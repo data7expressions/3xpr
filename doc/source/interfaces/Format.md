@@ -1,41 +1,37 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Format
 
 # Interface: Format
-
-## Table of contents
-
-### Properties
-
-- [name](Format.md#name)
-- [pattern](Format.md#pattern)
-- [regExp](Format.md#regexp)
 
 ## Properties
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:23](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L23)
+[src/lib/shared/domain/base.ts:23](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L23)
 
-___
+***
 
 ### pattern
 
-• **pattern**: `string`
+> **pattern**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:24](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L24)
+[src/lib/shared/domain/base.ts:24](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L24)
 
-___
+***
 
 ### regExp
 
-• **regExp**: `RegExp`
+> **regExp**: `RegExp`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:25](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L25)
+[src/lib/shared/domain/base.ts:25](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L25)

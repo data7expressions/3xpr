@@ -1,180 +1,155 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Data
 
 # Class: Data
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Data.md#constructor)
-
-### Properties
-
-- [data](Data.md#data)
-- [parent](Data.md#parent)
-
-### Methods
-
-- [contains](Data.md#contains)
-- [get](Data.md#get)
-- [getData](Data.md#getdata)
-- [init](Data.md#init)
-- [newData](Data.md#newdata)
-- [set](Data.md#set)
-
 ## Constructors
 
-### constructor
+### new Data()
 
-• **new Data**(`data?`, `parent?`): [`Data`](Data.md)
+> **new Data**(`data`, `parent`?): [`Data`](Data.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data` | `any` |
-| `parent?` | [`Data`](Data.md) |
+• **data**: `any`= `{}`
+
+• **parent?**: [`Data`](Data.md)
 
 #### Returns
 
 [`Data`](Data.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L6)
+[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L6)
 
 ## Properties
 
 ### data
 
-• **data**: `any` = `{}`
+> **data**: `any` = `{}`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L6)
+[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L6)
 
-___
+***
 
-### parent
+### parent?
 
-• `Optional` **parent**: [`Data`](Data.md)
+> `optional` **parent**: [`Data`](Data.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L6)
+[src/lib/shared/domain/context.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L6)
 
 ## Methods
 
-### contains
+### contains()
 
-▸ **contains**(`name`): `boolean`
+> **contains**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:18](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L18)
+[src/lib/shared/domain/context.ts:18](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L18)
 
-___
+***
 
-### get
+### get()
 
-▸ **get**(`name`): `any`
+> **get**(`name`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:28](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L28)
+[src/lib/shared/domain/context.ts:28](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L28)
 
-___
+***
 
-### getData
+### getData()
 
-▸ **getData**(`variable`): `any`
+> **getData**(`variable`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `variable` | `string` |
+• **variable**: `string`
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L12)
+[src/lib/shared/domain/context.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L12)
 
-___
+***
 
-### init
+### init()
 
-▸ **init**(`name`, `value`): `void`
+> **init**(`name`, `value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `value` | `any` |
+• **name**: `string`
+
+• **value**: `any`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:40](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L40)
+[src/lib/shared/domain/context.ts:40](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L40)
 
-___
+***
 
-### newData
+### newData()
 
-▸ **newData**(): [`Data`](Data.md)
+> **newData**(): [`Data`](Data.md)
 
 #### Returns
 
 [`Data`](Data.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L8)
+[src/lib/shared/domain/context.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L8)
 
-___
+***
 
-### set
+### set()
 
-▸ **set**(`name`, `value`): `boolean`
+> **set**(`name`, `value`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `value` | `any` |
+• **name**: `string`
+
+• **value**: `any`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L34)
+[src/lib/shared/domain/context.ts:34](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L34)

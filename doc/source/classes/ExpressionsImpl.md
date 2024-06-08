@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionsImpl
 
 # Class: ExpressionsImpl
@@ -6,238 +10,155 @@
 
 - [`Expressions`](../interfaces/Expressions.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExpressionsImpl.md#constructor)
-
-### Accessors
-
-- [constBuilder](ExpressionsImpl.md#constbuilder)
-- [constants](ExpressionsImpl.md#constants)
-- [enums](ExpressionsImpl.md#enums)
-- [formats](ExpressionsImpl.md#formats)
-- [functionAlias](ExpressionsImpl.md#functionalias)
-- [functions](ExpressionsImpl.md#functions)
-- [operatorAlias](ExpressionsImpl.md#operatoralias)
-- [operators](ExpressionsImpl.md#operators)
-
-### Methods
-
-- [addConstant](ExpressionsImpl.md#addconstant)
-- [addConvert](ExpressionsImpl.md#addconvert)
-- [addEnum](ExpressionsImpl.md#addenum)
-- [addFormat](ExpressionsImpl.md#addformat)
-- [addFunction](ExpressionsImpl.md#addfunction)
-- [addFunctionAlias](ExpressionsImpl.md#addfunctionalias)
-- [addLibrary](ExpressionsImpl.md#addlibrary)
-- [addOperator](ExpressionsImpl.md#addoperator)
-- [addOperatorAlias](ExpressionsImpl.md#addoperatoralias)
-- [build](ExpressionsImpl.md#build)
-- [clone](ExpressionsImpl.md#clone)
-- [convert](ExpressionsImpl.md#convert)
-- [eval](ExpressionsImpl.md#eval)
-- [evalAsync](ExpressionsImpl.md#evalasync)
-- [execute](ExpressionsImpl.md#execute)
-- [getBuilder](ExpressionsImpl.md#getbuilder)
-- [getConstantValue](ExpressionsImpl.md#getconstantvalue)
-- [getConvert](ExpressionsImpl.md#getconvert)
-- [getEnum](ExpressionsImpl.md#getenum)
-- [getEnumValue](ExpressionsImpl.md#getenumvalue)
-- [getFormat](ExpressionsImpl.md#getformat)
-- [getFunction](ExpressionsImpl.md#getfunction)
-- [getOperator](ExpressionsImpl.md#getoperator)
-- [isConstant](ExpressionsImpl.md#isconstant)
-- [isEnum](ExpressionsImpl.md#isenum)
-- [isFunction](ExpressionsImpl.md#isfunction)
-- [isOperator](ExpressionsImpl.md#isoperator)
-- [parameters](ExpressionsImpl.md#parameters)
-- [priority](ExpressionsImpl.md#priority)
-- [subscribe](ExpressionsImpl.md#subscribe)
-- [type](ExpressionsImpl.md#type)
-- [unsubscribe](ExpressionsImpl.md#unsubscribe)
-
 ## Constructors
 
-### constructor
+### new ExpressionsImpl()
 
-• **new ExpressionsImpl**(`model`, `expressionConvert`, `operandFacade`, `executor`, `listener`): [`ExpressionsImpl`](ExpressionsImpl.md)
+> **new ExpressionsImpl**(`model`, `expressionConvert`, `operandFacade`, `executor`, `listener`): [`ExpressionsImpl`](ExpressionsImpl.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `model` | [`ModelService`](../interfaces/ModelService.md) |
-| `expressionConvert` | [`ExpressionConvert`](../interfaces/ExpressionConvert.md) |
-| `operandFacade` | [`OperandFacade`](../interfaces/OperandFacade.md) |
-| `executor` | [`Executor`](../interfaces/Executor.md) |
-| `listener` | [`ExpressionListener`](../interfaces/ExpressionListener.md) |
+• **model**: [`ModelService`](../interfaces/ModelService.md)
+
+• **expressionConvert**: [`ExpressionConvert`](../interfaces/ExpressionConvert.md)
+
+• **operandFacade**: [`OperandFacade`](../interfaces/OperandFacade.md)
+
+• **executor**: [`Executor`](../interfaces/Executor.md)
+
+• **listener**: [`ExpressionListener`](../interfaces/ExpressionListener.md)
 
 #### Returns
 
 [`ExpressionsImpl`](ExpressionsImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L8)
+[src/lib/expression/application/expressions.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L8)
 
 ## Accessors
 
 ### constBuilder
 
-• `get` **constBuilder**(): [`ConstBuilder`](../interfaces/ConstBuilder.md)
+> `get` **constBuilder**(): [`ConstBuilder`](../interfaces/ConstBuilder.md)
 
 #### Returns
 
 [`ConstBuilder`](../interfaces/ConstBuilder.md)
 
-#### Implementation of
+#### Source
 
-[Expressions](../interfaces/Expressions.md).[constBuilder](../interfaces/Expressions.md#constbuilder)
+[src/lib/expression/application/expressions.ts:118](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L118)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:118](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L118)
-
-___
+***
 
 ### constants
 
-• `get` **constants**(): [`string`, `any`][]
+> `get` **constants**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-Expressions.constants
+[src/lib/expression/application/expressions.ts:34](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L34)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L34)
-
-___
+***
 
 ### enums
 
-• `get` **enums**(): [`string`, [`string`, `any`][]][]
+> `get` **enums**(): [`string`, [`string`, `any`][]][]
 
 #### Returns
 
 [`string`, [`string`, `any`][]][]
 
-#### Implementation of
+#### Source
 
-Expressions.enums
+[src/lib/expression/application/expressions.ts:26](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L26)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:26](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L26)
-
-___
+***
 
 ### formats
 
-• `get` **formats**(): [`string`, [`Format`](../interfaces/Format.md)][]
+> `get` **formats**(): [`string`, [`Format`](../interfaces/Format.md)][]
 
 #### Returns
 
 [`string`, [`Format`](../interfaces/Format.md)][]
 
-#### Implementation of
+#### Source
 
-Expressions.formats
+[src/lib/expression/application/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L30)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L30)
-
-___
+***
 
 ### functionAlias
 
-• `get` **functionAlias**(): [`string`, `any`][]
+> `get` **functionAlias**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-Expressions.functionAlias
+[src/lib/expression/application/expressions.ts:18](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L18)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:18](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L18)
-
-___
+***
 
 ### functions
 
-• `get` **functions**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
+> `get` **functions**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
 #### Returns
 
 [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
-#### Implementation of
+#### Source
 
-Expressions.functions
+[src/lib/expression/application/expressions.ts:38](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L38)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:38](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L38)
-
-___
+***
 
 ### operatorAlias
 
-• `get` **operatorAlias**(): [`string`, `any`][]
+> `get` **operatorAlias**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-Expressions.operatorAlias
+[src/lib/expression/application/expressions.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L14)
 
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L14)
-
-___
+***
 
 ### operators
 
-• `get` **operators**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
+> `get` **operators**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
 #### Returns
 
 [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
-#### Implementation of
+#### Source
 
-Expressions.operators
-
-#### Defined in
-
-[src/lib/expression/application/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L22)
+[src/lib/expression/application/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L22)
 
 ## Methods
 
-### addConstant
+### addConstant()
 
-▸ **addConstant**(`key`, `value`): `void`
+> **addConstant**(`key`, `value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `value` | `any` |
+• **key**: `string`
+
+• **value**: `any`
 
 #### Returns
 
@@ -245,24 +166,23 @@ Expressions.operators
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addConstant](../interfaces/Expressions.md#addconstant)
+[`Expressions`](../interfaces/Expressions.md).[`addConstant`](../interfaces/Expressions.md#addconstant)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:58](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L58)
+[src/lib/expression/application/expressions.ts:58](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L58)
 
-___
+***
 
-### addConvert
+### addConvert()
 
-▸ **addConvert**(`key`, `converter`): [`ExpressionConvert`](../interfaces/ExpressionConvert.md)
+> **addConvert**(`key`, `converter`): [`ExpressionConvert`](../interfaces/ExpressionConvert.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `converter` | [`ExpressionConverter`](../interfaces/ExpressionConverter.md) |
+• **key**: `string`
+
+• **converter**: [`ExpressionConverter`](../interfaces/ExpressionConverter.md)
 
 #### Returns
 
@@ -270,24 +190,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addConvert](../interfaces/Expressions.md#addconvert)
+[`Expressions`](../interfaces/Expressions.md).[`addConvert`](../interfaces/Expressions.md#addconvert)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:173](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L173)
+[src/lib/expression/application/expressions.ts:173](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L173)
 
-___
+***
 
-### addEnum
+### addEnum()
 
-▸ **addEnum**(`key`, `values`): `void`
+> **addEnum**(`key`, `values`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `values` | `any` |
+• **key**: `string`
+
+• **values**: `any`
 
 #### Returns
 
@@ -295,24 +214,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addEnum](../interfaces/Expressions.md#addenum)
+[`Expressions`](../interfaces/Expressions.md).[`addEnum`](../interfaces/Expressions.md#addenum)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:50](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L50)
+[src/lib/expression/application/expressions.ts:50](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L50)
 
-___
+***
 
-### addFormat
+### addFormat()
 
-▸ **addFormat**(`key`, `pattern`): `void`
+> **addFormat**(`key`, `pattern`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `pattern` | `string` |
+• **key**: `string`
+
+• **pattern**: `string`
 
 #### Returns
 
@@ -320,25 +238,25 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addFormat](../interfaces/Expressions.md#addformat)
+[`Expressions`](../interfaces/Expressions.md).[`addFormat`](../interfaces/Expressions.md#addformat)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:54](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L54)
+[src/lib/expression/application/expressions.ts:54](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L54)
 
-___
+***
 
-### addFunction
+### addFunction()
 
-▸ **addFunction**(`sing`, `source`, `additionalInfo`): `void`
+> **addFunction**(`sing`, `source`, `additionalInfo`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sing` | `string` |
-| `source` | `any` |
-| `additionalInfo` | [`FunctionAdditionalInfo`](../interfaces/FunctionAdditionalInfo.md) |
+• **sing**: `string`
+
+• **source**: `any`
+
+• **additionalInfo**: [`FunctionAdditionalInfo`](../interfaces/FunctionAdditionalInfo.md)
 
 #### Returns
 
@@ -346,24 +264,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addFunction](../interfaces/Expressions.md#addfunction)
+[`Expressions`](../interfaces/Expressions.md).[`addFunction`](../interfaces/Expressions.md#addfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:46](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L46)
+[src/lib/expression/application/expressions.ts:46](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L46)
 
-___
+***
 
-### addFunctionAlias
+### addFunctionAlias()
 
-▸ **addFunctionAlias**(`alias`, `reference`): `void`
+> **addFunctionAlias**(`alias`, `reference`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `alias` | `string` |
-| `reference` | `string` |
+• **alias**: `string`
+
+• **reference**: `string`
 
 #### Returns
 
@@ -371,23 +288,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addFunctionAlias](../interfaces/Expressions.md#addfunctionalias)
+[`Expressions`](../interfaces/Expressions.md).[`addFunctionAlias`](../interfaces/Expressions.md#addfunctionalias)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:66](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L66)
+[src/lib/expression/application/expressions.ts:66](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L66)
 
-___
+***
 
-### addLibrary
+### addLibrary()
 
-▸ **addLibrary**(`library`): `void`
+> **addLibrary**(`library`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `library` | [`Library`](../interfaces/Library.md) |
+• **library**: [`Library`](../interfaces/Library.md)
 
 #### Returns
 
@@ -395,25 +310,25 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addLibrary](../interfaces/Expressions.md#addlibrary)
+[`Expressions`](../interfaces/Expressions.md).[`addLibrary`](../interfaces/Expressions.md#addlibrary)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:70](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L70)
+[src/lib/expression/application/expressions.ts:70](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L70)
 
-___
+***
 
-### addOperator
+### addOperator()
 
-▸ **addOperator**(`sing`, `source`, `additionalInfo`): `void`
+> **addOperator**(`sing`, `source`, `additionalInfo`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sing` | `string` |
-| `source` | `any` |
-| `additionalInfo` | [`OperatorAdditionalInfo`](../interfaces/OperatorAdditionalInfo.md) |
+• **sing**: `string`
+
+• **source**: `any`
+
+• **additionalInfo**: [`OperatorAdditionalInfo`](../interfaces/OperatorAdditionalInfo.md)
 
 #### Returns
 
@@ -421,24 +336,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addOperator](../interfaces/Expressions.md#addoperator)
+[`Expressions`](../interfaces/Expressions.md).[`addOperator`](../interfaces/Expressions.md#addoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L42)
+[src/lib/expression/application/expressions.ts:42](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L42)
 
-___
+***
 
-### addOperatorAlias
+### addOperatorAlias()
 
-▸ **addOperatorAlias**(`alias`, `reference`): `void`
+> **addOperatorAlias**(`alias`, `reference`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `alias` | `string` |
-| `reference` | `string` |
+• **alias**: `string`
+
+• **reference**: `string`
 
 #### Returns
 
@@ -446,24 +360,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[addOperatorAlias](../interfaces/Expressions.md#addoperatoralias)
+[`Expressions`](../interfaces/Expressions.md).[`addOperatorAlias`](../interfaces/Expressions.md#addoperatoralias)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:62](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L62)
+[src/lib/expression/application/expressions.ts:62](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L62)
 
-___
+***
 
-### build
+### build()
 
-▸ **build**(`expression`, `key?`): [`Operand`](Operand.md)
+> **build**(`expression`, `key`?): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `key?` | `string` |
+• **expression**: `string`
+
+• **key?**: `string`
 
 #### Returns
 
@@ -471,24 +384,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[build](../interfaces/Expressions.md#build)
+[`Expressions`](../interfaces/Expressions.md).[`build`](../interfaces/Expressions.md#build)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:144](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L144)
+[src/lib/expression/application/expressions.ts:144](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L144)
 
-___
+***
 
-### clone
+### clone()
 
-▸ **clone**(`source`, `key?`): [`Operand`](Operand.md)
+> **clone**(`source`, `key`?): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Operand`](Operand.md) |
-| `key?` | `string` |
+• **source**: [`Operand`](Operand.md)
+
+• **key?**: `string`
 
 #### Returns
 
@@ -496,24 +408,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[clone](../interfaces/Expressions.md#clone)
+[`Expressions`](../interfaces/Expressions.md).[`clone`](../interfaces/Expressions.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:148](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L148)
+[src/lib/expression/application/expressions.ts:148](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L148)
 
-___
+***
 
-### convert
+### convert()
 
-▸ **convert**(`source`, `from`): [`string`, `any`]
+> **convert**(`source`, `from`): [`string`, `any`]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `any` |
-| `from` | `string` |
+• **source**: `any`
+
+• **from**: `string`
 
 #### Returns
 
@@ -521,26 +432,29 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[convert](../interfaces/Expressions.md#convert)
+[`Expressions`](../interfaces/Expressions.md).[`convert`](../interfaces/Expressions.md#convert)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:182](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L182)
+[src/lib/expression/application/expressions.ts:182](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L182)
 
-___
+***
 
-### eval
+### eval()
 
-▸ **eval**(`expression`, `data?`): `any`
+> **eval**(`expression`, `data`?): `any`
 
 Evaluate and solve expression
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `data?` | `any` | Data with variables |
+• **expression**: `string`
+
+string expression
+
+• **data?**: `any`
+
+Data with variables
 
 #### Returns
 
@@ -550,24 +464,23 @@ Result of the evaluate expression
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[eval](../interfaces/Expressions.md#eval)
+[`Expressions`](../interfaces/Expressions.md).[`eval`](../interfaces/Expressions.md#eval)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:158](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L158)
+[src/lib/expression/application/expressions.ts:158](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L158)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`expression`, `data?`): `Promise`\<`any`\>
+> **evalAsync**(`expression`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data` | `any` |
+• **expression**: `string`
+
+• **data**: `any`= `{}`
 
 #### Returns
 
@@ -575,24 +488,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[evalAsync](../interfaces/Expressions.md#evalasync)
+[`Expressions`](../interfaces/Expressions.md).[`evalAsync`](../interfaces/Expressions.md#evalasync)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:163](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L163)
+[src/lib/expression/application/expressions.ts:163](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L163)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`task`, `data?`): `Promise`\<`any`\>
+> **execute**(`task`, `data`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `task` | `string` |
-| `data` | `any` |
+• **task**: `string`
+
+• **data**: `any`= `{}`
 
 #### Returns
 
@@ -600,23 +512,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[execute](../interfaces/Expressions.md#execute)
+[`Expressions`](../interfaces/Expressions.md).[`execute`](../interfaces/Expressions.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:168](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L168)
+[src/lib/expression/application/expressions.ts:168](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L168)
 
-___
+***
 
-### getBuilder
+### getBuilder()
 
-▸ **getBuilder**(`key`): [`OperandBuilder`](../interfaces/OperandBuilder.md)
+> **getBuilder**(`key`): [`OperandBuilder`](../interfaces/OperandBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
@@ -624,23 +534,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getBuilder](../interfaces/Expressions.md#getbuilder)
+[`Expressions`](../interfaces/Expressions.md).[`getBuilder`](../interfaces/Expressions.md#getbuilder)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:122](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L122)
+[src/lib/expression/application/expressions.ts:122](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L122)
 
-___
+***
 
-### getConstantValue
+### getConstantValue()
 
-▸ **getConstantValue**(`name`): `any`
+> **getConstantValue**(`name`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -648,23 +556,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getConstantValue](../interfaces/Expressions.md#getconstantvalue)
+[`Expressions`](../interfaces/Expressions.md).[`getConstantValue`](../interfaces/Expressions.md#getconstantvalue)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:74](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L74)
+[src/lib/expression/application/expressions.ts:74](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L74)
 
-___
+***
 
-### getConvert
+### getConvert()
 
-▸ **getConvert**(`key`): [`ExpressionConverter`](../interfaces/ExpressionConverter.md)
+> **getConvert**(`key`): [`ExpressionConverter`](../interfaces/ExpressionConverter.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
@@ -672,23 +578,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getConvert](../interfaces/Expressions.md#getconvert)
+[`Expressions`](../interfaces/Expressions.md).[`getConvert`](../interfaces/Expressions.md#getconvert)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:178](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L178)
+[src/lib/expression/application/expressions.ts:178](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L178)
 
-___
+***
 
-### getEnum
+### getEnum()
 
-▸ **getEnum**(`name`): `any`
+> **getEnum**(`name`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -696,24 +600,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getEnum](../interfaces/Expressions.md#getenum)
+[`Expressions`](../interfaces/Expressions.md).[`getEnum`](../interfaces/Expressions.md#getenum)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:82](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L82)
+[src/lib/expression/application/expressions.ts:82](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L82)
 
-___
+***
 
-### getEnumValue
+### getEnumValue()
 
-▸ **getEnumValue**(`name`, `option`): `any`
+> **getEnumValue**(`name`, `option`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `option` | `string` |
+• **name**: `string`
+
+• **option**: `string`
 
 #### Returns
 
@@ -721,23 +624,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getEnumValue](../interfaces/Expressions.md#getenumvalue)
+[`Expressions`](../interfaces/Expressions.md).[`getEnumValue`](../interfaces/Expressions.md#getenumvalue)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:78](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L78)
+[src/lib/expression/application/expressions.ts:78](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L78)
 
-___
+***
 
-### getFormat
+### getFormat()
 
-▸ **getFormat**(`name`): `undefined` \| [`Format`](../interfaces/Format.md)
+> **getFormat**(`name`): `undefined` \| [`Format`](../interfaces/Format.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -745,23 +646,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getFormat](../interfaces/Expressions.md#getformat)
+[`Expressions`](../interfaces/Expressions.md).[`getFormat`](../interfaces/Expressions.md#getformat)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:86](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L86)
+[src/lib/expression/application/expressions.ts:86](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L86)
 
-___
+***
 
-### getFunction
+### getFunction()
 
-▸ **getFunction**(`name`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
+> **getFunction**(`name`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -769,24 +668,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getFunction](../interfaces/Expressions.md#getfunction)
+[`Expressions`](../interfaces/Expressions.md).[`getFunction`](../interfaces/Expressions.md#getfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:94](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L94)
+[src/lib/expression/application/expressions.ts:94](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L94)
 
-___
+***
 
-### getOperator
+### getOperator()
 
-▸ **getOperator**(`operator`, `operands?`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
+> **getOperator**(`operator`, `operands`?): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operator` | `string` |
-| `operands?` | `number` |
+• **operator**: `string`
+
+• **operands?**: `number`
 
 #### Returns
 
@@ -794,23 +692,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[getOperator](../interfaces/Expressions.md#getoperator)
+[`Expressions`](../interfaces/Expressions.md).[`getOperator`](../interfaces/Expressions.md#getoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:90](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L90)
+[src/lib/expression/application/expressions.ts:90](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L90)
 
-___
+***
 
-### isConstant
+### isConstant()
 
-▸ **isConstant**(`name`): `boolean`
+> **isConstant**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -818,23 +714,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[isConstant](../interfaces/Expressions.md#isconstant)
+[`Expressions`](../interfaces/Expressions.md).[`isConstant`](../interfaces/Expressions.md#isconstant)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:106](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L106)
+[src/lib/expression/application/expressions.ts:106](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L106)
 
-___
+***
 
-### isEnum
+### isEnum()
 
-▸ **isEnum**(`name`): `boolean`
+> **isEnum**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -842,23 +736,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[isEnum](../interfaces/Expressions.md#isenum)
+[`Expressions`](../interfaces/Expressions.md).[`isEnum`](../interfaces/Expressions.md#isenum)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:102](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L102)
+[src/lib/expression/application/expressions.ts:102](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L102)
 
-___
+***
 
-### isFunction
+### isFunction()
 
-▸ **isFunction**(`name`): `boolean`
+> **isFunction**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -866,24 +758,23 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[isFunction](../interfaces/Expressions.md#isfunction)
+[`Expressions`](../interfaces/Expressions.md).[`isFunction`](../interfaces/Expressions.md#isfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:114](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L114)
+[src/lib/expression/application/expressions.ts:114](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L114)
 
-___
+***
 
-### isOperator
+### isOperator()
 
-▸ **isOperator**(`name`, `operands?`): `boolean`
+> **isOperator**(`name`, `operands`?): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `operands?` | `number` |
+• **name**: `string`
+
+• **operands?**: `number`
 
 #### Returns
 
@@ -891,25 +782,25 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[isOperator](../interfaces/Expressions.md#isoperator)
+[`Expressions`](../interfaces/Expressions.md).[`isOperator`](../interfaces/Expressions.md#isoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:110](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L110)
+[src/lib/expression/application/expressions.ts:110](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L110)
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(`expression`): [`Parameter`](../interfaces/Parameter.md)[]
+> **parameters**(`expression`): [`Parameter`](../interfaces/Parameter.md)[]
 
 Get parameters of expression
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
+• **expression**: `string`
+
+expression
 
 #### Returns
 
@@ -919,24 +810,23 @@ Parameters of expression
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[parameters](../interfaces/Expressions.md#parameters)
+[`Expressions`](../interfaces/Expressions.md).[`parameters`](../interfaces/Expressions.md#parameters)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:131](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L131)
+[src/lib/expression/application/expressions.ts:131](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L131)
 
-___
+***
 
-### priority
+### priority()
 
-▸ **priority**(`name`, `cardinality?`): `number`
+> **priority**(`name`, `cardinality`?): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `cardinality?` | `number` |
+• **name**: `string`
+
+• **cardinality?**: `number`
 
 #### Returns
 
@@ -944,23 +834,21 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[priority](../interfaces/Expressions.md#priority)
+[`Expressions`](../interfaces/Expressions.md).[`priority`](../interfaces/Expressions.md#priority)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:98](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L98)
+[src/lib/expression/application/expressions.ts:98](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L98)
 
-___
+***
 
-### subscribe
+### subscribe()
 
-▸ **subscribe**(`observer`): `void`
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -968,25 +856,25 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[subscribe](../interfaces/Expressions.md#subscribe)
+[`Expressions`](../interfaces/Expressions.md).[`subscribe`](../interfaces/Expressions.md#subscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:187](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L187)
+[src/lib/expression/application/expressions.ts:187](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L187)
 
-___
+***
 
-### type
+### type()
 
-▸ **type**(`expression`): `string`
+> **type**(`expression`): `string`
 
 Get type of expression
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
+• **expression**: `string`
+
+expression
 
 #### Returns
 
@@ -996,23 +884,21 @@ Type of expression
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[type](../interfaces/Expressions.md#type)
+[`Expressions`](../interfaces/Expressions.md).[`type`](../interfaces/Expressions.md#type)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:140](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L140)
+[src/lib/expression/application/expressions.ts:140](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L140)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -1020,8 +906,8 @@ ___
 
 #### Implementation of
 
-[Expressions](../interfaces/Expressions.md).[unsubscribe](../interfaces/Expressions.md#unsubscribe)
+[`Expressions`](../interfaces/Expressions.md).[`unsubscribe`](../interfaces/Expressions.md#unsubscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/expressions.ts:191](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/expressions.ts#L191)
+[src/lib/expression/application/expressions.ts:191](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/expressions.ts#L191)

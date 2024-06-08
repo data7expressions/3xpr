@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExecutorObserveDecorator
 
 # Class: ExecutorObserveDecorator
@@ -7,52 +11,35 @@
 - [`Executor`](../interfaces/Executor.md)
 - [`ExpressionListener`](../interfaces/ExpressionListener.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExecutorObserveDecorator.md#constructor)
-
-### Methods
-
-- [eval](ExecutorObserveDecorator.md#eval)
-- [evalAsync](ExecutorObserveDecorator.md#evalasync)
-- [execute](ExecutorObserveDecorator.md#execute)
-- [subscribe](ExecutorObserveDecorator.md#subscribe)
-- [unsubscribe](ExecutorObserveDecorator.md#unsubscribe)
-
 ## Constructors
 
-### constructor
+### new ExecutorObserveDecorator()
 
-• **new ExecutorObserveDecorator**(`executor`): [`ExecutorObserveDecorator`](ExecutorObserveDecorator.md)
+> **new ExecutorObserveDecorator**(`executor`): [`ExecutorObserveDecorator`](ExecutorObserveDecorator.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `executor` | [`Executor`](../interfaces/Executor.md) |
+• **executor**: [`Executor`](../interfaces/Executor.md)
 
 #### Returns
 
 [`ExecutorObserveDecorator`](ExecutorObserveDecorator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L8)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L8)
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`expression`, `context`): `any`
+> **eval**(`expression`, `context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `context` | [`Context`](Context.md) |
+• **expression**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -60,24 +47,23 @@
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[eval](../interfaces/Executor.md#eval)
+[`Executor`](../interfaces/Executor.md).[`eval`](../interfaces/Executor.md#eval)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L10)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:10](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L10)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`expression`, `context`): `Promise`\<`any`\>
+> **evalAsync**(`expression`, `context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `context` | [`Context`](Context.md) |
+• **expression**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -85,24 +71,23 @@ ___
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[evalAsync](../interfaces/Executor.md#evalasync)
+[`Executor`](../interfaces/Executor.md).[`evalAsync`](../interfaces/Executor.md#evalasync)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:22](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L22)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:22](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L22)
 
-___
+***
 
-### execute
+### execute()
 
-▸ **execute**(`task`, `context`): `Promise`\<`any`\>
+> **execute**(`task`, `context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `task` | `string` |
-| `context` | [`Context`](Context.md) |
+• **task**: `string`
+
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -110,23 +95,21 @@ ___
 
 #### Implementation of
 
-[Executor](../interfaces/Executor.md).[execute](../interfaces/Executor.md#execute)
+[`Executor`](../interfaces/Executor.md).[`execute`](../interfaces/Executor.md#execute)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L34)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:34](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L34)
 
-___
+***
 
-### subscribe
+### subscribe()
 
-▸ **subscribe**(`observer`): `void`
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -134,23 +117,21 @@ ___
 
 #### Implementation of
 
-[ExpressionListener](../interfaces/ExpressionListener.md).[subscribe](../interfaces/ExpressionListener.md#subscribe)
+[`ExpressionListener`](../interfaces/ExpressionListener.md).[`subscribe`](../interfaces/ExpressionListener.md#subscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:47](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L47)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:47](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L47)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](ActionObserver.md) |
+• **observer**: [`ActionObserver`](ActionObserver.md)
 
 #### Returns
 
@@ -158,8 +139,8 @@ ___
 
 #### Implementation of
 
-[ExpressionListener](../interfaces/ExpressionListener.md).[unsubscribe](../interfaces/ExpressionListener.md#unsubscribe)
+[`ExpressionListener`](../interfaces/ExpressionListener.md).[`unsubscribe`](../interfaces/ExpressionListener.md#unsubscribe)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/application/useCases/executorObserveDecorator.ts:51](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/application/useCases/executorObserveDecorator.ts#L51)
+[src/lib/expression/application/useCases/executorObserveDecorator.ts:51](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/application/useCases/executorObserveDecorator.ts#L51)

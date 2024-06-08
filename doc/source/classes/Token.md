@@ -1,156 +1,135 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Token
 
 # Class: Token
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Token.md#constructor)
-
-### Properties
-
-- [id](Token.md#id)
-- [isBreak](Token.md#isbreak)
-- [listeners](Token.md#listeners)
-- [signals](Token.md#signals)
-- [stack](Token.md#stack)
-
-### Methods
-
-- [addListener](Token.md#addlistener)
-- [addSignal](Token.md#addsignal)
-- [clearListeners](Token.md#clearlisteners)
-- [clearSignals](Token.md#clearsignals)
-
 ## Constructors
 
-### constructor
+### new Token()
 
-• **new Token**(): [`Token`](Token.md)
+> **new Token**(): [`Token`](Token.md)
 
 #### Returns
 
 [`Token`](Token.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:58](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L58)
+[src/lib/shared/domain/context.ts:58](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L58)
 
 ## Properties
 
 ### id
 
-• **id**: `string`
+> **id**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:52](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L52)
+[src/lib/shared/domain/context.ts:52](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L52)
 
-___
+***
 
 ### isBreak
 
-• **isBreak**: `boolean`
+> **isBreak**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:54](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L54)
+[src/lib/shared/domain/context.ts:54](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L54)
 
-___
+***
 
 ### listeners
 
-• **listeners**: `string`[]
+> **listeners**: `string`[]
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:55](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L55)
+[src/lib/shared/domain/context.ts:55](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L55)
 
-___
+***
 
 ### signals
 
-• **signals**: `string`[]
+> **signals**: `string`[]
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:56](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L56)
+[src/lib/shared/domain/context.ts:56](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L56)
 
-___
+***
 
 ### stack
 
-• **stack**: `any`
+> **stack**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:53](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L53)
+[src/lib/shared/domain/context.ts:53](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L53)
 
 ## Methods
 
-### addListener
+### addListener()
 
-▸ **addListener**(`value`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/lib/shared/domain/context.ts:66](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L66)
-
-___
-
-### addSignal
-
-▸ **addSignal**(`value`): `void`
+> **addListener**(`value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
+• **value**: `string`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:76](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L76)
+[src/lib/shared/domain/context.ts:66](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L66)
 
-___
+***
 
-### clearListeners
+### addSignal()
 
-▸ **clearListeners**(): `void`
+> **addSignal**(`value`): `void`
 
-#### Returns
+#### Parameters
 
-`void`
-
-#### Defined in
-
-[src/lib/shared/domain/context.ts:71](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L71)
-
-___
-
-### clearSignals
-
-▸ **clearSignals**(): `void`
+• **value**: `string`
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:80](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L80)
+[src/lib/shared/domain/context.ts:76](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L76)
+
+***
+
+### clearListeners()
+
+> **clearListeners**(): `void`
+
+#### Returns
+
+`void`
+
+#### Source
+
+[src/lib/shared/domain/context.ts:71](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L71)
+
+***
+
+### clearSignals()
+
+> **clearSignals**(): `void`
+
+#### Returns
+
+`void`
+
+#### Source
+
+[src/lib/shared/domain/context.ts:80](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L80)

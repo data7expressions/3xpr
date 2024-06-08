@@ -1,76 +1,60 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandFacade
 
 # Interface: OperandFacade
 
-## Hierarchy
+## Extends
 
 - [`OperandCloner`](OperandCloner.md)
 
-  ↳ **`OperandFacade`**
+## Extended by
 
-  ↳↳ [`Expressions`](Expressions.md)
-
-## Implemented by
-
-- [`OperandFacadeImpl`](../classes/OperandFacadeImpl.md)
-
-## Table of contents
-
-### Properties
-
-- [constBuilder](OperandFacade.md#constbuilder)
-
-### Methods
-
-- [build](OperandFacade.md#build)
-- [clone](OperandFacade.md#clone)
-- [getBuilder](OperandFacade.md#getbuilder)
-- [parameters](OperandFacade.md#parameters)
-- [type](OperandFacade.md#type)
+- [`Expressions`](Expressions.md)
 
 ## Properties
 
 ### constBuilder
 
-• **constBuilder**: [`ConstBuilder`](ConstBuilder.md)
+> **constBuilder**: [`ConstBuilder`](ConstBuilder.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:39](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L39)
+[src/lib/operand/domain/services.ts:39](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L39)
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`, `key?`): [`Operand`](../classes/Operand.md)
+> **build**(`expression`, `key`?): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `key?` | `string` |
+• **expression**: `string`
+
+• **key?**: `string`
 
 #### Returns
 
 [`Operand`](../classes/Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:43](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L43)
+[src/lib/operand/domain/services.ts:43](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L43)
 
-___
+***
 
-### clone
+### clone()
 
-▸ **clone**(`source`, `key?`): [`Operand`](../classes/Operand.md)
+> **clone**(`source`, `key`?): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Operand`](../classes/Operand.md) |
-| `key?` | `string` |
+• **source**: [`Operand`](../classes/Operand.md)
+
+• **key?**: `string`
 
 #### Returns
 
@@ -78,68 +62,62 @@ ___
 
 #### Inherited from
 
-[OperandCloner](OperandCloner.md).[clone](OperandCloner.md#clone)
+[`OperandCloner`](OperandCloner.md).[`clone`](OperandCloner.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L35)
+[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L35)
 
-___
+***
 
-### getBuilder
+### getBuilder()
 
-▸ **getBuilder**(`key`): [`OperandBuilder`](OperandBuilder.md)
+> **getBuilder**(`key`): [`OperandBuilder`](OperandBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
 [`OperandBuilder`](OperandBuilder.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:40](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L40)
+[src/lib/operand/domain/services.ts:40](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L40)
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(`expression`): [`Parameter`](Parameter.md)[]
+> **parameters**(`expression`): [`Parameter`](Parameter.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 [`Parameter`](Parameter.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:41](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L41)
+[src/lib/operand/domain/services.ts:41](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L41)
 
-___
+***
 
-### type
+### type()
 
-▸ **type**(`expression`): `string`
+> **type**(`expression`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L42)
+[src/lib/operand/domain/services.ts:42](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L42)

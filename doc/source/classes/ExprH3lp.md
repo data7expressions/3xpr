@@ -1,43 +1,24 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExprH3lp
 
 # Class: ExprH3lp
 
-## Hierarchy
+## Extends
 
 - `H3lp`
 
-  ↳ **`ExprH3lp`**
-
-## Table of contents
-
-### Constructors
-
-- [constructor](ExprH3lp.md#constructor)
-
-### Properties
-
-- [array](ExprH3lp.md#array)
-- [expression](ExprH3lp.md#expression)
-- [fs](ExprH3lp.md#fs)
-- [http](ExprH3lp.md#http)
-- [obj](ExprH3lp.md#obj)
-- [operand](ExprH3lp.md#operand)
-- [str](ExprH3lp.md#str)
-- [test](ExprH3lp.md#test)
-- [utils](ExprH3lp.md#utils)
-- [val](ExprH3lp.md#val)
-
 ## Constructors
 
-### constructor
+### new ExprH3lp()
 
-• **new ExprH3lp**(`h3lp`): [`ExprH3lp`](ExprH3lp.md)
+> **new ExprH3lp**(`h3lp`): [`ExprH3lp`](ExprH3lp.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `h3lp` | `H3lp` |
+• **h3lp**: `H3lp`
 
 #### Returns
 
@@ -45,140 +26,140 @@
 
 #### Overrides
 
-H3lp.constructor
+`H3lp.constructor`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/infrastructure/helper.ts#L8)
+[src/lib/shared/infrastructure/helper.ts:8](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/infrastructure/helper.ts#L8)
 
 ## Properties
 
 ### array
 
-• `Readonly` **array**: `IArrayHelper`
+> `readonly` **array**: `IArrayHelper`
 
 #### Inherited from
 
-H3lp.array
+`H3lp.array`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:10
+node\_modules/h3lp/application/h3lp.d.ts:10
 
-___
+***
 
 ### expression
 
-• **expression**: [`ExpressionHelper`](ExpressionHelper.md)
+> **expression**: [`ExpressionHelper`](ExpressionHelper.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/infrastructure/helper.ts#L6)
+[src/lib/shared/infrastructure/helper.ts:6](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/infrastructure/helper.ts#L6)
 
-___
+***
 
 ### fs
 
-• `Readonly` **fs**: `IFsHelper`
+> `readonly` **fs**: `IFsHelper`
 
 #### Inherited from
 
-H3lp.fs
+`H3lp.fs`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:5
+node\_modules/h3lp/application/h3lp.d.ts:5
 
-___
+***
 
 ### http
 
-• `Readonly` **http**: `IHttpHelper`
+> `readonly` **http**: `IHttpHelper`
 
 #### Inherited from
 
-H3lp.http
+`H3lp.http`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:6
+node\_modules/h3lp/application/h3lp.d.ts:6
 
-___
+***
 
 ### obj
 
-• `Readonly` **obj**: `IObjectHelper`
+> `readonly` **obj**: `IObjectHelper`
 
 #### Inherited from
 
-H3lp.obj
+`H3lp.obj`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:7
+node\_modules/h3lp/application/h3lp.d.ts:7
 
-___
+***
 
 ### operand
 
-• **operand**: [`OperandHelper`](OperandHelper.md)
+> **operand**: [`OperandHelper`](OperandHelper.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/infrastructure/helper.ts#L7)
+[src/lib/shared/infrastructure/helper.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/infrastructure/helper.ts#L7)
 
-___
+***
 
 ### str
 
-• `Readonly` **str**: `IStringHelper`
+> `readonly` **str**: `IStringHelper`
 
 #### Inherited from
 
-H3lp.str
+`H3lp.str`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:8
+node\_modules/h3lp/application/h3lp.d.ts:8
 
-___
+***
 
 ### test
 
-• `Readonly` **test**: `ITestHelper`
+> `readonly` **test**: `ITestHelper`
 
 #### Inherited from
 
-H3lp.test
+`H3lp.test`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:9
+node\_modules/h3lp/application/h3lp.d.ts:9
 
-___
+***
 
 ### utils
 
-• `Readonly` **utils**: `IUtils`
+> `readonly` **utils**: `IUtils`
 
 #### Inherited from
 
-H3lp.utils
+`H3lp.utils`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:3
+node\_modules/h3lp/application/h3lp.d.ts:3
 
-___
+***
 
 ### val
 
-• `Readonly` **val**: `IValidator`
+> `readonly` **val**: `IValidator`
 
 #### Inherited from
 
-H3lp.val
+`H3lp.val`
 
-#### Defined in
+#### Source
 
-node_modules/h3lp/application/h3lp.d.ts:4
+node\_modules/h3lp/application/h3lp.d.ts:4

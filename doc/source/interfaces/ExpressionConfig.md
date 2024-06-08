@@ -1,52 +1,47 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionConfig
 
 # Interface: ExpressionConfig
-
-## Table of contents
-
-### Properties
-
-- [executor](ExpressionConfig.md#executor)
-- [expressionConvert](ExpressionConfig.md#expressionconvert)
-- [model](ExpressionConfig.md#model)
-- [operandFacade](ExpressionConfig.md#operandfacade)
 
 ## Properties
 
 ### executor
 
-• **executor**: [`Executor`](Executor.md)
+> **executor**: [`Executor`](Executor.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L30)
+[src/lib/expression/domain/expressions.ts:30](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L30)
 
-___
+***
 
 ### expressionConvert
 
-• **expressionConvert**: [`ExpressionConvert`](ExpressionConvert.md)
+> **expressionConvert**: [`ExpressionConvert`](ExpressionConvert.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:28](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L28)
+[src/lib/expression/domain/expressions.ts:28](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L28)
 
-___
+***
 
 ### model
 
-• **model**: [`ModelService`](ModelService.md)
+> **model**: [`ModelService`](ModelService.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:27](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L27)
+[src/lib/expression/domain/expressions.ts:27](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L27)
 
-___
+***
 
 ### operandFacade
 
-• **operandFacade**: [`OperandFacade`](OperandFacade.md)
+> **operandFacade**: [`OperandFacade`](OperandFacade.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:29](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L29)
+[src/lib/expression/domain/expressions.ts:29](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L29)

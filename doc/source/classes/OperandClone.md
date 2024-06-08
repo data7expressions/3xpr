@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandClone
 
 # Class: OperandClone
@@ -6,48 +10,35 @@
 
 - [`OperandCloner`](../interfaces/OperandCloner.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandClone.md#constructor)
-
-### Methods
-
-- [clone](OperandClone.md#clone)
-
 ## Constructors
 
-### constructor
+### new OperandClone()
 
-• **new OperandClone**(`factories`): [`OperandClone`](OperandClone.md)
+> **new OperandClone**(`factories`): [`OperandClone`](OperandClone.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `factories` | [`string`, [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)][] |
+• **factories**: [`string`, [`EvaluatorFactory`](../interfaces/EvaluatorFactory.md)][]
 
 #### Returns
 
 [`OperandClone`](OperandClone.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/useCases/clone.ts:5](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/useCases/clone.ts#L5)
+[src/lib/operand/application/useCases/clone.ts:5](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/useCases/clone.ts#L5)
 
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`operand`, `type`): [`Operand`](Operand.md)
+> **clone**(`operand`, `type`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
-| `type` | `string` |
+• **operand**: [`Operand`](Operand.md)
+
+• **type**: `string`
 
 #### Returns
 
@@ -55,8 +46,8 @@
 
 #### Implementation of
 
-[OperandCloner](../interfaces/OperandCloner.md).[clone](../interfaces/OperandCloner.md#clone)
+[`OperandCloner`](../interfaces/OperandCloner.md).[`clone`](../interfaces/OperandCloner.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/useCases/clone.ts:15](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/useCases/clone.ts#L15)
+[src/lib/operand/application/useCases/clone.ts:15](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/useCases/clone.ts#L15)

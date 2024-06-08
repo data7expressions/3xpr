@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ConstBuilderImpl
 
 # Class: ConstBuilderImpl
@@ -6,21 +10,11 @@
 
 - [`ConstBuilder`](../interfaces/ConstBuilder.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ConstBuilderImpl.md#constructor)
-
-### Methods
-
-- [build](ConstBuilderImpl.md#build)
-
 ## Constructors
 
-### constructor
+### new ConstBuilderImpl()
 
-• **new ConstBuilderImpl**(): [`ConstBuilderImpl`](ConstBuilderImpl.md)
+> **new ConstBuilderImpl**(): [`ConstBuilderImpl`](ConstBuilderImpl.md)
 
 #### Returns
 
@@ -28,16 +22,15 @@
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`pos`, `value`): [`Operand`](Operand.md)
+> **build**(`pos`, `value`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `pos` | [`Position`](Position.md) |
-| `value` | `any` |
+• **pos**: [`Position`](Position.md)
+
+• **value**: `any`
 
 #### Returns
 
@@ -45,8 +38,8 @@
 
 #### Implementation of
 
-[ConstBuilder](../interfaces/ConstBuilder.md).[build](../interfaces/ConstBuilder.md#build)
+[`ConstBuilder`](../interfaces/ConstBuilder.md).[`build`](../interfaces/ConstBuilder.md#build)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/infrastructure/constBuilder.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/infrastructure/constBuilder.ts#L7)
+[src/lib/operand/infrastructure/constBuilder.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/infrastructure/constBuilder.ts#L7)

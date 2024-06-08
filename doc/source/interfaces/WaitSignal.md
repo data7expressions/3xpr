@@ -1,55 +1,49 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / WaitSignal
 
 # Interface: WaitSignal
 
-## Hierarchy
+## Extends
 
 - [`Signal`](Signal.md)
-
-  ↳ **`WaitSignal`**
-
-## Table of contents
-
-### Properties
-
-- [dateTime](WaitSignal.md#datetime)
-- [name](WaitSignal.md#name)
-- [secs](WaitSignal.md#secs)
 
 ## Properties
 
 ### dateTime
 
-• **dateTime**: `Date`
+> **dateTime**: `Date`
 
 #### Inherited from
 
-[Signal](Signal.md).[dateTime](Signal.md#datetime)
+[`Signal`](Signal.md).[`dateTime`](Signal.md#datetime)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/signals.ts:3](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/signals.ts#L3)
+[src/lib/shared/domain/signals.ts:3](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/signals.ts#L3)
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 #### Inherited from
 
-[Signal](Signal.md).[name](Signal.md#name)
+[`Signal`](Signal.md).[`name`](Signal.md#name)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/signals.ts:2](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/signals.ts#L2)
+[src/lib/shared/domain/signals.ts:2](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/signals.ts#L2)
 
-___
+***
 
 ### secs
 
-• **secs**: `number`
+> **secs**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/signals.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/signals.ts#L7)
+[src/lib/shared/domain/signals.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/signals.ts#L7)

@@ -1,79 +1,69 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionConvert
 
 # Interface: ExpressionConvert
 
-## Hierarchy
+## Extended by
 
-- **`ExpressionConvert`**
-
-  ↳ [`Expressions`](Expressions.md)
-
-## Table of contents
-
-### Methods
-
-- [addConvert](ExpressionConvert.md#addconvert)
-- [convert](ExpressionConvert.md#convert)
-- [getConvert](ExpressionConvert.md#getconvert)
+- [`Expressions`](Expressions.md)
 
 ## Methods
 
-### addConvert
+### addConvert()
 
-▸ **addConvert**(`key`, `converter`): [`ExpressionConvert`](ExpressionConvert.md)
+> **addConvert**(`key`, `converter`): [`ExpressionConvert`](ExpressionConvert.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `converter` | [`ExpressionConverter`](ExpressionConverter.md) |
+• **key**: `string`
+
+• **converter**: [`ExpressionConverter`](ExpressionConverter.md)
 
 #### Returns
 
 [`ExpressionConvert`](ExpressionConvert.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:20](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L20)
+[src/lib/expression/domain/expressions.ts:20](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L20)
 
-___
+***
 
-### convert
+### convert()
 
-▸ **convert**(`source`, `from`): [`string`, `any`]
+> **convert**(`source`, `from`): [`string`, `any`]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `any` |
-| `from` | `string` |
+• **source**: `any`
+
+• **from**: `string`
 
 #### Returns
 
 [`string`, `any`]
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L22)
+[src/lib/expression/domain/expressions.ts:22](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L22)
 
-___
+***
 
-### getConvert
+### getConvert()
 
-▸ **getConvert**(`key`): [`ExpressionConverter`](ExpressionConverter.md)
+> **getConvert**(`key`): [`ExpressionConverter`](ExpressionConverter.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
 [`ExpressionConverter`](ExpressionConverter.md)
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:21](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L21)
+[src/lib/expression/domain/expressions.ts:21](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L21)

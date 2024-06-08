@@ -1,52 +1,47 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Sing
 
 # Interface: Sing
-
-## Table of contents
-
-### Properties
-
-- [isAsync](Sing.md#isasync)
-- [name](Sing.md#name)
-- [params](Sing.md#params)
-- [returnType](Sing.md#returntype)
 
 ## Properties
 
 ### isAsync
 
-• **isAsync**: `boolean`
+> **isAsync**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:20](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L20)
+[src/lib/shared/domain/base.ts:20](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L20)
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:17](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L17)
+[src/lib/shared/domain/base.ts:17](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L17)
 
-___
+***
 
 ### params
 
-• **params**: [`Parameter`](Parameter.md)[]
+> **params**: [`Parameter`](Parameter.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:18](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L18)
+[src/lib/shared/domain/base.ts:18](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L18)
 
-___
+***
 
 ### returnType
 
-• **returnType**: `string`
+> **returnType**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:19](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L19)
+[src/lib/shared/domain/base.ts:19](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L19)

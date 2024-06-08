@@ -1,75 +1,61 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandSerializer
 
 # Interface: OperandSerializer
 
-## Implemented by
-
-- [`OperandSerializerImpl`](../classes/OperandSerializerImpl.md)
-
-## Table of contents
-
-### Methods
-
-- [clone](OperandSerializer.md#clone)
-- [deserialize](OperandSerializer.md#deserialize)
-- [serialize](OperandSerializer.md#serialize)
-
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`sentence`): [`Operand`](../classes/Operand.md)
+> **clone**(`sentence`): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Operand`](../classes/Operand.md) |
+• **sentence**: [`Operand`](../classes/Operand.md)
 
 #### Returns
 
 [`Operand`](../classes/Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:29](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L29)
+[src/lib/operand/domain/services.ts:29](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L29)
 
-___
+***
 
-### deserialize
+### deserialize()
 
-▸ **deserialize**(`value`): [`Operand`](../classes/Operand.md)
+> **deserialize**(`value`): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` |
+• **value**: `string`
 
 #### Returns
 
 [`Operand`](../classes/Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:31](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L31)
+[src/lib/operand/domain/services.ts:31](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L31)
 
-___
+***
 
-### serialize
+### serialize()
 
-▸ **serialize**(`sentence`): `string`
+> **serialize**(`sentence`): `string`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sentence` | [`Operand`](../classes/Operand.md) |
+• **sentence**: [`Operand`](../classes/Operand.md)
 
 #### Returns
 
 `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:30](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L30)
+[src/lib/operand/domain/services.ts:30](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L30)

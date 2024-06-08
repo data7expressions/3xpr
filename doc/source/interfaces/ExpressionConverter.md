@@ -1,29 +1,25 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionConverter
 
 # Interface: ExpressionConverter
 
-## Table of contents
-
-### Methods
-
-- [convert](ExpressionConverter.md#convert)
-
 ## Methods
 
-### convert
+### convert()
 
-▸ **convert**(`source`): [`string`, `any`]
+> **convert**(`source`): [`string`, `any`]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | `any` |
+• **source**: `any`
 
 #### Returns
 
 [`string`, `any`]
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:17](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L17)
+[src/lib/expression/domain/expressions.ts:17](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L17)

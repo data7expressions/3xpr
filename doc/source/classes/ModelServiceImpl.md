@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ModelServiceImpl
 
 # Class: ModelServiceImpl
@@ -6,221 +10,149 @@
 
 - [`ModelService`](../interfaces/ModelService.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ModelServiceImpl.md#constructor)
-
-### Properties
-
-- [\_functionAlias](ModelServiceImpl.md#_functionalias)
-- [\_operatorAlias](ModelServiceImpl.md#_operatoralias)
-
-### Accessors
-
-- [constants](ModelServiceImpl.md#constants)
-- [enums](ModelServiceImpl.md#enums)
-- [formats](ModelServiceImpl.md#formats)
-- [functionAlias](ModelServiceImpl.md#functionalias)
-- [functions](ModelServiceImpl.md#functions)
-- [operatorAlias](ModelServiceImpl.md#operatoralias)
-- [operators](ModelServiceImpl.md#operators)
-
-### Methods
-
-- [addConstant](ModelServiceImpl.md#addconstant)
-- [addEnum](ModelServiceImpl.md#addenum)
-- [addFormat](ModelServiceImpl.md#addformat)
-- [addFunction](ModelServiceImpl.md#addfunction)
-- [addFunctionAlias](ModelServiceImpl.md#addfunctionalias)
-- [addLibrary](ModelServiceImpl.md#addlibrary)
-- [addOperator](ModelServiceImpl.md#addoperator)
-- [addOperatorAlias](ModelServiceImpl.md#addoperatoralias)
-- [getConstantValue](ModelServiceImpl.md#getconstantvalue)
-- [getEnum](ModelServiceImpl.md#getenum)
-- [getEnumValue](ModelServiceImpl.md#getenumvalue)
-- [getFormat](ModelServiceImpl.md#getformat)
-- [getFunction](ModelServiceImpl.md#getfunction)
-- [getOperator](ModelServiceImpl.md#getoperator)
-- [isConstant](ModelServiceImpl.md#isconstant)
-- [isEnum](ModelServiceImpl.md#isenum)
-- [isFunction](ModelServiceImpl.md#isfunction)
-- [isOperator](ModelServiceImpl.md#isoperator)
-- [priority](ModelServiceImpl.md#priority)
-
 ## Constructors
 
-### constructor
+### new ModelServiceImpl()
 
-• **new ModelServiceImpl**(): [`ModelServiceImpl`](ModelServiceImpl.md)
+> **new ModelServiceImpl**(): [`ModelServiceImpl`](ModelServiceImpl.md)
 
 #### Returns
 
 [`ModelServiceImpl`](ModelServiceImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L13)
+[src/lib/model/application/modelService.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L13)
 
 ## Properties
 
 ### \_functionAlias
 
-• **\_functionAlias**: `any`
+> **\_functionAlias**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L12)
+[src/lib/model/application/modelService.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L12)
 
-___
+***
 
 ### \_operatorAlias
 
-• **\_operatorAlias**: `any`
+> **\_operatorAlias**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:11](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L11)
+[src/lib/model/application/modelService.ts:11](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L11)
 
 ## Accessors
 
 ### constants
 
-• `get` **constants**(): [`string`, `any`][]
+> `get` **constants**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-ModelService.constants
+[src/lib/model/application/modelService.ts:31](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L31)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:31](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L31)
-
-___
+***
 
 ### enums
 
-• `get` **enums**(): [`string`, [`string`, `any`][]][]
+> `get` **enums**(): [`string`, [`string`, `any`][]][]
 
 #### Returns
 
 [`string`, [`string`, `any`][]][]
 
-#### Implementation of
+#### Source
 
-ModelService.enums
+[src/lib/model/application/modelService.ts:39](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L39)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:39](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L39)
-
-___
+***
 
 ### formats
 
-• `get` **formats**(): [`string`, [`Format`](../interfaces/Format.md)][]
+> `get` **formats**(): [`string`, [`Format`](../interfaces/Format.md)][]
 
 #### Returns
 
 [`string`, [`Format`](../interfaces/Format.md)][]
 
-#### Implementation of
+#### Source
 
-ModelService.formats
+[src/lib/model/application/modelService.ts:35](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L35)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:35](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L35)
-
-___
+***
 
 ### functionAlias
 
-• `get` **functionAlias**(): [`string`, `any`][]
+> `get` **functionAlias**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-ModelService.functionAlias
+[src/lib/model/application/modelService.ts:27](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L27)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:27](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L27)
-
-___
+***
 
 ### functions
 
-• `get` **functions**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
+> `get` **functions**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
 #### Returns
 
 [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
-#### Implementation of
+#### Source
 
-ModelService.functions
+[src/lib/model/application/modelService.ts:59](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L59)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:59](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L59)
-
-___
+***
 
 ### operatorAlias
 
-• `get` **operatorAlias**(): [`string`, `any`][]
+> `get` **operatorAlias**(): [`string`, `any`][]
 
 #### Returns
 
 [`string`, `any`][]
 
-#### Implementation of
+#### Source
 
-ModelService.operatorAlias
+[src/lib/model/application/modelService.ts:23](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L23)
 
-#### Defined in
-
-[src/lib/model/application/modelService.ts:23](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L23)
-
-___
+***
 
 ### operators
 
-• `get` **operators**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
+> `get` **operators**(): [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
 #### Returns
 
 [`string`, [`OperatorMetadata`](../interfaces/OperatorMetadata.md)][]
 
-#### Implementation of
+#### Source
 
-ModelService.operators
-
-#### Defined in
-
-[src/lib/model/application/modelService.ts:43](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L43)
+[src/lib/model/application/modelService.ts:43](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L43)
 
 ## Methods
 
-### addConstant
+### addConstant()
 
-▸ **addConstant**(`key`, `value`): `void`
+> **addConstant**(`key`, `value`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `value` | `any` |
+• **key**: `string`
+
+• **value**: `any`
 
 #### Returns
 
@@ -228,24 +160,23 @@ ModelService.operators
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addConstant](../interfaces/ModelService.md#addconstant)
+[`ModelService`](../interfaces/ModelService.md).[`addConstant`](../interfaces/ModelService.md#addconstant)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:89](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L89)
+[src/lib/model/application/modelService.ts:89](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L89)
 
-___
+***
 
-### addEnum
+### addEnum()
 
-▸ **addEnum**(`name`, `values`): `void`
+> **addEnum**(`name`, `values`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `values` | `any` |
+• **name**: `string`
+
+• **values**: `any`
 
 #### Returns
 
@@ -253,24 +184,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addEnum](../interfaces/ModelService.md#addenum)
+[`ModelService`](../interfaces/ModelService.md).[`addEnum`](../interfaces/ModelService.md#addenum)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:69](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L69)
+[src/lib/model/application/modelService.ts:69](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L69)
 
-___
+***
 
-### addFormat
+### addFormat()
 
-▸ **addFormat**(`key`, `pattern`): `void`
+> **addFormat**(`key`, `pattern`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
-| `pattern` | `string` |
+• **key**: `string`
+
+• **pattern**: `string`
 
 #### Returns
 
@@ -278,25 +208,25 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addFormat](../interfaces/ModelService.md#addformat)
+[`ModelService`](../interfaces/ModelService.md).[`addFormat`](../interfaces/ModelService.md#addformat)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:85](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L85)
+[src/lib/model/application/modelService.ts:85](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L85)
 
-___
+***
 
-### addFunction
+### addFunction()
 
-▸ **addFunction**(`sing`, `source`, `additionalInfo`): `void`
+> **addFunction**(`sing`, `source`, `additionalInfo`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sing` | `string` |
-| `source` | `any` |
-| `additionalInfo` | [`FunctionAdditionalInfo`](../interfaces/FunctionAdditionalInfo.md) |
+• **sing**: `string`
+
+• **source**: `any`
+
+• **additionalInfo**: [`FunctionAdditionalInfo`](../interfaces/FunctionAdditionalInfo.md)
 
 #### Returns
 
@@ -304,24 +234,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addFunction](../interfaces/ModelService.md#addfunction)
+[`ModelService`](../interfaces/ModelService.md).[`addFunction`](../interfaces/ModelService.md#addfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:132](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L132)
+[src/lib/model/application/modelService.ts:132](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L132)
 
-___
+***
 
-### addFunctionAlias
+### addFunctionAlias()
 
-▸ **addFunctionAlias**(`alias`, `reference`): `void`
+> **addFunctionAlias**(`alias`, `reference`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `alias` | `string` |
-| `reference` | `string` |
+• **alias**: `string`
+
+• **reference**: `string`
 
 #### Returns
 
@@ -329,23 +258,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addFunctionAlias](../interfaces/ModelService.md#addfunctionalias)
+[`ModelService`](../interfaces/ModelService.md).[`addFunctionAlias`](../interfaces/ModelService.md#addfunctionalias)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:97](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L97)
+[src/lib/model/application/modelService.ts:97](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L97)
 
-___
+***
 
-### addLibrary
+### addLibrary()
 
-▸ **addLibrary**(`library`): `void`
+> **addLibrary**(`library`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `library` | [`Library`](../interfaces/Library.md) |
+• **library**: [`Library`](../interfaces/Library.md)
 
 #### Returns
 
@@ -353,25 +280,25 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addLibrary](../interfaces/ModelService.md#addlibrary)
+[`ModelService`](../interfaces/ModelService.md).[`addLibrary`](../interfaces/ModelService.md#addlibrary)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:101](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L101)
+[src/lib/model/application/modelService.ts:101](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L101)
 
-___
+***
 
-### addOperator
+### addOperator()
 
-▸ **addOperator**(`sing`, `source`, `additionalInfo`): `void`
+> **addOperator**(`sing`, `source`, `additionalInfo`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `sing` | `string` |
-| `source` | `any` |
-| `additionalInfo` | [`OperatorAdditionalInfo`](../interfaces/OperatorAdditionalInfo.md) |
+• **sing**: `string`
+
+• **source**: `any`
+
+• **additionalInfo**: [`OperatorAdditionalInfo`](../interfaces/OperatorAdditionalInfo.md)
 
 #### Returns
 
@@ -379,24 +306,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addOperator](../interfaces/ModelService.md#addoperator)
+[`ModelService`](../interfaces/ModelService.md).[`addOperator`](../interfaces/ModelService.md#addoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:105](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L105)
+[src/lib/model/application/modelService.ts:105](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L105)
 
-___
+***
 
-### addOperatorAlias
+### addOperatorAlias()
 
-▸ **addOperatorAlias**(`alias`, `reference`): `void`
+> **addOperatorAlias**(`alias`, `reference`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `alias` | `string` |
-| `reference` | `string` |
+• **alias**: `string`
+
+• **reference**: `string`
 
 #### Returns
 
@@ -404,23 +330,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[addOperatorAlias](../interfaces/ModelService.md#addoperatoralias)
+[`ModelService`](../interfaces/ModelService.md).[`addOperatorAlias`](../interfaces/ModelService.md#addoperatoralias)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:93](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L93)
+[src/lib/model/application/modelService.ts:93](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L93)
 
-___
+***
 
-### getConstantValue
+### getConstantValue()
 
-▸ **getConstantValue**(`name`): `any`
+> **getConstantValue**(`name`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -428,23 +352,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getConstantValue](../interfaces/ModelService.md#getconstantvalue)
+[`ModelService`](../interfaces/ModelService.md).[`getConstantValue`](../interfaces/ModelService.md#getconstantvalue)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:171](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L171)
+[src/lib/model/application/modelService.ts:171](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L171)
 
-___
+***
 
-### getEnum
+### getEnum()
 
-▸ **getEnum**(`name`): [`string`, `any`][]
+> **getEnum**(`name`): [`string`, `any`][]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -452,24 +374,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getEnum](../interfaces/ModelService.md#getenum)
+[`ModelService`](../interfaces/ModelService.md).[`getEnum`](../interfaces/ModelService.md#getenum)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:167](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L167)
+[src/lib/model/application/modelService.ts:167](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L167)
 
-___
+***
 
-### getEnumValue
+### getEnumValue()
 
-▸ **getEnumValue**(`name`, `option`): `any`
+> **getEnumValue**(`name`, `option`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `option` | `string` |
+• **name**: `string`
+
+• **option**: `string`
 
 #### Returns
 
@@ -477,23 +398,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getEnumValue](../interfaces/ModelService.md#getenumvalue)
+[`ModelService`](../interfaces/ModelService.md).[`getEnumValue`](../interfaces/ModelService.md#getenumvalue)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:155](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L155)
+[src/lib/model/application/modelService.ts:155](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L155)
 
-___
+***
 
-### getFormat
+### getFormat()
 
-▸ **getFormat**(`name`): `undefined` \| [`Format`](../interfaces/Format.md)
+> **getFormat**(`name`): `undefined` \| [`Format`](../interfaces/Format.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -501,23 +420,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getFormat](../interfaces/ModelService.md#getformat)
+[`ModelService`](../interfaces/ModelService.md).[`getFormat`](../interfaces/ModelService.md#getformat)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:175](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L175)
+[src/lib/model/application/modelService.ts:175](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L175)
 
-___
+***
 
-### getFunction
+### getFunction()
 
-▸ **getFunction**(`name`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
+> **getFunction**(`name`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -525,24 +442,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getFunction](../interfaces/ModelService.md#getfunction)
+[`ModelService`](../interfaces/ModelService.md).[`getFunction`](../interfaces/ModelService.md#getfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:203](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L203)
+[src/lib/model/application/modelService.ts:203](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L203)
 
-___
+***
 
-### getOperator
+### getOperator()
 
-▸ **getOperator**(`name`, `operands?`): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
+> **getOperator**(`name`, `operands`?): [`OperatorMetadata`](../interfaces/OperatorMetadata.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `operands?` | `number` |
+• **name**: `string`
+
+• **operands?**: `number`
 
 #### Returns
 
@@ -550,23 +466,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[getOperator](../interfaces/ModelService.md#getoperator)
+[`ModelService`](../interfaces/ModelService.md).[`getOperator`](../interfaces/ModelService.md#getoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:179](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L179)
+[src/lib/model/application/modelService.ts:179](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L179)
 
-___
+***
 
-### isConstant
+### isConstant()
 
-▸ **isConstant**(`name`): `boolean`
+> **isConstant**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -574,23 +488,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[isConstant](../interfaces/ModelService.md#isconstant)
+[`ModelService`](../interfaces/ModelService.md).[`isConstant`](../interfaces/ModelService.md#isconstant)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:221](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L221)
+[src/lib/model/application/modelService.ts:221](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L221)
 
-___
+***
 
-### isEnum
+### isEnum()
 
-▸ **isEnum**(`name`): `boolean`
+> **isEnum**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -598,23 +510,21 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[isEnum](../interfaces/ModelService.md#isenum)
+[`ModelService`](../interfaces/ModelService.md).[`isEnum`](../interfaces/ModelService.md#isenum)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:216](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L216)
+[src/lib/model/application/modelService.ts:216](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L216)
 
-___
+***
 
-### isFunction
+### isFunction()
 
-▸ **isFunction**(`name`): `boolean`
+> **isFunction**(`name`): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
+• **name**: `string`
 
 #### Returns
 
@@ -622,24 +532,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[isFunction](../interfaces/ModelService.md#isfunction)
+[`ModelService`](../interfaces/ModelService.md).[`isFunction`](../interfaces/ModelService.md#isfunction)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:241](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L241)
+[src/lib/model/application/modelService.ts:241](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L241)
 
-___
+***
 
-### isOperator
+### isOperator()
 
-▸ **isOperator**(`name`, `operands?`): `boolean`
+> **isOperator**(`name`, `operands`?): `boolean`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `operands?` | `number` |
+• **name**: `string`
+
+• **operands?**: `number`
 
 #### Returns
 
@@ -647,24 +556,23 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[isOperator](../interfaces/ModelService.md#isoperator)
+[`ModelService`](../interfaces/ModelService.md).[`isOperator`](../interfaces/ModelService.md#isoperator)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:225](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L225)
+[src/lib/model/application/modelService.ts:225](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L225)
 
-___
+***
 
-### priority
+### priority()
 
-▸ **priority**(`name`, `cardinality?`): `number`
+> **priority**(`name`, `cardinality`?): `number`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `cardinality?` | `number` |
+• **name**: `string`
+
+• **cardinality?**: `number`
 
 #### Returns
 
@@ -672,8 +580,8 @@ ___
 
 #### Implementation of
 
-[ModelService](../interfaces/ModelService.md).[priority](../interfaces/ModelService.md#priority)
+[`ModelService`](../interfaces/ModelService.md).[`priority`](../interfaces/ModelService.md#priority)
 
-#### Defined in
+#### Source
 
-[src/lib/model/application/modelService.ts:245](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/model/application/modelService.ts#L245)
+[src/lib/model/application/modelService.ts:245](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/model/application/modelService.ts#L245)

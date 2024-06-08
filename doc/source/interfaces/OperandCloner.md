@@ -1,40 +1,31 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandCloner
 
 # Interface: OperandCloner
 
-## Hierarchy
+## Extended by
 
-- **`OperandCloner`**
-
-  ↳ [`OperandFacade`](OperandFacade.md)
-
-## Implemented by
-
-- [`OperandClone`](../classes/OperandClone.md)
-
-## Table of contents
-
-### Methods
-
-- [clone](OperandCloner.md#clone)
+- [`OperandFacade`](OperandFacade.md)
 
 ## Methods
 
-### clone
+### clone()
 
-▸ **clone**(`source`, `key?`): [`Operand`](../classes/Operand.md)
+> **clone**(`source`, `key`?): [`Operand`](../classes/Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Operand`](../classes/Operand.md) |
-| `key?` | `string` |
+• **source**: [`Operand`](../classes/Operand.md)
+
+• **key?**: `string`
 
 #### Returns
 
 [`Operand`](../classes/Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/services.ts#L35)
+[src/lib/operand/domain/services.ts:35](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/services.ts#L35)

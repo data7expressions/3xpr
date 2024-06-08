@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ParameterServiceImpl
 
 # Class: ParameterServiceImpl
@@ -6,21 +10,11 @@
 
 - [`ParameterService`](../interfaces/ParameterService.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ParameterServiceImpl.md#constructor)
-
-### Methods
-
-- [parameters](ParameterServiceImpl.md#parameters)
-
 ## Constructors
 
-### constructor
+### new ParameterServiceImpl()
 
-• **new ParameterServiceImpl**(): [`ParameterServiceImpl`](ParameterServiceImpl.md)
+> **new ParameterServiceImpl**(): [`ParameterServiceImpl`](ParameterServiceImpl.md)
 
 #### Returns
 
@@ -28,15 +22,13 @@
 
 ## Methods
 
-### parameters
+### parameters()
 
-▸ **parameters**(`operand`): [`Parameter`](../interfaces/Parameter.md)[]
+> **parameters**(`operand`): [`Parameter`](../interfaces/Parameter.md)[]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
@@ -44,8 +36,8 @@
 
 #### Implementation of
 
-[ParameterService](../interfaces/ParameterService.md).[parameters](../interfaces/ParameterService.md#parameters)
+[`ParameterService`](../interfaces/ParameterService.md).[`parameters`](../interfaces/ParameterService.md#parameters)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/parameterService.ts:7](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/parameterService.ts#L7)
+[src/lib/operand/application/services/parameterService.ts:7](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/parameterService.ts#L7)

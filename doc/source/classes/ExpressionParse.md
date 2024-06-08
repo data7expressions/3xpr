@@ -1,53 +1,43 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionParse
 
 # Class: ExpressionParse
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExpressionParse.md#constructor)
-
-### Methods
-
-- [parse](ExpressionParse.md#parse)
-
 ## Constructors
 
-### constructor
+### new ExpressionParse()
 
-• **new ExpressionParse**(`model`): [`ExpressionParse`](ExpressionParse.md)
+> **new ExpressionParse**(`model`): [`ExpressionParse`](ExpressionParse.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `model` | [`ModelService`](../interfaces/ModelService.md) |
+• **model**: [`ModelService`](../interfaces/ModelService.md)
 
 #### Returns
 
 [`ExpressionParse`](ExpressionParse.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/parser.ts:703](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/parser.ts#L703)
+[src/lib/operand/application/services/parser.ts:703](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/parser.ts#L703)
 
 ## Methods
 
-### parse
+### parse()
 
-▸ **parse**(`expression`): [`Operand`](Operand.md)
+> **parse**(`expression`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | [`string`, `number`, `number`][] |
+• **expression**: [`string`, `number`, `number`][]
 
 #### Returns
 
 [`Operand`](Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/parser.ts:705](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/parser.ts#L705)
+[src/lib/operand/application/services/parser.ts:705](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/parser.ts#L705)

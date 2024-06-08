@@ -1,63 +1,57 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Parameter
 
 # Interface: Parameter
 
-## Table of contents
-
-### Properties
-
-- [default](Parameter.md#default)
-- [multiple](Parameter.md#multiple)
-- [name](Parameter.md#name)
-- [type](Parameter.md#type)
-- [value](Parameter.md#value)
-
 ## Properties
 
-### default
+### default?
 
-• `Optional` **default**: `any`
+> `optional` **default**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L12)
+[src/lib/shared/domain/base.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L12)
 
-___
+***
 
-### multiple
+### multiple?
 
-• `Optional` **multiple**: `boolean`
+> `optional` **multiple**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L14)
+[src/lib/shared/domain/base.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L14)
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:10](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L10)
+[src/lib/shared/domain/base.ts:10](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L10)
 
-___
+***
 
-### type
+### type?
 
-• `Optional` **type**: `string`
+> `optional` **type**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:11](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L11)
+[src/lib/shared/domain/base.ts:11](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L11)
 
-___
+***
 
-### value
+### value?
 
-• `Optional` **value**: `any`
+> `optional` **value**: `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/base.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/base.ts#L13)
+[src/lib/shared/domain/base.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/base.ts#L13)

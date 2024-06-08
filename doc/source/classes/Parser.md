@@ -1,48 +1,41 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Parser
 
 # Class: Parser
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Parser.md#constructor)
-
-### Methods
-
-- [parse](Parser.md#parse)
-
 ## Constructors
 
-### constructor
+### new Parser()
 
-• **new Parser**(`model`, `expression`): [`Parser`](Parser.md)
+> **new Parser**(`model`, `expression`): [`Parser`](Parser.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `model` | [`ModelService`](../interfaces/ModelService.md) |
-| `expression` | [`string`, `number`, `number`][] |
+• **model**: [`ModelService`](../interfaces/ModelService.md)
+
+• **expression**: [`string`, `number`, `number`][]
 
 #### Returns
 
 [`Parser`](Parser.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/parser.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/parser.ts#L14)
+[src/lib/operand/application/services/parser.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/parser.ts#L14)
 
 ## Methods
 
-### parse
+### parse()
 
-▸ **parse**(): [`Operand`](Operand.md)
+> **parse**(): [`Operand`](Operand.md)
 
 #### Returns
 
 [`Operand`](Operand.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/parser.ts:40](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/parser.ts#L40)
+[src/lib/operand/application/services/parser.ts:40](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/parser.ts#L40)

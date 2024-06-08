@@ -1,54 +1,42 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Evaluator
 
-# Class: Evaluator
+# Class: `abstract` Evaluator
 
 ## Implements
 
 - [`IEvaluator`](../interfaces/IEvaluator.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Evaluator.md#constructor)
-
-### Methods
-
-- [eval](Evaluator.md#eval)
-- [evalAsync](Evaluator.md#evalasync)
-- [isAsync](Evaluator.md#isasync)
-
 ## Constructors
 
-### constructor
+### new Evaluator()
 
-• **new Evaluator**(`operand`): [`Evaluator`](Evaluator.md)
+> **new Evaluator**(`operand`): [`Evaluator`](Evaluator.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `operand` | [`Operand`](Operand.md) |
+• **operand**: [`Operand`](Operand.md)
 
 #### Returns
 
 [`Evaluator`](Evaluator.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:28](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L28)
+[src/lib/operand/domain/entities.ts:28](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L28)
 
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`context`): `any`
+> `abstract` **eval**(`context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](Context.md) |
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -56,23 +44,21 @@
 
 #### Implementation of
 
-[IEvaluator](../interfaces/IEvaluator.md).[eval](../interfaces/IEvaluator.md#eval)
+[`IEvaluator`](../interfaces/IEvaluator.md).[`eval`](../interfaces/IEvaluator.md#eval)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:29](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L29)
+[src/lib/operand/domain/entities.ts:29](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L29)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`context`): `Promise`\<`any`\>
+> `abstract` **evalAsync**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](Context.md) |
+• **context**: [`Context`](Context.md)
 
 #### Returns
 
@@ -80,22 +66,22 @@ ___
 
 #### Implementation of
 
-[IEvaluator](../interfaces/IEvaluator.md).[evalAsync](../interfaces/IEvaluator.md#evalasync)
+[`IEvaluator`](../interfaces/IEvaluator.md).[`evalAsync`](../interfaces/IEvaluator.md#evalasync)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:30](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L30)
+[src/lib/operand/domain/entities.ts:30](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L30)
 
-___
+***
 
-### isAsync
+### isAsync()
 
-▸ **isAsync**(): `boolean`
+> **isAsync**(): `boolean`
 
 #### Returns
 
 `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:39](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L39)
+[src/lib/operand/domain/entities.ts:39](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L39)

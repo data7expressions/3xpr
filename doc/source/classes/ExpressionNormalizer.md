@@ -1,22 +1,16 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionNormalizer
 
 # Class: ExpressionNormalizer
 
-## Table of contents
-
-### Constructors
-
-- [constructor](ExpressionNormalizer.md#constructor)
-
-### Methods
-
-- [normalize](ExpressionNormalizer.md#normalize)
-
 ## Constructors
 
-### constructor
+### new ExpressionNormalizer()
 
-• **new ExpressionNormalizer**(): [`ExpressionNormalizer`](ExpressionNormalizer.md)
+> **new ExpressionNormalizer**(): [`ExpressionNormalizer`](ExpressionNormalizer.md)
 
 #### Returns
 
@@ -24,20 +18,18 @@
 
 ## Methods
 
-### normalize
+### normalize()
 
-▸ **normalize**(`expression`): [`string`, `number`, `number`][]
+> **normalize**(`expression`): [`string`, `number`, `number`][]
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
+• **expression**: `string`
 
 #### Returns
 
 [`string`, `number`, `number`][]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/services/normalizer.ts:4](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/services/normalizer.ts#L4)
+[src/lib/operand/application/services/normalizer.ts:4](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/services/normalizer.ts#L4)

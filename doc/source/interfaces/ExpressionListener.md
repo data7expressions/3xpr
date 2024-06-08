@@ -1,60 +1,47 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / ExpressionListener
 
 # Interface: ExpressionListener
 
-## Hierarchy
+## Extended by
 
-- **`ExpressionListener`**
-
-  ↳ [`Expressions`](Expressions.md)
-
-## Implemented by
-
-- [`ExecutorObserveDecorator`](../classes/ExecutorObserveDecorator.md)
-
-## Table of contents
-
-### Methods
-
-- [subscribe](ExpressionListener.md#subscribe)
-- [unsubscribe](ExpressionListener.md#unsubscribe)
+- [`Expressions`](Expressions.md)
 
 ## Methods
 
-### subscribe
+### subscribe()
 
-▸ **subscribe**(`observer`): `void`
+> **subscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](../classes/ActionObserver.md) |
+• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:12](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L12)
+[src/lib/expression/domain/expressions.ts:12](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L12)
 
-___
+***
 
-### unsubscribe
+### unsubscribe()
 
-▸ **unsubscribe**(`observer`): `void`
+> **unsubscribe**(`observer`): `void`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](../classes/ActionObserver.md) |
+• **observer**: [`ActionObserver`](../classes/ActionObserver.md)
 
 #### Returns
 
 `void`
 
-#### Defined in
+#### Source
 
-[src/lib/expression/domain/expressions.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/expression/domain/expressions.ts#L13)
+[src/lib/expression/domain/expressions.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/expression/domain/expressions.ts#L13)

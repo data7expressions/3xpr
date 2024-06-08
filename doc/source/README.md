@@ -1,14 +1,14 @@
-Expressions
+**Expressions** • **Docs**
+
+***
 
 # Expressions
 
-## Table of contents
+## Enumerations
 
-### Enumerations
+- [OperandType](enumerations/OperandType.md)
 
-- [OperandType](enums/OperandType.md)
-
-### Classes
+## Classes
 
 - [ActionObserver](classes/ActionObserver.md)
 - [ConstBuilderImpl](classes/ConstBuilderImpl.md)
@@ -44,7 +44,7 @@ Expressions
 - [Token](classes/Token.md)
 - [TypeServiceImpl](classes/TypeServiceImpl.md)
 
-### Interfaces
+## Interfaces
 
 - [ActionObserverArgs](interfaces/ActionObserverArgs.md)
 - [ConstBuilder](interfaces/ConstBuilder.md)
@@ -80,145 +80,15 @@ Expressions
 - [TypeService](interfaces/TypeService.md)
 - [WaitSignal](interfaces/WaitSignal.md)
 
-### Variables
-
-- [exprHelper](README.md#exprhelper)
-- [expressions](README.md#expressions)
-
-### Functions
-
-- [evalAsync](README.md#evalasync)
-- [evaluate](README.md#evaluate)
-- [parameters](README.md#parameters)
-- [subscribe](README.md#subscribe)
-- [unsubscribe](README.md#unsubscribe)
-
 ## Variables
 
-### exprHelper
-
-• `Const` **exprHelper**: [`ExprH3lp`](classes/ExprH3lp.md)
-
-#### Defined in
-
-[src/lib/index.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L16)
-
-___
-
-### expressions
-
-• `Const` **expressions**: [`Expressions`](interfaces/Expressions.md)
-
-#### Defined in
-
-[src/lib/index.ts:17](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L17)
+- [exprHelper](variables/exprHelper.md)
+- [expressions](variables/expressions.md)
 
 ## Functions
 
-### evalAsync
-
-▸ **evalAsync**(`expression`, `data?`): `Promise`\<`any`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `expression` | `string` |
-| `data?` | `any` |
-
-#### Returns
-
-`Promise`\<`any`\>
-
-#### Defined in
-
-[src/lib/index.ts:38](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L38)
-
-___
-
-### evaluate
-
-▸ **evaluate**(`expression`, `data?`): `any`
-
-Evaluate and solve expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | string expression |
-| `data?` | `any` | Data with variables |
-
-#### Returns
-
-`any`
-
-Result of the evaluate expression
-
-#### Defined in
-
-[src/lib/index.ts:34](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L34)
-
-___
-
-### parameters
-
-▸ **parameters**(`expression`): [`Parameter`](interfaces/Parameter.md)[]
-
-Get parameters of expression
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
-
-#### Returns
-
-[`Parameter`](interfaces/Parameter.md)[]
-
-Parameters of expression
-
-#### Defined in
-
-[src/lib/index.ts:24](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L24)
-
-___
-
-### subscribe
-
-▸ **subscribe**(`observer`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](classes/ActionObserver.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/lib/index.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L42)
-
-___
-
-### unsubscribe
-
-▸ **unsubscribe**(`observer`): `void`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `observer` | [`ActionObserver`](classes/ActionObserver.md) |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[src/lib/index.ts:46](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/index.ts#L46)
+- [evalAsync](functions/evalAsync.md)
+- [evaluate](functions/evaluate.md)
+- [parameters](functions/parameters.md)
+- [subscribe](functions/subscribe.md)
+- [unsubscribe](functions/unsubscribe.md)

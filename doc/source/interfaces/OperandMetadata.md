@@ -1,74 +1,67 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandMetadata
 
 # Interface: OperandMetadata
 
-## Table of contents
-
-### Properties
-
-- [children](OperandMetadata.md#children)
-- [name](OperandMetadata.md#name)
-- [number](OperandMetadata.md#number)
-- [pos](OperandMetadata.md#pos)
-- [returnType](OperandMetadata.md#returntype)
-- [type](OperandMetadata.md#type)
-
 ## Properties
 
-### children
+### children?
 
-• `Optional` **children**: [`OperandMetadata`](OperandMetadata.md)[]
+> `optional` **children**: [`OperandMetadata`](OperandMetadata.md)[]
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:64](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L64)
+[src/lib/operand/domain/entities.ts:64](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L64)
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:63](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L63)
+[src/lib/operand/domain/entities.ts:63](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L63)
 
-___
+***
 
-### number
+### number?
 
-• `Optional` **number**: `number`
+> `optional` **number**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:66](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L66)
+[src/lib/operand/domain/entities.ts:66](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L66)
 
-___
+***
 
 ### pos
 
-• **pos**: [`Position`](../classes/Position.md)
+> **pos**: [`Position`](../classes/Position.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:61](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L61)
+[src/lib/operand/domain/entities.ts:61](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L61)
 
-___
+***
 
-### returnType
+### returnType?
 
-• `Optional` **returnType**: `string`
+> `optional` **returnType**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:65](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L65)
+[src/lib/operand/domain/entities.ts:65](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L65)
 
-___
+***
 
 ### type
 
-• **type**: [`OperandType`](../enums/OperandType.md)
+> **type**: [`OperandType`](../enumerations/OperandType.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:62](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L62)
+[src/lib/operand/domain/entities.ts:62](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L62)

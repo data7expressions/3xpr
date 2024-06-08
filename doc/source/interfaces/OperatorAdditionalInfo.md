@@ -1,52 +1,47 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperatorAdditionalInfo
 
 # Interface: OperatorAdditionalInfo
 
-## Table of contents
-
-### Properties
-
-- [async](OperatorAdditionalInfo.md#async)
-- [description](OperatorAdditionalInfo.md#description)
-- [doc](OperatorAdditionalInfo.md#doc)
-- [priority](OperatorAdditionalInfo.md#priority)
-
 ## Properties
 
-### async
+### async?
 
-• `Optional` **async**: `boolean`
+> `optional` **async**: `boolean`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:16](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L16)
+[src/lib/operand/domain/entities.ts:16](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L16)
 
-___
+***
 
 ### description
 
-• **description**: `string`
+> **description**: `string`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L14)
+[src/lib/operand/domain/entities.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L14)
 
-___
+***
 
-### doc
+### doc?
 
-• `Optional` **doc**: [`OperatorDoc`](OperatorDoc.md)
+> `optional` **doc**: [`OperatorDoc`](OperatorDoc.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L15)
+[src/lib/operand/domain/entities.ts:15](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L15)
 
-___
+***
 
 ### priority
 
-• **priority**: `number`
+> **priority**: `number`
 
-#### Defined in
+#### Source
 
-[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/domain/entities.ts#L13)
+[src/lib/operand/domain/entities.ts:13](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/domain/entities.ts#L13)

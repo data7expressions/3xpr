@@ -1,85 +1,73 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / Context
 
 # Class: Context
 
-## Table of contents
-
-### Constructors
-
-- [constructor](Context.md#constructor)
-
-### Properties
-
-- [data](Context.md#data)
-- [parent](Context.md#parent)
-- [token](Context.md#token)
-
-### Methods
-
-- [newContext](Context.md#newcontext)
-
 ## Constructors
 
-### constructor
+### new Context()
 
-• **new Context**(`data?`, `token?`, `parent?`): [`Context`](Context.md)
+> **new Context**(`data`?, `token`?, `parent`?): [`Context`](Context.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `data?` | [`Data`](Data.md) |
-| `token?` | [`Token`](Token.md) |
-| `parent?` | [`Context`](Context.md) |
+• **data?**: [`Data`](Data.md)
+
+• **token?**: [`Token`](Token.md)
+
+• **parent?**: [`Context`](Context.md)
 
 #### Returns
 
 [`Context`](Context.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:90](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L90)
+[src/lib/shared/domain/context.ts:90](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L90)
 
 ## Properties
 
 ### data
 
-• **data**: [`Data`](Data.md)
+> **data**: [`Data`](Data.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:86](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L86)
+[src/lib/shared/domain/context.ts:86](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L86)
 
-___
+***
 
-### parent
+### parent?
 
-• `Optional` **parent**: [`Context`](Context.md)
+> `optional` **parent**: [`Context`](Context.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:89](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L89)
+[src/lib/shared/domain/context.ts:89](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L89)
 
-___
+***
 
 ### token
 
-• **token**: [`Token`](Token.md)
+> **token**: [`Token`](Token.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:87](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L87)
+[src/lib/shared/domain/context.ts:87](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L87)
 
 ## Methods
 
-### newContext
+### newContext()
 
-▸ **newContext**(): [`Context`](Context.md)
+> **newContext**(): [`Context`](Context.md)
 
 #### Returns
 
 [`Context`](Context.md)
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/context.ts:96](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/context.ts#L96)
+[src/lib/shared/domain/context.ts:96](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/context.ts#L96)

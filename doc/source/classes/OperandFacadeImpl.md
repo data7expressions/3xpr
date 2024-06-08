@@ -1,3 +1,7 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / OperandFacadeImpl
 
 # Class: OperandFacadeImpl
@@ -6,73 +10,55 @@
 
 - [`OperandFacade`](../interfaces/OperandFacade.md)
 
-## Table of contents
-
-### Constructors
-
-- [constructor](OperandFacadeImpl.md#constructor)
-
-### Properties
-
-- [constBuilder](OperandFacadeImpl.md#constbuilder)
-
-### Methods
-
-- [build](OperandFacadeImpl.md#build)
-- [clone](OperandFacadeImpl.md#clone)
-- [getBuilder](OperandFacadeImpl.md#getbuilder)
-- [parameters](OperandFacadeImpl.md#parameters)
-- [type](OperandFacadeImpl.md#type)
-
 ## Constructors
 
-### constructor
+### new OperandFacadeImpl()
 
-• **new OperandFacadeImpl**(`constBuilder`, `parameterService`, `operandBuild`, `operandClone`): [`OperandFacadeImpl`](OperandFacadeImpl.md)
+> **new OperandFacadeImpl**(`constBuilder`, `parameterService`, `operandBuild`, `operandClone`): [`OperandFacadeImpl`](OperandFacadeImpl.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `constBuilder` | [`ConstBuilder`](../interfaces/ConstBuilder.md) |
-| `parameterService` | [`ParameterService`](../interfaces/ParameterService.md) |
-| `operandBuild` | [`OperandBuild`](OperandBuild.md) |
-| `operandClone` | [`OperandClone`](OperandClone.md) |
+• **constBuilder**: [`ConstBuilder`](../interfaces/ConstBuilder.md)
+
+• **parameterService**: [`ParameterService`](../interfaces/ParameterService.md)
+
+• **operandBuild**: [`OperandBuild`](OperandBuild.md)
+
+• **operandClone**: [`OperandClone`](OperandClone.md)
 
 #### Returns
 
 [`OperandFacadeImpl`](OperandFacadeImpl.md)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L9)
+[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L9)
 
 ## Properties
 
 ### constBuilder
 
-• `Readonly` **constBuilder**: [`ConstBuilder`](../interfaces/ConstBuilder.md)
+> `readonly` **constBuilder**: [`ConstBuilder`](../interfaces/ConstBuilder.md)
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[constBuilder](../interfaces/OperandFacade.md#constbuilder)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`constBuilder`](../interfaces/OperandFacade.md#constbuilder)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L9)
+[src/lib/operand/application/facade.ts:9](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L9)
 
 ## Methods
 
-### build
+### build()
 
-▸ **build**(`expression`, `key?`): [`Operand`](Operand.md)
+> **build**(`expression`, `key`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `expression` | `string` | `undefined` |
-| `key` | `string` | `'expression'` |
+• **expression**: `string`
+
+• **key**: `string`= `'expression'`
 
 #### Returns
 
@@ -80,24 +66,23 @@
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[build](../interfaces/OperandFacade.md#build)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`build`](../interfaces/OperandFacade.md#build)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:38](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L38)
+[src/lib/operand/application/facade.ts:38](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L38)
 
-___
+***
 
-### clone
+### clone()
 
-▸ **clone**(`source`, `key?`): [`Operand`](Operand.md)
+> **clone**(`source`, `key`): [`Operand`](Operand.md)
 
 #### Parameters
 
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `source` | [`Operand`](Operand.md) | `undefined` |
-| `key` | `string` | `'expression'` |
+• **source**: [`Operand`](Operand.md)
+
+• **key**: `string`= `'expression'`
 
 #### Returns
 
@@ -105,23 +90,21 @@ ___
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[clone](../interfaces/OperandFacade.md#clone)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`clone`](../interfaces/OperandFacade.md#clone)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:42](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L42)
+[src/lib/operand/application/facade.ts:42](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L42)
 
-___
+***
 
-### getBuilder
+### getBuilder()
 
-▸ **getBuilder**(`key`): [`OperandBuilder`](../interfaces/OperandBuilder.md)
+> **getBuilder**(`key`): [`OperandBuilder`](../interfaces/OperandBuilder.md)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+• **key**: `string`
 
 #### Returns
 
@@ -129,25 +112,25 @@ ___
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[getBuilder](../interfaces/OperandFacade.md#getbuilder)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`getBuilder`](../interfaces/OperandFacade.md#getbuilder)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:14](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L14)
+[src/lib/operand/application/facade.ts:14](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L14)
 
-___
+***
 
-### parameters
+### parameters()
 
-▸ **parameters**(`expression`): [`Parameter`](../interfaces/Parameter.md)[]
+> **parameters**(`expression`): [`Parameter`](../interfaces/Parameter.md)[]
 
 Get parameters of expression
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
+• **expression**: `string`
+
+expression
 
 #### Returns
 
@@ -157,25 +140,25 @@ Parameters of expression
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[parameters](../interfaces/OperandFacade.md#parameters)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`parameters`](../interfaces/OperandFacade.md#parameters)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:23](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L23)
+[src/lib/operand/application/facade.ts:23](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L23)
 
-___
+***
 
-### type
+### type()
 
-▸ **type**(`expression`): `string`
+> **type**(`expression`): `string`
 
 Get type of expression
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `expression` | `string` | expression |
+• **expression**: `string`
+
+expression
 
 #### Returns
 
@@ -185,8 +168,8 @@ Type of expression
 
 #### Implementation of
 
-[OperandFacade](../interfaces/OperandFacade.md).[type](../interfaces/OperandFacade.md#type)
+[`OperandFacade`](../interfaces/OperandFacade.md).[`type`](../interfaces/OperandFacade.md#type)
 
-#### Defined in
+#### Source
 
-[src/lib/operand/application/facade.ts:33](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/operand/application/facade.ts#L33)
+[src/lib/operand/application/facade.ts:33](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/operand/application/facade.ts#L33)

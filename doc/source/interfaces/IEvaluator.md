@@ -1,55 +1,43 @@
+[**Expressions**](../README.md) • **Docs**
+
+***
+
 [Expressions](../README.md) / IEvaluator
 
 # Interface: IEvaluator
 
-## Implemented by
-
-- [`Evaluator`](../classes/Evaluator.md)
-- [`PrototypeEvaluator`](../classes/PrototypeEvaluator.md)
-
-## Table of contents
-
-### Methods
-
-- [eval](IEvaluator.md#eval)
-- [evalAsync](IEvaluator.md#evalasync)
-
 ## Methods
 
-### eval
+### eval()
 
-▸ **eval**(`context`): `any`
+> **eval**(`context`): `any`
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](../classes/Context.md) |
+• **context**: [`Context`](../classes/Context.md)
 
 #### Returns
 
 `any`
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:39](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L39)
+[src/lib/shared/domain/operand.ts:39](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L39)
 
-___
+***
 
-### evalAsync
+### evalAsync()
 
-▸ **evalAsync**(`context`): `Promise`\<`any`\>
+> **evalAsync**(`context`): `Promise`\<`any`\>
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `context` | [`Context`](../classes/Context.md) |
+• **context**: [`Context`](../classes/Context.md)
 
 #### Returns
 
 `Promise`\<`any`\>
 
-#### Defined in
+#### Source
 
-[src/lib/shared/domain/operand.ts:40](https://github.com/data7expressions/3xpr/blob/5fc3d8db7a2e8309d2b0b1b76da6ac60e8497d49/src/lib/shared/domain/operand.ts#L40)
+[src/lib/shared/domain/operand.ts:40](https://github.com/data7expressions/3xpr/blob/7acee0c2886cdd6f6b6d4a83a1fd843738c9d027/src/lib/shared/domain/operand.ts#L40)
